@@ -1,5 +1,16 @@
 # THE BENCH
 
+## ⬇ DOWNLOAD THE APP (no coding needed)
+
+1. Go to **[Releases](https://github.com/Adamdesgns/The-Bench/releases)** (right side of this page).
+2. Download **`The-Bench-Setup-0.1.0.exe`**.
+3. Double-click it. If Windows shows a blue "protected your PC" box: click **More info → Run anyway** (it appears because the app isn't code-signed yet).
+4. The Bench opens as its own program. Put your Claude/OpenAI key in **Settings** — it saves to your PC only.
+
+Everything below this line is for developers.
+
+---
+
 Source of truth for **@TheBenchTrades** — the daily market-research system.
 This repo holds the canonical prompts, the trade book, and the specs. The
 system will be built into an app; this is the material that app is built from.
