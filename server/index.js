@@ -17,6 +17,7 @@ import { resolve, extname } from "node:path";
 import { ROOT, ARCHIVE_PATH } from "./config.js";
 import { runCommand } from "./api.js";
 import { status, writeConnections } from "./settings.js";
+import { appendAudit, readAudit, verifyChain, exportCsv } from "./audit.js";
 
 const PUBLIC_DIR = resolve(ROOT, "public");
 const PORT = Number(process.env.PORT || 8137);
@@ -43,9 +44,17 @@ const server = createServer(async (req, res) => {
 
     if (path === "/api/run") {
       const cmd = url.searchParams.get("cmd") || "run the market";
+      const t0 = Date.now();
       const result = await runCommand(cmd, { mode: url.searchParams.get("mode") });
+      appendAudit({ actor: "manual", kind: "run", target: cmd, output: { steps: result.steps?.length ?? 0 }, decision: "n/a", mode: url.searchParams.get("mode"), latency_ms: Date.now() - t0 });
       return sendJSON(res, 200, result);
     }
+
+    if (path === "/api/audit") {
+      return sendJSON(res, 200, { rows: readAudit({ limit: Number(url.searchParams.get("limit") || 100), kind: url.searchParams.get("kind") || null }) });
+    }
+    if (path === "/api/audit/verify") return sendJSON(res, 200, verifyChain());
+    if (path === "/api/audit/export.csv") return send(res, 200, exportCsv(url.searchParams.get("day")), "text/csv");
 
     if (path === "/api/settings") {
       if (req.method === "POST") {

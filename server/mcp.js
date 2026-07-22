@@ -28,6 +28,7 @@ import { selectAngle } from "./angle.js";
 import { lintArticle } from "./lint.js";
 import { executeOrder } from "./api.js";
 import { status } from "./settings.js";
+import { audited } from "./audit.js";
 
 const SERVER_INFO = { name: "the-bench", version: "0.1.0" };
 const PROTOCOL = "2025-06-18";
@@ -195,14 +196,22 @@ async function handle(msg) {
     });
   }
   if (method === "tools/call") {
-    const t = TOOLS[params?.name];
-    if (!t) return replyError(id, -32602, `unknown tool: ${params?.name}`);
+    const name = params?.name;
+    const t = TOOLS[name];
+    if (!t) return replyError(id, -32602, `unknown tool: ${name}`);
+    const args = params.arguments || {};
+    const actor = args._actor || "hermes"; // MCP calls are agent-driven
     try {
-      const out = await t.run(params.arguments || {});
+      // Every tool call is audited (append-only, hash-chained). execute derives
+      // allowed/refused from its own gate result; others log as n/a.
+      const out = await audited(
+        { actor, kind: name, target: args.target ?? args.order?.ticker ?? null, input: args, decision: name === "execute" ? undefined : "n/a" },
+        () => t.run(args)
+      );
       const text = typeof out === "string" ? out : JSON.stringify(out, null, 2);
       return reply(id, { content: [{ type: "text", text }], isError: false });
     } catch (err) {
-      log("tool error:", params?.name, err.message);
+      log("tool error:", name, err.message);
       return reply(id, { content: [{ type: "text", text: "error: " + err.message }], isError: true });
     }
   }
@@ -211,6 +220,7 @@ async function handle(msg) {
 
 // stdin: newline-delimited JSON
 let buf = "";
+const inflight = new Set();
 process.stdin.setEncoding("utf8");
 process.stdin.on("data", (chunk) => {
   buf += chunk;
@@ -221,8 +231,10 @@ process.stdin.on("data", (chunk) => {
     if (!line) continue;
     let msg;
     try { msg = JSON.parse(line); } catch { log("bad json:", line.slice(0, 120)); continue; }
-    Promise.resolve(handle(msg)).catch((e) => log("handler error:", e.message));
+    const p = Promise.resolve(handle(msg)).catch((e) => log("handler error:", e.message));
+    inflight.add(p); p.finally(() => inflight.delete(p));
   }
 });
-process.stdin.on("end", () => process.exit(0));
+// On shutdown, let in-flight tool calls finish (so their audit lines flush).
+process.stdin.on("end", async () => { await Promise.allSettled([...inflight]); process.exit(0); });
 log(`ready — ${Object.keys(TOOLS).length} tools on stdio`);

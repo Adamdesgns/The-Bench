@@ -128,6 +128,24 @@
   .exec-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px dashed var(--edge); font-size:12px; } .exec-row:last-child{ border-bottom:none; } .exec-row>span{ color:var(--slate); }
   .exec-mode{ display:flex; gap:5px; } .exec-mode button{ font:600 10px var(--ui); padding:5px 13px; border-radius:7px; background:var(--ink); border:1px solid var(--edge); color:var(--slate); cursor:pointer; } .exec-mode button.on{ color:var(--ink); background:var(--gold); border-color:var(--gold); } .exec-mode button.live.on{ background:var(--loss); border-color:var(--loss); color:#fff; }
   .set-in{ width:66px; background:var(--ink); border:1px solid var(--edge); border-radius:6px; padding:5px 7px; color:var(--pale); font-family:var(--mono); font-size:11px; text-align:right; outline:none; }
+
+  /* audit log */
+  .au-verify{ display:flex; align-items:center; gap:8px; font-size:11px; color:var(--slate); margin-bottom:9px; }
+  .au-verify .pill{ font:700 9px var(--ui); letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:5px; background:var(--edge); color:var(--slate); }
+  .au-verify .pill.ok{ color:var(--ink); background:var(--gold); } .au-verify .pill.bad{ color:#fff; background:var(--loss); }
+  .au-export{ font:600 10px var(--mono); color:var(--gold); border:1px solid var(--gold-dim); border-radius:7px; padding:5px 10px; text-decoration:none; margin-left:auto; }
+  .au-filters{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+  .au-filters button{ font:600 10px var(--ui); padding:5px 10px; border-radius:20px; background:transparent; border:1px solid var(--edge); color:var(--slate); cursor:pointer; }
+  .au-filters button.on{ color:var(--ink); background:var(--gold); border-color:var(--gold); }
+  .au-row{ display:flex; align-items:center; gap:9px; padding:7px 2px; border-bottom:1px dashed var(--edge); font-size:11.5px; }
+  .au-row:last-child{ border-bottom:none; }
+  .au-seq{ font-family:var(--mono); color:var(--gold-dim); font-size:10px; width:24px; flex:none; }
+  .au-ts{ font-family:var(--mono); color:var(--slate); font-size:10px; flex:none; }
+  .au-kind{ font-weight:600; color:var(--pale); width:78px; flex:none; }
+  .au-actor{ font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--slate); width:48px; flex:none; }
+  .au-target{ font-family:var(--display); font-weight:700; color:var(--bone); flex:1; min-width:0; }
+  .au-dec{ font:700 8.5px var(--ui); letter-spacing:.1em; text-transform:uppercase; padding:2px 6px; border-radius:4px; flex:none; }
+  .au-dec.allowed{ color:var(--ink); background:var(--gold); } .au-dec.refused{ color:#fff; background:var(--loss); } .au-dec.na{ color:var(--slate); border:1px solid var(--edge); }
 </style>
 </head>
 <body>
@@ -343,6 +361,34 @@ async function wireSettings(el){
   renderConns(el,st); renderExec(el,st);
 }
 
+/* ── Audit Log (raw, tamper-evident trail) ── */
+function auditBuild(){
+  return '<div class="au-verify"><span>Hash chain</span><span class="pill" id="au-pill">checking…</span><a class="au-export" href="/api/audit/export.csv">Export CSV</a></div>'+
+    '<div class="au-filters" id="au-filters"><button class="on" data-k="">All</button><button data-k="run_v17">run_v17</button><button data-k="execute">execute</button><button data-k="reconcile">reconcile</button><button data-k="run_marquee">marquee</button><button data-k="run">console</button></div>'+
+    '<div id="au-list"><div class="rc-hint">loading…</div></div>';
+}
+function auditRow(r){
+  const dec=(r.decision==='allowed'?'allowed':r.decision==='refused'?'refused':'na');
+  const t=(r.ts||'').slice(11,19);
+  return '<div class="au-row"><span class="au-seq">'+r.seq+'</span><span class="au-ts">'+t+'</span>'+
+    '<span class="au-kind">'+esc(r.kind)+'</span><span class="au-actor">'+esc(r.actor)+'</span>'+
+    '<span class="au-target">'+esc(r.target||r.reason||'—')+'</span>'+
+    '<span class="au-dec '+dec+'">'+esc(r.decision)+'</span></div>';
+}
+async function auditLoad(el,kind){
+  const list=el.querySelector('#au-list');
+  try{ const r=await fetchTimeout('/api/audit?limit=80'+(kind?'&kind='+kind:''),1600); const j=await r.json();
+    list.innerHTML=(j.rows&&j.rows.length)?j.rows.map(auditRow).join(''):'<div class="rc-hint">no events yet — run something in the console.</div>';
+  }catch(e){ list.innerHTML='<div class="rc-hint">backend offline — run `node server/index.js` to see the trail.</div>'; }
+}
+async function wireAudit(el){
+  try{ const r=await fetchTimeout('/api/audit/verify',1500); const v=await r.json();
+    const pill=el.querySelector('#au-pill'); pill.textContent=v.ok?('intact · '+v.count):('BROKEN @ '+v.brokenAtSeq); pill.className='pill '+(v.ok?'ok':'bad');
+  }catch(e){ const pill=el.querySelector('#au-pill'); pill.textContent='offline'; }
+  el.querySelector('#au-filters').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;el.querySelectorAll('#au-filters button').forEach(x=>x.classList.toggle('on',x===b));auditLoad(el,b.getAttribute('data-k'));});
+  auditLoad(el,'');
+}
+
 /* ── window manager ── */
 const WINDOWS={
   run:{title:'Run Console',eng:'v17→marquee',w:440,h:520,x:24,y:14,icon:'<path d="M5 17l6-6-6-6"/><path d="M13 19h6"/>',build:runConsoleBuild,onOpen:wireRun},
@@ -354,6 +400,7 @@ const WINDOWS={
   lens:{title:'Two-Lens — $GOOGL',eng:'claude',w:470,h:330,x:474,y:476,icon:'<circle cx="8" cy="8" r="5"/><circle cx="16" cy="16" r="5"/>',build:()=>twoLens(BOOK.find(r=>r.id==='B-022'))},
   archive:{title:'Archive — Reconciled',eng:'',w:340,h:330,x:946,y:366,icon:'<path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/>',build:archive},
   settings:{title:'Settings — Connections',eng:'',w:450,h:480,x:400,y:90,icon:'<circle cx="12" cy="12" r="3"/><path d="M19.4 13a7 7 0 0 0 0-2l2-1.5-2-3.5-2.4 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.5L6.6 11a7 7 0 0 0 0 2l-2 1.5 2 3.5 2.4-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.5z"/>',build:settingsBuild,onOpen:wireSettings},
+  audit:{title:'Audit Log — tamper-evident',eng:'',w:460,h:420,x:360,y:150,icon:'<path d="M9 12l2 2 4-4"/><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/>',build:auditBuild,onOpen:wireAudit},
   charts:{title:'Live Charts',eng:'',w:400,h:280,x:300,y:250,icon:'<path d="M3 3v18h18"/><path d="M6 14l4-5 3 3 5-7"/>',build:()=>'<div class="note" style="text-align:center;padding:40px 10px">Candles + moving averages land here once the data feed is wired (backend phase). Placeholder — not observed.</div>'}
 };
 const OPEN_DEFAULT=['run','board','verdict','sentiment'];
