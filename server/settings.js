@@ -74,8 +74,8 @@ export function status() {
   const p = c.providers;
   return {
     providers: {
-      claude:    { label: p.claude.label,    kind: "model",     enabled: p.claude.enabled,    connected: hasKey("anthropic") || !!p.claude.mcp,    via: p.claude.mcp ? "mcp" : (hasKey("anthropic") ? "host-env" : "none") },
-      openai:    { label: p.openai.label,    kind: "model",     enabled: p.openai.enabled,    connected: hasKey("openai")    || !!p.openai.mcp,    via: p.openai.mcp ? "mcp" : (hasKey("openai") ? "host-env" : "none") },
+      claude:    { label: p.claude.label,    kind: "model",     enabled: p.claude.enabled,    connected: hasKey("anthropic") || !!p.claude.mcp,    via: p.claude.mcp ? "mcp" : (hasKey("anthropic") ? "local key" : "none") },
+      openai:    { label: p.openai.label,    kind: "model",     enabled: p.openai.enabled,    connected: hasKey("openai")    || !!p.openai.mcp,    via: p.openai.mcp ? "mcp" : (hasKey("openai") ? "local key" : "none") },
       hermes:    { label: p.hermes.label,    kind: "agent",     enabled: p.hermes.enabled,    connected: !!p.hermes.mcp,    via: p.hermes.mcp ? "mcp" : "none" },
       robinhood: { label: p.robinhood.label, kind: "execution", enabled: p.robinhood.enabled, connected: !!p.robinhood.mcp, via: p.robinhood.mcp ? "mcp" : "none" }
     },

@@ -324,21 +324,32 @@ const DEF_STATUS=()=>({providers:{
   execution:{mode:'paper',confirmBeforeBuy:true,perTradeCapUsd:150,dailyCapUsd:500,killSwitch:false},canExecute:false});
 function postSettings(patch){ fetchTimeout('/api/settings',1500,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(patch)}).catch(()=>{}); }
 function settingsBuild(){
-  return '<div class="set-banner"><b>KEYS NEVER STORED HERE.</b> Connections are MCP endpoints — credentials live in the MCP servers (Robinhood for orders, the model/agent servers for calls), never in this app.</div>'+
+  return '<div class="set-banner"><b>YOUR KEYS STAY ON THIS PC.</b> Claude / OpenAI keys are saved on this computer only — never committed, never sent anywhere except the provider. Broker credentials (Robinhood) run through the MCP server, never in this app.</div>'+
     '<div class="lbl" style="margin-top:11px">Connections</div><div id="set-conns"><div class="rc-hint">loading…</div></div>'+
     '<div class="lbl" style="margin-top:13px">Execution policy</div><div id="set-exec"></div>'+
     '<div class="rc-hint" id="set-status">backend: checking…</div>';
 }
+async function refreshConns(el){ try{ const r=await fetchTimeout('/api/health',1500); renderConns(el, await r.json()); }catch(e){} }
 function renderConns(el,st){
   const box=el.querySelector('#set-conns'); box.innerHTML='';
   Object.entries(st.providers).forEach(([id,p])=>{
     const row=document.createElement('div'); row.className='conn';
+    const secretName = id==='claude'?'ANTHROPIC_API_KEY':(id==='openai'?'OPENAI_API_KEY':null);
+    const field = p.kind==='model'
+      ? '<input class="mcp key" type="password" placeholder="'+(p.connected?'saved ✓ — paste to replace':'paste API key — saved on THIS PC only')+'" data-secret="'+secretName+'"/>'
+      : '<input class="mcp" placeholder="mcp endpoint / connection ref" data-id="'+id+'"/>';
     row.innerHTML='<span class="st '+(p.connected?'on':'off')+'"></span>'+
       '<div class="who"><div class="nm">'+p.label+'</div><div class="kind">'+p.kind+(p.connected?' · '+p.via:'')+'</div></div>'+
-      '<input class="mcp" placeholder="mcp endpoint / connection ref" data-id="'+id+'"/>'+
-      '<div class="tgl'+(p.enabled?' on':'')+(p.kind==='execution'?' danger':'')+'" data-id="'+id+'"><b></b></div>';
+      field+'<div class="tgl'+(p.enabled?' on':'')+(p.kind==='execution'?' danger':'')+'" data-id="'+id+'"><b></b></div>';
+    const inp=row.querySelector('.mcp');
+    if(p.kind==='model'){
+      inp.addEventListener('change',e=>{ const v=e.target.value.trim(); if(!v) return;
+        postSettings({secrets:{[e.target.getAttribute('data-secret')]:v}});
+        e.target.value=''; e.target.placeholder='saved ✓ on this PC'; setTimeout(()=>refreshConns(el),500); }); // never keep the key in the field
+    } else {
+      inp.addEventListener('change',e=>postSettings({providers:{[id]:{mcp:e.target.value.trim()}}}));
+    }
     row.querySelector('.tgl').addEventListener('click',e=>{const t=e.currentTarget;t.classList.toggle('on');postSettings({providers:{[id]:{enabled:t.classList.contains('on')}}});});
-    row.querySelector('.mcp').addEventListener('change',e=>postSettings({providers:{[id]:{mcp:e.target.value.trim()}}}));
     box.appendChild(row);
   });
 }

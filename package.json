@@ -2,8 +2,9 @@
   "name": "the-bench",
   "version": "0.1.0",
   "private": true,
-  "description": "Daily market-report pipeline for @TheBenchTrades. THE BENCH v17 (analysis) -> MARQUEE v3.1 (writing). Drafts only; a human publishes.",
+  "description": "THE BENCH — v17 operator console. Analysis drafts + gated execution. Proof, not hype.",
   "type": "module",
+  "main": "electron/main.js",
   "scripts": {
     "seed": "node scripts/seed-archive.js",
     "start": "node server/index.js",
@@ -11,6 +12,8 @@
     "run:mock": "node server/reviewer.js --mock",
     "mcp": "node server/mcp.js",
     "lint:article": "node server/lint.js",
+    "app": "electron .",
+    "dist:win": "electron-builder --win --x64",
     "test": "node --test"
   },
   "engines": {
@@ -18,5 +21,33 @@
   },
   "dependencies": {
     "dotenv": "^16.6.1"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.thebenchtrades.bench",
+    "productName": "The Bench",
+    "asar": false,
+    "directories": { "output": "dist" },
+    "files": [
+      "electron/**",
+      "server/**",
+      "public/**",
+      "prompts/**",
+      "db/archive.json",
+      "db/archive-v4.xlsx",
+      "package.json"
+    ],
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "The-Bench-Setup-${version}.${ext}"
+    }
   }
 }

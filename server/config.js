@@ -23,6 +23,7 @@ try {
   // dotenv not installed — rely on the ambient environment.
 }
 
+import { getSecret } from "./secrets.js";
 const env = process.env;
 
 // Default model IDs per provider. Override with OPENAI_MODEL / ANTHROPIC_MODEL.
@@ -33,10 +34,10 @@ export const DEFAULT_MODELS = {
 
 export const ENGINE_TAG = { openai: "gpt-runner", anthropic: "claude" };
 
+// Keys resolve from the LOCAL secrets file first (set in the app's Settings),
+// then the host environment. Never from the app UI directly, never committed.
 export function hasKey(provider) {
-  if (provider === "openai") return Boolean(env.OPENAI_API_KEY);
-  if (provider === "anthropic") return Boolean(env.ANTHROPIC_API_KEY);
-  return false;
+  return Boolean(keyFor(provider));
 }
 
 // Pick the default provider: explicit MODEL_PROVIDER wins; else whichever key
@@ -62,5 +63,7 @@ export const AV = {
 };
 
 export function keyFor(provider) {
-  return provider === "openai" ? env.OPENAI_API_KEY : env.ANTHROPIC_API_KEY;
+  if (provider === "openai") return getSecret("OPENAI_API_KEY") || env.OPENAI_API_KEY || null;
+  if (provider === "anthropic") return getSecret("ANTHROPIC_API_KEY") || env.ANTHROPIC_API_KEY || null;
+  return null;
 }

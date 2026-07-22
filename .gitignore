@@ -17,6 +17,9 @@ db/archive.lock/
 # Non-secret connection config (MCP endpoints + policy). Local only.
 db/connections.json
 
+# Local-only model API keys — NEVER commit. Saved on this machine only.
+db/secrets.local.json
+
 # OS / editor
 .DS_Store
 *.log

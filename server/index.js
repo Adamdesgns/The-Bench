@@ -17,6 +17,7 @@ import { resolve, extname } from "node:path";
 import { ROOT, ARCHIVE_PATH } from "./config.js";
 import { runCommand } from "./api.js";
 import { status, writeConnections } from "./settings.js";
+import { setSecret } from "./secrets.js";
 import { appendAudit, readAudit, verifyChain, exportCsv } from "./audit.js";
 
 const PUBLIC_DIR = resolve(ROOT, "public");
@@ -58,7 +59,16 @@ const server = createServer(async (req, res) => {
 
     if (path === "/api/settings") {
       if (req.method === "POST") {
-        writeConnections(await readBody(req)); // secrets stripped inside
+        const body = await readBody(req);
+        // Model API keys route to the LOCAL secrets file (never connections.json,
+        // never committed). Only ANTHROPIC_API_KEY / OPENAI_API_KEY are accepted.
+        if (body.secrets) {
+          for (const [k, v] of Object.entries(body.secrets)) {
+            if (k === "ANTHROPIC_API_KEY" || k === "OPENAI_API_KEY") setSecret(k, String(v || "").trim());
+          }
+          delete body.secrets;
+        }
+        writeConnections(body); // any secret-looking field here is still stripped
         return sendJSON(res, 200, { ok: true, status: status() });
       }
       return sendJSON(res, 200, status());
