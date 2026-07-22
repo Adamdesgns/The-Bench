@@ -32,7 +32,7 @@ jobs:
         run: npm install
 
       - name: Build installer
-        run: npm run dist:win
+        run: npm run dist:win -- --publish never
         env:
           # unsigned build — Windows SmartScreen will ask "Run anyway" once
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
