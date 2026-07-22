@@ -16,9 +16,29 @@ import { readFileSync, existsSync } from "node:fs";
 import { resolve, extname } from "node:path";
 import { ROOT, ARCHIVE_PATH } from "./config.js";
 import { runCommand } from "./api.js";
+import { runReport } from "./reviewer.js";
 import { status, writeConnections } from "./settings.js";
 import { setSecret } from "./secrets.js";
 import { appendAudit, readAudit, verifyChain, exportCsv } from "./audit.js";
+
+// One report at a time; the UI polls /api/report/status while it runs.
+const REPORT = { running: false, step: null, started: null, result: null };
+function startReport(target) {
+  if (REPORT.running) return false;
+  REPORT.running = true; REPORT.step = "starting"; REPORT.started = Date.now(); REPORT.result = null;
+  const t0 = Date.now();
+  runReport({ target, onStep: (s) => { REPORT.step = s; } })
+    .then((res) => {
+      REPORT.result = res;
+      appendAudit({ actor: "manual", kind: "report", target: res.target, decision: res.ok ? "n/a" : "error", reason: res.errors.join(" | ") || null, output: { ok: res.ok, chars: res.report_text.length, lint: res.lint ? res.lint.ok : null }, latency_ms: Date.now() - t0 });
+    })
+    .catch((err) => {
+      REPORT.result = { ok: false, errors: ["run crashed: " + err.message], report_text: "Run crashed: " + err.message };
+      appendAudit({ actor: "manual", kind: "report", target, decision: "error", reason: err.message, latency_ms: Date.now() - t0 });
+    })
+    .finally(() => { REPORT.running = false; REPORT.step = "done"; });
+  return true;
+}
 
 const PUBLIC_DIR = resolve(ROOT, "public");
 const PORT = Number(process.env.PORT || 8137);
@@ -49,6 +69,15 @@ const server = createServer(async (req, res) => {
       const result = await runCommand(cmd, { mode: url.searchParams.get("mode") });
       appendAudit({ actor: "manual", kind: "run", target: cmd, output: { steps: result.steps?.length ?? 0 }, decision: "n/a", mode: url.searchParams.get("mode"), latency_ms: Date.now() - t0 });
       return sendJSON(res, 200, result);
+    }
+
+    if (path === "/api/report") {
+      const target = url.searchParams.get("target") || "market";
+      const started = startReport(target);
+      return sendJSON(res, 200, started ? { started: true, target } : { started: false, reason: "a report is already running" });
+    }
+    if (path === "/api/report/status") {
+      return sendJSON(res, 200, { running: REPORT.running, step: REPORT.step, elapsed_ms: REPORT.started ? Date.now() - REPORT.started : 0, result: REPORT.result });
     }
 
     if (path === "/api/audit") {

@@ -146,6 +146,39 @@
   .au-target{ font-family:var(--display); font-weight:700; color:var(--bone); flex:1; min-width:0; }
   .au-dec{ font:700 8.5px var(--ui); letter-spacing:.1em; text-transform:uppercase; padding:2px 6px; border-radius:4px; flex:none; }
   .au-dec.allowed{ color:var(--ink); background:var(--gold); } .au-dec.refused{ color:#fff; background:var(--loss); } .au-dec.na{ color:var(--slate); border:1px solid var(--edge); }
+
+  /* menu bar clickable */
+  .menubar .m{ cursor:pointer; padding:4px 2px; }
+
+  /* dock labels always visible */
+  .dockic{ width:52px; height:56px; flex-direction:column; display:flex; align-items:center; justify-content:center; gap:3px; }
+  .dockic .dlab{ font:600 7.5px var(--ui); letter-spacing:.02em; color:var(--slate); line-height:1; white-space:nowrap; }
+  .dockic:hover .dlab{ color:var(--pale); }
+
+  /* window resize handle */
+  .rz{ position:absolute; right:0; bottom:0; width:16px; height:16px; cursor:nwse-resize; z-index:5; }
+  .rz::after{ content:""; position:absolute; right:3px; bottom:3px; width:8px; height:8px; border-right:2px solid var(--gold-dim); border-bottom:2px solid var(--gold-dim); border-radius:1px; opacity:.7; }
+  .rz-r{ position:absolute; right:-3px; top:36px; bottom:16px; width:7px; cursor:ew-resize; z-index:4; }
+  .rz-b{ position:absolute; left:16px; right:16px; bottom:-3px; height:7px; cursor:ns-resize; z-index:4; }
+
+  /* market report window */
+  .rep-bar{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding-bottom:11px; border-bottom:1px solid var(--edge); }
+  .rep-run{ background:var(--gold); color:var(--ink); border:none; border-radius:9px; padding:10px 18px; font:700 12px var(--ui); letter-spacing:.08em; cursor:pointer; text-transform:uppercase; }
+  .rep-run:disabled{ opacity:.45; cursor:default; }
+  .rep-in{ width:110px; background:var(--ink); border:1px solid var(--line-2); border-radius:9px; padding:9px 10px; color:var(--pale); font-family:var(--mono); font-size:12px; outline:none; }
+  .rep-in:focus{ border-color:var(--gold-dim); }
+  .rep-status{ font-family:var(--mono); font-size:11px; color:var(--slate); flex:1; min-width:140px; }
+  .rep-status.err{ color:var(--loss); }
+  .rep-status.run{ color:var(--gold); }
+  .rep-sec{ margin-top:14px; }
+  .rep-sec .sh{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px; }
+  .rep-sec .sh h4{ font:700 11px var(--ui); letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+  .rep-copy{ font:600 9px var(--mono); color:var(--gold-dim); border:1px solid var(--edge); border-radius:6px; padding:3px 8px; background:transparent; cursor:pointer; }
+  .rep-copy:hover{ color:var(--gold); border-color:var(--gold-dim); }
+  .rep-pre{ font-family:var(--mono); font-size:11px; line-height:1.65; color:var(--bone); background:var(--ink); border:1px solid var(--edge); border-radius:9px; padding:12px 14px; white-space:pre-wrap; word-break:break-word; }
+  .rep-art{ font-family:var(--ui); font-size:13px; line-height:1.7; color:var(--bone); background:var(--ink); border:1px solid var(--edge); border-radius:9px; padding:14px 16px; white-space:pre-wrap; }
+  .rep-err{ color:var(--loss); background:rgba(229,72,77,.07); border:1px solid var(--loss); border-radius:9px; padding:10px 13px; font-size:12px; line-height:1.55; margin-top:12px; }
+  .rep-empty{ text-align:center; padding:44px 20px; color:var(--slate); font-family:var(--display); font-style:italic; font-size:14px; }
 </style>
 </head>
 <body>
@@ -184,8 +217,15 @@ const callChip=fc=>!fc?'':/ARMED|Setup Forming/i.test(fc)?'<span class="chip gat
 /* ── ticker banner ── */
 function buildTicker(){
   const items=[];
-  BOOK.filter(isOpen).forEach((r,i)=>{ const d=((i*7)%13-6)/10; // deterministic pseudo-delta
-    items.push('<span class="tk-item"><span class="s">'+r.ticker+'</span><span class="p">'+fmtPx(r.review_price)+'</span><span class="d '+(d>=0?'up':'dn')+'">'+(d>=0?'+':'')+d.toFixed(2)+'%</span></span>');});
+  BOOK.filter(isOpen).forEach((r)=>{
+    const live=LIVE.prices.get(r.ticker);
+    if(typeof live==='number' && typeof r.review_price==='number'){
+      const d=100*(live-r.review_price)/r.review_price;
+      items.push('<span class="tk-item"><span class="s">'+r.ticker+'</span><span class="p">'+fmtPx(live)+'</span><span class="d '+(d>=0?'up':'dn')+'">'+(d>=0?'+':'')+d.toFixed(2)+'% vs review</span></span>');
+    } else {
+      items.push('<span class="tk-item"><span class="s">'+r.ticker+'</span><span class="p">'+fmtPx(r.review_price)+'</span><span class="d nv">review print</span></span>');
+    }
+  });
   ['KOSPI','SKHY','TSMC','ASML','WTI','US10Y','DXY','VIX','GOLD'].forEach(s=>items.push('<span class="tk-item"><span class="s">'+s+'</span><span class="d nv">not observed</span></span>'));
   const html=items.join('<span class="tk-sep">·</span>');
   document.getElementById('ticktrack').innerHTML=html+'<span class="tk-sep">·</span>'+html;
@@ -194,9 +234,14 @@ function buildTicker(){
 /* ── window contents ── */
 function boardTable(){
   const rows=BOOK.filter(isOpen).slice().sort((a,b)=>(isLive(b)-isLive(a))||(b.score-a.score));
-  return '<table><thead><tr><th>ID</th><th>Ticker</th><th class="r">Review</th><th>Score</th><th>Ovr</th><th>Final Call / Trigger</th></tr></thead><tbody>'+
-    rows.map(r=>'<tr><td class="id">'+r.id+'</td><td><span class="tk2">'+esc(r.ticker)+'</span></td><td class="r mono">'+fmtPx(r.review_price)+'</td>'+
-    '<td class="mono" style="font-size:10px">'+r.score+'</td><td><span class="grade '+gCls(r.overall)+'">'+r.overall+'</span></td><td>'+callChip(r.final_call)+'</td></tr>').join('')+'</tbody></table>';
+  const hasLive=LIVE.prices.size>0;
+  return '<table><thead><tr><th>ID</th><th>Ticker</th><th class="r">Review</th>'+(hasLive?'<th class="r">Last</th>':'')+'<th>Score</th><th>Ovr</th><th>Final Call / Trigger</th></tr></thead><tbody>'+
+    rows.map(r=>{
+      const live=LIVE.prices.get(r.ticker);
+      const liveCell=hasLive?('<td class="r mono" style="color:'+(typeof live==='number'?(typeof r.review_price==='number'&&live<r.review_price?'var(--loss)':'var(--gold)'):'var(--slate)')+'">'+(typeof live==='number'?fmtPx(live):'—')+'</td>'):'';
+      return '<tr><td class="id">'+r.id+'</td><td><span class="tk2">'+esc(r.ticker)+'</span></td><td class="r mono">'+fmtPx(r.review_price)+'</td>'+liveCell+
+      '<td class="mono" style="font-size:10px">'+r.score+'</td><td><span class="grade '+gCls(r.overall)+'">'+r.overall+'</span></td><td>'+callChip(r.final_call)+'</td></tr>';
+    }).join('')+'</tbody></table>';
 }
 function verdict(r){
   return '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">'+
@@ -400,8 +445,84 @@ async function wireAudit(el){
   auditLoad(el,'');
 }
 
+/* ── Market Report (the main event) ── */
+const LIVE = { prices: new Map(), stamp: null }; // fresh prints from the last run
+function reportBuild(){
+  return '<div class="rep-bar">'+
+    '<button class="rep-run" id="rep-run">Run the Market</button>'+
+    '<input class="rep-in" id="rep-ticker" placeholder="$TICKER"/>'+
+    '<button class="rep-copy" id="rep-run-ticker" style="padding:9px 12px;font-size:10px">RUN TICKER</button>'+
+    '<span class="rep-status" id="rep-status">ready — one click generates the full report</span>'+
+    '</div><div id="rep-out"><div class="rep-empty">No report yet. Hit RUN THE MARKET.<br>Live prices → v17 analysis → archive reconcile → Marquee draft. 30–90 seconds.</div></div>';
+}
+function copyBtn(text){ return '<button class="rep-copy" data-copy="'+encodeURIComponent(text)+'">COPY</button>'; }
+function repSection(title, body, mono){
+  return '<div class="rep-sec"><div class="sh"><h4>'+title+'</h4>'+copyBtn(body)+'</div><div class="'+(mono?'rep-pre':'rep-art')+'">'+esc(body)+'</div></div>';
+}
+function renderReport(el, r){
+  const out = el.querySelector('#rep-out');
+  let html = '';
+  if (r.errors && r.errors.length) html += '<div class="rep-err"><b>⚠ Problems this run</b><br>'+r.errors.map(esc).join('<br>')+'</div>';
+  if (r.verdict) {
+    html += repSection('The Market Today',
+      'Regime: '+r.verdict.regime+' · Market Risk '+r.verdict.market_risk+'/5\n\n'+ (r.verdict.us_read||'') + '\n\nPeers: '+(r.verdict.global_peer_read||'not verified') + '\nCrypto: '+(r.verdict.crypto_read||'not verified'), false);
+  }
+  if (r.board && r.board.length) {
+    const lines = r.board.map(b=>{
+      const px = typeof b.last==='number' ? fmtPx(b.last) : b.last;
+      return String(b.id).padEnd(7)+String(b.ticker).padEnd(7)+(String(px)+' ').padEnd(16)+'('+b.source+(b.provisional?' · delayed':'')+')  '+(b.state||'');
+    }).join('\n');
+    html += repSection('Open Board — Live Prints', lines, true);
+  }
+  if (r.archive_block) html += repSection('Archive — Reconciled', r.archive_block, true);
+  if (r.angle) html += repSection('Angle', r.angle, false);
+  if (r.no_story) html += repSection('No Story', r.no_story, false);
+  if (r.article) {
+    html += repSection('The Article (draft — never auto-posts)', r.article, false);
+    if (r.lint) html += '<div class="rep-sec"><div class="'+(r.lint.ok?'rep-pre':'rep-err')+'">LINT: '+(r.lint.ok?'PASS':'FAIL')+' · '+r.lint.charCount+' chars · '+r.lint.emDashes+' em-dashes'+(r.lint.ok?'':'<br>'+r.lint.flags.map(f=>esc('['+f.rule+'] '+f.detail)).join('<br>'))+'</div></div>';
+  }
+  html += '<div class="rep-sec"><div class="sh"><h4>Full Report</h4>'+copyBtn(r.report_text||'')+'</div></div>';
+  out.innerHTML = html || '<div class="rep-empty">Empty result.</div>';
+  out.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{
+    navigator.clipboard.writeText(decodeURIComponent(b.getAttribute('data-copy'))).then(()=>{ b.textContent='COPIED ✓'; setTimeout(()=>b.textContent='COPY',1200); });
+  }));
+  // fresh prints flow into the rest of the app
+  if (r.board) {
+    for (const b of r.board) if (typeof b.last==='number') LIVE.prices.set(b.ticker, b.last);
+    LIVE.stamp = new Date();
+    buildTicker(); rebuildWin('board');
+    const di=document.querySelector('.menubar .di'); if(di) di.innerHTML='<i></i> Data: live · '+LIVE.stamp.toLocaleTimeString('en-US',{hour12:false});
+  }
+}
+async function pollReport(el){
+  const st = el.querySelector('#rep-status'); const btn = el.querySelector('#rep-run');
+  try{
+    const r = await fetchTimeout('/api/report/status', 2500); const j = await r.json();
+    if (j.running) { st.className='rep-status run'; st.textContent='running: '+(j.step||'…')+' · '+Math.round(j.elapsed_ms/1000)+'s'; setTimeout(()=>pollReport(el), 1500); return; }
+    if (j.result) { st.className='rep-status'+(j.result.ok?'':' err'); st.textContent=j.result.ok?('done in '+Math.round(j.elapsed_ms/1000)+'s'):'finished with problems — see below'; renderReport(el, j.result); }
+    else { st.className='rep-status'; st.textContent='ready'; }
+  }catch(e){ st.className='rep-status err'; st.textContent='backend offline — start the app via its icon (the server runs inside it)'; }
+  if (btn) btn.disabled=false;
+}
+async function startReportRun(el, target){
+  const st = el.querySelector('#rep-status'); const btn = el.querySelector('#rep-run');
+  if (btn) btn.disabled=true;
+  st.className='rep-status run'; st.textContent='starting…';
+  try{
+    await fetchTimeout('/api/report?target='+encodeURIComponent(target||'market'), 2500);
+    setTimeout(()=>pollReport(el), 800);
+  }catch(e){ st.className='rep-status err'; st.textContent='backend offline — the report needs the app backend running'; if(btn) btn.disabled=false; }
+}
+function wireReport(el){
+  el.querySelector('#rep-run').addEventListener('click',()=>startReportRun(el,'market'));
+  el.querySelector('#rep-run-ticker').addEventListener('click',()=>{ const t=(el.querySelector('#rep-ticker').value||'').replace(/^\$/,'').trim(); if(t) startReportRun(el,t); });
+  el.querySelector('#rep-ticker').addEventListener('keydown',e=>{ if(e.key==='Enter'){ const t=(e.target.value||'').replace(/^\$/,'').trim(); if(t) startReportRun(el,t); }});
+  pollReport(el); // pick up an in-flight or finished run on open
+}
+
 /* ── window manager ── */
 const WINDOWS={
+  report:{title:'Market Report',eng:'v17→marquee',w:900,h:640,x:120,y:20,icon:'<path d="M4 3h16v18H4z"/><path d="M8 8h8M8 12h8M8 16h5"/>',build:reportBuild,onOpen:wireReport},
   run:{title:'Run Console',eng:'v17→marquee',w:440,h:520,x:24,y:14,icon:'<path d="M5 17l6-6-6-6"/><path d="M13 19h6"/>',build:runConsoleBuild,onOpen:wireRun},
   options:{title:'Options Flow — gated',eng:'',w:360,h:230,x:430,y:300,icon:'<path d="M3 3v18h18"/><path d="M7 13l3 3 7-9"/>',build:()=>'<div class="note">Fires only on <b style="color:var(--gold)">Run options $TICKER</b>. Unusual activity · sweeps · open interest · call/put skew · IV rank · crush risk. Confirmation only — never a standalone reason to trade. Stub: values not observed until the feed is wired.</div>'},
   board:{title:'Open Board',eng:'claude',w:480,h:430,x:480,y:14,icon:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>',build:boardTable},
@@ -414,24 +535,40 @@ const WINDOWS={
   audit:{title:'Audit Log — tamper-evident',eng:'',w:460,h:420,x:360,y:150,icon:'<path d="M9 12l2 2 4-4"/><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/>',build:auditBuild,onOpen:wireAudit},
   charts:{title:'Live Charts',eng:'',w:400,h:280,x:300,y:250,icon:'<path d="M3 3v18h18"/><path d="M6 14l4-5 3 3 5-7"/>',build:()=>'<div class="note" style="text-align:center;padding:40px 10px">Candles + moving averages land here once the data feed is wired (backend phase). Placeholder — not observed.</div>'}
 };
-const OPEN_DEFAULT=['run','board','verdict','sentiment'];
+const OPEN_DEFAULT=['report'];
 let zTop=10; const desk=document.getElementById('desktop'); const openSet=new Set();
 
 function focusWin(el){ el.style.zIndex=++zTop; document.querySelectorAll('.win').forEach(w=>w.classList.remove('focus')); el.classList.add('focus'); }
 function openWin(id){
-  if(openSet.has(id)){ const el=document.getElementById('win-'+id); el.style.display='flex'; focusWin(el); return; }
+  if(openSet.has(id)){ const el=document.getElementById('win-'+id); el.style.display='flex'; focusWin(el); markDock(); return; }
   const c=WINDOWS[id]; const el=document.createElement('div'); el.className='win'; el.id='win-'+id;
-  const maxW=desk.clientWidth-20, w=Math.min(c.w,maxW);
-  el.style.width=w+'px'; el.style.height=c.h+'px'; el.style.left=Math.min(c.x,maxW-w)+'px'; el.style.top=c.y+'px';
-  el.innerHTML='<div class="tbar"><div class="lights"><b class="c" data-a="close"></b><b class="m" data-a="min"></b><b class="z" data-a="zoom"></b></div>'+
-    '<div class="ttl">'+c.title+(c.eng?' <span class="eng">'+c.eng+'</span>':'')+'</div></div><div class="wbody">'+c.build()+'</div>';
-  desk.appendChild(el); openSet.add(id); focusWin(el); dragify(el); markDock();
+  const maxW=desk.clientWidth-20, maxH=desk.clientHeight-16, w=Math.min(c.w,maxW), h=Math.min(c.h,maxH);
+  el.style.width=w+'px'; el.style.height=h+'px'; el.style.left=Math.max(6,Math.min(c.x,maxW-w))+'px'; el.style.top=Math.max(6,Math.min(c.y,maxH-h))+'px';
+  el.innerHTML='<div class="tbar"><div class="lights"><b class="c" data-a="close" title="Close"></b><b class="m" data-a="min" title="Minimize"></b><b class="z" data-a="zoom" title="Maximize"></b></div>'+
+    '<div class="ttl">'+c.title+(c.eng?' <span class="eng">'+c.eng+'</span>':'')+'</div></div><div class="wbody">'+c.build()+'</div>'+
+    '<div class="rz"></div><div class="rz-r"></div><div class="rz-b"></div>';
+  desk.appendChild(el); openSet.add(id); focusWin(el); dragify(el); resizify(el); markDock();
   el.addEventListener('mousedown',()=>focusWin(el));
   el.querySelector('.lights').addEventListener('click',e=>{ const a=e.target.getAttribute('data-a'); if(!a) return;
-    if(a==='close'||a==='min'){ el.style.display='none'; if(a==='close'){/* keep in openSet minimized*/} }
-    if(a==='zoom'){ toggleZoom(el); } markDock();
+    if(a==='close'){ el.remove(); openSet.delete(id); }         // red = CLOSE for real
+    else if(a==='min'){ el.style.display='none'; }              // yellow = minimize to dock
+    else if(a==='zoom'){ toggleZoom(el); }                      // gold = maximize/restore
+    markDock();
   });
   if(c.onOpen) c.onOpen(el);
+}
+// drag any edge/corner to resize (min sizes kept)
+function resizify(el){
+  const MIN_W=300, MIN_H=170;
+  const start=(e,dw,dh)=>{ e.preventDefault(); e.stopPropagation();
+    const sx=e.clientX, sy=e.clientY, ow=el.offsetWidth, oh=el.offsetHeight;
+    const move=(ev)=>{ if(dw) el.style.width=Math.max(MIN_W,ow+ev.clientX-sx)+'px'; if(dh) el.style.height=Math.max(MIN_H,oh+ev.clientY-sy)+'px'; };
+    const up=()=>{ window.removeEventListener('mousemove',move); window.removeEventListener('mouseup',up); };
+    window.addEventListener('mousemove',move); window.addEventListener('mouseup',up); focusWin(el);
+  };
+  el.querySelector('.rz').addEventListener('mousedown',e=>start(e,true,true));
+  el.querySelector('.rz-r').addEventListener('mousedown',e=>start(e,true,false));
+  el.querySelector('.rz-b').addEventListener('mousedown',e=>start(e,false,true));
 }
 function toggleZoom(el){
   if(el.dataset.zoom){ const r=JSON.parse(el.dataset.zoom); Object.assign(el.style,r); delete el.dataset.zoom; }
@@ -448,9 +585,21 @@ function markDock(){ document.querySelectorAll('.dockic').forEach(d=>{ const id=
   d.classList.toggle('open', !!el && el.style.display!=='none'); }); }
 
 /* dock */
+const DOCK_LABEL={report:'Report',run:'Console',options:'Options',board:'Board',verdict:'Verdict',sentiment:'Sentiment',catalyst:'Catalysts',lens:'Two-Lens',archive:'Archive',settings:'Settings',audit:'Audit',charts:'Charts'};
 const dock=document.getElementById('dock');
-dock.innerHTML=Object.entries(WINDOWS).map(([id,c])=>'<div class="dockic" data-id="'+id+'"><span class="lab">'+c.title+'</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+c.icon+'</svg></div>').join('');
+dock.innerHTML=Object.entries(WINDOWS).map(([id,c])=>'<div class="dockic" data-id="'+id+'"><span class="lab">'+c.title+'</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+c.icon+'</svg><span class="dlab">'+(DOCK_LABEL[id]||c.title)+'</span></div>').join('');
 dock.querySelectorAll('.dockic').forEach(d=>d.addEventListener('click',()=>openWin(d.dataset.id)));
+
+/* menu bar — every item does something */
+document.querySelectorAll('.menubar .m').forEach(m=>{
+  m.addEventListener('click',()=>{
+    const t=m.textContent.trim();
+    if(t==='Run'){ openWin('report'); const el=document.getElementById('win-report'); if(el) startReportRun(el,'market'); }
+    else if(t==='Board'){ openWin('board'); }
+    else if(t==='View'){ openWin('report'); }
+    else if(t==='Window'){ Object.keys(WINDOWS).forEach(openWin); }
+  });
+});
 
 /* clocks */
 function tick(){const n=new Date();document.getElementById('ct').textContent=n.toLocaleTimeString('en-US',{timeZone:'America/Chicago',hour12:false});document.getElementById('et').textContent=n.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour12:false});}

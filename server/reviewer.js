@@ -46,6 +46,155 @@ function mockQuote(ticker, base) {
   return { ticker, price: closes[closes.length - 1], source: "mock", asof: "mock", provisional: true, closes };
 }
 
+// ── runReport: the structured, error-tolerant chain behind /api/report ──────
+// Always returns a usable result. Model failures are LOUD (errors[]) but never
+// silent, and never block the price refresh: on bench failure the board still
+// gets priced and reconciled; only the analysis/article are skipped.
+export async function runReport({ target = "market", onStep = () => {} } = {}) {
+  const t0 = Date.now();
+  const errors = [];
+  const timings = {};
+  const step = (name) => { onStep(name); timings[name] = Date.now() - t0; };
+  const isMarket = !target || String(target).toLowerCase() === "market";
+  const tickerTarget = isMarket ? null : String(target).toUpperCase();
+
+  step("loadArchive");
+  const archive = loadArchive();
+  const open = archive.filter(isOpen);
+
+  // 1. Price what this run needs (market: every open row; ticker: just it).
+  step("fetchDataPacket");
+  const quotes = new Map();
+  const board = [];
+  const rows = isMarket
+    ? open
+    : (open.filter((r) => r.ticker.toUpperCase() === tickerTarget).length
+        ? open.filter((r) => r.ticker.toUpperCase() === tickerTarget)
+        : [{ id: "—", ticker: tickerTarget, review_price: null, final_call: "not on the board" }]);
+  for (const row of rows) {
+    const q = await getQuote(row.ticker).catch(() => null);
+    const hist = await getDailyCloses(row.ticker).catch(() => ({ closes: [] }));
+    if (q) { q.closes = hist.closes; quotes.set(row.ticker, q); }
+    const ind = hist.closes && hist.closes.length >= 30 ? computeIndicators(hist.closes) : null;
+    board.push({
+      id: row.id, ticker: row.ticker, review_price: row.review_price,
+      last: q && typeof q.price === "number" ? q.price : NOT_OBSERVABLE,
+      source: q ? q.source : "none", provisional: q ? q.provisional : true,
+      state: row.final_call || "",
+      indicators: ind ? { rsi14: round(ind.rsi14), sma50: round(ind.sma50), sma200: round(ind.sma200), trend_strength: ind.trend_strength } : "not observable"
+    });
+  }
+  const packet = {
+    review_stamp: stampNow(), mode: "Research / Battle-Test Mode",
+    target: isMarket ? "market" : tickerTarget, board: board,
+    av_calls_remaining: avRemaining(),
+    note: "Every value not fetched live is the literal string 'not observable'."
+  };
+
+  // 2. v17 — loud on failure, never silent.
+  let verdict = null;
+  const benchProvider = providerFor("bench");
+  if (!benchProvider) {
+    errors.push("No Claude or OpenAI key saved — open Settings and paste your API key, then run again.");
+  } else {
+    step("callBench (" + benchProvider + ")");
+    try {
+      verdict = await callStructured(
+        { system: loadBenchPrompt(),
+          user: "MATERIAL (data packet):\n" + JSON.stringify(packet, null, 2) +
+                "\n\nReturn ONLY the structured verdict. Every unverifiable input must appear in `not_observable` — never dropped, never guessed.",
+          schema: benchResponseSchema },
+        { provider: benchProvider, maxTokens: 8192 }
+      );
+    } catch (err) {
+      errors.push("v17 analysis failed (" + benchProvider + "): " + err.message);
+    }
+  }
+
+  // 3. Reconcile (market runs only) — prices every open row even if v17 failed.
+  let archiveBlock = null;
+  const stamp = (verdict && verdict.review_stamp) || packet.review_stamp;
+  if (isMarket) {
+    step("reconcileArchive");
+    try {
+      const recon = reconcile(archive, quotes, (verdict && verdict.board) || [], verdict ? engineTag(benchProvider) : "runner", stamp);
+      archiveBlock = renderArchiveBlock(recon, stamp);
+    } catch (err) {
+      errors.push("HALT — archive reconcile failed: " + err.message + ". No article written against an unreconciled board.");
+      return { ok: false, target: packet.target, errors, timings, board, packet, verdict, report_text: reportText({ packet, board, verdict, archiveBlock: null, angle: null, article: null, lint: null, errors }) };
+    }
+  }
+
+  // 4. Angle + Marquee (only with a verdict).
+  let angle = null, article = null, lint = null;
+  if (verdict) {
+    step("selectAngle");
+    angle = selectAngle(verdict, { openTickers: open.map((r) => r.ticker), calendar: verdict.calendar || [] });
+    if (angle.angle) {
+      const marqueeProvider = providerFor("marquee");
+      step("callMarquee (" + marqueeProvider + ")");
+      try {
+        article = await callText(
+          { system: loadMarqueePrompt(),
+            user: "MATERIAL:\n" + JSON.stringify(verdict, null, 2) +
+                  (archiveBlock ? "\n\nARCHIVE (reconciled today):\n" + archiveBlock : "") +
+                  "\n\nANGLE / THESIS:\n" + angle.angle +
+                  "\n\nLENGTH: 600-650 words (<= 3,900 characters). Every number must appear in MATERIAL. Anything in not_observable is labeled unverified or omitted." },
+          { provider: marqueeProvider, maxTokens: 4096 }
+        );
+        lint = lintArticle(article);
+      } catch (err) {
+        errors.push("Marquee draft failed (" + marqueeProvider + "): " + err.message);
+      }
+    }
+  }
+
+  step("present");
+  return {
+    ok: errors.length === 0,
+    target: packet.target, stamp, errors, timings,
+    board, verdict, archive_block: archiveBlock,
+    angle: angle ? angle.angle : null, no_story: angle && !angle.angle ? angle.caption : null,
+    article, lint,
+    report_text: reportText({ packet, board, verdict, archiveBlock, angle, article, lint, errors })
+  };
+}
+
+// Plain-text rendering of the whole report (single window, copyable).
+function reportText({ packet, board, verdict, archiveBlock, angle, article, lint, errors }) {
+  const L = [];
+  L.push("THE BENCH — " + (packet.target === "market" ? "DAILY MARKET REPORT" : "REVIEW: $" + packet.target));
+  L.push("Snapshot " + packet.review_stamp);
+  L.push("");
+  if (errors && errors.length) { L.push("⚠ PROBLEMS THIS RUN"); errors.forEach((e) => L.push("  • " + e)); L.push(""); }
+  if (verdict) {
+    L.push("THE MARKET TODAY");
+    L.push("Regime: " + verdict.regime + " · Market Risk " + verdict.market_risk + "/5");
+    L.push(verdict.us_read || "");
+    L.push("Peers: " + (verdict.global_peer_read || "not verified this hour"));
+    L.push("Crypto: " + (verdict.crypto_read || "not verified this hour"));
+    L.push("");
+  }
+  L.push("OPEN BOARD — LIVE PRINTS");
+  for (const b of board) {
+    const px = typeof b.last === "number" ? "$" + b.last : b.last;
+    L.push("  " + String(b.id).padEnd(6) + String(b.ticker).padEnd(7) + String(px).padEnd(12) + "(" + b.source + (b.provisional ? " · delayed" : "") + ")  " + (b.state || ""));
+  }
+  L.push("");
+  if (archiveBlock) { L.push(archiveBlock); L.push(""); }
+  if (angle && angle.angle) { L.push("ANGLE: " + angle.angle); L.push(""); }
+  if (angle && !angle.angle) { L.push(angle.caption); L.push(""); }
+  if (article) {
+    L.push("THE ARTICLE (draft — never auto-posts)");
+    L.push(article);
+    L.push("");
+    if (lint) L.push("LINT: " + (lint.ok ? "PASS" : "FAIL") + " · " + lint.charCount + " chars · " + lint.emDashes + " em-dashes" + (lint.ok ? "" : " · " + lint.flags.map((f) => f.rule).join(", ")));
+  }
+  return L.join("\n");
+}
+
+const round = (v) => (typeof v === "number" ? Math.round(v * 100) / 100 : v);
+
 async function buildDataPacket(archive, { mock }) {
   const open = archive.filter(isOpen);
   const board = [];
@@ -87,7 +236,6 @@ async function buildDataPacket(archive, { mock }) {
   return { packet, quotes };
 }
 
-const round = (v) => (typeof v === "number" ? Math.round(v * 100) / 100 : v);
 
 // ---- Mock model ----
 function mockModel(packet) {
