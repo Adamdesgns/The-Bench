@@ -9,6 +9,7 @@
     "start": "node server/index.js",
     "run:market": "node server/reviewer.js",
     "run:mock": "node server/reviewer.js --mock",
+    "mcp": "node server/mcp.js",
     "lint:article": "node server/lint.js",
     "test": "node --test"
   },

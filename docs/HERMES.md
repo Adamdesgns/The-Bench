@@ -75,8 +75,25 @@ reference system runs with *no* human approval loop; we don't.
 - **Refinement:** in Settings, "Hermes" = the agent runtime connection; the
   Bench MCP server is what it drives; "Robinhood" is the downstream broker the
   Bench MCP server owns. Same three connection slots, clearer roles.
-- **To build next:** wrap `server/` as an MCP server (the `run_v17 / reconcile /
-  run_marquee / execute / state` tools), then point Hermes at it.
+- **Built:** `server/mcp.js` — the Bench MCP server (stdio, dependency-free),
+  exposing `run_v17 · reconcile · run_marquee · state · execute`. Run with
+  `npm run mcp`. Point Hermes at that command as an MCP server. `execute` is
+  gated (verified: refuses in paper mode).
+
+## Connecting Hermes
+
+Hermes registers the Bench MCP server as a spawned stdio command:
+
+```
+node /path/to/the-bench/server/mcp.js
+```
+
+Then Hermes can call the tools by name. A daily loop looks like:
+`state` → `run_v17("market")` → (per armed trigger) `run_v17(ticker)` →
+if the trigger fired and gates pass → `execute({ticker, side, usd}, confirmToken)`
+→ `run_marquee(verdict)` for the draft. Robinhood credentials live in the Bench
+MCP server's environment (next: wire `executeOrder` to the Robinhood MCP once
+its endpoint is set in Settings).
 
 ## Sources
 - [Hermes Agent (official)](https://hermesagent.agency/)
