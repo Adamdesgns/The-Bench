@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE BENCH — v17 RUN CONSOLE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111111; --card:#1A1916; --edge:#26241F;
+  --gold:#D4AF37; --gold-dim:#9A7E28; --pale:#F5ECCB;
+  --bone:#E8E4DA; --slate:#8F8A7A; --loss:#E5484D; --loss-dim:#7A2A2E;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--bone);font-family:'Inter',system-ui,sans-serif;font-size:13px;padding:16px}
+.mono{font-family:'JetBrains Mono',monospace}
+.wrap{max-width:1720px;margin:0 auto}
+
+/* top bar */
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--edge);border-radius:12px;padding:12px 16px;margin-bottom:14px}
+.bar h1{font-family:'EB Garamond',Georgia,serif;font-size:22px;letter-spacing:.13em;color:var(--gold)}
+.bar h1 span{font-size:10px;letter-spacing:.3em;color:var(--slate);margin-left:12px;font-family:'Inter'}
+.clocks{display:flex;gap:18px}
+.clk{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--pale)}
+.clk small{color:var(--slate);font-size:9px;letter-spacing:.2em;margin-right:6px}
+.stamp{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+.stamp b{color:var(--gold-dim)}
+.api{font-size:9px;letter-spacing:.14em;color:var(--slate);border:1px dashed var(--gold-dim);border-radius:6px;padding:4px 10px}
+.api b{color:var(--gold)}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.p{background:var(--card);border:1px solid var(--edge);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.ph{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--edge)}
+.ph h2{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.ph .rt{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+.pb{padding:12px 14px;flex:1}
+.s4{grid-column:span 4}.s5{grid-column:span 5}.s6{grid-column:span 6}.s7{grid-column:span 7}.s8{grid-column:span 8}.s12{grid-column:span 12}
+@media(max-width:1200px){.s4,.s5,.s6,.s7,.s8{grid-column:span 12}}
+
+/* shared atoms */
+.eng{font-size:8px;letter-spacing:.16em;padding:2px 6px;border-radius:3px;border:1px solid var(--edge);color:var(--slate);text-transform:uppercase}
+.eng.claude{border-color:var(--gold-dim);color:var(--gold)}
+.tick{font-family:'EB Garamond',Georgia,serif;font-weight:700;color:var(--pale)}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed var(--edge);font-size:12px}
+.kv:last-child{border-bottom:none}
+.kv b{font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--pale);text-align:right}
+.up{color:var(--gold)}.dn{color:var(--loss)}
+.lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate)}
+.note{font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:12.5px;color:var(--slate);line-height:1.5;margin-top:10px}
+.seal{width:58px;height:58px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;
+  font-family:'EB Garamond',Georgia,serif;font-weight:700;font-size:24px;color:var(--gold);transform:rotate(-8deg);
+  box-shadow:inset 0 0 0 3px var(--ink);flex:0 0 auto}
+.seal.red{border-color:var(--loss);color:var(--loss)}
+.gradechips{display:flex;gap:6px}
+.g{flex:1;text-align:center;background:var(--ink);border:1px solid var(--edge);border-radius:7px;padding:6px 0 5px}
+.g .l{font-size:8px;letter-spacing:.16em;color:var(--slate);text-transform:uppercase}
+.g .v{font-family:'EB Garamond',Georgia,serif;font-weight:700;font-size:16px;color:var(--bone)}
+.g .v.hi{color:var(--gold)}.g .v.lo{color:var(--slate)}
+.scorebar{height:5px;background:var(--edge);border-radius:3px;overflow:hidden;margin-top:5px}
+.scorebar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold))}
+.chip{font-size:9px;font-weight:700;letter-spacing:.14em;padding:3px 8px;border-radius:4px;white-space:nowrap;text-transform:uppercase}
+.chip.gate{color:var(--ink);background:var(--gold)}
+.chip.watch{color:var(--gold);border:1px solid var(--gold-dim)}
+.chip.no{color:var(--slate);border:1px solid var(--edge)}
+.chip.loss{color:#fff;background:var(--loss)}
+.chip.real{color:var(--ink);background:var(--gold)}
+.chip.fake{color:#fff;background:var(--loss)}
+table{width:100%;border-collapse:collapse}
+th{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);text-align:left;padding:4px 6px;border-bottom:1px solid var(--edge)}
+td{padding:6px;font-size:11.5px;border-bottom:1px dashed var(--edge);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+
+/* delta arrows */
+.delta li{list-style:none;padding:6px 0;border-bottom:1px dashed var(--edge);font-size:12px;line-height:1.5}
+.delta li:last-child{border-bottom:none}
+.delta b{color:var(--pale)}
+.arrow{font-family:'JetBrains Mono',monospace;color:var(--gold)}
+.arrow.dn{color:var(--loss)}
+
+/* fact check */
+.claim{padding:7px 0;border-bottom:1px dashed var(--edge);font-size:12px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.claim:last-child{border-bottom:none}
+.claim .c{line-height:1.45}
+.claim .c b{color:var(--pale)}
+
+.foot{text-align:center;margin-top:16px;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--slate)}
+.foot b{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="bar">
+  <h1>THE BENCH <span>v17 RUN CONSOLE</span></h1>
+  <div class="clocks">
+    <div class="clk"><small>CT</small><span id="ct">--:--:--</span></div>
+    <div class="clk"><small>ET</small><span id="et">--:--:--</span></div>
+  </div>
+  <div class="stamp">Snapshot <b data-field="review_stamp">Jul 20 2026 · 10:37 PM CT</b> · "refresh board" re-pulls</div>
+  <div class="api"><b>API-READY</b> · every value carries data-field per daily-open-chain-spec</div>
+</div>
+
+<div class="grid">
+
+  <!-- PANEL 1: FULL REVIEW -->
+  <div class="p s5" data-panel="full_review">
+    <div class="ph"><h2>◆ Full Review</h2><span class="rt">first-run scorecard · <span class="eng claude">claude</span></span></div>
+    <div class="pb">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+        <div>
+          <div class="tick" style="font-size:30px" data-field="ticker">$GOOGL</div>
+          <div class="lbl" style="margin-top:3px">Review <b class="mono" style="color:var(--bone)" data-field="review_price">$354.46</b> · Jul 16 close</div>
+          <div style="margin-top:8px"><span class="chip gate" data-field="final_call">Setup Forming — Gate Wed</span></div>
+        </div>
+        <div class="seal" data-field="overall_grade">B−</div>
+      </div>
+      <div style="margin-top:12px">
+        <div class="kv" style="border:none;padding-bottom:2px"><span class="lbl">Opportunity Score</span><b data-field="opportunity_score">74 / 100</b></div>
+        <div class="scorebar"><i style="width:74%"></i></div>
+      </div>
+      <div class="gradechips" style="margin-top:12px" data-field="grades">
+        <div class="g"><div class="l">Tech</div><div class="v hi">B+</div></div>
+        <div class="g"><div class="l">Fund</div><div class="v hi">A</div></div>
+        <div class="g"><div class="l">Exec</div><div class="v lo">C</div></div>
+      </div>
+      <div style="margin-top:12px">
+        <div class="kv"><span>Trend Strength</span><b data-field="trend_strength">7 / 10</b></div>
+        <div class="kv"><span>FOMO Clock</span><b data-field="fomo">Heating Up</b></div>
+        <div class="kv"><span>Confidence / Conviction</span><b data-field="confidence">70% · 0% pre-print</b></div>
+        <div class="kv"><span>Trigger</span><b data-field="trigger">hold &gt; Wed close on volume</b></div>
+        <div class="kv"><span>HODL Call</span><b class="up" data-field="hodl">Accumulate — 4/4 gates</b></div>
+      </div>
+      <div class="note" data-field="trap">The Trap: buying Tuesday because the screen says cheap. Two days of patience converts a coin flip into a setup.</div>
+    </div>
+  </div>
+
+  <!-- PANEL 2: DELTA RE-RUN -->
+  <div class="p s4" data-panel="delta_rerun">
+    <div class="ph"><h2>◆ Delta Re-Run</h2><span class="rt">what changed · B-010 MU</span></div>
+    <div class="pb">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="tick" style="font-size:24px">$MU</div>
+        <span class="chip watch">No Trade — unchanged</span>
+      </div>
+      <ul class="delta" style="margin-top:10px" data-field="what_changed">
+        <li><b>Score</b> <span class="arrow dn">38 → 36</span> · insider sale flag + Burry public short</li>
+        <li><b>Structural:</b> scarcity premium <span class="arrow dn">GONE</span> — SKHY now trades on the same screen</li>
+        <li><b>Level map:</b> $950.28 shelf broke Jul 7 · $1,020–1,080 now distant ceiling</li>
+        <li><b>Peer read:</b> SKHY debut +13% cleared the supply fork — MU must stabilize post-Jul 15 or the bears win with the excuse removed</li>
+        <li><b>Assumption ledger:</b> 3 intact · 1 broken (scarcity) · re-run trigger armed on $950 reclaim w/ volume</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PANEL 3: FACT-CHECK -->
+  <div class="p s3 s4" data-panel="fact_check" style="grid-column:span 3">
+    <div class="ph"><h2>◆ Fact-Check</h2><span class="rt">claim console</span></div>
+    <div class="pb">
+      <div class="claim"><div class="c"><b>"Buffett bought $SHAZ"</b><br>$54.1M stake in Q1 13F</div><span class="chip fake">FAKE</span></div>
+      <div class="claim"><div class="c"><b>$DAL $2.65B / $GOOG add / $M</b><br>same viral post's other lines</div><span class="chip real">REAL</span></div>
+      <div class="claim"><div class="c"><b>VIVO short interest "150%"</b><br>actual: 19.5% official · ~72% float-adj</div><span class="chip fake">OFF 2-8X</span></div>
+      <div class="claim"><div class="c"><b>CBRS CEO Nordic expansion</b><br>200MW Norway/Finland from Paris stage</div><span class="chip real">REAL</span></div>
+      <div class="note">Method: verify the filing, not the screenshot. EDGAR CIK · Solscan contract · Form 4 dates.</div>
+    </div>
+  </div>
+
+  <!-- PANEL 4: STATE OF MARKET -->
+  <div class="p s6" data-panel="market_state">
+    <div class="ph"><h2>◆ State of the Market</h2><span class="rt">regime · peers · seesaw</span></div>
+    <div class="pb">
+      <div class="grid" style="gap:10px">
+        <div class="s6" style="grid-column:span 6">
+          <div class="lbl" style="margin-bottom:6px">Regime</div>
+          <div class="kv"><span>Risk Score</span><b data-field="market_risk">3 / Neutral — rotational</b></div>
+          <div class="kv"><span>FOMC Jul 28–29</span><b>~70% hold priced</b></div>
+          <div class="kv"><span>Earnings week</span><b class="up">GOOGL Wed · LMT (verify)</b></div>
+          <div class="kv"><span>Oil / war premium</span><b class="dn">whipsaw — ceasefire talks</b></div>
+        </div>
+        <div class="s6" style="grid-column:span 6">
+          <div class="lbl" style="margin-bottom:6px">Global Peer Check <span style="color:var(--loss)">· STALE Jul 17</span></div>
+          <div class="kv"><span>Kospi</span><b class="up">7,656 → +4% Fri · leads SOX 15/20</b></div>
+          <div class="kv"><span>SKHY debut</span><b class="up">$168.01 +13% · fork bullish</b></div>
+          <div class="kv"><span>BTC line</span><b data-field="crypto_read">&gt;$63.8–64.5K ends downtrend</b></div>
+          <div class="kv"><span>Seesaw rule</span><b>sector days on · war days off</b></div>
+        </div>
+      </div>
+      <div class="note" data-field="narrative_vs_evidence_gaps">Widest gap on the board: the market pays 96x for a $50B neocloud backlog while a $460B backlog trades 26% below its sector multiple. Resolves Wednesday.</div>
+    </div>
+  </div>
+
+  <!-- PANEL 5: BATCH RUN -->
+  <div class="p s7" data-panel="batch_run">
+    <div class="ph"><h2>◆ Batch Run</h2><span class="rt">crypto top-10 · Jul 2 · compressed per batch rule</span></div>
+    <div class="pb">
+      <table data-field="board">
+        <tr><th>ID</th><th>Name</th><th>Score</th><th>Grades</th><th>Call</th><th>Line</th></tr>
+        <tr><td class="mono" style="color:var(--gold-dim)">B-017</td><td class="tick">HYPE</td><td class="mono">66</td><td class="mono">B/B+/C+ · C+</td><td><span class="chip watch">TOP WATCH</span></td><td class="mono" style="font-size:10px">&gt;$77 breaks · &lt;$52 dies</td></tr>
+        <tr><td class="mono" style="color:var(--gold-dim)">B-015</td><td class="tick">SOL</td><td class="mono">50</td><td class="mono">C/B−/D · C</td><td><span class="chip watch">WATCH</span></td><td class="mono" style="font-size:10px">beta horse on BTC confirm</td></tr>
+        <tr><td class="mono" style="color:var(--gold-dim)">B-011</td><td class="tick">BTC</td><td class="mono">45</td><td class="mono">C−/B/D · C−</td><td><span class="chip watch">THE GATE</span></td><td class="mono" style="font-size:10px">close &gt;$64K / lose $58.1K</td></tr>
+        <tr><td class="mono" style="color:var(--gold-dim)">B-014</td><td class="tick">XRP</td><td class="mono">40</td><td class="mono">D/C+/D · C−</td><td><span class="chip no">NO TRADE</span></td><td class="mono" style="font-size:10px">$1.00 must hold · CLARITY vote</td></tr>
+        <tr><td class="mono" style="color:var(--gold-dim)">B-018</td><td class="tick">DOGE</td><td class="mono">25</td><td class="mono">D/F/D · D</td><td><span class="chip no">NO TRADE</span></td><td class="mono" style="font-size:10px">fails every gate</td></tr>
+      </table>
+      <div class="note">Shared context stated once; verdict, plan, assumptions, archive row survive compression. 8 names graded, 0 triggered — that is the system working.</div>
+    </div>
+  </div>
+
+  <!-- PANEL 6: ARCHIVE RECONCILE -->
+  <div class="p s5" data-panel="archive_reconcile">
+    <div class="ph"><h2>▦ Archive — Reconciled</h2><span class="rt">closes · calibration</span></div>
+    <div class="pb">
+      <div style="display:flex;gap:12px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--edge)">
+        <div class="seal red">B</div>
+        <div>
+          <div class="tick" style="font-size:18px">B-004 · $MU <span class="chip loss" style="margin-left:6px">LOSS −11.3%</span></div>
+          <div class="note" style="margin-top:4px">$1,150 → stopped $1,020 · Lesson: a level needing three tests in a week was weakening. Grade verdict: process vindicated, direction wrong.</div>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <div class="lbl" style="margin-bottom:6px">Calibration Buckets <span style="color:var(--slate)">(meaningful ~30 closes)</span></div>
+        <div class="kv"><span>85%+ confidence</span><b data-field="cal_85">— · 0 closed</b></div>
+        <div class="kv"><span>70–84% confidence</span><b data-field="cal_70">0/1 · n too small</b></div>
+        <div class="kv"><span>Open rows</span><b data-field="open_rows">21 · every row priced each run</b></div>
+        <div class="kv"><span>Engine mix</span><b>claude 22 · gpt-runner 0</b></div>
+      </div>
+      <div class="note">NO CHANGE today: B-001–003, 005–009, 011–016, 018, 020–021 — named, not silent.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="foot"><b>Proof, not hype.</b> · @TheBenchTrades · Educational only · hydrate any value by data-field per daily-open-chain-spec.md</div>
+</div>
+
+<script>
+function tick(){
+  const n=new Date();
+  document.getElementById('ct').textContent=n.toLocaleTimeString('en-US',{timeZone:'America/Chicago',hour12:false});
+  document.getElementById('et').textContent=n.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour12:false});
+}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>
