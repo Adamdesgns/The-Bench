@@ -29,7 +29,7 @@ prompts/    v17 (operating) + marquee-v3.1 + archive/ (v1–v16, rollback only)
 docs/       specs, handoffs, brand
 server/     dataProviders · indicators · reviewer (the chain) · reviewSchema · lint
 public/     dashboards (console, desk, archive-mobile)
-db/         archive.json (the book, source of truth) + archive-v3.xlsx (export)
+db/         archive.json (the book, source of truth) + archive-v4.xlsx (export)
 scripts/    seed-archive.js
 ```
 
@@ -63,11 +63,12 @@ node server/lint.js path/to/article.txt   # house-style check
 
 ## Status
 
-Scaffold + provisional archive seed in place. **Not yet wired:** real v17 /
-Marquee prompts (stubs in `prompts/`), `server/` runner code (dataProviders,
-indicators, reviewer, index), `public/` dashboards, and the authoritative
-`db/archive-v3.xlsx`. `db/archive.json` is a provisional hand-seed from the
-handoff — re-seed from the real xlsx via
-`node scripts/seed-archive.js --from-xlsx db/archive-v3.xlsx`.
+**In place:** real v17 + Marquee v3.1 prompts; authoritative book —
+`db/archive.json` seeded from `db/archive-v4.xlsx` (22 rows, 1 closed, engine
+tags, `not_observable`), validated by `scripts/seed-archive.js`.
+
+**Not yet wired:** `server/` runner code (dataProviders, indicators, reviewer,
+index) and `public/` dashboards (console, desk, archive-mobile). v1–v16 prompt
+history not yet dropped into `prompts/archive/`.
 
 *Proof, not hype.*

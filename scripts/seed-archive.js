@@ -1,8 +1,7 @@
 // seed-archive.js — one-time / idempotent seed of db/archive.json.
 //
-// Source of truth for the SEED is db/archive-v3.xlsx (B-001..B-022).
-// The committed db/archive.json is a PROVISIONAL hand-seed from the session
-// handoff; run this against the real xlsx to replace it authoritatively.
+// Source of truth for the SEED is db/archive-v4.xlsx (B-001..B-022).
+// db/archive.json was seeded from that xlsx; re-run against it to regenerate.
 //
 // Rules honored (HANDOFF-code.md / REPO-HANDOFF.md):
 //   - Never invent a Trade ID. If the sequence isn't visible, mark it
@@ -12,7 +11,7 @@
 //
 // Usage:
 //   node scripts/seed-archive.js            # validate current archive.json
-//   node scripts/seed-archive.js --from-xlsx db/archive-v3.xlsx
+//   node scripts/seed-archive.js --from-xlsx db/archive-v4.xlsx
 //
 // The xlsx path needs a parser (`npm i xlsx`). Kept out of dependencies so a
 // fresh clone installs nothing it doesn't need; the script explains if missing.
@@ -51,31 +50,60 @@ async function fromXlsx(path) {
   if (!existsSync(path)) throw new Error(`xlsx not found: ${path}`);
   let xlsx;
   try {
-    xlsx = await import("xlsx");
+    const mod = await import("xlsx");
+    xlsx = mod.default ?? mod;
   } catch {
     throw new Error("xlsx parser not installed. Run `npm i xlsx` first, then re-run with --from-xlsx.");
   }
-  const wb = xlsx.readFile(path);
-  const sheet = wb.Sheets[wb.SheetNames[0]];
-  const raw = xlsx.utils.sheet_to_json(sheet, { defval: null });
-  // Map spreadsheet columns -> archive row shape. Adjust header names to match
-  // the real xlsx once it's in place. Unknown/blank ID -> "Pending Archive ID".
-  return raw.map((r) => ({
-    id: r.id || r.ID || r["Trade ID"] || "Pending Archive ID",
-    date: r.date || r.Date || null,
-    ticker: r.ticker || r.Ticker || null,
-    review_price: r.review_price ?? r["Review Price"] ?? null,
-    review_time: r.review_time ?? r["Review Time"] ?? null,
-    opportunity_score: r.opportunity_score ?? r.Score ?? null,
-    confidence_pct: r.confidence_pct ?? r["Confidence %"] ?? null,
-    outcome: r.outcome ?? r.Outcome ?? null,
-    outcome_price: r.outcome_price ?? null,
-    pct_move: r.pct_move ?? null,
-    lesson: r.lesson ?? null,
-    grade_verdict: r.grade_verdict ?? null,
-    engine: r.engine || "claude",
-    not_observable: []
-  }));
+  const wb = xlsx.read(readFileSync(path), { type: "buffer", cellDates: true });
+  const sheet = wb.Sheets["Bench Archive"] || wb.Sheets[wb.SheetNames[0]];
+  // Row 1 is the title banner; the real header is on row 2 -> range: 1 (0-based).
+  const raw = xlsx.utils.sheet_to_json(sheet, { defval: null, range: 1 });
+  const clean = (v) => (typeof v === "string" ? (v.trim() || null) : v ?? null);
+  const num = (v) => {
+    const c = clean(v);
+    if (c === null || c === "") return null;
+    const n = Number(c);
+    return Number.isFinite(n) ? n : null;
+  };
+  const isoDate = (d) =>
+    `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
+  return raw
+    .filter((r) => clean(r["Trade ID"]))
+    .map((r) => {
+      let pct = num(r["% Move"]);
+      if (pct !== null && Math.abs(pct) <= 1) pct = Math.round(pct * 10000) / 100; // fraction -> percent
+      let date = clean(r["Date"]);
+      if (date instanceof Date) date = isoDate(date);
+      return {
+        id: clean(r["Trade ID"]) || "Pending Archive ID",
+        date,
+        ticker: clean(r["Ticker"]),
+        review_price: num(r["Review Price ($)"]),
+        review_time: clean(r["Review Time"]),
+        opportunity_score: num(r["Opportunity Score"]),
+        confidence_pct: num(r["Confidence %"]),
+        grades: {
+          technical: clean(r["Technical"]),
+          fundamental: clean(r["Fundamental"]),
+          execution: clean(r["Execution"]),
+          overall: clean(r["Overall"])
+        },
+        fomo: clean(r["FOMO Clock"]),
+        market_risk: num(r["Market Risk"]),
+        hodl: clean(r["HODL Status"]),
+        final_call: clean(r["Final Call / Trigger"]),
+        trigger: null,
+        invalidation: null,
+        engine: clean(r["Engine"]) || "claude",
+        outcome: clean(r["Outcome"]),
+        outcome_price: num(r["Outcome Price ($)"]),
+        pct_move: pct,
+        lesson: clean(r["Lessons Learned"]),
+        grade_verdict: null,
+        not_observable: []
+      };
+    });
 }
 
 const args = process.argv.slice(2);
