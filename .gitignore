@@ -10,6 +10,10 @@ node_modules/
 db/*.backup.json
 db/*.bak
 
+# Runner runtime state (regenerated each run)
+db/av-usage.json
+db/archive.lock/
+
 # OS / editor
 .DS_Store
 *.log

@@ -55,20 +55,38 @@ against an unreconciled board.
 ## Setup
 
 ```bash
-cp .env.example .env      # fill in OPENAI_API_KEY (+ optional ALPHAVANTAGE_KEY)
+cp .env.example .env      # set OPENAI_API_KEY and/or ANTHROPIC_API_KEY (+ optional ALPHAVANTAGE_KEY)
 npm install
 npm run seed              # validate db/archive.json
-node server/lint.js path/to/article.txt   # house-style check
+npm run run:mock          # run the FULL chain offline (stubbed data + model) — no keys, no network
+npm run run:market        # run live (needs a model key + network)
+node server/index.js      # local backend: /api/run?mock=1 · /api/archive  (never posts)
 ```
+
+### Providers — you can use either key, or both
+
+The runner works with **OpenAI or Anthropic**. Set the keys you have, then pick
+which provider runs each step (defaults to whichever key is present):
+
+```
+MODEL_PROVIDER=anthropic     # default for both steps
+BENCH_PROVIDER=anthropic     # v17 analysis on Claude...
+MARQUEE_PROVIDER=openai      # ...Marquee writing on GPT (mix freely)
+```
+
+Each archive row the runner produces is tagged with its engine
+(`gpt-runner` for OpenAI, `claude` for Anthropic) so calibration stays honest.
 
 ## Status
 
-**In place:** real v17 + Marquee v3.1 prompts; authoritative book —
-`db/archive.json` seeded from `db/archive-v4.xlsx` (22 rows, 1 closed, engine
-tags, `not_observable`), validated by `scripts/seed-archive.js`.
+**In place:** real v17 + Marquee v3.1 prompts; authoritative book
+(`db/archive.json` from `db/archive-v4.xlsx`, 22 rows, validated); **the full
+runner** — `server/` chain (data layer with AV budget + Stooq fallback,
+indicators, dual-provider model layer, archive reconcile with write-lock,
+deterministic angle selection + No-Story Rule, post-gen lint, local backend).
+Runs end-to-end offline via `npm run run:mock`.
 
-**Not yet wired:** `server/` runner code (dataProviders, indicators, reviewer,
-index) and `public/` dashboards (console, desk, archive-mobile). v1–v16 prompt
-history not yet dropped into `prompts/archive/`.
+**Not yet wired:** `public/` dashboards (console, desk, archive-mobile) and the
+v1–v16 prompt history in `prompts/archive/`.
 
 *Proof, not hype.*
