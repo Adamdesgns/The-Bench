@@ -1,0 +1,16 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Archive backups (the live archive.json IS committed; backups are not)
+db/*.backup.json
+db/*.bak
+
+# OS / editor
+.DS_Store
+*.log
+npm-debug.log*
