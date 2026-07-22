@@ -101,8 +101,6 @@ End with:
 
 **Proof, not hype.**
 
----
-
 **@TheBenchTrades**
 
 *Not financial advice. Educational only.*
