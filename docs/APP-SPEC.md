@@ -3,7 +3,12 @@
 **What it is:** an operator console for running THE BENCH v17. Not a passive
 dashboard — you *run the framework through it*, and every information grab lands
 in its own window. Styled as a **macOS-style desktop**, painted in the Bench
-skin. The chain always ends at a **draft for review — nothing auto-posts.**
+skin.
+
+**Analysis ends at a reviewable draft. Execution is a separate, gated path:**
+agents place buys through the Robinhood MCP connection, governed by the
+execution policy (paper default, kill switch, per-trade/daily caps, confirm).
+**No keys ever live in the app** — see `docs/EXECUTION.md`.
 
 ---
 
@@ -63,7 +68,8 @@ The command bar that drives everything:
 **Baked in everywhere (not windows):**
 - **Two-bucket toggle** — swing vs long-term/UTMA, never mixed.
 - **Data-Integrity strip** — every value tagged live / unverified / not-observable + source (AV/Stooq) + AV budget.
-- **Draft-only guardrail** — there is no publish path anywhere in the app.
+- **Execution gates** — buys route only through the Robinhood MCP and only when the execution policy allows (see `docs/EXECUTION.md`). Analysis never places orders.
+- **Settings — Connections** window — MCP endpoints for Claude · OpenAI · Hermes agents · Robinhood, plus the execution policy. No keys stored.
 
 ---
 

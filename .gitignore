@@ -14,6 +14,9 @@ db/*.bak
 db/av-usage.json
 db/archive.lock/
 
+# Non-secret connection config (MCP endpoints + policy). Local only.
+db/connections.json
+
 # OS / editor
 .DS_Store
 *.log
