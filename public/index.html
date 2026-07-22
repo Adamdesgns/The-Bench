@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>THE BENCH — Desk</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  :root{
+    /* Bench brand tokens (exact) */
+    --ink:#111111; --card:#1A1916; --surface-2:#201E1A; --edge:#26241F;
+    --gold:#D4AF37; --gold-dim:#9A7E28; --pale:#F5ECCB; --bone:#E8E4DA;
+    --slate:#8F8A7A; --loss:#E5484D; --loss-dim:#7A2A2E;
+    --line:rgba(245,236,203,.07); --line-2:rgba(245,236,203,.13);
+    --display:'EB Garamond',Georgia,serif; --ui:'Inter',system-ui,-apple-system,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--ui); color:var(--bone); background:var(--ink);
+    background-image:
+      radial-gradient(90% 55% at 12% -8%, rgba(212,175,55,.09), transparent 60%),
+      repeating-linear-gradient(122deg, rgba(245,236,203,.012) 0 2px, transparent 2px 11px);
+    min-height:100dvh; font-size:13px;
+  }
+  .app{ display:flex; min-height:100dvh; }
+  .mono{font-family:var(--mono)}
+
+  /* ── sidebar ─────────────────────────────── */
+  .sidebar{ width:244px; flex:none; background:#0E0D0B; border-right:1px solid var(--line); display:flex; flex-direction:column; padding:18px 14px; position:sticky; top:0; height:100dvh; }
+  @media(max-width:960px){ .sidebar{ display:none; } }
+  .brand{ display:flex; align-items:center; gap:12px; padding:2px 6px 20px; }
+  .seal{ width:40px; height:40px; flex:none; border-radius:50%; border:2px solid var(--gold); display:grid; place-items:center;
+    font:700 20px var(--display); color:var(--gold); transform:rotate(-8deg); box-shadow:inset 0 0 0 3px var(--ink), 0 0 16px rgba(212,175,55,.16); }
+  .wordmark{ font:700 19px var(--display); letter-spacing:.14em; color:var(--pale); }
+  .wordmark i{ font-style:normal; color:var(--gold); }
+  .navlbl{ font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--slate); padding:6px 12px; margin-top:6px; }
+  .nav{ display:flex; flex-direction:column; gap:2px; }
+  .nav a{ display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:10px; cursor:pointer; color:var(--slate); font-weight:500; font-size:13.5px; transition:.14s; position:relative; }
+  .nav a svg{ width:18px; height:18px; flex:none; }
+  .nav a:hover{ color:var(--bone); background:rgba(245,236,203,.03); }
+  .nav a.on{ color:var(--pale); background:linear-gradient(100deg, rgba(212,175,55,.16), rgba(212,175,55,.03)); }
+  .nav a.on::before{ content:""; position:absolute; left:0; top:8px; bottom:8px; width:3px; border-radius:3px; background:var(--gold); box-shadow:0 0 10px var(--gold); }
+  .nav .tag{ margin-left:auto; font:600 9.5px var(--ui); padding:2px 7px; border-radius:20px; background:var(--edge); color:var(--slate); letter-spacing:.3px; }
+  .userchip{ margin-top:auto; display:flex; align-items:center; gap:10px; padding:12px 8px 4px; border-top:1px solid var(--line); }
+  .userchip .av{ width:34px; height:34px; border-radius:9px; flex:none; display:grid; place-items:center; font:700 13px var(--display); color:var(--ink); background:linear-gradient(135deg,var(--gold),var(--gold-dim)); }
+  .userchip .nm{ font-size:13px; font-weight:600; color:var(--bone); } .userchip .rl{ font-size:11px; color:var(--slate); }
+
+  /* ── mobile bar ──────────────────────────── */
+  .mobilebar{ display:none; align-items:center; gap:11px; padding:12px 15px; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20; background:rgba(17,17,17,.92); backdrop-filter:blur(12px); }
+  @media(max-width:960px){ .mobilebar{ display:flex; } }
+  .mobilebar .seal{ width:30px;height:30px;font-size:15px; }
+
+  /* ── main ────────────────────────────────── */
+  .main{ flex:1; min-width:0; padding:22px 26px 40px; }
+  @media(max-width:960px){ .main{ padding:16px; } }
+  .topbar{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:22px; flex-wrap:wrap; }
+  .hello{ font:700 27px var(--display); letter-spacing:.01em; color:var(--pale); }
+  .subtle{ color:var(--slate); font-size:13.5px; margin-top:2px; }
+  .subtle b{ color:var(--gold-dim); }
+  .topright{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .clocks{ display:flex; gap:14px; }
+  .clk{ font-family:var(--mono); font-size:14px; color:var(--pale); } .clk small{ color:var(--slate); font-size:9px; letter-spacing:.2em; margin-right:5px; }
+  .btn{ display:inline-flex; align-items:center; gap:8px; padding:9px 14px; border-radius:11px; background:var(--card); border:1px solid var(--line-2); font-size:13px; font-weight:600; color:var(--pale); cursor:pointer; white-space:nowrap; }
+  .btn:hover{ border-color:var(--gold-dim); }
+  .btn svg{ width:15px;height:15px;color:var(--gold); }
+
+  /* metric tiles */
+  .metrics{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:18px; }
+  @media(max-width:960px){ .metrics{ grid-template-columns:repeat(2,1fr); gap:11px; } }
+  .metric{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px 17px; position:relative; overflow:hidden; }
+  .metric .lbl{ font-size:11px; color:var(--slate); font-weight:500; letter-spacing:.04em; text-transform:uppercase; }
+  .metric .val{ font:700 27px var(--display); margin-top:8px; letter-spacing:.01em; color:var(--pale); }
+  .metric .sub{ font-size:11.5px; font-weight:600; margin-top:5px; color:var(--slate); display:inline-flex; align-items:center; gap:5px; }
+  .metric .sub.good{ color:var(--gold); } .metric .sub.bad{ color:var(--loss); }
+  .metric .ic{ position:absolute; top:14px; right:14px; width:28px; height:28px; border-radius:8px; display:grid; place-items:center; background:rgba(212,175,55,.10); color:var(--gold); }
+  .metric .ic svg{ width:15px;height:15px; }
+
+  /* grid + cards */
+  .grid{ display:grid; grid-template-columns:1.62fr 1fr; gap:16px; align-items:start; }
+  @media(max-width:1100px){ .grid{ grid-template-columns:1fr; } }
+  .col{ display:flex; flex-direction:column; gap:16px; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .card .ch{ display:flex; align-items:center; justify-content:space-between; padding:14px 17px; border-bottom:1px solid var(--line); gap:10px; }
+  .card .ch h3{ font:600 14.5px var(--display); letter-spacing:.06em; text-transform:uppercase; color:var(--gold); }
+  .card .ch .rt{ font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--slate); }
+  .card .body{ padding:6px 8px; }
+
+  /* filter row */
+  .filters{ display:flex; gap:7px; flex-wrap:wrap; }
+  .filters button{ font:600 11px var(--ui); letter-spacing:.05em; padding:6px 12px; border-radius:20px; background:transparent; border:1px solid var(--edge); color:var(--slate); cursor:pointer; }
+  .filters button.on{ color:var(--ink); background:var(--gold); border-color:var(--gold); }
+
+  /* table */
+  table{ width:100%; border-collapse:collapse; }
+  th{ font-size:8.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--slate); text-align:left; padding:8px 10px; border-bottom:1px solid var(--edge); }
+  th.r,td.r{ text-align:right; }
+  td{ padding:9px 10px; font-size:12px; border-bottom:1px dashed var(--edge); vertical-align:middle; }
+  tr:last-child td{ border-bottom:none; }
+  tbody tr{ transition:.12s; }
+  tbody tr:hover{ background:rgba(245,236,203,.025); }
+  .id{ font-family:var(--mono); font-size:10.5px; color:var(--gold-dim); }
+  .tk{ font:700 15px var(--display); color:var(--pale); }
+  .px{ font-family:var(--mono); color:var(--bone); }
+  .grade{ font:700 14px var(--display); }
+  .g-a{ color:var(--gold); } .g-b{ color:var(--pale); } .g-c{ color:var(--bone); } .g-d{ color:var(--slate); }
+  .sbar{ height:5px; width:66px; background:var(--edge); border-radius:3px; overflow:hidden; display:inline-block; vertical-align:middle; margin-left:8px; }
+  .sbar i{ display:block; height:100%; background:linear-gradient(90deg,var(--gold-dim),var(--gold)); }
+  .chip{ font:700 9px var(--ui); letter-spacing:.12em; padding:3px 8px; border-radius:5px; white-space:nowrap; text-transform:uppercase; display:inline-block; }
+  .chip.gate{ color:var(--ink); background:var(--gold); }
+  .chip.watch{ color:var(--gold); border:1px solid var(--gold-dim); }
+  .chip.no{ color:var(--slate); border:1px solid var(--edge); }
+  .chip.loss{ color:#fff; background:var(--loss); }
+  .fomo{ font-size:11px; color:var(--slate); }
+  .fomo.hot{ color:var(--gold); }
+  .eng-dot{ width:7px;height:7px;border-radius:50%;display:inline-block; }
+  .eng-claude{ background:var(--gold); box-shadow:0 0 6px rgba(212,175,55,.5); }
+  .eng-gpt{ background:var(--slate); }
+
+  /* kv + note */
+  .kv{ display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px dashed var(--edge); font-size:12.5px; }
+  .kv:last-child{ border-bottom:none; } .kv span{ color:var(--slate); } .kv b{ font-family:var(--mono); font-weight:500; color:var(--pale); text-align:right; }
+  .kv b.up{ color:var(--gold); } .kv b.dn{ color:var(--loss); }
+  .note{ font-family:var(--display); font-style:italic; font-size:13px; color:var(--slate); line-height:1.55; padding:12px 15px; }
+
+  /* closed card */
+  .closed{ display:flex; gap:13px; align-items:flex-start; padding:14px 15px; }
+  .closed .seal{ width:52px;height:52px;font-size:20px;border-color:var(--loss); color:var(--loss); }
+  .closed .t{ font:700 16px var(--display); color:var(--pale); }
+
+  .view{ display:none; } .view.on{ display:block; }
+  .foot{ margin-top:26px; text-align:center; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--slate); }
+  .foot b{ color:var(--gold); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="seal">B</div>
+      <div class="wordmark">THE <i>BENCH</i></div>
+    </div>
+    <div class="navlbl">Desk</div>
+    <nav class="nav" id="nav">
+      <a data-view="desk" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Desk</a>
+      <a data-view="board"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Open Board<span class="tag" id="tag-open">—</span></a>
+      <a data-view="archive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/></svg>Archive</a>
+      <a data-view="factcheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Fact-Check</a>
+    </nav>
+    <div class="navlbl">System</div>
+    <nav class="nav">
+      <a data-view="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7 7 0 0 0 0-2l2-1.5-2-3.5-2.4 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.5L6.6 11a7 7 0 0 0 0 2l-2 1.5 2 3.5 2.4-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.5z"/></svg>Settings<span class="tag">Soon</span></a>
+    </nav>
+    <div class="userchip">
+      <div class="av">A</div>
+      <div><div class="nm">Adam</div><div class="rl">Operator · @TheBenchTrades</div></div>
+    </div>
+  </aside>
+
+  <!-- MOBILE BAR -->
+  <div class="mobilebar">
+    <div class="seal">B</div>
+    <div class="wordmark" style="font-size:17px;">THE <i>BENCH</i></div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="hello" id="hello">The Bench Desk</div>
+        <div class="subtle"><b>Proof, not hype.</b> · Snapshot <span id="stamp">—</span></div>
+      </div>
+      <div class="topright">
+        <div class="clocks">
+          <div class="clk"><small>CT</small><span id="ct">--:--:--</span></div>
+          <div class="clk"><small>ET</small><span id="et">--:--:--</span></div>
+        </div>
+        <button class="btn" id="refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6"/></svg>Refresh board</button>
+      </div>
+    </div>
+
+    <!-- METRICS -->
+    <div class="metrics" id="metrics"></div>
+
+    <!-- DESK VIEW -->
+    <section class="view on" data-view="desk">
+      <div class="grid">
+        <div class="col">
+          <div class="card">
+            <div class="ch"><h3>Open Board</h3><div class="filters" id="filters">
+              <button class="on" data-f="all">All</button>
+              <button data-f="live">Live triggers</button>
+              <button data-f="equity">Equities</button>
+              <button data-f="crypto">Crypto</button>
+            </div></div>
+            <div class="body"><table><thead><tr><th>ID</th><th>Ticker</th><th class="r">Review</th><th>Score</th><th>Overall</th><th>FOMO</th><th>Final Call / Trigger</th></tr></thead><tbody id="board"></tbody></table></div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="ch"><h3>State of the Market</h3><span class="rt">Jul 22 · regime</span></div>
+            <div class="body" style="padding:8px 15px 14px">
+              <div class="kv"><span>Regime</span><b>Neutral · rotational</b></div>
+              <div class="kv"><span>Market Risk</span><b class="up">3 / 5</b></div>
+              <div class="kv"><span>FOMC Jul 28–29</span><b>~70% hold priced</b></div>
+              <div class="kv"><span>Earnings gate</span><b class="up">GOOGL Wed</b></div>
+              <div class="kv"><span>BTC line</span><b>&gt;$63.8–64.5K</b></div>
+              <div class="kv"><span>Engine mix</span><b id="enginemix">—</b></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="ch"><h3>Archive — Reconciled</h3><span class="rt">closes</span></div>
+            <div id="closedwrap"></div>
+            <div class="body" style="padding:6px 15px 4px">
+              <div class="kv"><span>85%+ confidence</span><b>— · 0 closed</b></div>
+              <div class="kv"><span>70–84% confidence</span><b>0 / 1 · n too small</b></div>
+              <div class="kv"><span>Calibration</span><b>meaningful ~30 closes</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOARD VIEW -->
+    <section class="view" data-view="board">
+      <div class="card">
+        <div class="ch"><h3>Open Board — Full Ledger</h3><span class="rt" id="board2count">—</span></div>
+        <div class="body"><table><thead><tr><th>ID</th><th>Ticker</th><th class="r">Review</th><th>Score</th><th>Overall</th><th>FOMO</th><th>Risk</th><th>HODL</th><th>Final Call / Trigger</th></tr></thead><tbody id="board2"></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- ARCHIVE VIEW -->
+    <section class="view" data-view="archive">
+      <div class="grid">
+        <div class="col">
+          <div class="card">
+            <div class="ch"><h3>Closed Rows</h3><span class="rt">outcomes logged equally</span></div>
+            <div id="closedwrap2"></div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="ch"><h3>Calibration Buckets</h3><span class="rt">aggregate only</span></div>
+            <div class="body" style="padding:8px 15px 14px">
+              <div class="kv"><span>85%+ confidence</span><b>— · 0 closed</b></div>
+              <div class="kv"><span>70–84% confidence</span><b>0 / 1</b></div>
+              <div class="kv"><span>Closed rows</span><b id="cal-closed">—</b></div>
+              <div class="kv"><span>Open rows</span><b id="cal-open">—</b></div>
+              <div class="kv"><span>Engine mix</span><b id="cal-engine">—</b></div>
+              <div class="note" style="padding:12px 0 0">A single 75% call that loses was not wrong — a quarter of 75% calls should lose. Buckets get meaningful near 30 closes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FACT-CHECK VIEW -->
+    <section class="view" data-view="factcheck">
+      <div class="card">
+        <div class="ch"><h3>Fact-Check Console</h3><span class="rt">verify the filing, not the screenshot</span></div>
+        <div class="body" style="padding:4px 8px">
+          <table><tbody>
+            <tr><td><b class="tk" style="font-size:13px">Buffett bought $SHAZ</b><div class="fomo">$54.1M stake, Q1 13F</div></td><td class="r"><span class="chip loss">Fake</span></td></tr>
+            <tr><td><b class="tk" style="font-size:13px">VIVO short interest "150%"</b><div class="fomo">actual 19.5% official · ~72% float-adj</div></td><td class="r"><span class="chip loss">Off 2–8×</span></td></tr>
+            <tr><td><b class="tk" style="font-size:13px">Cerebras Nordic expansion</b><div class="fomo">200MW Norway/Finland</div></td><td class="r"><span class="chip gate">Real</span></td></tr>
+            <tr><td><b class="tk" style="font-size:13px">ANSEM/KEVIN airdrop</b><div class="fomo">74% to 7 wallets</div></td><td class="r"><span class="chip gate">Real</span></td></tr>
+          </tbody></table>
+          <div class="note">Method: EDGAR CIK · Solscan contract · Form 4 dates. A famous stake is a reason to look. Never a reason to buy.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS VIEW -->
+    <section class="view" data-view="settings">
+      <div class="card"><div class="ch"><h3>Settings</h3><span class="rt">soon</span></div>
+        <div class="note">Provider keys, schedule, and archive export move here once the app has a backend. The chain always ends at a draft for review — nothing auto-posts.</div>
+      </div>
+    </section>
+
+    <div class="foot"><b>Proof, not hype.</b> · @TheBenchTrades · Not financial advice. Educational only.</div>
+  </main>
+</div>
+
+<script>
+// Embedded snapshot of the book (db/archive.json). Hydrates live when served.
+const BOOK = [{"id":"B-001","date":"2026-06-30","ticker":"MSFT","review_price":371.39,"score":36,"overall":"D","fomo":"Post-FOMO Fade","market_risk":3,"hodl":"Accumulate","final_call":"Accumulate — kids' UTMA","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-002","date":"2026-06-30","ticker":"XLM","review_price":0.18,"score":32,"overall":"D","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Trade-only — not a hold","final_call":"No Trade — no value capture","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-003","date":"2026-06-30","ticker":"OUST","review_price":62.5,"score":43,"overall":"D","fomo":"Late FOMO","market_risk":3,"hodl":"Trade-only — not a hold","final_call":"No Trade — Aug 6 earnings revisit","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-004","date":"2026-06-30","ticker":"MU","review_price":1150,"score":73,"overall":"B","fomo":"Heating Up","market_risk":3,"hodl":"Accumulate","final_call":"Entered — stop $1,020","engine":"claude","outcome":"Loss","outcome_price":1020,"pct_move":-11.3,"lesson":"A level needing 3 tests in a week was weakening, not strengthening. Stop capped the loss at the pre-defined number while the stock fell further.","confidence":75},{"id":"B-005","date":"2026-07-02","ticker":"XOM","review_price":137.14,"score":56,"overall":"C","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Hold-quality — wait for value","final_call":"Hedge — active, delta overdue","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-006","date":"2026-07-02","ticker":"CVX","review_price":167.8,"score":53,"overall":"C","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Hold-quality — wait for value","final_call":"Hedge — active, delta overdue","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-007","date":"2026-07-02","ticker":"COP","review_price":103.54,"score":47,"overall":"C-","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Trade-only — not a hold","final_call":"Hedge — active, delta overdue","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-008","date":"2026-07-02","ticker":"OXY","review_price":48.15,"score":42,"overall":"D","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Trade-only — not a hold","final_call":"Hedge — active, delta overdue","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-009","date":"2026-07-02","ticker":"LMT","review_price":522,"score":63,"overall":"C+","fomo":"Post-FOMO Fade","market_risk":3,"hodl":"Hold-quality — wait for value","final_call":"Watchlist — trigger: reclaim $540","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-010","date":"2026-07-02","ticker":"MU","review_price":978.56,"score":36,"overall":"D","fomo":"Post-FOMO Fade","market_risk":3,"hodl":"Accumulate","final_call":"No Trade — trigger: reclaim $950 on volume","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-011","date":"2026-07-02","ticker":"BTC","review_price":61360,"score":45,"overall":"C-","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Accumulate","final_call":"Watchlist — >$63.8-64.5K / <$56.2K","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-012","date":"2026-07-02","ticker":"ETH","review_price":1698.23,"score":44,"overall":"C-","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Hold-quality — wait for value","final_call":"Watchlist","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-013","date":"2026-07-02","ticker":"BNB","review_price":561.97,"score":46,"overall":"C","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Trade-only — not a hold","final_call":"Watchlist — passive","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-014","date":"2026-07-02","ticker":"XRP","review_price":1.09,"score":40,"overall":"C-","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Trade-only — not a hold","final_call":"No Trade — $1.00 must hold","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-015","date":"2026-07-02","ticker":"SOL","review_price":80.66,"score":50,"overall":"C","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Hold-quality — wait for value","final_call":"Watchlist — beta on BTC confirm","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-016","date":"2026-07-02","ticker":"TRX","review_price":0.3179,"score":42,"overall":"C","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Trade-only — not a hold","final_call":"No Trade — no swing edge","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-017","date":"2026-07-02","ticker":"HYPE","review_price":64.87,"score":66,"overall":"C+","fomo":"Heating Up","market_risk":2,"hodl":"Hold-quality — wait for value","final_call":"Top watchlist — >$77 / dies <$52","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-018","date":"2026-07-02","ticker":"DOGE","review_price":0.07427,"score":25,"overall":"D","fomo":"Post-FOMO Fade","market_risk":2,"hodl":"Trade-only — not a hold","final_call":"No Trade — fails every gate","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-019","date":"2026-07-06","ticker":"PENG","review_price":67.71,"score":62,"overall":"C+","fomo":"Heating Up","market_risk":3,"hodl":"Hold-quality — wait for value","final_call":"ARMED — hold mid-$60s + reclaim $70-71","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-020","date":"2026-07-11","ticker":"VIVO","review_price":5.23,"score":41,"overall":"D","fomo":"Late FOMO","market_risk":3,"hodl":"Trade-only — not a hold","final_call":"No Trade — no defined-risk entry","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-021","date":"2026-07-16","ticker":"NBIS","review_price":195.75,"score":54,"overall":"C-","fomo":"Post-peak washout","market_risk":3,"hodl":"Hold-quality — wait for value","final_call":"No Trade — reclaim + hold $200-203","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":null},{"id":"B-022","date":"2026-07-20","ticker":"GOOGL","review_price":354.46,"score":74,"overall":"B-","fomo":"Heating Up","market_risk":3,"hodl":"Accumulate","final_call":"Setup Forming — earnings gate Jul 22","engine":"claude","outcome":null,"outcome_price":null,"pct_move":null,"lesson":null,"confidence":70}];
+
+let DATA = BOOK.slice();
+const CRYPTO = new Set(["BTC","ETH","BNB","XRP","SOL","TRX","DOGE","HYPE","XLM"]);
+const isOpen = r => !r.outcome;
+const isCrypto = r => CRYPTO.has((r.ticker||"").toUpperCase());
+const isLive = r => /ARMED|Setup Forming|Watchlist|Top watchlist|Hedge/i.test(r.final_call||"");
+
+function fmtPx(v){
+  if(typeof v!=="number") return "—";
+  if(v>=1000) return "$"+v.toLocaleString("en-US");
+  if(v<1) return "$"+v.toFixed(4);
+  return "$"+v.toFixed(2);
+}
+function gradeClass(g){ if(!g) return "g-d"; const c=g[0]; return c==="A"?"g-a":c==="B"?"g-b":c==="C"?"g-c":"g-d"; }
+function scorePct(s){ return Math.max(0,Math.min(100,Number(s)||0)); }
+function callChip(fc){
+  if(!fc) return '<span class="chip no">—</span>';
+  if(/ARMED|Setup Forming/i.test(fc)) return '<span class="chip gate">'+esc(fc)+'</span>';
+  if(/Watchlist|Top watchlist|Hedge|Accumulate/i.test(fc)) return '<span class="chip watch">'+esc(fc)+'</span>';
+  return '<span class="chip no">'+esc(fc)+'</span>';
+}
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function fomoCell(f){ const hot=/Heating|Pre-FOMO/i.test(f||""); return '<span class="fomo'+(hot?' hot':'')+'">'+esc(f||"—")+'</span>'; }
+function engDot(e){ return '<span class="eng-dot '+(e==="claude"?"eng-claude":"eng-gpt")+'"></span>'; }
+
+function renderMetrics(){
+  const open=DATA.filter(isOpen), closed=DATA.filter(r=>r.outcome);
+  const wins=closed.filter(r=>r.outcome==="Win").length;
+  const winRate=closed.length?Math.round(100*wins/closed.length):0;
+  const live=open.filter(isLive).length;
+  const m=[
+    {lbl:"Open Rows",val:open.length,sub:live+" live triggers",cls:"good",ic:'<path d="M4 4h16v16H4z"/><path d="M4 10h16"/>'},
+    {lbl:"Closed",val:closed.length,sub:winRate+"% win rate",cls:closed.length&&winRate<50?"bad":"",ic:'<path d="M20 6 9 17l-5-5"/>'},
+    {lbl:"Market Risk",val:"3 / 5",sub:"Neutral — rotational",cls:"",ic:'<path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/>'},
+    {lbl:"Engine",val:"claude",sub:closed.length+"c · 0 gpt",cls:"good",ic:'<circle cx="12" cy="12" r="9"/><path d="M8 12h8"/>'}
+  ];
+  document.getElementById("metrics").innerHTML=m.map(x=>
+    '<div class="metric"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+x.ic+'</svg></div>'+
+    '<div class="lbl">'+x.lbl+'</div><div class="val">'+x.val+'</div><div class="sub '+x.cls+'">'+x.sub+'</div></div>').join("");
+  const eng=DATA.reduce((a,r)=>{a[r.engine]=(a[r.engine]||0)+1;return a;},{});
+  document.getElementById("enginemix").textContent=Object.entries(eng).map(([k,v])=>v+" "+k).join(" · ");
+  document.getElementById("tag-open").textContent=open.length;
+}
+
+let filter="all";
+function boardRows(rows){
+  return rows.map(r=>
+    '<tr><td class="id">'+r.id+'</td><td><span class="tk">'+esc(r.ticker)+'</span></td>'+
+    '<td class="r px">'+fmtPx(r.review_price)+'</td>'+
+    '<td><span class="mono" style="font-size:11px;color:var(--bone)">'+(r.score??"—")+'</span><span class="sbar"><i style="width:'+scorePct(r.score)+'%"></i></span></td>'+
+    '<td><span class="grade '+gradeClass(r.overall)+'">'+(r.overall||"—")+'</span></td>'+
+    '<td>'+fomoCell(r.fomo)+'</td>'+
+    '<td>'+engDot(r.engine)+' '+callChip(r.final_call)+'</td></tr>').join("");
+}
+function renderDeskBoard(){
+  let rows=DATA.filter(isOpen);
+  if(filter==="live") rows=rows.filter(isLive);
+  else if(filter==="equity") rows=rows.filter(r=>!isCrypto(r));
+  else if(filter==="crypto") rows=rows.filter(isCrypto);
+  // live triggers first, then by score desc
+  rows.sort((a,b)=>(isLive(b)-isLive(a))||((b.score||0)-(a.score||0)));
+  document.getElementById("board").innerHTML=boardRows(rows)||'<tr><td colspan="7" style="color:var(--slate);padding:16px">No rows.</td></tr>';
+}
+function renderFullBoard(){
+  const rows=DATA.filter(isOpen).slice().sort((a,b)=>(b.score||0)-(a.score||0));
+  document.getElementById("board2").innerHTML=rows.map(r=>
+    '<tr><td class="id">'+r.id+'</td><td><span class="tk">'+esc(r.ticker)+'</span></td>'+
+    '<td class="r px">'+fmtPx(r.review_price)+'</td>'+
+    '<td><span class="mono" style="font-size:11px">'+(r.score??"—")+'</span></td>'+
+    '<td><span class="grade '+gradeClass(r.overall)+'">'+(r.overall||"—")+'</span></td>'+
+    '<td>'+fomoCell(r.fomo)+'</td>'+
+    '<td class="mono" style="font-size:11px">'+(r.market_risk??"—")+'</td>'+
+    '<td class="fomo">'+esc(r.hodl||"—")+'</td>'+
+    '<td>'+engDot(r.engine)+' '+callChip(r.final_call)+'</td></tr>').join("");
+  document.getElementById("board2count").textContent=rows.length+" open";
+}
+function closedCard(r){
+  return '<div class="closed"><div class="seal">'+(r.overall||"·")+'</div><div>'+
+    '<div class="t">'+r.id+' · $'+esc(r.ticker)+' <span class="chip loss" style="margin-left:6px">'+esc(r.outcome)+' '+(r.pct_move!=null?r.pct_move+"%":"")+'</span></div>'+
+    '<div class="note" style="padding:6px 0 0">'+fmtPx(r.review_price)+' → '+fmtPx(r.outcome_price)+' · '+esc(r.lesson||"")+'</div></div></div>';
+}
+function renderClosed(){
+  const closed=DATA.filter(r=>r.outcome);
+  const html=closed.length?closed.map(closedCard).join(""):'<div class="note">No closed rows yet.</div>';
+  document.getElementById("closedwrap").innerHTML=html;
+  document.getElementById("closedwrap2").innerHTML=html;
+  const open=DATA.filter(isOpen);
+  const eng=DATA.reduce((a,r)=>{a[r.engine]=(a[r.engine]||0)+1;return a;},{});
+  document.getElementById("cal-closed").textContent=closed.length;
+  document.getElementById("cal-open").textContent=open.length+" · priced each run";
+  document.getElementById("cal-engine").textContent=Object.entries(eng).map(([k,v])=>v+" "+k).join(" · ");
+}
+
+function renderAll(){ renderMetrics(); renderDeskBoard(); renderFullBoard(); renderClosed(); }
+
+// nav
+document.querySelectorAll("#nav a, .nav a[data-view]").forEach(a=>{
+  a.addEventListener("click",()=>{
+    const v=a.getAttribute("data-view");
+    document.querySelectorAll(".nav a").forEach(x=>x.classList.toggle("on",x===a));
+    document.querySelectorAll(".view").forEach(s=>s.classList.toggle("on",s.getAttribute("data-view")===v));
+    const titles={desk:"The Bench Desk",board:"Open Board",archive:"Archive — Reconciled",factcheck:"Fact-Check Console",settings:"Settings"};
+    document.getElementById("hello").textContent=titles[v]||"The Bench";
+    window.scrollTo(0,0);
+  });
+});
+// filters
+document.getElementById("filters").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  filter=b.getAttribute("data-f");
+  document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("on",x===b));
+  renderDeskBoard();
+});
+
+// clocks
+function tick(){
+  const n=new Date();
+  document.getElementById("ct").textContent=n.toLocaleTimeString("en-US",{timeZone:"America/Chicago",hour12:false});
+  document.getElementById("et").textContent=n.toLocaleTimeString("en-US",{timeZone:"America/New_York",hour12:false});
+}
+tick(); setInterval(tick,1000);
+document.getElementById("stamp").textContent=BOOK.length+" rows · book snapshot";
+
+// live hydrate from archive.json when served over http(s)
+async function hydrate(){
+  for(const p of ["db/archive.json","../db/archive.json","./archive.json"]){
+    try{
+      const res=await fetch(p,{cache:"no-store"}); if(!res.ok) continue;
+      const rows=await res.json(); if(!Array.isArray(rows)||!rows.length) continue;
+      DATA=rows.map(r=>({id:r.id,date:r.date,ticker:r.ticker,review_price:r.review_price,score:r.opportunity_score,
+        overall:r.grades&&r.grades.overall,fomo:r.fomo,market_risk:r.market_risk,hodl:r.hodl,final_call:r.final_call,
+        engine:r.engine,outcome:r.outcome,outcome_price:r.outcome_price,pct_move:r.pct_move,lesson:r.lesson,confidence:r.confidence_pct}));
+      document.getElementById("stamp").textContent=DATA.length+" rows · live from "+p;
+      renderAll(); return;
+    }catch(e){/* file:// or missing — keep embedded snapshot */}
+  }
+}
+
+document.getElementById("refresh").addEventListener("click",()=>{ hydrate(); });
+renderAll();
+hydrate();
+</script>
+</body>
+</html>
