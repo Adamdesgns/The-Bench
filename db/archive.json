@@ -153,7 +153,10 @@
     "hodl": "Accumulate",
     "final_call": "Entered — stop $1,020",
     "trigger": null,
-    "invalidation": null,
+    "invalidation": {
+      "direction": "below",
+      "level": 1020
+    },
     "engine": "claude",
     "outcome": "Loss",
     "outcome_price": 1020,
@@ -203,7 +206,7 @@
         "verdict": "not_scorable",
         "note": "hedge — no position, size or entry is recorded to score against",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:04.951Z"
+        "scored_at": "2026-07-28T21:49:04.836Z"
       }
     }
   },
@@ -248,7 +251,7 @@
         "verdict": "not_scorable",
         "note": "hedge — no position, size or entry is recorded to score against",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:05.122Z"
+        "scored_at": "2026-07-28T21:49:05.161Z"
       }
     }
   },
@@ -293,7 +296,7 @@
         "verdict": "not_scorable",
         "note": "hedge — no position, size or entry is recorded to score against",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:05.254Z"
+        "scored_at": "2026-07-28T21:49:05.473Z"
       }
     }
   },
@@ -338,7 +341,7 @@
         "verdict": "not_scorable",
         "note": "hedge — no position, size or entry is recorded to score against",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:05.377Z"
+        "scored_at": "2026-07-28T21:49:05.735Z"
       }
     }
   },
@@ -360,7 +363,10 @@
     "market_risk": 3,
     "hodl": "Hold-quality — wait for value",
     "final_call": "Watchlist — trigger: reclaim $540",
-    "trigger": null,
+    "trigger": {
+      "direction": "above",
+      "level": 540
+    },
     "invalidation": null,
     "engine": "claude",
     "outcome": null,
@@ -379,11 +385,11 @@
         "asset_pct": -0.72,
         "bench": "SPY",
         "bench_pct": 0.93,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "conditional — trigger level not recorded, so the gate cannot be judged",
+        "alpha": -1.65,
+        "verdict": "wrong",
+        "note": "conditional — triggered and did not run",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:05.565Z"
+        "scored_at": "2026-07-28T21:49:06.060Z"
       }
     }
   },
@@ -405,7 +411,10 @@
     "market_risk": 3,
     "hodl": "Accumulate",
     "final_call": "No Trade — trigger: reclaim $950 on volume",
-    "trigger": null,
+    "trigger": {
+      "direction": "above",
+      "level": 950
+    },
     "invalidation": null,
     "engine": "claude",
     "outcome": null,
@@ -450,8 +459,14 @@
     "market_risk": 2,
     "hodl": "Accumulate",
     "final_call": "Watchlist — >$63.8-64.5K / <$56.2K",
-    "trigger": null,
-    "invalidation": null,
+    "trigger": {
+      "direction": "above",
+      "level": 63800
+    },
+    "invalidation": {
+      "direction": "below",
+      "level": 56200
+    },
     "engine": "claude",
     "outcome": null,
     "outcome_price": null,
@@ -469,11 +484,11 @@
         "asset_pct": 2.99,
         "bench": "SPY",
         "bench_pct": 0.93,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "conditional — trigger level not recorded, so the gate cannot be judged",
+        "alpha": 2.06,
+        "verdict": "right",
+        "note": "conditional — triggered and ran",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:05.693Z"
+        "scored_at": "2026-07-28T21:49:06.264Z"
       }
     }
   },
@@ -518,7 +533,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:05.779Z"
+        "scored_at": "2026-07-28T21:49:06.545Z"
       }
     }
   },
@@ -563,7 +578,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:05.868Z"
+        "scored_at": "2026-07-28T21:49:06.776Z"
       }
     }
   },
@@ -586,7 +601,10 @@
     "hodl": "Trade-only — not a hold",
     "final_call": "No Trade — $1.00 must hold",
     "trigger": null,
-    "invalidation": null,
+    "invalidation": {
+      "direction": "below",
+      "level": 1
+    },
     "engine": "claude",
     "outcome": null,
     "outcome_price": null,
@@ -653,7 +671,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:06.039Z"
+        "scored_at": "2026-07-28T21:49:07.000Z"
       }
     }
   },
@@ -720,8 +738,14 @@
     "market_risk": 2,
     "hodl": "Hold-quality — wait for value",
     "final_call": "Top watchlist — >$77 / dies <$52",
-    "trigger": null,
-    "invalidation": null,
+    "trigger": {
+      "direction": "above",
+      "level": 77
+    },
+    "invalidation": {
+      "direction": "below",
+      "level": 52
+    },
     "engine": "claude",
     "outcome": null,
     "outcome_price": null,
@@ -743,7 +767,7 @@
         "verdict": "not_scorable",
         "note": "price not observable at this checkpoint",
         "source": "none",
-        "scored_at": "2026-07-28T21:34:06.707Z"
+        "scored_at": "2026-07-28T21:49:08.009Z"
       }
     }
   },
@@ -810,8 +834,14 @@
     "market_risk": 3,
     "hodl": "Hold-quality — wait for value",
     "final_call": "ARMED — hold mid-$60s + reclaim $70-71",
-    "trigger": null,
-    "invalidation": null,
+    "trigger": {
+      "direction": "above",
+      "level": 70
+    },
+    "invalidation": {
+      "direction": "below",
+      "level": 60
+    },
     "engine": "claude",
     "outcome": null,
     "outcome_price": null,
@@ -829,11 +859,11 @@
         "asset_pct": 14.03,
         "bench": "SPY",
         "bench_pct": -0.28,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "conditional — trigger level not recorded, so the gate cannot be judged",
+        "alpha": 14.31,
+        "verdict": "right",
+        "note": "conditional — triggered and ran",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:07.017Z"
+        "scored_at": "2026-07-28T21:49:08.256Z"
       }
     }
   },
@@ -900,7 +930,10 @@
     "market_risk": 3,
     "hodl": "Hold-quality — wait for value",
     "final_call": "No Trade — reclaim + hold $200-203",
-    "trigger": null,
+    "trigger": {
+      "direction": "above",
+      "level": 200
+    },
     "invalidation": null,
     "engine": "claude",
     "outcome": null,
@@ -968,7 +1001,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:34:07.301Z"
+        "scored_at": "2026-07-28T21:49:08.534Z"
       }
     }
   }
