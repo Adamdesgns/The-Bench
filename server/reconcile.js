@@ -42,7 +42,9 @@ function releaseLock() {
   }
 }
 
-function writeArchive(rows) {
+// Exported so the scorecard writes through the same lock + backup discipline
+// rather than opening a second path that can clobber the archive.
+export function writeArchive(rows) {
   acquireLock();
   try {
     if (existsSync(ARCHIVE_PATH)) copyFileSync(ARCHIVE_PATH, ARCHIVE_PATH.replace(/\.json$/, ".backup.json"));

@@ -11,6 +11,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { ROOT, AV } from "./config.js";
+import { CRYPTO_TICKERS } from "./scoring.js";
 
 const USAGE_PATH = resolve(ROOT, "db/av-usage.json");
 export const NOT_OBSERVABLE = "not observable";
@@ -42,7 +43,9 @@ function avAvailable() {
 
 // ---- Symbol mapping ----
 // Crypto tickers -> Stooq crypto symbols (btcusd, ethusd, ...).
-const CRYPTO = new Set(["BTC", "ETH", "BNB", "XRP", "SOL", "TRX", "DOGE", "HYPE", "XLM", "ADA", "LTC"]);
+// The crypto universe is owned by scoring.js — it is the module with no
+// dependencies, and the verdict rule needs the same list this layer does.
+const CRYPTO = CRYPTO_TICKERS;
 function stooqSymbol(ticker, kind) {
   if (kind === "crypto") return `${ticker.toLowerCase()}usd`;
   return `${ticker.toLowerCase()}.us`; // US equities on Stooq
@@ -124,6 +127,84 @@ export async function getQuote(ticker) {
     return { ticker, price, source: "stooq", asof, provisional: true };
   } catch {
     return { ticker, price: NOT_OBSERVABLE, source: "none", asof: null, provisional: true };
+  }
+}
+
+// Stooq daily history CSV -> dated bars: Date,Open,High,Low,Close,Volume
+async function stooqDatedCloses(symbol) {
+  const url = `https://stooq.com/q/d/l/?s=${encodeURIComponent(symbol)}&i=d`;
+  const csv = await fetchText(url);
+  const bars = csv
+    .trim()
+    .split("\n")
+    .slice(1)
+    .map((line) => {
+      const cols = line.split(",");
+      return { date: cols[0], close: Number(cols[4]) };
+    })
+    .filter((b) => /^\d{4}-\d{2}-\d{2}$/.test(b.date || "") && !Number.isNaN(b.close));
+  if (!bars.length) throw new Error("stooq: no dated history");
+  return bars;
+}
+
+// ---- Yahoo chart API: keyless dated history ----
+//
+// Stooq began serving a JavaScript bot-wall instead of CSV (verified
+// 2026-07-28: every history request returns an HTML challenge page, with or
+// without a browser user-agent). Yahoo's chart endpoint needs no key, carries
+// dates, and covers both equities and crypto.
+
+const BROWSER_UA =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36";
+
+function yahooSymbol(ticker, kind) {
+  return kind === "crypto" ? `${ticker.toUpperCase()}-USD` : ticker.toUpperCase();
+}
+
+// Pure: chart JSON -> [{date, close}]. A missing or error payload maps to [],
+// never to a throw and never to a zero-filled bar.
+export function mapYahooBars(json) {
+  const result = json?.chart?.result?.[0];
+  const stamps = result?.timestamp;
+  const closes = result?.indicators?.quote?.[0]?.close;
+  if (!Array.isArray(stamps) || !Array.isArray(closes)) return [];
+  const bars = [];
+  for (let i = 0; i < stamps.length; i += 1) {
+    const close = closes[i];
+    if (typeof close !== "number" || Number.isNaN(close)) continue;
+    bars.push({ date: new Date(stamps[i] * 1000).toISOString().slice(0, 10), close });
+  }
+  return bars;
+}
+
+async function yahooDatedCloses(symbol, range) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(
+    symbol
+  )}?range=${range}&interval=1d`;
+  const res = await fetch(url, { headers: { "user-agent": BROWSER_UA } });
+  if (!res.ok) throw new Error(`yahoo: ${res.status}`);
+  const bars = mapYahooBars(await res.json());
+  if (!bars.length) throw new Error("yahoo: no bars");
+  return bars;
+}
+
+// Dated closes for scoring past checkpoints — "what did this close at on X".
+//
+// Yahoo first (keyless, dated, still serving), Stooq second in case it comes
+// back. Alpha Vantage is deliberately not used: its free tier is 25 calls/day
+// and already metered, and scoring the book costs rows x horizons x 2 symbols.
+// (docs/scorecard-spec.md)
+export async function getDatedCloses(ticker, { range = "1y" } = {}) {
+  const kind = classify(ticker);
+  try {
+    return { bars: await yahooDatedCloses(yahooSymbol(ticker, kind), range), source: "yahoo" };
+  } catch {
+    /* fall through to Stooq */
+  }
+  try {
+    return { bars: await stooqDatedCloses(stooqSymbol(ticker, kind)), source: "stooq" };
+  } catch {
+    return { bars: [], source: "none" };
   }
 }
 
