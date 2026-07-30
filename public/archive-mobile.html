@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>THE BENCH — Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111;
+    --card:#1A1916;
+    --card-edge:#26241F;
+    --gold:#D4AF37;
+    --gold-dim:#9A7E28;
+    --pale:#F5ECCB;
+    --bone:#E8E4DA;
+    --slate:#8F8A7A;
+    --loss:#E5484D;
+    --loss-dim:#7A2A2E;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{background:var(--ink)}
+  body{
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:15px;
+    line-height:1.45;
+    padding:max(16px,env(safe-area-inset-top)) 16px max(40px,env(safe-area-inset-bottom));
+  }
+  .wrap{max-width:520px;margin:0 auto}
+
+  /* ── Masthead ─────────────────────────── */
+  .masthead{text-align:center;padding:18px 0 14px}
+  .masthead h1{
+    font-family:'EB Garamond',Georgia,serif;
+    font-weight:700;font-size:34px;letter-spacing:.14em;
+    color:var(--gold);
+  }
+  .masthead .tag{
+    font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--slate);margin-top:4px;
+  }
+  .rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px 0 0}
+  .meta-strip{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);
+    padding:10px 2px 0;
+  }
+  .meta-strip b{color:var(--pale);font-weight:600;letter-spacing:.14em}
+
+  /* ── Stat strip ───────────────────────── */
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:18px 0 6px;
+  }
+  .stat{
+    background:var(--card);border:1px solid var(--card-edge);border-radius:10px;
+    padding:10px 6px;text-align:center;
+  }
+  .stat .n{
+    font-family:'EB Garamond',Georgia,serif;font-weight:700;font-size:22px;color:var(--pale);
+    line-height:1.1;
+  }
+  .stat .n.gold{color:var(--gold)}
+  .stat .n.red{color:var(--loss)}
+  .stat .l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);margin-top:3px}
+  .stat-note{font-size:11px;color:var(--slate);text-align:center;margin:8px 0 2px;font-style:italic;font-family:'EB Garamond',Georgia,serif;font-size:13px}
+
+  /* ── Filters ──────────────────────────── */
+  .filters{
+    display:flex;gap:8px;overflow-x:auto;padding:14px 2px 4px;
+    scrollbar-width:none;
+  }
+  .filters::-webkit-scrollbar{display:none}
+  .chip{
+    flex:0 0 auto;
+    font:600 12px 'Inter',sans-serif;letter-spacing:.06em;
+    color:var(--slate);background:transparent;
+    border:1px solid var(--card-edge);border-radius:999px;
+    padding:8px 16px;cursor:pointer;transition:all .15s ease;
+  }
+  .chip:active{transform:scale(.96)}
+  .chip.on{color:var(--ink);background:var(--gold);border-color:var(--gold);font-weight:700}
+  .chip:focus-visible{outline:2px solid var(--pale);outline-offset:2px}
+
+  /* ── Cards ────────────────────────────── */
+  .ledger{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+  .call{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--card-edge);
+    border-left:3px solid var(--gold-dim);
+    border-radius:12px;
+    padding:14px 14px 13px;
+    overflow:hidden;
+  }
+  .call.closed{border-left-color:var(--loss-dim)}
+  .row1{display:flex;justify-content:space-between;align-items:baseline;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+  .row1 .id{font-weight:600;color:var(--gold-dim)}
+  .status{
+    font-size:9.5px;font-weight:700;letter-spacing:.18em;
+    padding:3px 9px;border-radius:4px;
+  }
+  .status.open{color:var(--gold);border:1px solid var(--gold-dim)}
+  .status.loss{color:#fff;background:var(--loss)}
+  .row2{display:flex;justify-content:space-between;align-items:flex-end;margin-top:8px}
+  .tick{
+    font-family:'EB Garamond',Georgia,serif;font-weight:700;font-size:30px;color:var(--pale);
+    letter-spacing:.02em;line-height:1;
+  }
+  .price{font-size:12.5px;color:var(--slate);margin-top:4px}
+  .price b{color:var(--bone);font-weight:600}
+
+  /* stamp seal */
+  .seal{
+    flex:0 0 auto;width:52px;height:52px;border-radius:50%;
+    border:2px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'EB Garamond',Georgia,serif;font-weight:700;font-size:22px;color:var(--gold);
+    transform:rotate(-8deg);
+    box-shadow:inset 0 0 0 3px var(--ink);
+    background:radial-gradient(circle at 35% 30%, rgba(212,175,55,.12), transparent 65%);
+  }
+  .call.closed .seal{border-color:var(--loss);color:var(--loss);
+    background:radial-gradient(circle at 35% 30%, rgba(229,72,77,.12), transparent 65%)}
+
+  /* score bar */
+  .scorebar{margin-top:12px}
+  .scorebar .lab{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin-bottom:5px}
+  .scorebar .lab b{color:var(--pale);letter-spacing:.05em;font-size:11px}
+  .bar{height:4px;background:var(--card-edge);border-radius:2px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold));border-radius:2px}
+  .call.closed .bar i{background:linear-gradient(90deg,var(--loss-dim),var(--loss))}
+
+  /* grade chips */
+  .grades{display:flex;gap:6px;margin-top:11px}
+  .g{
+    flex:1;text-align:center;background:var(--ink);border:1px solid var(--card-edge);
+    border-radius:7px;padding:6px 0 5px;
+  }
+  .g .gl{font-size:8.5px;letter-spacing:.16em;color:var(--slate);text-transform:uppercase}
+  .g .gv{font-family:'EB Garamond',Georgia,serif;font-weight:700;font-size:16px;color:var(--bone);margin-top:1px}
+  .g .gv.hi{color:var(--gold)}
+  .g .gv.lo{color:var(--slate)}
+
+  /* meta line */
+  .metaline{
+    display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:11px;
+    font-size:11px;color:var(--slate);
+  }
+  .metaline span b{color:var(--bone);font-weight:500}
+
+  /* outcome block for closed */
+  .outcome{
+    margin-top:12px;padding-top:11px;border-top:1px dashed var(--card-edge);
+  }
+  .outcome .oline{display:flex;justify-content:space-between;font-size:12px;color:var(--slate)}
+  .outcome .oline b{color:var(--loss);font-weight:700;font-size:13px}
+  .lesson{
+    font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:14px;line-height:1.5;
+    color:var(--pale);margin-top:8px;
+  }
+  .lesson::before{content:"Lesson — ";font-style:normal;font-size:10px;letter-spacing:.18em;color:var(--gold-dim);text-transform:uppercase}
+
+  .empty{
+    text-align:center;color:var(--slate);font-family:'EB Garamond',Georgia,serif;
+    font-style:italic;font-size:15px;padding:36px 0;
+  }
+
+  .foot{
+    text-align:center;margin-top:26px;padding-top:14px;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);
+  }
+  .foot .frule{height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin-bottom:12px}
+  .foot b{color:var(--gold);font-weight:600}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1>THE BENCH</h1>
+    <div class="tag">Archive · Every Call · On the Record</div>
+    <div class="rule"></div>
+    <div class="meta-strip">
+      <span>@TheBenchTrades</span>
+      <span><b>Ledger v3</b> · as of Jul 2, 2026</span>
+    </div>
+  </header>
+
+  <section class="stats" aria-label="Ledger totals">
+    <div class="stat"><div class="n">18</div><div class="l">Calls</div></div>
+    <div class="stat"><div class="n gold">1</div><div class="l">Actionable</div></div>
+    <div class="stat"><div class="n red">1</div><div class="l">Losses</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Wins</div></div>
+  </section>
+  <p class="stat-note">Seventeen of eighteen calls said wait — that is the system working.</p>
+
+  <nav class="filters" aria-label="Filter calls">
+    <button class="chip on" data-f="all">All</button>
+    <button class="chip" data-f="open">Open</button>
+    <button class="chip" data-f="closed">Closed</button>
+    <button class="chip" data-f="hold">Hold-quality</button>
+    <button class="chip" data-f="crypto">Crypto</button>
+  </nav>
+
+  <main class="ledger" id="ledger"></main>
+
+  <footer class="foot">
+    <div class="frule"></div>
+    <b>Proof, not hype.</b><br>
+    Educational only · Not financial advice
+  </footer>
+</div>
+
+<script>
+const CALLS = [
+  {id:"B-018",date:"Jul 2",tick:"DOGE",price:"$0.0743",score:25,t:"D",f:"F",e:"D",o:"D",fomo:"Post-FOMO Fade",mr:2,hodl:"Trade-only",cls:"crypto",status:"open"},
+  {id:"B-017",date:"Jul 2",tick:"HYPE",price:"$64.87",score:66,t:"B",f:"B+",e:"C+",o:"C+",fomo:"Heating Up",mr:2,hodl:"Hold-quality",cls:"crypto",status:"open"},
+  {id:"B-016",date:"Jul 2",tick:"TRX",price:"$0.3179",score:42,t:"C",f:"B-",e:"D",o:"C",fomo:"Post-FOMO Fade",mr:2,hodl:"Trade-only",cls:"crypto",status:"open"},
+  {id:"B-015",date:"Jul 2",tick:"SOL",price:"$80.66",score:50,t:"C",f:"B-",e:"D",o:"C",fomo:"Post-FOMO Fade",mr:2,hodl:"Hold-quality",cls:"crypto",status:"open"},
+  {id:"B-014",date:"Jul 2",tick:"XRP",price:"$1.09",score:40,t:"D",f:"C+",e:"D",o:"C-",fomo:"Post-FOMO Fade",mr:2,hodl:"Trade-only",cls:"crypto",status:"open"},
+  {id:"B-013",date:"Jul 2",tick:"BNB",price:"$561.97",score:46,t:"C",f:"B-",e:"D",o:"C",fomo:"Post-FOMO Fade",mr:2,hodl:"Trade-only",cls:"crypto",status:"open"},
+  {id:"B-012",date:"Jul 2",tick:"ETH",price:"$1,698",score:44,t:"D",f:"B",e:"D",o:"C-",fomo:"Post-FOMO Fade",mr:2,hodl:"Hold-quality",cls:"crypto",status:"open"},
+  {id:"B-011",date:"Jul 2",tick:"BTC",price:"$61,360",score:45,t:"C-",f:"B",e:"D",o:"C-",fomo:"Post-FOMO Fade",mr:2,hodl:"Accumulate",cls:"crypto",status:"open"},
+  {id:"B-010",date:"Jul 2",tick:"MU",price:"$978.56",score:38,t:"D",f:"A-",e:"F",o:"D",fomo:"Post-FOMO Fade",mr:3,hodl:"Accumulate",cls:"equity",status:"open"},
+  {id:"B-009",date:"Jul 2",tick:"LMT",price:"$522.00",score:63,t:"C",f:"A-",e:"C",o:"C+",fomo:"Post-FOMO Fade",mr:3,hodl:"Hold-quality",cls:"equity",status:"open"},
+  {id:"B-008",date:"Jul 2",tick:"OXY",price:"$48.15",score:42,t:"D",f:"B-",e:"D",o:"D",fomo:"Post-FOMO Fade",mr:2,hodl:"Trade-only",cls:"equity",status:"open"},
+  {id:"B-007",date:"Jul 2",tick:"COP",price:"$103.54",score:47,t:"D",f:"B+",e:"D",o:"C-",fomo:"Post-FOMO Fade",mr:2,hodl:"Trade-only",cls:"equity",status:"open"},
+  {id:"B-006",date:"Jul 2",tick:"CVX",price:"$167.80",score:53,t:"D",f:"A-",e:"D",o:"C",fomo:"Post-FOMO Fade",mr:2,hodl:"Hold-quality",cls:"equity",status:"open"},
+  {id:"B-005",date:"Jul 2",tick:"XOM",price:"$137.14",score:56,t:"C-",f:"A-",e:"D",o:"C",fomo:"Post-FOMO Fade",mr:2,hodl:"Hold-quality",cls:"equity",status:"open"},
+  {id:"B-004",date:"Jun 30",tick:"MU",price:"$1,150",score:73,t:"B+",f:"A",e:"B-",o:"B",fomo:"Heating Up",mr:3,hodl:"Accumulate",cls:"equity",status:"loss",
+   conf:"75%",out:"Stopped at $1,020 · −11.3%",
+   lesson:"A level needing three tests in a week was weakening, not strengthening. The stop capped the loss at the pre-defined number while the stock fell further."},
+  {id:"B-003",date:"Jun 30",tick:"OUST",price:"$62.50",score:43,t:"B",f:"C",e:"D",o:"D",fomo:"Late FOMO",mr:3,hodl:"Trade-only",cls:"equity",status:"open"},
+  {id:"B-002",date:"Jun 30",tick:"XLM",price:"$0.18",score:32,t:"D",f:"B-",e:"D",o:"D",fomo:"Post-FOMO Fade",mr:2,hodl:"Trade-only",cls:"crypto",status:"open"},
+  {id:"B-001",date:"Jun 30",tick:"MSFT",price:"$371.39",score:36,t:"D",f:"A",e:"D",o:"D",fomo:"Post-FOMO Fade",mr:3,hodl:"Accumulate",cls:"equity",status:"open"}
+];
+
+const HI = new Set(["A+","A","A-","B+","B"]);
+const LO = new Set(["D","F"]);
+function gcls(g){ return HI.has(g) ? "hi" : (LO.has(g) ? "lo" : ""); }
+
+function card(c){
+  const closed = c.status === "loss";
+  return `
+  <article class="call ${closed ? "closed" : ""}" data-cls="${c.cls}" data-status="${closed ? "closed" : "open"}" data-hodl="${c.hodl}">
+    <div class="row1">
+      <span><span class="id">${c.id}</span> · ${c.date}, 2026</span>
+      <span class="status ${closed ? "loss" : "open"}">${closed ? "LOSS" : "OPEN"}</span>
+    </div>
+    <div class="row2">
+      <div>
+        <div class="tick">$${c.tick}</div>
+        <div class="price">at review <b>${c.price}</b>${c.conf ? ` · conf <b>${c.conf}</b>` : ""}</div>
+      </div>
+      <div class="seal" aria-label="Overall grade ${c.o}">${c.o}</div>
+    </div>
+    <div class="scorebar">
+      <div class="lab"><span>Opportunity Score</span><b>${c.score} / 100</b></div>
+      <div class="bar"><i style="width:${c.score}%"></i></div>
+    </div>
+    <div class="grades">
+      <div class="g"><div class="gl">Tech</div><div class="gv ${gcls(c.t)}">${c.t}</div></div>
+      <div class="g"><div class="gl">Fund</div><div class="gv ${gcls(c.f)}">${c.f}</div></div>
+      <div class="g"><div class="gl">Exec</div><div class="gv ${gcls(c.e)}">${c.e}</div></div>
+    </div>
+    <div class="metaline">
+      <span>FOMO <b>${c.fomo}</b></span>
+      <span>Risk <b>${c.mr}/5</b></span>
+      <span>Hold <b>${c.hodl}</b></span>
+    </div>
+    ${closed ? `
+    <div class="outcome">
+      <div class="oline"><span>Outcome</span><b>${c.out}</b></div>
+      <div class="lesson">${c.lesson}</div>
+    </div>` : ""}
+  </article>`;
+}
+
+const ledger = document.getElementById("ledger");
+function render(filter){
+  const rows = CALLS.filter(c=>{
+    if(filter==="all") return true;
+    if(filter==="open") return c.status==="open";
+    if(filter==="closed") return c.status==="loss";
+    if(filter==="hold") return c.hodl==="Hold-quality"||c.hodl==="Accumulate";
+    if(filter==="crypto") return c.cls==="crypto";
+    return true;
+  });
+  ledger.innerHTML = rows.length ? rows.map(card).join("") :
+    `<div class="empty">Nothing here yet — the bench is patient.</div>`;
+}
+render("all");
+
+document.querySelectorAll(".chip").forEach(ch=>{
+  ch.addEventListener("click",()=>{
+    document.querySelectorAll(".chip").forEach(x=>x.classList.remove("on"));
+    ch.classList.add("on");
+    render(ch.dataset.f);
+  });
+});
+</script>
+</body>
+</html>

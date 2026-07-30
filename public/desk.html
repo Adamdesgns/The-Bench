@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>THE BENCH — DESK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111111; --card:#1A1916; --edge:#26241F;
+  --gold:#D4AF37; --gold-dim:#9A7E28; --pale:#F5ECCB;
+  --bone:#E8E4DA; --slate:#8F8A7A; --loss:#E5484D;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--ink)}
+body{background:var(--ink);color:var(--bone);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.45;
+  padding:max(14px,env(safe-area-inset-top)) 14px max(30px,env(safe-area-inset-bottom))}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* masthead */
+.mast{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;padding:10px 2px 12px}
+.mast h1{font-family:'EB Garamond',Georgia,serif;font-weight:700;font-size:26px;letter-spacing:.14em;color:var(--gold)}
+.mast .desk{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--slate)}
+.mast .clock{font-family:'Inter';font-weight:600;font-size:13px;color:var(--pale);letter-spacing:.06em}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin-bottom:14px}
+
+/* screen grid */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+.panel{background:var(--card);border:1px solid var(--edge);border-radius:12px;overflow:hidden}
+.p-cat{grid-column:span 12}
+.p-trade{grid-column:span 7}
+.p-board{grid-column:span 5}
+.p-peer{grid-column:span 6}
+.p-macro{grid-column:span 6}
+@media(max-width:900px){.p-trade,.p-board,.p-peer,.p-macro{grid-column:span 12}}
+
+.phead{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--edge)}
+.phead .t{font-family:'EB Garamond',Georgia,serif;font-weight:700;font-size:16px;letter-spacing:.08em;color:var(--gold)}
+.stamp{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+.stamp b{color:var(--gold-dim);font-weight:600}
+.pbody{padding:12px 14px}
+
+/* catalyst watch */
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
+.cat{background:var(--ink);border:1px solid var(--edge);border-radius:10px;padding:10px 12px;position:relative}
+.cat.hot{border-color:var(--gold-dim)}
+.cat .when{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+.cat .what{font-family:'EB Garamond',Georgia,serif;font-weight:700;font-size:16px;color:var(--pale);margin:3px 0 2px}
+.cat .why{font-size:11px;color:var(--slate);line-height:1.4}
+.cat .cd{font-family:'Inter';font-weight:700;font-size:12px;color:var(--gold);margin-top:6px;letter-spacing:.04em}
+.cat .cd.live{color:var(--loss)}
+.cat .tag{position:absolute;top:9px;right:10px;font-size:8.5px;letter-spacing:.14em;color:var(--gold-dim);text-transform:uppercase}
+.cat.trigger .cd{color:var(--pale)}
+
+/* trade timeline */
+.tl{list-style:none}
+.tl li{position:relative;padding:0 0 14px 22px;border-left:1px solid var(--edge);margin-left:6px}
+.tl li:last-child{padding-bottom:2px;border-left-color:transparent}
+.tl li::before{content:"";position:absolute;left:-5px;top:3px;width:9px;height:9px;border-radius:50%;
+  background:var(--ink);border:2px solid var(--gold-dim)}
+.tl li.next::before{background:var(--gold);border-color:var(--gold)}
+.tl .step{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+.tl .do{font-size:13px;color:var(--bone);margin-top:2px}
+.tl .do b{color:var(--pale)}
+.tl li.next .step{color:var(--gold)}
+.risk{margin-top:10px;padding:9px 12px;background:var(--ink);border-left:3px solid var(--gold-dim);border-radius:8px;
+  font-size:11.5px;color:var(--slate)}
+.risk b{color:var(--pale)}
+
+/* board */
+.brow{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:7px 0;border-bottom:1px dashed var(--edge)}
+.brow:last-child{border-bottom:none}
+.brow .id{font-size:9.5px;letter-spacing:.1em;color:var(--gold-dim);font-weight:600;flex:0 0 44px}
+.brow .tk{font-family:'EB Garamond',Georgia,serif;font-weight:700;font-size:15px;color:var(--pale);flex:0 0 52px}
+.brow .st{font-size:10.5px;color:var(--slate);flex:1;line-height:1.35}
+.brow .st b{color:var(--bone);font-weight:500}
+.brow.closed .tk{color:var(--loss)}
+
+/* peer + macro */
+.kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--edge);font-size:12.5px}
+.kv:last-child{border-bottom:none}
+.kv .k{color:var(--slate)}
+.kv .v{color:var(--pale);font-weight:600;text-align:right}
+.kv .v small{display:block;font-weight:400;font-size:10px;color:var(--slate)}
+.note{margin-top:9px;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:13px;color:var(--pale);line-height:1.5}
+.note::before{content:"Read — ";font-style:normal;font-family:'Inter';font-size:9px;letter-spacing:.16em;color:var(--gold-dim);text-transform:uppercase}
+
+.legend{margin-top:14px;padding:12px 14px;background:var(--card);border:1px solid var(--edge);border-radius:12px;
+  font-size:10.5px;color:var(--slate);line-height:1.6}
+.legend b{color:var(--gold-dim);letter-spacing:.1em;text-transform:uppercase;font-size:9.5px}
+.foot{text-align:center;margin-top:18px;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate)}
+.foot b{color:var(--gold)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <div>
+    <h1>THE BENCH</h1>
+    <div class="desk">Desk View · Multi-Screen · Snapshot + Live Countdowns</div>
+  </div>
+  <div class="clock" id="clock">—</div>
+</header>
+<div class="rule"></div>
+
+<div class="grid">
+
+  <!-- SCREEN 1 · CATALYST WATCH -->
+  <section class="panel p-cat">
+    <div class="phead">
+      <span class="t">◆ CATALYST WATCH</span>
+      <span class="stamp">agent: calendar+triggers · <b>as of Jul 20, 10:45pm CT</b> · countdowns live</span>
+    </div>
+    <div class="pbody">
+      <div class="cats" id="cats"></div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 · ACTIVE TRADE -->
+  <section class="panel p-trade">
+    <div class="phead">
+      <span class="t">◆ ACTIVE PLAYBOOK — B-022 $GOOGL</span>
+      <span class="stamp">ref $354.46 (Jul 16 close) · conf 70% · <b>verify live at open</b></span>
+    </div>
+    <div class="pbody">
+      <ul class="tl">
+        <li><span class="step">Tue Jul 21</span><div class="do">Do nothing. No entry before the print. Post the screen article so the call is timestamped.</div></li>
+        <li class="next"><span class="step">Wed Jul 22 · 3:55pm CT</span><div class="do"><b>Record the 4pm ET close.</b> That number is the reference level for the whole trade.</div></li>
+        <li><span class="step">Wed Jul 22 · after close</span><div class="do">Print drops. Bar: ~21% rev growth · ~$2.90 EPS · Cloud ≈60% · backlog · capex framing. <b>Read only. No after-hours trading.</b></div></li>
+        <li><span class="step">Thu Jul 23 · 8:30–9:15am CT</span><div class="do"><b>The decision.</b> Holds ABOVE Wednesday's close after 15–30 min on volume → enter, stop below reaction low. Gaps down / fails → no trade, reassess. Options: say "Run options GOOGL" after trigger confirms.</div></li>
+        <li><span class="step">Tue–Wed Jul 28–29</span><div class="do"><b>FOMC lands inside the trade.</b> Clean play: half-size Thursday, complete after the Fed. Stop stays. No adds into the statement.</div></li>
+      </ul>
+      <div class="risk"><b>Risk budget (v17 table · aggressive $5–10K):</b> $60–150 max per trade · never exceeded without flagging · T2 zone $431 analyst avg · 70% confidence = 3 in 10 lose; the stop is the plan.</div>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 · OPEN BOARD -->
+  <section class="panel p-board">
+    <div class="phead">
+      <span class="t">◆ OPEN BOARD</span>
+      <span class="stamp">agent: archive · <b>22 rows · 1 closed</b></span>
+    </div>
+    <div class="pbody">
+      <div class="brow"><span class="id">B-022</span><span class="tk">GOOGL</span><span class="st"><b>Setup Forming</b> · earnings gate Jul 22 · trigger: post-print hold above ref</span></div>
+      <div class="brow"><span class="id">B-010</span><span class="tk">MU</span><span class="st"><b>No Trade</b> · trigger: reclaim $950 on real volume · SKHY overhang logged</span></div>
+      <div class="brow"><span class="id">B-019</span><span class="tk">PENG</span><span class="st"><b>Armed</b> · hold mid-$60s + reclaim $70–71 post-beat</span></div>
+      <div class="brow"><span class="id">B-021</span><span class="tk">NBIS</span><span class="st"><b>No Trade</b> · trigger: reclaim + hold $200–203, ranges compressing</span></div>
+      <div class="brow"><span class="id">B-017</span><span class="tk">HYPE</span><span class="st"><b>Watchlist #1 crypto</b> · breakout &gt;$77 · structure dies &lt;$52</span></div>
+      <div class="brow"><span class="id">B-009</span><span class="tk">LMT</span><span class="st"><b>Watchlist</b> · reclaim $540 · earnings this week — verify date</span></div>
+      <div class="brow"><span class="id">B-005+</span><span class="tk">XOM…</span><span class="st"><b>Hedge active</b> · energy four working as designed · Delta overdue</span></div>
+      <div class="brow closed"><span class="id">B-004</span><span class="tk">MU</span><span class="st">CLOSED · Loss −11.3% · stop did its job · lesson logged</span></div>
+    </div>
+  </section>
+
+  <!-- SCREEN 4 · GLOBAL PEER CHECK -->
+  <section class="panel p-peer">
+    <div class="phead">
+      <span class="t">◆ GLOBAL PEER CHECK</span>
+      <span class="stamp">agent: Seoul/Tokyo close · <b>as of Fri Jul 17 close · STALE — refresh at open</b></span>
+    </div>
+    <div class="pbody">
+      <div class="kv"><span class="k">Kospi</span><span class="v">7,656 → 7,246 → +4% Fri<small>bear market entered, then rebound off 7,060</small></span></div>
+      <div class="kv"><span class="k">SKHY (ADR, debut Jul 10)</span><span class="v">$168.01 +13%<small>largest foreign US listing ever · $26.5B</small></span></div>
+      <div class="kv"><span class="k">Samsung / SK Hynix (Seoul)</span><span class="v">rebounded with index<small>record profit → sold → recovered</small></span></div>
+      <div class="kv"><span class="k">Repatriation (~Jul 15)</span><span class="v">passed<small>fork's final leg — confirm memory stabilized after</small></span></div>
+      <div class="note">Korea leads the memory tape ("Kospi-nirami" — 15/20 sessions matching the SOX). Seoul's close is tomorrow's US chip weather. Refresh before any memory decision.</div>
+    </div>
+  </section>
+
+  <!-- SCREEN 5 · MACRO + SEESAW -->
+  <section class="panel p-macro">
+    <div class="phead">
+      <span class="t">◆ MACRO & SEESAW</span>
+      <span class="stamp">agent: macro+crypto · <b>last verified Jul 16–17 · STALE — refresh at open</b></span>
+    </div>
+    <div class="pbody">
+      <div class="kv"><span class="k">Regime / Market Risk</span><span class="v">Selective · 3 of 5<small>rotational correction, calm index over violent sectors</small></span></div>
+      <div class="kv"><span class="k">BTC</span><span class="v">~$62–64K zone<small>line: close &gt;$63.8–64.5K bullish · &lt;$56.2K opens $50–53K</small></span></div>
+      <div class="kv"><span class="k">Seesaw rule</span><span class="v">rotation days only<small>chips↔crypto works on sector days · dies on war days</small></span></div>
+      <div class="kv"><span class="k">WTI / 10-yr</span><span class="v">~$72–78 · ~4.56%<small>ceasefire talks easing the inflation impulse</small></span></div>
+      <div class="kv"><span class="k">FOMC Jul 28–29</span><span class="v">~70% hold priced<small>no forward guidance · the macro gate for everything</small></span></div>
+    </div>
+  </section>
+
+</div>
+
+<div class="legend">
+  <b>How the agents work</b> · Each panel names its agent and its data stamp. In this chat: say <b style="color:#D4AF37">"refresh board"</b> and every stamped panel gets re-pulled live and this file regenerates (~1 min). Countdown timers are truly live in-browser. True streaming: wire each panel to a fetch job in the auto-runner — panel IDs here map 1:1 to the data packet fields in daily-open-chain-spec.md (global_peer_check → SCREEN 4, macro/crypto → SCREEN 5, open_board → SCREEN 3, calendar_next_10d → SCREEN 1). Stale panels say so out loud. A dashboard that guesses is worse than no dashboard: v17 Data Integrity applies to pixels too.
+</div>
+
+<div class="foot"><b>Proof, not hype.</b> · @TheBenchTrades · Educational only — not financial advice</div>
+</div>
+
+<script>
+// live clock (CT)
+function tick(){
+  const now = new Date();
+  document.getElementById("clock").textContent =
+    now.toLocaleString("en-US",{weekday:"short",month:"short",day:"numeric",
+      hour:"numeric",minute:"2-digit",second:"2-digit",timeZone:"America/Chicago"}) + " CT";
+}
+tick(); setInterval(tick,1000);
+
+// catalysts: dated events (countdown) + price triggers (no clock, price-gated)
+const CATS = [
+  {what:"$GOOGL earnings", when:"Wed Jul 22 · after close", why:"B-022 gate. Bar: ~21% growth · $2.90 EPS · Cloud ≈60%.", t:"2026-07-22T15:05:00-05:00", tag:"EARNINGS", hot:true},
+  {what:"GOOGL reaction window", when:"Thu Jul 23 · 8:30am CT", why:"The only moment money moves. Hold above ref = enter.", t:"2026-07-23T08:30:00-05:00", tag:"DECISION", hot:true},
+  {what:"$LMT earnings", when:"~Jul 21–23 · VERIFY DATE", why:"B-009. Q2 proves or exposes the 'one-time' Q1 miss.", t:"2026-07-21T15:05:00-05:00", tag:"EARNINGS"},
+  {what:"FOMC decision", when:"Jul 28–29", why:"The macro gate. ~70% hold priced. No guidance regime.", t:"2026-07-29T13:00:00-05:00", tag:"MACRO", hot:true},
+  {what:"$XRP CLARITY vote", when:"late Jul / Aug · unverified", why:"B-014 binary. $1.00 must hold into it.", t:null, tag:"POLICY"},
+  {what:"$OUST earnings", when:"Aug 6", why:"B-003 revisit date, on the record since June 30.", t:"2026-08-06T15:05:00-05:00", tag:"EARNINGS"},
+  {what:"$NBIS Q2", when:"early Aug · unverified", why:"First backlog print since the Meta question opened.", t:null, tag:"EARNINGS"},
+  {what:"MU reclaims $950 on volume", when:"price trigger", why:"B-010 re-entry gate. Volume is the tell, not the tick.", t:null, tag:"TRIGGER", trig:true},
+  {what:"PENG reclaims $70–71", when:"price trigger", why:"B-019 armed post-beat. Clean B setup if it fires.", t:null, tag:"TRIGGER", trig:true},
+  {what:"HYPE breaks $77", when:"price trigger", why:"B-017. ATH-in-a-bear-tape leader → price discovery.", t:null, tag:"TRIGGER", trig:true},
+  {what:"NBIS holds $200–203", when:"price trigger", why:"B-021. Reclaim + compressing ranges = Setup Forming.", t:null, tag:"TRIGGER", trig:true},
+  {what:"BTC closes > $63.8–64.5K", when:"price trigger", why:"Ends the crypto downtrend by our published line.", t:null, tag:"TRIGGER", trig:true},
+];
+function fmt(ms){
+  if(ms<=0) return "LIVE / PASSED — refresh board";
+  const d=Math.floor(ms/864e5), h=Math.floor(ms%864e5/36e5), m=Math.floor(ms%36e5/6e4);
+  return (d? d+"d ":"")+h+"h "+m+"m";
+}
+function renderCats(){
+  const el=document.getElementById("cats");
+  el.innerHTML = CATS.map(c=>{
+    let cd="";
+    if(c.t){
+      const ms=new Date(c.t)-new Date();
+      cd = `<div class="cd ${ms<=0?"live":""}">${ms<=0?"":"T-minus "}${fmt(ms)}</div>`;
+    } else {
+      cd = `<div class="cd">${c.trig?"price-gated · alert your broker":"date unverified"}</div>`;
+    }
+    return `<div class="cat ${c.hot?"hot":""} ${c.trig?"trigger":""}">
+      <span class="tag">${c.tag}</span>
+      <div class="when">${c.when}</div>
+      <div class="what">${c.what}</div>
+      <div class="why">${c.why}</div>${cd}</div>`;
+  }).join("");
+}
+renderCats(); setInterval(renderCats, 30000);
+</script>
+</body>
+</html>

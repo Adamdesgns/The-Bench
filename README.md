@@ -36,11 +36,17 @@ db/
   archive.json             the book — 22 rows, source of truth
   archive-v4.xlsx          human/dashboard export
 docs/
+  SESSION-HANDOFF.md       full context restore — read this first
   daily-open-chain-spec.md the pipeline blueprint
-  the-bench-brand.md       colors, type, voice, boilerplate
+  the-bench-brand.md       colors, type, voice, devices, boilerplate
   REPO-HANDOFF.md          repo + security notes
   HANDOFF-code.md          build notes + known issues
-  SESSION-HANDOFF.md       full context restore
+  HANDOFF-robinhood-automation.md  trigger-monitor spec (alerts only, no orders)
+public/
+  index.html               Bench OS — the report-first app window
+  console.html             v17 run console, 6 panels
+  desk.html                market desk, catalyst countdowns
+  archive-mobile.html      phone ledger, card per call
 ```
 
 ## The book (`db/archive.json`)
