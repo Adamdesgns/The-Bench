@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "robinhood": {
+      "type": "http",
+      "url": "https://agent.robinhood.com/mcp/trading"
+    },
+    "coingecko": {
+      "type": "sse",
+      "url": "https://mcp.api.coingecko.com/sse"
+    },
+    "sec-edgar": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["sec-edgar-mcp"],
+      "env": {
+        "SEC_EDGAR_USER_AGENT": "${SEC_EDGAR_USER_AGENT}"
+      }
+    },
+    "fred": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "fred-mcp-server"],
+      "env": {
+        "FRED_API_KEY": "${FRED_API_KEY}"
+      }
+    }
+  }
+}
