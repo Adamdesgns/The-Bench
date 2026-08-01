@@ -1,0 +1,224 @@
+<style>
+  :root{
+    --ink:#111111; --card:#1A1916; --edge:#26241F; --edge-2:#332F26;
+    --gold:#D4AF37; --gold-dim:#9A7E28; --pale:#F5ECCB; --bone:#E8E4DA;
+    --slate:#8F8A7A; --loss:#E5484D;
+    --serif:"Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+    --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --wrap:44rem;
+  }
+  *{box-sizing:border-box;}
+  .bench{
+    background:var(--ink); color:var(--bone); font-family:var(--sans);
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:clamp(1.25rem,5vw,3rem) 1.25rem 4rem;
+    background-image:radial-gradient(120% 60% at 50% -10%, rgba(212,175,55,.06), transparent 60%);
+  }
+  .wrap{max-width:var(--wrap); margin:0 auto;}
+  .bench p{margin:0 0 1rem; max-width:62ch;}
+  .eyebrow{
+    font-family:var(--sans); text-transform:uppercase; letter-spacing:.22em;
+    font-size:.72rem; font-weight:600; color:var(--gold-dim); margin:0 0 1rem;
+  }
+  h1,h2,h3{font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0;}
+  .rule{height:1px; background:linear-gradient(90deg,var(--gold-dim),transparent); border:0; margin:0;}
+
+  /* ---- masthead ---- */
+  .mast{padding:2.5rem 0 2rem; border-bottom:1px solid var(--edge);}
+  .seal{
+    display:inline-flex; align-items:center; gap:.55rem; transform:rotate(-8deg);
+    border:1px solid var(--gold-dim); color:var(--gold); border-radius:999px;
+    padding:.3rem .8rem; font-size:.66rem; letter-spacing:.22em; text-transform:uppercase;
+    font-weight:700; margin-bottom:1.6rem;
+  }
+  .seal .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);}
+  .wordmark{
+    font-size:clamp(3rem,13vw,5.75rem); line-height:.92; letter-spacing:.01em;
+    color:var(--pale); margin:0 0 1.1rem;
+  }
+  .wordmark .the{display:block; font-size:.3em; letter-spacing:.42em; color:var(--gold);
+    text-transform:uppercase; margin-bottom:.35rem; font-weight:600;}
+  .lede{font-size:clamp(1.05rem,2.6vw,1.3rem); color:var(--bone); max-width:40ch; font-family:var(--serif);
+    font-style:italic; line-height:1.45;}
+  .handle{margin-top:1.4rem; color:var(--slate); font-size:.85rem; letter-spacing:.04em;}
+  .handle b{color:var(--gold); font-weight:600;}
+
+  /* ---- sections ---- */
+  section{padding:2.6rem 0; border-bottom:1px solid var(--edge);}
+  section h2{font-size:clamp(1.5rem,4.2vw,2.1rem); color:var(--pale); margin-bottom:1rem; line-height:1.1;}
+  section h2 .q{color:var(--gold);}
+
+  /* ---- method list ---- */
+  .method{list-style:none; padding:0; margin:1.4rem 0 0; display:grid; gap:0;}
+  .method li{display:grid; grid-template-columns:auto 1fr; gap:1rem 1.1rem;
+    padding:1.05rem 0; border-top:1px solid var(--edge); align-items:baseline;}
+  .method li:last-child{border-bottom:1px solid var(--edge);}
+  .method .k{font-family:var(--sans); text-transform:uppercase; letter-spacing:.14em;
+    font-size:.74rem; font-weight:700; color:var(--gold); white-space:nowrap;}
+  .method .v{color:var(--bone); font-size:.98rem;}
+
+  /* ---- verdict scorecard motif ---- */
+  .verdict{
+    background:var(--card); border:1px solid var(--edge-2); border-radius:4px;
+    padding:1.4rem 1.5rem; margin:1.6rem 0 .6rem; box-shadow:0 20px 50px -30px rgba(0,0,0,.9);
+  }
+  .verdict .vhead{display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1px solid var(--edge-2); padding-bottom:.7rem; margin-bottom:.9rem;}
+  .verdict .vtitle{font-family:var(--sans); text-transform:uppercase; letter-spacing:.16em;
+    font-size:.7rem; font-weight:700; color:var(--gold);}
+  .verdict .vstamp{font-size:.66rem; color:var(--slate); letter-spacing:.1em; text-transform:uppercase;}
+  .vrow{display:grid; grid-template-columns:1fr auto; gap:.5rem; padding:.5rem 0;
+    font-size:.92rem; border-top:1px dotted var(--edge-2); align-items:center;}
+  .vrow:first-of-type{border-top:0;}
+  .vrow .lab{color:var(--bone);}
+  .vrow .val{font-variant-numeric:tabular-nums; font-weight:600; letter-spacing:.02em;}
+  .win{color:var(--gold);}
+  .loss{color:var(--loss);}
+  .tag{font-family:var(--sans); font-size:.6rem; text-transform:uppercase; letter-spacing:.14em;
+    font-weight:700; padding:.12rem .45rem; border-radius:2px; margin-left:.5rem; vertical-align:.08em;}
+  .tag.win{background:rgba(212,175,55,.14); color:var(--gold); border:1px solid var(--gold-dim);}
+  .tag.loss{background:rgba(229,72,77,.12); color:var(--loss); border:1px solid rgba(229,72,77,.4);}
+  .caption{font-size:.74rem; color:var(--slate); font-style:italic; margin:.6rem 0 0;}
+
+  /* ---- edge grid ---- */
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1px;
+    background:var(--edge); border:1px solid var(--edge); margin-top:1.5rem;}
+  .cell{background:var(--ink); padding:1.3rem 1.35rem;}
+  .cell h3{font-size:1.05rem; color:var(--gold); margin-bottom:.45rem;}
+  .cell p{font-size:.9rem; color:var(--bone); margin:0;}
+
+  /* ---- fill-in placeholders ---- */
+  .fill{color:var(--gold); font-style:italic; border-bottom:1px dashed var(--gold-dim);
+    padding-bottom:1px; font-family:var(--sans);}
+  .fillnote{font-size:.76rem; color:var(--slate); margin-top:1.2rem; padding-left:1rem;
+    border-left:2px solid var(--gold-dim); font-style:italic;}
+
+  /* ---- traction ---- */
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(11rem,1fr)); gap:1.5rem 1.25rem; margin-top:1.5rem;}
+  .stat .num{font-family:var(--serif); font-size:2rem; color:var(--pale); line-height:1; font-variant-numeric:tabular-nums;}
+  .stat .lbl{font-family:var(--sans); text-transform:uppercase; letter-spacing:.13em; font-size:.68rem;
+    color:var(--slate); margin-top:.5rem; font-weight:600;}
+
+  /* ---- ask ---- */
+  .ask{background:var(--card); border:1px solid var(--gold-dim); border-radius:4px; padding:1.8rem;}
+  .ask h2{margin-top:0;}
+
+  /* ---- footer ---- */
+  .foot{padding-top:2.4rem; text-align:center; color:var(--slate); font-size:.78rem; letter-spacing:.05em;}
+  .foot .pnh{font-family:var(--serif); font-style:italic; color:var(--gold); font-size:1.05rem; letter-spacing:.02em; margin-bottom:.7rem;}
+  .foot .disc{margin-top:.6rem; font-size:.72rem;}
+
+  @media (prefers-reduced-motion:no-preference){
+    .bench{animation:fade .7s ease both;}
+    @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+  }
+</style>
+
+<div class="bench">
+  <div class="wrap">
+
+    <header class="mast">
+      <span class="seal"><span class="dot"></span>Proof, not hype</span>
+      <h1 class="wordmark"><span class="the">The</span>BENCH</h1>
+      <p class="lede">Institutional-grade trading research for the individual trader — with the receipts kept in public.</p>
+      <p class="handle"><b>@TheBenchTrades</b> &nbsp;·&nbsp; a build-in-public research system</p>
+    </header>
+
+    <section>
+      <p class="eyebrow">The Problem</p>
+      <h2>Trading content is a <span class="q">trust desert.</span></h2>
+      <p>Retail trading media runs on hype and survivorship bias. Winners get screenshotted; losers get quietly deleted. There is no method you can inspect, no record you can check, and no accountability when a call is wrong.</p>
+      <p>The scarce commodity was never another hot ticker. It is trust — and almost no one is selling it.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">What It Is</p>
+      <h2>A research system, <span class="q">not a signal service.</span></h2>
+      <p>The Bench is an institutional-quality swing-trading framework paired with a build-in-public brand. It reads every setup through a repeatable method, defines the risk before the reward, and makes capital compete before a single dollar is deployed.</p>
+      <p>Then it publishes the call — <em>before</em> the outcome — with the exact level that will prove it right or wrong. No deleted losers. No hindsight edits. The record stands.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">How It Works</p>
+      <h2>The method, in five moves.</h2>
+      <ul class="method">
+        <li><span class="k">Two-Lens</span><span class="v">A setup must clear both the chart and the market's mood. One lens alone is never enough.</span></li>
+        <li><span class="k">Capital Competes</span><span class="v">Every idea has to beat cash, the index, and the watchlist before it earns a dollar.</span></li>
+        <li><span class="k">Defined Risk</span><span class="v">The invalidation level is set before entry. No naked shorts, no undefined downside, ever.</span></li>
+        <li><span class="k">The Archive</span><span class="v">One row per call — wins and losses both — scored against a benchmark. The record compounds into an edge.</span></li>
+        <li><span class="k">Self-Auditing</span><span class="v">The framework reviews its own results and improves by rule. Twenty-two documented versions and counting.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <p class="eyebrow">The Honesty Engine</p>
+      <h2>Wins in gold. <span class="loss">Losses in red.</span> Both on the record.</h2>
+      <p>Most trading brands hide the misses. The Bench logs them louder than the wins — because a track record only means something if the losses are in it. This is the signature output: a stamped scorecard, published in advance.</p>
+
+      <div class="verdict" role="img" aria-label="Illustrative Bench Verdict scorecard showing a win logged in gold and a loss logged in red">
+        <div class="vhead">
+          <span class="vtitle">The Bench Verdict</span>
+          <span class="vstamp">Logged in advance</span>
+        </div>
+        <div class="vrow"><span class="lab">Setup graded &amp; sized</span><span class="val">A+ · risk defined</span></div>
+        <div class="vrow"><span class="lab">Call published with level</span><span class="val win">held the line <span class="tag win">Win</span></span></div>
+        <div class="vrow"><span class="lab">Thesis broke, stop hit</span><span class="val loss">−11.3% <span class="tag loss">Loss</span></span></div>
+      </div>
+      <p class="caption">Illustrative of the format — not a performance claim. Real rows live in the public Archive.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">The Edge</p>
+      <h2>Why this compounds.</h2>
+      <div class="grid">
+        <div class="cell"><h3>The Record</h3><p>A calibrated, public track record built in the open — it cannot be faked, because every call is timestamped before the outcome.</p></div>
+        <div class="cell"><h3>The Method</h3><p>Twenty-two documented iterations of a self-improving framework. The IP is the discipline itself.</p></div>
+        <div class="cell"><h3>The Voice</h3><p>Institutional tone, zero hype — a trust brand in a market starved for one.</p></div>
+        <div class="cell"><h3>The Leverage</h3><p>An AI research co-pilot lets one operator run an institutional-grade process, every session.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <p class="eyebrow">Why Now</p>
+      <h2>The trust gap meets the tooling.</h2>
+      <p>Fintwit's credibility deficit has never been wider, and audiences are hungry for someone who shows the losses. At the same time, AI co-pilots have collapsed the cost of rigorous daily research down to a single disciplined operator. The Bench sits exactly at that intersection.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">The Model</p>
+      <h2>Paths to revenue — earned, not hyped.</h2>
+      <div class="grid">
+        <div class="cell"><h3>Research &amp; Community</h3><p>Paid access to the daily research and the live book.</p></div>
+        <div class="cell"><h3>Education</h3><p>The framework as a product — the method taught, licensed, and packaged.</p></div>
+        <div class="cell"><h3>Brand</h3><p>Sponsorship and partnerships built on a genuinely trusted audience.</p></div>
+        <div class="cell"><h3>The Asset</h3><p>A verifiable, transparent track record — the most valuable thing in the category: earned trust that compounds.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <p class="eyebrow">Traction</p>
+      <h2>Where it stands today.</h2>
+      <div class="stats">
+        <div class="stat"><div class="num">v22</div><div class="lbl">Framework · self-auditing</div></div>
+        <div class="stat"><div class="num"><span class="fill">24+</span></div><div class="lbl">Calls logged · wins &amp; losses</div></div>
+        <div class="stat"><div class="num"><span class="fill">[ reach ]</span></div><div class="lbl">@TheBenchTrades audience</div></div>
+        <div class="stat"><div class="num">Daily</div><div class="lbl">Research · monitored · published</div></div>
+      </div>
+      <p class="fillnote">Gold, dashed items are yours to fill with real figures — audience size, engagement, closed-call win rate, subscriber count. Never ship a number you can't back with a receipt.</p>
+    </section>
+
+    <section class="ask">
+      <p class="eyebrow">The Ask</p>
+      <h2>What comes next.</h2>
+      <p>The method is built and self-improving. The record is compounding. What accelerates it is <span class="fill">[ your ask — capital, a partner, or focused time ]</span>, put toward <span class="fill">[ audience growth · product build · runway to let the track record mature ]</span>.</p>
+      <p class="fillnote">Fill this with your real intent. If you're not raising money, this becomes your vision statement — where a partner, sponsor, or collaborator fits.</p>
+    </section>
+
+    <footer class="foot">
+      <div class="pnh">Proof, not hype.</div>
+      <div><b style="color:var(--gold)">@TheBenchTrades</b></div>
+      <div class="disc">Not financial advice. Educational only.</div>
+    </footer>
+
+  </div>
+</div>
