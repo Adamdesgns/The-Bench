@@ -6,6 +6,21 @@
 
 ---
 
+## 0. LENGTH — short by default, and this outranks everything below
+
+Adam, 2026-08-04: *"remember old school style for maximum visibility no more long form unless it's market updates and data dumps."*
+
+**Default: a short post.** Aim under 280 characters. A few lines, no build, no sections.
+
+**Long form is allowed for exactly two things:**
+
+1. **Market updates** — pre-market, state of the market, closing bell. These carry a tape's worth of levels and genuinely need the room.
+2. **Data dumps** — the scorecard, a levels table, anything whose value *is* the list.
+
+Everything else is short: challenge updates, entries, exits, drawdowns, lessons, one-off observations. **If it will not fit, it is two posts, not one long one.**
+
+Reach is the reason. A long post is one surface in a timeline; the same material split is several, and short posts are what the ranker actually moves. This rule wins over any structural advice further down — where a section below implies a longer shape, the shape loses.
+
 ## SCOPE AND PRECEDENCE
 
 This file owns exactly two things:

@@ -88,16 +88,20 @@ Publish verdicts at the **30-day** checkpoint, never 7-day. See `docs/challenge-
 
 When the scorer and reality disagree, **that disagreement is the post.**
 
-## 7. The kickoff post
+## 7. The kickoff post — short, per `bench-daily-v1.md` §0
 
-Written once, and it sets the terms for everything after. It must contain, in this order:
+The kickoff is **not** long form. It is not a market update and it is not a data dump, so it follows the short-by-default rule like everything else here.
+
+Four things have to survive the cut, in this order:
 
 1. The real starting balance, to the cent.
-2. The real multiple — **13.39x** at the open — and the weekly-gain table from the spec.
-3. The rules — at minimum: every entry posted in advance, losses posted the same as wins, nothing ever deleted, nothing for sale.
-4. That it will probably fail, and that it gets documented either way.
+2. The real multiple — **13.34x** at the open. Never "10x".
+3. The two rules that matter most: every entry posted before the outcome, and losses posted the same as wins.
+4. That it will probably fail, and gets documented either way.
 
-Point 4 is not humility. It is the claim no competing account can make, and it is what the rest of the challenge is measured against.
+Point 4 is not humility. It is the claim no competing account can make, and it is what the rest of the challenge is measured against. **If something has to go, it is never point 4.**
+
+Everything that does not fit becomes its own later post — the weekly-gain arithmetic, the BET rules, the "I have a job, don't copy the sizing" disclosure. Each of those is a good short post on its own, and spending them one at a time is better reach than burying them in one wall of text.
 
 ## 8. Voice
 
