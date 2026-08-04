@@ -1004,5 +1004,36 @@
         "scored_at": "2026-07-28T21:49:08.534Z"
       }
     }
+  },
+  {
+    "id": "B-023",
+    "date": "2026-08-04",
+    "ticker": "SPCX",
+    "review_price": 125.895,
+    "review_time": "Aug 4 close",
+    "opportunity_score": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": null,
+      "fundamental": null,
+      "execution": null,
+      "overall": null
+    },
+    "fomo": null,
+    "market_risk": null,
+    "hodl": "No",
+    "final_call": "No Trade - falling knife, unpriceable. LOGGED LATE, see lesson.",
+    "trigger": null,
+    "invalidation": null,
+    "engine": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": "LOGGED 2026-08-04, NOT BACKDATED. The 'falling knife, unpriceable' read was made in conversation weeks earlier and never written to the book, so there is no timestamped receipt for it and this row must not be presented as one. Verifiable price facts as of this entry: closed 125.895 on Aug 4 (+9.92% on the day, post-earnings) then gave the entire move back after hours to 115.98 (-7.87% from the close, +1.27% vs the Aug 3 close of 114.53). Down 48.6% from the 225.64 high in the week of Jun 15, and red in 7 of the last 8 weeks. The No Trade stands. STRUCTURAL GAP (Self-Audit Loop, v23): this is the fourth instance of a call being made and never recorded - alongside the four energy hedges logged with no position size, the ETH/BNB/SOL conditionals logged with no trigger level, and B-023/B-024 referenced in the 2026-08-04 daily note but never committed to any branch. The calls that go unlogged are disproportionately the ones worth pointing at later.",
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-04T23:30:00.000Z"
   }
 ]
