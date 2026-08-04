@@ -2,12 +2,12 @@
 
 **Read this first, every session.** THE BENCH is Adam's build-in-public trading-research system (@TheBenchTrades). Motto: **proof, not hype** — every call goes on the record before the outcome, losses logged as loud as wins.
 
-## 🔴 "Run v22" / "run the market" = the INTERACTIVE workflow, NOT the app
+## 🔴 "Run v23" / "run the market" = the INTERACTIVE workflow, NOT the app
 
-When Adam says **"run v22"**, **"run the market(s)"**, **"Run $TICKER"**, or **"check swings"**, he means the **live Claude workflow we use in chat**:
+When Adam says **"run v23"** (or "run v22" — he will say the old number out of habit), **"run the market(s)"**, **"Run $TICKER"**, or **"check swings"**, he means the **live Claude workflow we use in chat**:
 
 1. Read **live market data through the Robinhood MCP** (read-only — see the hard rule below).
-2. Apply the current framework prompt: **`prompts/trading-copilot-v22.md`** (v22 is current).
+2. Apply the current framework prompt: **`prompts/trading-copilot-v23.md`** (v23 is current as of 2026-08-04).
 3. Produce the analysis / trade plan / post draft. **Draft only — Adam posts.**
 
 **Do NOT launch, build, or "run" the Electron desktop app** in this repo to satisfy "run v22." **The app is still in development.** It is not the thing being invoked. If you cannot find "v22" behavior in the app/code, that is expected — the framework is a *prompt* the interactive agent runs, not an app feature. Never guess a ticker onto the board: if a name (e.g. INTC, SpaceX) is not on the active board, say so and stop — that refusal is the framework working.
@@ -15,7 +15,7 @@ When Adam says **"run v22"**, **"run the market(s)"**, **"Run $TICKER"**, or **"
 ## The setup we actually use (this is "The Bench")
 
 - **Live data:** Robinhood MCP — quotes, options, earnings, technicals. **NEVER places trades** (hard Anthropic limit; Adam executes every order himself). The system drafts, a human publishes — that line is absolute.
-- **Framework:** `prompts/trading-copilot-v22.md` (spine of v17 intact; adds Conviction Tier, Size-Aware Conviction, Pre-Catalyst Deadline, Thesis Ledger, Self-Audit Loop). Never overwrite a version — new integer file per change.
+- **Framework:** `prompts/trading-copilot-v23.md` (spine of v17 intact; adds Conviction Tier, Size-Aware Conviction, Pre-Catalyst Deadline, Thesis Ledger, Self-Audit Loop). **v23 puts every instrument on the table** — shares, long calls, long puts, defined-width spreads — and **ungates the short side**, which in v22 unlocked only on an explicit "run options $TICKER" and was consequently never used once in 22 reviews. The one permanent exclusion is **naked short stock**, because it is the only position whose loss cannot be bounded before entry. Never overwrite a version — new integer file per change.
 - **Writing engine:** `prompts/marquee-v3.1.md` (long-form X Articles, institutional voice).
 - **Daily post hooks:** `prompts/bench-daily-v1.md` — owns the OPENING (first ~280 chars) and the saveable element for all six scheduled routines; overrides marquee on the opening only. Evidence behind it: `docs/growth-playbook.md`. Same versioning rule as above — never overwrite, new integer file.
 - **The book:** `db/archive.json` — one row per review, append-only.

@@ -4,7 +4,9 @@
 
 Explicitly against the "I turned $500 into $50k in a week" genre. Adam's words: *"no bullshit I did it in 7 day scam vibe."*
 
-**There is no fixed method.** The framework in this repo (`prompts/trading-copilot-v22.md`) is the default — mechanics, gates, consistent gains — but it is not a cage. Adam's terms, 2026-08-04: *"there are no real rules to how we get to 10,000 we might even place a gamble on the way but it will all be documented and nothing too irresponsible. but no risk no rari."*
+**There is no fixed method.** The framework in this repo (`prompts/trading-copilot-v23.md`) is the default — mechanics, gates, consistent gains — but it is not a cage. **v23 puts every instrument on the table** (shares, long calls, long puts, defined-width spreads) and ungates the short side, at Adam's direction: *"I want all options on the table with trading. we just explore all options and don't throw money in the trash. this is a learning experience and the money is disposable but it'd be great to show how fast we can get to 10k."*
+
+Two things follow from that last sentence and both belong in the record. **The money being disposable is why the risk on display is affordable** — it is already rule 7's disclosure. And **"how fast" is a private ambition, never a public promise**: rule 9 stands, no deadline is ever posted, because a date is what forces a bad entry on a slow week. The honest tension is worth naming — a $749 account gets to $10,000 quickly only through concentration, and concentration is what kills small accounts. The book's demonstrated skill so far is avoidance (8 passes, 7 of which fell) against one entry that lost 11.3%. Speed pressure applied to that is the specific failure mode to watch for in the Self-Audit Loop. Adam's terms, 2026-08-04: *"there are no real rules to how we get to 10,000 we might even place a gamble on the way but it will all be documented and nothing too irresponsible. but no risk no rari."*
 
 So the promise is **not** "we followed a system." The promise is **"you saw every call before it resolved."** That is the only thing being claimed, and it is the only thing that has to hold.
 
