@@ -2,7 +2,11 @@
 
 **$545.81 → $10,000, documented in public, start to finish.**
 
-Explicitly against the "I turned $500 into $50k in a week" genre. The method is the framework already in this repo (`prompts/trading-copilot-v22.md`) — mechanics, gates, and consistent gains. Adam's words: *"no bullshit I did it in 7 day scam vibe."*
+Explicitly against the "I turned $500 into $50k in a week" genre. Adam's words: *"no bullshit I did it in 7 day scam vibe."*
+
+**There is no fixed method.** The framework in this repo (`prompts/trading-copilot-v22.md`) is the default — mechanics, gates, consistent gains — but it is not a cage. Adam's terms, 2026-08-04: *"there are no real rules to how we get to 10,000 we might even place a gamble on the way but it will all be documented and nothing too irresponsible. but no risk no rari."*
+
+So the promise is **not** "we followed a system." The promise is **"you saw every call before it resolved."** That is the only thing being claimed, and it is the only thing that has to hold.
 
 This document is both the internal spec and the public rules. That is deliberate: the rules are the product, so there is no private version.
 
@@ -50,6 +54,33 @@ Sustained 10%/week is exceptional, not a plan. Publishing this table in post one
 7. **Nothing is sold.** No paid group, no affiliate links, no "DM me." The benchmarked account funnels to a paid community and a bot; that is the specific thing not to copy (`docs/growth-playbook.md`).
 8. **Claude never places a trade.** Adam executes every order. The system reads, drafts, and documents.
 9. **No public deadline.** A date creates pressure to force trades, which breaks rule 5 and is the mechanism that turns these challenges into blowups.
+
+## How we get there — two call types, labelled at entry
+
+The book already carries this distinction from the scout log (`docs/scout-log.md`), where SMCI was logged as *"BET (defined-risk)"*. The challenge formalises it.
+
+**SETUP** — the default. A framework call: thesis, trigger, invalidation, benchmark. Graded the normal way at 30 days.
+
+**BET** — a deliberate high-risk swing taken because the risk/reward looked worth it, not because a gate fired. Earnings reactions, defined-risk option positions, an asymmetric crypto entry. Allowed, expected, and **not** something to be embarrassed about — *no risk no rari*.
+
+The rules that make a BET honest rather than reckless:
+
+1. **It is called a BET in the post, at entry, before it resolves.** Never reclassified afterwards. A BET that wins was still a BET.
+2. **The maximum loss is stated in dollars at entry**, not as a percentage and not implied.
+3. **It is never dressed as analysis.** If the honest reason is "the payoff is worth the odds," that is what the post says. Manufacturing a thesis for a gamble is the exact dishonesty this challenge exists to avoid.
+4. **A BET that goes to zero gets the same post a winner would have got.** Rule 2 applies with no exceptions.
+5. **A losing BET never gets averaged into.** Doubling down to rescue a bad bet is the mechanism that turns "aggressive" into "irresponsible."
+
+`hodl`/`final_call` in `db/archive.json` carries the label, so the scorer can report SETUPs and BETs separately. **Their records are published separately too** — if the BETs are carrying the account, the reader deserves to know that, and if they are draining it, that is the more interesting post.
+
+### Why the risk is affordable, stated publicly
+
+Adam has a job and supplemental income. This account is **not** rent money, and that is worth saying out loud in the challenge, twice over:
+
+- It is the honest disclosure — the reader deserves to know the risk tolerance on display is funded by a paycheque, not desperation.
+- It is also the answer to *"why would you gamble part of it?"* The account can absorb a total loss. Most people watching cannot say that about theirs, and they should not copy the sizing.
+
+**Nobody should be following these trades.** Say it plainly and often. Rule 8 already forbids advice phrasing; this is the reason behind it.
 
 ## The ledger
 

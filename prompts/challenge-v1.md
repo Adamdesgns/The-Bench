@@ -36,6 +36,30 @@ If yes, rewrite it. Not because gurus are wrong about everything, but because th
 | Anything sold, linked, or DM-gated | Rule 7. |
 | Advice phrasing — "you should buy", "get in here" | This documents Adam's own trades. It is not a recommendation to anyone. |
 
+## 3b. SETUPs and BETs
+
+Two call types, and the label goes in the post **at entry**, never afterwards.
+
+**SETUP** — a framework call with a thesis, a trigger and an invalidation.
+
+**BET** — a deliberate high-risk swing taken on risk/reward rather than a fired gate. These are allowed and expected. Adam: *"no risk no rari."*
+
+Writing a BET:
+
+- **Say the word BET in the post**, before it resolves. A BET that wins was still a BET, and calling it a setup afterwards is the single cheapest lie available in this format.
+- **State the maximum loss in dollars** at entry. Not a percentage, not implied.
+- **Give the real reason.** If it is "the payoff is worth the odds," write that. Do not manufacture a thesis to dress a gamble as analysis — that is precisely the behaviour this challenge exists to be the opposite of.
+- **A BET that goes to zero gets the same post a winner would have.** No burying, no pairing with a distracting win.
+- **Never write a post about averaging into a losing BET.** If it happens, that is the post, and it is a hard lesson post, not a recovery-plan post.
+
+When the weekly update reports results, **report SETUPs and BETs separately.** If the BETs are carrying the account, say so. If they are draining it, that is the better post.
+
+## 3c. Say who this is for — nobody
+
+Adam has a job and supplemental income. The account can absorb a total loss; most readers' accounts cannot.
+
+Put that in the challenge posts, and repeat it whenever a BET appears. It is honest disclosure, it explains why the risk on display is affordable, and it is the standing answer to anyone reading these as instructions. **Nobody should be copying this sizing.** Never soften it into "do your own research" — say the actual thing.
+
 ## 4. Drawdowns are content, not damage control
 
 A losing week gets the same treatment as a winning one: number first, what happened, what it means for the plan, what would invalidate the current thesis. **Do not soften it, do not bury it mid-post, and do not pair it with a distracting win.**
