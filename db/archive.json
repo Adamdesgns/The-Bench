@@ -1035,5 +1035,40 @@
     "last": "unverified",
     "last_source": "none",
     "last_checked": "2026-08-04T23:30:00.000Z"
+  },
+  {
+    "id": "B-024",
+    "date": "2026-08-04",
+    "ticker": "SPCX",
+    "review_price": 125.895,
+    "review_time": "Aug 4 close",
+    "opportunity_score": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": null,
+      "fundamental": null,
+      "execution": null,
+      "overall": null
+    },
+    "fomo": null,
+    "market_risk": null,
+    "hodl": "Accumulate candidate - kids UTMA lens, not a swing",
+    "final_call": "Watch, not yet - bounced off a 52wk low set the day before, ran +9.9% on 2x volume, then gave the ENTIRE move back after hours to 115.98. Failed reclaim. Gate: reclaim and HOLD 126.71 (today's high).",
+    "call_type": "conditional",
+    "trigger": 126.71,
+    "invalidation": null,
+    "size": null,
+    "max_loss": null,
+    "engine": "claude",
+    "logged_by": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": "Dominant structural fact is the float: 646M vs 14.02B shares outstanding = 4.6% floated, so ~95% is locked up on a listing roughly 2 months old. Price is being set by scarce supply, not by the business. A lockup expiry is a supply cliff on a name already -48.6% from its 225.64 June high. UNVERIFIED - the actual lockup expiry date has NOT been confirmed, it is inferred from the float ratio; confirm before acting. Business case (SpaceX + Starlink + xAI/Grok) is a real 15-year story at 1.77T cap, PB 43.4, no PE. For a kids account the entry matters less than the date, and the date is the thing we do not have. AMENDED 2026-08-04T23:55Z, before any outcome was recorded: the row was first logged WITHOUT the earnings, which was a gap - Adam caught it. VERIFIED Q2 2026, reported 2026-08-04 pm: EPS actual -0.09 vs -0.16 estimate, a 7c beat and still a loss. Revenue/margins NOT available - get_financials returns null for this symbol. Third-party claims of +92% revenue seen on X are UNVERIFIED and are deliberately not recorded here. Next report 2026-11-17 pm, tentative (verified=false). READ: it beat and was sold anyway, giving back a +9.9% day after hours - the same pattern AMD printed the same evening. A beat that cannot hold a bounce off a 52wk low points at supply, not at the P&L, which reinforces the float/lockup read rather than softening it.",
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-04T23:46:58.819Z"
   }
 ]
