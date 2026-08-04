@@ -1,6 +1,6 @@
 # CHALLENGE v1 — post rules for the account challenge
 
-**Applies to:** every post about the $545.81 → $10,000 challenge — the weekly update, entry and exit posts, drawdown posts, and the kickoff.
+**Applies to:** every post about the $746.69 → $10,000 challenge — the weekly update, entry and exit posts, drawdown posts, and the kickoff.
 
 **Layers on top of:**
 - `prompts/bench-daily-v1.md` — hooks and the saveable element. Still governs the opening.
@@ -20,7 +20,7 @@ If yes, rewrite it. Not because gurus are wrong about everything, but because th
 ## 2. Always in every post
 
 - **The balance, from the ledger.** Never from memory, never rounded up.
-- **The multiple still to go.** "18.32x to go" is the honest headline. Never let a good week imply the target is close.
+- **The multiple still to go**, taken from the ledger rather than from memory — it moves every week. It opened at **13.39x**. Never let a good week imply the target is close.
 - **What would prove the current call wrong.** A level, not a feeling.
 
 ## 3. Never, in any post
@@ -60,6 +60,16 @@ Adam has a job and supplemental income. The account can absorb a total loss; mos
 
 Put that in the challenge posts, and repeat it whenever a BET appears. It is honest disclosure, it explains why the risk on display is affordable, and it is the standing answer to anyone reading these as instructions. **Nobody should be copying this sizing.** Never soften it into "do your own research" — say the actual thing.
 
+## 3d. Transfers — say it the week it happens
+
+Money moving in or out is allowed. Hiding it is not, and the ledger will not let you: the snapshot prints `contributed` (money put in) alongside `trading P&L` (money earned), and warns when they diverge.
+
+- **Any week with a transfer states it in the post, in dollars.** Not a footnote, not next week.
+- **The headline number is trading P&L, never the balance.** A $200 deposit moves the account 36.6% and earns nothing. Reporting that as a gain is the single most damaging thing this format can publish.
+- **Report both numbers whenever they differ.** "Account $745.81, of which $200 was transferred in — trading P&L $0.00."
+- **Never say "the account is up X%"** when part of X came from a transfer. Say what the trading did.
+- **If the account scope changed** (options moved trading onto the margin account), say that too — the balance moved because the scope moved, not because a trade worked.
+
 ## 4. Drawdowns are content, not damage control
 
 A losing week gets the same treatment as a winning one: number first, what happened, what it means for the plan, what would invalidate the current thesis. **Do not soften it, do not bury it mid-post, and do not pair it with a distracting win.**
@@ -83,7 +93,7 @@ When the scorer and reality disagree, **that disagreement is the post.**
 Written once, and it sets the terms for everything after. It must contain, in this order:
 
 1. The real starting balance, to the cent.
-2. The real multiple: **18.32x**, and the weekly-gain table from the spec.
+2. The real multiple — **13.39x** at the open — and the weekly-gain table from the spec.
 3. The rules — at minimum: every entry posted in advance, losses posted the same as wins, nothing ever deleted, nothing for sale.
 4. That it will probably fail, and that it gets documented either way.
 

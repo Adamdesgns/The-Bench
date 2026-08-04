@@ -13,6 +13,8 @@ import {
   computeProgress,
   validateSnapshot,
   appendSnapshot,
+  contributedAt,
+  scopeChanged,
 } from "./challenge.js";
 
 const START = {
@@ -119,4 +121,87 @@ test("appendSnapshot stamps progress onto the stored row", () => {
   const out = appendSnapshot(ledgerOf(START), next);
   assert.equal(out[1].pct_from_start, 9.93);
   assert.equal(out[1].multiple_to_target, 16.67);
+});
+
+// ── deposits ────────────────────────────────────────────────────────────────
+// Adam can move money in. The rule is not "don't" -- it is that deposited
+// dollars can never be counted as earned ones. contributed tracks what was put
+// in; trading_pnl is the only number that says whether the trading worked.
+
+test("with no deposits, contributed is just the starting balance", () => {
+  assert.equal(contributedAt(ledgerOf(START), START), 545.81);
+});
+
+test("a deposit raises contributed and does NOT count as profit", () => {
+  const ledger = ledgerOf(START);
+  const funded = { ...START, date: "2026-08-11", total_value: 745.81, cash: 368.72, deposit: 200 };
+  const out = appendSnapshot(ledger, funded);
+  assert.equal(out[1].contributed, 745.81);
+  assert.equal(out[1].trading_pnl, 0, "moving $200 in earned nothing");
+  assert.equal(out[1].pct_return_on_contributed, 0);
+});
+
+test("profit is measured against contributed, not against the start", () => {
+  const ledger = ledgerOf(START);
+  const funded = { ...START, date: "2026-08-11", total_value: 800, cash: 422.91, deposit: 200 };
+  const out = appendSnapshot(ledger, funded);
+  assert.equal(out[1].contributed, 745.81);
+  assert.equal(out[1].trading_pnl, 54.19);
+  // the naive headline would read +46.6% from start; the honest one is +7.3%
+  assert.equal(out[1].pct_from_start, 46.57);
+  assert.equal(out[1].pct_return_on_contributed, 7.27);
+});
+
+test("a withdrawal is a negative deposit and lowers contributed", () => {
+  const ledger = ledgerOf(START);
+  const out = appendSnapshot(ledger, {
+    ...START, date: "2026-08-11", total_value: 445.81, cash: 68.72, deposit: -100,
+  });
+  assert.equal(out[1].contributed, 445.81);
+  assert.equal(out[1].trading_pnl, 0, "taking $100 out is not a loss");
+});
+
+test("deposits accumulate across rows", () => {
+  let ledger = ledgerOf(START);
+  ledger = appendSnapshot(ledger, { ...START, date: "2026-08-11", total_value: 745.81, cash: 368.72, deposit: 200 });
+  ledger = appendSnapshot(ledger, { ...START, date: "2026-08-18", total_value: 1045.81, cash: 668.72, deposit: 300 });
+  assert.equal(ledger[2].contributed, 1045.81);
+  assert.equal(ledger[2].trading_pnl, 0);
+});
+
+test("a non-numeric deposit is refused rather than silently ignored", () => {
+  const problems = validateSnapshot({ ...START, date: "2026-08-11", deposit: "200" }, ledgerOf(START));
+  assert.match(problems.join(" "), /deposit/);
+});
+
+// ── multi-account scope ─────────────────────────────────────────────────────
+// Using options may mean trading the margin account too. The ledger records
+// WHICH accounts a row covers, so a change of scope is visible in the record
+// rather than being an unexplained jump in the balance.
+
+test("accounts default to the challenge account when not given", () => {
+  const out = appendSnapshot(ledgerOf(), START);
+  assert.deepEqual(out[0].accounts, ["769507724"]);
+});
+
+test("a row can cover more than one account", () => {
+  const out = appendSnapshot(ledgerOf(), { ...START, accounts: ["769507724", "929016137"] });
+  assert.deepEqual(out[0].accounts, ["769507724", "929016137"]);
+});
+
+test("an empty accounts list is refused — every row must say what it covers", () => {
+  const problems = validateSnapshot({ ...START, accounts: [] }, ledgerOf());
+  assert.match(problems.join(" "), /accounts/);
+});
+
+test("a change in account scope is flagged, because it moves the balance", () => {
+  const ledger = appendSnapshot(ledgerOf(), START);
+  const widened = {
+    ...START, date: "2026-08-11", total_value: 2000, equity_value: 1831.28,
+    accounts: ["769507724", "929016137"],
+  };
+  assert.ok(
+    scopeChanged(ledger, widened),
+    "widening from one account to two has to be visible"
+  );
 });

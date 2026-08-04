@@ -16,6 +16,12 @@
 
 export const TARGET = 10000;
 
+// The account the challenge started on. Rows may cover more than one -- using
+// options can mean trading the margin account too -- so every row records what
+// it covers. A change of scope is then visible in the record instead of showing
+// up as an unexplained jump in the balance.
+export const DEFAULT_ACCOUNTS = ["769507724"];
+
 // Reconciliation tolerance, in dollars. Robinhood rounds its own components,
 // so a couple of cents of drift is real and expected; anything larger means
 // the numbers did not come from one snapshot.
@@ -48,6 +54,36 @@ export function computeProgress(row, startRow, target = TARGET) {
   };
 }
 
+// Total dollars PUT IN: the starting balance plus every deposit since, minus
+// every withdrawal. This is the number profit has to be measured against.
+//
+// Transferring money in is allowed. Counting it as profit is not -- that is the
+// specific dishonesty every account-challenge scam runs on, and separating the
+// two is what makes deposits safe to allow at all.
+export function contributedAt(ledger = [], row) {
+  const first = ledger[0] ?? row;
+  let total = isNum(first?.total_value) ? first.total_value : 0;
+
+  for (const r of ledger.slice(1)) {
+    if (isNum(r.deposit)) total += r.deposit;
+  }
+  // Skip when `row` IS the opening row -- its balance is the base, not a deposit.
+  const isOpeningRow = ledger[0] && row && ledger[0].date === row.date;
+  if (!isOpeningRow && isNum(row?.deposit)) total += row.deposit;
+
+  return round(total, 2);
+}
+
+// True when this row covers a different set of accounts than the last one.
+// Worth surfacing: widening scope moves the balance without a trade happening.
+export function scopeChanged(ledger = [], row) {
+  const last = ledger[ledger.length - 1];
+  if (!last) return false;
+  const a = (last.accounts ?? DEFAULT_ACCOUNTS).join(",");
+  const b = (row?.accounts ?? DEFAULT_ACCOUNTS).join(",");
+  return a !== b;
+}
+
 // Returns the reasons this snapshot must NOT be written. Empty array = safe.
 export function validateSnapshot(row, ledger = []) {
   const problems = [];
@@ -65,6 +101,18 @@ export function validateSnapshot(row, ledger = []) {
 
   if (!row.source) {
     problems.push("source is missing — a balance must be attributed to where it came from");
+  }
+
+  // Optional, but if present it has to be a real number. A deposit that arrives
+  // as a string would be skipped by the arithmetic and silently become profit.
+  if (row.deposit !== undefined && row.deposit !== null && !isNum(row.deposit)) {
+    problems.push(`deposit is not a number (got ${JSON.stringify(row.deposit)})`);
+  }
+
+  if (row.accounts !== undefined) {
+    if (!Array.isArray(row.accounts) || row.accounts.length === 0) {
+      problems.push("accounts must be a non-empty list — every row records which accounts it covers");
+    }
   }
 
   // Only worth checking once the components are actually numbers.
@@ -101,15 +149,24 @@ export function appendSnapshot(ledger = [], row) {
 
   const startRow = ledger[0] ?? row;
   const progress = computeProgress(row, startRow);
+  const contributed = contributedAt(ledger, row);
+  const tradingPnl = round(row.total_value - contributed, 2);
 
   return [
     ...ledger,
     {
       ...row,
+      accounts: row.accounts ?? DEFAULT_ACCOUNTS,
       options_value: isNum(row.options_value) ? row.options_value : 0,
+      deposit: isNum(row.deposit) ? row.deposit : 0,
       pct_from_start: progress.pctFromStart,
       multiple_to_target: progress.multipleToTarget,
       pct_of_target: progress.pctOfTarget,
+      // The two numbers that keep deposits honest. contributed is what went in;
+      // trading_pnl is the only figure that says whether the trading worked.
+      contributed,
+      trading_pnl: tradingPnl,
+      pct_return_on_contributed: contributed > 0 ? round((tradingPnl / contributed) * 100, 2) : null,
     },
   ];
 }
