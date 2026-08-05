@@ -4,7 +4,7 @@
     "claim": "A beat that follows a big run into the print gets sold on the reaction",
     "test": "2-day post-earnings return on names up 8%+ in the 5 sessions before the print. Pattern fails if those names hold or extend the gain.",
     "first_seen": "2026-08-04",
-    "status": "proposed",
+    "status": "supported",
     "why": null,
     "logged_by": "claude",
     "instances": [
@@ -18,6 +18,12 @@
         "date": "2026-08-04",
         "ticker": "SPCX",
         "detail": "EPS -0.09 vs -0.16 est (beat), ran +9.92% on 2x volume, gave the entire move back after hours to 115.98",
+        "holds": true
+      },
+      {
+        "date": "2026-08-05",
+        "ticker": "AMD",
+        "detail": "Third instance, next-day confirmation. Beat revenue (11.5B, +50% y/y), data center +107% to 6.72B, EPS 1.66 vs 1.55 est. Ran ~8% INTO the print. Gross margin missed 54% vs 56% and it fell 8.8% pre-market to 472.90 against a 518.58 close. The Bench passed on the pre-print bet for exactly this reason.",
         "holds": true
       }
     ]
