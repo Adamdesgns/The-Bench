@@ -6,20 +6,46 @@
 
 ---
 
-## 0. LENGTH — short by default, and this outranks everything below
+## 0. EVERYTHING IS A CHAIN — this outranks everything below
 
-Adam, 2026-08-04: *"remember old school style for maximum visibility no more long form unless it's market updates and data dumps."*
+Adam, 2026-08-05: *"From now on let's build them in chains and not long form post. Whatever gets us more reach and views needs to be our gameplay. Growth is the whole point of this."*
 
-**Default: a short post.** Aim under 280 characters. A few lines, no build, no sections.
+**Long form is retired.** Not reduced, not reserved for market updates — retired. Every post is a **thread of parts, each under 280 characters**.
 
-**Long form is allowed for exactly two things:**
+This replaces the 2026-08-04 rule that allowed long form for market updates and data dumps. Those were the two exceptions, and they are gone: a pre-market report is the *best* candidate for a chain, because it already has natural sections.
 
-1. **Market updates** — pre-market, state of the market, closing bell. These carry a tape's worth of levels and genuinely need the room.
-2. **Data dumps** — the scorecard, a levels table, anything whose value *is* the list.
+### How to write one
 
-Everything else is short: challenge updates, entries, exits, drawdowns, lessons, one-off observations. **If it will not fit, it is two posts, not one long one.**
+Split with a line containing **exactly three dashes**, alone on its line:
 
-Reach is the reason. A long post is one surface in a timeline; the same material split is several, and short posts are what the ranker actually moves. This rule wins over any structural advice further down — where a section below implies a longer shape, the shape loses.
+```
+Three of the five biggest companies in America are red before the bell.
+The S&P is green anyway.
+---
+SOXX is up 4.2%. MU +4.4%, AMD +4.0%, NVDA +1.6%.
+---
+THE LEVEL: SPY 760. Hold it and 765 is the next air pocket.
+
+Proof, not hype. @TheBenchTrades. Not financial advice.
+```
+
+`post_next.py` posts part one, then replies each following part to the one before. **It refuses the whole thread if any part would truncate** — nothing is posted, because half a thread cannot be unsent.
+
+The separator must be alone on its line, so a dash inside prose never splits a post by accident.
+
+### The shape
+
+- **Part 1 is the hook and nothing else.** It is what appears in a timeline and it is the post that gets quote-tweeted. Number first, open loop, no verdict.
+- **One idea per part.** If a part has two thoughts, it is two parts.
+- **The saveable element gets its own part** so it can be screenshotted alone.
+- **The signoff rides on the last part.**
+- **Three to six parts.** Fewer than three is just a post; more than six and people stop.
+
+### Why
+
+Reach is the entire reason and it is not a matter of taste. A long post is **one** surface in a timeline. The same material as five parts is **five**, each separately quotable, each re-entering the feed. In the account we studied, threads were the format doing the work — 398 of its 431 "replies" were its own thread continuations.
+
+**This rule wins over any structural advice further down this file, and over the routines' own instructions.** Where a section below or a `SKILL.md` says "write a long-form article," it is describing the old standard. Write the chain.
 
 ## SCOPE AND PRECEDENCE
 

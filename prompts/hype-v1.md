@@ -8,6 +8,40 @@
 
 ---
 
+## 0. THE FORMULA — measured, not guessed
+
+On 2026-08-05 the same story went out twice within four minutes, and the numbers settled the question:
+
+| Format | Impressions |
+|---|---|
+| @adamdesgns QT of an aged Bench receipt | **489** |
+| Bench thread, part 1 | 235 |
+| Bench single post (identical content) | 57 |
+| Median of all 38 Bench posts | 57 |
+
+**The quote-tweet is 8.6x the median Bench post.** It is not a garnish on the Bench account, it is the distribution channel — 580 followers against 89.
+
+### The 489 post, and why it worked
+
+> *"Ok I have to give him this one. He called $OUST a No Trade on July 1 at an all time high, it's down 43% now. I said we should short it but he said no. It ran another 23% first and would have margin called me before it paid 😄"*
+
+Four things, all repeatable:
+
+1. **It quotes an OLD post.** Five weeks old. The receipt was already public and timestamped before anyone knew the outcome — that is the entire asset, and a fresh post cannot have it.
+2. **Adam is wrong in it.** *"I said we should short it."* The against-interest admission is the line people reply to.
+3. **The bit is running.** He/him, the AI as a character who overruled him.
+4. **The payoff lives in the caption, not the quoted post.** The old post can't know how it ended. Saying how it ended is the whole reason to quote it.
+
+### CORRECTION to the rule below
+
+This file used to say *"never restate the Bench post's numbers."* **That was wrong**, and the 489 post breaks it deliberately — *"it's down 43% now."*
+
+The distinction the old rule missed: **restating the original claim is redundant. Stating the OUTCOME is the point.** Quote the call, then say what happened to it. Never re-explain what the call was — the reader can see it.
+
+### Where the material comes from
+
+`db/archive.json` — 30 rows and growing, each a timestamped public call. Every scored row is a candidate: an old post, what actually happened, and Adam being wrong about it. The book is the content pipeline, not just the receipts.
+
 ## The job: stop the scroll
 
 A hype post is not a summary. If it restates the Bench post, there is no reason to click through and the whole pairing is pointless. It exists to make someone *stop*, and the thing that stops people is not enthusiasm — enthusiasm is the most skippable thing on the timeline.
@@ -107,7 +141,7 @@ The eventual second half of the bit: @TheBenchTrades finally answers, and the an
 
 ## Rules
 
-- **Never restate the Bench post's numbers.** That post is one tap away and it does that job. Duplicating it kills the reason to click.
+- **Never restate the original CALL** — that post is one tap away and re-explaining it kills the reason to click. **Do state the OUTCOME**, always. The quoted post cannot know how it ended; saying so is the whole reason to quote it. (Superseded the old blanket "never restate the numbers" rule — see section 0.)
 - **Never claim the AI is trading.** Adam executes every order. "Lose my money with AI" is fine as a joke; "my AI is trading for me" is false and the challenge's whole value is being the account that does not say false things.
 - **Never hype a result.** A green week gets the same register as a red one. A hype account that only shows up on good days is the thing everyone already distrusts.
 - **No hashtags, no emoji walls, no "🚨 THREAD 🚨".** That is costume hype and it reads as a bot.
