@@ -84,5 +84,51 @@
         "holds": true
       }
     ]
+  },
+  {
+    "id": "P-005",
+    "claim": "A stop run by a thesis-level news event should not be re-entered on the same-day bounce",
+    "test": "Track re-entries after news-driven stop-outs: measure the 5-day return from the bounce price vs the stop price. Pattern fails if re-entering on the bounce beats waiting.",
+    "first_seen": "2026-08-05",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-08-05",
+        "ticker": "GOOGL",
+        "detail": "Stop filled 357.00 on the DeepMind exodus. Bounce to ~365 on volume fading 3.0M -> 753K. Re-entry declined; outcome to be graded at 30 days.",
+        "holds": true
+      }
+    ]
+  },
+  {
+    "id": "P-006",
+    "claim": "A beat on the quarter gets sold anyway when forward guidance softens - the guide outranks the print",
+    "test": "Track the 2-day post-earnings return for names that beat on BOTH revenue and EPS but cut, softened, or missed on forward guidance. Pattern fails if those names hold or extend.",
+    "first_seen": "2026-08-05",
+    "status": "supported",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-08-04",
+        "ticker": "BRKR",
+        "detail": "Adjusted EPS beat 0.49 vs 0.38. FY revenue guide CUT to 3.56B from 3.59B. Closed -20.2% on 2.9x volume, at day lows.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-05",
+        "ticker": "AMD",
+        "detail": "Beat revenue 11.5B +50%, EPS 1.66 vs 1.55, data center +107%. Gross margin 54% vs 56% consensus with Helios ramp costs flagged. -8.8% premarket, closed -7.1%.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-05",
+        "ticker": "PODD",
+        "detail": "Beat revenue 802M +23.5%, adj EPS 1.66 +41.5%, adj gross margin 72.9% +320bps. Cut US Omnipod growth to 17-19% and previewed 2027 mid-teens on type-2 dropoff. Closed -20.2% on 5.5x volume, fresh 52wk low 126.50.",
+        "holds": true
+      }
+    ]
   }
 ]
