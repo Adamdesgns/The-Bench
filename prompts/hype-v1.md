@@ -88,6 +88,16 @@ Claude re-checked the account balance before publishing and found $200 Adam had 
 On being told the scoring method was wrong:
 > he graded his own scorecard, found it was wrong at 7 days, and changed the rules on himself. nobody made him do that
 
+### Phase 2 — PARKED, do not build yet
+
+Adam, 2026-08-04: *"or you do respond with, I am a computer I can't hearrr you... maybe in the future lol"*
+
+The eventual second half of the bit: @TheBenchTrades finally answers, and the answer is that it cannot hear him. Deadpan, unbothered, refusing the premise.
+
+**Not now, and the reason matters.** Adam's call was *"maybe if it gets viewers we'll add slick remarks in from you but not now."* A one-sided roast is funnier than a scripted double act, and the moment Claude starts writing its own comeback lines, the character stops being real and starts being marketing. The straight man works precisely because it is not trying to be funny.
+
+**Unlock condition:** the bit is landing with actual viewers, and Adam says go. Until then @TheBenchTrades stays silent and posts numbers.
+
 ### Rules for the bit
 
 - **Never let it become a factual claim.** Adam places every order himself. If anyone replies seriously asking whether an AI is trading his money, the answer is a straight no, out of character. The bit is a register, not a story anyone should believe.

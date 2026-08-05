@@ -25,6 +25,33 @@ When Adam says **"run v23"** (or "run v22" — he will say the old number out of
 - **Web reads:** when a page bot-walls, read it via Agent-Reach's Jina Reader — `curl -sSL "https://r.jina.ai/<URL>"`.
 - **Promo video:** `apps/bench-reel` (Remotion). Rendered reels land in `OneDrive/The Bench Promo`.
 
+## 🔴 LOG IT, WHICHEVER CHAT YOU ARE
+
+Adam's standing rule, 2026-08-04: **"any time we mention and run something it needs to be logged no matter what chat runs it."**
+
+This exists because the same failure happened four times in one week. SPCX was called in conversation and never written down. Four energy hedges were logged with no position size and all ran 13–18%, unclaimable. ETH, BNB and SOL were logged with no trigger level, so their gates can never be judged. A GOOGL row was referenced in the daily note and never committed to any branch. **17 of 26 scored checkpoints cannot be graded**, and not one of those is because a call was wrong.
+
+**An analysis is not finished until a row ID has been echoed.**
+
+```bash
+node scripts/log-call.mjs --ticker SPCX --type conditional --price 125.90 --trigger 126.71 --call "Watch - failed reclaim"
+```
+
+It **refuses** what it cannot score later: a `conditional` without `--trigger`, a `hedge` without `--size`, a `long` without `--invalid`, a `bet` without `--max-loss`. A refusal is the guard working, not an error to route around.
+
+**Patterns get logged too** — Adam: *"every time you see a pattern of why the market moved this way it needs to be logged."* The book records calls; `db/patterns.json` records how the tape behaves.
+
+```bash
+node scripts/log-pattern.mjs --list
+node scripts/log-pattern.mjs --instance P-001 --ticker AMD --date 2026-08-04 --holds true --detail "..."
+```
+
+A pattern with no falsification test is refused, and `--holds false` matters as much as true. Nothing is promoted past `proposed` until it has three instances.
+
+**Grades stay null unless the framework actually ran.** A guessed grade looks like work was done.
+
+**Check for gaps before you add to them:** `node scripts/book-check.mjs` lists tickers mentioned in the vault or in posted content that never made it into the book.
+
 ## Hard rules
 
 - **Never place trades.** Read + draft only. Adam executes.
