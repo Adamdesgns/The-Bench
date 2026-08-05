@@ -1,0 +1,82 @@
+[
+  {
+    "id": "P-001",
+    "claim": "A beat that follows a big run into the print gets sold on the reaction",
+    "test": "2-day post-earnings return on names up 8%+ in the 5 sessions before the print. Pattern fails if those names hold or extend the gain.",
+    "first_seen": "2026-08-04",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-08-04",
+        "ticker": "AMD",
+        "detail": "Up ~8% into the print, beat consensus, then -8.0% after hours to 478.05, below its entire regular-session low",
+        "holds": true
+      },
+      {
+        "date": "2026-08-04",
+        "ticker": "SPCX",
+        "detail": "EPS -0.09 vs -0.16 est (beat), ran +9.92% on 2x volume, gave the entire move back after hours to 115.98",
+        "holds": true
+      }
+    ]
+  },
+  {
+    "id": "P-002",
+    "claim": "7-day verdicts invert; 30 days is the first checkpoint worth publishing",
+    "test": "Compare the 1w and 1m verdict on the same archive row. Pattern fails if sign flips are rare (<10% of scored rows).",
+    "first_seen": "2026-08-04",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-08-04",
+        "ticker": "LMT",
+        "detail": "Scored WRONG at 1w (-0.72%), RIGHT at 1m (+11.64%, alpha +11.34). Sign flipped.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-04",
+        "ticker": "MSFT",
+        "detail": "+4.7% at 1w became +21.46% at 1m. Same verdict, wildly different magnitude.",
+        "holds": true
+      }
+    ]
+  },
+  {
+    "id": "P-003",
+    "claim": "Relative volume, not percent move, identifies a real repricing in a crowded up-tape",
+    "test": "On scan days, check whether the name with rel-vol >1.0 kept its move while bigger percent movers on sub-1.0 volume faded.",
+    "first_seen": "2026-08-04",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-08-04",
+        "ticker": "BRKR",
+        "detail": "Only row of 49 in the broad scan with rel-vol >1.0 (2.9x). Fell -20.2% and held it, while MU +7.7%, SMCI +10.5%, AMD +8.5% all ran on sub-1.1x and faded",
+        "holds": true
+      }
+    ]
+  },
+  {
+    "id": "P-004",
+    "claim": "A float under ~10% of shares outstanding means price is set by supply, not by the business",
+    "test": "Track low-float names against their own earnings: pattern fails if fundamentals move price more than lockup/supply events do.",
+    "first_seen": "2026-08-04",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-08-04",
+        "ticker": "SPCX",
+        "detail": "Float 646M of 14.02B shares = 4.6%. Beat earnings and sold anyway; -48.6% from the June high on no fundamental break",
+        "holds": true
+      }
+    ]
+  }
+]
