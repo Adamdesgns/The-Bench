@@ -28,7 +28,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-07",
+        "price": 388.8399963378906,
+        "asset_pct": 4.7,
+        "bench": "SPY",
+        "bench_pct": 0.13,
+        "alpha": 4.57,
+        "verdict": "right",
+        "note": "long — beat the benchmark",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:34:04.525Z"
+      }
+    }
   },
   {
     "id": "B-002",
@@ -59,7 +73,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-07",
+        "price": 0.18843799829483032,
+        "asset_pct": 4.69,
+        "bench": "BTC",
+        "bench_pct": 8.09,
+        "alpha": -3.4,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:34:04.691Z"
+      }
+    }
   },
   {
     "id": "B-003",
@@ -90,7 +118,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-07",
+        "price": 44.060001373291016,
+        "asset_pct": -29.5,
+        "bench": "SPY",
+        "bench_pct": 0.13,
+        "alpha": -29.63,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:34:04.780Z"
+      }
+    }
   },
   {
     "id": "B-004",
@@ -111,7 +153,10 @@
     "hodl": "Accumulate",
     "final_call": "Entered — stop $1,020",
     "trigger": null,
-    "invalidation": null,
+    "invalidation": {
+      "direction": "below",
+      "level": 1020
+    },
     "engine": "claude",
     "outcome": "Loss",
     "outcome_price": 1020,
@@ -149,7 +194,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 137.4600067138672,
+        "asset_pct": 0.23,
+        "bench": "SPY",
+        "bench_pct": 0.93,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "hedge — no position, size or entry is recorded to score against",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:04.836Z"
+      }
+    }
   },
   {
     "id": "B-006",
@@ -180,7 +239,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 174.0500030517578,
+        "asset_pct": 3.72,
+        "bench": "SPY",
+        "bench_pct": 0.93,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "hedge — no position, size or entry is recorded to score against",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:05.161Z"
+      }
+    }
   },
   {
     "id": "B-007",
@@ -211,7 +284,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 108.0199966430664,
+        "asset_pct": 4.33,
+        "bench": "SPY",
+        "bench_pct": 0.93,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "hedge — no position, size or entry is recorded to score against",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:05.473Z"
+      }
+    }
   },
   {
     "id": "B-008",
@@ -242,7 +329,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 52.29999923706055,
+        "asset_pct": 8.62,
+        "bench": "SPY",
+        "bench_pct": 0.93,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "hedge — no position, size or entry is recorded to score against",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:05.735Z"
+      }
+    }
   },
   {
     "id": "B-009",
@@ -262,7 +363,10 @@
     "market_risk": 3,
     "hodl": "Hold-quality — wait for value",
     "final_call": "Watchlist — trigger: reclaim $540",
-    "trigger": null,
+    "trigger": {
+      "direction": "above",
+      "level": 540
+    },
     "invalidation": null,
     "engine": "claude",
     "outcome": null,
@@ -273,7 +377,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 518.260009765625,
+        "asset_pct": -0.72,
+        "bench": "SPY",
+        "bench_pct": 0.93,
+        "alpha": -1.65,
+        "verdict": "wrong",
+        "note": "conditional — triggered and did not run",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:06.060Z"
+      }
+    }
   },
   {
     "id": "B-010",
@@ -293,7 +411,10 @@
     "market_risk": 3,
     "hodl": "Accumulate",
     "final_call": "No Trade — trigger: reclaim $950 on volume",
-    "trigger": null,
+    "trigger": {
+      "direction": "above",
+      "level": 950
+    },
     "invalidation": null,
     "engine": "claude",
     "outcome": null,
@@ -304,7 +425,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 991.6400146484375,
+        "asset_pct": 1.34,
+        "bench": "SPY",
+        "bench_pct": 0.93,
+        "alpha": 0.41,
+        "verdict": "flat",
+        "note": "pass — went nowhere either way",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:34:05.692Z"
+      }
+    }
   },
   {
     "id": "B-011",
@@ -324,8 +459,14 @@
     "market_risk": 2,
     "hodl": "Accumulate",
     "final_call": "Watchlist — >$63.8-64.5K / <$56.2K",
-    "trigger": null,
-    "invalidation": null,
+    "trigger": {
+      "direction": "above",
+      "level": 63800
+    },
+    "invalidation": {
+      "direction": "below",
+      "level": 56200
+    },
     "engine": "claude",
     "outcome": null,
     "outcome_price": null,
@@ -335,7 +476,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 63193.1484375,
+        "asset_pct": 2.99,
+        "bench": "SPY",
+        "bench_pct": 0.93,
+        "alpha": 2.06,
+        "verdict": "right",
+        "note": "conditional — triggered and ran",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:06.264Z"
+      }
+    }
   },
   {
     "id": "B-012",
@@ -366,7 +521,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 1744.484619140625,
+        "asset_pct": 2.72,
+        "bench": "BTC",
+        "bench_pct": 2.78,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "conditional — trigger level not recorded, so the gate cannot be judged",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:06.545Z"
+      }
+    }
   },
   {
     "id": "B-013",
@@ -397,7 +566,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 568.4684448242188,
+        "asset_pct": 1.16,
+        "bench": "BTC",
+        "bench_pct": 2.78,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "conditional — trigger level not recorded, so the gate cannot be judged",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:06.776Z"
+      }
+    }
   },
   {
     "id": "B-014",
@@ -418,7 +601,10 @@
     "hodl": "Trade-only — not a hold",
     "final_call": "No Trade — $1.00 must hold",
     "trigger": null,
-    "invalidation": null,
+    "invalidation": {
+      "direction": "below",
+      "level": 1
+    },
     "engine": "claude",
     "outcome": null,
     "outcome_price": null,
@@ -428,7 +614,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 1.093337059020996,
+        "asset_pct": 0.31,
+        "bench": "BTC",
+        "bench_pct": 2.78,
+        "alpha": -2.47,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:34:05.952Z"
+      }
+    }
   },
   {
     "id": "B-015",
@@ -459,7 +659,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 78.04546356201172,
+        "asset_pct": -3.24,
+        "bench": "BTC",
+        "bench_pct": 2.78,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "conditional — trigger level not recorded, so the gate cannot be judged",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:07.000Z"
+      }
+    }
   },
   {
     "id": "B-016",
@@ -490,7 +704,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 0.33190399408340454,
+        "asset_pct": 4.41,
+        "bench": "BTC",
+        "bench_pct": 2.78,
+        "alpha": 1.63,
+        "verdict": "wrong",
+        "note": "pass — it outran the benchmark",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:34:06.145Z"
+      }
+    }
   },
   {
     "id": "B-017",
@@ -510,8 +738,14 @@
     "market_risk": 2,
     "hodl": "Hold-quality — wait for value",
     "final_call": "Top watchlist — >$77 / dies <$52",
-    "trigger": null,
-    "invalidation": null,
+    "trigger": {
+      "direction": "above",
+      "level": 77
+    },
+    "invalidation": {
+      "direction": "below",
+      "level": 52
+    },
     "engine": "claude",
     "outcome": null,
     "outcome_price": null,
@@ -521,7 +755,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": null,
+        "asset_pct": null,
+        "bench": "BTC",
+        "bench_pct": 2.78,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "price not observable at this checkpoint",
+        "source": "none",
+        "scored_at": "2026-07-28T21:49:08.009Z"
+      }
+    }
   },
   {
     "id": "B-018",
@@ -552,7 +800,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-09",
+        "price": 0.07285899668931961,
+        "asset_pct": -1.9,
+        "bench": "BTC",
+        "bench_pct": 2.78,
+        "alpha": -4.68,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:34:06.927Z"
+      }
+    }
   },
   {
     "id": "B-019",
@@ -572,8 +834,14 @@
     "market_risk": 3,
     "hodl": "Hold-quality — wait for value",
     "final_call": "ARMED — hold mid-$60s + reclaim $70-71",
-    "trigger": null,
-    "invalidation": null,
+    "trigger": {
+      "direction": "above",
+      "level": 70
+    },
+    "invalidation": {
+      "direction": "below",
+      "level": 60
+    },
     "engine": "claude",
     "outcome": null,
     "outcome_price": null,
@@ -583,7 +851,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-13",
+        "price": 77.20999908447266,
+        "asset_pct": 14.03,
+        "bench": "SPY",
+        "bench_pct": -0.28,
+        "alpha": 14.31,
+        "verdict": "right",
+        "note": "conditional — triggered and ran",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:08.256Z"
+      }
+    }
   },
   {
     "id": "B-020",
@@ -614,7 +896,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-18",
+        "price": 3.8499999046325684,
+        "asset_pct": -26.39,
+        "bench": "SPY",
+        "bench_pct": -1.54,
+        "alpha": -24.85,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:34:07.112Z"
+      }
+    }
   },
   {
     "id": "B-021",
@@ -634,7 +930,10 @@
     "market_risk": 3,
     "hodl": "Hold-quality — wait for value",
     "final_call": "No Trade — reclaim + hold $200-203",
-    "trigger": null,
+    "trigger": {
+      "direction": "above",
+      "level": 200
+    },
     "invalidation": null,
     "engine": "claude",
     "outcome": null,
@@ -645,7 +944,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-23",
+        "price": 220.97000122070312,
+        "asset_pct": 12.88,
+        "bench": "SPY",
+        "bench_pct": -1.67,
+        "alpha": 14.55,
+        "verdict": "wrong",
+        "note": "pass — expensive pass, it ran without us",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:34:07.198Z"
+      }
+    }
   },
   {
     "id": "B-022",
@@ -676,6 +989,191 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-07-22T23:48:40.028Z"
+    "last_checked": "2026-07-22T23:48:40.028Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-07-27",
+        "price": 326.55999755859375,
+        "asset_pct": -7.87,
+        "bench": "SPY",
+        "bench_pct": -0.4,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "conditional — trigger level not recorded, so the gate cannot be judged",
+        "source": "yahoo",
+        "scored_at": "2026-07-28T21:49:08.534Z"
+      }
+    }
+  },
+  {
+    "id": "B-023",
+    "date": "2026-08-04",
+    "ticker": "SPCX",
+    "review_price": 125.895,
+    "review_time": "Aug 4 close",
+    "opportunity_score": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": null,
+      "fundamental": null,
+      "execution": null,
+      "overall": null
+    },
+    "fomo": null,
+    "market_risk": null,
+    "hodl": "No",
+    "final_call": "No Trade - falling knife, unpriceable. LOGGED LATE, see lesson.",
+    "trigger": null,
+    "invalidation": null,
+    "engine": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": "LOGGED 2026-08-04, NOT BACKDATED. The 'falling knife, unpriceable' read was made in conversation weeks earlier and never written to the book, so there is no timestamped receipt for it and this row must not be presented as one. Verifiable price facts as of this entry: closed 125.895 on Aug 4 (+9.92% on the day, post-earnings) then gave the entire move back after hours to 115.98 (-7.87% from the close, +1.27% vs the Aug 3 close of 114.53). Down 48.6% from the 225.64 high in the week of Jun 15, and red in 7 of the last 8 weeks. The No Trade stands. STRUCTURAL GAP (Self-Audit Loop, v23): this is the fourth instance of a call being made and never recorded - alongside the four energy hedges logged with no position size, the ETH/BNB/SOL conditionals logged with no trigger level, and B-023/B-024 referenced in the 2026-08-04 daily note but never committed to any branch. The calls that go unlogged are disproportionately the ones worth pointing at later.",
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-04T23:30:00.000Z"
+  },
+  {
+    "id": "B-024",
+    "date": "2026-08-04",
+    "ticker": "SPCX",
+    "review_price": 125.895,
+    "review_time": "Aug 4 close",
+    "opportunity_score": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": null,
+      "fundamental": null,
+      "execution": null,
+      "overall": null
+    },
+    "fomo": null,
+    "market_risk": null,
+    "hodl": "Accumulate candidate - kids UTMA lens, not a swing",
+    "final_call": "Watch, not yet - bounced off a 52wk low set the day before, ran +9.9% on 2x volume, then gave the ENTIRE move back after hours to 115.98. Failed reclaim. Gate: reclaim and HOLD 126.71 (today's high).",
+    "call_type": "conditional",
+    "trigger": 126.71,
+    "invalidation": null,
+    "size": null,
+    "max_loss": null,
+    "engine": "claude",
+    "logged_by": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": "Dominant structural fact is the float: 646M vs 14.02B shares outstanding = 4.6% floated, so ~95% is locked up on a listing roughly 2 months old. Price is being set by scarce supply, not by the business. A lockup expiry is a supply cliff on a name already -48.6% from its 225.64 June high. UNVERIFIED - the actual lockup expiry date has NOT been confirmed, it is inferred from the float ratio; confirm before acting. Business case (SpaceX + Starlink + xAI/Grok) is a real 15-year story at 1.77T cap, PB 43.4, no PE. For a kids account the entry matters less than the date, and the date is the thing we do not have. AMENDED 2026-08-04T23:55Z, before any outcome was recorded: the row was first logged WITHOUT the earnings, which was a gap - Adam caught it. VERIFIED Q2 2026, reported 2026-08-04 pm: EPS actual -0.09 vs -0.16 estimate, a 7c beat and still a loss. Revenue/margins NOT available - get_financials returns null for this symbol. Third-party claims of +92% revenue seen on X are UNVERIFIED and are deliberately not recorded here. Next report 2026-11-17 pm, tentative (verified=false). READ: it beat and was sold anyway, giving back a +9.9% day after hours - the same pattern AMD printed the same evening. A beat that cannot hold a bounce off a 52wk low points at supply, not at the P&L, which reinforces the float/lockup read rather than softening it.",
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-04T23:46:58.819Z"
+  },
+  {
+    "id": "B-025",
+    "date": "2026-08-04",
+    "ticker": "BRKR",
+    "review_price": 51.29,
+    "review_time": "Aug 4 13:10 CT",
+    "opportunity_score": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": null,
+      "fundamental": null,
+      "execution": null,
+      "overall": null
+    },
+    "fomo": null,
+    "market_risk": null,
+    "hodl": null,
+    "final_call": "No Trade - a knife at day lows on 3x volume gets no opinion until it stops falling. Printed a 52wk high the prior Friday, -20% three sessions later; that is a repricing, not a dip.",
+    "call_type": "pass",
+    "trigger": null,
+    "invalidation": null,
+    "size": null,
+    "max_loss": null,
+    "engine": "claude",
+    "logged_by": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": "BACKFILLED 2026-08-04 by book-check. This was PUBLISHED as a snapshot post (x.com/i/status/2084703178394624287) and never written to the book - a public call with no row, which is the worst version of the logging gap. Q2 revenue 838.5M vs 854.8M est, FY guide cut to 3.56B from 3.59B; adjusted EPS beat at 0.49 vs 0.38 and the market sold the guide anyway. 5.5M shares vs a 1.9M 30-day average.",
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-05T00:34:01.602Z"
+  },
+  {
+    "id": "B-026",
+    "date": "2026-08-04",
+    "ticker": "PLTR",
+    "review_price": 158.54,
+    "review_time": "Aug 4 10:11 CT",
+    "opportunity_score": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": null,
+      "fundamental": null,
+      "execution": null,
+      "overall": null
+    },
+    "fomo": null,
+    "market_risk": null,
+    "hodl": null,
+    "final_call": "No Trade - a +26% gap that holds its highs is strength, not a setup. The entry was last night and we did not have it. Not chasing hour two of a 26% day.",
+    "call_type": "pass",
+    "trigger": null,
+    "invalidation": null,
+    "size": null,
+    "max_loss": null,
+    "engine": "claude",
+    "logged_by": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": "BACKFILLED 2026-08-04 by book-check. PUBLISHED (x.com/i/status/2084659452959989992), never logged. Q2 revenue 1.94B +93% y/y, US commercial +149% to 764M, FY26 guide raised to 8.15-8.16B. 80M+ shares by mid-morning vs a 36M 30-day average.",
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-05T00:34:01.762Z"
+  },
+  {
+    "id": "B-027",
+    "date": "2026-08-03",
+    "ticker": "AMZN",
+    "review_price": 284.67,
+    "review_time": "Aug 3 10:10 CT",
+    "opportunity_score": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": null,
+      "fundamental": null,
+      "execution": null,
+      "overall": null
+    },
+    "fomo": null,
+    "market_risk": null,
+    "hodl": null,
+    "final_call": "Watch, do not chase - buying an all-time high five days after the catalyst. Gate: let it prove 287 or give a pullback.",
+    "call_type": "conditional",
+    "trigger": 287,
+    "invalidation": null,
+    "size": null,
+    "max_loss": null,
+    "engine": "claude",
+    "logged_by": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": "BACKFILLED 2026-08-04 by book-check. PUBLISHED as a snapshot 2026-08-03, never logged. Market cap crossed 3.06T for the first time. AWS +37% to 42.2B, fastest since Dec 2021 vs ~31% modelled; revenue 200.6B +20%, operating income 27.5B +43%; 2026 capex raised to 220B from 200B on memory costs.",
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-05T00:34:01.897Z"
   }
 ]

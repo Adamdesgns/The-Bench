@@ -2,12 +2,12 @@
 
 **Read this first, every session.** THE BENCH is Adam's build-in-public trading-research system (@TheBenchTrades). Motto: **proof, not hype** — every call goes on the record before the outcome, losses logged as loud as wins.
 
-## 🔴 "Run v22" / "run the market" = the INTERACTIVE workflow, NOT the app
+## 🔴 "Run v23" / "run the market" = the INTERACTIVE workflow, NOT the app
 
-When Adam says **"run v22"**, **"run the market(s)"**, **"Run $TICKER"**, or **"check swings"**, he means the **live Claude workflow we use in chat**:
+When Adam says **"run v23"** (or "run v22" — he will say the old number out of habit), **"run the market(s)"**, **"Run $TICKER"**, or **"check swings"**, he means the **live Claude workflow we use in chat**:
 
 1. Read **live market data through the Robinhood MCP** (read-only — see the hard rule below).
-2. Apply the current framework prompt: **`prompts/trading-copilot-v22.md`** (v22 is current).
+2. Apply the current framework prompt: **`prompts/trading-copilot-v23.md`** (v23 is current as of 2026-08-04).
 3. Produce the analysis / trade plan / post draft. **Draft only — Adam posts.**
 
 **Do NOT launch, build, or "run" the Electron desktop app** in this repo to satisfy "run v22." **The app is still in development.** It is not the thing being invoked. If you cannot find "v22" behavior in the app/code, that is expected — the framework is a *prompt* the interactive agent runs, not an app feature. Never guess a ticker onto the board: if a name (e.g. INTC, SpaceX) is not on the active board, say so and stop — that refusal is the framework working.
@@ -15,7 +15,7 @@ When Adam says **"run v22"**, **"run the market(s)"**, **"Run $TICKER"**, or **"
 ## The setup we actually use (this is "The Bench")
 
 - **Live data:** Robinhood MCP — quotes, options, earnings, technicals. **NEVER places trades** (hard Anthropic limit; Adam executes every order himself). The system drafts, a human publishes — that line is absolute.
-- **Framework:** `prompts/trading-copilot-v22.md` (spine of v17 intact; adds Conviction Tier, Size-Aware Conviction, Pre-Catalyst Deadline, Thesis Ledger, Self-Audit Loop). Never overwrite a version — new integer file per change.
+- **Framework:** `prompts/trading-copilot-v23.md` (spine of v17 intact; adds Conviction Tier, Size-Aware Conviction, Pre-Catalyst Deadline, Thesis Ledger, Self-Audit Loop). **v23 removes the restraints** — every structure is live (shares long or short, calls, puts, spreads, naked options), and the short side is **ungated**, which in v22 unlocked only on an explicit "run options $TICKER" and was consequently never used once in 22 reviews. v22's permanent naked-shorting ban is **lifted** at Adam's direction; the unbounded-loss arithmetic is kept as a stated risk profile rather than a veto. Never overwrite a version — new integer file per change.
 - **Writing engine:** `prompts/marquee-v3.1.md` (long-form X Articles, institutional voice).
 - **Daily post hooks:** `prompts/bench-daily-v1.md` — owns the OPENING (first ~280 chars) and the saveable element for all six scheduled routines; overrides marquee on the opening only. Evidence behind it: `docs/growth-playbook.md`. Same versioning rule as above — never overwrite, new integer file.
 - **The book:** `db/archive.json` — one row per review, append-only.
@@ -24,6 +24,33 @@ When Adam says **"run v22"**, **"run the market(s)"**, **"Run $TICKER"**, or **"
 - **Publishing:** `apps/x-poster` (separate repo, Adamdesgns/x-poster) posts to **@TheBenchTrades** only — a guard aborts on any other account. The bot handles long-form too — `MAX_LEN` was raised 280 → 25,000 (commit `e37bea2`), so the "long-form is posted manually" rule is retired. **Threads are not supported yet:** `post_next.py` posts one file verbatim and cannot chain `in_reply_to_tweet_id`, so no routine should emit thread markers.
 - **Web reads:** when a page bot-walls, read it via Agent-Reach's Jina Reader — `curl -sSL "https://r.jina.ai/<URL>"`.
 - **Promo video:** `apps/bench-reel` (Remotion). Rendered reels land in `OneDrive/The Bench Promo`.
+
+## 🔴 LOG IT, WHICHEVER CHAT YOU ARE
+
+Adam's standing rule, 2026-08-04: **"any time we mention and run something it needs to be logged no matter what chat runs it."**
+
+This exists because the same failure happened four times in one week. SPCX was called in conversation and never written down. Four energy hedges were logged with no position size and all ran 13–18%, unclaimable. ETH, BNB and SOL were logged with no trigger level, so their gates can never be judged. A GOOGL row was referenced in the daily note and never committed to any branch. **17 of 26 scored checkpoints cannot be graded**, and not one of those is because a call was wrong.
+
+**An analysis is not finished until a row ID has been echoed.**
+
+```bash
+node scripts/log-call.mjs --ticker SPCX --type conditional --price 125.90 --trigger 126.71 --call "Watch - failed reclaim"
+```
+
+It **refuses** what it cannot score later: a `conditional` without `--trigger`, a `hedge` without `--size`, a `long` without `--invalid`, a `bet` without `--max-loss`. A refusal is the guard working, not an error to route around.
+
+**Patterns get logged too** — Adam: *"every time you see a pattern of why the market moved this way it needs to be logged."* The book records calls; `db/patterns.json` records how the tape behaves.
+
+```bash
+node scripts/log-pattern.mjs --list
+node scripts/log-pattern.mjs --instance P-001 --ticker AMD --date 2026-08-04 --holds true --detail "..."
+```
+
+A pattern with no falsification test is refused, and `--holds false` matters as much as true. Nothing is promoted past `proposed` until it has three instances.
+
+**Grades stay null unless the framework actually ran.** A guessed grade looks like work was done.
+
+**Check for gaps before you add to them:** `node scripts/book-check.mjs` lists tickers mentioned in the vault or in posted content that never made it into the book.
 
 ## Hard rules
 
