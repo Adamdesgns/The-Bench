@@ -8,10 +8,32 @@ Adam's rule, 2026-08-04: *"every time we update I say you create an update versi
 
 1. Add an entry here — version, date, what improved, and *why it needed to*.
 2. Draft the Bench post to `apps/x-poster/approved/<date>-update.txt`. Short, per `prompts/bench-daily-v1.md` §0 — a system update is not a market update and not a data dump.
-3. Draft the hype quote-share to `apps/x-poster/queue-adamdesgns/<date>-update-hype.txt`, per `prompts/hype-v1.md` and the `adams-voice` skill.
+3. Draft the hype quote-share to `apps/x-poster/queue-adamdesgns/<date>-update-hype.txt`, per `prompts/hype-v2.md` and the `adams-voice` skill.
 4. Publish the Bench post. Adam quote-shares it.
 
 **The rule for what goes in a post:** the update has to be legible to someone who does not know the codebase. "We added `validateCall`" is not a post. "The book now refuses a trade we can't grade later" is.
+
+---
+
+## 2026-08-06 — hype v2: correct punctuation in Adam's voice
+
+Adam: *"Let's make sure when we use 'my voice' that it uses correct punctuation."*
+
+`hype-v1` told the writer to use **run-ons and comma splices**. The intent was to keep the voice from sounding drafted. What it actually produced was copy that reads as careless rather than fast, which is a different thing and a worse one.
+
+`prompts/hype-v2.md` retires that instruction. Apostrophes in every contraction, sentences that start with a capital and end with a mark, a question mark on every question, no comma splices. Fragments stay legal, because a fragment is a choice and a comma splice is an accident.
+
+Nothing else moved. "ya'll" is still "ya'll" and is not a typo to correct. Casual profanity, exclamation points, LFGGG, the six angles, the running bit and the measured 8.6x formula all carry over untouched. Still 1 to 3 sentences.
+
+**The evidence was already in the file.** The 489-impression post, the best-performing thing either account has published, was correctly punctuated the whole time. The rule was describing something the winning example did not do.
+
+Every example in the file was re-punctuated so the examples teach the rule rather than contradict it. One carve-out: **a real quoted line stays exactly as it was said.** Cleaning up someone's actual words is falsifying a receipt, which is worse than a missing apostrophe.
+
+The test changed with it. Not *"would Adam type this in 20 seconds without re-reading it"* but *"would he type it in 20 seconds and then fix the apostrophes before hitting post."*
+
+`hype-v1.md` stays on disk unmodified. Pointers in `x-viral-engine-v1.md` and in the ritual above now read v2.
+
+**No post drafted for this one.** It is an internal style fix with nothing a reader outside the repo would care about, and the ritual's post steps exist for shipped improvements worth telling people about.
 
 ---
 

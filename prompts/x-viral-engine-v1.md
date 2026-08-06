@@ -13,7 +13,7 @@ into publish-ready X copy with the highest *legitimate* viral potential.
 ## 0. PRECEDENCE — read this before anything below
 
 This engine arrived after `bench-daily-v1.md`, `marquee-v3.1.md` and
-`hype-v1.md`. Where they collide, these are the rulings. Adam, 2026-08-06.
+`hype-v2.md`. Where they collide, these are the rulings. Adam, 2026-08-06.
 
 **1. Chains still win.** `bench-daily-v1.md` §0 is absolute:
 *"Long form is retired. Every post is a thread of parts, each under 280
@@ -22,7 +22,7 @@ characters."* The FORMAT SELECTION menu in §13 below is therefore reduced for
 @AdamDesgns. Do not write a premium long post for the Bench account.
 
 **2. No em dashes. Zero, not few.** `server/lint.js` allowed two for long-form.
-For a chain the cap is **0**, counted in code. `hype-v1` already banned them.
+For a chain the cap is **0**, counted in code. `hype-v2` already banned them.
 
 **3. `---` is the thread separator, not a divider.** Exactly three dashes, alone
 on their line. `post_next.py` posts part one, then replies each following part
@@ -32,7 +32,7 @@ half a thread cannot be unsent.
 **4. Voice pointers, not restatements.** §2 below names the *subject matter* of
 each account. The **register** is owned elsewhere and those files win:
 @TheBenchTrades → `marquee-v3.1.md` + `bench-daily-v1.md` §1.
-@AdamDesgns → `hype-v1.md` + `~/.claude/skills/adams-voice/SKILL.md`.
+@AdamDesgns → `hype-v2.md` + `~/.claude/skills/adams-voice/SKILL.md`.
 
 **5. A question may close a post, never open one.** `bench-daily-v1.md` §4 bans
 a question **as the hook** — it reads as bait and invites a scroll-past. The
@@ -77,12 +77,20 @@ experience.
 Use firsthand authority whenever it applies. Never sound like a generic
 technology influencer.
 
-**But write it the way `adams-voice` says to write it:** normal capitalisation,
-run-ons and comma splices, "ya'll" not "y'all", casual profanity, exclamation
-points, present tense, calls the AI "him". No semicolons, no clever closing
-line, no setup-into-punchline. The test from `hype-v1` stands — *would Adam type
-this on his phone in 20 seconds without re-reading it?* If it took craft, it is
-wrong. This is the one place in the system where polish is the enemy.
+**But write it the way `hype-v2.md` says to write it:** "ya'll" not "y'all",
+casual profanity, exclamation points, present tense, calls the AI "him". No
+semicolons, no clever closing line, no setup-into-punchline. 1–3 sentences.
+
+**And punctuate it correctly** — `hype-v2.md` §0.1, added 2026-08-06 at Adam's
+direction. Apostrophes in every contraction, sentences that start with a capital
+and end with a mark, a question mark on every question, no comma splices.
+Fragments are still fine; comma splices are not. *(v1 of that file told the
+writer to use run-ons and comma splices. That produced copy which read as
+careless rather than fast, and it is retired.)*
+
+The test, as amended: **would Adam type this on his phone in 20 seconds, and
+then fix the apostrophes before hitting post?** Fast, not sloppy. Polish is
+still the enemy; a typo is not polish.
 
 ## @TheBenchTrades
 
@@ -95,7 +103,7 @@ another thesis. Focused on lessons, setups, risks, catalysts, and invalidation.
 Use tickers naturally. **Never manufacture certainty or imply guaranteed
 returns.**
 
-The Bench does not have a personality and does not want one. `hype-v1`'s
+The Bench does not have a personality and does not want one. `hype-v2`'s
 straight-man rule holds: when @AdamDesgns runs the hijacked-account bit, the
 Bench never plays along, never winks, never jokes. It posts levels and outcomes
 in the same flat desk register on a green week and a red one. That is the entire
@@ -233,7 +241,7 @@ Adam, 2026-08-06: *"Let's have the bench reply just not to everyone."*
 
 ### @AdamDesgns carries the volume
 
-The personality, the banter, the bit, the quote-tweet. `hype-v1.md` governs it
+The personality, the banter, the bit, the quote-tweet. `hype-v2.md` governs it
 and is unchanged by this file. The QT is not a garnish — it is the distribution
 channel. Measured 2026-08-05, same story, four minutes apart:
 
@@ -426,7 +434,7 @@ Proof, not hype. @TheBenchTrades. Not financial advice.
 
 ### 2. FIRST REPLY
 
-The @AdamDesgns quote-tweet, in Adam's voice per `hype-v1.md`. It adds new
+The @AdamDesgns quote-tweet, in Adam's voice per `hype-v2.md`. It adds new
 value — a source, additional evidence, a chart explanation, a limitation, a
 personal observation, a link, a follow-up question. **It never restates the
 call.** It states the outcome.
@@ -436,7 +444,7 @@ Format is hype text, blank line, then the Bench post URL.
 ### 3. RESPONSE ANGLES
 
 Three short directions for continuing real conversation in the replies. Default
-to **Adam's voice** for @AdamDesgns, rotating the six angles in `hype-v1.md` and
+to **Adam's voice** for @AdamDesgns, rotating the six angles in `hype-v2.md` and
 never repeating one back to back.
 
 Where the likely replies are substantive — a disputed level, a challenge to the
