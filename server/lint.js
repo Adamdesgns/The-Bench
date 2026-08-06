@@ -55,9 +55,15 @@ export const MAX_PARTS = 6;   // more than six and people stop
 export const MAX_HASHTAGS = 2;
 export const EM_DASH_CAP = 0; // "Never use em dashes." Zero, not few.
 
-// Exactly three dashes, alone on their line, no leading whitespace. An indented
-// run is inside a quote or a code block, and a dash in prose never splits.
-export const SEPARATOR = /^---[ \t]*$/;
+// Exactly three dashes, alone on their line, nothing else at all.
+//
+// This MUST stay identical to x-poster's THREAD_SEP (`re.compile(r"^---$",
+// re.MULTILINE)`), verified against post_next.py on 2026-08-06. It was briefly
+// looser here — trailing spaces tolerated — which is the dangerous direction:
+// "--- " linted as a clean four-part chain and posted as one 700-character
+// blob, because the poster did not recognise it as a separator. A checker may
+// be stricter than the thing it checks. It may never be more permissive.
+export const SEPARATOR = /^---$/;
 
 // The eight generic openers the viral engine bans, checked against part 1 only.
 export const BANNED_HOOKS = [

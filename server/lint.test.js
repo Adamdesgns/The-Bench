@@ -61,8 +61,12 @@ test("splitChain ignores four dashes and two dashes", () => {
   assert.equal(splitChain("a\n--\nb").length, 1);
 });
 
-test("splitChain tolerates trailing whitespace on the separator", () => {
-  assert.equal(splitChain("a\n--- \nb").length, 2);
+test("splitChain does NOT split on a separator with trailing whitespace", () => {
+  // x-poster's THREAD_SEP is ^---$ with no slack. If lint were looser here,
+  // "--- " would pass as a clean chain and then post as one long blob, because
+  // post_next.py would not see a separator. Verified against post_next.py
+  // 2026-08-06. The checker may be stricter than the poster, never looser.
+  assert.equal(splitChain("a\n--- \nb").length, 1);
 });
 
 test("splitChain does not split on an indented separator", () => {
