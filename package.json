@@ -15,6 +15,7 @@
     "score:dry": "node scripts/score-book.js --dry-run",
     "backfill:triggers": "node scripts/backfill-triggers.js",
     "lint:article": "node server/lint.js",
+    "lint:chain": "node server/lint.js --chain",
     "app": "electron .",
     "dist:win": "electron-builder --win --x64",
     "test": "node --test"

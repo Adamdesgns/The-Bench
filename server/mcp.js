@@ -12,6 +12,7 @@
 //     run_v17({target})      analysis — data packet (+ verdict if a model is connected)
 //     reconcile()            price every open row; report the reconciled board
 //     run_marquee({verdict}) the draft (never posts); lint included
+//     lint_chain({text})     house-style check on a chain draft before it publishes
 //     state()                the book — open triggers, calibration, engine mix
 //     execute({order,confirmToken})  GATED buy — routes to Robinhood MCP; refuses unless policy allows
 //
@@ -25,7 +26,7 @@ import { providerFor } from "./config.js";
 import { benchResponseSchema } from "./reviewSchema.js";
 import { loadBenchPrompt, loadMarqueePrompt } from "./benchPrompt.js";
 import { selectAngle } from "./angle.js";
-import { lintArticle } from "./lint.js";
+import { lintArticle, lintChain } from "./lint.js";
 import { executeOrder } from "./api.js";
 import { status } from "./settings.js";
 import { audited } from "./audit.js";
@@ -128,6 +129,24 @@ const TOOLS = {
         "Anything in not_observable is labeled unverified or omitted.";
       const draft = await callText({ system: loadMarqueePrompt(), user }, { provider });
       return { angle: chosen, draft, lint: lintArticle(draft), engine: engineTag(provider) };
+    }
+  },
+
+  lint_chain: {
+    description: "Check a Bench chain draft against house style before it publishes: 3-6 parts split by '---', each part under 280 chars (URLs counted as 23), zero em dashes, a checkable number in the hook, no question as the hook, no banned phrases or generic openers, no engagement bait, max 2 hashtags, disclaimer on the last part. Returns hard flags (blocking) and warnings (advisory). Checks text only — posts nothing.",
+    inputSchema: {
+      type: "object",
+      properties: { text: { type: "string", description: "the full chain draft, parts separated by exactly three dashes alone on a line" } },
+      required: ["text"]
+    },
+    async run({ text } = {}) {
+      const r = lintChain(text);
+      return {
+        ok: r.ok,
+        flags: r.flags,
+        warnings: r.warnings,
+        parts: r.parts.map((p) => ({ part: p.index, chars: p.chars, effective: p.effective }))
+      };
     }
   },
 

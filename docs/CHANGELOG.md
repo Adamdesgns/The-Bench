@@ -15,6 +15,32 @@ Adam's rule, 2026-08-04: *"every time we update I say you create an update versi
 
 ---
 
+## 2026-08-06 — The X Viral Engine update
+
+**What broke.** Nothing checked a post before it went public, and the one checker we had would have rejected a correct one.
+
+The `--auto` publish gates came off on 2026-08-04. Since then the drafting step has been the only thing standing between a draft and 89 followers' timelines. That check was `server/lint.js`, and it had **zero tests** — in a repo that shipped `log-call` with twenty.
+
+Worse, it was wrong. On 2026-08-05 we made a line of exactly three dashes the thread separator, because chains outreach single posts by 4x on our own numbers. But `lint.js` was written when `---` meant a stray divider, and still flagged it as one. **A correctly-formed chain failed the lint.** Nobody noticed, because nobody was running it.
+
+Underneath that, four prompt files were quietly disagreeing about the same 280 characters — one said long-form, one said chains only, one banned em dashes, one allowed two.
+
+**What shipped.**
+
+- **`prompts/x-viral-engine-v1.md`** — Adam's engine, written from the published X recommendation-system architecture, covering hooks, dwell, saveables, conversation triggers, media, and originality. It opens with a precedence block that settles all nine collisions with the prompts already here, in writing, with dates. No more guessing which file wins.
+- **`lintChain`** — the checker that understands what we actually publish. Part count, per-part length with URLs counted at 23 characters the way X counts them, zero em dashes, a checkable number in the hook, no question as a hook, banned phrases, banned generic openers, engagement bait, hashtag cap, disclaimer on the last part. *(39 tests.)*
+- **Fuzzy rules warn instead of blocking.** "Is there something worth bookmarking here?" is a real rule but only approximable by regex, so it reports and never fails a post. **A brittle pattern must not be able to kill a real draft** — with the gates off, a false failure has nowhere to appeal to.
+- **The engine's self-score does not gate anything.** Adam's draft scored itself 0–50 and revised below 42. That is useful drafting pressure and a terrible safety mechanism, because it is the model marking its own homework. The rubric stayed, as private discipline; everything countable in it moved into code. Same rule as the grades: *count it, or don't claim it.*
+- **`lint_chain` as an MCP tool**, because the six routines that write the daily posts live in another repo and could not otherwise reach the checker.
+
+**The bug the tests found while being written:** the hook rule is *"open on a number, not a verdict"*, and the first version checked for a digit. That rejects `bench-daily-v1`'s own worked example — *"Three of the five biggest companies in America are red before the bell"* — where the numbers are spelled out. The rule was right and the regex was too literal. Spelled numerals count now, and the canonical example is pinned as a test so it cannot regress.
+
+**Why it matters beyond housekeeping:** we removed the safety rails on publishing and replaced them with a promise to be careful. This puts something countable back in front of the account, without putting a gate back in Adam's way.
+
+**Still open:** `bench-daily-v2` to delete a stale section that contradicts the same file's own rule, and confirming the chain-posting behavior against the x-poster repo directly rather than from its description.
+
+---
+
 ## 2026-08-04 — The Book Integrity update
 
 **What broke.** 17 of 26 scored checkpoints in the trade book could not be graded. Not because the calls were wrong — because of how they were written down. Conditionals logged with no trigger level, so the gate could never be judged. Hedges logged with no position size, so there was nothing to score. Four energy names ran 13–18% and the book cannot claim a dollar of any of them.
