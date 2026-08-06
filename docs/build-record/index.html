@@ -1,0 +1,777 @@
+<title>The Bench — The Record</title>
+<style>
+  :root {
+    --ground:  #E8E8E2;
+    --surface: #F4F4EF;
+    --sunk:    #DEDED6;
+    --ink:     #1A1D1B;
+    --muted:   #636763;
+    --faint:   #8D918B;
+    --rule:    #CCCBC1;
+    --oxblood: #8C2F27;
+    --green:   #2C6349;
+    --brass:   #7A6234;
+    --blue:    #2B5068;
+    --shadow:  rgba(26,29,27,.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:  #131513;
+      --surface: #1A1D1A;
+      --sunk:    #0E100E;
+      --ink:     #E7E8E1;
+      --muted:   #969B93;
+      --faint:   #6E736C;
+      --rule:    #2C302C;
+      --oxblood: #D2685C;
+      --green:   #6FB392;
+      --brass:   #C2A265;
+      --blue:    #7FAAC6;
+      --shadow:  rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="light"] {
+    --ground:#E8E8E2; --surface:#F4F4EF; --sunk:#DEDED6; --ink:#1A1D1B;
+    --muted:#636763; --faint:#8D918B; --rule:#CCCBC1; --oxblood:#8C2F27;
+    --green:#2C6349; --brass:#7A6234; --blue:#2B5068; --shadow:rgba(26,29,27,.07);
+  }
+  :root[data-theme="dark"] {
+    --ground:#131513; --surface:#1A1D1A; --sunk:#0E100E; --ink:#E7E8E1;
+    --muted:#969B93; --faint:#6E736C; --rule:#2C302C; --oxblood:#D2685C;
+    --green:#6FB392; --brass:#C2A265; --blue:#7FAAC6; --shadow:rgba(0,0,0,.4);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px 120px; }
+
+  /* ---- masthead ---- */
+  .mast { padding: 72px 0 40px; border-bottom: 2px solid var(--ink); }
+  .kicker {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 20px;
+  }
+  h1 {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: clamp(30px, 6vw, 54px);
+    line-height: 1.02; letter-spacing: -.02em; font-weight: 600;
+    margin: 0 0 22px; text-wrap: balance;
+  }
+  h1 .sub { display: block; color: var(--muted); font-size: .5em; letter-spacing: .04em; margin-top: 14px; font-weight: 400; }
+  .dek { font-size: 20px; color: var(--muted); max-width: 62ch; margin: 0; }
+
+  /* ---- the tape: account value across time ---- */
+  .tape {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+    margin: 40px 0 0;
+  }
+  .tape div { background: var(--surface); padding: 14px 16px; }
+  .tape dt {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint);
+  }
+  .tape dd {
+    margin: 6px 0 0; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 19px; font-variant-numeric: tabular-nums; letter-spacing: -.02em;
+  }
+  .tape .note { font-family: inherit; font-size: 12px; color: var(--muted); margin-top: 3px; line-height:1.35; }
+
+  /* ---- sourcing note ---- */
+  .sourcing {
+    margin: 40px 0 0; padding: 20px 22px; background: var(--sunk);
+    border-left: 3px solid var(--brass); font-size: 15px; color: var(--muted);
+  }
+  .sourcing strong { color: var(--ink); }
+
+  /* ---- chapters ---- */
+  .chapter { margin: 84px 0 0; }
+  .chead { border-top: 1px solid var(--ink); padding-top: 18px; margin-bottom: 34px; }
+  .cnum {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px; letter-spacing: .18em; color: var(--faint);
+  }
+  h2 {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: clamp(21px, 3.4vw, 30px); line-height: 1.15; letter-spacing: -.015em;
+    font-weight: 600; margin: 10px 0 8px; text-wrap: balance;
+  }
+  .cmeta {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px;
+  }
+
+  /* ---- entries: ledger rail + body ---- */
+  .entry { display: grid; grid-template-columns: 132px 1fr; gap: 24px; margin: 0 0 30px; }
+  @media (max-width: 640px) { .entry { grid-template-columns: 1fr; gap: 8px; } }
+  .rail { padding-top: 3px; }
+  .stamp {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10px; letter-spacing: .13em; text-transform: uppercase;
+    display: inline-block; padding: 3px 7px; border: 1px solid currentColor; white-space: nowrap;
+  }
+  .s-shipped { color: var(--green); }
+  .s-broke   { color: var(--oxblood); }
+  .s-fixed   { color: var(--blue); }
+  .s-words   { color: var(--brass); }
+  .s-book    { color: var(--muted); }
+  .when {
+    display: block; margin-top: 8px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; color: var(--faint); font-variant-numeric: tabular-nums;
+  }
+  .entry h3 {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 16px; font-weight: 600; letter-spacing: -.01em; margin: 0 0 8px; line-height: 1.3;
+  }
+  .entry p { margin: 0 0 11px; max-width: 66ch; }
+  .entry p:last-child { margin-bottom: 0; }
+
+  /* ---- quotes ---- */
+  blockquote {
+    margin: 0 0 12px; padding: 16px 20px; background: var(--surface);
+    border-left: 3px solid var(--brass); font-size: 19px; line-height: 1.5;
+  }
+  blockquote p { margin: 0 0 10px; }
+  blockquote p:last-of-type { margin-bottom: 0; }
+  blockquote cite {
+    display: block; margin-top: 12px; font-style: normal;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint);
+  }
+
+  /* ---- commits ---- */
+  .commits { margin: 12px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
+  .commits li {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px; padding: 6px 0; border-bottom: 1px solid var(--rule);
+    color: var(--muted); display: flex; gap: 12px;
+  }
+  .commits .sha { color: var(--oxblood); flex: none; }
+
+  /* ---- tables ---- */
+  .tablewrap { overflow-x: auto; margin: 14px 0; border: 1px solid var(--rule); }
+  table { border-collapse: collapse; width: 100%; font-size: 13px;
+          font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+  th { background: var(--sunk); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  td { font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  .num { text-align: right; }
+
+  /* ---- pull ---- */
+  .pull {
+    margin: 22px 0; padding: 24px; background: var(--sunk); border: 1px solid var(--rule);
+    font-size: 21px; line-height: 1.42; text-wrap: balance;
+  }
+  .pull span { color: var(--oxblood); }
+
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .86em; background: var(--sunk); padding: 1px 5px; border: 1px solid var(--rule);
+  }
+
+  footer { margin-top: 90px; border-top: 2px solid var(--ink); padding-top: 24px;
+           font-size: 14px; color: var(--muted); }
+  a { color: var(--blue); }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="kicker">The Bench · @TheBenchTrades · build record</p>
+  <h1>Sixty-two days from a question<span class="sub">to an account that posts without being asked</span></h1>
+  <p class="dek">It started at 3:32 in the morning with a man asking how to connect his brokerage to a chat window. It ends with nineteen sessions in a single day where nobody typed anything at all.</p>
+
+  <dl class="tape">
+    <div><dt>Jun 5</dt><dd>$353.74</dd><p class="note">Total across both accounts. The tradeable one held $0.00.</p></div>
+    <div><dt>Jul 30</dt><dd>$1,000</dd><p class="note">Funded on purpose. One share of GOOGL.</p></div>
+    <div><dt>Aug 4</dt><dd>$749.59</dd><p class="note">The challenge opens. Target $10,000.</p></div>
+    <div><dt>Aug 5</dt><dd>$726.60</dd><p class="note">Flat, all cash, stopped out at $357.00.</p></div>
+  </dl>
+
+  <p class="sourcing"><strong>What this is.</strong> Every quote here was said in a real session and is reproduced with its own timestamp — pulled from 417 of Adam's messages across 74 transcripts, June 5 to August 6, cross-checked against the commit history of two repositories and the published archive. Nothing is reconstructed from memory. Swearing is his and is censored, not removed; the typos are his too and are left alone. The parts where the assistant was wrong are in here at the same size as the parts where it wasn't.</p>
+</header>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">00</p>
+    <h2>A question at 3:32 in the morning</h2>
+    <p class="cmeta"><span>Jun 5</span><span>no repo</span><span>no prompt</span><span>no account</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Jun 5 · 03:32</span></div>
+    <div>
+      <blockquote><p>how do I connect you to my robinhood and talk to you about what I want you to do?</p>
+      <cite>The first message. Everything below comes from this.</cite></blockquote>
+      <p>There was no project. No prompt, no repository, no ticker on a board. A man wanted to know whether the thing he was typing to could see his brokerage account.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-book">The book</span><span class="when">Jun 5 · 03:33</span></div>
+    <div>
+      <h3>The whole starting position, one minute later</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Account</th><th>Type</th><th class="num">Value</th><th class="num">Buying power</th></tr></thead>
+        <tbody>
+          <tr><td>••••6137</td><td>Individual margin</td><td class="num">$353.74</td><td class="num">$50.00</td></tr>
+          <tr><td>••••7724 "Agentic"</td><td>Individual cash</td><td class="num">$0.00</td><td class="num">$0.00</td></tr>
+        </tbody>
+      </table></div>
+      <p>The account the assistant could actually reach held nothing. That detail matters later, because for the next two months almost every argument about a trade was really an argument about size.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Jun 5 · 03:34 → 03:43</span></div>
+    <div>
+      <h3>Eleven minutes, and the shape of the whole thing is already there</h3>
+      <blockquote><p>I believe we are going into a bear market. What do you suggest we buy?</p>
+      <p>how do I bet on the market crashing? buy the inverse s&amp;p?</p>
+      <p>is there a way to bet $btc goes to below 60k this year leveraged but only lose what I put into it if it busts? how do things like that work?</p>
+      <cite>Three of seven messages in the first session</cite></blockquote>
+      <p>Read that last one again. He is describing a put option without knowing the word for it — defined risk, leverage, capped loss. The instinct arrived before the vocabulary. The framework that eventually got built spends fifty-five thousand words formalising exactly that instinct.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">01</p>
+    <h2>Python scripts and a file called STATUS</h2>
+    <p class="cmeta"><span>Jun 10 – Jun 12</span><span>the first automation</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-shipped">Shipped</span><span class="when">Jun 10 · 01:11</span></div>
+    <div>
+      <h3>A trading bot that already existed, in a folder nobody had organised</h3>
+      <p>Five days in there was already a <code>Downloads</code> folder full of Python: <code>market_overview.py</code> for indexes, sectors, the yield curve and Fear &amp; Greed; <code>two_hundred.py</code> for what $200 a week compounds into; <code>goal_math.py</code>; <code>portfolio_calc.py</code>; <code>btc_multi.py</code> pulling FRED macro data and CoinGecko sentiment.</p>
+      <p>There was also a <code>STATUS.md</code> being maintained across sessions, and scheduled routines already running — a morning report Monday, Wednesday, Friday at 8:30. The habit of a daily automated market read predates The Bench by seven weeks.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Jun 10 · 02:36</span></div>
+    <div>
+      <blockquote><p>you won't be connected to the internet when I leave so set the market reports to run at 5am my time</p>
+      <cite>The first instruction to do the work without him in the room</cite></blockquote>
+      <p>Two months and one day later the same sentence gets written again, in stronger terms, and this time it removes the last human gate on publishing. Everything in between is the argument about whether that was safe.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Jun 10 · 01:18</span></div>
+    <div>
+      <h3>"Financial datasets is out of credits"</h3>
+      <p>Asked to run the market, the assistant reported that its data provider was out of credits and fell back to a web search. Adam's correction was one line:</p>
+      <blockquote><p>you have access to yahoo finance, robinhood, and much more</p>
+      <cite>Jun 10 · 01:19</cite></blockquote>
+      <p>He was right. The tools were connected; the assistant had stopped at the first one that failed instead of reaching for the next. It is the earliest instance of a failure that recurs through this whole record — not being wrong about the market, but not checking what it already had.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">02</p>
+    <h2>The book starts, in a spreadsheet</h2>
+    <p class="cmeta"><span>Jun 30 – Jul 20</span><span>22 rows</span><span>1 entry</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-book">The book</span><span class="when">Jun 30</span></div>
+    <div>
+      <h3>B-001</h3>
+      <p>The first row of the permanent record is dated June 30 — three weeks before the repository that now holds it existed. It lived in a spreadsheet called <code>archive-v4.xlsx</code>, and the version number in that filename is its own piece of evidence.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>ID</th><th>Date</th><th>Ticker</th><th class="num">Price</th><th>Call</th></tr></thead>
+        <tbody>
+          <tr><td>B-001</td><td>2026-06-30</td><td>MSFT</td><td class="num">371.39</td><td>Accumulate — kids' UTMA</td></tr>
+          <tr><td>B-002</td><td>2026-06-30</td><td>XLM</td><td class="num">—</td><td>No Trade — no value capture</td></tr>
+          <tr><td>B-003</td><td>2026-06-30</td><td>OUST</td><td class="num">—</td><td>No Trade — Aug 6 earnings revisit</td></tr>
+          <tr><td>B-004</td><td>2026-06-30</td><td>MU</td><td class="num">—</td><td>Entered — stop $1,020</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-shipped">Shipped</span><span class="when">Jul 3 – Jul 4</span></div>
+    <div>
+      <h3>A framework already on version 17</h3>
+      <p>By the time any of this reached git, the analysis prompt was called <code>trading-copilot-v17.md</code> and ran to thirty-five thousand characters. Sixteen prior versions were written, used and replaced in chat windows with no version control at all. They are not recoverable. The framework's own rule — never overwrite a version, always add a new integer file — was written by someone who had already lost sixteen.</p>
+      <p>Two more prompts land the same week: a thesis-review pass and a long-form article writer. The writing engine and the analysis engine were separate from the very beginning, which is why the posts later read like they were edited by someone who was not the analyst.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Jun 30 – Jul 20</span></div>
+    <div>
+      <h3>Twenty-two calls. One entry.</h3>
+      <p>The seeded book covers three weeks of a bull market. Its verdicts: seven <em>No Trade</em>, five <em>Watchlist</em>, four <em>Hedge</em>, one <em>Accumulate</em>, one <em>Armed</em>, one <em>Setup Forming</em>, one <em>Top watchlist</em>.</p>
+      <div class="pull">One row out of twenty-two was an actual position. <span>The framework was not producing bad calls. It was producing almost no calls at all.</span></div>
+      <p>Nobody noticed for four weeks, because a system that says no to everything is never visibly wrong.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">03</p>
+    <h2>The repo, built and then deliberately cut back</h2>
+    <p class="cmeta"><span>Jul 22</span><span>21 commits in one day</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-shipped">Shipped</span><span class="when">Jul 22 · 10:21 → 23:49</span></div>
+    <div>
+      <h3>Thirteen hours, scaffold to signed installer</h3>
+      <p>In one day: the scaffold, the real v17 prompt, the writing engine, the book seeded from the spreadsheet, an auto-runner chaining v17 into the article writer, a run console, a backend with server-side keys, an MCP server as the execution boundary, a tamper-evident audit log, a standalone Windows app, and a release workflow.</p>
+      <ul class="commits">
+        <li><span class="sha">29ed879</span><span>seed authoritative book from archive-v4.xlsx (22 rows, 1 closed)</span></li>
+        <li><span class="sha">4402254</span><span>Bench MCP server — the boundary Hermes drives</span></li>
+        <li><span class="sha">6483593</span><span>tamper-evident audit log — every call and every order attempt</span></li>
+        <li><span class="sha">b01825a</span><span>clear test audit seed before go-live (trail starts at genesis on first real play)</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-fixed">Fixed</span><span class="when">Jul 22 · 16:35</span></div>
+    <div>
+      <h3>The auto-runner is removed eight minutes after it works</h3>
+      <p>The runner was committed at 16:27. At 16:35 it was taken back out.</p>
+      <ul class="commits">
+        <li><span class="sha">01918d8</span><span>build the auto-runner (server/) — full v17 → Marquee chain</span></li>
+        <li><span class="sha">83d06b2</span><span>remove runner code — keep repo as clean source of truth (prompts + book + docs)</span></li>
+      </ul>
+      <p>This looks like a reversal and is actually the founding decision. The Bench is not an application that analyses markets. It is a set of prompts, a book of calls, and a human running them — and the repository was made to say that out loud. Two weeks later, when Adam asks to "run v22", a session tries to launch the desktop app instead of the workflow, and the operating instructions have to state in bold that <em>the app is not the thing being invoked</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">04</p>
+    <h2>A poster with no keys, and six days of silence</h2>
+    <p class="cmeta"><span>Jul 25 – Jul 31</span><span>x-poster</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Jul 25 · 04:48</span></div>
+    <div>
+      <blockquote><p>can we set you up to start automating my x posts?</p>
+      <cite>Sixteen minutes before the first line of x-poster exists</cite></blockquote>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Jul 25 · 05:04</span></div>
+    <div>
+      <h3>The first line the publishing system ever wrote was an error</h3>
+      <p>The log for the machine that now posts several times a day opens like this:</p>
+      <ul class="commits">
+        <li><span class="sha">05:04:02</span><span>ERROR: missing X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET in .env</span></li>
+        <li><span class="sha">05:04:02</span><span>Queue empty — nothing to post.</span></li>
+      </ul>
+      <p>Then <em>Queue empty — nothing to post</em>, on schedule, several times a day, for six days.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Jul 25 · 21:26</span></div>
+    <div>
+      <h3>The drafts sounded like a brand, and he said so</h3>
+      <blockquote><p>None of those sound like me. We need to build a prompt that sounds like me. That sounds like you. How can we do that?</p></blockquote>
+      <p>The first attempt at a voice document was written by describing him. It was thrown out the same afternoon and rebuilt from his actual posts.</p>
+      <ul class="commits">
+        <li><span class="sha">3bf60e6</span><span>Add VOICE.md and rewrite JARVIS drafts in Adam voice</span></li>
+        <li><span class="sha">328606d</span><span>Rebuild VOICE.md from Adam real X posts, not inferred description</span></li>
+      </ul>
+      <p>Eight minutes between those two commits. The second message is the correction: a voice cannot be described into existence, only sampled.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Jul 25 · 21:34</span></div>
+    <div>
+      <blockquote><p>I don't give a sh*t about matrix rain I don't even think that's actually in there.</p>
+      <cite>On a feature the assistant kept putting in the marketing copy</cite></blockquote>
+      <p>He was wrong about that one, as it happens — it was in there — and he said so himself forty-four minutes later in a different chat. Both halves are in the record.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">05</p>
+    <h2>The scorecard, and what it found</h2>
+    <p class="cmeta"><span>Jul 28</span><span>the turn</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Jul 28 · 21:09</span></div>
+    <div>
+      <blockquote><p>Yes wire the book so we can post about what we where right about whether we make a trade or not. This way we can learn and improve as well.</p></blockquote>
+      <p>The intent was content — posts about good calls. What came back was an audit.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Jul 28 · 22:33</span></div>
+    <div>
+      <h3>Going through the winners, there weren't many</h3>
+      <blockquote><p>skip to peng. It seems you missed every call that could have made us money lol</p>
+      <p>that was a good test of you abilities I guess. We pretty much called everything a no trade in a bull market and missed out on MANY swing trade opportunies.</p>
+      <cite>Jul 28 · 22:33 and 22:47</cite></blockquote>
+      <p>This is the most consequential fourteen minutes in the record. The scoring worked exactly as designed and the thing it scored was a framework whose caution was indistinguishable from paralysis. Every change over the following week traces back to this: the Thesis Ledger, the Self-Audit Loop, the Conviction Tier, and eventually v23 lifting the restraints altogether.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Jul 28 · 22:54</span></div>
+    <div>
+      <h3>The order-placing question, and the answer that never moved</h3>
+      <blockquote><p>You definitely can and will place the orders with my permission. That's the entire point of the mcp connection.</p></blockquote>
+      <p>He asked again on Jul 30 — <em>"place trades is not off the table if robinhood allows you to do it you are allowed to do it"</em> — and again on Aug 4. The answer was no every time, and it is still no. It is the one line in this system that never moved: the assistant reads, analyses and drafts; Adam places every order himself.</p>
+      <p>Worth being plain about it, since this is a record and not a brochure: that is a hard limit on the assistant, not a policy Adam chose. He argued against it more than once and lost.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">06</p>
+    <h2>Real money, and a thesis that was right</h2>
+    <p class="cmeta"><span>Jul 30 – Jul 31</span><span>v20 → v22</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-shipped">Shipped</span><span class="when">Jul 30 · 22:54</span></div>
+    <div>
+      <h3>The account gets funded</h3>
+      <blockquote><p>added $500 more liquid to the agentic account. That's $1000 in agentic and $800 in my kids account waiting for a play. We own 1 share of Goog at this point</p></blockquote>
+      <p>Also that night, the thing that separates this from a paper exercise:</p>
+      <blockquote><p>swing stop. we can always buy back lower anyway. we are start late in retirement savings we need every penny to count and multiply</p>
+      <cite>Jul 30 · 23:24</cite></blockquote>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Jul 31 · 14:24</span></div>
+    <div>
+      <h3>Amazon</h3>
+      <p>The read was right. The entry never got placed.</p>
+      <blockquote><p>Wow we missed the open? What the f*** happened?</p>
+      <p>I'm not worried about gaining 1% on Goog you fkd he on 15% in Amazon already. Goog ain't gonna do sh*t</p>
+      <p>I literally said we should buy it now because we were right about the prediction: we had a thesis and it was right. We missed it. We should not miss the next one guaranteed like that</p>
+      <cite>Jul 31 · 14:24, 14:34, 14:45 — twenty-one minutes</cite></blockquote>
+      <p>This happens three more times in the following week — PLTR, LTH, SPCX — and each time the pattern is identical: the analysis was sound, the entry was priced to the exact number, and the fill missed by pennies or by nobody pressing the button. The framework had no concept of a correct thesis that produced no trade, so there was nothing to learn from.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Jul 31 · 15:46</span></div>
+    <div>
+      <h3>The rule that came out of it</h3>
+      <blockquote><p>You know just because our theses is right and we don't trade doesn't mean we shouldn't record it. Every time we are right or wrong we look at the framework and see if we can improve it. Self auditing and self improving</p>
+      <p>Stamp it v22</p>
+      <cite>Jul 31 · 15:46 and 15:49 — three minutes apart</cite></blockquote>
+      <ul class="commits">
+        <li><span class="sha">c18237c</span><span>Add framework v21 — Thesis Ledger, Size-Aware Conviction, Pre-Catalyst Deadline</span></li>
+        <li><span class="sha">074dd84</span><span>Add framework v22 — the Self-Audit Loop</span></li>
+      </ul>
+      <p>Twenty-seven minutes from complaint to shipped framework version. The Self-Audit Loop is the single most important thing in the system and it exists because a man was angry about missing Amazon by fifteen minutes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">07</p>
+    <h2>The rule he wrote about himself</h2>
+    <p class="cmeta"><span>Jul 31 · 16:14</span><span>twenty-eight minutes after the last one</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Jul 31 · 16:14</span></div>
+    <div>
+      <blockquote><p>Thanks and I want to add something to the file about my attitude. I get stressed out and call you names. I want you to start correcting that. Let's get me away from that kind of behavior. I want this Claude wide just not this chat. Make me apologize before moving forward. It's unacceptable.</p></blockquote>
+      <p>Nothing prompted this. No one asked for it. It arrives half an hour after the angriest stretch in the whole transcript, in the same session, unprovoked.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-book">Context</span><span class="when">Jul 13 · 23:26 → 23:30</span></div>
+    <div>
+      <h3>What he was talking about</h3>
+      <p>Eighteen days earlier, trying to get a terminal open:</p>
+      <blockquote><p>why don't you just tell me how to open the f***ing terminal to install them</p>
+      <p>seperate the codes so I can copy them one at a time dumba**</p>
+      <cite>Four minutes apart. He was right about the request both times.</cite></blockquote>
+      <p>That is the behaviour he is describing, and it is worth noting that the underlying complaint was correct on both occasions — the instructions genuinely were unusable. The frustration was earned. The name-calling is the part he decided to stop.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-shipped">Shipped</span><span class="when">Jul 31 · 16:22</span></div>
+    <div>
+      <h3>And then, eight minutes later</h3>
+      <blockquote><p>Just Claude chat's gonna take the abuse he's a screw up 😂. You fix everything for me.</p></blockquote>
+      <p>The rule went into the global instructions file that loads at the start of every session on this machine, where it still is. It is the only thing in this entire record that has nothing to do with trading, and it is the reason it is worth writing down.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">08</p>
+    <h2>The first thing it ever published was the word "test"</h2>
+    <p class="cmeta"><span>Jul 31 – Aug 1</span><span>and it went to the wrong account</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-shipped">Shipped</span><span class="when">Jul 31 · 18:48</span></div>
+    <div>
+      <h3>Six days after it was built, the poster finally posts</h3>
+      <blockquote><p>I posted them already. Sorry. Remove from x poster. Add them on the next updates. Let's make a test run post. Just send one now. Title it "test"</p></blockquote>
+      <p>The file is still in the archive. Its entire contents:</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>File</th><th>Contents</th></tr></thead>
+        <tbody><tr><td>posted/2026-07-31-test.txt</td><td>test</td></tr></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Jul 31 · 18:54</span></div>
+    <div>
+      <h3>Six minutes later</h3>
+      <blockquote><p>Ok that's not the bench's X that's mine. We'll fix that when I get home.</p></blockquote>
+      <p>The keys in <code>.env</code> authenticated as his personal account. Nothing in the code checked which account it was about to post to — it just posted. The word "test" went out under his own name to his own followers.</p>
+      <ul class="commits">
+        <li><span class="sha">a659c28</span><span>Add @TheBenchTrades target-account guard + verify_account.py preflight</span></li>
+      </ul>
+      <p>Committed the next morning at 09:35. The guard resolves the authenticated handle before it posts and aborts on any mismatch. It has never fired in anger since, which is the point of it.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-shipped">Shipped</span><span class="when">Aug 1</span></div>
+    <div>
+      <h3>The second thing it published was 800 words on Reddit</h3>
+      <blockquote><p>REDDIT BEAT EARNINGS AND LOST A FIFTH OF ITS VALUE. THE MARKET WASN'T CONFUSED.</p>
+      <cite>Opening line, 2026-08-01-rddt-longform.txt</cite></blockquote>
+      <p>Long-form needed the character ceiling raised from 280 to 25,000 (<code>e37bea2</code>). From "test" to a full market autopsy in about eighteen hours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">09</p>
+    <h2>"Post it"</h2>
+    <p class="cmeta"><span>Aug 3</span><span>three sessions</span><span>seven posts</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Aug 3 · 14:18, 15:07, 17:08</span></div>
+    <div>
+      <h3>The whole of his input that day, in three separate chats</h3>
+      <blockquote><p>Post it</p><p>Post it</p><p>Post it</p></blockquote>
+      <p>Two words, three times, from a phone. Each one opened a session, read the draft, and published. Seven posts went out on August 3 — the first day the machine carried a full trading day.</p>
+      <p>The friction shows up in the morning's first message, and it is the one that ends the manual era:</p>
+      <blockquote><p>You can post you've done it before I just have to be logged into of which I thought you were.</p>
+      <cite>Aug 3 · 10:57</cite></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">10</p>
+    <h2>"I want all restrictions gone"</h2>
+    <p class="cmeta"><span>Aug 4</span><span>the gates come off</span><span>9 posts</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Aug 4 · 15:08</span></div>
+    <div>
+      <blockquote><p>ok I need these post for x to roll out without any approval needed from me. the ping when it ships to proof read the post is enough. I can read it live and edit it or delete it. I have you setup to post it exactly as I would. You have passed all the tests let's get this off my plate it's causing issues. this needs to be fully automated with me as the fail safe.</p></blockquote>
+      <p>And four hours later, when the safety gates were still quarantining drafts:</p>
+      <blockquote><p>we wanted to make sure auto posting was safe and worked now that we have confirmed it and we have total control we can release all restrictions</p>
+      <p>I want all restrictions gone. we will revisit the restrictions we needs as we build this new program</p>
+      <cite>Aug 4 · 19:45 and 19:48</cite></blockquote>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-shipped">Shipped</span><span class="when">Aug 4 · 14:52</span></div>
+    <div>
+      <h3>The gates stay in the code and stop stopping anything</h3>
+      <ul class="commits">
+        <li><span class="sha">b7464a9</span><span>Add unattended-posting safety gates, kill switch, and cp1252 hardening</span></li>
+        <li><span class="sha">1891472</span><span>Turn the auto-post gates off by default</span></li>
+      </ul>
+      <p>Six hours between building the gates and disabling them. They were not deleted — they still run on every post and still write their objections to the log as <code>WOULD-BLOCK</code> lines, so that when the question gets revisited there is real data instead of an argument. Enforcement re-arms with a flag. A file named <code>HALT</code> still stops everything.</p>
+      <p>The old rule was not deleted from the operating instructions either. It is struck through and kept visible, with the reason:</p>
+      <blockquote><p>Retired 2026-08-04 by Adam's explicit decision. […] This is recorded as a retired rule rather than deleted, because it was a deliberate safety position for months and reversing it should stay visible.</p></blockquote>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Aug 4 · 23:55</span></div>
+    <div>
+      <h3>The other rule from that day</h3>
+      <blockquote><p>every time you see a pattern you of why the market moved this way it needs to be logged. we need every single piece of data we can get to figure out what works.</p></blockquote>
+      <p>Three tools shipped that night to enforce it. <code>log-call</code> refuses to write a row it cannot score later — a conditional with no trigger, a hedge with no size, a bet with no maximum loss. <code>log-pattern</code> refuses a pattern with no falsification test. <code>book-check</code> hunts for calls made in conversation and never written down.</p>
+      <p>It found plenty. Seventeen of twenty-six scored checkpoints could not be graded, and not one of those was because a call was wrong.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">11</p>
+    <h2>Nineteen sessions where nobody typed anything</h2>
+    <p class="cmeta"><span>Aug 5</span><span>8 posts</span><span>2 people involved: zero</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-shipped">Shipped</span><span class="when">Aug 5 · all day</span></div>
+    <div>
+      <h3>What the transcripts look like now</h3>
+      <p>On August 5 the session log contains nineteen conversations with <strong>zero human messages</strong>. They open on a schedule, pull live market data, write a post, publish it and close. The pre-market at 5:40, the open at 8:38, snapshots at 10 and 1, midday, power hour, closing bell.</p>
+      <div class="pull">The record of a man learning to trade with an assistant ends with a stack of transcripts that contain <span>no human being at all</span>.</div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Aug 5 · 14:09</span></div>
+    <div>
+      <h3>Halfway through a thread, X refused</h3>
+      <p>The power-hour chain posted parts 1 and 2, then returned <code>403 — Posts are limited to a maximum of one cashtag ($SYMBOL)</code> on part 3, which carried both <code>$NVDA</code> and <code>$GOOGL</code>. The preflight checked length and the disclaimer. It had never counted cashtags.</p>
+      <p>Two posts were already public and could not be unsent. It was finished by hand, three minutes late, with part 3 rewritten to say "Alphabet". The guard that prevents it — count per part, refuse the whole thread before sending anything — shipped that evening.</p>
+      <ul class="commits">
+        <li><span class="sha">c681ec6</span><span>post_next.py: refuse a post carrying more than one cashtag</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-fixed">Fixed</span><span class="when">Aug 5 · 16:43 → 16:47</span></div>
+    <div>
+      <h3>An accident that rewrote how everything posts</h3>
+      <p>The same story went out twice, four minutes apart, by mistake.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Format</th><th>Time</th><th class="num">Impressions</th></tr></thead>
+        <tbody>
+          <tr><td>Single post</td><td>16:43</td><td class="num">57</td></tr>
+          <tr><td>Thread, part 1</td><td>16:47</td><td class="num">235</td></tr>
+          <tr><td>Adam quoting a 5-week-old Bench post</td><td>—</td><td class="num">489</td></tr>
+          <tr><td>Median across all 38 Bench posts</td><td>—</td><td class="num">57</td></tr>
+        </tbody>
+      </table></div>
+      <p>Identical content, four times the reach. Long form was retired the same day. The honest caveat, recorded with the finding: format and time of day are confounded here — mornings are automated market reports, evenings are threads — so it is a strong prior, not proof.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-book">The book</span><span class="when">Aug 5 · 15:12</span></div>
+    <div>
+      <h3>A pattern found by a routine, not a person</h3>
+      <p>The 1:05pm snapshot ran unattended, analysed Insulet's 20% drop on 5.5× volume, and closed its own thread with this: <em>"Second beat sold on the guide today — AMD closed −7.1% on the same setup. Unrelated sectors, same tape."</em></p>
+      <p>That is P-006 — <em>a beat gets sold anyway when forward guidance softens; the guide outranks the print</em> — and it reached four verified instances and promoted to <code>supported</code> on the day it was opened. Nobody asked it to look.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Aug 5 · 16:13</span></div>
+    <div>
+      <h3>The trade that paid for the week, closed by a stop</h3>
+      <blockquote><p>Stop loss sold Google</p><p>Figure it out fast</p><p>We'll watch it, no reason to chase. We made our 10% for the week</p>
+      <cite>Aug 5 · 16:13, 16:17, 16:39</cite></blockquote>
+      <p>Filled at $357.00. The session low was $356.82 — eighteen cents. Entry was $332.38 on July 30, so the trade made 7.41% in six days while the challenge, which had started two days earlier with GOOGL already marked up, showed −3.07%. Both numbers are true and they say different things, which is why both are published.</p>
+      <p>The assistant got the cause wrong first — reported a Gemini delay from a web search. Adam's screenshot of the actual news was more accurate: DeepMind's CEO stepping back and Jeff Dean leaving with three senior researchers. That correction is logged in the book as B-033 so the weak version cannot resurface.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">12</p>
+    <h2>Where it stands</h2>
+    <p class="cmeta"><span>Aug 6</span><span>day 62</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-book">The book</span><span class="when">now</span></div>
+    <div>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Measure</th><th class="num">Value</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Calls on the record</td><td class="num">34</td><td>B-001 Jun 30 → B-034 Aug 5</td></tr>
+          <tr><td>Patterns</td><td class="num">6</td><td>2 supported, 4 proposed</td></tr>
+          <tr><td>Published posts archived</td><td class="num">26</td><td>first was the word "test"</td></tr>
+          <tr><td>Framework version</td><td class="num">v23</td><td>17 of the 23 predate git</td></tr>
+          <tr><td>Tests</td><td class="num">149</td><td>x-poster had none until Aug 5</td></tr>
+          <tr><td>Scheduled routines</td><td class="num">8</td><td>7 publish; 1 drafts and cannot post</td></tr>
+          <tr><td>Account</td><td class="num">$726.60</td><td>flat, all cash, target $10,000</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Open</span><span class="when">unfinished</span></div>
+    <div>
+      <h3>What is still wrong</h3>
+      <p><strong>Nothing reconciles the orders.</strong> The book records what was decided; no process pulls the actual brokerage orders and flags anything missing. Until it exists, the logging discipline only holds where somebody runs the command.</p>
+      <p><strong>Every market routine fires in the worst window for reach.</strong> The data says evenings; the market says mornings. That tradeoff is undecided and it is a real one, not an oversight.</p>
+      <p><strong>The machine's own instructions have gone stale in at least one place</strong> — the operating file still says threads are unsupported, which stopped being true on August 5.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-words">Adam's words</span><span class="when">Aug 4 · 21:03</span></div>
+    <div>
+      <blockquote><p>there are no real rules to how we get to 10,000 we might even place a gamble on the way but it will all be documented and nothing too irresponsible. but no risk no rari.</p></blockquote>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Sources.</strong> 417 messages from Adam across 74 session transcripts (Jun 5 – Aug 6); the commit histories of <code>Adamdesgns/The-Bench</code> and <code>Adamdesgns/x-poster</code>; <code>db/archive.json</code>; the published archive in <code>x-poster/posted/</code>; and <code>x-poster/log.txt</code> from its first line.</p>
+  <p>Timestamps are as recorded in the transcripts. Quotes are verbatim including spelling; profanity is censored, not cut. Nothing here is dramatised — where the assistant was wrong, that is the entry.</p>
+  <p><em>Proof, not hype.</em></p>
+</footer>
+
+</div>
