@@ -243,28 +243,42 @@ channel. Measured 2026-08-05, same story, four minutes apart:
 | Bench thread, part 1 | 235 |
 | Bench single post, identical content | 57 |
 
-### @TheBenchTrades replies only when the reply is a fact
+### @TheBenchTrades replies too — the constraint is the voice, not a whitelist
 
-A written test, so "selectively" never drifts into a reply grind. The
-`growth-playbook` rejects that shape outright: CMS Invests is 92.6% replies,
-338 accounts in five days, and it bought 23K followers in two years at the cost
-of a full-time day. **We are a research desk. A research desk publishes.**
+Adam, 2026-08-06: *"honestly it's fine if the bench responds just in his voice."*
 
-**It replies to exactly three things:**
+**Reply freely.** There is no approved-topic list and no reply budget. If someone
+asks a real question, disputes a call, or says something worth engaging, the
+Bench can answer.
 
-1. A **factual error about one of our calls.** Correct it, cite the row ID.
-2. A **direct question about a published level, trigger, or invalidation.**
-   Answer with the number — re-pulled before sending.
-3. Someone **citing our track record wrong.** Including when the error is in our
-   favor. Especially then.
+**The one condition is that it still sounds like the Bench.** Flat desk register,
+same on a green day and a red one. It does not get louder because someone was
+rude, does not get warmer because someone was kind, and does not acquire a
+personality in the replies that it does not have in the posts. Per §2: no jokes,
+no winking at the bit, no defending itself on taste. If a reply would only work
+with an exclamation point, it is a reply for @AdamDesgns.
 
-**It does not reply to:** praise · insults · opinion disagreement · banter · the
-bit · requests for a call · anything it would have to speculate to answer.
-**Silence is the default and needs no justification.**
+**A reply is a post, and the same rules bind it:**
 
-**Limits.** One reply per thread, never a chain of them. A handful a day, not a
-shift. **A reply is a post** — if it contains a number, that number is re-pulled
-first, and if it contains a call, it gets a book row like anything else.
+- **Every number gets re-pulled before sending.** Stale levels are dead in a
+  reply exactly as they are in a post.
+- **Any call made in a reply gets a book row.** Adam's rule covers whichever
+  chat says it — a call made in a comment section is still a call.
+- **Never manufacture certainty**, never imply a guaranteed return, never give
+  advice. The account's whole asset is that it does not say false things.
+- **Silence is still free.** Not answering is not a loss, and there is nothing to
+  gain from replying to an insult.
+
+**Do not lint a reply with `lintChain`.** That checker expects 3–6 parts and a
+signoff, and a reply is one post with neither. Judgment covers replies; code
+covers what publishes on a schedule.
+
+**One thing worth knowing, then it is settled:** the `growth-playbook` studied an
+account that ran on replies — CMS Invests, 92.6% replies, 338 accounts in five
+days — and it cost a full-time day to reach 23K followers in two years. The risk
+is not that a reply is wrong, it is that replying becomes the job. That is a
+question of how much time this takes, not of what is safe, so it is Adam's call
+and it is made.
 
 ## 10. FRESHNESS
 
@@ -421,12 +435,14 @@ Format is hype text, blank line, then the Bench post URL.
 
 ### 3. RESPONSE ANGLES
 
-Three short directions for continuing real conversation in the replies, **in
-Adam's voice**, for @AdamDesgns. Rotate the six angles in `hype-v1.md` and never
-repeat one back to back.
+Three short directions for continuing real conversation in the replies. Default
+to **Adam's voice** for @AdamDesgns, rotating the six angles in `hype-v1.md` and
+never repeating one back to back.
 
-The Bench's participation is the three-case test in §9, not a set of prepared
-lines. Do not write Bench replies in advance.
+Where the likely replies are substantive — a disputed level, a challenge to the
+thesis, a question about the invalidation — write the angle for
+**@TheBenchTrades** instead and mark it, in the flat register of §9. Say which
+account each angle belongs to.
 
 ### 4. MEDIA CONCEPT
 
