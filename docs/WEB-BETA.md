@@ -72,3 +72,17 @@ Before external invitations:
 - use a market-data plan that permits multi-user redistribution.
 
 This remains research-only. There is no order route and no automatic publishing.
+
+## Live infrastructure record — 2026-08-07
+
+- Supabase organization: `@adamdesgns`
+- Dedicated project: `the-bench`
+- Project ref: `yvvczjzndivktatdqdhh`
+- Region: `us-east-1`
+- API URL: `https://yvvczjzndivktatdqdhh.supabase.co`
+- Applied migration: `20260807190927_invite_only_beta`
+- Verification: all 37 live pgTAP assertions passed inside a rolled-back transaction; the four public beta tables have RLS enabled, the PDF bucket is private, and the database contains zero test users, invites, jobs, reports, or usage rows.
+
+The Supabase security advisor reports one pending defense-in-depth decision: `bench_private.app_controls` does not have RLS enabled. The table is in an unexposed private schema and all `anon`/`authenticated` grants are already revoked, but enabling RLS with no client policies is recommended before deployment. The advisor also flags the authenticated `SECURITY DEFINER` enqueue RPC; that warning is intentional because the function is the only client write path and performs its own active-invite, owner, quota, queue, and idempotency checks.
+
+Auth redirect URLs, server secrets, the persistent Node host, and external market-data redistribution permission remain unconfigured. Nothing is publicly deployed yet.
