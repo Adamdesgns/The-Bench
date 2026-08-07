@@ -1,4 +1,4 @@
-// triggerParse.test.js — pulling structured levels out of v17's prose.
+// triggerParse.test.js — pulling structured levels out of v23's prose.
 //
 // Every string here is a real final_call from db/archive.json. A wrong level
 // silently corrupts every conditional verdict downstream, which is why this is

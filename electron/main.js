@@ -14,7 +14,7 @@ process.env.PORT = PORT;
 
 async function waitForServer() {
   for (let i = 0; i < 80; i++) {
-    try { const r = await fetch(`http://localhost:${PORT}/api/health`); if (r.ok) return true; } catch { /* not up yet */ }
+    try { const r = await fetch(`http://127.0.0.1:${PORT}/api/health`); if (r.ok) return true; } catch { /* not up yet */ }
     await new Promise((r) => setTimeout(r, 150));
   }
   return false;
@@ -29,11 +29,19 @@ function createWindow() {
     backgroundColor: "#111111",
     title: "The Bench",
     autoHideMenuBar: true, // the app has its own in-window menu bar
-    webPreferences: { contextIsolation: true }
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true,
+      webSecurity: true
+    }
   });
-  win.loadURL(`http://localhost:${PORT}/`);
+  win.loadURL(`http://127.0.0.1:${PORT}/`);
   // external links open in the real browser, not inside the app
   win.webContents.setWindowOpenHandler(({ url }) => { shell.openExternal(url); return { action: "deny" }; });
+  win.webContents.on("will-navigate", (event, url) => {
+    if (!url.startsWith(`http://127.0.0.1:${PORT}/`)) event.preventDefault();
+  });
 }
 
 app.whenReady().then(async () => {

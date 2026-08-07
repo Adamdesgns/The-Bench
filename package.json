@@ -1,8 +1,8 @@
 {
   "name": "the-bench",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
-  "description": "THE BENCH — v17 operator console. Analysis drafts + gated execution. Proof, not hype.",
+  "description": "THE BENCH — v23 research workstation. Analysis, evidence, and drafts. No order routing.",
   "type": "module",
   "main": "electron/main.js",
   "scripts": {
@@ -40,11 +40,13 @@
       "public/**",
       "prompts/**",
       "db/archive.json",
+      "db/challenge.json",
       "db/archive-v4.xlsx",
       "package.json"
     ],
     "win": {
-      "target": [{ "target": "nsis", "arch": ["x64"] }]
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "signAndEditExecutable": false
     },
     "nsis": {
       "oneClick": true,

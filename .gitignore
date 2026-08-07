@@ -14,7 +14,7 @@ db/*.bak
 db/av-usage.json
 db/archive.lock/
 
-# Non-secret connection config (MCP endpoints + policy). Local only.
+# Non-secret connection config (provider references). Local only.
 db/connections.json
 
 # Local-only model API keys — NEVER commit. Saved on this machine only.
@@ -27,3 +27,4 @@ npm-debug.log*
 
 # stray build artifacts
 *.tar.gz
+dist/

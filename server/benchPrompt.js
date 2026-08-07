@@ -1,12 +1,12 @@
-// benchPrompt.js — load the operating prompt files. v17 is the ONLY analysis
-// version loaded; prompts/archive/ (v1-v16) is never touched here.
+// benchPrompt.js — load the current operating prompt files.
+// Prompt versions are immutable; the workstation explicitly runs v23.
 
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { PROMPTS_DIR } from "./config.js";
 
 export function loadBenchPrompt() {
-  return readFileSync(resolve(PROMPTS_DIR, "trading-copilot-v17.md"), "utf8");
+  return readFileSync(resolve(PROMPTS_DIR, "trading-copilot-v23.md"), "utf8");
 }
 
 export function loadMarqueePrompt() {

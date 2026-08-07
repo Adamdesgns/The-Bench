@@ -1,95 +1,93 @@
-# THE BENCH — APP SPEC (locked)
+# THE BENCH — APP SPEC v0.3
 
-**What it is:** an operator console for running THE BENCH v17. Not a passive
-dashboard — you *run the framework through it*, and every information grab lands
-in its own window. Styled as a **macOS-style desktop**, painted in the Bench
-skin.
+## Product definition
 
-**Analysis ends at a reviewable draft. Execution is a separate, gated path:**
-agents place buys through the Robinhood MCP connection, governed by the
-execution policy (paper default, kill switch, per-trade/daily caps, confirm).
-**No keys ever live in the app** — see `docs/EXECUTION.md`.
+The Bench is Adam's local Windows research workstation for the v23 framework.
+It helps answer one question quickly and honestly: **what does the evidence
+support right now?**
 
----
+The app analyzes, reconciles, records, and drafts. It does not execute trades
+or publish content.
 
-## 1. DESIGN LANGUAGE — "Bench OS"
+## Interface contract — institutional workstation
 
-macOS desktop metaphor, Bench brand skin.
+The v0.3 shell is a fixed, dense workspace. It deliberately retires the
+macOS-window metaphor, draggable panels, traffic lights, ticker crawl, and
+bottom dock.
 
-- **Window chrome:** rounded (10px) windows, soft drop shadow, subtle vibrancy
-  on the title bar. Traffic-light buttons top-left — recolored to brand:
-  **close = loss-red `#E5484D` · minimize = gold-dim `#9A7E28` · zoom = gold
-  `#D4AF37`** (no green, ever). Draggable by the title bar; focus brings to
-  front; zoom/minimize supported.
-- **Menu bar:** thin bar across the very top — Bench seal + app menus
-  (Run · Board · View · Window). Right side: live CT/ET clock + Data-Integrity
-  status light.
-- **Ticker banner:** NYSE-style scrolling strip directly under the menu bar —
-  open board + peer check (KOSPI, SKHY, TSMC, ASML) + macro (WTI, US10Y, DXY,
-  VIX, gold, BTC, ETH). Live; each token tagged live/delayed/not-observable.
-- **Dock:** bottom center — one icon per window type; click opens/focuses.
-- **Palette / type:** exact brand tokens — Ink `#111111`, Card `#1A1916`,
-  Edge `#26241F`, Gold `#D4AF37`, Gold-dim `#9A7E28`, Pale `#F5ECCB`,
-  Bone `#E8E4DA`, Slate `#8F8A7A`, Loss `#E5484D`. **No green.**
-  EB Garamond (display) · Inter (UI) · JetBrains Mono (numbers). Seal −8°.
+### Persistent shell
 
----
+- Top status rail: framework version, research-only mode, loaded book count,
+  data state, and CT/ET clocks.
+- Left navigation rail: Desk, Book, Audit, and Settings.
+- Bottom disclosure rail: version, account, educational disclaimer, and latest
+  book date.
+- Graphite/ink base with restrained brass accents. Red is reserved for losses,
+  broken integrity, and unavailable model paths. No green.
 
-## 2. THE SPINE — RUN CONSOLE
+### Desk
 
-The command bar that drives everything:
+- One real report command bar. No simulated step log.
+- Open/closed/all book filters.
+- Selected research file beside the board: call, score, grades, trigger,
+  invalidation, last observation, source, as-of time, and lesson.
+- Evidence rail: archive load state, audit-chain result, model path, and the
+  capability boundary.
+- $10K challenge scoreboard sourced from the append-only challenge ledger.
+- Report output appears only after the backend returns a real result. Failures
+  stay visible and are never restyled as success.
 
-- `Run $TICKER` · `Run options $TICKER` · `Review B-###` · `run the market` ·
-  `refresh board`.
-- Session-start pickers (tappable): **Account size · Instrument · Risk
-  posture** — skipped in Research / Battle-Test Mode.
-- A run streams into the windows below as each step of the chain completes
-  (v17 → reconcile → Marquee), with a Data-Integrity strip showing source and
-  AV-budget remaining.
+### Book
 
----
+- Renders every row from `db/archive.json`; no embedded book snapshot.
+- Search across ID, ticker, call, lesson, and outcome.
+- Shows total/open/closed counts, scored checkpoints, and conditionals missing
+  a trigger.
 
-## 3. THE WINDOWS (each = a macOS window)
+### Audit
 
-| Window | Feeds from | Shows |
-|---|---|---|
-| **Two-Lens** | v17 Lens 1 + 2 | Chart (trend, structure, 20/50/200, RSI/MACD, Trend Strength 0–10) · Mood (regime, Market Risk, sector, Earnings Quality, Institutional Lens, insider) |
-| **Market Sentiment** | v17 regime block | Regime, Fear & Greed, Market Risk 1–5, sector flow, FOMO Clock, chips↔crypto seesaw |
-| **Catalyst Watch** | `calendar_next_10d` | Earnings, FOMC, dated overhangs — each with a live countdown |
-| **Live Charts** | data feed (backend) | Candles + MAs for the reviewed ticker and any open row |
-| **Global Peer Check** | v17 Institutional Lens | Samsung/SKHY/TSMC/ASML/LVMH/Toyota/BYD/BHP/Rio overnight — confirms or contradicts |
-| **Bench Verdict** | v17 scorecard | Score, 4 grades, Trend Strength, FOMO, Market Risk, Relative Opportunity, Confidence/Conviction, Trade Plan, The Trap, Final Call, HODL |
-| **Capital Competition + Assumptions** | v17 gate + ledger | vs cash/market/watchlist; logged assumptions intact/strained/broken; Delta re-run armed on a break |
-| **Marquee Draft** | Marquee v3.1 | Six-part output in separate copy boxes + lint status; No-Story caption when no gap. **No post button.** |
-| **Options Flow** *(gated)* | `Run options` only | Sweeps, OI, skew, IV rank, crush risk |
-| **Archive / XLSX** | `db/archive.json` + `archive-v4.xlsx` | The book rendered; xlsx viewable + downloadable in-app |
-| **Calibration** | closed rows | Confidence buckets vs actual win rate, engine mix, closes-toward-30 |
+- Verifies the local hash chain before claiming it is intact.
+- Shows recent events and supports CSV export.
 
-**Baked in everywhere (not windows):**
-- **Two-bucket toggle** — swing vs long-term/UTMA, never mixed.
-- **Data-Integrity strip** — every value tagged live / unverified / not-observable + source (AV/Stooq) + AV budget.
-- **Execution gates** — buys route only through the Robinhood MCP and only when the execution policy allows (see `docs/EXECUTION.md`). Analysis never places orders.
-- **Settings — Connections** window — MCP endpoints for Claude · OpenAI · Hermes agents · Robinhood, plus the execution policy. No keys stored.
+### Settings
 
----
+- Model providers only.
+- Local key entry is explicit about storage.
+- A permanent capability card states that order routing, auto-execution, and
+  public posting are unavailable.
 
-## 4. DATA / BACKEND
+## Data-integrity contract
 
-- **Now (static + hydrate):** windows render from the embedded book; when served
-  next to `db/archive.json` they hydrate live.
-- **Backend (next):** rebuild the runner chain (the removed `server/`) behind the
-  app — `Run` triggers v17→Marquee, prices refresh the banner + charts, closes
-  update calibration. Dual provider (OpenAI / Anthropic). Alpha Vantage budget +
-  Stooq fallback. The chain ends at a draft; the app never posts.
+- Current framework: `prompts/trading-copilot-v23.md`.
+- Current book: `db/archive.json`.
+- Challenge ledger: `db/challenge.json`.
+- Unavailable values render as `NOT OBSERVED`; the UI does not infer them.
+- Every observed price carries source and as-of context when available.
+- A stale ledger may still be displayed, but its date must remain visible.
+- Market report runs may reconcile the book, so the command bar warns before a
+  run and the backend accepts the action only by POST.
 
----
+## Local security contract
 
-## 5. BUILD ORDER
+- Backend listens on `127.0.0.1` only.
+- Browser context isolation, sandboxing, disabled Node integration, and web
+  security remain on.
+- External navigation is blocked inside the app and handed to the OS browser.
+- Wildcard CORS is disabled.
+- Read and action routes use the correct HTTP methods.
+- No order route exists in the HTTP or MCP interfaces.
 
-1. **Shell** — menu bar, ticker banner, dock, draggable Bench-OS windows, brand traffic lights.
-2. **Data windows** — Archive/XLSX, Market Sentiment, Catalyst Watch, Two-Lens, Calibration (render from the book).
-3. **Run Console** — command bar + session pickers wired to a backend stub.
-4. **Backend** — reconnect the v17→Marquee chain; live banner + charts.
-5. **Live Charts + Options Flow** — last, once the feed is in.
+## Release gate
+
+Before calling a desktop release ready:
+
+1. `npm test` passes.
+2. `npm run dist:win` produces the expected installer.
+3. Desk, Book, Audit, Settings, board selection, filters, and a real report
+   failure/success state are visually checked at the desktop viewport.
+4. Packaged output contains the v23 prompt, challenge ledger, and all public UI
+   assets.
+5. Current archive/challenge timestamps are reviewed; the UI does not turn an
+   old ledger into a current claim.
 
 *Proof, not hype.*

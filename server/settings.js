@@ -1,42 +1,24 @@
-// settings.js — connection config for THE BENCH app.
+// settings.js — local, non-secret connection configuration for The Bench.
 //
-// CRITICAL: no secrets live here or in the file this writes. Model and broker
-// credentials are held by the MCP servers / the host environment, never by this
-// app. This layer stores only NON-SECRET connection references: which MCP
-// endpoint each provider points at, whether it's enabled, and the execution
-// policy. db/connections.json is gitignored.
-//
-// Providers:
-//   claude    (model, MCP or host key)      — v17 / Marquee analysis
-//   openai    (model, MCP or host key)      — v17 / Marquee analysis
-//   hermes    (agent, MCP)                  — task-runner agents
-//   robinhood (execution, MCP)              — order placement (buys)
+// The desktop app is a research workstation. It can use model providers and
+// read-only data connections, but it exposes no order-routing capability.
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { CONNECTIONS_PATH, hasKey } from "./config.js";
 
 const DEFAULTS = {
   providers: {
-    claude:    { label: "Claude",        kind: "model",     mcp: "", enabled: true },
-    openai:    { label: "OpenAI",        kind: "model",     mcp: "", enabled: true },
-    hermes:    { label: "Hermes Agents", kind: "agent",     mcp: "", enabled: false },
-    robinhood: { label: "Robinhood",     kind: "execution", mcp: "", enabled: false }
-  },
-  // Execution policy — safe defaults. Buys require ALL of: enabled robinhood
-  // connection, mode=live, killSwitch off, and (if confirmBeforeBuy) a human ok.
-  execution: {
-    mode: "paper",           // paper | live
-    confirmBeforeBuy: true,  // require explicit confirm per order
-    perTradeCapUsd: 150,     // matches the v17 aggressive risk band
-    dailyCapUsd: 500,
-    killSwitch: false        // true = block ALL orders immediately
+    claude:    { label: "Claude",        kind: "model", enabled: true,  mcp: "" },
+    openai:    { label: "OpenAI",        kind: "model", enabled: true,  mcp: "" },
+    hermes:    { label: "Hermes Agents", kind: "agent", enabled: false, mcp: "" },
+    robinhood: { label: "Robinhood",     kind: "data",  enabled: false, mcp: "" }
   }
 };
 
 function deepMerge(base, patch) {
   if (Array.isArray(base) || typeof base !== "object" || base === null) return patch ?? base;
   const out = { ...base };
-  for (const k of Object.keys(patch || {})) out[k] = deepMerge(base[k], patch[k]);
+  for (const key of Object.keys(patch || {})) out[key] = deepMerge(base[key], patch[key]);
   return out;
 }
 
@@ -49,39 +31,69 @@ export function readConnections() {
   }
 }
 
-// Merge a patch and persist. Silently drops any key that looks like a secret —
-// this file must never carry credentials.
 const SECRET_RE = /key|secret|token|password|apikey/i;
-function stripSecrets(obj) {
-  if (!obj || typeof obj !== "object") return obj;
-  const out = Array.isArray(obj) ? [] : {};
-  for (const [k, v] of Object.entries(obj)) {
-    if (SECRET_RE.test(k)) continue;
-    out[k] = typeof v === "object" ? stripSecrets(v) : v;
+function stripSecrets(value) {
+  if (!value || typeof value !== "object") return value;
+  const out = Array.isArray(value) ? [] : {};
+  for (const [key, child] of Object.entries(value)) {
+    if (SECRET_RE.test(key)) continue;
+    out[key] = typeof child === "object" ? stripSecrets(child) : child;
   }
   return out;
 }
 
 export function writeConnections(patch) {
-  const next = deepMerge(readConnections(), stripSecrets(patch || {}));
+  const safePatch = stripSecrets(patch || {});
+  // Old connection files may contain the retired execution-policy object. Do
+  // not propagate it into new writes; the app has no execution surface.
+  delete safePatch.execution;
+  const next = deepMerge(readConnections(), safePatch);
+  delete next.execution;
   writeFileSync(CONNECTIONS_PATH, JSON.stringify(next, null, 2) + "\n");
   return next;
 }
 
-// Public status — safe to send to the client. Booleans only, never values.
 export function status() {
-  const c = readConnections();
-  const p = c.providers;
+  const providers = readConnections().providers;
   return {
     providers: {
-      claude:    { label: p.claude.label,    kind: "model",     enabled: p.claude.enabled,    connected: hasKey("anthropic") || !!p.claude.mcp,    via: p.claude.mcp ? "mcp" : (hasKey("anthropic") ? "local key" : "none") },
-      openai:    { label: p.openai.label,    kind: "model",     enabled: p.openai.enabled,    connected: hasKey("openai")    || !!p.openai.mcp,    via: p.openai.mcp ? "mcp" : (hasKey("openai") ? "local key" : "none") },
-      hermes:    { label: p.hermes.label,    kind: "agent",     enabled: p.hermes.enabled,    connected: !!p.hermes.mcp,    via: p.hermes.mcp ? "mcp" : "none" },
-      robinhood: { label: p.robinhood.label, kind: "execution", enabled: p.robinhood.enabled, connected: !!p.robinhood.mcp, via: p.robinhood.mcp ? "mcp" : "none" }
+      claude: {
+        label: providers.claude.label,
+        kind: "model",
+        enabled: providers.claude.enabled,
+        connected: hasKey("anthropic") || Boolean(providers.claude.mcp),
+        via: providers.claude.mcp ? "mcp" : (hasKey("anthropic") ? "local key" : "none")
+      },
+      openai: {
+        label: providers.openai.label,
+        kind: "model",
+        enabled: providers.openai.enabled,
+        connected: hasKey("openai") || Boolean(providers.openai.mcp),
+        via: providers.openai.mcp ? "mcp" : (hasKey("openai") ? "local key" : "none")
+      },
+      hermes: {
+        label: providers.hermes.label,
+        kind: "agent",
+        enabled: providers.hermes.enabled,
+        connected: Boolean(providers.hermes.mcp),
+        via: providers.hermes.mcp ? "mcp" : "none"
+      },
+      robinhood: {
+        label: providers.robinhood.label,
+        kind: "data",
+        enabled: providers.robinhood.enabled,
+        connected: Boolean(providers.robinhood.mcp),
+        via: providers.robinhood.mcp ? "read-only mcp" : "none"
+      }
     },
-    execution: c.execution,
-    // Buys are only possible when every gate is satisfied.
-    canExecute: c.providers.robinhood.enabled && !!c.providers.robinhood.mcp &&
-                c.execution.mode === "live" && !c.execution.killSwitch
+    capability: {
+      mode: "research-only",
+      canAnalyze: true,
+      canDraft: true,
+      canExecute: false,
+      canPost: false
+    },
+    // Kept as a compatibility field for older clients; it is immutable false.
+    canExecute: false
   };
 }

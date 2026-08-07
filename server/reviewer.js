@@ -1,6 +1,6 @@
 // reviewer.js — THE CHAIN.
 //
-//   loadArchive -> fetchDataPacket -> callBench(v17) -> reconcileArchive
+//   loadArchive -> fetchDataPacket -> callBench(v23) -> reconcileArchive
 //     -> renderArchiveBlock -> selectAngle -> callMarquee -> lint -> present
 //
 // The chain ends at present(). It NEVER posts. If reconcile fails, the run
@@ -91,7 +91,7 @@ export async function runReport({ target = "market", onStep = () => {} } = {}) {
     note: "Every value not fetched live is the literal string 'not observable'."
   };
 
-  // 2. v17 — loud on failure, never silent.
+  // 2. v23 — loud on failure, never silent.
   let verdict = null;
   const benchProvider = providerFor("bench");
   if (!benchProvider) {
@@ -107,11 +107,11 @@ export async function runReport({ target = "market", onStep = () => {} } = {}) {
         { provider: benchProvider, maxTokens: 8192 }
       );
     } catch (err) {
-      errors.push("v17 analysis failed (" + benchProvider + "): " + err.message);
+      errors.push("v23 analysis failed (" + benchProvider + "): " + err.message);
     }
   }
 
-  // 3. Reconcile (market runs only) — prices every open row even if v17 failed.
+  // 3. Reconcile (market runs only) — prices every open row even if v23 failed.
   let archiveBlock = null;
   const stamp = (verdict && verdict.review_stamp) || packet.review_stamp;
   if (isMarket) {

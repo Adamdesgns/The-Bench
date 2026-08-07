@@ -1,19 +1,17 @@
 // mcp.js — THE BENCH MCP server.
 //
-// This is the integration boundary Hermes Agent drives. It exposes the v17 →
-// Marquee chain (plus the gated execute path) as MCP tools over stdio. Hermes
-// prompts these tools; the server does the real work and holds any downstream
-// connection (Robinhood). No secrets are returned to the caller.
+// This is the research integration boundary Hermes Agent drives. It exposes
+// the v23 → Marquee chain as MCP tools over stdio. No order tool exists here,
+// and no secrets are returned to the caller.
 //
 // Transport: newline-delimited JSON-RPC 2.0 on stdin/stdout (MCP stdio spec).
 // Dependency-free on purpose — Hermes just needs a stdio MCP server to spawn.
 //
 //   Tools:
-//     run_v17({target})      analysis — data packet (+ verdict if a model is connected)
+//     run_v23({target})      analysis — data packet (+ verdict if a model is connected)
 //     reconcile()            price every open row; report the reconciled board
 //     run_marquee({verdict}) the draft (never posts); lint included
 //     state()                the book — open triggers, calibration, engine mix
-//     execute({order,confirmToken})  GATED buy — routes to Robinhood MCP; refuses unless policy allows
 //
 // Run: node server/mcp.js   (or `npm run mcp`)
 
@@ -26,11 +24,9 @@ import { benchResponseSchema } from "./reviewSchema.js";
 import { loadBenchPrompt, loadMarqueePrompt } from "./benchPrompt.js";
 import { selectAngle } from "./angle.js";
 import { lintArticle } from "./lint.js";
-import { executeOrder } from "./api.js";
-import { status } from "./settings.js";
 import { audited } from "./audit.js";
 
-const SERVER_INFO = { name: "the-bench", version: "0.1.0" };
+const SERVER_INFO = { name: "the-bench", version: "0.2.0" };
 const PROTOCOL = "2025-06-18";
 const round = (v) => (typeof v === "number" ? Math.round(v * 100) / 100 : v);
 const log = (...a) => process.stderr.write("[bench-mcp] " + a.join(" ") + "\n"); // stderr only — stdout is the protocol channel
@@ -72,8 +68,8 @@ async function buildPacket(target) {
 
 // ── tool implementations ──
 const TOOLS = {
-  run_v17: {
-    description: "Run THE BENCH v17 analysis for a ticker (e.g. \"GOOGL\") or \"market\". Returns a live data packet; adds the structured verdict when a model connection is configured.",
+  run_v23: {
+    description: "Run THE BENCH v23 analysis for a ticker (e.g. \"GOOGL\") or \"market\". Returns a live data packet; adds the structured verdict when a model connection is configured.",
     inputSchema: { type: "object", properties: { target: { type: "string", description: "ticker symbol or 'market'" } } },
     async run({ target } = {}) {
       const packet = await buildPacket(target);
@@ -91,7 +87,7 @@ const TOOLS = {
   },
 
   reconcile: {
-    description: "Walk the open board and price every row (v17 §2.5). A row with no fresh print is marked unverified. Returns the reconciled view; never carries a stale number forward.",
+    description: "Walk the open board and price every row (v23 §2.5). A row with no fresh print is marked unverified. Returns the reconciled view; never carries a stale number forward.",
     inputSchema: { type: "object", properties: {} },
     async run() {
       const archive = loadArchive();
@@ -110,10 +106,10 @@ const TOOLS = {
   },
 
   run_marquee: {
-    description: "Turn a v17 verdict into the six-part draft (headlines, dek, hero, article, pull quotes, companion post). Ends at a draft — never posts. Returns lint results (char count, em-dash cap, banned phrases, boilerplate).",
+    description: "Turn a v23 verdict into the six-part draft (headlines, dek, hero, article, pull quotes, companion post). Ends at a draft — never posts. Returns lint results (char count, em-dash cap, banned phrases, boilerplate).",
     inputSchema: {
       type: "object",
-      properties: { verdict: { type: "object", description: "the v17 verdict JSON" }, angle: { type: "string", description: "optional ANGLE override" } },
+      properties: { verdict: { type: "object", description: "the v23 verdict JSON" }, angle: { type: "string", description: "optional ANGLE override" } },
       required: ["verdict"]
     },
     async run({ verdict, angle } = {}) {
@@ -151,25 +147,6 @@ const TOOLS = {
         calibration: { note: "aggregate only; meaningful near 30 closes", closed: closed.length }
       };
     }
-  },
-
-  execute: {
-    description: "GATED buy. Routes to the Robinhood MCP and honors the execution policy (paper default, kill switch, per-trade/daily caps, confirm-before-buy). Refuses unless connected + live + not killed (+ confirm token). Analysis tools never call this — an agent does, when a trigger fires.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        order: {
-          type: "object",
-          properties: { ticker: { type: "string" }, side: { type: "string", enum: ["buy", "sell"] }, usd: { type: "number" }, limit: { type: "number" } },
-          required: ["ticker", "side"]
-        },
-        confirmToken: { type: "string", description: "required when confirm-before-buy is on" }
-      },
-      required: ["order"]
-    },
-    async run({ order, confirmToken } = {}) {
-      return executeOrder(order, confirmToken);
-    }
   }
 };
 
@@ -185,7 +162,7 @@ async function handle(msg) {
       protocolVersion: params?.protocolVersion || PROTOCOL,
       capabilities: { tools: {} },
       serverInfo: SERVER_INFO,
-      instructions: "THE BENCH — v17 analysis → Marquee draft, with a gated execute path. Drafts never post; buys are policy-gated and route through the Robinhood MCP."
+      instructions: "THE BENCH — v23 analysis → Marquee draft. Research only: no order route and no public-posting tool."
     });
   }
   if (method === "notifications/initialized" || method === "notifications/cancelled") return; // no response to notifications
@@ -202,10 +179,9 @@ async function handle(msg) {
     const args = params.arguments || {};
     const actor = args._actor || "hermes"; // MCP calls are agent-driven
     try {
-      // Every tool call is audited (append-only, hash-chained). execute derives
-      // allowed/refused from its own gate result; others log as n/a.
+      // Every tool call is audited (append-only, hash-chained).
       const out = await audited(
-        { actor, kind: name, target: args.target ?? args.order?.ticker ?? null, input: args, decision: name === "execute" ? undefined : "n/a" },
+        { actor, kind: name, target: args.target ?? null, input: args, decision: "n/a" },
         () => t.run(args)
       );
       const text = typeof out === "string" ? out : JSON.stringify(out, null, 2);

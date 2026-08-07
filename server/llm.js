@@ -1,6 +1,6 @@
 // llm.js — one interface, two providers (OpenAI + Anthropic), plus a mock.
 //
-// callStructured(): forces a JSON object matching a JSON Schema (v17 verdict).
+// callStructured(): forces a JSON object matching a JSON Schema (v23 verdict).
 // callText():       returns free-form text (the Marquee article).
 //
 // No SDK dependency — uses global fetch (Node >= 20). Provider + model are
@@ -80,7 +80,7 @@ async function anthropicStructured({ system, user, schema, model, maxTokens }) {
       tools: [
         {
           name: "emit_verdict",
-          description: "Return the structured v17 verdict.",
+          description: "Return the structured v23 verdict.",
           input_schema: schema
         }
       ],

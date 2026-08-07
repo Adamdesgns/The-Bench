@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export const ROOT = resolve(__dirname, "..");
 export const ARCHIVE_PATH = resolve(ROOT, "db/archive.json");
 export const PROMPTS_DIR = resolve(ROOT, "prompts");
-// Non-secret connection config (MCP endpoints, enabled flags, execution policy).
+// Non-secret connection config (provider references and enabled flags).
 // NEVER holds API keys or brokerage credentials. Gitignored.
 export const CONNECTIONS_PATH = resolve(ROOT, "db/connections.json");
 

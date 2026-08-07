@@ -1,59 +1,50 @@
-# THE BENCH — EXECUTION & CONNECTIONS
+# THE BENCH — CAPABILITY & CONNECTION BOUNDARY
 
-How the app talks to models, agents, and the broker. **Read this before wiring
-live orders.**
+This document replaces the pre-v0.3 execution plan. The desktop app is a
+research workstation. It does not place trades.
 
-## Principle: no keys in the app
+## Hard boundary
 
-The app holds **zero secrets.** Credentials live in the MCP servers or the host
-environment — never in the repo, never in the UI, never in `db/connections.json`
-(which stores endpoints + policy only; secret-looking keys are stripped on
-write). `server/settings.js` enforces this.
+- The Bench can read configured data, run v23, reconcile the local book, and
+  create a Marquee draft.
+- The Bench exposes no buy, sell, order, live-mode, paper-mode, cap, or kill-
+  switch control.
+- `server/api.js` exports no order function.
+- `server/mcp.js` exposes only `run_v23`, `reconcile`, `run_marquee`, and
+  `state`.
+- `settings.status().canExecute` is retained only for older clients and is
+  always `false`.
+- Adam executes every order outside this application.
 
-## Connections (Settings window)
+This is a product boundary, not a disabled feature. The UI must never suggest
+that an order was routed, simulated, or accepted.
+
+## Connections
 
 | Provider | Kind | Role |
 |---|---|---|
-| **Claude** | model | v17 / Marquee analysis |
-| **OpenAI** | model | v17 / Marquee analysis |
-| **Hermes Agents** | agent | task-runner agents that act when tasked |
-| **Robinhood** | execution | order placement (buys) via MCP |
+| Claude | model | v23 and Marquee analysis |
+| OpenAI | model | v23 and Marquee analysis |
+| Hermes Agents | agent | research task runner |
+| Robinhood | data | optional read-only market/account reference |
 
-Each is an **MCP endpoint reference** + an enabled toggle + a live/connected
-status. Model calls and agent tasks route through these connections; the app is
-a client.
+Model keys are saved to the machine-local secrets file and are never returned
+by the API. `db/connections.json` stores non-secret provider references only.
+Both files are gitignored.
 
-## Analysis vs execution — kept separate
+## Local API boundary
 
-- **Analysis** (`/api/run` → `server/api.js runCommand`) runs v17 → Marquee and
-  returns a reviewable draft. It **never places orders.**
-- **Execution** (`server/api.js executeOrder`) is a distinct, gated path that
-  routes to the Robinhood MCP. It is never triggered by an analysis command —
-  an agent invokes it when a trigger fires.
+- The server binds to `127.0.0.1`, not every network interface.
+- Read endpoints use GET: health, archive, challenge, report status, audit.
+- Actions use POST: report runs, command runs, and settings updates.
+- Wildcard CORS is not enabled.
+- Responses carry no-store, no-sniff, frame-deny, and content-security headers.
 
-## Execution policy (gates — ALL must pass to place a buy)
+## If automated execution is ever built
 
-Set in Settings → Execution policy, stored in `db/connections.json`:
-
-- **Robinhood connected** — enabled + MCP endpoint set.
-- **Mode = Live** — defaults to **Paper**. Paper simulates, never sends.
-- **Kill switch off** — flip it on to block every order instantly.
-- **Confirm before every buy** — when on, each order needs a human confirm token.
-- **Per-trade cap** / **Daily cap** (USD) — hard ceilings (default $150 / $500,
-  matching the v17 aggressive risk band).
-
-`settings.status().canExecute` is true only when Robinhood is connected, mode is
-live, and the kill switch is off. `executeOrder` refuses otherwise.
-
-## Still to wire
-
-1. **Robinhood MCP endpoint** — drop the real endpoint in Settings; then
-   `executeOrder` routes orders through it (currently returns "not wired yet").
-2. **Hermes agent endpoint** — the task-runner that watches triggers and calls
-   `executeOrder`. Needs its MCP endpoint + a definition of what tasks it runs.
-3. **Order audit log** — append every order (paper + live) to an immutable log
-   for calibration and review.
-4. **Model connections** — point Claude/OpenAI at their MCP servers (or the host
-   env for the local dev runner) so `callBench`/`callMarquee` run for real.
+It belongs behind a separate, explicitly approved service with its own threat
+model, broker authentication, idempotency, confirmation design, immutable order
+ledger, and failure recovery. It must not be smuggled back into this workstation
+as a settings toggle.
 
 *Proof, not hype.*

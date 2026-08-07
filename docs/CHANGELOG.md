@@ -15,6 +15,35 @@ Adam's rule, 2026-08-04: *"every time we update I say you create an update versi
 
 ---
 
+## 2026-08-07 — v0.3 Wall Street workstation
+
+**What broke.** The Electron shell looked like a collection of draggable demo
+windows while the real operating framework had moved to v23. The UI embedded an
+old book snapshot, clipped important calls, showed an empty chart window, and
+offered execution controls even though no working order route existed. The MCP
+boundary repeated that contradiction by advertising a gated buy tool.
+
+**What shipped.**
+
+- Replaced the floating-window desktop with one fixed institutional research
+  workstation: status rail, decision board, selected research file, evidence
+  rail, challenge scoreboard, full book, audit trail, and model settings.
+- Removed every order/live-mode control and removed the MCP `execute` tool. The
+  app now states the actual boundary: analyze and draft; Adam executes.
+- Switched the real report loader from v17 to the current immutable v23 prompt,
+  with a regression test that fails if the workstation drifts backward.
+- Removed the embedded archive snapshot. The UI now loads the local append-only
+  book and challenge ledger, and shows source/as-of state or `NOT OBSERVED`.
+- Replaced synthetic console success with the real report engine, real progress,
+  and loud model/data failures.
+- Bound the backend to loopback, removed wildcard CORS, moved actions to POST,
+  added response security headers, and hardened the Electron renderer sandbox.
+- Verified the desktop flow visually, passed 150 tests, verified the research-
+  only four-tool MCP surface, and built the Windows v0.3.0 installer.
+
+**Not published.** No GitHub push, release upload, install, or public update was
+performed in this work session.
+
 ## 2026-08-04 — The Book Integrity update
 
 **What broke.** 17 of 26 scored checkpoints in the trade book could not be graded. Not because the calls were wrong — because of how they were written down. Conditionals logged with no trigger level, so the gate could never be judged. Hedges logged with no position size, so there was nothing to score. Four energy names ran 13–18% and the book cannot claim a dollar of any of them.

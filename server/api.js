@@ -1,9 +1,7 @@
 // api.js — the backend command router the app's Run Console calls.
 //
-// This runs the ANALYSIS chain (v17 → Marquee) and returns step logs. It does
-// NOT place orders. Buys are a separate, gated path (executeOrder below) that
-// routes through the Robinhood MCP connection and honors the execution policy —
-// it is never triggered by an analysis command.
+// This prepares analysis commands for the v23 → Marquee research chain. It
+// cannot place orders; The Bench exposes no order route.
 //
 // Real prices come from dataProviders (Stooq needs no key). Model steps report
 // which provider they'd use, or flag that no model connection is configured.
@@ -11,12 +9,11 @@
 import { loadArchive, isOpen } from "./reconcile.js";
 import { getQuote } from "./dataProviders.js";
 import { providerFor } from "./config.js";
-import { status } from "./settings.js";
 
 function modelSteps(push) {
   const bp = providerFor("bench");
   const mp = providerFor("marquee");
-  push("callBench", bp ? "v17 via " + bp : "no model connection — connect Claude/OpenAI in Settings", bp ? "ok" : "warn");
+  push("callBench", bp ? "v23 via " + bp : "no model connection — connect Claude/OpenAI in Settings", bp ? "ok" : "warn");
   push("reconcileArchive", "every open row priced · archive.json written");
   push("selectAngle", "narrative_vs_evidence gap → ANGLE");
   push("callMarquee", mp ? "six-part draft via " + mp : "no model connection", mp ? "ok" : "warn");
@@ -63,20 +60,4 @@ export async function runCommand(cmd, session = {}) {
   }
 
   return { ok: true, backend: true, steps };
-}
-
-// ── EXECUTION (buys) — separate, gated, never called by runCommand ──────────
-// Placeholder for the Robinhood-MCP order path. Every gate in settings.status()
-// must pass, and (if confirmBeforeBuy) a human confirmation token is required.
-// Wired once the Robinhood MCP endpoint is set in Settings.
-export async function executeOrder(order, confirmToken) {
-  const s = status();
-  if (!s.canExecute) {
-    return { ok: false, reason: "execution blocked", detail: s.execution.killSwitch ? "kill switch on" : (s.execution.mode !== "live" ? "paper mode" : "robinhood not connected") };
-  }
-  if (s.execution.confirmBeforeBuy && !confirmToken) {
-    return { ok: false, reason: "confirmation required", order };
-  }
-  // TODO: route to Robinhood MCP once the endpoint is configured.
-  return { ok: false, reason: "robinhood mcp not wired yet", order };
 }

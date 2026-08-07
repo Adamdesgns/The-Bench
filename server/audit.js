@@ -63,7 +63,7 @@ export function appendAudit(evt = {}) {
     seq: tip.seq + 1,
     ts,
     actor: evt.actor || "manual",       // hermes | manual | runner
-    kind: evt.kind || "event",          // run_v17 | reconcile | run_marquee | execute | state | ...
+    kind: evt.kind || "event",          // run_v23 | reconcile | run_marquee | state | ...
     target: evt.target ?? null,
     input: clean(evt.input ?? null),
     output: clean(evt.output ?? null),

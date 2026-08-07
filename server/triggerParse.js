@@ -1,6 +1,6 @@
-// triggerParse.js — pull structured levels out of v17's free-text final_call.
+// triggerParse.js — pull structured levels out of v23's free-text final_call.
 //
-// v17 writes its levels as prose ("Top watchlist — >$77 / dies <$52") while the
+// v23 writes its levels as prose ("Top watchlist — >$77 / dies <$52") while the
 // archive has structured `trigger` / `invalidation` fields that sit null. This
 // module proposes the structured form. It does NOT write it: a wrong level
 // silently corrupts every conditional verdict downstream, so a human confirms

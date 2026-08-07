@@ -1,11 +1,11 @@
-// reviewSchema.js — structured-output JSON schema for THE BENCH v17.
+// reviewSchema.js — structured-output JSON schema for THE BENCH v23.
 //
 // This is the contract the analysis engine must return. It is Marquee's raw
 // material. Fields mirror daily-open-chain-spec.md "Required output from Step 1".
 //
 // KNOWN ISSUE #1 / #2 (highest leverage): `not_observable` is a REQUIRED field.
 // Without it the model silently produces fake-complete verdicts — the exact
-// failure v17 Data Integrity exists to kill. Any input that can't be verified
+// failure v23 Data Integrity exists to kill. Any input that can't be verified
 // (13F trends, block prints, whale flows, exact ARR multiples, unconfirmed
 // dates) is LABELED here, never dropped, never guessed.
 
@@ -38,7 +38,7 @@ export const benchResponseSchema = {
       type: "integer",
       minimum: 1,
       maximum: 5,
-      description: "Market Risk 1-5 per v17 Mood lens"
+      description: "Market Risk 1-5 per v23 Mood lens"
     },
     global_peer_read: {
       type: "string",

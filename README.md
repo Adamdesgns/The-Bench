@@ -1,53 +1,61 @@
 # THE BENCH
 
-## ⬇ DOWNLOAD THE APP (no coding needed)
+The private source of truth for **@TheBenchTrades**: the v23 research framework,
+append-only trade book, challenge ledger, scoring tools, and Windows desktop
+workstation.
 
-1. Go to **[Releases](https://github.com/Adamdesgns/The-Bench/releases)** (right side of this page).
-2. Download **`The-Bench-Setup-0.1.0.exe`**.
-3. Double-click it. If Windows shows a blue "protected your PC" box: click **More info → Run anyway** (it appears because the app isn't code-signed yet).
-4. The Bench opens as its own program. Put your Claude/OpenAI key in **Settings** — it saves to your PC only.
+> **Keep this repository private.** It contains prompt IP, open research calls,
+> levels, and account-history context.
 
-Everything below this line is for developers.
+## Desktop app — v0.3.0
 
----
+The Windows app is a research workstation, not a broker terminal. It provides:
 
-Source of truth for **@TheBenchTrades** — the daily market-research system.
-This repo holds the canonical prompts, the trade book, and the specs. The
-system will be built into an app; this is the material that app is built from.
+- a fixed decision desk with the current book loaded from `db/archive.json`;
+- row-level thesis, trigger, invalidation, source, and as-of evidence;
+- the append-only $10K challenge scoreboard from `db/challenge.json`;
+- a tamper-evident local audit trail;
+- real v23 → Marquee report runs with visible progress and loud failures;
+- local Claude/OpenAI key storage; and
+- an explicit research-only boundary. There is no order route and no posting tool.
 
-**Two engines, chained:**
-1. **THE BENCH v17** — analysis. Decides *what is true*.
-2. **MARQUEE v3.1** — writing. Decides *how it is told*.
+The current installer is built locally as `dist/The-Bench-Setup-0.3.0.exe`.
+GitHub Releases may lag the source; do not claim v0.3.0 is published until a
+release asset is uploaded and verified.
 
-**The system drafts. A human publishes.** That line is a hard requirement.
-No brokerage or X credentials live in this repo, ever.
+## Engines
 
-> **Keep this repo PRIVATE.** It holds an open trading book, position triggers,
-> and prompt IP.
+1. **THE BENCH v23** decides what the available evidence supports.
+2. **MARQUEE v3.1** turns a verified verdict into a reviewable draft.
 
-## What's here
+The app analyzes and drafts. Adam executes trades outside the app. Public
+posting is handled by the separate X Poster project, not by this desktop app.
 
+## Key paths
+
+```text
+prompts/trading-copilot-v23.md  current analysis framework
+prompts/marquee-v3.1.md         writing engine
+db/archive.json                 append-only research book
+db/challenge.json               append-only challenge ledger
+public/                         desktop workstation UI
+server/reviewer.js              real report chain
+server/mcp.js                   research-only MCP boundary
+docs/APP-SPEC.md                v0.3 workstation contract
+docs/EXECUTION.md               capability and connection boundary
 ```
-prompts/
-  trading-copilot-v17.md   the operating analysis engine (feature-frozen)
-  marquee-v3.1.md          the writing engine
-  archive/                 v1-v16 history (rollback only)
-db/
-  archive.json             the book — 22 rows, source of truth
-  archive-v4.xlsx          human/dashboard export
-docs/
-  daily-open-chain-spec.md the pipeline blueprint
-  the-bench-brand.md       colors, type, voice, boilerplate
-  REPO-HANDOFF.md          repo + security notes
-  HANDOFF-code.md          build notes + known issues
-  SESSION-HANDOFF.md       full context restore
+
+## Development
+
+```powershell
+npm test
+npm run start
+npm run app
+npm run dist:win
 ```
 
-## The book (`db/archive.json`)
-
-One row per review. Append-only. 22 rows, 1 closed (B-004 MU). Every row carries
-an `engine` tag (`claude` / `gpt-runner` / `manual`) and a `not_observable`
-field so calibration stays honest. `archive-v4.xlsx` is the authoritative
-export; `archive.json` mirrors it.
+`npm run start` binds the local backend to `127.0.0.1:8137`. State-changing
+research runs use POST routes; data reads use GET routes. API responses do not
+send wildcard CORS headers.
 
 *Proof, not hype.*
