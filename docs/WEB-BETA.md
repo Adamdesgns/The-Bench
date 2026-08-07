@@ -81,8 +81,9 @@ This remains research-only. There is no order route and no automatic publishing.
 - Region: `us-east-1`
 - API URL: `https://yvvczjzndivktatdqdhh.supabase.co`
 - Applied migration: `20260807190927_invite_only_beta`
-- Verification: all 37 live pgTAP assertions passed inside a rolled-back transaction; the four public beta tables have RLS enabled, the PDF bucket is private, and the database contains zero test users, invites, jobs, reports, or usage rows.
+- Applied defense-in-depth migration: `20260807215405_enable_private_controls_rls`
+- Verification: all 38 live pgTAP assertions passed inside a rolled-back transaction; the four public beta tables and private controls table have RLS enabled, the PDF bucket is private, and the database contains zero test users, invites, jobs, reports, or usage rows.
 
-The Supabase security advisor reports one pending defense-in-depth decision: `bench_private.app_controls` does not have RLS enabled. The table is in an unexposed private schema and all `anon`/`authenticated` grants are already revoked, but enabling RLS with no client policies is recommended before deployment. The advisor also flags the authenticated `SECURITY DEFINER` enqueue RPC; that warning is intentional because the function is the only client write path and performs its own active-invite, owner, quota, queue, and idempotency checks.
+The previous `rls_disabled` security finding is cleared. The advisor now reports an informational no-policy notice for `bench_private.app_controls`; that is intentional because the table is in an unexposed private schema, all browser-role grants are revoked, and only service-side `SECURITY DEFINER` functions may use it. The advisor also flags the authenticated `SECURITY DEFINER` enqueue RPC; that warning is intentional because the function is the only client write path and performs its own active-invite, owner, quota, queue, and idempotency checks.
 
 Auth redirect URLs, server secrets, the persistent Node host, and external market-data redistribution permission remain unconfigured. Nothing is publicly deployed yet.

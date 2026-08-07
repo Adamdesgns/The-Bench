@@ -1,9 +1,13 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 
-const migrationUrl = new URL("../migrations/20260807190000_invite_only_beta.sql", import.meta.url);
-const sql = readFileSync(migrationUrl, "utf8");
+const migrationsUrl = new URL("../migrations/", import.meta.url);
+const sql = readdirSync(migrationsUrl)
+  .filter((name) => name.endsWith(".sql"))
+  .sort()
+  .map((name) => readFileSync(new URL(name, migrationsUrl), "utf8"))
+  .join("\n");
 
 test("all exposed beta tables enable row level security", () => {
   for (const table of [
@@ -40,6 +44,7 @@ test("authenticated users enqueue only through the safe RPC", () => {
 
 test("generation has a private kill switch and global queue cap", () => {
   assert.match(sql, /create table bench_private\.app_controls/i);
+  assert.match(sql, /alter table bench_private\.app_controls enable row level security/i);
   assert.match(sql, /generation_enabled boolean not null default true/i);
   assert.match(sql, /global_queue_limit integer not null default 25/i);
   assert.match(sql, /global_worker_limit integer not null default 2/i);

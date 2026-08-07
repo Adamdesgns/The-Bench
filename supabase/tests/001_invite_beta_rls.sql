@@ -3,7 +3,7 @@ begin;
 create extension if not exists pgtap with schema extensions;
 set search_path = public, extensions;
 
-select plan(37);
+select plan(38);
 
 select has_table('public', 'bench_beta_invites', 'invite table exists');
 select has_table('public', 'bench_report_jobs', 'job table exists');
@@ -14,6 +14,7 @@ select ok((select relrowsecurity from pg_class where oid = 'public.bench_beta_in
 select ok((select relrowsecurity from pg_class where oid = 'public.bench_report_jobs'::regclass), 'jobs use RLS');
 select ok((select relrowsecurity from pg_class where oid = 'public.bench_reports'::regclass), 'reports use RLS');
 select ok((select relrowsecurity from pg_class where oid = 'public.bench_report_usage'::regclass), 'usage uses RLS');
+select ok((select relrowsecurity from pg_class where oid = 'bench_private.app_controls'::regclass), 'private controls use RLS');
 
 select is((select count(*)::integer from pg_policies where schemaname = 'public' and tablename = 'bench_report_jobs'), 1, 'jobs expose only an owner select policy');
 select is((select count(*)::integer from pg_policies where schemaname = 'public' and tablename = 'bench_reports'), 1, 'reports expose only an owner select policy');
