@@ -24,6 +24,9 @@ db/secrets.local.json
 # Immutable generated report snapshots and PDFs (local runtime data)
 db/runtime/
 
+# Append-only local audit chain (contains workstation activity)
+db/audit/
+
 # OS / editor
 .DS_Store
 *.log
