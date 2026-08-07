@@ -20,6 +20,9 @@ db/connections.json
 # Local-only model API keys — NEVER commit. Saved on this machine only.
 db/secrets.local.json
 
+# Immutable generated report snapshots and PDFs (local runtime data)
+db/runtime/
+
 # OS / editor
 .DS_Store
 *.log

@@ -56,7 +56,10 @@ export function classify(ticker) {
 
 // ---- Fetch helpers ----
 async function fetchText(url) {
-  const res = await fetch(url, { headers: { "user-agent": "the-bench-runner" } });
+  const res = await fetch(url, {
+    headers: { "user-agent": "the-bench-runner" },
+    signal: AbortSignal.timeout(12000)
+  });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.text();
 }
@@ -181,7 +184,10 @@ async function yahooDatedCloses(symbol, range) {
   const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(
     symbol
   )}?range=${range}&interval=1d`;
-  const res = await fetch(url, { headers: { "user-agent": BROWSER_UA } });
+  const res = await fetch(url, {
+    headers: { "user-agent": BROWSER_UA },
+    signal: AbortSignal.timeout(12000)
+  });
   if (!res.ok) throw new Error(`yahoo: ${res.status}`);
   const bars = mapYahooBars(await res.json());
   if (!bars.length) throw new Error("yahoo: no bars");

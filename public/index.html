@@ -35,7 +35,9 @@
   <div class="app-shell">
     <aside class="rail" aria-label="Primary navigation">
       <nav>
-        <button class="rail-button is-active" data-view="desk" aria-current="page"><span>DSK</span>Desk</button>
+        <button class="rail-button is-active" data-view="generate" aria-current="page"><span>GEN</span>Generate</button>
+        <button class="rail-button" data-view="library"><span>LIB</span>Library</button>
+        <button class="rail-button" data-view="desk"><span>DSK</span>Desk</button>
         <button class="rail-button" data-view="book"><span>BK</span>Book</button>
         <button class="rail-button" data-view="audit"><span>AU</span>Audit</button>
         <button class="rail-button" data-view="settings"><span>SET</span>Settings</button>
@@ -47,7 +49,122 @@
     </aside>
 
     <main id="workspace" class="workspace" tabindex="-1">
-      <section id="view-desk" class="view is-active" aria-labelledby="desk-title">
+      <section id="view-generate" class="view is-active" aria-labelledby="generate-title">
+        <div class="workspace-heading generate-heading">
+          <div>
+            <p class="eyebrow">NEW RESEARCH / BENCH v23</p>
+            <h1 id="generate-title">Build a report you can defend.</h1>
+          </div>
+          <div class="heading-proof">
+            <span>EVIDENCE IN. PDF OUT.</span>
+            <small>Every saved report preserves its sources and as-of state.</small>
+          </div>
+        </div>
+
+        <div class="generate-grid">
+          <section class="panel generate-console" aria-labelledby="generate-console-title">
+            <header class="panel-header">
+              <div><span class="panel-kicker">REPORT REQUEST</span><h2 id="generate-console-title">Open a new investigation</h2></div>
+              <span class="source-pill">RESEARCH ONLY</span>
+            </header>
+            <form id="report-form" class="report-form">
+              <fieldset class="target-switch">
+                <legend>REPORT SCOPE</legend>
+                <label><input type="radio" name="report-scope" value="ticker" checked><span>TICKER</span></label>
+                <label><input type="radio" name="report-scope" value="market"><span>FULL MARKET</span></label>
+              </fieldset>
+              <label class="report-field" id="report-ticker-field">
+                <span>TICKER SYMBOL</span>
+                <div class="report-ticker-input"><b aria-hidden="true">$</b><input id="report-ticker" maxlength="8" autocomplete="off" spellcheck="false" placeholder="PODD" required></div>
+              </label>
+              <div class="report-field report-mode">
+                <span>RESEARCH MODE</span>
+                <strong>COMPLETE EVIDENCE REVIEW</strong>
+                <small>Thesis, contradiction, book impact, and source ledger.</small>
+              </div>
+              <div class="generation-boundary">
+                <span>THE OUTPUT</span>
+                <p>Bench v23 analysis, source ledger, original-thesis reconciliation, a saved report room, and a portable PDF when rendering succeeds.</p>
+              </div>
+              <button class="button button-primary generate-button" id="generate-report-button" type="submit">GENERATE REPORT</button>
+            </form>
+          </section>
+
+          <section class="panel generation-monitor" aria-labelledby="generation-monitor-title">
+            <header class="panel-header">
+              <div><span class="panel-kicker">LIVE RUN STATE</span><h2 id="generation-monitor-title">Evidence monitor</h2></div>
+              <span class="generation-clock" id="generation-elapsed">00:00</span>
+            </header>
+            <div class="generation-state" id="generation-state" aria-live="polite">
+              <div class="generation-orbit" aria-hidden="true"><span></span></div>
+              <p class="generation-label" id="generation-label">READY FOR A REPORT REQUEST</p>
+              <strong id="generation-message">Choose a scope. The Bench will show the backend's real status here.</strong>
+              <small id="generation-detail">Nothing is running. No report has been implied or pre-filled.</small>
+            </div>
+            <div class="generation-facts">
+              <div><span>FRAMEWORK</span><strong>BENCH v23</strong></div>
+              <div><span>ORDER ACCESS</span><strong>NONE</strong></div>
+              <div><span>DELIVERABLE</span><strong>SAVED ROOM + PDF</strong></div>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel recent-reports-panel" aria-labelledby="recent-reports-title">
+          <header class="panel-header">
+            <div><span class="panel-kicker">RECENT OUTPUT</span><h2 id="recent-reports-title">Latest report rooms</h2></div>
+            <button class="text-button" type="button" data-view-jump="library">OPEN LIBRARY</button>
+          </header>
+          <div id="recent-reports" class="recent-report-grid"><div class="empty-state">Checking the saved report library...</div></div>
+        </section>
+      </section>
+
+      <section id="view-library" class="view" aria-labelledby="library-title">
+        <div class="workspace-heading compact library-heading">
+          <div><p class="eyebrow">SAVED INTELLIGENCE</p><h1 id="library-title">Report library.</h1></div>
+          <div class="library-controls">
+            <label class="search-field"><span class="sr-only">Search reports</span><input id="report-search" placeholder="Search ticker, title, summary"></label>
+            <select id="report-status-filter" aria-label="Filter reports by status">
+              <option value="all">ALL STATES</option>
+              <option value="complete">COMPLETE</option>
+              <option value="running">RUNNING</option>
+              <option value="failed">FAILED</option>
+            </select>
+            <button class="button button-primary" type="button" data-view-jump="generate">NEW REPORT</button>
+          </div>
+        </div>
+        <div class="metric-row report-metrics" id="report-metrics"></div>
+        <section class="panel">
+          <div id="report-library" class="report-library"><div class="empty-state">Loading saved reports...</div></div>
+        </section>
+      </section>
+
+      <section id="view-report" class="view report-room" aria-labelledby="report-room-title">
+        <div class="report-room-bar">
+          <button class="text-button" type="button" data-view-jump="library">BACK TO LIBRARY</button>
+          <div class="report-room-actions">
+            <button class="text-button" type="button" id="copy-room-report">COPY REPORT</button>
+            <a class="button button-primary is-disabled" id="download-report-pdf" aria-disabled="true">DOWNLOAD PDF</a>
+          </div>
+        </div>
+        <header class="report-room-header">
+          <div>
+            <p class="eyebrow" id="report-room-kicker">REPORT ROOM / LOADING</p>
+            <h1 id="report-room-title">Opening saved research...</h1>
+            <p class="report-room-summary" id="report-room-summary">The full report will appear when the saved record is available.</p>
+          </div>
+          <dl class="report-room-meta" id="report-room-meta"></dl>
+        </header>
+        <nav class="report-tabs" id="report-tabs" aria-label="Report sections"></nav>
+        <div class="report-room-grid">
+          <article class="report-document" id="report-document"><div class="empty-state">Loading the report room...</div></article>
+          <aside class="report-source-rail" aria-labelledby="report-sources-title">
+            <header><span class="panel-kicker">SOURCE LEDGER</span><h2 id="report-sources-title">Evidence</h2></header>
+            <div id="report-sources"><div class="empty-state">No source ledger loaded.</div></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="view-desk" class="view" aria-labelledby="desk-title">
         <div class="workspace-heading">
           <div>
             <p class="eyebrow">DECISION DESK / LIVE OPERATING VIEW</p>

@@ -7,11 +7,16 @@ workstation.
 > **Keep this repository private.** It contains prompt IP, open research calls,
 > levels, and account-history context.
 
-## Desktop app — v0.3.0
+## Report workstation — v0.4.0
 
 The Windows app is a research workstation, not a broker terminal. It provides:
 
 - a fixed decision desk with the current book loaded from `db/archive.json`;
+- a generate-first workflow for ticker and full-market investigations;
+- real backend progress with one active local report job at a time;
+- immutable saved report snapshots and a searchable report library;
+- immersive report rooms with deep-dive sections and a source/as-of ledger;
+- automatic, dependency-free PDF rendering and repeatable downloads;
 - row-level thesis, trigger, invalidation, source, and as-of evidence;
 - the append-only $10K challenge scoreboard from `db/challenge.json`;
 - a tamper-evident local audit trail;
@@ -19,9 +24,14 @@ The Windows app is a research workstation, not a broker terminal. It provides:
 - local Claude/OpenAI key storage; and
 - an explicit research-only boundary. There is no order route and no posting tool.
 
-The current installer is built locally as `dist/The-Bench-Setup-0.3.0.exe`.
-GitHub Releases may lag the source; do not claim v0.3.0 is published until a
+The current installer is built locally as `dist/The-Bench-Setup-0.4.0.exe`.
+GitHub Releases may lag the source; do not claim v0.4.0 is published until a
 release asset is uploaded and verified.
+
+v0.4 is a complete local report product, but it is **not a public multi-user
+service yet**. The backend remains loopback-only. Public hosting requires
+managed authentication, tenant-isolated database/object storage, durable jobs,
+and per-user cost limits before the bind address changes.
 
 ## Engines
 
@@ -40,8 +50,10 @@ db/archive.json                 append-only research book
 db/challenge.json               append-only challenge ledger
 public/                         desktop workstation UI
 server/reviewer.js              real report chain
+server/reportStore.js           immutable local report persistence
+server/reportPdf.js             portable PDF renderer
 server/mcp.js                   research-only MCP boundary
-docs/APP-SPEC.md                v0.3 workstation contract
+docs/APP-SPEC.md                v0.4 workstation contract
 docs/EXECUTION.md               capability and connection boundary
 ```
 
@@ -57,5 +69,9 @@ npm run dist:win
 `npm run start` binds the local backend to `127.0.0.1:8137`. State-changing
 research runs use POST routes; data reads use GET routes. API responses do not
 send wildcard CORS headers.
+
+Generated report JSON and PDF files live under `BENCH_RUNTIME_DATA_DIR` when
+set. Development defaults to ignored `db/runtime/`; Electron uses the Windows
+application-data directory so installed reports survive application updates.
 
 *Proof, not hype.*

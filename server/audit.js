@@ -111,9 +111,12 @@ function allFiles() {
   ensureDir();
   return readdirSync(AUDIT_DIR).filter((f) => /^audit-\d{4}-\d{2}-\d{2}\.jsonl$/.test(f)).sort();
 }
-function readLines(file) {
+function readLines(file, { strict = false } = {}) {
   try { return readFileSync(resolve(AUDIT_DIR, file), "utf8").trim().split("\n").filter(Boolean).map((l) => JSON.parse(l)); }
-  catch { return []; }
+  catch (error) {
+    if (strict) throw error;
+    return [];
+  }
 }
 
 export function readAudit({ limit = 100, kind = null, day = null } = {}) {
@@ -128,13 +131,17 @@ export function readAudit({ limit = 100, kind = null, day = null } = {}) {
 // Recompute the whole chain from GENESIS across every day file.
 export function verifyChain() {
   let prev = GENESIS, count = 0;
-  for (const f of allFiles()) {
-    for (const r of readLines(f)) {
-      const { hash, ...body } = r;
-      const expect = createHash("sha256").update(canonical(body) + prev).digest("hex");
-      if (r.prev_hash !== prev || hash !== expect) return { ok: false, brokenAtSeq: r.seq, count };
-      prev = hash; count++;
+  try {
+    for (const f of allFiles()) {
+      for (const r of readLines(f, { strict: true })) {
+        const { hash, ...body } = r;
+        const expect = createHash("sha256").update(canonical(body) + prev).digest("hex");
+        if (r.prev_hash !== prev || hash !== expect) return { ok: false, brokenAtSeq: r.seq, count };
+        prev = hash; count++;
+      }
     }
+  } catch {
+    return { ok: false, brokenAtSeq: null, count, error: "audit log unreadable" };
   }
   return { ok: true, count };
 }

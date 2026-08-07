@@ -45,6 +45,9 @@ function createWindow() {
 }
 
 app.whenReady().then(async () => {
+  // Mutable report snapshots and PDFs belong in the user's application data,
+  // never inside Program Files or the packaged source tree.
+  process.env.BENCH_RUNTIME_DATA_DIR ||= resolve(app.getPath("userData"), "runtime");
   // Boot the backend (side effect: server.listen on PORT).
   await import(pathToFileURL(resolve(__dirname, "../server/index.js")).href);
   await waitForServer();

@@ -46,6 +46,19 @@ function mockQuote(ticker, base) {
   return { ticker, price: closes[closes.length - 1], source: "mock", asof: "mock", provisional: true, closes };
 }
 
+async function mapLimit(items, limit, worker) {
+  const results = new Array(items.length);
+  let cursor = 0;
+  const lanes = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (cursor < items.length) {
+      const index = cursor++;
+      results[index] = await worker(items[index], index);
+    }
+  });
+  await Promise.all(lanes);
+  return results;
+}
+
 // ── runReport: the structured, error-tolerant chain behind /api/report ──────
 // Always returns a usable result. Model failures are LOUD (errors[]) but never
 // silent, and never block the price refresh: on bench failure the board still
@@ -71,22 +84,28 @@ export async function runReport({ target = "market", onStep = () => {} } = {}) {
     : (open.filter((r) => r.ticker.toUpperCase() === tickerTarget).length
         ? open.filter((r) => r.ticker.toUpperCase() === tickerTarget)
         : [{ id: "—", ticker: tickerTarget, review_price: null, final_call: "not on the board" }]);
-  for (const row of rows) {
+  const observedRows = await mapLimit(rows, 4, async (row) => {
     const q = await getQuote(row.ticker).catch(() => null);
     const hist = await getDailyCloses(row.ticker).catch(() => ({ closes: [] }));
-    if (q) { q.closes = hist.closes; quotes.set(row.ticker, q); }
+    if (q) q.closes = hist.closes;
     const ind = hist.closes && hist.closes.length >= 30 ? computeIndicators(hist.closes) : null;
-    board.push({
+    return { row, q, hist, boardRow: {
       id: row.id, ticker: row.ticker, review_price: row.review_price,
       last: q && typeof q.price === "number" ? q.price : NOT_OBSERVABLE,
       source: q ? q.source : "none", provisional: q ? q.provisional : true,
+      asof: q?.asof || null, history_source: hist.source || "none",
       state: row.final_call || "",
       indicators: ind ? { rsi14: round(ind.rsi14), sma50: round(ind.sma50), sma200: round(ind.sma200), trend_strength: ind.trend_strength } : "not observable"
-    });
+    } };
+  });
+  for (const item of observedRows) {
+    if (item.q) quotes.set(item.row.ticker, item.q);
+    board.push(item.boardRow);
   }
   const packet = {
     review_stamp: stampNow(), mode: "Research / Battle-Test Mode",
     target: isMarket ? "market" : tickerTarget, board: board,
+    sources: board.map((row) => ({ ticker: row.ticker, quote: row.source, history: row.history_source, asof: row.asof, provisional: row.provisional })),
     av_calls_remaining: avRemaining(),
     note: "Every value not fetched live is the literal string 'not observable'."
   };
@@ -153,7 +172,7 @@ export async function runReport({ target = "market", onStep = () => {} } = {}) {
   return {
     ok: errors.length === 0,
     target: packet.target, stamp, errors, timings,
-    board, verdict, archive_block: archiveBlock,
+    board, sources: packet.sources, verdict, archive_block: archiveBlock,
     angle: angle ? angle.angle : null, no_story: angle && !angle.angle ? angle.caption : null,
     article, lint,
     report_text: reportText({ packet, board, verdict, archiveBlock, angle, article, lint, errors })

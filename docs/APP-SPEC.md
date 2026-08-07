@@ -1,8 +1,9 @@
-# THE BENCH — APP SPEC v0.3
+# THE BENCH — APP SPEC v0.4
 
 ## Product definition
 
-The Bench is Adam's local Windows research workstation for the v23 framework.
+The Bench is Adam's local Windows report workstation for the v23 framework and
+the working foundation for a future authenticated web product.
 It helps answer one question quickly and honestly: **what does the evidence
 support right now?**
 
@@ -11,7 +12,7 @@ or publish content.
 
 ## Interface contract — institutional workstation
 
-The v0.3 shell is a fixed, dense workspace. It deliberately retires the
+The v0.4 shell is a fixed, dense workspace. It deliberately retires the
 macOS-window metaphor, draggable panels, traffic lights, ticker crawl, and
 bottom dock.
 
@@ -19,7 +20,7 @@ bottom dock.
 
 - Top status rail: framework version, research-only mode, loaded book count,
   data state, and CT/ET clocks.
-- Left navigation rail: Desk, Book, Audit, and Settings.
+- Left navigation rail: Generate, Library, Desk, Book, Audit, and Settings.
 - Bottom disclosure rail: version, account, educational disclaimer, and latest
   book date.
 - Graphite/ink base with restrained brass accents. Red is reserved for losses,
@@ -36,6 +37,25 @@ bottom dock.
 - $10K challenge scoreboard sourced from the append-only challenge ledger.
 - Report output appears only after the backend returns a real result. Failures
   stay visible and are never restyled as success.
+
+### Generate
+
+- Ticker and full-market report requests use the real v23 report chain.
+- Every accepted run receives an idempotent job ID and exposes its real backend
+  step and elapsed time.
+- Exactly one local report job runs at a time.
+- A completed or partial result is saved as an immutable snapshot before the
+  interface claims that a report or PDF exists.
+
+### Library and Report Room
+
+- The Library lists saved reports newest-first and supports search and status
+  filtering.
+- A Report Room exposes the saved summary, full report/deep-dive sections,
+  limitations, source/as-of records, copy controls, and repeatable PDF download.
+- The PDF is generated from the immutable saved snapshot, not transient DOM.
+- Report JSON and PDF data use an isolated runtime directory and survive an
+  Electron application update.
 
 ### Book
 
@@ -75,7 +95,18 @@ bottom dock.
 - External navigation is blocked inside the app and handed to the OS browser.
 - Wildcard CORS is disabled.
 - Read and action routes use the correct HTTP methods.
+- JSON request bodies are capped and invalid ticker/origin input fails closed.
+- Duplicate generation requests can reuse an idempotency key instead of
+  starting another model run.
 - No order route exists in the HTTP or MCP interfaces.
+
+## Public-web boundary
+
+v0.4 remains a loopback, single-user release. Do not expose `server/index.js`
+directly to the internet. A public beta requires authenticated user identity,
+tenant-isolated hosted storage, durable background jobs, signed PDF downloads,
+server-side model credentials, and distributed rate/cost limits. Adam's
+canonical archive and challenge ledger must never become shared visitor data.
 
 ## Release gate
 
@@ -83,8 +114,9 @@ Before calling a desktop release ready:
 
 1. `npm test` passes.
 2. `npm run dist:win` produces the expected installer.
-3. Desk, Book, Audit, Settings, board selection, filters, and a real report
-   failure/success state are visually checked at the desktop viewport.
+3. Generate, Library, Report Room, PDF download, Desk, Book, Audit, Settings,
+   board selection, filters, and real report failure/success states are checked
+   at desktop and phone viewports.
 4. Packaged output contains the v23 prompt, challenge ledger, and all public UI
    assets.
 5. Current archive/challenge timestamps are reviewed; the UI does not turn an

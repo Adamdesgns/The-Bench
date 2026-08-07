@@ -12,6 +12,7 @@ import { DEFAULT_MODELS, ENGINE_TAG, keyFor } from "./config.js";
 const OPENAI_URL = "https://api.openai.com/v1/chat/completions";
 const ANTHROPIC_URL = "https://api.anthropic.com/v1/messages";
 const ANTHROPIC_VERSION = "2023-06-01";
+const MODEL_TIMEOUT_MS = Number(process.env.MODEL_TIMEOUT_MS || 120_000);
 
 export function engineTag(provider) {
   return ENGINE_TAG[provider] || provider;
@@ -21,7 +22,8 @@ async function postJSON(url, headers, body) {
   const res = await fetch(url, {
     method: "POST",
     headers: { "content-type": "application/json", ...headers },
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(MODEL_TIMEOUT_MS)
   });
   if (!res.ok) {
     const text = await res.text().catch(() => "");
