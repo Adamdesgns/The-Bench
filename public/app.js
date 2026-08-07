@@ -75,6 +75,53 @@ function callType(row) {
   return "review";
 }
 
+function researchCallParts(value) {
+  const call = String(value || "No written call recorded.").trim();
+  const parts = call.split(/\s+[—-]\s+/);
+  const lead = parts.shift() || "Research review";
+  const sentence = lead.match(/^(.{1,72}?[.!?])\s+(.+)$/);
+  if (sentence) {
+    return {
+      verdict: sentence[1],
+      detail: [sentence[2], ...parts].filter(Boolean).join(" — "),
+    };
+  }
+  return {
+    verdict: lead,
+    detail: parts.join(" — ") || "The evidence record does not include a longer written rationale.",
+  };
+}
+
+function renderMarketTape() {
+  const track = $("#market-tape-track");
+  if (!track) return;
+
+  if (state.webBeta) {
+    track.innerHTML = '<span class="market-tape-group"><span class="market-tape-item"><strong>INVITE-ONLY RESEARCH</strong><span>SOURCE-LOCKED REPORTS</span><em>NO ORDER ROUTING</em></span></span>';
+    return;
+  }
+
+  const seen = new Set();
+  const rows = [...state.archive].reverse().filter((row) => {
+    const ticker = String(row.ticker || "").toUpperCase();
+    if (!ticker || seen.has(ticker)) return false;
+    seen.add(ticker);
+    return true;
+  }).slice(0, 9);
+
+  if (!rows.length) {
+    track.innerHTML = '<span class="market-tape-group"><span class="market-tape-item">WAITING FOR THE LOCAL BOOK</span></span>';
+    return;
+  }
+
+  const items = rows.map((row) => {
+    const type = callType(row);
+    return `<span class="market-tape-item"><strong>${escapeHtml(row.ticker)}</strong><span>${fmtMoney(row.review_price)}</span><em class="${type === "conditional" ? "conditional" : ""}">${escapeHtml(type.toUpperCase())}</em></span>`;
+  }).join("");
+  const group = `<span class="market-tape-group">${items}</span>`;
+  track.innerHTML = `${group}<span class="market-tape-group" aria-hidden="true">${items}</span>`;
+}
+
 function lastValue(row) {
   return typeof row.last === "number" ? fmtMoney(row.last) : "NOT OBSERVED";
 }
@@ -124,6 +171,7 @@ function renderSystem() {
     data.textContent = "HOSTED";
     data.className = "status-good";
     $("#footer-stamp").textContent = "INVITE-ONLY BETA";
+    renderMarketTape();
     return;
   }
   $("#book-count").textContent = state.archive.length ? `${state.archive.length} ROWS` : "UNAVAILABLE";
@@ -205,7 +253,10 @@ function renderBoard() {
       <td class="numeric"><span class="row-price">${fmtMoney(row.review_price)}</span><span class="source-meta">${escapeHtml(row.review_time || row.date || "NO STAMP")}</span></td>
       <td class="numeric"><span class="row-price">${lastValue(row)}</span><span class="source-meta">${escapeHtml(row.last_source || "NO SOURCE")}</span></td>
       <td>${stateChip(row)}</td>
-    </tr>`).join("") : '<tr><td colspan="5" class="empty-cell">No rows match this filter.</td></tr>';
+      <td><span class="source-meta board-asof">${escapeHtml(row.last_checked ? shortStamp(row.last_checked) : row.date || "NO STAMP")}</span></td>
+      <td><span class="source-meta board-source">${escapeHtml(String(row.last_source || row.engine || "LOCAL BOOK").toUpperCase())}</span></td>
+      <td><span class="board-confidence">${typeof row.confidence_pct === "number" ? `${row.confidence_pct}%` : "NOT RECORDED"}</span></td>
+    </tr>`).join("") : '<tr><td colspan="8" class="empty-cell">No rows match this filter.</td></tr>';
   renderResearch();
 }
 
@@ -217,6 +268,7 @@ function renderResearch() {
     return;
   }
   const grades = row.grades || {};
+  const call = researchCallParts(row.final_call);
   $("#selected-source").textContent = `${String(row.last_source || "LOCAL BOOK").toUpperCase()} / ${shortStamp(row.last_checked)}`;
   detail.innerHTML = `
     <div class="research-hero">
@@ -226,7 +278,8 @@ function renderResearch() {
       </div>
       <div class="score-block"><span>OPPORTUNITY SCORE</span><strong>${typeof row.opportunity_score === "number" ? row.opportunity_score : "—"}</strong></div>
     </div>
-    <div class="research-call">${escapeHtml(row.final_call || "No written call recorded.")}</div>
+    <div class="research-verdict">${escapeHtml(call.verdict)}</div>
+    <div class="research-call">${escapeHtml(call.detail)}</div>
     <div class="grade-grid">
       <div><span>TECHNICAL</span><strong>${escapeHtml(grades.technical || "—")}</strong></div>
       <div><span>FUNDAMENTAL</span><strong>${escapeHtml(grades.fundamental || "—")}</strong></div>
@@ -330,6 +383,7 @@ async function loadArchive() {
   state.archive = await fetchJson("/api/archive");
   if (!state.selectedId && state.archive.length) state.selectedId = state.archive.at(-1).id;
   renderSystem();
+  renderMarketTape();
   renderBoard();
   renderBook();
   renderEvidence();

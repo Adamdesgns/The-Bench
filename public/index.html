@@ -10,6 +10,15 @@
 <body class="auth-pending">
   <a class="skip-link" href="#workspace">Skip to workspace</a>
 
+  <div class="market-tape" aria-label="Local research board ticker">
+    <div class="market-tape-label"><span aria-hidden="true"></span> LOCAL BOARD TAPE</div>
+    <div class="market-tape-window">
+      <div class="market-tape-track" id="market-tape-track">
+        <span class="market-tape-item">WAITING FOR THE LOCAL BOOK</span>
+      </div>
+    </div>
+  </div>
+
   <section class="auth-gate" id="auth-gate" hidden aria-labelledby="auth-title">
     <div class="auth-card">
       <div class="auth-mark" aria-hidden="true">B</div>
@@ -29,15 +38,15 @@
       <div class="brand-mark" aria-hidden="true">B</div>
       <div>
         <div class="brand-name">THE BENCH</div>
-        <div class="brand-sub">RESEARCH WORKSTATION</div>
+        <div class="brand-sub">MARKET DESK / RESEARCH WORKSTATION v23</div>
       </div>
     </div>
 
     <div class="system-strip" aria-label="System status">
-      <div class="system-item"><span>FRAMEWORK</span><strong>v23</strong></div>
+      <div class="system-item"><span>MARKET REGIME</span><strong id="data-state" class="status-warn">CHECKING</strong></div>
       <div class="system-item"><span>MODE</span><strong>RESEARCH ONLY</strong></div>
       <div class="system-item"><span>BOOK</span><strong id="book-count">—</strong></div>
-      <div class="system-item"><span>DATA</span><strong id="data-state" class="status-warn">CHECKING</strong></div>
+      <div class="system-item"><span>FRAMEWORK</span><strong>BENCH v23</strong></div>
     </div>
 
     <div class="beta-account" id="beta-account" hidden>
@@ -54,9 +63,9 @@
   <div class="app-shell">
     <aside class="rail" aria-label="Primary navigation">
       <nav>
+        <button class="rail-button" data-view="desk"><span>DSK</span>Desk</button>
         <button class="rail-button is-active" data-view="generate" aria-current="page"><span>GEN</span>Generate</button>
         <button class="rail-button" data-view="library"><span>LIB</span>Library</button>
-        <button class="rail-button" data-view="desk"><span>DSK</span>Desk</button>
         <button class="rail-button" data-view="book"><span>BK</span>Book</button>
         <button class="rail-button" data-view="audit"><span>AU</span>Audit</button>
         <button class="rail-button" data-view="settings"><span>SET</span>Settings</button>
@@ -195,29 +204,11 @@
           </div>
         </div>
 
-        <section class="command-bar" aria-label="Run research">
-          <div class="command-copy">
-            <span class="panel-kicker">RESEARCH RUN</span>
-            <strong>Real engine. No simulated success.</strong>
-          </div>
-          <label class="ticker-input">
-            <span class="sr-only">Ticker</span>
-            <span aria-hidden="true">$</span>
-            <input id="run-ticker" maxlength="8" autocomplete="off" spellcheck="false" placeholder="TICKER">
-          </label>
-          <button class="button button-secondary" id="run-ticker-button">RUN TICKER</button>
-          <button class="button button-primary" id="run-market-button">RUN MARKET</button>
-          <div class="run-state" id="run-state" role="status" aria-live="polite">
-            <span class="run-dot" aria-hidden="true"></span>
-            <span id="run-state-text">Ready. A run may update the local book.</span>
-          </div>
-        </section>
-
         <div class="desk-grid">
           <section class="panel board-panel" aria-labelledby="board-title">
             <header class="panel-header">
               <div>
-                <span class="panel-kicker">ACTIVE RESEARCH</span>
+                <span class="panel-kicker">LOCAL RESEARCH LEDGER</span>
                 <h2 id="board-title">Open Board</h2>
               </div>
               <div class="segmented" id="board-filters" aria-label="Board filter">
@@ -228,8 +219,8 @@
             </header>
             <div class="table-wrap board-table-wrap">
               <table class="data-table board-table">
-                <thead><tr><th>ID</th><th>NAME</th><th class="numeric">REVIEW</th><th class="numeric">LAST</th><th>STATE</th></tr></thead>
-                <tbody id="board-body"><tr><td colspan="5" class="empty-cell">Loading the local book…</td></tr></tbody>
+                <thead><tr><th>ID</th><th>NAME</th><th class="numeric">REVIEW</th><th class="numeric">LAST</th><th>STATE</th><th>AS-OF</th><th>SOURCE</th><th>CONFIDENCE</th></tr></thead>
+                <tbody id="board-body"><tr><td colspan="8" class="empty-cell">Loading the local book…</td></tr></tbody>
               </table>
             </div>
           </section>
@@ -237,11 +228,28 @@
           <section class="panel research-panel" aria-labelledby="research-title">
             <header class="panel-header">
               <div>
-                <span class="panel-kicker">SELECTED ROW</span>
+                <span class="panel-kicker">SELECTED RESEARCH</span>
                 <h2 id="research-title">Research File</h2>
               </div>
               <span class="source-pill" id="selected-source">LOCAL BOOK</span>
             </header>
+            <section class="command-bar" aria-label="Run research">
+              <div class="command-copy">
+                <span class="panel-kicker">RESEARCH RUN</span>
+                <strong>Real engine. No simulated success.</strong>
+              </div>
+              <label class="ticker-input">
+                <span class="sr-only">Ticker</span>
+                <span aria-hidden="true">$</span>
+                <input id="run-ticker" maxlength="8" autocomplete="off" spellcheck="false" placeholder="TICKER">
+              </label>
+              <button class="button button-secondary" id="run-ticker-button">RUN TICKER</button>
+              <button class="button button-primary" id="run-market-button">RUN RESEARCH</button>
+              <div class="run-state" id="run-state" role="status" aria-live="polite">
+                <span class="run-dot" aria-hidden="true"></span>
+                <span id="run-state-text">Ready. A run may update the local book.</span>
+              </div>
+            </section>
             <div id="research-detail" class="research-detail">
               <div class="empty-state">Select a row to inspect its thesis, gates, and evidence.</div>
             </div>
@@ -250,7 +258,7 @@
           <aside class="panel evidence-panel" aria-labelledby="evidence-title">
             <header class="panel-header">
               <div>
-                <span class="panel-kicker">INTEGRITY RAIL</span>
+                <span class="panel-kicker">RESEARCH INTEGRITY</span>
                 <h2 id="evidence-title">Evidence</h2>
               </div>
             </header>
