@@ -63,16 +63,17 @@ async function mapLimit(items, limit, worker) {
 // Always returns a usable result. Model failures are LOUD (errors[]) but never
 // silent, and never block the price refresh: on bench failure the board still
 // gets priced and reconciled; only the analysis/article are skipped.
-export async function runReport({ target = "market", onStep = () => {} } = {}) {
+export async function runReport({ target = "market", onStep = () => {}, publicMode = false } = {}) {
   const t0 = Date.now();
   const errors = [];
   const timings = {};
   const step = (name) => { onStep(name); timings[name] = Date.now() - t0; };
   const isMarket = !target || String(target).toLowerCase() === "market";
   const tickerTarget = isMarket ? null : String(target).toUpperCase();
+  if (publicMode && isMarket) throw new Error("public beta supports ticker reports only");
 
   step("loadArchive");
-  const archive = loadArchive();
+  const archive = publicMode ? [] : loadArchive();
   const open = archive.filter(isOpen);
 
   // 1. Price what this run needs (market: every open row; ticker: just it).
@@ -81,9 +82,11 @@ export async function runReport({ target = "market", onStep = () => {} } = {}) {
   const board = [];
   const rows = isMarket
     ? open
-    : (open.filter((r) => r.ticker.toUpperCase() === tickerTarget).length
-        ? open.filter((r) => r.ticker.toUpperCase() === tickerTarget)
-        : [{ id: "—", ticker: tickerTarget, review_price: null, final_call: "not on the board" }]);
+    : (publicMode
+        ? [{ id: "PUBLIC", ticker: tickerTarget, review_price: null, final_call: "standalone research" }]
+        : (open.filter((r) => r.ticker.toUpperCase() === tickerTarget).length
+          ? open.filter((r) => r.ticker.toUpperCase() === tickerTarget)
+          : [{ id: "-", ticker: tickerTarget, review_price: null, final_call: "not on the board" }]));
   const observedRows = await mapLimit(rows, 4, async (row) => {
     const q = await getQuote(row.ticker).catch(() => null);
     const hist = await getDailyCloses(row.ticker).catch(() => ({ closes: [] }));
@@ -114,7 +117,7 @@ export async function runReport({ target = "market", onStep = () => {} } = {}) {
   let verdict = null;
   const benchProvider = providerFor("bench");
   if (!benchProvider) {
-    errors.push("No Claude or OpenAI key saved — open Settings and paste your API key, then run again.");
+    errors.push(publicMode ? "The report service is temporarily unavailable." : "No Claude or OpenAI key saved - open Settings and paste your API key, then run again.");
   } else {
     step("callBench (" + benchProvider + ")");
     try {
@@ -148,7 +151,7 @@ export async function runReport({ target = "market", onStep = () => {} } = {}) {
   let angle = null, article = null, lint = null;
   if (verdict) {
     step("selectAngle");
-    angle = selectAngle(verdict, { openTickers: open.map((r) => r.ticker), calendar: verdict.calendar || [] });
+    angle = selectAngle(verdict, { openTickers: publicMode ? [tickerTarget] : open.map((r) => r.ticker), calendar: verdict.calendar || [] });
     if (angle.angle) {
       const marqueeProvider = providerFor("marquee");
       step("callMarquee (" + marqueeProvider + ")");

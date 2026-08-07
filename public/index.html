@@ -7,8 +7,22 @@
   <title>The Bench — Research Workstation</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
-<body>
+<body class="auth-pending">
   <a class="skip-link" href="#workspace">Skip to workspace</a>
+
+  <section class="auth-gate" id="auth-gate" hidden aria-labelledby="auth-title">
+    <div class="auth-card">
+      <div class="auth-mark" aria-hidden="true">B</div>
+      <p class="eyebrow">PRIVATE RESEARCH ACCESS</p>
+      <h1 id="auth-title">Your seat at The Bench.</h1>
+      <p>Invite-only market research with saved evidence, source timestamps, and a portable PDF.</p>
+      <form id="auth-form" class="auth-form">
+        <label><span>INVITED EMAIL</span><input id="auth-email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+        <button class="button button-primary" type="submit">SEND SECURE SIGN-IN LINK</button>
+      </form>
+      <div class="auth-message" id="auth-message" role="status" aria-live="polite">Only invited addresses can enter. No brokerage connection or order routing.</div>
+    </div>
+  </section>
 
   <header class="topbar">
     <div class="brand-lockup" aria-label="The Bench">
@@ -24,6 +38,11 @@
       <div class="system-item"><span>MODE</span><strong>RESEARCH ONLY</strong></div>
       <div class="system-item"><span>BOOK</span><strong id="book-count">—</strong></div>
       <div class="system-item"><span>DATA</span><strong id="data-state" class="status-warn">CHECKING</strong></div>
+    </div>
+
+    <div class="beta-account" id="beta-account" hidden>
+      <span id="beta-account-email">SIGNED IN</span>
+      <button id="beta-signout" type="button">SIGN OUT</button>
     </div>
 
     <div class="market-clock" aria-label="Market clocks">

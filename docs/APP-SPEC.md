@@ -1,4 +1,4 @@
-# THE BENCH — APP SPEC v0.4
+# THE BENCH — APP SPEC v0.5
 
 ## Product definition
 
@@ -123,3 +123,14 @@ Before calling a desktop release ready:
    old ledger into a current claim.
 
 *Proof, not hype.*
+
+## Invite-only beta contract
+
+- Hosted mode is a separate server and exposes only authentication, health, report jobs, reports, signed PDF redirects, and the static shell.
+- Public and anonymous signup stay disabled. Membership requires both server-controlled app metadata and an active database invitation row.
+- Every job, report, and PDF is owner-scoped by Postgres RLS. Browser clients cannot write reports, finish jobs, claim work, upload PDFs, or read another owner.
+- Report creation is idempotent, quota-limited, one-active-per-user, and durable across process restarts.
+- The web worker runs ticker-only standalone research and never loads or mutates Adam's local archive.
+- Model keys and the Supabase service-role key remain server-side.
+- PDF downloads use short-lived signed URLs from a private bucket.
+- No order route or automatic publishing exists.

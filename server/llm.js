@@ -26,8 +26,8 @@ async function postJSON(url, headers, body) {
     signal: AbortSignal.timeout(MODEL_TIMEOUT_MS)
   });
   if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`${url} -> ${res.status} ${res.statusText}: ${text.slice(0, 500)}`);
+    await res.text().catch(() => "");
+    throw new Error(`model provider request failed (${res.status})`);
   }
   return res.json();
 }

@@ -150,6 +150,10 @@ const server = createServer(async (req, res) => {
     const url = new URL(req.url, `http://localhost:${PORT}`);
     const path = url.pathname;
 
+    if (path === "/api/config") {
+      if (req.method !== "GET") return methodNotAllowed(res, "GET");
+      return sendJSON(res, 200, { web_beta: false, invite_only: false });
+    }
     if (path === "/api/health") {
       if (req.method !== "GET") return methodNotAllowed(res, "GET");
       return sendJSON(res, 200, { ok: true, ...status() });

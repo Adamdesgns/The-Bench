@@ -7,7 +7,7 @@ workstation.
 > **Keep this repository private.** It contains prompt IP, open research calls,
 > levels, and account-history context.
 
-## Report workstation — v0.4.0
+## Report workstation — v0.5.0
 
 The Windows app is a research workstation, not a broker terminal. It provides:
 
@@ -24,8 +24,8 @@ The Windows app is a research workstation, not a broker terminal. It provides:
 - local Claude/OpenAI key storage; and
 - an explicit research-only boundary. There is no order route and no posting tool.
 
-The current installer is built locally as `dist/The-Bench-Setup-0.4.0.exe`.
-GitHub Releases may lag the source; do not claim v0.4.0 is published until a
+The current desktop installer is built locally as `dist/The-Bench-Setup-0.5.0.exe`.
+GitHub Releases may lag the source; do not claim v0.5.0 is published until a
 release asset is uploaded and verified.
 
 v0.4 is a complete local report product, but it is **not a public multi-user
@@ -53,7 +53,7 @@ server/reviewer.js              real report chain
 server/reportStore.js           immutable local report persistence
 server/reportPdf.js             portable PDF renderer
 server/mcp.js                   research-only MCP boundary
-docs/APP-SPEC.md                v0.4 workstation contract
+docs/APP-SPEC.md                v0.5 workstation and web beta contract
 docs/EXECUTION.md               capability and connection boundary
 ```
 
@@ -75,3 +75,9 @@ set. Development defaults to ignored `db/runtime/`; Electron uses the Windows
 application-data directory so installed reports survive application updates.
 
 *Proof, not hype.*
+
+## Invite-only web beta
+
+v0.5 adds a separate hosted server (`npm run start:web`) backed by Supabase Auth, owner-scoped Postgres rows, a durable leased job queue, and private PDF Storage. The browser receives only Generate, Library, and Report Room. Adam's archive, challenge ledger, audit log, model-key settings, and local run routes do not exist on the hosted server.
+
+The beta is ticker-only until a licensed multi-user market-data feed is selected. See `docs/WEB-BETA.md` for the deployment and verification gates. The code is deployable, but no public service or Supabase project is implied by a local build.

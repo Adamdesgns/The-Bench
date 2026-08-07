@@ -15,6 +15,9 @@ const state = {
   reportRequestId: null,
   reportRequestStartedAt: null,
   reportRequestTimer: null,
+  webBeta: false,
+  config: null,
+  user: null,
 };
 
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -81,8 +84,9 @@ function checkpointCount() {
 }
 
 async function fetchJson(url, options) {
-  const response = await fetch(url, options);
+  const response = await fetch(url, { credentials: "same-origin", ...(options || {}) });
   const body = await response.json().catch(() => null);
+  if (response.status === 401 && state.webBeta) showAuthGate("Your secure session ended. Sign in again to continue.");
   if (!response.ok) throw new Error(body?.error || body?.reason || `Request failed (${response.status})`);
   return body;
 }
@@ -114,6 +118,14 @@ function setView(view) {
 }
 
 function renderSystem() {
+  if (state.webBeta) {
+    $("#book-count").textContent = "PRIVATE";
+    const data = $("#data-state");
+    data.textContent = "HOSTED";
+    data.className = "status-good";
+    $("#footer-stamp").textContent = "INVITE-ONLY BETA";
+    return;
+  }
   $("#book-count").textContent = state.archive.length ? `${state.archive.length} ROWS` : "UNAVAILABLE";
   const archiveGood = state.archive.length > 0;
   const data = $("#data-state");
@@ -330,6 +342,7 @@ async function loadChallenge() {
 
 async function loadHealth() {
   state.health = await fetchJson("/api/health");
+  if (state.webBeta) return renderSystem();
   renderEvidence();
   renderSettings();
 }
@@ -761,6 +774,75 @@ async function saveProvider(button) {
   }
 }
 
+function showAuthGate(message = "Only invited addresses can enter. No brokerage connection or order routing.", error = false) {
+  document.body.classList.remove("auth-pending");
+  document.body.classList.add("auth-required");
+  $("#auth-gate").hidden = false;
+  $("#auth-message").textContent = message;
+  $("#auth-message").classList.toggle("error", error);
+  $("#auth-email").focus();
+}
+
+function hideAuthGate() {
+  document.body.classList.remove("auth-pending", "auth-required");
+  $("#auth-gate").hidden = true;
+}
+
+async function consumeAuthHash() {
+  const params = new URLSearchParams(location.hash.replace(/^#/, ""));
+  const accessToken = params.get("access_token");
+  const refreshToken = params.get("refresh_token");
+  if (!accessToken || !refreshToken) return;
+  history.replaceState(null, "", location.pathname + location.search);
+  await fetchJson("/api/auth/session", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ access_token: accessToken, refresh_token: refreshToken }),
+  });
+}
+
+async function requestSignIn(event) {
+  event.preventDefault();
+  const email = $("#auth-email").value.trim();
+  const button = $("#auth-form button");
+  button.disabled = true;
+  try {
+    const result = await fetchJson("/api/auth/request-link", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    showAuthGate(result.message || "Check your email for the secure sign-in link.");
+  } catch (error) {
+    showAuthGate(error.message, true);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+function applyWebBetaMode() {
+  document.body.classList.add("web-beta");
+  state.webBeta = true;
+  $(".brand-sub").textContent = "INVITE RESEARCH BETA";
+  ["desk", "book", "audit", "settings"].forEach((view) => {
+    const button = $(`.rail-button[data-view="${view}"]`);
+    if (button) button.classList.add("local-only");
+  });
+  const marketChoice = $('input[name="report-scope"][value="market"]')?.closest("label");
+  if (marketChoice) marketChoice.classList.add("local-only");
+  $("#beta-account").hidden = false;
+  $("#beta-account-email").textContent = state.user?.email || "SIGNED IN";
+  renderSystem();
+}
+
+function wireAuthEvents() {
+  $("#auth-form").addEventListener("submit", requestSignIn);
+  $("#beta-signout").addEventListener("click", async () => {
+    await fetchJson("/api/auth/logout", { method: "POST" }).catch(() => {});
+    state.user = null;
+    showAuthGate("Signed out. Enter your invited email to return.");
+  });
+}
 function wireEvents() {
   $$(".rail-button").forEach((button) => button.addEventListener("click", () => setView(button.dataset.view)));
   $$('[data-view-jump]').forEach((button) => button.addEventListener("click", () => setView(button.dataset.viewJump)));
@@ -836,11 +918,31 @@ function runTicker() {
 }
 
 async function boot() {
+  wireAuthEvents();
+  state.config = await fetchJson("/api/config").catch(() => ({ web_beta: false }));
+  state.webBeta = Boolean(state.config?.web_beta);
+  if (!state.webBeta) document.body.classList.remove("auth-pending");
+
+  if (state.webBeta) {
+    try { await consumeAuthHash(); } catch (error) { showAuthGate(error.message, true); return; }
+    const me = await fetchJson("/api/auth/me").catch(() => null);
+    if (!me?.user) return showAuthGate();
+    state.user = me.user;
+    hideAuthGate();
+    applyWebBetaMode();
+  }
+
   wireEvents();
   setReportScope();
   tickClocks();
   setInterval(tickClocks, 1000);
   loadReports().catch((error) => showReportsUnavailable(error));
+
+  if (state.webBeta) {
+    await loadHealth().catch((error) => console.error(error));
+    return;
+  }
+
   const results = await Promise.allSettled([loadArchive(), loadChallenge(), loadHealth(), loadAudit()]);
   const failed = results.filter((result) => result.status === "rejected");
   if (failed.length) {
