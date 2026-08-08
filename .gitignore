@@ -35,3 +35,7 @@ npm-debug.log*
 # stray build artifacts
 *.tar.gz
 dist/
+
+# Local hosting build state
+.netlify/
+.next/
