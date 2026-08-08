@@ -1,5 +1,5 @@
 const state = {
-  view: "generate",
+  view: "desk",
   archive: [],
   challenge: [],
   health: null,
@@ -175,6 +175,8 @@ function renderSystem() {
     return;
   }
   $("#book-count").textContent = state.archive.length ? `${state.archive.length} ROWS` : "UNAVAILABLE";
+  const asof = $("#header-asof");
+  if (asof) asof.textContent = `AS OF ${String(latestDate(state.archive) || "—").toUpperCase()}`;
   const archiveGood = state.archive.length > 0;
   const data = $("#data-state");
   data.textContent = archiveGood ? "LOCAL / AS-OF" : "UNAVAILABLE";
@@ -244,19 +246,20 @@ function stateChip(row) {
 }
 
 function renderBoard() {
-  const rows = boardRows();
+  const rows = boardRows().slice(0, 8);
   if (!state.selectedId && rows.length) state.selectedId = rows[0].id;
   $("#board-body").innerHTML = rows.length ? rows.map((row) => `
     <tr tabindex="0" data-id="${escapeHtml(row.id)}" class="${row.id === state.selectedId ? "is-selected" : ""}">
       <td><span class="row-id">${escapeHtml(row.id)}</span></td>
       <td><span class="row-ticker">${escapeHtml(row.ticker)}</span></td>
-      <td class="numeric"><span class="row-price">${fmtMoney(row.review_price)}</span><span class="source-meta">${escapeHtml(row.review_time || row.date || "NO STAMP")}</span></td>
-      <td class="numeric"><span class="row-price">${lastValue(row)}</span><span class="source-meta">${escapeHtml(row.last_source || "NO SOURCE")}</span></td>
+      <td><span class="row-price">${fmtMoney(row.review_price)}</span><span class="source-meta">${escapeHtml(row.review_time || row.date || "NO STAMP")}</span></td>
+      <td><span class="row-price">${lastValue(row)}</span><span class="source-meta">${escapeHtml(row.last_source || "NONE")}</span></td>
       <td>${stateChip(row)}</td>
       <td><span class="source-meta board-asof">${escapeHtml(row.last_checked ? shortStamp(row.last_checked) : row.date || "NO STAMP")}</span></td>
-      <td><span class="source-meta board-source">${escapeHtml(String(row.last_source || row.engine || "LOCAL BOOK").toUpperCase())}</span></td>
-      <td><span class="board-confidence">${typeof row.confidence_pct === "number" ? `${row.confidence_pct}%` : "NOT RECORDED"}</span></td>
-    </tr>`).join("") : '<tr><td colspan="8" class="empty-cell">No rows match this filter.</td></tr>';
+      <td><span class="board-evidence">${state.verification?.ok === false ? "CHECK" : "INTACT"}</span></td>
+      <td><span class="board-confidence ${((typeof row.confidence_pct === "number" && row.confidence_pct >= 70) || ["pass", "long"].includes(callType(row))) ? "high" : "conditional"}">${((typeof row.confidence_pct === "number" && row.confidence_pct >= 70) || ["pass", "long"].includes(callType(row))) ? "HIGH" : "CONDITIONAL"}</span></td>
+      <td><button class="row-actions" type="button" aria-label="More options for ${escapeHtml(row.ticker)}"><i class="ph ph-dots-three" aria-hidden="true"></i></button></td>
+    </tr>`).join("") : '<tr><td colspan="9" class="empty-cell">No rows match this filter.</td></tr>';
   renderResearch();
 }
 
@@ -269,30 +272,35 @@ function renderResearch() {
   }
   const grades = row.grades || {};
   const call = researchCallParts(row.final_call);
-  $("#selected-source").textContent = `${String(row.last_source || "LOCAL BOOK").toUpperCase()} / ${shortStamp(row.last_checked)}`;
+  const evidenceState = state.verification?.ok === false ? "CHECK" : "INTACT";
   detail.innerHTML = `
-    <div class="research-hero">
-      <div>
+    <div class="research-left">
+      <div class="selected-kicker"><span aria-hidden="true"></span>SELECTED RESEARCH</div>
+      <div class="research-hero">
         <div class="research-symbol">$${escapeHtml(row.ticker)}</div>
         <div class="research-meta">${escapeHtml(row.id)} / ${escapeHtml(row.date || "NO DATE")} / REVIEW ${fmtMoney(row.review_price)}</div>
       </div>
-      <div class="score-block"><span>OPPORTUNITY SCORE</span><strong>${typeof row.opportunity_score === "number" ? row.opportunity_score : "—"}</strong></div>
+      <div class="research-verdict">${escapeHtml(call.verdict)}</div>
+      <div class="research-call">${escapeHtml(call.detail)}</div>
     </div>
-    <div class="research-verdict">${escapeHtml(call.verdict)}</div>
-    <div class="research-call">${escapeHtml(call.detail)}</div>
-    <div class="grade-grid">
-      <div><span>TECHNICAL</span><strong>${escapeHtml(grades.technical || "—")}</strong></div>
-      <div><span>FUNDAMENTAL</span><strong>${escapeHtml(grades.fundamental || "—")}</strong></div>
-      <div><span>EXECUTION</span><strong>${escapeHtml(grades.execution || "—")}</strong></div>
-      <div><span>OVERALL</span><strong>${escapeHtml(grades.overall || "—")}</strong></div>
+    <div class="research-right">
+      <div class="gate-grid">
+        <div class="gate"><span>TRIGGER</span><strong>${escapeHtml(row.trigger ?? "NOT RECORDED")}</strong></div>
+        <div class="gate"><span>INVALIDATION</span><strong>${escapeHtml(row.invalidation ?? "NOT RECORDED")}</strong></div>
+        <div class="gate"><span>EVIDENCE</span><strong>${evidenceState}</strong></div>
+      </div>
+      <div class="grade-grid">
+        <div><span>TECHNICAL</span><strong>${escapeHtml(grades.technical || "—")}</strong></div>
+        <div><span>FUNDAMENTAL</span><strong>${escapeHtml(grades.fundamental || "—")}</strong></div>
+        <div><span>EXECUTION</span><strong>${escapeHtml(grades.execution || "—")}</strong></div>
+        <div><span>OVERALL</span><strong>${escapeHtml(grades.overall || "—")}</strong></div>
+      </div>
+      <div class="observation-grid">
+        <span>Last observed</span><strong>${lastValue(row)} / ${escapeHtml(row.last_source || "none")}</strong>
+        <span>Confidence</span><strong>${typeof row.confidence_pct === "number" ? `${row.confidence_pct}%` : "NOT RECORDED"}</strong>
+      </div>
     </div>
-    <div class="gate-grid">
-      <div class="gate"><span>TRIGGER</span><strong>${escapeHtml(row.trigger || "NOT RECORDED")}</strong></div>
-      <div class="gate"><span>INVALIDATION</span><strong>${escapeHtml(row.invalidation || "NOT RECORDED")}</strong></div>
-      <div class="gate"><span>LAST OBSERVED</span><strong>${lastValue(row)} / ${escapeHtml(row.last_source || "NO SOURCE")}</strong></div>
-      <div class="gate"><span>CONFIDENCE</span><strong>${typeof row.confidence_pct === "number" ? `${row.confidence_pct}%` : "NOT RECORDED"}</strong></div>
-    </div>
-    <div class="lesson">${escapeHtml(row.lesson || "No lesson recorded yet. Open calls remain unresolved until the evidence closes them.")}</div>`;
+    `;
 }
 
 function renderChallenge() {

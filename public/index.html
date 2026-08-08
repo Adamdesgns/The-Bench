@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <title>The Bench — Research Workstation</title>
+  <link rel="stylesheet" href="/vendor/phosphor/style.css">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body class="auth-pending">
   <a class="skip-link" href="#workspace">Skip to workspace</a>
 
-  <div class="market-tape" aria-label="Local research board ticker">
-    <div class="market-tape-label"><span aria-hidden="true"></span> LOCAL BOARD TAPE</div>
+  <div class="market-tape" aria-label="Local market ticker">
+    <div class="market-tape-label"><i class="ph ph-caret-down" aria-hidden="true"></i><strong>LOCAL</strong><span>MARKET TICKER</span></div>
     <div class="market-tape-window">
       <div class="market-tape-track" id="market-tape-track">
         <span class="market-tape-item">WAITING FOR THE LOCAL BOOK</span>
@@ -36,17 +37,22 @@
   <header class="topbar">
     <div class="brand-lockup" aria-label="The Bench">
       <div class="brand-mark" aria-hidden="true">B</div>
-      <div>
+      <div class="brand-wordmark">
         <div class="brand-name">THE BENCH</div>
-        <div class="brand-sub">MARKET DESK / RESEARCH WORKSTATION v23</div>
+      </div>
+      <div class="brand-divider" aria-hidden="true"></div>
+      <div class="desk-signature">
+        <strong>MARKET DESK</strong>
+        <span>RESEARCH WORKSTATION v23</span>
       </div>
     </div>
 
     <div class="system-strip" aria-label="System status">
-      <div class="system-item"><span>MARKET REGIME</span><strong id="data-state" class="status-warn">CHECKING</strong></div>
+      <div class="system-item regime-item"><span>MARKET REGIME</span><strong id="data-state" class="status-warn">CHECKING</strong><small id="header-asof">AS OF —</small></div>
       <div class="system-item"><span>MODE</span><strong>RESEARCH ONLY</strong></div>
       <div class="system-item"><span>BOOK</span><strong id="book-count">—</strong></div>
-      <div class="system-item"><span>FRAMEWORK</span><strong>BENCH v23</strong></div>
+      <div class="system-item"><span>DATA</span><strong>LOCAL</strong></div>
+      <div class="market-clock" aria-label="Central time clock"><div><span>CT</span><strong id="clock-ct">--:--:--</strong></div><span id="clock-et" hidden></span></div>
     </div>
 
     <div class="beta-account" id="beta-account" hidden>
@@ -54,21 +60,16 @@
       <button id="beta-signout" type="button">SIGN OUT</button>
     </div>
 
-    <div class="market-clock" aria-label="Market clocks">
-      <div><span>CT</span><strong id="clock-ct">--:--:--</strong></div>
-      <div><span>ET</span><strong id="clock-et">--:--:--</strong></div>
-    </div>
   </header>
 
   <div class="app-shell">
     <aside class="rail" aria-label="Primary navigation">
       <nav>
-        <button class="rail-button" data-view="desk"><span>DSK</span>Desk</button>
-        <button class="rail-button is-active" data-view="generate" aria-current="page"><span>GEN</span>Generate</button>
-        <button class="rail-button" data-view="library"><span>LIB</span>Library</button>
-        <button class="rail-button" data-view="book"><span>BK</span>Book</button>
-        <button class="rail-button" data-view="audit"><span>AU</span>Audit</button>
-        <button class="rail-button" data-view="settings"><span>SET</span>Settings</button>
+        <button class="rail-button is-active" data-view="desk" aria-current="page"><i class="ph ph-bank" aria-hidden="true"></i><span>DESK</span></button>
+        <button class="rail-button" data-view="book"><i class="ph ph-squares-four" aria-hidden="true"></i><span>BOARD</span></button>
+        <button class="rail-button" data-view="library"><i class="ph ph-books" aria-hidden="true"></i><span>BOOK</span></button>
+        <button class="rail-button" data-view="audit"><i class="ph ph-list-checks" aria-hidden="true"></i><span>AUDIT</span></button>
+        <button class="rail-button" data-view="settings"><i class="ph ph-gear" aria-hidden="true"></i><span>SETTINGS</span></button>
       </nav>
       <div class="rail-footer">
         <span class="integrity-light" id="integrity-light" aria-hidden="true"></span>
@@ -77,7 +78,7 @@
     </aside>
 
     <main id="workspace" class="workspace" tabindex="-1">
-      <section id="view-generate" class="view is-active" aria-labelledby="generate-title">
+      <section id="view-generate" class="view" aria-labelledby="generate-title">
         <div class="workspace-heading generate-heading">
           <div>
             <p class="eyebrow">NEW RESEARCH / BENCH v23</p>
@@ -192,7 +193,7 @@
         </div>
       </section>
 
-      <section id="view-desk" class="view" aria-labelledby="desk-title">
+      <section id="view-desk" class="view is-active" aria-labelledby="desk-title">
         <div class="workspace-heading">
           <div>
             <p class="eyebrow">DECISION DESK / LIVE OPERATING VIEW</p>
@@ -207,44 +208,36 @@
         <div class="desk-grid">
           <section class="panel board-panel" aria-labelledby="board-title">
             <header class="panel-header">
-              <div>
-                <span class="panel-kicker">LOCAL RESEARCH LEDGER</span>
+              <div class="board-title-group">
                 <h2 id="board-title">Open Board</h2>
+                <div class="segmented" id="board-filters" aria-label="Board filter">
+                  <button class="is-active" data-filter="open">OPEN</button>
+                  <button data-filter="closed">CLOSED</button>
+                  <button data-filter="all">ALL</button>
+                </div>
               </div>
-              <div class="segmented" id="board-filters" aria-label="Board filter">
-                <button class="is-active" data-filter="open">OPEN</button>
-                <button data-filter="closed">CLOSED</button>
-                <button data-filter="all">ALL</button>
+              <div class="board-sort">
+                <span>SORT</span><strong>Review</strong><i class="ph ph-caret-down" aria-hidden="true"></i>
               </div>
             </header>
             <div class="table-wrap board-table-wrap">
               <table class="data-table board-table">
-                <thead><tr><th>ID</th><th>NAME</th><th class="numeric">REVIEW</th><th class="numeric">LAST</th><th>STATE</th><th>AS-OF</th><th>SOURCE</th><th>CONFIDENCE</th></tr></thead>
-                <tbody id="board-body"><tr><td colspan="8" class="empty-cell">Loading the local book…</td></tr></tbody>
+                <thead><tr><th>ID</th><th>NAME</th><th>REVIEW</th><th>LAST</th><th>STATE</th><th>AUGMENT</th><th>EVIDENCE</th><th>CONFIDENCE</th><th aria-label="Actions"></th></tr></thead>
+                <tbody id="board-body"><tr><td colspan="9" class="empty-cell">Loading the local book…</td></tr></tbody>
               </table>
             </div>
           </section>
 
           <section class="panel research-panel" aria-labelledby="research-title">
-            <header class="panel-header">
-              <div>
-                <span class="panel-kicker">SELECTED RESEARCH</span>
-                <h2 id="research-title">Research File</h2>
-              </div>
-              <span class="source-pill" id="selected-source">LOCAL BOOK</span>
-            </header>
+            <h2 id="research-title" class="sr-only">Selected research</h2>
             <section class="command-bar" aria-label="Run research">
-              <div class="command-copy">
-                <span class="panel-kicker">RESEARCH RUN</span>
-                <strong>Real engine. No simulated success.</strong>
-              </div>
               <label class="ticker-input">
                 <span class="sr-only">Ticker</span>
                 <span aria-hidden="true">$</span>
                 <input id="run-ticker" maxlength="8" autocomplete="off" spellcheck="false" placeholder="TICKER">
               </label>
               <button class="button button-secondary" id="run-ticker-button">RUN TICKER</button>
-              <button class="button button-primary" id="run-market-button">RUN RESEARCH</button>
+              <button class="button run-research-button" id="run-market-button"><i class="ph ph-play" aria-hidden="true"></i><span>RUN RESEARCH</span></button>
               <div class="run-state" id="run-state" role="status" aria-live="polite">
                 <span class="run-dot" aria-hidden="true"></span>
                 <span id="run-state-text">Ready. A run may update the local book.</span>
@@ -256,12 +249,7 @@
           </section>
 
           <aside class="panel evidence-panel" aria-labelledby="evidence-title">
-            <header class="panel-header">
-              <div>
-                <span class="panel-kicker">RESEARCH INTEGRITY</span>
-                <h2 id="evidence-title">Evidence</h2>
-              </div>
-            </header>
+            <header class="evidence-drawer"><i class="ph ph-notebook" aria-hidden="true"></i><h2 id="evidence-title">Evidence</h2><i class="ph ph-caret-right" aria-hidden="true"></i></header>
             <div class="evidence-stack">
               <div class="evidence-item">
                 <span>ARCHIVE</span>
@@ -289,8 +277,7 @@
 
         <section class="panel challenge-panel" aria-labelledby="challenge-title">
           <header class="challenge-heading">
-            <span class="panel-kicker">THE $10K CHALLENGE</span>
-            <h2 id="challenge-title">Capital scoreboard</h2>
+            <h2 id="challenge-title">Capital<br>scoreboard</h2>
           </header>
           <div class="challenge-metrics" id="challenge-metrics">
             <div><span>ACCOUNT VALUE</span><strong>—</strong></div>
