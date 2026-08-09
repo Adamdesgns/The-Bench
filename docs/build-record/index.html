@@ -192,17 +192,17 @@
 
 <header class="mast">
   <p class="kicker">The Bench · @TheBenchTrades · build record</p>
-  <h1>Sixty-two days from a question<span class="sub">to an account that posts without being asked</span></h1>
-  <p class="dek">It started at 3:32 in the morning with a man asking how to connect his brokerage to a chat window. It ends with nineteen sessions in a single day where nobody typed anything at all.</p>
+  <h1>Sixty-five days from a question<span class="sub">to an account that posts without being asked</span></h1>
+  <p class="dek">It started at 3:32 in the morning with a man asking how to connect his brokerage to a chat window. It ends with a call logged before the market opened, scored against the close, and one half of it marked wrong in public.</p>
 
   <dl class="tape">
     <div><dt>Jun 5</dt><dd>$353.74</dd><p class="note">Total across both accounts. The tradeable one held $0.00.</p></div>
     <div><dt>Jul 30</dt><dd>$1,000</dd><p class="note">Funded on purpose. One share of GOOGL.</p></div>
     <div><dt>Aug 4</dt><dd>$749.59</dd><p class="note">The challenge opens. Target $10,000.</p></div>
-    <div><dt>Aug 5</dt><dd>$726.60</dd><p class="note">Flat, all cash, stopped out at $357.00.</p></div>
+    <div><dt>Aug 7</dt><dd>$720.76</dd><p class="note">Flat, all cash. 40 calls on the record.</p></div>
   </dl>
 
-  <p class="sourcing"><strong>What this is.</strong> Every quote here was said in a real session and is reproduced with its own timestamp — pulled from 417 of Adam's messages across 74 transcripts, June 5 to August 6, cross-checked against the commit history of two repositories and the published archive. Nothing is reconstructed from memory. Swearing is his and is censored, not removed; the typos are his too and are left alone. The parts where the assistant was wrong are in here at the same size as the parts where it wasn't.</p>
+  <p class="sourcing"><strong>What this is.</strong> Every quote here was said in a real session and is reproduced with its own timestamp — pulled from 417 of Adam's messages across 74 transcripts, June 5 to August 6, cross-checked against the commit history of two repositories and the published archive, then extended through August 9 from the sessions and the book itself. Nothing is reconstructed from memory. Swearing is his and is censored, not removed; the typos are his too and are left alone. The parts where the assistant was wrong are in here at the same size as the parts where it wasn't.</p>
 </header>
 
 <!-- ============================================ -->
@@ -728,8 +728,109 @@
 <section class="chapter">
   <div class="chead">
     <p class="cnum">12</p>
+    <h2>The week the data itself turned out to be lying</h2>
+    <p class="cmeta"><span>Aug 6</span><span>day 62</span><span>two sources caught</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Aug 6 · 10:00</span></div>
+    <div>
+      <h3>The search engine was wrong about three stocks at once</h3>
+      <p>An unattended scan asked the web what was moving. It came back with AMD down 7%, Micron down 5.6%, and Honeywell up 7.5%. The live broker pull, taken seconds later, had them at <strong>+2.48%, +2.03% and −1.97%</strong>. Three for three, wrong, and the post that would have carried those numbers was already half written.</p>
+      <p>The same thing happened again at 1pm on the same day, with the same ticker. Search reported Honeywell up 7.5%; the live pull had it down 2.83% on below-average volume. Two false readings from the same source inside three hours.</p>
+      <p>The rule that came out of it is four words long and now governs every routine: <strong>search finds the URL, the live pull sets the number.</strong> Two further claims about EPAM that could not be confirmed in the primary source were cut from that day's post rather than published with a hedge.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Aug 6 · afternoon</span></div>
+    <div>
+      <h3>Then the broker feed was wrong too, and that one was worse</h3>
+      <p>The fix for a lying search engine is to trust the broker. So the broker was checked. Same symbol, same session, four different answers for the same quantity.</p>
+      <p><strong>Microsoft, August 5, 10:00 to 10:30am Eastern.</strong> The 30-minute bar reports <strong>135,723 shares</strong>. The thirty one-minute bars covering that exact window sum to <strong>1,183,504</strong>. A factor of 8.7, from one endpoint against another inside the same API.</p>
+      <p>It is not a fixed ratio, which is what makes it dangerous. The 11:00 to 11:30 window is off by 1.3x, not 8.7x, so nothing about it looks like a clean odd-lot or venue difference that could be corrected for. Unity showed the same shape the same day: its 30-minute bars sum to 6,498,558 against a daily bar of 17,457,467.</p>
+      <p>Every relative-volume claim The Bench had ever published from an intraday bar was therefore suspect. The standing rule now: <strong>volume comes from the fundamentals endpoint only, and the two are never mixed inside one sentence.</strong> Adam posted the finding publicly and tagged the broker.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-book">The book</span><span class="when">Aug 7 · 06:20</span></div>
+    <div>
+      <h3>A lane built four versions ago fires for the first time</h3>
+      <p>v19 added a short side. It could only be reached by typing an exact phrase, and in the twenty-two rows that followed, <strong>nobody ever typed it.</strong> v23 deleted the phrase and made every scan test the three short gates whether or not anyone asked.</p>
+      <p>On the fortieth call in the book, they passed. EPAM cleared all three: a thesis actually damaged rather than merely expensive, a level lost on real volume, and a defined invalidation above to stop against.</p>
+      <p>Then it was passed on anyway. Not on the thesis — on the vehicle. 1.79M average daily shares against a $4.98B company, and a pre-market spread of 93.22 by 98.74, almost six percent wide. Option spreads on that underlying eat the edge before direction ever matters. Logged as <strong>B-040</strong>, with the lesson: <em>a lane can be correctly unlocked and still produce No Trade — the gates test the thesis, tradability tests the instrument.</em></p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Aug 6</span></div>
+    <div>
+      <h3>The status file had been quietly wrong for two days</h3>
+      <p>The operating status note still listed a GOOGL share and a resting limit order on LTH. The live account held <strong>neither</strong> — $720.76, entirely cash, zero open orders. The GOOGL stop had filled on August 5 at $357.00 for +7.41%, and the LTH order had been cancelled on August 4.</p>
+      <p>The book had been right the whole time. The status note was the file that drifted, which is the argument for reading the archive before the summary of the archive. A wrong account digit was corrected in the same pass.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">13</p>
+    <h2>Right on the trade, wrong on the reason</h2>
+    <p class="cmeta"><span>Aug 7</span><span>day 63</span><span>jobs print</span></p>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-book">The book</span><span class="when">Aug 7 · 06:20</span></div>
+    <div>
+      <h3>The call, written down before the open</h3>
+      <p>A research scan ran at 6:20 in the morning, seventy minutes before the July jobs number. It found one setup on the entire board, and it was not on the board: gold had jumped a seven-week range on August 5 through an unfilled gap, closed up 4.14% on 2.1x volume, then held the gap the next day instead of fading it.</p>
+      <p>The note refused to enter. <em>"NO PRE-PRINT ENTRY: July jobs 7:30a CT is the gate and the framework does not buy an event."</em> Instead it logged <strong>B-039</strong> at $395.30 with a trigger at <strong>396.22</strong> and an invalidation at <strong>384.32</strong>, and stated the test in advance: a regular-session trade above the trigger, after the number, means the breakout survived the catalyst.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-book">The book</span><span class="when">Aug 7 · 16:00</span></div>
+    <div>
+      <h3>What the close said</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Row</th><th>Test set in advance</th><th class="num">Result</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td>B-039 GLD</td><td>trade above 396.22 after the print</td><td class="num">opened 399.60, low 396.95, closed 398.47</td><td>trigger cleared at the open and never given back, on 1.82x volume</td></tr>
+          <tr><td>B-038 SPY</td><td>hold 767.46 through the print</td><td class="num">session low 769.61</td><td>floor never tested, base intact</td></tr>
+        </tbody>
+      </table></div>
+      <p>Both levels were named before the number was public and both held. The invalidation at 384.32 was never within twelve dollars of being hit.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Wrong</span><span class="when">Aug 7 · 16:00</span></div>
+    <div>
+      <h3>And the part that did not survive contact</h3>
+      <p>The same note built a story around the trade. Gold bid, the index coiling into three ever-smaller daily ranges on falling volume, and equal-weight losing ground to the index for two straight sessions. It read that combination as defensive positioning ahead of a binary, and said so: <em>"that combination is defensive positioning, not risk-on."</em></p>
+      <p>The tape disagreed. The S&amp;P broke <em>up</em> out of the coil and closed at 773.26, and equal-weight <strong>outgained it</strong> — RSP +0.69% against SPY +0.61%. Breadth widened on the print. Semis added 1.96%. Gold went up because gold went up, in a market that was buying nearly everything.</p>
+      <p>The direction was right, the level was right, the discipline of not buying the event was right, and the explanation was wrong. Those are separable, and pretending otherwise is how a lucky read gets mistaken for a good process. The trade is scored on the level it named. The narrative is scored here.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="rail"><span class="stamp s-broke">Broke</span><span class="when">Aug 7</span></div>
+    <div>
+      <h3>A correction to a row two days old</h3>
+      <p>B-038 described 767.46 as a <em>"twice-defended floor."</em> Checking the thirty-minute bars for the whole session, the level printed in exactly one bar, between noon and 12:30 Eastern, and was never revisited; the closest later approach was 767.70. Tagged once and held, which is still a floor and is not the same claim.</p>
+      <p>The row stays as written and the correction sits beside it. That is the rule for anything already on the record.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<section class="chapter">
+  <div class="chead">
+    <p class="cnum">14</p>
     <h2>Where it stands</h2>
-    <p class="cmeta"><span>Aug 6</span><span>day 62</span></p>
+    <p class="cmeta"><span>Aug 9</span><span>day 65</span></p>
   </div>
 
   <div class="entry">
@@ -738,15 +839,18 @@
       <div class="tablewrap"><table>
         <thead><tr><th>Measure</th><th class="num">Value</th><th>Note</th></tr></thead>
         <tbody>
-          <tr><td>Calls on the record</td><td class="num">34</td><td>B-001 Jun 30 → B-034 Aug 5</td></tr>
+          <tr><td>Calls on the record</td><td class="num">40</td><td>B-001 Jun 30 → B-040 Aug 7</td></tr>
+          <tr><td>Checkpoints not scorable</td><td class="num">17 of 27</td><td>none of them because a call was wrong</td></tr>
           <tr><td>Patterns</td><td class="num">6</td><td>2 supported, 4 proposed</td></tr>
-          <tr><td>Published posts archived</td><td class="num">26</td><td>first was the word "test"</td></tr>
+          <tr><td>Published posts archived</td><td class="num">42</td><td>first was the word "test"</td></tr>
           <tr><td>Framework version</td><td class="num">v23</td><td>17 of the 23 predate git</td></tr>
-          <tr><td>Tests</td><td class="num">149</td><td>x-poster had none until Aug 5</td></tr>
           <tr><td>Scheduled routines</td><td class="num">8</td><td>7 publish; 1 drafts and cannot post</td></tr>
-          <tr><td>Account</td><td class="num">$726.60</td><td>flat, all cash, target $10,000</td></tr>
+          <tr><td>Challenge account</td><td class="num">$720.76</td><td>flat, all cash, target $10,000</td></tr>
+          <tr><td>Margin account</td><td class="num">$505.84</td><td>also all cash, zero open orders</td></tr>
+          <tr><td>Trading P&amp;L, week 1</td><td class="num">−$22.99</td><td>unchanged since Aug 5</td></tr>
         </tbody>
       </table></div>
+      <p>The combined number went from $726.60 to $1,226.60 in four days, and none of that is performance. <strong>$500 of it was a deposit.</strong> Trading profit and loss has not moved since August 5 and sits at −$22.99. A balance that climbs because money was added is the easiest number in this whole project to misread, so it is broken out rather than reported as a total.</p>
     </div>
   </div>
 
@@ -757,6 +861,8 @@
       <p><strong>Nothing reconciles the orders.</strong> The book records what was decided; no process pulls the actual brokerage orders and flags anything missing. Until it exists, the logging discipline only holds where somebody runs the command.</p>
       <p><strong>Every market routine fires in the worst window for reach.</strong> The data says evenings; the market says mornings. That tradeoff is undecided and it is a real one, not an oversight.</p>
       <p><strong>The machine's own instructions have gone stale in at least one place</strong> — the operating file still says threads are unsupported, which stopped being true on August 5.</p>
+      <p><strong>The scorecard drafts posts that the poster would reject.</strong> Run the book scorer today and it emits a draft carrying four cashtags. X refuses any post with two or more, and nothing in the publishing path checks for it. The draft lands in the queue rather than the approved folder, so it cannot reach the account on its own — but the generator and the publisher disagree about what a valid post is, and only one of them knows it.</p>
+      <p><strong>Two thirds of the book still cannot be graded.</strong> 17 of 27 due checkpoints score as not-scorable, almost all of them older rows logged without a trigger, a size, or an invalidation. Every row written since the logger started refusing incomplete calls is scorable. The debt is historical and it does not shrink on its own.</p>
     </div>
   </div>
 
@@ -769,7 +875,7 @@
 </section>
 
 <footer>
-  <p><strong>Sources.</strong> 417 messages from Adam across 74 session transcripts (Jun 5 – Aug 6); the commit histories of <code>Adamdesgns/The-Bench</code> and <code>Adamdesgns/x-poster</code>; <code>db/archive.json</code>; the published archive in <code>x-poster/posted/</code>; and <code>x-poster/log.txt</code> from its first line.</p>
+  <p><strong>Sources.</strong> 417 messages from Adam across 74 session transcripts (Jun 5 – Aug 6); the commit histories of <code>Adamdesgns/The-Bench</code> and <code>Adamdesgns/x-poster</code>; <code>db/archive.json</code>; the published archive in <code>x-poster/posted/</code>; and <code>x-poster/log.txt</code> from its first line. Chapters 12 to 14 were added Aug 9 from the sessions of Aug 6 and 7, the book rows B-035 to B-040, and live broker pulls of the August 7 close.</p>
   <p>Timestamps are as recorded in the transcripts. Quotes are verbatim including spelling; profanity is censored, not cut. Nothing here is dramatised — where the assistant was wrong, that is the entry.</p>
   <p><em>Proof, not hype.</em></p>
 </footer>
