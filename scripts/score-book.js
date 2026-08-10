@@ -1,14 +1,22 @@
 // score-book.js — score every due checkpoint in the book and draft the post.
 //
-//   node scripts/score-book.js               # score, write archive, draft post
+//   node scripts/score-book.js               # score, write archive, draft chain
 //   node scripts/score-book.js --dry-run     # score and print, touch nothing
 //   node scripts/score-book.js --today 2026-09-30
 //   node scripts/score-book.js --no-draft    # score only, no X draft
+//   node scripts/score-book.js --single      # one 280-char post, not a chain
+//   node scripts/score-book.js --approve     # write to approved/ so it posts
+//   node scripts/score-book.js --link URL    # add a "see the book" line
 //
-// The draft lands in x-poster/queue/ — Adam approves it there, exactly like
-// every other post. The system drafts. Adam publishes.
+// The draft is a CHAIN by default (bench-daily-v1 §0 retired long form).
 //
-// Spec: docs/scorecard-spec.md
+// Where it lands, and why it matters: post_next.py reads approved/ ONLY.
+// A draft in queue/ is a draft nobody publishes, which is exactly what this
+// script did for its first two weeks. --approve is therefore the difference
+// between a recap that exists and a recap that goes out; the weekly routine
+// passes it, a human running this by hand normally should not.
+//
+// Spec: docs/scorecard-spec.md, docs/cadence-spec-v1.md
 
 import { existsSync, readdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -17,7 +25,7 @@ import { ROOT } from "../server/config.js";
 import { loadArchive } from "../server/reconcile.js";
 import { scoreBook, scoreRows } from "../server/scorecard.js";
 import { getDatedCloses } from "../server/dataProviders.js";
-import { renderWeeklyPost } from "../server/scorecardPost.js";
+import { renderWeeklyChain, renderWeeklyPost } from "../server/scorecardPost.js";
 
 const argv = process.argv.slice(2);
 const has = (flag) => argv.includes(flag);
@@ -28,16 +36,23 @@ const valueOf = (flag) => {
 
 const today = valueOf("--today") || new Date().toISOString().slice(0, 10);
 const dryRun = has("--dry-run");
+const approve = has("--approve");
 const QUEUE_DIR = resolve(ROOT, "../x-poster/queue");
+const APPROVED_DIR = resolve(ROOT, "../x-poster/approved");
 
-function nextDraftPath(dateStr) {
-  const existing = existsSync(QUEUE_DIR) ? readdirSync(QUEUE_DIR) : [];
+// queue/ is provenance, approved/ is the outbox. --approve writes both: the
+// annotated draft stays behind as the record of what was generated, same as
+// every daily routine does.
+const outDir = () => (approve ? APPROVED_DIR : QUEUE_DIR);
+
+function nextDraftPath(dir, dateStr) {
+  const existing = existsSync(dir) ? readdirSync(dir) : [];
   const used = existing
     .map((f) => new RegExp(`^${dateStr}-(\\d+)-`).exec(f))
     .filter(Boolean)
     .map((m) => Number(m[1]));
   const n = (used.length ? Math.max(...used) : 0) + 1;
-  return resolve(QUEUE_DIR, `${dateStr}-${n}-bench-scorecard.txt`);
+  return resolve(dir, `${dateStr}-${n}-bench-scorecard.txt`);
 }
 
 const VERDICT_MARK = { right: "RIGHT", wrong: "WRONG", flat: "flat", not_scorable: "—" };
@@ -80,17 +95,32 @@ if (dryRun) {
 }
 
 if (!has("--no-draft")) {
-  const post = renderWeeklyPost(scored);
+  const link = valueOf("--link");
+  const single = has("--single");
+  const post = single ? renderWeeklyPost(scored, { link }) : renderWeeklyChain(scored, { link });
+
   if (!post) {
     console.log("\nNo draft written — nothing scorable this run. That is the correct outcome, not a failure.");
   } else {
-    console.log(`\n--- DRAFT (${post.length} chars) ---\n${post}\n---`);
-    if (!dryRun && existsSync(QUEUE_DIR)) {
-      const path = nextDraftPath(today);
+    const parts = single ? [post] : post.split("\n---\n");
+    console.log(`\n--- DRAFT (${single ? "single post" : `${parts.length}-part chain`}) ---`);
+    parts.forEach((p, i) => {
+      if (!single) console.log(`\n[part ${i + 1}/${parts.length} — ${p.length} chars]`);
+      console.log(p);
+    });
+    console.log("---");
+
+    const dir = outDir();
+    if (!dryRun && existsSync(dir)) {
+      const path = nextDraftPath(dir, today);
       writeFileSync(path, post + "\n", "utf8");
-      console.log(`\nQueued for approval: ${path}`);
+      console.log(
+        approve
+          ? `\nAPPROVED — this will publish on the next post_next.py run: ${path}`
+          : `\nQueued for approval: ${path}`
+      );
     } else if (!dryRun) {
-      console.log(`\nx-poster queue not found at ${QUEUE_DIR} — draft printed only.`);
+      console.log(`\nx-poster ${approve ? "approved" : "queue"} dir not found at ${dir} — draft printed only.`);
     }
   }
 }
