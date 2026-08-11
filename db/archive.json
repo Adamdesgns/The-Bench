@@ -1665,5 +1665,40 @@
     "last": "unverified",
     "last_source": "none",
     "last_checked": "2026-08-07T15:33:15.905Z"
+  },
+  {
+    "id": "B-042",
+    "date": "2026-08-11",
+    "ticker": "SPCX",
+    "review_price": 138.35,
+    "review_time": "Aug 11 intraday - web quote, UNVERIFIED (no Robinhood MCP this session)",
+    "opportunity_score": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": null,
+      "fundamental": null,
+      "execution": null,
+      "overall": null
+    },
+    "fomo": null,
+    "market_risk": null,
+    "hodl": "Accumulate candidate - kids UTMA lens (unchanged from B-024)",
+    "final_call": "OPTIONS WATCHLIST (Adam, 2026-08-11). B-024 gate (reclaim + hold 126.71) HIT during unlock week. New gate: 126.71 must HOLD as support on any retest -> defined-risk call structure (spread preferred, IV rich). A close back below 126.71 = failed reclaim confirmed, off the watchlist. No entry before a live-data re-pull.",
+    "call_type": "conditional",
+    "trigger": 126.71,
+    "invalidation": null,
+    "size": null,
+    "max_loss": null,
+    "engine": "claude",
+    "logged_by": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": "PROVISIONAL REVIEW per v23 live-data rule: Robinhood MCP unavailable in this session and quote sites egress-blocked; every number here is from web-search snippets and is UNVERIFIED - confirm with a live pull before acting. Delta since B-024 (Aug 4, 125.895): reported beat was sold to a 108.27 close Aug 5 (-14%, all-time closing low; 52wk low print 105.79), then the lockup B-024 flagged as the dominant risk EXPIRED Aug 6 - date now VERIFIED by press coverage, first window ~20% of 911.5M insider shares - and the stock ROSE 6%+ on unlock day, snapping a 7-day losing streak, and trades ~131-138 this week (Aug 11 prints seen: 138.35 intraday and 138.74 - sources disagree, another reason to re-pull). Read: the supply cliff was front-run, hit, and absorbed - sell-the-rumor into buy-the-news, and the B-024 gate at 126.71 was reclaimed in the process. Float grows from 4.6% toward ~5.9% (part of pattern P-004); full 180-day lockup Dec 8 2026 per one source, UNVERIFIED. Options: chain is young (debuted around the Aug 4 print); ATM IV was ~156% vs ~55% realized into the Aug 7 expiry (Saxo) - assume IV still rich until measured, so any long-side expression is a defined-width CALL SPREAD (margin acct is level 3), never naked premium; current IV rank / skew / OI not observable from here. Next report 2026-11-17 pm, tentative. Sizing pending user settings - account size and risk posture not asked this session (async run); premium must fit the standard budget when set. B-024 gate outcome noted here but B-024 row left open for a live-data review.",
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-11T23:49:18.855Z"
   }
 ]
