@@ -7,7 +7,7 @@
 When Adam says **"run v23"** (or "run v22" — he will say the old number out of habit), **"run the market(s)"**, **"Run $TICKER"**, or **"check swings"**, he means the **live Claude workflow we use in chat**:
 
 1. Read **live market data through the Robinhood MCP** (read-only — see the hard rule below).
-2. Apply the current framework prompt: **`prompts/trading-copilot-v23.md`** (v23 is current as of 2026-08-04).
+2. Apply the current framework prompt: **`prompts/trading-copilot-v24.md`** (v24 is current as of 2026-08-12 — adds the Guide Rule; v23's instrument policy intact).
 3. Produce the analysis / trade plan / post draft. **Draft only — Adam posts.**
 
 **Do NOT launch, build, or "run" the Electron desktop app** in this repo to satisfy "run v22." **The app is still in development.** It is not the thing being invoked. If you cannot find "v22" behavior in the app/code, that is expected — the framework is a *prompt* the interactive agent runs, not an app feature. Never guess a ticker onto the board: if a name (e.g. INTC, SpaceX) is not on the active board, say so and stop — that refusal is the framework working.
@@ -15,7 +15,7 @@ When Adam says **"run v23"** (or "run v22" — he will say the old number out of
 ## The setup we actually use (this is "The Bench")
 
 - **Live data:** Robinhood MCP — quotes, options, earnings, technicals. **NEVER places trades** (hard Anthropic limit; Adam executes every order himself). The system drafts, a human publishes — that line is absolute.
-- **Framework:** `prompts/trading-copilot-v23.md` (spine of v17 intact; adds Conviction Tier, Size-Aware Conviction, Pre-Catalyst Deadline, Thesis Ledger, Self-Audit Loop). **v23 removes the restraints** — every structure is live (shares long or short, calls, puts, spreads, naked options), and the short side is **ungated**, which in v22 unlocked only on an explicit "run options $TICKER" and was consequently never used once in 22 reviews. v22's permanent naked-shorting ban is **lifted** at Adam's direction; the unbounded-loss arithmetic is kept as a stated risk profile rather than a veto. Never overwrite a version — new integer file per change.
+- **Framework:** `prompts/trading-copilot-v24.md` (spine of v17 intact; adds Conviction Tier, Size-Aware Conviction, Pre-Catalyst Deadline, Thesis Ledger, Self-Audit Loop; v24 adds the Guide Rule — the forward guide outranks the print, codified from P-006/P-008 after the 2026-08-12 audit). **v23 removes the restraints** — every structure is live (shares long or short, calls, puts, spreads, naked options), and the short side is **ungated**, which in v22 unlocked only on an explicit "run options $TICKER" and was consequently never used once in 22 reviews. v22's permanent naked-shorting ban is **lifted** at Adam's direction; the unbounded-loss arithmetic is kept as a stated risk profile rather than a veto. Never overwrite a version — new integer file per change.
 - **Writing engine:** `prompts/marquee-v3.1.md` (long-form X Articles, institutional voice).
 - **Daily post hooks:** `prompts/bench-daily-v1.md` — owns the OPENING (first ~280 chars) and the saveable element for all six scheduled routines; overrides marquee on the opening only. Evidence behind it: `docs/growth-playbook.md`. Same versioning rule as above — never overwrite, new integer file.
 - **The book:** `db/archive.json` — one row per review, append-only.

@@ -26,11 +26,18 @@ export const EXPENSIVE_PASS = 10;
 const CALL_PATTERNS = [
   ["pass", [/^no trade\b/]],
   ["hedge", [/^hedge\b/]],
-  ["conditional", [/^top watchlist\b/, /^watchlist\b/, /^armed\b/, /^setup forming\b/]],
-  ["long", [/^entered\b/, /^accumulate\b/]]
+  ["conditional", [/^top watchlist\b/, /^watchlist\b/, /^armed\b/, /^setup forming\b/, /^watch\b/]],
+  ["long", [/^entered\b/, /^accumulate\b/]],
+  ["closed", [/^closed\b/, /^stopped\b/]]
 ];
 
+// Types a row may declare structurally. log-call.mjs has written call_type
+// since B-035; the field outranks prose because it was validated at log time.
+const DECLARED_TYPES = new Set(["pass", "hedge", "conditional", "long", "closed"]);
+
 export function classifyCall(row) {
+  const declared = String(row?.call_type ?? "").trim().toLowerCase();
+  if (DECLARED_TYPES.has(declared)) return declared;
   const call = String(row?.final_call ?? "").trim().toLowerCase();
   for (const [type, patterns] of CALL_PATTERNS) {
     if (patterns.some((p) => p.test(call))) return type;
@@ -64,6 +71,20 @@ export function pctMove(from, to) {
 // with an unknown gate state scores not_scorable, which is the honest answer.
 //
 // trigger: { direction: "above" | "below", level: number }
+//
+// log-call.mjs stores the trigger as a bare number. The crossing direction is
+// recoverable from where the gate sat relative to the review price at logging:
+// a gate above the print is a reclaim (fires on close >= level), a gate below
+// is a pullback/breakdown touch (fires on close <= level). This normalizes a
+// numeric trigger to the structured form; objects pass through untouched, and
+// anything else stays null so the row scores not_scorable rather than guessed.
+export function normalizeTrigger(trigger, reviewPrice) {
+  if (trigger && typeof trigger === "object") return trigger;
+  if (typeof trigger !== "number" || !Number.isFinite(trigger)) return null;
+  if (typeof reviewPrice !== "number" || !Number.isFinite(reviewPrice)) return null;
+  return { direction: trigger >= reviewPrice ? "above" : "below", level: trigger };
+}
+
 export function triggerFiredIn(bars, fromDate, toDate, trigger) {
   const level = trigger?.level;
   const direction = trigger?.direction;
@@ -88,6 +109,9 @@ export function scoreCall({ type, assetPct, benchPct, triggerFired = null }) {
   }
   if (type === "unknown") {
     return unscorable("call phrasing not recognised — not guessed");
+  }
+  if (type === "closed") {
+    return unscorable("closed trade — outcome already realized at exit; graded in the row, not at checkpoints");
   }
   if (typeof assetPct !== "number" || typeof benchPct !== "number") {
     return unscorable("price not observable at this checkpoint");

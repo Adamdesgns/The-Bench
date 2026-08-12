@@ -82,6 +82,12 @@
         "ticker": "SPCX",
         "detail": "Float 646M of 14.02B shares = 4.6%. Beat earnings and sold anyway; -48.6% from the June high on no fundamental break",
         "holds": true
+      },
+      {
+        "date": "2026-08-11",
+        "ticker": "SPCX",
+        "detail": "Supply flow set every turn of the last two weeks with zero business news: 52wk low 104.83 printed Aug 3, THREE sessions BEFORE the Aug 6 first-lockup expiry (~911.5M shares), then +32% off the low through the unlock to 139.98, and today the first red day arrived on no catalyst at all - rejected 139.98, closed 133.36, -3.88% on 108.9M vs 99.3M 30d avg. Sell-the-rumor-buy-the-news into a dated supply event, both directions. Data-integrity note: shares outstanding feed now reads 16.07B vs 13.31B yesterday vs 14.02B Aug 4, float still stuck at 646M - the float/SO math is unusable, but the price behavior alone carries the instance.",
+        "holds": true
       }
     ]
   },
@@ -133,6 +139,70 @@
         "date": "2026-08-05",
         "ticker": "PODD",
         "detail": "Insulet beat Q2 (rev $802M +23.5%, adj EPS $1.66 +41.5%, gross margin +320bps) and closed -20.2% on 5.5x average volume. Sold entirely on the forward guide: US Omnipod cut to 17-19% and a preliminary 2027 view exiting in the mid-teens, on type 2 retention loss inside the first 90 days. Second instance same session as AMD, unrelated sector - falsification would be a beat-plus-soft-guide that closes green on above-average volume.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-11",
+        "ticker": "ONON",
+        "detail": "Cleanest instance yet. EPS BEAT (CHF 0.31 vs 0.29) but revenue MISSED (CHF 850.3M vs 881.4M consensus) and FY26 sales-growth guidance was CUT to low-20% from 'at least 23%', with Americas - over half of sales - decelerating to +13% cc from +17% in Q1 on a 'highly promotional U.S. market'. Closed -20.29% at 30.91 on 43.76M shares vs a 4.18M 30-day average (10.5x), a fresh 52-week low of 30.1122 and the steepest single-day drop since its 2021 IPO. Peers barely moved (NKE -1.96%, DECK -3.72%), confirming company-specific rejection of the guide, not a sector move. DTC +34.3% cc beat everywhere and did not save it - the forward number outranked every good line in the print.",
+        "holds": true
+      }
+    ]
+  },
+  {
+    "id": "P-007",
+    "claim": "The 5-session run INTO the print sets the reaction; beat-vs-miss barely matters",
+    "test": "For names up 8%+ in the 5 sessions before a print, track 2-day post-earnings return SPLIT BY beat/in-line/miss. Pattern fails if the beat/miss split explains more of the reaction variance than the run does, or if 8%+ runners hold their gains regardless of outcome.",
+    "first_seen": "2026-08-11",
+    "status": "supported",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-05-11",
+        "ticker": "ASTS",
+        "detail": "Ran +20.6% in the 5 sessions into the print, then MISSED badly (-0.66 vs -0.21 est). D+1 -11.6%, D+2 -9.4%. Sold hard.",
+        "holds": true
+      },
+      {
+        "date": "2025-05-12",
+        "ticker": "ASTS",
+        "detail": "Ran +9.7% into the print, MISSED (-0.20 vs -0.14 est). D+1 -2.2%, D+2 -3.4%, D+5 -9.4%.",
+        "holds": true
+      },
+      {
+        "date": "2025-08-11",
+        "ticker": "ASTS",
+        "detail": "CONTROL/no-run case: DOWN 10.6% in the 5 sessions before the print, MISSED by the widest margin of the set (-0.41 vs -0.12 est), and rallied D+1 +8.4%, D+2 +9.0%. Worst miss, best reaction - because there was no run to unwind.",
+        "holds": true
+      }
+    ]
+  },
+  {
+    "id": "P-008",
+    "claim": "When the reported quarter and the forward guide point OPPOSITE ways, the reaction follows the GUIDE",
+    "test": "Find names where the reported quarter and the forward guide disagree in direction (miss + raise, or beat + cut). Track the 2-day post-earnings return. Pattern FAILS if the reaction follows the reported beat/miss instead of the guide, or if such names go flat.",
+    "first_seen": "2026-08-11",
+    "status": "supported",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-08-11",
+        "ticker": "ONON",
+        "detail": "BEAT EPS (CHF 0.31 vs 0.29) and MISSED revenue (850.3M vs 881.4M), then CUT FY26 sales growth to low-20% from 'at least 23%' with Americas - over half of sales - slowing to +13% cc from +17%. Reaction followed the GUIDE, not the EPS beat: -20.29% to 30.91 on 10.5x volume, fresh 52wk low, worst day since the 2021 IPO.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-11",
+        "ticker": "SMCI",
+        "detail": "MIRROR CASE, SAME SESSION. MISSED revenue (11.1B vs 11.551B expected) and beat EPS hard (1.62 vs 0.96), then RAISED FY27 sales guidance to 65-72B against a 52.5B consensus (+24% to +37% above street), Q1 FY27 sales 14.5-15.5B vs 11.68B, and reported gross margin 15-17% against 8.2-8.4% guided on favourable AI-system mix. Reaction followed the GUIDE, not the revenue miss: +9.41% to 34.42 post-market. Paired with ONON on the same day this isolates the variable - identical print shape (EPS beat + revenue miss), opposite guides, 30 points of reaction apart.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-12",
+        "ticker": "SMCI",
+        "detail": "D+1 confirmation of the Aug 11 mirror case. The +9.41% post-market reaction to the guide (FY27 65-72B vs 52.5B street) EXTENDED to +18.85% at the D+1 close: 31.60 -> 37.56 on the regular session, holding ~37.27 after hours. The guide-following reaction did not fade at the open - it doubled. Two-day test window closes tomorrow; as of D+1 the reaction followed the guide, not the revenue miss, in full.",
         "holds": true
       }
     ]
