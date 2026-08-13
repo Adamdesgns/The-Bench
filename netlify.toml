@@ -1,0 +1,10 @@
+# Netlify build config — the site is generated from the book at deploy time.
+# Connected via the Netlify dashboard (git integration): every push to main
+# rebuilds and publishes site/dist. No secrets, no API — rendered HTML only.
+
+[build]
+  command = "node site/build.mjs"
+  publish = "site/dist"
+
+[build.environment]
+  NODE_VERSION = "22"
