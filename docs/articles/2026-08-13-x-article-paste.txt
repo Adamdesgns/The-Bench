@@ -1,0 +1,152 @@
+What Everybody Reading The X Algorithm Today Missed
+
+X open sourced the code that decides what shows up in your For You feed today. I read the files, and then because the viral threads were stating things I could not find, I put three independent checks on my own reading before writing this.
+
+Good thing too. One of my own findings came back backwards. I had a whole section written saying the shadowban labels hide you from your followers. Then the check traced the actual pipeline routing and the code says mostly the opposite. That section got rewritten. Everything below survived the same treatment, with file paths so ya'll can check me instead of trusting me.
+
+
+HOW THE FEED ACTUALLY GETS BUILT
+
+Before anything gets scored, candidates get pulled. Up to 1,200 posts from people you follow, through a service called Thunder. Up to 1,000 more from the ML retrieval system called Phoenix, plus up to 200 from a variant of it. The big threads said 1,200 and 1,200. The params say 1,200 and 1,000 plus 200. Small thing, but it is in the file.
+
+Posts older than 48 hours get dropped before scoring. That number is real and hardcoded in home-mixer/params/config.rs as MAX_POST_AGE = 48 * 60 * 60, wired into the For You pipeline through an age filter. The threads had this one right.
+
+Then every surviving post gets scored. The model predicts how likely YOU are to take each of about two dozen actions on it, multiplies each probability by a weight, and adds it up.
+
+
+THE WEIGHT TABLE
+
+The weights are in home-mixer/params/param.rs, lines 282 to 448. Hardcoded defaults, mirrored from the live config on 2026-08-12 per the comment at the top of the file.
+
+With a like as 1x:
+
+Copy link share — 20.0 — 40x a like
+Reply from a mutual — 20.0 — 40x
+Reply — 5.0 — 10x
+Quote post — 5.0 — 10x
+Share via DM — 5.0 — 10x
+Follow the author — 4.0 — 8x
+Share — 2.0 — 4x
+Repost — 1.0 — 2x
+Like — 0.5 — 1x
+Click — 0.4
+Open link — 0.2
+Photo expand or video open — 0.05
+Continuous dwell time — 0.004
+Dwell — 0.0
+Profile click — 0.0
+
+Somebody copying your link and sending it to a friend is weighted like forty likes. To be precise about what that means, the score multiplies predicted probabilities, so the honest phrasing is that a predicted copy link share is worth forty predicted likes. Either way the ordering is the point. Likes sit near the bottom.
+
+Now the part nobody is posting. Bookmarks have no weight in the ranking formula.
+
+There is no bookmark term in the scoring sum. No bookmark parameter exists to even override. I had this checked against the full scorer, the value model ranker, and the complete list of scored actions. The model's vocabulary technically knows what a bookmark is, and bookmark_count gets fed in as an input feature through engagement_counts_hydrator.rs, and bookmarks count as positive signals for video feed retrieval. So the system is not blind to them. But in the equation that decides what a post is worth in your For You feed, a bookmark's direct value is zero.
+
+Every growth course that told you to farm "bookmark this" posts was optimizing a term that is not in the formula.
+
+Dwell is zero too, and the continuous dwell time term at 0.004 is rounding error next to a 20.0 share. All those "read to the end" hooks are aimed at something the scorer barely counts.
+
+
+WHAT IT COSTS YOU
+
+Report — minus 234.0 — weighted like 468 likes
+Mute — minus 58.8 — 117.6 likes
+Not interested — minus 43.2 — 86.4 likes
+Block — minus 31.2 — 62.4 likes
+Not dwelled — minus 0.02
+
+A mute hurts you almost twice as bad as a block. I have not seen anybody mention that.
+
+One honest caveat straight from the source. The comment above these weights says they reflect a combination of how much an action is valued AND how rare it is across the network. Negative feedback is rare, so the weights are huge partly to compensate. Do not read minus 234 as X hating reports 468 times more than it loves likes. Read it as one predicted report outweighing a lot of predicted likes in the math, which for you as a poster lands in the same place. Your reach is decided more by your worst reader than your best one.
+
+That is the actual argument against rage bait and it is a math argument, not a manners one.
+
+
+THE MUTUAL FOLLOW BOOST HAS A CONDITION
+
+If you and the viewer follow each other, the reply weight on your posts jumps from 5.0 to 20.0. The threads got that right. It is a boost of 15.0 added to the base 5.0 in ranking_scorer.rs.
+
+But the eligibility check requires all three of these at once: the post has no in_reply_to_tweet_id, the post has no retweeted_tweet_id, and the author is a mutual follow.
+
+The post cannot itself be a reply. It cannot be a repost. Originals only. The repo's own test says it in the name: bidirectional_weight_boosts_only_mutual_original_posts.
+
+For threads this stacks up worse than I first thought. Part 1 of your thread is an original, so it can carry the 20.0. Parts 2, 3 and 4 are replies to yourself, and replies get hit three separate ways.
+
+One, no mutual boost. They score with the base 5.0.
+
+Two, a 0.75x haircut. In network replies get rescored by the out of network factor, and that switch defaults to on.
+
+Three, no cold start help. The boost that props up small accounts also requires the post not be a reply.
+
+The head of your thread is doing almost all of the work. Front load accordingly.
+
+
+REPLYING TO BIG ACCOUNTS FOR REACH IS SMALLER THAN YOU THINK
+
+Two different mechanisms, two different tabs.
+
+In the For You pipeline there is a filter called oon_retweet_reply_filter.rs that drops out of network replies and reposts wholesale. If a viewer does not follow you, your reply to somebody else basically does not exist in their For You feed. Your replies can only surface to your own followers, and even then at the 0.75x haircut from above.
+
+On the Following tab, self_reply_chain_filter.rs runs instead. It keeps your reply in a viewer's timeline only if that viewer follows the person you replied to. Pure self threads pass clean, the filter explicitly keeps a chain where every ancestor is you.
+
+Put together: threads work, replying at strangers for reach mostly does not, and none of the viral threads described either mechanism.
+
+
+POST LESS. THE DECAY IS REAL AND I HAVE THE NUMBERS
+
+The threads said posting a lot deboosts you and left it there. The mechanism is in ranking_scorer.rs and it is concrete.
+
+Within a feed request, your posts get sorted by score, and each one after your best gets multiplied down by a decay of 0.5 with a floor of 0.25.
+
+Your best post — 1.0x
+Your 2nd best — 0.625x
+Your 3rd — 0.4375x
+Your 4th — 0.34375x
+Asymptote — 0.25x
+
+Your fifth best post of the day is fighting at a quarter strength. It never goes to zero, but quality over quantity is not advice here, it is arithmetic.
+
+
+SHADOWBANNING. THE REAL STORY IS BETTER THAN THE RUMOR
+
+This is the section I got backwards on the first pass, so it got the hardest checking.
+
+The account level labels live in visibility-filtering/rules/user_label_drops.rs. There are eleven: three flavors of NSFW plus NSFW avatar and NSFW banner, spam, compromised, read only, impersonation, abusive, and do not amplify.
+
+Here is the wiring that matters. The For You pipeline routes every candidate through one of two policies. Posts from people you follow go through TimelineHome, and that policy contains ZERO of these account label rules. Posts from strangers go through TimelineHomeRecommendations, which contains all eleven.
+
+So for ordinary posts, a label on your account means non followers stop seeing you while your followers still do. The repo's own tests spell it out with names like nsfw_avatar_user_label_drops_oon_but_allows_in_network. The popular understanding of a shadowban, invisible to strangers, visible to your fans, is genuinely how the code is wired. Credit where due, the viral threads had this directionally right.
+
+But there are two findings on top of that which nobody posted.
+
+First, the leak. Look at how the router in vf_candidate_hydrator.rs handles context. Reply parents and quoted posts are ALWAYS routed through the recommendations policy, even when you follow their author. So if a labeled account you follow gets quoted, or sits upstream in a reply chain, that post can vanish for you anyway. Followers of a labeled account lose their posts exactly when those posts surface as quotes or thread ancestors. Nobody has mentioned this.
+
+Second, you can never see it happening to you. There are seventeen post level labels in tweet_label_drops.rs, including DO_NOT_AMPLIFY, MALICIOUS_URL, gore, and five labels covering hateful conduct, violent speech, abuse, insults and civic integrity. Sixteen of the seventeen carry an author exemption. The rule checks whether the viewer is the author, and if so it allows the post through no matter what.
+
+The account labels exempt the author too, first check in the function. Your post looks completely normal from your own account while it is being dropped for other people. The single exception is FOR_EMERGENCY_USE_ONLY, which hides a post even from the person who wrote it.
+
+That is not a conspiracy theory, it is four lines of Rust, and it is why X had to build the under-the-hood transparency tool at all. That tool, also in this repo, shows you which account and post labels were active on your stuff day by day, and it is the only way to know. Checking your own feed tells you nothing by design.
+
+
+THE HONEST LIMITS
+
+These weights are feature switch defaults, every one named like rust_home_mixer_favorite_weight so production can override it without a deploy. The file says it mirrors live config as of 2026-08-12. Treat the ordering as solid and the exact decimals as a snapshot.
+
+The weighted sum is also the default of two modes. An experimental scoring mode exists behind a param that replaces the whole formula for gated users. And after the sum, scores still pass through normalization, the author diversity decay, an out of network discount, and a cold start adjustment before anything renders.
+
+Ranking is not admission either. The visibility rules decide whether you get in the room. The weights decide who wins once you are inside.
+
+
+WHAT I AM DOING WITH THIS
+
+Writing stuff people forward. The copy link share is the heaviest action in the table and it is the one thing a genuinely useful post produces that a merely clever one does not.
+
+I had a rule written down that said bookmarks were the heaviest signal. The source code says that rule was wrong, so it is getting changed to chase the send instead of the save.
+
+Front loading thread part 1, since it is the only part carrying full weight.
+
+Not replying at big accounts for reach, because two separate filters say that room is tiny.
+
+And capping how much I post into one feed, because the fifth best thing I write today runs at quarter strength.
+
+Repo is github.com/xai-org/x-algorithm. Weights in home-mixer/params/param.rs, routing in visibility-filtering/rules/registry.rs, labels in visibility-filtering/rules. Go check my numbers. I checked them three times and still had to rewrite a section, so do not take mine or anybody's thread on faith either.
