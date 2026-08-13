@@ -206,5 +206,15 @@
         "holds": true
       }
     ]
+  },
+  {
+    "id": "P-009",
+    "claim": "When a leveraged ETF carries higher relative volume than its own cash proxy, the move is retail crowding, not institutional repricing",
+    "test": "On the day, compare rel-vol of the leveraged vehicle vs its cash proxy/underlying. Pattern holds if the move fades or mean-reverts within 7 sessions while the cash proxy never confirms on above-average volume. FALSIFIED if the cash proxy catches up on volume and the move extends past 7 sessions - that would mean real money followed the leverage in.",
+    "first_seen": "2026-08-13",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": []
   }
 ]
