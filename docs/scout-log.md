@@ -54,3 +54,34 @@ Once enough scans accumulate, the data answers questions a single trade never ca
 - LTH is the only *taken* call (starter). Fill is conditional on a pullback to $43.25; if it never fills, mark **no-fill** (the scout was right on the name but the entry discipline kept us out — a separate, useful data point).
 - SMCI is a **BET**, graded separately from the `long` picks — it lives outside `db/archive.json` by rule.
 - SOL/ETH prices are web-verified (Robinhood MCP can't quote crypto pairs); confirm before scoring.
+
+---
+
+## Scan 2026-08-13 — "AI that hasn't popped + power rotation"
+
+**Dispatched:** 4 scouts (AI laggards/Pre-FOMO · power & the AI-electricity rotation · dated catalysts in the swing window · **guide-verification**).
+**Account:** ~$1,018 total — ~$581 Agentic cash (L2, shares + long calls/puts), ~$200 margin (L3, spreads). Hard affordability screen: prefer <$60/share, ceiling $120.
+**Regime at scan (mood):** SPY $776.73 (+0.55%) · VIX 14.69 · F&G 65 Greed · SMH +2.03% · memory ripping (MU +6.81%, WDC +8.72%) · KOSPI closed +3.56%, 4th straight up day. Tape = risk-on, complacent hedging, leadership rotating INTO memory/storage and OUT of generators.
+**Checkpoints due:** 7d ≈ 2026-08-20 · 30d ≈ 2026-09-12.
+
+**Method note — the fourth scout is new and it earned its slot.** A dedicated guide-verification lane was dispatched to answer the v24 Guide Rule question on every "beat-and-fell" candidate the other scouts surfaced. **It killed two of three picks from the AI lane.** KLIC and VECO both *raised* guidance and had already recovered ABOVE their pre-print prices — there was no drawdown left to buy, only a one-session sell-the-news fade that round-tripped. Without that lane we would have pitched two names on a discount that no longer existed. Recommend the guide lane becomes standing on every scan.
+
+| Scout lane | Ticker | Px @ 8/13 12:39pm CT | Plan (entry -> stop -> target) | Conv /10 | Catalyst | Call type | Taken? | +7d % / vs SPY | +30d % / vs SPY | Verdict |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Calendar | **PLAB** | $33.82 | POST-print 8/26: hold >$30.75 -> stop $30.75 -> $40 / $46 | 7.5 | Q3 earnings 8/26 am (verified), est $0.41 cut from the $0.53 it missed on | watch (post-catalyst) | no | | | |
+| Power | **NI** | $42.145 | 13 sh -> stop $41.40 -> $46 / $49 | 7 | Q3 10/28 am (tentative); no near event | watch | no | | | |
+| AI laggard | **AMKR** | $58.33 | 9 sh -> stop $51.19 -> $70 / $80 | 6 | Q3 10/26 pm (tentative) | watch | no | | | |
+| Power | **VST** | $145.89 | L3 only: Sep-18 155/160 call debit spread, ~$138-170 debit | 6.5 | Q3 11/05 am; no near catalyst | watch (spread) | no | | | |
+| Calendar | **PL** | $24.68 | POST-print 9/3: 23 sh -> stop $22.57 -> $32 / $38 | 6 | Q2 9/3 pm (verified) + US federal FY-end 9/30 (unverified-by-tool) | watch (post-catalyst) | no | | | |
+| Power | EXC | $45.43 | 12 sh -> stop $44.30 | 6 | Q3 11/03; div ex-date 9/04 | watch | no | | | |
+| Calendar | WOLF | $31.90 | POST-print 8/20 only, must hold $29.00 | 5 | Q4 earnings 8/19 pm (verified), est -$1.47 | watch (post-catalyst) | no | | | |
+
+**Killed by the guide lane (logged so they are not re-pitched):**
+- **KLIC** $96.92 — guide RAISED hard (Q4 rev $355-395M vs $328.8M cons; TCB FY27 $150-200M vs $100M). Trades ABOVE its pre-print price. No drawdown to buy.
+- **VECO** $54.55 — FY26 revenue RAISED to $780-810M vs $763.8M cons; $200M advanced-packaging orders booked, mostly 2027 delivery. Also above pre-print. The gap-fade was 2027-weighting, not deterioration.
+- **CEVA** $30.60 — guide raised on the wrong line item: licensing +21% y/y but **royalties flat**, and royalties are the annuity. Only name of the five that never bounced (3 straight sessions of bleed). Market repricing the royalty inflection to 2027.
+- **MIR** $15.41 — reaffirmed 5-7% FY organic after delivering **1.2%**, requiring a 7.5-11.2% H2 quadrupling, plus an $18M China order cancellation. Gapped UP then collapsed = the call did the damage, not the release. Correct repricing, thesis NOT intact.
+
+**Framework candidate raised by this scan (not applied):** *a raise is only as good as the line item carrying it.* CEVA raised FY guidance and still got sold, because the raise came from lumpy licensing while the recurring royalty line went flat. A literal P-008 reading ("guide up = buy the reaction") would have been wrong here. Proposed refinement to the Guide Rule: when a guide is raised, identify WHICH line carries it and whether that line is recurring or one-off. Needs a second instance before it changes any rule.
+
+**Sector intelligence:** most extended = uranium/enrichment + electrical equipment (UUUU +12.2% in 5 sessions, NNE +13.0%, CCJ printed $100.14 on 8/12). Most overlooked = **merchant IPPs** — the companies that literally sell electrons to hyperscalers de-rated hardest (VST -33.4% off its high, NRG -36.4% and printed a 52-week low on 8/04). Capital rotated into the fuel and the hardware and out of the generators. Also: **every datacenter-exposed regulated utility missed Q2** (EXC 7/30, NI 8/05, VST 8/07) — that is WHY the rotation has not reached this shelf yet.
