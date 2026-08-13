@@ -3657,5 +3657,40 @@
     "last": "unverified",
     "last_source": "none",
     "last_checked": "2026-08-13T19:53:02.809Z"
+  },
+  {
+    "id": "B-088",
+    "date": "2026-08-13",
+    "ticker": "ONDS",
+    "review_price": 8.91,
+    "review_time": null,
+    "opportunity_score": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": null,
+      "fundamental": null,
+      "execution": null,
+      "overall": null
+    },
+    "fomo": null,
+    "market_risk": null,
+    "hodl": null,
+    "final_call": "CORRECTION TO B-084 - I MISSED THE CATALYST. B-084 was logged at 2:01pm today saying ONDS had no catalyst named. That is WRONG and the book should say so. ONDS REPORTED Q2 ON 2026-08-13 BEFORE THE OPEN (get_earnings_results, verified:true) - EPS -0.19 actual vs -0.07 estimate, a MISS. When Adam asked me to add ONDS I pulled quote, fundamentals, insider check, RSI and the 50-day but never ran the earnings check, so I attributed the -9% to distribution into strength on the insider data. The insider read was real and the PASS was right, but the stated cause was incomplete: the proximate cause was the print, not drift. WHAT ACTUALLY HAPPENED, and it is more interesting than what I wrote: revenue 83.8M vs ~68M est = a 23% BEAT, up MORE THAN 13-FOLD year over year, and FY26 revenue guidance RAISED to 525-550M, roughly 10x prior expectations, with the CEO citing sustained momentum. AND IT STILL CLOSED -8.80% at 8.91. What killed it was underneath the guide: adjusted EBITDA loss WIDENED to 50.6M, gross margin DECLINED to 43.1%, EPS missed, and it carried an EV/Revenue of 40 with a forward P/S above 10 even on 2027 numbers. IDIOSYNCRATIC, NOT SECTOR: drone peers barely moved on a green tape - AVAV -2.27%, KTOS -1.66%, RCAT -0.97%, UMAC +0.81%, SPY +0.68%. ONDS fell 4 to 9 times harder than every peer. FRAMEWORK CONSEQUENCE: this is a direct pressure test of the v24 Guide Rule, which says the forward guide outranks the print. Here the guide was raised TENFOLD and the stock fell 8.8%. It does not falsify P-008 (that pattern requires quarter and guide to point OPPOSITE ways; here both pointed up) but it does bound the Guide Rule: the guide outranks the print, and the LINE ITEMS UNDERNEATH outrank the guide. Logged as P-011 with ONDS and CEVA as its first two instances - CEVA raised FY guidance on lumpy licensing while recurring royalties went flat and fell 17.5% without bouncing for three sessions. Needs a third instance to promote. THE INSIDER READ STILL HOLDS AND IS NOW BETTER EXPLAINED: 32.11M of open-market selling with ZERO buys over 180 days, into a story whose unit economics were deteriorating while the top line went up 13x. They were selling the narrative the market repriced today. SHORT TRIGGER DID NOT ARM: B-084 said the short arms on a close below the falling 50-day at 8.5248. It closed 8.91, ABOVE it, and is 9.03 after hours. No short. That call held. Still NO TRADE both directions.",
+    "call_type": "pass",
+    "trigger": null,
+    "invalidation": null,
+    "size": null,
+    "max_loss": null,
+    "engine": "claude",
+    "logged_by": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": null,
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-13T21:33:24.639Z"
   }
 ]
