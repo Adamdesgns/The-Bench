@@ -85,3 +85,45 @@ Once enough scans accumulate, the data answers questions a single trade never ca
 **Framework candidate raised by this scan (not applied):** *a raise is only as good as the line item carrying it.* CEVA raised FY guidance and still got sold, because the raise came from lumpy licensing while the recurring royalty line went flat. A literal P-008 reading ("guide up = buy the reaction") would have been wrong here. Proposed refinement to the Guide Rule: when a guide is raised, identify WHICH line carries it and whether that line is recurring or one-off. Needs a second instance before it changes any rule.
 
 **Sector intelligence:** most extended = uranium/enrichment + electrical equipment (UUUU +12.2% in 5 sessions, NNE +13.0%, CCJ printed $100.14 on 8/12). Most overlooked = **merchant IPPs** — the companies that literally sell electrons to hyperscalers de-rated hardest (VST -33.4% off its high, NRG -36.4% and printed a 52-week low on 8/04). Capital rotated into the fuel and the hardware and out of the generators. Also: **every datacenter-exposed regulated utility missed Q2** (EXC 7/30, NI 8/05, VST 8/07) — that is WHY the rotation has not reached this shelf yet.
+
+---
+
+## Scan 2026-08-13 (second scan, afternoon) — "10 scouts on the catalyst list"
+
+**Dispatched:** 10 scouts, at Adam's request, across the catalyst calendar 8/17–9/30 — by date block (A: 8/17-19 · B: 8/20-21 · C: 8/24-26 · D: 8/27-9/4 · E: 9/8-18 · F: 9/19-30) and by theme (G: non-earnings catalysts · H: China ADRs · I: high-beta sub-$30 movers · J: energy/power/shipping).
+**Account:** ~$1,018 — ~$581 Agentic cash (L2), ~$200 margin (L3).
+**New constraints this scan:** Adam rejected ETFs outright — *"I don't want an etf they don't move enough"* — so single names only, and every scout had to quantify the **dollar swing per $581 position**. Affordability wall unchanged: prefer <$60/share, ceiling $120.
+**Regime at scan:** SPY $777.68 (+0.67%) · VIX 14.69 · F&G 65 Greed · memory/storage leading (MU +6.8%, WDC +8.7%) · KOSPI +3.56%. AMAT pre-catalyst deadline passed at 2:00pm CT with the framework on PASS; AMAT closed the window back BELOW its 50-day at ~554.8 after briefly clearing it.
+**Checkpoints due:** 7d ≈ 2026-08-20 · 30d ≈ 2026-09-14.
+
+| Scout lane | Ticker | Px @ 8/13 2:01pm CT | Catalyst (verified?) | Plan | Conv /10 | Call type | Taken? | +7d / vs SPY | +30d / vs SPY | Verdict |
+|---|---|---|---|---|---|---|---|---|---|---|
+| G · non-earnings | **ZYME** | $25.83 | **PDUFA 8/25** (SEC 8-K sourced) | PRE-position, stop 23.98 (rising 50d) | **7** | conditional **B-085** | no | | | |
+| B · 8/20-21 | **AAP** | $57.43 | Q2 **8/20 am, verified** | POST-print, hold earnings-day low | **8** | watch | no | | | |
+| A · 8/17-19 | **KLAR** | $20.58 | Q2 **8/18 am, verified** | POST-print, reclaim opening range | 7 | watch | no | | | |
+| C · 8/24-26 | **KSS** | $19.575 | Q2 **8/26 am, verified** | POST-print, hold opening-range high | 7 | watch | no | | | |
+| D · 8/27-9/4 | **AMBA** | $82.615 | Q2 **9/3 pm, verified** | POST-print 9/4 | 7 | watch | no | | | |
+| J · shipping | SFL | $12.205 | Q2 8/25 am (**unverified**) | POST-print hold | 6 | watch | no | | | |
+| I · movers | CSIQ | $15.375 | Q2 **8/27 am, verified** | POST-print, 13.25 floor | 6 | watch | no | | | |
+| H · China | BZ | $15.285 | Q2 8/24 am (**unverified**) | POST-print, reclaim the open | 6 | watch | no | | | |
+| — · Adam ask | **ONDS** | $8.89 | none named | **NO TRADE both ways**; short arms below 8.52 | — | pass **B-084** | no | | | |
+| E · 9/8-18 | PLAY / ODD | $10.71 / $13.11 | 9/14(t) / **9/9 pm verified** | diary only | 6 / 5 | diary | no | | | |
+| F · 9/19-30 | KMX / LW | $59.90 / $54.14 | **9/29 am verified** / 9/29(t) | diary only | 5 / 4 | diary | no | | | |
+
+### The scan's real output was three falsifications, not the picks
+
+1. **The government fiscal-year-end seasonal is FOLKLORE — tested and killed.** Scout F pulled 11 years of September returns across KTOS, LDOS, CACI, SAIC, BAH, LMT, NOC, GD (88 name-years): **mean −0.83%, median −1.12%, positive only 40/88. Six of eight names LOSE money in September**, and every one underperforms its own all-other-month average. Relative to SPY there is a +0.52% mean tilt with sd 1.82% and **t = 0.94** — economically worthless. Worse for us: the *affordable* small caps are actively hostile — **BKSY mean September −12.8% (2/5 positive), RDW −4.8% (2/5)**. **This directly weakens the secondary leg of the PL thesis** from this morning's scan, which leaned partly on the 9/30 federal FY-end. PL's 9/3 earnings catalyst stands; the FY-end tailwind does not.
+
+2. **"Uranium is extended" was WRONG — Scout J refuted this morning's read with live data.** The complex is not extended, it is **wrecked and three weeks off a bottom**: UUUU −47.7% off its high, NNE −66.7% (52wk low 7/29), LEU −59.0% (low 7/17), SMR −82.6%, OKLO −75.6% (low 7/29), CCJ −27.4% and it did NOT hold $100. The +12%/+13% five-session moves are the first leg off a July capitulation, not a crowded trade. **Correcting our own morning call.** The "merchant IPPs are overlooked" half was confirmed (NRG −36.9% with its 52wk low on 8/04, VST −33.1%).
+
+3. **P-010 logged:** a commodity/rate-linked stock only trades its own earnings if earnings days appear in its ten biggest single-day moves. Evidence: ZIM 0/10 (avg earnings move 1.90%), FRO 0/10 (3.55%), NMM 0/10 (2.04%), NAT 1/10 (3.20%) — versus falsifying controls SFL 4/10 (8.57%) and TRMD 2/10 (6.05%). Six names, clean split. Saves us from buying a rate proxy wearing an earnings costume.
+
+### Capital collisions the calendar creates (there is only ~$581 — this is a QUEUE, not a portfolio)
+- **KLAR 8/18 collides with VNET 8/18.** Same session.
+- **KSS 8/26 and ZYME's 8/25 PDUFA both collide with the LOCKED PLAB print on 8/26 (B-082).**
+- Non-conflicting sequence: **VNET 8/18 → AAP 8/20 → PLAB 8/26 (locked) → AMBA 9/3.**
+
+### Other intelligence
+- **China ADRs sold off complex-wide** — Scout H found 22 of 23 red while SPY was +0.61%, KWEB −2.78% vs FXI −1.15% (ADR/internet hit 2.4x harder than China broad). Cause not identifiable with price data alone; **not guessed**. **VNET was the exception at +0.67% green** — real relative strength on a bad day for its group, which supports the VNET thesis without de-risking its 8/18 print.
+- **Guide-lane finding still holds:** ANF has beaten EPS four straight quarters and fallen on two of them; CHWY has beaten six straight and sits −49% off its high. Beat-and-fall is the modal outcome in retail right now (P-006).
+- Highest ATR% found and **rejected**: FCEL at 14.31% of price per day — volatility with no structure, no invalidation that survives contact. Rejected as "a coin flip with a ticker on it."

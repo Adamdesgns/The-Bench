@@ -216,5 +216,22 @@
     "why": null,
     "logged_by": "claude",
     "instances": []
+  },
+  {
+    "id": "P-010",
+    "claim": "A commodity- or rate-linked stock only trades its own earnings if earnings days appear among its ten biggest single-day moves; otherwise the print is the wrong catalyst",
+    "test": "For the name, rank its ten largest single-day moves over ~18 months and count how many are earnings reaction days, then compare the average absolute earnings-day move to the stock's overall volatility. Pattern HOLDS if names with 2+ earnings days in the top ten move materially on their prints while names with 0-1 do not (their average earnings-day move collapses toward ~2% despite high general ATR). FALSIFIED if a name with 0-1 earnings days in its top ten nevertheless produces repeated large, tradeable earnings reactions.",
+    "first_seen": "2026-08-13",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-08-13",
+        "ticker": "ZIM",
+        "detail": "ZIM: 0 of its 10 biggest single-day moves in 18 months are earnings days. Avg earnings-day move 1.90% despite ATR 3.17%. Its +39.6% move (2/13-2/17) was NOT an earnings date - Q4 printed 3/9. Confirmed by FRO (0/10, avg 3.55%), NAT (1/10, 3.20%) and NMM (0/10, 2.04%). Falsifying controls in the same lane: SFL 4/10 with avg 8.57% and TRMD 2/10 with avg 6.05% - both DO move on their own prints. Six names measured, clean split.",
+        "holds": true
+      }
+    ]
   }
 ]
