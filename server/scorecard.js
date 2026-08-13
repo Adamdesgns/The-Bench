@@ -8,7 +8,7 @@
 
 import { loadArchive, writeArchive } from "./reconcile.js";
 import { getDatedCloses } from "./dataProviders.js";
-import { classifyCall, benchmarkFor, pctMove, scoreCall, triggerFiredIn } from "./scoring.js";
+import { classifyCall, benchmarkFor, normalizeTrigger, pctMove, scoreCall, triggerFiredIn } from "./scoring.js";
 import { CLOSING_HORIZON, checkpointDate, closeOnOrBefore, dueCheckpoints } from "./checkpoints.js";
 
 const OUTCOME_FOR = { right: "Win", wrong: "Loss", flat: "Flat", not_scorable: "Unscored" };
@@ -57,7 +57,9 @@ export async function scoreRows(rows, { today, fetchBars }) {
       const benchPct = pctMove(benchStart?.close ?? null, benchEnd?.close ?? null);
 
       const triggerFired =
-        type === "conditional" ? triggerFiredIn(assetBars, row.date, asof, row.trigger) : null;
+        type === "conditional"
+          ? triggerFiredIn(assetBars, row.date, asof, normalizeTrigger(row.trigger, row.review_price))
+          : null;
 
       const { verdict, alpha, note } = scoreCall({ type, assetPct, benchPct, triggerFired });
 
