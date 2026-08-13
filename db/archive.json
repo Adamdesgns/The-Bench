@@ -41,6 +41,18 @@
         "note": "long — beat the benchmark",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:34:04.525Z"
+      },
+      "1m": {
+        "asof": "2026-07-30",
+        "price": 451.1000061035156,
+        "asset_pct": 21.46,
+        "bench": "SPY",
+        "bench_pct": -0.68,
+        "alpha": 22.14,
+        "verdict": "right",
+        "note": "long — beat the benchmark",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:32.281Z"
       }
     }
   },
@@ -86,6 +98,18 @@
         "note": "pass — correctly skipped",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:34:04.691Z"
+      },
+      "1m": {
+        "asof": "2026-07-30",
+        "price": 0.17188499867916107,
+        "asset_pct": -4.51,
+        "bench": "BTC",
+        "bench_pct": 10.53,
+        "alpha": -15.04,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:32.501Z"
       }
     }
   },
@@ -131,6 +155,18 @@
         "note": "pass — correctly skipped",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:34:04.780Z"
+      },
+      "1m": {
+        "asof": "2026-07-30",
+        "price": 35.529998779296875,
+        "asset_pct": -43.15,
+        "bench": "SPY",
+        "bench_pct": -0.68,
+        "alpha": -42.47,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:32.815Z"
       }
     }
   },
@@ -206,7 +242,19 @@
         "verdict": "not_scorable",
         "note": "hedge — no position, size or entry is recorded to score against",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:49:04.836Z"
+        "scored_at": "2026-08-12T23:47:32.986Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 155.44000244140625,
+        "asset_pct": 13.34,
+        "bench": "SPY",
+        "bench_pct": 0.3,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "hedge — no position, size or entry is recorded to score against",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:32.986Z"
       }
     }
   },
@@ -251,7 +299,19 @@
         "verdict": "not_scorable",
         "note": "hedge — no position, size or entry is recorded to score against",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:49:05.161Z"
+        "scored_at": "2026-08-12T23:47:33.138Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 196.8300018310547,
+        "asset_pct": 17.3,
+        "bench": "SPY",
+        "bench_pct": 0.3,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "hedge — no position, size or entry is recorded to score against",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:33.138Z"
       }
     }
   },
@@ -296,7 +356,19 @@
         "verdict": "not_scorable",
         "note": "hedge — no position, size or entry is recorded to score against",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:49:05.473Z"
+        "scored_at": "2026-08-12T23:47:33.324Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 120.4800033569336,
+        "asset_pct": 16.36,
+        "bench": "SPY",
+        "bench_pct": 0.3,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "hedge — no position, size or entry is recorded to score against",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:33.324Z"
       }
     }
   },
@@ -341,7 +413,19 @@
         "verdict": "not_scorable",
         "note": "hedge — no position, size or entry is recorded to score against",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:49:05.735Z"
+        "scored_at": "2026-08-12T23:47:33.470Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 57.06999969482422,
+        "asset_pct": 18.53,
+        "bench": "SPY",
+        "bench_pct": 0.3,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "hedge — no position, size or entry is recorded to score against",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:33.470Z"
       }
     }
   },
@@ -390,6 +474,18 @@
         "note": "conditional — triggered and did not run",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:49:06.060Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 582.739990234375,
+        "asset_pct": 11.64,
+        "bench": "SPY",
+        "bench_pct": 0.3,
+        "alpha": 11.34,
+        "verdict": "right",
+        "note": "conditional — triggered and ran",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:33.709Z"
       }
     }
   },
@@ -438,6 +534,18 @@
         "note": "pass — went nowhere either way",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:34:05.692Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 823.030029296875,
+        "asset_pct": -15.89,
+        "bench": "SPY",
+        "bench_pct": 0.3,
+        "alpha": -16.19,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:33.855Z"
       }
     }
   },
@@ -489,6 +597,18 @@
         "note": "conditional — triggered and ran",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:49:06.264Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 62763.3203125,
+        "asset_pct": 2.29,
+        "bench": "SPY",
+        "bench_pct": 0.3,
+        "alpha": 1.99,
+        "verdict": "right",
+        "note": "conditional — triggered and ran",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:33.855Z"
       }
     }
   },
@@ -533,7 +653,19 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:49:06.545Z"
+        "scored_at": "2026-08-12T23:47:34.015Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 1843.417724609375,
+        "asset_pct": 8.55,
+        "bench": "BTC",
+        "bench_pct": 2.08,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "conditional — trigger level not recorded, so the gate cannot be judged",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:34.015Z"
       }
     }
   },
@@ -578,7 +710,19 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:49:06.776Z"
+        "scored_at": "2026-08-12T23:47:34.177Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 574.9596557617188,
+        "asset_pct": 2.31,
+        "bench": "BTC",
+        "bench_pct": 2.08,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "conditional — trigger level not recorded, so the gate cannot be judged",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:34.177Z"
       }
     }
   },
@@ -627,6 +771,18 @@
         "note": "pass — correctly skipped",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:34:05.952Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 1.059743046760559,
+        "asset_pct": -2.78,
+        "bench": "BTC",
+        "bench_pct": 2.08,
+        "alpha": -4.86,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:34.342Z"
       }
     }
   },
@@ -671,7 +827,19 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:49:07.000Z"
+        "scored_at": "2026-08-12T23:47:34.462Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 71.86627960205078,
+        "asset_pct": -10.9,
+        "bench": "BTC",
+        "bench_pct": 2.08,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "conditional — trigger level not recorded, so the gate cannot be judged",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:34.462Z"
       }
     }
   },
@@ -717,6 +885,18 @@
         "note": "pass — it outran the benchmark",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:34:06.145Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 0.3275359869003296,
+        "asset_pct": 3.03,
+        "bench": "BTC",
+        "bench_pct": 2.08,
+        "alpha": 0.95,
+        "verdict": "flat",
+        "note": "pass — went nowhere either way",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:34.576Z"
       }
     }
   },
@@ -767,7 +947,19 @@
         "verdict": "not_scorable",
         "note": "price not observable at this checkpoint",
         "source": "none",
-        "scored_at": "2026-07-28T21:49:08.009Z"
+        "scored_at": "2026-08-12T23:47:35.437Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": null,
+        "asset_pct": null,
+        "bench": "BTC",
+        "bench_pct": 2.08,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "price not observable at this checkpoint",
+        "source": "none",
+        "scored_at": "2026-08-12T23:47:35.437Z"
       }
     }
   },
@@ -813,6 +1005,18 @@
         "note": "pass — correctly skipped",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:34:06.927Z"
+      },
+      "1m": {
+        "asof": "2026-08-01",
+        "price": 0.06907200068235397,
+        "asset_pct": -7,
+        "bench": "BTC",
+        "bench_pct": 2.08,
+        "alpha": -9.08,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:35.612Z"
       }
     }
   },
@@ -864,6 +1068,18 @@
         "note": "conditional — triggered and ran",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:49:08.256Z"
+      },
+      "1m": {
+        "asof": "2026-08-05",
+        "price": 55.720001220703125,
+        "asset_pct": -17.71,
+        "bench": "SPY",
+        "bench_pct": 2.46,
+        "alpha": -20.17,
+        "verdict": "wrong",
+        "note": "conditional — triggered and did not run",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:35.733Z"
       }
     }
   },
@@ -909,6 +1125,18 @@
         "note": "pass — correctly skipped",
         "source": "yahoo",
         "scored_at": "2026-07-28T21:34:07.112Z"
+      },
+      "1m": {
+        "asof": "2026-08-10",
+        "price": 3.940000057220459,
+        "asset_pct": -24.67,
+        "bench": "SPY",
+        "bench_pct": 2.39,
+        "alpha": -27.06,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:35.863Z"
       }
     }
   },
@@ -1001,7 +1229,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-07-28T21:49:08.534Z"
+        "scored_at": "2026-08-12T23:47:35.976Z"
       }
     }
   },
@@ -1034,7 +1262,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-04T23:30:00.000Z"
+    "last_checked": "2026-08-04T23:30:00.000Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-11",
+        "price": 133.2899932861328,
+        "asset_pct": 5.87,
+        "bench": "SPY",
+        "bench_pct": -0.1,
+        "alpha": 5.97,
+        "verdict": "wrong",
+        "note": "pass — it outran the benchmark",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.081Z"
+      }
+    }
   },
   {
     "id": "B-024",
@@ -1069,7 +1311,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-04T23:46:58.819Z"
+    "last_checked": "2026-08-04T23:46:58.819Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-11",
+        "price": 133.2899932861328,
+        "asset_pct": 5.87,
+        "bench": "SPY",
+        "bench_pct": -0.1,
+        "alpha": 5.97,
+        "verdict": "right",
+        "note": "conditional — triggered and ran",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.082Z"
+      }
+    }
   },
   {
     "id": "B-025",
@@ -1104,7 +1360,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-05T00:34:01.602Z"
+    "last_checked": "2026-08-05T00:34:01.602Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-11",
+        "price": 57.02000045776367,
+        "asset_pct": 11.17,
+        "bench": "SPY",
+        "bench_pct": -0.1,
+        "alpha": 11.27,
+        "verdict": "wrong",
+        "note": "pass — expensive pass, it ran without us",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.197Z"
+      }
+    }
   },
   {
     "id": "B-026",
@@ -1139,7 +1409,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-05T00:34:01.762Z"
+    "last_checked": "2026-08-05T00:34:01.762Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-11",
+        "price": 174.94000244140625,
+        "asset_pct": 10.34,
+        "bench": "SPY",
+        "bench_pct": -0.1,
+        "alpha": 10.44,
+        "verdict": "wrong",
+        "note": "pass — expensive pass, it ran without us",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.321Z"
+      }
+    }
   },
   {
     "id": "B-027",
@@ -1174,7 +1458,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-05T00:34:01.897Z"
+    "last_checked": "2026-08-05T00:34:01.897Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-10",
+        "price": 278.0899963378906,
+        "asset_pct": -2.31,
+        "bench": "SPY",
+        "bench_pct": 2.03,
+        "alpha": -4.34,
+        "verdict": "right",
+        "note": "conditional — correctly never triggered",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.474Z"
+      }
+    }
   },
   {
     "id": "B-028",
@@ -1209,7 +1507,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-05T10:48:26.636Z"
+    "last_checked": "2026-08-05T10:48:26.636Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-12",
+        "price": 482.92999267578125,
+        "asset_pct": 2.12,
+        "bench": "SPY",
+        "bench_pct": 0.35,
+        "alpha": 1.77,
+        "verdict": "wrong",
+        "note": "pass — it outran the benchmark",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.594Z"
+      }
+    }
   },
   {
     "id": "B-029",
@@ -1244,7 +1556,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-05T12:09:47.564Z"
+    "last_checked": "2026-08-05T12:09:47.564Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-11",
+        "price": 474.32000732421875,
+        "asset_pct": -9.31,
+        "bench": "SPY",
+        "bench_pct": -0.1,
+        "alpha": -9.21,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.594Z"
+      }
+    }
   },
   {
     "id": "B-030",
@@ -1279,7 +1605,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-05T12:45:18.061Z"
+    "last_checked": "2026-08-05T12:45:18.061Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-10",
+        "price": 506.05999755859375,
+        "asset_pct": 3.15,
+        "bench": "SPY",
+        "bench_pct": 2.03,
+        "alpha": 1.12,
+        "verdict": "right",
+        "note": "conditional — triggered and ran",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.594Z"
+      }
+    }
   },
   {
     "id": "B-031",
@@ -1314,7 +1654,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-05T16:02:03.346Z"
+    "last_checked": "2026-08-05T16:02:03.346Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-12",
+        "price": 482.92999267578125,
+        "asset_pct": 0.53,
+        "bench": "SPY",
+        "bench_pct": 0.35,
+        "alpha": 0.18,
+        "verdict": "flat",
+        "note": "pass — went nowhere either way",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.594Z"
+      }
+    }
   },
   {
     "id": "B-032",
@@ -1384,7 +1738,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-05T16:37:58.558Z"
+    "last_checked": "2026-08-05T16:37:58.558Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-12",
+        "price": 343.5400085449219,
+        "asset_pct": -5.46,
+        "bench": "SPY",
+        "bench_pct": 0.35,
+        "alpha": -5.81,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.594Z"
+      }
+    }
   },
   {
     "id": "B-034",
@@ -1419,7 +1787,21 @@
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
-    "last_checked": "2026-08-05T20:15:38.832Z"
+    "last_checked": "2026-08-05T20:15:38.832Z",
+    "checkpoints": {
+      "1w": {
+        "asof": "2026-08-12",
+        "price": 145.05999755859375,
+        "asset_pct": 8.96,
+        "bench": "SPY",
+        "bench_pct": 0.35,
+        "alpha": 8.61,
+        "verdict": "wrong",
+        "note": "conditional — never triggered and it ran without us",
+        "source": "yahoo",
+        "scored_at": "2026-08-12T23:47:36.715Z"
+      }
+    }
   },
   {
     "id": "B-035",
@@ -2750,5 +3132,40 @@
     "last": "unverified",
     "last_source": "none",
     "last_checked": "2026-08-12T22:09:23.514Z"
+  },
+  {
+    "id": "B-073",
+    "date": "2026-08-12",
+    "ticker": "SPCX",
+    "review_price": 146.18,
+    "review_time": null,
+    "opportunity_score": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": null,
+      "fundamental": null,
+      "execution": null,
+      "overall": null
+    },
+    "fomo": null,
+    "market_risk": null,
+    "hodl": null,
+    "final_call": "KIDS ACCUMULATION T1 - Adam's explicit decision to start the position at 146.18 (+39.4% off the 104.83 low, 8 sessions). The 126.61-126.71 gate from B-070 never filled; waiting for it back is a guess the calendar does not promise, and on a 15-year UTMA horizon the entry tick is noise. Structure: T1 25% now (fractional dollars, market, regular hours) - T2 35% after the late-Sept ~6x float expansion washes through (early-to-mid Oct) - T3 40% after the 2026-12-08 lockup expiry. Optional: if 126-127 prints before late Sept, pull half of T2 forward. NO price stop - HODL sizing rules apply: total sized to survive a 40-50% drawdown; 104.83 is the structural floor MARKER for thesis review, not a stop order. v24 GUIDE RULE note: the +39% run is supply/flow + Starlink launch + merger chatter, NOT a guide repricing (Q2 guide was mixed - 100B ARR pace vs the capex shock), so this does NOT qualify as a reaction entry for the swing book; swing stance at 146 remains no-trade. Kids bucket only, separate capital, separate rules.",
+    "call_type": "long",
+    "trigger": null,
+    "invalidation": 104.83,
+    "size": "kids UTMA T1 = 25% of intended total allocation, fractional dollar buy",
+    "max_loss": null,
+    "engine": "claude",
+    "logged_by": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": null,
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-12T23:12:24.764Z"
   }
 ]
