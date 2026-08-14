@@ -2,7 +2,7 @@
   {
     "sym": "HPQ",
     "status": "POSITION",
-    "note": "Long 15 @ 29.15 \u00b7 **stop 29.30 STOP-mkt GTC \u2014 broker-confirmed 8/13 10:33am CT** (order resting, placed 08:14 CT; supersedes the stale 27.65 note). Stop now sits ABOVE the 29.15 basis, so the trade is locked green: worst case +$2.25, remaining risk $12.15 from 30.11. T1 32.80 \u00b7 earnings Aug 26 pm \u2014 hold-through decision due Aug 25 close. 8/13: failed the breakout \u2014 printed 32.19 (new 52wk high) then round-tripped the whole +6.97% gap on ~4x volume; 32.19 is now fresh overhead. Do not add, let the stop work (B-072 \u2192 B-077 \u2192 B-078)"
+    "note": "Long 15 @ 29.15 \u00b7 **stop 29.30 STOP-mkt GTC \u2014 re-verified resting at broker 8/13 7:50pm CT** (order 6a7dc34b, state=confirmed). Locked green: worst case ~+$2.30 before slippage. EXIT PLAN (B-090): three doors \u2014 (1) stop 29.30 automatic \u00b7 (2) T1 32.80 = trim 50% default + ratchet stop \u00b7 (3) HARD DATE Tue 8/25 by the close = hold-through-earnings decision (print 8/26 pm, same night as NVDA); if T1 unpaid by then, FLATTEN. 8/13 close: the morning round-trip did NOT hold \u2014 recovered all day, closed 31.30 (+6.90%) near session high on 1.57x volume; 32.19 (new 52wk high) is the only overhead before T1. NO ADD \u2014 earnings inside the window (B-072 \u2192 B-077 \u2192 B-078 \u2192 B-090)"
   },
   {
     "sym": "SPCX",
@@ -58,6 +58,21 @@
     "sym": "AAP",
     "status": "QUEUE",
     "note": "#3 in the queue (scout 8/13, conv 8) - earnings 8/20 am. Averages a 10.3% gap; 2 of last 3 up-gaps closed red, so POST-print only: make the gap prove itself. Today's +7.20% came on below-avg volume, no identifiable cause (unverified), and landed exactly on the 50-day 57.29 - that shelf into the print is the tell. Arms with a real level on earnings day"
+  },
+  {
+    "sym": "OXY",
+    "status": "WATCH",
+    "note": "Best of the 200w-MA viral-list scan (8/13, 40 names verified, 17 actually in-zone). Guide RAISED 8/5, 7/7 beats, FCF ~$3B best since 2022, CEO bought $250k open-market 6/24 — the only insider buy across six deep-dives. NOT a buy at 57.70: +20.4% in 6.5 weeks into the 59.1–61.4 supply shelf. ARM on a close >59.60 on above-avg volume, alt entry a hold of 55.8–56.0. Earnings 11/9 outside window. Prior fundamental B- (B-008) is stale — fresh grade required before any accumulation claim (B-093)"
+  },
+  {
+    "sym": "DIS",
+    "status": "WATCH",
+    "note": "Cleanest base of the 200w-MA scan — 12.5% off high, mild accumulation, 8 straight beats, first close back above the 200-day (104.26) in 6 months. Reclaim is ONE day old and the 8/5 guide direction unverified. ARM on a close >105.25; invalidated on a close <102.00. No catalyst inside the window (earnings ~11/12). Feb 2 proved a beat can still gap −7.4% here (B-094)"
+  },
+  {
+    "sym": "SMCI",
+    "status": "WATCH",
+    "note": "No Trade at 39.16 — the miss+raise repricing was real (P-008) but we are D+3 after +24%, day two rejected at 42.30, nearest structure 33.94 gap-hold 13% below. RE-ARM on a pullback that HOLDS 34–35.3 (gap-hold + 200w MA) on drying volume. Two 28–33% single-day collapses this year — never hold this name without structure underneath (B-096)"
   },
   {
     "sym": "AMBA",
