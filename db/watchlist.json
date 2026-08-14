@@ -2,7 +2,7 @@
   {
     "sym": "HPQ",
     "status": "POSITION",
-    "note": "Long 15 @ 29.15 \u00b7 **stop 29.30 STOP-mkt GTC \u2014 broker-confirmed 8/13 10:33am CT** (order resting, placed 08:14 CT; supersedes the stale 27.65 note). Stop now sits ABOVE the 29.15 basis, so the trade is locked green: worst case +$2.25, remaining risk $12.15 from 30.11. T1 32.80 \u00b7 earnings Aug 26 pm \u2014 hold-through decision due Aug 25 close. 8/13: failed the breakout \u2014 printed 32.19 (new 52wk high) then round-tripped the whole +6.97% gap on ~4x volume; 32.19 is now fresh overhead. Do not add, let the stop work (B-072 \u2192 B-077 \u2192 B-078)"
+    "note": "Long 15 @ 29.15 \u00b7 **stop 29.30 STOP-mkt GTC \u2014 re-verified resting at broker 8/13 7:50pm CT** (order 6a7dc34b, state=confirmed). Locked green: worst case ~+$2.30 before slippage. EXIT PLAN (B-090): three doors \u2014 (1) stop 29.30 automatic \u00b7 (2) T1 32.80 = trim 50% default + ratchet stop \u00b7 (3) HARD DATE Tue 8/25 by the close = hold-through-earnings decision (print 8/26 pm, same night as NVDA); if T1 unpaid by then, FLATTEN. 8/13 close: the morning round-trip did NOT hold \u2014 recovered all day, closed 31.30 (+6.90%) near session high on 1.57x volume; 32.19 (new 52wk high) is the only overhead before T1. NO ADD \u2014 earnings inside the window (B-072 \u2192 B-077 \u2192 B-078 \u2192 B-090). **8/14 9:31am CT: STOP DID NOT FILL** \u2014 position verified live at the broker (15 sh, all 15 held-for-sells, stop resting). 30.63 (\u22122.14%), $1.33 above the stop and $1.48 above cost. T1 32.80 unpaid, 7.1% away. No capital freed; B-072 stays open"
   },
   {
     "sym": "SPCX",
@@ -17,7 +17,7 @@
   {
     "sym": "GDS",
     "status": "ARMED",
-    "note": "THE ROUTED TRADE \u2014 replaces the VNET press. Closed 34.795 (+6.28%) after MISSING EPS 61% ($0.52 vs $1.35), because it RAISED FY26 revenue guidance and DOUBLED its bookings target 500MW \u2192 1GW (binding commitments >2GW, capex raised). P-008 instance 4, on 3.05x relative volume. \u26a0\ufe0f **BUY ZONE 33.50\u201334.80 \u2014 DO NOT CHASE THE OPEN.** It closed AFTER HOURS at 35.50, above the 35.40 session high, so a gap up is likely. At 34.80 the R:R to the 200-day is only 1.45:1 (FAILS the 2:1 minimum); at 34.00 it is 3.04:1 and at 33.50 it is 5.44:1 \u2014 the entry IS the trade. Above 35.00 stand down; above ~36.30 it no longer fits the risk budget. STOP 32.70 (5th consecutive higher low: 29.29\u219230.81\u219230.99\u219231.85\u219232.70, 50-day 32.354 beneath). SIZE = $50 \u00f7 (entry \u2212 32.70). T1 37.85 (200-day + June high confluence, trim 50% + stop to breakeven), T2 40.00. RSI 52.4 neutral before the move. Next earnings 11/18 \u2014 outside the swing window. China ADR: Cayman structure, HFCAA tail, overnight policy gaps. COMPETES with PLAB 8/26 and ZYME 8/25 \u2014 ~$581 funds ONE (B-087)"
+    "note": "THE ROUTED TRADE \u2014 replaces the VNET press. Closed 34.795 (+6.28%) after MISSING EPS 61% ($0.52 vs $1.35), because it RAISED FY26 revenue guidance and DOUBLED its bookings target 500MW \u2192 1GW (binding commitments >2GW, capex raised). P-008 instance 4, on 3.05x relative volume. \u26a0\ufe0f **BUY ZONE 33.50\u201334.80 \u2014 DO NOT CHASE THE OPEN.** It closed AFTER HOURS at 35.50, above the 35.40 session high, so a gap up is likely. At 34.80 the R:R to the 200-day is only 1.45:1 (FAILS the 2:1 minimum); at 34.00 it is 3.04:1 and at 33.50 it is 5.44:1 \u2014 the entry IS the trade. Above 35.00 stand down; above ~36.30 it no longer fits the risk budget. STOP 32.70 (5th consecutive higher low: 29.29\u219230.81\u219230.99\u219231.85\u219232.70, 50-day 32.354 beneath). SIZE = $50 \u00f7 (entry \u2212 32.70). T1 37.85 (200-day + June high confluence, trim 50% + stop to breakeven), T2 40.00. RSI 52.4 neutral before the move. Next earnings 11/18 \u2014 outside the swing window. China ADR: Cayman structure, HFCAA tail, overnight policy gaps. COMPETES with PLAB 8/26 and ZYME 8/25 \u2014 ~$581 funds ONE (B-087). **8/14 9:31am CT queue check: DID NOT FILL.** Gapped over the zone \u2014 opened 36.07 (above the 35.00 stand-down line, near the ~36.30 budget bound), then faded all hour to a session low of 34.93, thirteen cents above the 34.80 zone top. Zone never touched, stop 32.70 untested, plan unchanged. Still #1 in the queue and the only live one"
   },
   {
     "sym": "VNET",
@@ -37,7 +37,7 @@
   {
     "sym": "EWY",
     "status": "WATCH",
-    "note": "KOSPI PROXY \u2014 the index itself is not observable via the Robinhood MCP, so EWY (Samsung/SK Hynix top weights, US hours) is the stand-in. KOSPI closed +3.56% at 6,813.34 on 8/13, 4th straight up day, +20% off the July low (web-sourced). TRIGGER 180.99 (today's high) on ABOVE-average volume \u2014 that would mean the cash market, not the leverage, is doing the buying. Today it is +2.39% on only 0.87x rel-vol while RAM runs 2.15x, which is crowding, not accumulation (P-003/P-009). INVALIDATED below 175.87. Still \u221218.5% under its 6/18 high of 220.89. Sizing: 1 share = 18% of the account, so GROW-INTO even if it triggers (B-081)"
+    "note": "KOSPI PROXY \u2014 the index itself is not observable via the Robinhood MCP, so EWY (Samsung/SK Hynix top weights, US hours) is the stand-in. KOSPI closed +3.56% at 6,813.34 on 8/13, 4th straight up day, +20% off the July low (web-sourced). TRIGGER 180.99 (today's high) on ABOVE-average volume \u2014 that would mean the cash market, not the leverage, is doing the buying. Today it is +2.39% on only 0.87x rel-vol while RAM runs 2.15x, which is crowding, not accumulation (P-003/P-009). INVALIDATED below 175.87. Still \u221218.5% under its 6/18 high of 220.89. Sizing: 1 share = 18% of the account, so GROW-INTO even if it triggers. 8/14 pre-market indicated ~182.16, ABOVE the 180.99 trigger — the volume leg decides at the open (B-081)"
   },
   {
     "sym": "RAM",
@@ -47,7 +47,7 @@
   {
     "sym": "AMAT",
     "status": "WATCH",
-    "note": "Conviction Tier PASS at 553.36 \u2014 0 of 4 gates, deadline 2:00pm CT 8/13, pre-catalyst play now DEAD by rule. Reports 8/13 pm (est 3.39). Friday 8/14 reaction is the live plan: answer the GUIDE question first (v24 Guide Rule) \u2014 Oct-quarter guide vs street outranks the print. 50 SMA 557.87 is the gate overhead, 20 EMA 534.64 the first floor, implied bounds ~515/~591 (\u00b16.89%). GROW-INTO: needs ~$300+ premium headroom (a $10\u201315k account) before a real-delta defined-risk structure fits. Insider overhang: $169.66M sold / 0 bought in 180d (B-079)"
+    "note": "REACTION RESOLVED 8/14 pre-market: BEAT + HUGE RAISE, SOLD ANYWAY (B-099; P-011 instance 3 \u2192 promoted to supported). Q3 beat both lines (rev 9.115B vs 9.00B, EPS 3.50 vs 3.39) and Q4 guide came in FAR above street (rev 10.25B \u00b10.5B vs 9.54B, EPS 4.02 \u00b10.20 vs 3.65) \u2014 sold \u22122.30% into the 8/13 close, \u22125.18% AH, ~504 (\u22125.7%) pre-market 8/14. The line underneath the guide: Q4 GM guided FLAT sequentially on ramp costs + display mix, China still shrinking, +108% YTD entry. Below the 20 EMA first floor (534.64) and the ~515 implied bound \u2014 no structure to stop against, falling knife on day one. RE-ARM only on a reclaim-and-hold of 534.64 on above-average volume. GROW-INTO regardless: needs ~$300+ premium headroom. Second beat-plus-raise sold in 24h after CSCO \u2014 the 8/13 public invalidation (\"a supplier beat sold too = distribution\") FIRED (B-079 \u2192 B-099)"
   },
   {
     "sym": "ZYME",
@@ -57,7 +57,22 @@
   {
     "sym": "AAP",
     "status": "QUEUE",
-    "note": "#3 in the queue (scout 8/13, conv 8) - earnings 8/20 am. Averages a 10.3% gap; 2 of last 3 up-gaps closed red, so POST-print only: make the gap prove itself. Today's +7.20% came on below-avg volume, no identifiable cause (unverified), and landed exactly on the 50-day 57.29 - that shelf into the print is the tell. Arms with a real level on earnings day"
+    "note": "#3 in the queue (scout 8/13, conv 8) - earnings 8/20 am. Averages a 10.3% gap; 2 of last 3 up-gaps closed red, so POST-print only: make the gap prove itself. Today's +7.20% came on below-avg volume, no identifiable cause (unverified), and landed exactly on the 50-day 57.29 - that shelf into the print is the tell. Arms with a real level on earnings day. **8/14 queue check: the shelf BROKE on day one** — opened 56.77, low 55.52, 55.85 at 9:31am CT (−2.63%), below the 57.29 50-day and not reclaimed. On light volume (~43k in the first 25 min vs 1.94M the prior full session), so it is an uncontested giveback, not distribution — do not over-read it. Plan UNCHANGED (post-print only), but the gap now has to prove itself from a lower base. Earnings 8/20 am, est. $0.80, re-verified live 8/14"
+  },
+  {
+    "sym": "OXY",
+    "status": "WATCH",
+    "note": "Best of the 200w-MA viral-list scan (8/13, 40 names verified, 17 actually in-zone). Guide RAISED 8/5, 7/7 beats, FCF ~$3B best since 2022, CEO bought $250k open-market 6/24 — the only insider buy across six deep-dives. NOT a buy at 57.70: +20.4% in 6.5 weeks into the 59.1–61.4 supply shelf. ARM on a close >59.60 on above-avg volume, alt entry a hold of 55.8–56.0. Earnings 11/9 outside window. Prior fundamental B- (B-008) is stale — fresh grade required before any accumulation claim (B-093)"
+  },
+  {
+    "sym": "DIS",
+    "status": "WATCH",
+    "note": "Cleanest base of the 200w-MA scan — 12.5% off high, mild accumulation, 8 straight beats, first close back above the 200-day (104.26) in 6 months. Reclaim is ONE day old and the 8/5 guide direction unverified. ARM on a close >105.25; invalidated on a close <102.00. No catalyst inside the window (earnings ~11/12). Feb 2 proved a beat can still gap −7.4% here (B-094)"
+  },
+  {
+    "sym": "SMCI",
+    "status": "WATCH",
+    "note": "No Trade at 39.16 — the miss+raise repricing was real (P-008) but we are D+3 after +24%, day two rejected at 42.30, nearest structure 33.94 gap-hold 13% below. RE-ARM on a pullback that HOLDS 34–35.3 (gap-hold + 200w MA) on drying volume. Two 28–33% single-day collapses this year — never hold this name without structure underneath (B-096)"
   },
   {
     "sym": "AMBA",

@@ -245,7 +245,7 @@
     "claim": "A RAISED guide still gets sold when the economics underneath it deteriorate - margins compressing, losses widening, or the raise carried by a lumpy line while the recurring line stalls",
     "test": "On any raise-and-fall, read the release for (a) gross margin or EBITDA moving the WRONG way in the same quarter, or (b) the raise carried by a non-recurring line item while the recurring one is flat. Pattern HOLDS if at least one is present and the stock fell. FALSIFIED if a company raises guidance WITH improving margins AND improving recurring revenue and is still sold off - that would mean something other than unit economics is doing the work. This refines the v24 Guide Rule rather than contradicting it: the guide outranks the print, but the line items underneath outrank the guide.",
     "first_seen": "2026-08-13",
-    "status": "proposed",
+    "status": "supported",
     "why": null,
     "logged_by": "claude",
     "instances": [
@@ -259,6 +259,12 @@
         "date": "2026-08-10",
         "ticker": "CEVA",
         "detail": "Raised FY26 revenue growth guidance from 12% to 13-15% and still fell 17.5% the same day (38.67 to 31.92). The raise was carried entirely by the LUMPY line: licensing +21% y/y, its strongest licensing quarter in three years, while ROYALTIES - the recurring annuity for an IP licensor - went essentially FLAT at +1% y/y. Surfaced by the guide-verification scout on 8/13. The market repriced the timing of the royalty inflection out to 2027 and charged for the wait. Distinguishing evidence: CEVA is the only name of five in that scan that NEVER bounced - three consecutive sessions of continued bleed (31.92, 30.83, 30.44, 30.60), so this was a sustained repricing rather than a one-day overreaction.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-14",
+        "ticker": "AMAT",
+        "detail": "Beat both lines (rev 9.115B vs 9.00B, EPS 3.50 vs 3.39) AND guided Q4 far above street (rev 10.25B +/-0.5B vs 9.54B consensus, EPS 4.02 +/-0.20 vs 3.65) - and was sold anyway: -2.30% into the 8/13 close off a 563.76 high, -5.18% after hours, ~-5.7% premarket 8/14 at ~504. The deteriorating line underneath: Q4 gross-margin guide FLAT sequentially despite +12% sequential revenue, blamed on ramp costs and a higher mix of lower-margin display revenue, plus China revenue still shrinking. Second beat-plus-raise sold in 24 hours (CSCO -8.35% on 2.95x volume 8/13, margins unexamined so not logged). Entry context: +108% YTD into the print. Third instance, second consecutive day.",
         "holds": true
       }
     ]
