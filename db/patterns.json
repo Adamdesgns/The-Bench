@@ -146,6 +146,12 @@
         "ticker": "ONON",
         "detail": "Cleanest instance yet. EPS BEAT (CHF 0.31 vs 0.29) but revenue MISSED (CHF 850.3M vs 881.4M consensus) and FY26 sales-growth guidance was CUT to low-20% from 'at least 23%', with Americas - over half of sales - decelerating to +13% cc from +17% in Q1 on a 'highly promotional U.S. market'. Closed -20.29% at 30.91 on 43.76M shares vs a 4.18M 30-day average (10.5x), a fresh 52-week low of 30.1122 and the steepest single-day drop since its 2021 IPO. Peers barely moved (NKE -1.96%, DECK -3.72%), confirming company-specific rejection of the guide, not a sector move. DTC +34.3% cc beat everywhere and did not save it - the forward number outranked every good line in the print.",
         "holds": true
+      },
+      {
+        "date": "2026-07-29",
+        "ticker": "QCOM",
+        "detail": "Rev beat 9.95B vs 9.67B est, but Q4 EPS guided 2.05-2.25 vs street 2.36 (handsets -20% y/y, memory-cost margin squeeze). Sold -4.4% to 155.68 and gapped down next day to 146.55 low 146.00. Guide outranked the beat exactly as claimed. Notable coda: entire gap reclaimed by 8/13 on below-avg volume.",
+        "holds": true
       }
     ]
   },
@@ -268,5 +274,15 @@
         "holds": true
       }
     ]
+  },
+  {
+    "id": "P-012",
+    "claim": "The AI trade splits on CASH EARNINGS NOW versus CAPEX MONETIZED LATER. As FY2027 numbers arrive, names whose multiple rests on future monetization get repriced down, while AI names already converting to earnings hold or re-rate up. Adam's call, 2026-08-14: 'the ai run has been a lot of speculation, I see next years earning wrecking some'",
+    "test": "Split the AI complex into two baskets at logging: (A) EARNINGS-BACKED - positive FCF and a trailing PE under ~25 today (GOOGL 17.26 is the anchor); (B) STORY-PRICED - negative FCF, no PE, or a multiple resting on announced capex and bookings rather than delivered profit. Track the 2-day post-earnings reaction and the trailing 4-quarter return of both baskets across the FY2027 reporting cycle (roughly Q4-26 prints in Jan-2027 through Q3-27 prints in Oct-2027). PATTERN HOLDS if basket B's median post-print reaction is materially negative while basket A's is flat-to-positive, and the A-minus-B return spread is positive. PATTERN FAILS if basket B holds or extends, if the spread is flat or negative, or if the drawdown is INDISCRIMINATE - an everything-selloff that takes A down with B is a macro event, NOT this pattern, and must be recorded as holds=false. Related and already supported: P-006 and P-008 (the guide outranks the print) are the single-name mechanism this basket-level claim would operate through.",
+    "first_seen": "2026-08-15",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": []
   }
 ]
