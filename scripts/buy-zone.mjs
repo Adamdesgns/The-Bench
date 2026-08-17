@@ -1,0 +1,154 @@
+// buy-zone.mjs — the accumulation list: names ALREADY validated at B or better,
+// each with a declared zone and a structural floor.
+//
+//   node scripts/buy-zone.mjs              the table
+//   node scripts/buy-zone.mjs --json       machine-readable, for the scheduled task
+//   node scripts/buy-zone.mjs --stale-days 90
+//   node scripts/buy-zone.mjs --all        include names that fail the gates, with the reason
+//
+// WHY THIS IS NOT A "BUY ANY LOW" LIST
+//
+// Adam, 2026-08-17: "we need a list of stocks that we should acquire at ANY low."
+// The instinct is right and the framework already has the mechanism — the
+// Accumulation Trigger — but "any low" is the one thing it forbids. Gate 2,
+// verbatim: "If the thesis broke, the dip is not a discount, it is the market
+// correctly repricing a changed story. Cheap is a price; changed is a thesis."
+//
+// The book already contains the proof. Two names would land on a naive list:
+//   PENG carries B+ from B-019 (2026-07-06) — and its revenue is -6.2% YoY. The
+//        business is SHRINKING. A six-week-old grade would have you buying every
+//        low in a contracting company.
+//   MU   carries A from B-004 (2026-06-30) — and B-004 SCORED A LOSS, -11.3%.
+//        An A-graded name still lost money.
+//
+// So every entry carries the DATE its grade was earned, and a grade older than
+// --stale-days drops off the armed list until the name is re-run. That staleness
+// rule is the PENG guard, and it is the whole reason this file exists rather
+// than a note somewhere.
+//
+// SOURCE OF TRUTH: grades come from db/archive.json (the book), never typed here.
+// Zones and floors are declared in db/watchlist.json as `buy_zone` / `floor`,
+// because a zone is live state and a grade is history.
+//
+// This script is PURE — no network. It emits the list and the levels; the
+// scheduled task (bench-fastmover-watch) pulls live prices and does the
+// comparison. That split keeps the levels auditable and the prices fresh.
+
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { ROOT } from "../server/config.js";
+
+const argv = process.argv.slice(2);
+const has = (f) => argv.includes(f);
+const val = (f, d) => {
+  const i = argv.indexOf(f);
+  return i >= 0 ? argv[i + 1] : d;
+};
+
+const STALE_DAYS = Number(val("--stale-days", "60"));
+const QUALIFYING = ["A+", "A", "A-", "B+", "B"];
+
+const rows = JSON.parse(readFileSync(resolve(ROOT, "db/archive.json"), "utf8"));
+const watch = JSON.parse(readFileSync(resolve(ROOT, "db/watchlist.json"), "utf8"));
+
+const today = new Date(val("--today", new Date().toISOString().slice(0, 10)));
+const ageDays = (d) => Math.round((today - new Date(d)) / 86400000);
+
+// Most RECENT fundamental grade per ticker — a later re-run supersedes an
+// earlier one, which is the point of re-validation.
+const graded = new Map();
+for (const r of rows) {
+  const g = r?.grades?.fundamental;
+  if (!g) continue;
+  const prev = graded.get(r.ticker);
+  if (!prev || r.date >= prev.date) {
+    graded.set(r.ticker, { grade: g, date: r.date, id: r.id });
+  }
+}
+
+const zoneOf = (sym) => watch.find((w) => w.sym === sym) ?? {};
+
+const entries = [];
+for (const [ticker, g] of graded) {
+  const age = ageDays(g.date);
+  const w = zoneOf(ticker);
+  const qualifies = QUALIFYING.includes(g.grade);
+  const stale = age > STALE_DAYS;
+
+  let status, why;
+  if (!qualifies) {
+    status = "REJECTED";
+    why = `fundamental ${g.grade} — Accumulation gate 1 needs B or better`;
+  } else if (w.thesis_flag) {
+    // The PENG case, and the reason staleness alone is not enough. PENG's B+ is
+    // only 42 days old — inside any sane staleness window — while its revenue is
+    // -6.2% YoY. Gate 2 is about the thesis CHANGING, which has nothing to do
+    // with how old the grade is. A flag here beats a shorter timer.
+    status = "THESIS FLAG";
+    why = `grade is fresh but contradicted — ${w.thesis_flag}`;
+  } else if (["AVOID", "PASS", "CLOSED"].includes(w.status)) {
+    status = "EXCLUDED";
+    why = `watchlist status is ${w.status} — a graded name we have already decided against`;
+  } else if (stale) {
+    status = "STALE";
+    why = `graded ${age}d ago (${g.id}) — re-run before acting; this is the PENG guard`;
+  } else if (w.buy_zone == null) {
+    status = "NO ZONE";
+    why = "qualifies on grade, but no buy_zone declared in watchlist.json";
+  } else if (w.floor == null) {
+    status = "NO FLOOR";
+    why = "zone declared without a structural floor — Accumulation gate 3 fails";
+  } else {
+    status = "ARMED";
+    why = `buy at or below ${w.buy_zone}, floor ${w.floor}`;
+  }
+
+  entries.push({
+    ticker,
+    grade: g.grade,
+    graded: g.date,
+    age_days: age,
+    row: g.id,
+    buy_zone: w.buy_zone ?? null,
+    floor: w.floor ?? null,
+    status,
+    why,
+    note: w.note ? w.note.slice(0, 120) : null,
+  });
+}
+
+const rank = { ARMED: 0, "NO ZONE": 1, "NO FLOOR": 2, STALE: 3, REJECTED: 4 };
+entries.sort((a, b) => rank[a.status] - rank[b.status] || a.age_days - b.age_days);
+
+const shown = has("--all") ? entries : entries.filter((e) => e.status !== "REJECTED");
+
+if (has("--json")) {
+  console.log(JSON.stringify({ stale_days: STALE_DAYS, generated: today.toISOString().slice(0, 10), entries: shown }, null, 2));
+  process.exit(0);
+}
+
+console.log(`\nTHE BUY ZONE — Accumulation gate 1 (fundamental B or better), stale after ${STALE_DAYS}d\n`);
+console.log("TICKER  GRADE  GRADED      AGE    ZONE       FLOOR    STATUS   WHY");
+console.log("-".repeat(108));
+for (const e of shown) {
+  console.log(
+    e.ticker.padEnd(7) +
+      e.grade.padEnd(7) +
+      e.graded.padEnd(12) +
+      `${e.age_days}d`.padEnd(7) +
+      String(e.buy_zone ?? "-").padEnd(11) +
+      String(e.floor ?? "-").padEnd(9) +
+      e.status.padEnd(13) +
+      e.why
+  );
+}
+
+const armed = shown.filter((e) => e.status === "ARMED").length;
+const needZone = shown.filter((e) => e.status === "NO ZONE" || e.status === "NO FLOOR").length;
+const stale = shown.filter((e) => e.status === "STALE").length;
+console.log("-".repeat(108));
+console.log(`${armed} armed · ${needZone} qualify but need a zone/floor · ${stale} stale`);
+console.log(
+  `\n${graded.size} of ${new Set(rows.map((r) => r.ticker)).size} tickers in the book carry a fundamental grade.` +
+    `\nGrade in the FIELD (log-call.mjs --fundamental), not the prose, or the name is invisible here.\n`
+);
