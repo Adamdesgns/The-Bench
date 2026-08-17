@@ -1,33 +1,170 @@
 {
-  "asof": "2026-08-14 close (pulled 6:43pm CT) — SPY -0.20%, QQQ -0.14%, VIX 14.25. Memory complex ripped into the close (STX +5.68%, WDC +4.63%, MU +2.42%) while AMAT finished -5.12% post-print — P-011 regime intact. HPQ closed 30.10 (-3.83%), $0.80 above the 29.30 stop. QCOM added to the tape on the B-101 review. GOOGL added on the B-102 delta re-run — 345.90 (-0.13%) on 0.565x volume, coiling in a 340.88-350.45 box, gate 356.81",
+  "asof": "2026-08-17 10:17am CT intraday (queue check) - SPY -0.10%, QQQ +0.44%, VIX 14.95. HPQ'S 29.30 STOP FILLED 8:42am CT at 29.29 (B-115) - flat, B-072 closed, $439.35 unsettled, buying power $581.52 today -> $1,020.87 on settlement 8/18. GDS traded its 33.50-34.80 buy zone AGAIN (low 34.48 in the first ten minutes, after closing 34.41 in-zone Friday) and went unbought both times; now 35.535, back above the 35.00 stand-down (B-116). Memory/semi complex ripping: WDC +7.21%, MU +6.28%, COHR +9.10%, AMAT +5.85% recovering its post-print flush, SMH +1.97%. Defensives bleeding: MCD -2.21%, PEP -1.95%, NKE -3.35% to a NEW low under the 40.00 floor. EWY +5.20% is through the 180.99 trigger on price, volume leg unverified.",
   "quotes": [
-    { "sym": "SPY", "last": 776.31, "chg_pct": -0.20 },
-    { "sym": "QQQ", "last": 731.03, "chg_pct": -0.14 },
-    { "sym": "IWM", "last": 305.08, "chg_pct": 0.52 },
-    { "sym": "VTI", "last": 383.85, "chg_pct": -0.12 },
-    { "sym": "VIX", "last": 14.25, "chg_pct": null },
-    { "sym": "SMH", "last": 587.76, "chg_pct": -0.23 },
-    { "sym": "GDS", "last": 34.42, "chg_pct": -1.01 },
-    { "sym": "ZYME", "last": 25.12, "chg_pct": -2.48 },
-    { "sym": "AAP", "last": 56.54, "chg_pct": -1.43 },
-    { "sym": "PLAB", "last": 33.32, "chg_pct": -0.48 },
-    { "sym": "AMBA", "last": 82.05, "chg_pct": 0.11 },
-    { "sym": "HPQ", "last": 30.10, "chg_pct": -3.83 },
-    { "sym": "MU", "last": 972.78, "chg_pct": 2.42 },
-    { "sym": "WDC", "last": 509.85, "chg_pct": 4.63 },
-    { "sym": "STX", "last": 973.70, "chg_pct": 5.68 },
-    { "sym": "RAM", "last": 13.20, "chg_pct": 1.38 },
-    { "sym": "EWY", "last": 179.76, "chg_pct": 0.64 },
-    { "sym": "AMAT", "last": 507.18, "chg_pct": -5.12 },
-    { "sym": "ASML", "last": 1844.99, "chg_pct": -0.16 },
-    { "sym": "TSM", "last": 426.32, "chg_pct": -0.97 },
-    { "sym": "NVDA", "last": 225.17, "chg_pct": -0.06 },
-    { "sym": "SMCI", "last": 39.84, "chg_pct": 1.74 },
-    { "sym": "COHR", "last": 325.93, "chg_pct": -0.40 },
-    { "sym": "APP", "last": 315.50, "chg_pct": 0.91 },
-    { "sym": "SPCX", "last": 139.84, "chg_pct": -1.03 },
-    { "sym": "QCOM", "last": 165.87, "chg_pct": 0.66 },
-    { "sym": "GOOGL", "last": 345.90, "chg_pct": -0.13 },
-    { "sym": "ASPI", "last": 4.265, "chg_pct": -0.35 }
+    {
+      "sym": "SPY",
+      "last": 775.6,
+      "chg_pct": -0.1
+    },
+    {
+      "sym": "QQQ",
+      "last": 734.28,
+      "chg_pct": 0.44
+    },
+    {
+      "sym": "IWM",
+      "last": 303.62,
+      "chg_pct": -0.48
+    },
+    {
+      "sym": "VTI",
+      "last": 383.37,
+      "chg_pct": -0.13
+    },
+    {
+      "sym": "VIX",
+      "last": 14.95,
+      "chg_pct": null
+    },
+    {
+      "sym": "SMH",
+      "last": 599.43,
+      "chg_pct": 1.97
+    },
+    {
+      "sym": "GDS",
+      "last": 35.535,
+      "chg_pct": 3.27
+    },
+    {
+      "sym": "ZYME",
+      "last": 25.65,
+      "chg_pct": 2.11
+    },
+    {
+      "sym": "AAP",
+      "last": 56.33,
+      "chg_pct": -0.39
+    },
+    {
+      "sym": "PLAB",
+      "last": 33.5,
+      "chg_pct": 0.54
+    },
+    {
+      "sym": "AMBA",
+      "last": 79.955,
+      "chg_pct": -2.54
+    },
+    {
+      "sym": "HPQ",
+      "last": 29.475,
+      "chg_pct": -2.11
+    },
+    {
+      "sym": "MU",
+      "last": 1032.64,
+      "chg_pct": 6.28
+    },
+    {
+      "sym": "WDC",
+      "last": 545.48,
+      "chg_pct": 7.21
+    },
+    {
+      "sym": "STX",
+      "last": 1005.36,
+      "chg_pct": 3.28
+    },
+    {
+      "sym": "RAM",
+      "last": 15.2,
+      "chg_pct": 15.15
+    },
+    {
+      "sym": "EWY",
+      "last": 189.09,
+      "chg_pct": 5.2
+    },
+    {
+      "sym": "AMAT",
+      "last": 536.83,
+      "chg_pct": 5.85
+    },
+    {
+      "sym": "ASML",
+      "last": 1883.32,
+      "chg_pct": 2.13
+    },
+    {
+      "sym": "TSM",
+      "last": 433.94,
+      "chg_pct": 1.78
+    },
+    {
+      "sym": "NVDA",
+      "last": 227.37,
+      "chg_pct": 0.98
+    },
+    {
+      "sym": "SMCI",
+      "last": 38.64,
+      "chg_pct": -3.01
+    },
+    {
+      "sym": "COHR",
+      "last": 355.49,
+      "chg_pct": 9.1
+    },
+    {
+      "sym": "APP",
+      "last": 316.25,
+      "chg_pct": 0.26
+    },
+    {
+      "sym": "SPCX",
+      "last": 148.415,
+      "chg_pct": 6.01
+    },
+    {
+      "sym": "QCOM",
+      "last": 163.29,
+      "chg_pct": -1.51
+    },
+    {
+      "sym": "GOOGL",
+      "last": 344.465,
+      "chg_pct": -0.41
+    },
+    {
+      "sym": "ASPI",
+      "last": 4.035,
+      "chg_pct": -5.5
+    },
+    {
+      "sym": "HIMS",
+      "last": 28.2,
+      "chg_pct": 0.18
+    },
+    {
+      "sym": "NKE",
+      "last": 39.365,
+      "chg_pct": -3.35
+    },
+    {
+      "sym": "VICI",
+      "last": 25.97,
+      "chg_pct": -1.48
+    },
+    {
+      "sym": "MCD",
+      "last": 266.79,
+      "chg_pct": -2.21
+    },
+    {
+      "sym": "PEP",
+      "last": 138.04,
+      "chg_pct": -1.95
+    }
   ]
 }
