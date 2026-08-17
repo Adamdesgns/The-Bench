@@ -127,3 +127,83 @@ Once enough scans accumulate, the data answers questions a single trade never ca
 - **China ADRs sold off complex-wide** — Scout H found 22 of 23 red while SPY was +0.61%, KWEB −2.78% vs FXI −1.15% (ADR/internet hit 2.4x harder than China broad). Cause not identifiable with price data alone; **not guessed**. **VNET was the exception at +0.67% green** — real relative strength on a bad day for its group, which supports the VNET thesis without de-risking its 8/18 print.
 - **Guide-lane finding still holds:** ANF has beaten EPS four straight quarters and fallen on two of them; CHWY has beaten six straight and sits −49% off its high. Beat-and-fall is the modal outcome in retail right now (P-006).
 - Highest ATR% found and **rejected**: FCEL at 14.31% of price per day — volatility with no structure, no invalidation that survives contact. Rejected as "a coin flip with a ticker on it."
+
+---
+
+## Scan 2026-08-16 — "AI startups to catch early + small-cap energy"
+
+**Dispatched:** 5 scouts on Adam's ask — *"find some ai startups that we can maybe catch early or energy stocks small caps."* Lanes: **A** AI software/application layer · **B** AI picks-and-shovels hardware · **C** energy levered to AI/datacenter power · **D** recent IPOs + S-1s on file · **E** traditional small-cap energy (value side).
+**Scope note:** private AI startups are not investable — no ticker, no filings, nothing to grade. Lane D is the closest real proxy (public but not yet widely owned).
+**Regime at scan:** SPY **$776.34** (8/14 close, flat vs the 8/13 scan's $777.68) · XLE $61.91 · URA $44.93 · **WTI $82.20 (+31.1% y/y)** · **Henry Hub ~$2.74**, EIA sees sub-$3.00 through November, record 3,985 Bcf storage into winter. Tape = oil bid on Hormuz disruption, gas broken, AI hardware 18–42% off May–June highs.
+**Prices:** Friday **2026-08-14** close throughout. Logged Sunday 8/16 — **two sessions stale by the next open, re-pull before acting.**
+**Checkpoints due:** 7d ≈ 2026-08-23 · 30d ≈ 2026-09-15.
+
+### The scan's headline finding: the insider tape splits cleanly by theme
+
+Across **22 AI names** run through SEC Form 4s in three independent lanes (A, B, D), there was **exactly ONE open-market insider buy** — PGY's CEO, $250,468 at $15.43 in June. Everything else was distribution. Across lane E's royalty/coal names, insiders were **buying**: DMLP 15 buys / $1.92M / zero sells (CEO + CFO + directors), NRP buys only, ARLP one buy zero sells.
+
+Three scouts that could not see each other's work produced that split. Some AI selling is clearly scheduled 10b5-1 (FORM's CEO tranches, RMBS's uniform 5,000-share director clips) — but some is not: **MOD executives sold $20.8M at $280–300 and the stock closed $209.50; CAMT's CFO and a director sold 3 days after a record print.**
+
+| Scout lane | Ticker | Px @ 8/14 close | Mkt cap | The number that earns the slot | Conv /10 | Catalyst (verified?) | Call type | Taken? | +7d / vs SPY | +30d / vs SPY | Verdict |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| E · royalty | **DMLP** | $27.69 | $1.36B | 11.52% FCF yield, **84.07% FCF margin**, net cash $69M, **15 insider buys / $1.92M / 0 sells** | **7.5** | Q3 distribution + results early Nov (**tentative**) | watch | no | | | |
+| E · royalty | **NRP** | $104.85 | $1.39B | 11.54% FCF yield, debt $30.8M, payout only 39.8% of FCF, insider buys only | **7.5** | **Ex-distribution 8/18** (verified); Q3 11/04 (t) | watch | no | | | |
+| E · coal | **ARLP** | $25.42 | $3.26B | 10.48% FCF yield **covers** the 9.44% distribution; 0.86x leverage | 7 | Q3 late Oct (**tentative**) | watch | no | | | |
+| A · AI software | **PGY** | $21.56 | $1.80B | 16.7x P/E, 6 straight quarters of compounding GAAP profit, **the only AI insider BUY in the scan** | 7 | Q3 11/09 am (**tentative**) | watch | no | | | |
+| E · E&P | **MGY** | $26.24 | $6.22B | 8.77% FCF yield, **0.37x debt/EBITDA**, Q2 FCF $234.6M (2x y/y) | 6.5 | Q3 11/04 pm (**tentative**) | watch | no | | | |
+| C · power EPC | **AGX** | $578.22 | $8.11B | +50.2% rev, 14.6% net margin, backlog **$1.4B → $2.9B**, 79% gas-fired | 6.5 | **~9/3 (UNVERIFIED — no scheduled date in feed)** | watch | no | | | |
+| B+C · switchgear | **POWL** | $213.48 | $7.78B | Backlog **$2.4B, +69% y/y**; largest single order in company history **>$400M datacenter** | 6.5 | Q4 FY26 11/17 (**tentative**) | watch | no | | | |
+| A · AI software | **INOD** | $63.85 | $2.19B | **+57.8% rev, GAAP profitable**, top customer 56% → 37%; −49% off high | 6 | **CEO handover 9/30 (verified)**; Q3 11/05 pm (t) | watch | no | | | |
+| B · probe cards | **FORM** | $131.60 | $10.28B | GAAP gross margin **37.3% → 50.7% (+1,340bps)** on +31.9% rev | 6 | Q3 10/28 pm (**tentative**) | watch | no | | | |
+| B · packaging | **AMKR** | $58.99 | $14.66B | **P/E 26.5** — cheapest in lane B; top-10 concentration **72% → 66% (falling)** | 6 | Q3 10/26 pm (**tentative**) | watch | no | | | |
+| B · memory IF | **RMBS** | $100.85 | $10.94B | **79.8% gross / 32.6% net margin**; −42.1% off high | 5.5 | Q3 10/26 pm (**tentative**) | watch | no | | | |
+| D · IPO | **HAWK** | $22.78 | $2.23B | **+116.5% rev**; float already **78.3%** → Nov unlock is largely a non-event | 5.5 | **Lockup ~11/03**; Q3 11/12 (t), cons +$0.01 | watch | no | | | |
+| D · IPO | **LFTO** | $21.61 | $3.59B | GAAP profitable YTD (+$45.1M), 60% EBITDA margin, ~4.1x FY26 guide | 5.5 | **Lockup ~12/01**; Q3 11/17 (t) | watch | no | | | |
+| C · HALEU | **LEU** | $190.15 | $3.80B | **$4.5B backlog through 2040**, $900M DOE task order, Oklo + X-energy offtakes | 5 | Q3 11/04 (**tentative**) | watch | no | | | |
+| D · IPO | **CBRS** | $218.98 | $47.50B | $25.4B RPO, core rev +103%; only non-Nvidia AI silicon at scale | 5 | **Lockup ~11/10 lands BEFORE Q3 on 11/19** | watch | no | | | |
+| E · E&P | **CRC** | $53.31 | $4.73B | **6.29% buyback + 3.01% dividend ≈ 9% returned**; −25.9% off high | 4.5 | Ex-div **9/04**; Q3 11/03 am (t) | watch | no | | | |
+
+**Cut but logged so it is not re-pitched as new:** **TNK** $85.13 — 5.02x P/E, net cash **$1.17B = 40% of market cap**, 11.30% FCF yield. Cut because it printed its 52-week high **on 8/14** after +95.5% off the low, on tanker rates inflated by July Strait-of-Hormuz vessel strikes. A 5x multiple on peak-cycle earnings is ~15x on normalized. Peer insiders (INSW, ASC) distributing.
+
+### Falsifications this scan produced
+
+1. **"AI-power is the most hyped theme right now" — WRONG, and it was MY premise handed to scout C.** The theme did not peak recently; it topped **2025-10-15/16** and broke. LEU −59.0%, OKLO −77.1%, NNE −67.7%, SMR −83.7%, AMSC −54.7%, FRMI −82.7% — all off that same week. **This CONFIRMS and extends the 8/13 correction (item 2 of the afternoon scan)** which found uranium "wrecked and three weeks off a bottom." Four weeks later it has not recovered. What made *new* 2026 highs were the boring earners (ATKR, PLPC, IESC).
+
+2. **AMSC is sold as an AI-power name and had ZERO datacenter orders last quarter — by its own disclosure.** Record >$130M quarterly orders, >$400M backlog, +30.0% rev — all real, all from **utility and mining** customers. Management says it is bidding. Logged as the cleanest example this scan of a label outrunning the revenue. Not proposed. Falsifier: two more quarters with no datacenter order = value it as a grid/wind cyclical, full stop.
+
+3. **HNRG's datacenter PPA may not exist.** The "Exclusive Commitment Agreement" with an unnamed "leading global data center developer" was effective **2026-01-02** with a **105-business-day** window and up to $5M of payments. That is **19+ months** past a ~5-month exclusivity window with **no definitive agreement verifiable**. Meanwhile it swung from +$41.9M FY25 net income to consecutive quarterly losses (−$9.3M, −$15.2M) with widening EPS misses and +9.7% dilution. Not proposed.
+
+4. **Insider buying alone is not a thesis — GRNT is the counterexample.** Best insider cluster found anywhere in the sweep: **12 open-market buys, $863K, CEO + CFO + directors, zero sells.** And **FCF yield −15.2%**, negative FCF in 5 of 6 years, $462M debt, with **the 8.6% dividend funded by borrowing.** Same trap in ACDC (Wilks family bought $4.02M on 8/12; debt/EBITDA 3.95, buyback yield −11.74%) and NOG (director bought $500K; FCF yield −11.3%, net debt $2.68B).
+
+### Pattern candidate raised (proposed for `db/patterns.json`, not yet logged)
+
+**Every 2025–26 AI-adjacent IPO checked sold off hard into or after its lockup expiry.** Instances: FIG −69% off high, FRMI −82.7%, NTSK −44%, VCX −94% (premium to NAV collapsed from a reported ~1,900% to +81% in five months, straight into an accelerated 8/13 unlock). Falsification test: a 2025–26 AI IPO that trades flat-to-up through its unlock window on rising volume. **Needs Adam's OK before it gets an ID** — 4 instances is already past the 3-instance promotion gate.
+
+### Hard rejects (documented so the reasoning survives)
+
+| Ticker | The bait | The disqualifier |
+|---|---|---|
+| **AI** C3.ai | "beaten-down AI name" | **Revenue −52.5% y/y** ($108.7M → $51.6M), GAAP gross margin **62% → 21.9%**, −$115.6M quarterly loss. Broken business, not a dip. Possible short-side work. |
+| **QNT** Quantinuum | Only large-cap trapped-ion pure play, $2.1B cash | **$16.5B cap on $28–32M FY26 guidance ≈ 550x sales**, guiding *below* FY25's $30.9M. Float **11.5%** — the price exists only because 88.5% is locked until ~12/01. |
+| **SWMR** Swarmer | Combat-proven drone-swarm autonomy, $16.3M backlog | **$451M market cap on $236,738 of H1 revenue.** Lockup **~9/17** — ~6.4M restricted shares vs ~264K ADV = **24+ days of volume**, held at a $5 basis with the stock at $41.60. |
+| **QMLS** QumulusAI | −81% from listing-day high, "cheap neocloud" | **Explicit going-concern disclosure**, 85% of revenue from one partner (RunPod), 25 employees, TTM losses $93.68M on ~$3.4M quarterly revenue. |
+| **AAOI** | +86.4% rev, fastest growth in lane B | **Largest customer is 42% of revenue and is CATV, not a hyperscaler**; top 10 = 99%. Gross margin FELL to 27.7%. Still GAAP unprofitable. |
+| **FCEL** | −40.9% off high | **Share count +196.6% y/y** (22.8M → 67.6M, verified not a split). Negative gross profit. |
+| **AMR** Alpha Met | Net cash $327M, zero debt, near 52-wk low | FCF yield **−0.07%** (was $1.32B in 2022). "Insider buying" is essentially **one director + one activist**, mostly at $175–200 vs $166. Guidance **cut**. |
+| **METC** Ramaco | −79% off high, looks like capitulation | **67 insider SELL transactions, $40.09M, zero buys.** |
+| **DK** Delek | **16.99% FCF yield — highest in the screen** | P/B **21.5** (almost no book equity), debt/EBITDA 2.94, at 52-wk high, insiders selling. |
+| **SM** SM Energy | 5.66x P/E, 12.5% earnings yield | **Buyback yield −45.08%** — massive issuance. $7.43B total debt. |
+| Also cut | PARR (+188% off low, insiders selling) · CVI (Icahn bought at ~$21, stock $35.66 — signal 70% spent) · KOS (debt/EBITDA 4.38) · EGY (FCF yield −22.0%) · OKLO/NNE/SMR/FRMI/NRGV (pre-revenue + heavy dilution) · CXAI (**"Noncompliant"** exchange flag) · RZLV/GRRR (SPAC reverse mergers) · DOMO (negative book value) · BBAI (11x sales on 13% growth) |
+
+### Data limitations — log honestly
+
+- **The `financial-datasets` MCP returned "Insufficient credits" / "balance is $0.00" on EVERY call, in all five lanes.** This matches the 2026-08-12 decision to drop the paid connector. Consequence: **`screen_stocks` was unavailable**, so no lane ran a true quantitative screen — universes were built by hand from web search and verified downstream. Coverage is therefore narrower than a real screen and **absence from this list is not evidence a name was rejected.**
+- Fallback stack actually used: Robinhood MCP (quotes, fundamentals, financials, earnings calendar) · **`scripts/insider-check.mjs`** for SEC EDGAR Form 4s (the v24 insider leg — worked correctly, 270-day windows) · SEC XBRL `dei:EntityCommonStockSharesOutstanding` for share counts · Jina Reader for bot-walled pages.
+- **One number NOT SEC-verified: LEU's ~15% dilution is press-reported.** Its XBRL share-count tag was discontinued in 2022. Confirm against the 10-Q before LEU gets a book row. Its **$1B ATM** is the reason this matters.
+- **Two large "insider sells" that are structural, not opinions:** ExxonMobil liquidating its inherited 16.6M-share PUMP stake ($276.6M) and CPPIB exiting 3.5M CRC shares at $61.10 ($213.9M). Real overhangs; not management losing faith.
+
+### Calendar collision the scan surfaces
+
+**Catalysts cluster brutally in Nov 3–20** — CBRS, LFTO, QNT, HAWK, LEU, POWL, RMBS, AMKR, FORM, MGY, CRC, ARLP, NRP and DMLP all report or unlock inside that window, on ~$581 of deployable cash. Before then there are only three dated events in this entire scan: **NRP ex-distribution 8/18 (verified)**, **AGX ~9/3 (unverified)**, **SWMR lockup ~9/17**, and **CRC ex-dividend 9/4**. Between mid-September and November this list is nearly eventless — which argues for patience, not position-building.
+
+**Nothing from this scan has a `db/archive.json` row.** These are candidates, not calls: `log-call.mjs` would correctly refuse every one of them for want of a `--trigger` / `--invalid` / `--size`. Row IDs get issued when a name goes to a full v24 run.

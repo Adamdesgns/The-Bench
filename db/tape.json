@@ -1,170 +1,190 @@
 {
-  "asof": "2026-08-17 10:17am CT intraday (queue check) - SPY -0.10%, QQQ +0.44%, VIX 14.95. HPQ'S 29.30 STOP FILLED 8:42am CT at 29.29 (B-115) - flat, B-072 closed, $439.35 unsettled, buying power $581.52 today -> $1,020.87 on settlement 8/18. GDS traded its 33.50-34.80 buy zone AGAIN (low 34.48 in the first ten minutes, after closing 34.41 in-zone Friday) and went unbought both times; now 35.535, back above the 35.00 stand-down (B-116). Memory/semi complex ripping: WDC +7.21%, MU +6.28%, COHR +9.10%, AMAT +5.85% recovering its post-print flush, SMH +1.97%. Defensives bleeding: MCD -2.21%, PEP -1.95%, NKE -3.35% to a NEW low under the 40.00 floor. EWY +5.20% is through the 180.99 trigger on price, volume leg unverified.",
+  "asof": "2026-08-17 CLOSE (3:00pm CT) - THE TAPE SORTED MEMORY SELLERS FROM MEMORY BUYERS AND PAID THE SELLERS. SPY -0.47% and QQQ -0.17% while the memory/storage complex ripped: SNDK +8.91%, MUU (2x MU) +8.06%, SNDG (2x SNDK) +17.71%, COHR +7.70%, AMAT +5.56%, WDC +5.35%, MU +4.16%, SMH +1.05%. The PC assemblers that BUY that memory fell on the same news: HPQ -2.34%, DELL -2.27%, SMCI -3.93%. Catalyst was Lenovo warning the shortage runs all year with contract prices possibly doubling; HP's CFO had already put memory at 35% of a PC bill-of-materials vs 15-18% historically. Defensives bled hard: NKE -4.05% to a NEW LOW (kids UTMA position), MCD -2.67%, PEP -1.80%, VICI -1.50%. HPQ's 29.30 stop FILLED 8:42:39am CT at 29.29 (B-113/B-115) - flat, B-072 closed, +$2.175; the day low 29.14 sat a half-cent under the 29.145 cost basis and the stock closed 29.405, back above the stop. GDS closed 35.37 and MUU 35.00 - BOTH above their armed triggers (34.40 / 33.93), so nothing was bought and nothing was chased. Framework v25 shipped today: ATR Floor on stops, the Leverage Lane, the Concentration Declaration. VIX not re-pulled at the close - shown null rather than restating a stale intraday value.",
   "quotes": [
     {
       "sym": "SPY",
-      "last": 775.6,
-      "chg_pct": -0.1
+      "last": 772.68,
+      "chg_pct": -0.47
     },
     {
       "sym": "QQQ",
-      "last": 734.28,
-      "chg_pct": 0.44
+      "last": 729.8599,
+      "chg_pct": -0.17
     },
     {
       "sym": "IWM",
-      "last": 303.62,
-      "chg_pct": -0.48
+      "last": 304.07,
+      "chg_pct": -0.33
     },
     {
       "sym": "VTI",
-      "last": 383.37,
-      "chg_pct": -0.13
-    },
-    {
-      "sym": "VIX",
-      "last": 14.95,
-      "chg_pct": null
+      "last": 382.1244,
+      "chg_pct": -0.45
     },
     {
       "sym": "SMH",
-      "last": 599.43,
-      "chg_pct": 1.97
+      "last": 593.98,
+      "chg_pct": 1.05
     },
     {
       "sym": "GDS",
-      "last": 35.535,
-      "chg_pct": 3.27
+      "last": 35.37,
+      "chg_pct": 2.79
     },
     {
       "sym": "ZYME",
-      "last": 25.65,
-      "chg_pct": 2.11
+      "last": 25.33,
+      "chg_pct": 0.84
     },
     {
       "sym": "AAP",
-      "last": 56.33,
-      "chg_pct": -0.39
+      "last": 56.75,
+      "chg_pct": 0.35
     },
     {
       "sym": "PLAB",
-      "last": 33.5,
-      "chg_pct": 0.54
+      "last": 33.6,
+      "chg_pct": 0.84
     },
     {
       "sym": "AMBA",
-      "last": 79.955,
-      "chg_pct": -2.54
+      "last": 78.6,
+      "chg_pct": -4.19
     },
     {
       "sym": "HPQ",
-      "last": 29.475,
-      "chg_pct": -2.11
+      "last": 29.405,
+      "chg_pct": -2.34
     },
     {
       "sym": "MU",
-      "last": 1032.64,
-      "chg_pct": 6.28
+      "last": 1012.08,
+      "chg_pct": 4.16
     },
     {
       "sym": "WDC",
-      "last": 545.48,
-      "chg_pct": 7.21
+      "last": 536.01,
+      "chg_pct": 5.35
     },
     {
       "sym": "STX",
-      "last": 1005.36,
-      "chg_pct": 3.28
-    },
-    {
-      "sym": "RAM",
-      "last": 15.2,
-      "chg_pct": 15.15
-    },
-    {
-      "sym": "EWY",
-      "last": 189.09,
-      "chg_pct": 5.2
-    },
-    {
-      "sym": "AMAT",
-      "last": 536.83,
-      "chg_pct": 5.85
-    },
-    {
-      "sym": "ASML",
-      "last": 1883.32,
+      "last": 994.22,
       "chg_pct": 2.13
     },
     {
+      "sym": "RAM",
+      "last": 14.58,
+      "chg_pct": 10.45
+    },
+    {
+      "sym": "EWY",
+      "last": 185.23,
+      "chg_pct": 3.05
+    },
+    {
+      "sym": "AMAT",
+      "last": 535.4,
+      "chg_pct": 5.56
+    },
+    {
+      "sym": "ASML",
+      "last": 1883.14,
+      "chg_pct": 2.12
+    },
+    {
       "sym": "TSM",
-      "last": 433.94,
-      "chg_pct": 1.78
+      "last": 430.95,
+      "chg_pct": 1.08
     },
     {
       "sym": "NVDA",
-      "last": 227.37,
-      "chg_pct": 0.98
+      "last": 225.04,
+      "chg_pct": -0.05
     },
     {
       "sym": "SMCI",
-      "last": 38.64,
-      "chg_pct": -3.01
+      "last": 38.275,
+      "chg_pct": -3.93
     },
     {
       "sym": "COHR",
-      "last": 355.49,
-      "chg_pct": 9.1
+      "last": 350.92,
+      "chg_pct": 7.7
     },
     {
       "sym": "APP",
-      "last": 316.25,
-      "chg_pct": 0.26
+      "last": 311.97,
+      "chg_pct": -1.1
     },
     {
       "sym": "SPCX",
-      "last": 148.415,
-      "chg_pct": 6.01
+      "last": 146.28,
+      "chg_pct": 4.49
     },
     {
       "sym": "QCOM",
-      "last": 163.29,
-      "chg_pct": -1.51
+      "last": 162.16,
+      "chg_pct": -2.19
     },
     {
       "sym": "GOOGL",
-      "last": 344.465,
-      "chg_pct": -0.41
+      "last": 344.09,
+      "chg_pct": -0.52
     },
     {
       "sym": "ASPI",
-      "last": 4.035,
-      "chg_pct": -5.5
+      "last": 4.005,
+      "chg_pct": -6.21
     },
     {
       "sym": "HIMS",
-      "last": 28.2,
-      "chg_pct": 0.18
+      "last": 28.6201,
+      "chg_pct": 1.67
     },
     {
       "sym": "NKE",
-      "last": 39.365,
-      "chg_pct": -3.35
+      "last": 39.08,
+      "chg_pct": -4.05
     },
     {
       "sym": "VICI",
-      "last": 25.97,
-      "chg_pct": -1.48
+      "last": 25.965,
+      "chg_pct": -1.5
     },
     {
       "sym": "MCD",
-      "last": 266.79,
-      "chg_pct": -2.21
+      "last": 265.54,
+      "chg_pct": -2.67
     },
     {
       "sym": "PEP",
-      "last": 138.04,
-      "chg_pct": -1.95
+      "last": 138.255,
+      "chg_pct": -1.8
+    },
+    {
+      "sym": "MUU",
+      "last": 35,
+      "chg_pct": 8.06
+    },
+    {
+      "sym": "SNDG",
+      "last": 11.865,
+      "chg_pct": 17.71
+    },
+    {
+      "sym": "SNDK",
+      "last": 1787.32,
+      "chg_pct": 8.91
+    },
+    {
+      "sym": "DELL",
+      "last": 479.67,
+      "chg_pct": -2.27
+    },
+    {
+      "sym": "VIX",
+      "last": null,
+      "chg_pct": null
     }
   ]
 }
