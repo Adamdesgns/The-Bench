@@ -86,6 +86,15 @@ for (const [ticker, g] of graded) {
     // with how old the grade is. A flag here beats a shorter timer.
     status = "THESIS FLAG";
     why = `grade is fresh but contradicted — ${w.thesis_flag}`;
+  } else if (w.status === "HOLDING") {
+    // 2026-08-18: GDS filled at 8:49am CT and still read ARMED here, i.e. "buy at
+    // or below 34.40" on 16 shares we already own. A name you HOLD is not a name
+    // you are waiting to buy — the accumulation lane must not emit an entry
+    // signal for an open position, or the fast-mover watch pings a buy on a
+    // position whose own row says DO NOT ADD. Adding to a winner is a separate
+    // decision with its own 2:1 test, not a re-fire of the original zone.
+    status = "HOLDING";
+    why = `open position — already filled; adds are a separate decision, not a re-trigger of this zone`;
   } else if (["AVOID", "PASS", "CLOSED"].includes(w.status)) {
     status = "EXCLUDED";
     why = `watchlist status is ${w.status} — a graded name we have already decided against`;
@@ -117,7 +126,7 @@ for (const [ticker, g] of graded) {
   });
 }
 
-const rank = { ARMED: 0, "NO ZONE": 1, "NO FLOOR": 2, STALE: 3, REJECTED: 4 };
+const rank = { ARMED: 0, HOLDING: 1, "NO ZONE": 2, "NO FLOOR": 3, STALE: 4, REJECTED: 5 };
 entries.sort((a, b) => rank[a.status] - rank[b.status] || a.age_days - b.age_days);
 
 const shown = has("--all") ? entries : entries.filter((e) => e.status !== "REJECTED");
@@ -144,10 +153,11 @@ for (const e of shown) {
 }
 
 const armed = shown.filter((e) => e.status === "ARMED").length;
+const holding = shown.filter((e) => e.status === "HOLDING").length;
 const needZone = shown.filter((e) => e.status === "NO ZONE" || e.status === "NO FLOOR").length;
 const stale = shown.filter((e) => e.status === "STALE").length;
 console.log("-".repeat(108));
-console.log(`${armed} armed · ${needZone} qualify but need a zone/floor · ${stale} stale`);
+console.log(`${armed} armed · ${holding} held · ${needZone} qualify but need a zone/floor · ${stale} stale`);
 console.log(
   `\n${graded.size} of ${new Set(rows.map((r) => r.ticker)).size} tickers in the book carry a fundamental grade.` +
     `\nGrade in the FIELD (log-call.mjs --fundamental), not the prose, or the name is invisible here.\n`
