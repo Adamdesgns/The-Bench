@@ -5139,5 +5139,40 @@
     "last": "unverified",
     "last_source": "none",
     "last_checked": "2026-08-17T22:53:11.988Z"
+  },
+  {
+    "id": "B-126",
+    "date": "2026-08-18",
+    "ticker": "GDS",
+    "review_price": 35.37,
+    "review_time": null,
+    "opportunity_score": 74,
+    "confidence_pct": 72,
+    "grades": {
+      "technical": "B",
+      "fundamental": "B+",
+      "execution": "B",
+      "overall": "B"
+    },
+    "fomo": "Heating Up",
+    "market_risk": null,
+    "hodl": null,
+    "final_call": "ORDER IS LIVE AND VERIFIED AT THE BROKER - the fix for the failure B-116 logged twice. Order id **6a83b0a9-ba1f-4116-8e1e-f5852edb8afc**, placed 2026-08-17 8:08pm CT, pulled back and confirmed field-by-field: GDS / buy / **type=limit** / **state=confirmed** / quantity 16 / price 34.40 / time_in_force **gtc** / market_hours all_day_hours / cumulative_quantity 0. Resting, unfilled, as intended. WHY THIS ROW EXISTS: B-116's lesson was 'an entry-zone plan without a working order is a plan that only fills when someone happens to be looking' - the zone went live 8/14 (low 34.33) and again 8/17 (low 34.48) and filled NOTHING both times because nothing was resting. A first attempt tonight ALSO failed silently: the ticket was screenshotted at the review step with **Shares=0 and estimated cost $0.00**, and a full order-history pull showed no GDS order in either account in any state - not queued, not rejected, simply never submitted. Believing an order is resting when it is not is the same failure wearing a better disguise, and only a broker-side pull catches it. TWO SETTINGS ADAM CHOSE THAT I DID NOT SPECIFY, both examined: (1) **market_hours=all_day_hours** rather than regular hours. Defensible and arguably correct for this name - GDS is a China ADR whose news breaks overnight US time, so the zone is more likely to trade then, and a LIMIT buy protects the price in any session (34.40 or better, or no fill). The accepted tradeoff: an overnight fill leaves the position **unprotected until the 32.70 stop is placed the next morning**, since the stop only goes on after the fill. (2) **Expiry Nov 16 2026** - Robinhood's max GTC horizon. **THIS OUTLIVES THE THESIS AND IS THE ONE OPEN RISK: GDS reports 11/18 (tentative), so an order resting to 11/16 could fill days before a binary print** and drop a fresh position in front of earnings, which the framework forbids at entry. RECOMMENDED REVIEW-OR-CANCEL DATE **2026-10-31**, comfortably clear of the print and roughly when this structure (32.70 = the 8/13 earnings-day low; 2.03:1 to T1 37.85) stops being current. Not yet scheduled - Adam's call. PLAN UNCHANGED from B-120: trigger 34.40 (the five-cent window 34.37-34.42 is the only entry clearing BOTH the 2:1 floor and a 1-ATR stop), stop 32.70 = 1.59 ATR, T1 37.85 = 2.03:1, T2 40.00 = 3.29:1. **AFTER ANY FILL: SELL 16 STOP 32.70 GTC - order type STOP, not LIMIT** (a sell limit below market is marketable and fills instantly; that error cost $2.06 and left a position unprotected for 33 minutes in B-064). GDS closed 35.37 (+2.79%), 2.8% above the trigger - the order may never fill, and per B-060 a no-fill is a legitimate logged outcome, not a reason to chase.",
+    "call_type": "conditional",
+    "trigger": 34.4,
+    "invalidation": 32.7,
+    "size": "16 sh ($550.40), risk $27.20",
+    "max_loss": null,
+    "engine": "claude",
+    "logged_by": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": "Two separate silent failures on the same trade in four days: a zone that went live twice with no resting order, then a ticket abandoned at the review step with quantity 0 while both parties believed it was placed. Neither was visible from the plan, the chat, or the screenshot - only a broker-side order pull showed the truth. VERIFY AT THE BROKER, NOT AT THE TICKET.",
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-08-18T01:09:55.192Z"
   }
 ]

@@ -466,6 +466,16 @@ Never enter without knowing the size. Compute it from the parameters I answered 
 
 **Default risk-per-trade guide (unless I override it):**
 - **Under $1k:** Conservative $10–$20 · Moderate $20–$35 · Aggressive $35–$50 *(fixed dollars, not %)*
+
+> **ADAM'S OVERRIDE, set 2026-08-17, at his explicit direction.** He stated: *"I have no problem risking a -$100 on $1000 play thats very conservative to me."* **His declared band is $100 on a ~$1,000 account.** Recorded, not argued with — it is his account, the same way v23 lifted the naked-shorting ban and v25 permits all-in concentration. What is recorded alongside it, because the framework states arithmetic rather than opinions:
+
+> - **$100 on $1,020.87 is 9.8% per trade** — roughly 3–5x the Aggressive tier of the table above, not a conservative number on any standard scale.
+> - **Seven consecutive losers takes the account down ~51%**, and recovering from −51% requires **+105%**. Same asymmetry the Concentration Declaration documents.
+> - **What it unlocks:** at $100, one MU share at ~$73 of 1-ATR risk becomes budget-compliant where it was 2.1x over at $20–35.
+> - **What it does NOT unlock:** the risk budget and the Concentration Declaration are SEPARATE gates. A ~$1,020 position on a ~$1,020 account is still ~99% concentration and must be declared and tagged CONCENTRATED, and scored separately, whatever the band says.
+> - **The ATR Floor is unaffected.** A bigger budget buys a bigger position at the SAME stop distance; it never buys a tighter stop.
+
+> Rows sized under this override carry the band used, so the book can later measure whether the wider band paid.
 - **$1k–$5k:** Conservative 0.5% · Moderate 1% · Aggressive 1.5%
 - **$5k–$10k:** Conservative 0.5% · Moderate 1% · Aggressive 1.25%–1.5%
 - **Over $10k:** Conservative 0.5% · Moderate 0.75%–1% · Aggressive 1%–1.5%
