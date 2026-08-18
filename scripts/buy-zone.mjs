@@ -104,6 +104,13 @@ for (const [ticker, g] of graded) {
   } else if (w.buy_zone == null) {
     status = "NO ZONE";
     why = "qualifies on grade, but no buy_zone declared in watchlist.json";
+  } else if (w.rr_target == null) {
+    status = "NO TARGET";
+    why = "zone and floor declared with no rr_target — the payoff leg was never checked";
+  } else if ((w.rr_target - w.buy_zone) / (w.buy_zone - w.floor) < 2) {
+    const rr = ((w.rr_target - w.buy_zone) / (w.buy_zone - w.floor)).toFixed(2);
+    status = "FAILS R:R";
+    why = `${rr}:1 to ${w.rr_target} — under the 2:1 minimum. A compliant stop is not a plan.`;
   } else if (w.floor == null) {
     status = "NO FLOOR";
     why = "zone declared without a structural floor — Accumulation gate 3 fails";
@@ -120,13 +127,14 @@ for (const [ticker, g] of graded) {
     row: g.id,
     buy_zone: w.buy_zone ?? null,
     floor: w.floor ?? null,
+    rr_target: w.rr_target ?? null,
     status,
     why,
     note: w.note ? w.note.slice(0, 120) : null,
   });
 }
 
-const rank = { ARMED: 0, HOLDING: 1, "NO ZONE": 2, "NO FLOOR": 3, STALE: 4, REJECTED: 5 };
+const rank = { ARMED: 0, HOLDING: 1, "FAILS R:R": 2, "NO TARGET": 3, "NO ZONE": 4, "NO FLOOR": 5, "THESIS FLAG": 6, EXCLUDED: 7, STALE: 8, REJECTED: 9 };
 entries.sort((a, b) => rank[a.status] - rank[b.status] || a.age_days - b.age_days);
 
 const shown = has("--all") ? entries : entries.filter((e) => e.status !== "REJECTED");
@@ -137,7 +145,7 @@ if (has("--json")) {
 }
 
 console.log(`\nTHE BUY ZONE — Accumulation gate 1 (fundamental B or better), stale after ${STALE_DAYS}d\n`);
-console.log("TICKER  GRADE  GRADED      AGE    ZONE       FLOOR    STATUS   WHY");
+console.log("TICKER  GRADE  GRADED      AGE    ZONE       FLOOR    TARGET    STATUS       WHY");
 console.log("-".repeat(108));
 for (const e of shown) {
   console.log(
@@ -147,6 +155,7 @@ for (const e of shown) {
       `${e.age_days}d`.padEnd(7) +
       String(e.buy_zone ?? "-").padEnd(11) +
       String(e.floor ?? "-").padEnd(9) +
+      String(e.rr_target ?? "-").padEnd(10) +
       e.status.padEnd(13) +
       e.why
   );
