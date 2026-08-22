@@ -182,7 +182,7 @@ So the rule survives and gets stronger, because the thing that made a post bookm
 
 **Does not qualify:** a clever line, a prediction with no level, a summary of what already happened.
 
-**On a multi-part post the saveable gets its own part** so it can be screenshotted alone. On a one-liner, the saveable *is* the post.
+**On a multi-part post the sendable element gets its own part** so it can be screenshotted or forwarded on its own. On a one-liner, the sendable element *is* the post.
 
 ---
 
@@ -274,7 +274,7 @@ Before teaching anything:
 2d. **RUN ALL OF §7 EVERY TIME**, including on a draft that has already been through three rewrites — that is exactly when it feels vetted and is not. On 2026-08-22 the stops explainer passed the competence, jargon, copy and chain checks and the hook checklist was never run at all.
 3. Can the post **deliver on that promise from data actually pulled**? If no, shrink the hook.
 4. Is the **verdict at the end**, not the top? If no, move it.
-5. Is there **one clearly saveable thing**? If no, add a level or an invalidation.
+5. Is there **one clearly sendable thing** - something a reader would forward to a specific person? If no, add a level or an invalidation.
 6. **Is this the smallest format that carries the idea?** If a 5-part post is really a 2-part post with padding, cut it. *This is the new check — it is the whole point of v3.*
 7. Is every name in it **on `db/board.json`**, or does it belong to the BOOK lane? A generic off-beat ticker post is not a Bench post any more.
 8. Disclaimer line intact?
