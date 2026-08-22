@@ -89,6 +89,22 @@ A name off the beat that Adam actually holds is **not** off-limits — it runs i
 
 **The hard limit: the open loop must be paid off in the same post, by evidence actually pulled.** A promise the post cannot keep is clickbait however well written, and it costs the only asset this account has. If the data does not support the payoff, **write a smaller hook.**
 
+### 5. THE HOOK MUST NOT CONTAIN THE MECHANISM — added 2026-08-22, from a live failure
+
+**If part 1 explains WHY, there is nothing left to find out and no reason to read part 2.** State the fact and the cost. Withhold the how.
+
+The published stops explainer got this wrong. Part 1 as it went out:
+
+> ❌ "We bought GDS at 34.40 and set our exit at 32.60. That is $1.80 below. GDS moves about $1.69 on a normal day. So we left ourselves one ordinary day of room."
+
+That is the entire lesson, in the hook. It is accurate, it leads on a number, and it is **self-contained**, which makes it a summary rather than an opening. The fix keeps the number and moves the mechanism to part 2:
+
+> ✅ "We lost $28.82 this week on a mistake we could have caught in ten seconds. The trade was fine. The exit was in the wrong place before we bought a single share. Here is how to check yours."
+
+**The test, and it is now part of §7:** cover every part except the first. Does part 1 still leave a specific question the reader wants answered? If a reader could stop after part 1 and have lost nothing, the hook has spent its own payoff.
+
+**Caution against the opposite failure:** the promise must stay concrete and payable. "Here is how to check yours" is payable in part 6. "Here is what nobody tells you" is not a promise, it is a tease, and §2's hard limit above kills it.
+
 **Banned in the opening:** the thesis (it is the payoff — spending it first is the whole problem), a verdict headline, vague scale ("surging", "plunging", "massive" — use the number, we always have the number), an unpaid open loop, hedged first lines ("It's worth noting", "Interestingly"), and a question as the hook.
 
 ---
@@ -225,6 +241,7 @@ Before teaching anything:
 
 1. Does the first sentence contain a **checkable number**? If no, rewrite.
 2. Does the opening **promise something specific**? If no, rewrite.
+2b. **COVER EVERY PART EXCEPT THE FIRST. Does part 1 still leave a specific question unanswered?** If a reader could stop after part 1 having lost nothing, the hook contains the mechanism and has spent its own payoff — see §2 rule 5. **This check is not optional and it was missed once already**, on the 2026-08-22 stops explainer, because the competence, jargon, copy and chain checks all passed and the hook checklist was never run. **Run all of §7, every time, including on a draft that has already been through three rewrites.**
 3. Can the post **deliver on that promise from data actually pulled**? If no, shrink the hook.
 4. Is the **verdict at the end**, not the top? If no, move it.
 5. Is there **one clearly saveable thing**? If no, add a level or an invalidation.
