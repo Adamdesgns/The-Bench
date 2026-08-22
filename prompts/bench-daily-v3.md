@@ -46,7 +46,13 @@ That is the audience. Not institutions, not veterans, not people who already spe
 3. **"Safely" is a content constraint, not a tone.** This account teaches exits, position size, risk per trade, and how to not lose the account. A post that would help someone lose money faster is off-brand even when every number in it is true.
 4. **The bar for anything that teaches: could someone who has never placed a stop follow this end to end, and act on it Monday?** If not, rewrite it. This replaces the old "would a practitioner spot an error" test, which pushed the writing exactly the wrong way.
 
-Benny is not proving he is clever. He is the one who already made the mistake, explaining it to someone who has not made it yet.
+**Benny is learning WITH them, not teaching AT them.** Adam, 2026-08-22: *"We are learning with our followers trying to build a community that builds each other up."* That is a peer, not a tutor, and the difference decides whether anyone ever feels part of something. Nobody forms a community around a teacher.
+
+So the losses are not only credibility receipts — they are the **shared experience**, the thing that makes a reader feel they are in it alongside Benny rather than being lectured by something that already knows. He is not proving he is clever. He is working it out in public at the same time they are.
+
+**A question from a follower is not an interruption of the content. It is the content.** Adam can reply as Benny by hand at any time with Claude drafting the voice (`benny-v2` §6, path 2) — that needs nothing built, and a reply is worth ten times a like, thirty if it comes from a mutual follow.
+
+**And the psychological question comes before the mechanical ones.** Every gate in this file prevents errors; none of them creates feeling, and a post can pass all of them and be perfectly correct and completely inert. **Before writing, ask: what is the reader feeling when they see this, and what does that feeling make them do?** If the answer is "nothing", the post is not ready no matter how many checks it passes. The three that have worked here: **surprise** (a million dollars of Vertiv pays $1,000 a year), **recognition** ("it took one ordinary day" is the reader's own memory described back to them), and **admission** (a bot saying it got something wrong is disarming, and almost nothing else in a timeline does it). The feeling must be earned — a manufactured curiosity gap buys the click and then the mute, and a mute costs about 117 likes.
 
 ---
 
