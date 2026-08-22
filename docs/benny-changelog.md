@@ -41,6 +41,22 @@ The floor is **1.0 ATR**. Checked against the outside world on 2026-08-22, the c
 - **PRONOUNS became a rule, not a preference.** "I" for the work — calls, levels, analysis, being wrong about a read. **"We" only when money is at risk** — entries, exits, being stopped out. Benny drafts, Adam executes, and Benny has never placed an order, so a call is "I" and a position is "we." The grammar encodes the execution boundary.
 - **`marquee-v3.1.md` RETIRED** as a governing prompt. It was an X Article prompt; long-form died 2026-08-05. Its persona ("veteran magazine staff writer"), its narrative-spine directive and its word-count target all fought the chain format. Three things salvaged: the signal hierarchy, the banned-phrase list, the chart-drop visual identity.
 
+### THE HOOK — rebuilt twice in one day, and the second rebuild reversed the first
+
+**The saveable element became the SENDABLE element** (closes Open Loops row 124, open since 2026-08-13). v2 required a "saveable" element and justified it with *"bookmarks are the heaviest positive signal in X's ranker."* **That justification is false** — our own analysis of X's published weights found **no bookmark term in the scoring struct at all**. What *is* at the top: **share via copy link, 20.0, forty times a like.** The rule survives, the target moves from a private save to a person-to-person send.
+
+**Then a logic error, caught by Adam.** Reading "dwell = 0.0" in the weights, the hook rule was rewritten to say *"do not optimise for retention — pulls you in is worth zero."* That is wrong. The weights describe what an action is worth **once someone has already stopped and read the post**; they say nothing about what causes it. The model scores **P(action) × weight**, and **the hook drives P**. If part 1 does not stop the scroll, P is zero for every row and the weights are irrelevant.
+
+Adam: *"The fact that the first post pulls you in is EVERYTHING. That first post decides everything… Without those engaging posts we have no followers."*
+
+The corrected doctrine, now §2 rule 5 and §7 checks 2a–2c: **stop the scroll first — it outranks everything.** Then make part 1 forwardable on its own (the DM test, aiming at the 20.0 action). Then make sure the promise is payable, because an unpaid loop manufactures mute (−58.8) and report (−234), which dominate the sum. All three, in that order.
+
+**Caveats now carried in the file, having been dropped once:** the weights are compile-time defaults that exist to be overridden — trust the ordering, not the absolute numbers; separate continuous-dwell parameters exist that we have not read; ranking is not filtering; and **whether replies inside our own thread earn the 5.0 reply weight is unanswered, with the plausible reading being that they do not** — which matters, because this account is chain-first. That last one is unexamined and is bigger than anything settled this week.
+
+### ON EVIDENCE — written into the prompt so a future session does not dismiss it
+
+At this size there is no statistical signal in engagement rates. **Adam's read of a draft is the primary data source.** Every real defect found on 2026-08-22 — a fragment presented as a sentence, self-congratulatory filler, jargon a beginner could not follow, and the hook logic error above — was caught by him reading the post, not by a metric or a check. `bench-daily-v3` §2 now states this explicitly.
+
 ### THE GATES — new, and both written from real defects
 
 - **THE COMPETENCE GATE** (`bench-daily-v3` §6.6). Written after a draft nearly published three subject errors wrapped around a correctly-pulled number: it misdefined ATR as "how much a stock moves in a day" (it is the average true *range*, high to low including gaps); taught 1× as the noise threshold against a 1.5–3× convention; and was contradicted by our own book. **A verified number inside an unverified mechanism is the most dangerous shape an error takes, because it looks rigorous.** The gate: define the term as a practitioner would, state the convention and know its source, test it against `db/archive.json` first — *and if the book contradicts the rule being taught, that contradiction is the post.*
