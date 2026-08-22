@@ -104,11 +104,21 @@ A name off the beat that Adam actually holds is **not** off-limits — it runs i
 | **Profile click** | **0.0** | — |
 | Report · Mute · Not-interested · Block | **−234 · −58.8 · −43.2 · −31.2** | catastrophic |
 
-**Three consequences, and they overturn the obvious advice:**
+**READ THE TABLE CORRECTLY — an earlier version of this section got it backwards and the error is instructive.**
 
-1. **"Pulls you in" is worth zero.** Dwell is not in the weighted sum. A hook engineered purely to keep a thumb moving down the thread scores nothing. Clicks are 0.4. **Do not optimise for retention.**
-2. **Optimise for FORWARDING.** Copy-link share is the single most valuable action on the platform at 40× a like. The question for part 1 is not *will they keep reading* — it is **would someone send this one post to a specific person they know.**
-3. **The worst reader dominates the best one.** One mute costs ~117 likes; one report, ~468. An open loop the post does not pay off is not a small credibility tax — it is a machine for producing exactly those actions. **A promise you cannot pay is the most expensive thing you can write.**
+The weights describe what an action is **worth once a reader has already stopped and read the post.** They say nothing about what *causes* the action. The model scores **P(action) × weight**. **The hook drives P.** If part 1 does not stop the scroll, P is zero for every row in that table and the weights are irrelevant — a 20.0 share is worth nothing if nobody read the post.
+
+So: **dwell not being rewarded directly does NOT mean attention does not matter. Attention is the precondition for every term in the sum.** Adam, 2026-08-22: *"The fact that the first post pulls you in is EVERYTHING. That first post decides everything… Without those engaging posts we have no followers."* He is right, and the earlier reading of this table — "do not optimise for retention" — was a logic error, not a nuance.
+
+**What the table actually tells you, correctly applied:**
+
+1. **The hook's first job is to stop the scroll. Nothing else in this file matters if it fails.** This outranks every other rule in §2.
+2. **Then aim the reader at the high-value action.** Copy-link share is 40× a like; reply, quote and DM share are 10×. Likes and clicks are near-worthless. So once someone is reading, the post should be built to be **sent to a specific person**, not merely liked.
+3. **The worst reader dominates the best one.** One mute costs ~117 likes; one report, ~468. An unpaid open loop is a machine for producing exactly those actions. **A promise you cannot pay is the most expensive thing you can write** — and it is the one way a strong hook actively hurts.
+
+**Honest limits on the table, from our own article — carry these, do not drop them:** these are compile-time defaults that exist to be overridden, so trust the *ordering*, not the absolute numbers. Separate continuous-dwell parameters exist that we have not read, so "dwell does not matter" is a stronger claim than the file supports. Ranking is not filtering — a post can score well and never be shown. And **whether replies inside your own thread earn the 5.0 reply weight is unanswered, with the plausible reading being that they do not** — which matters, because this account is chain-first.
+
+**ON EVIDENCE, because a future session will otherwise dismiss this:** at this account's size there is no statistical signal — engagement counts are noise and will be for months. **Adam's read of a draft is the primary data source and is treated as such.** Every real defect found on 2026-08-22 — a fragment presented as a sentence, self-congratulatory filler, unexplained jargon, and this hook error — was caught by him reading the post, not by a metric. When he says a post does not pull him in, that is data, and it outranks a table.
 
 **Worked example, from a real post and its correction:**
 
@@ -269,6 +279,7 @@ Before teaching anything:
 
 1. Does the first sentence contain a **checkable number**? If no, rewrite.
 2. Does the opening **promise something specific**? If no, rewrite.
+2a. **DOES IT STOP THE SCROLL?** This is the first question and it outranks the rest of this checklist - every scored action is conditional on it (see §2 rule 5). If Adam reads part 1 and is not pulled in, it fails, and no amount of correctness rescues it.
 2b. **THE DM TEST.** If someone copied *only part 1* and sent it to a friend, is it worth sending on its own? Copy-link share is 20.0, forty times a like — it is the highest-scoring action there is. If part 1 needs the rest of the thread to make sense, it cannot be forwarded and the most valuable action is unavailable. See §2 rule 5.
 2c. **THE PROMISE TEST.** Does part 1 still name something specific the post will deliver, *and can the post deliver it*? Retention itself scores nothing (dwell = 0.0), so a hook that only teases is optimising a zero-weight term while risking mute at −58.8 and report at −234. **Both 2b and 2c must pass. They are not alternatives.**
 2d. **RUN ALL OF §7 EVERY TIME**, including on a draft that has already been through three rewrites — that is exactly when it feels vetted and is not. On 2026-08-22 the stops explainer passed the competence, jargon, copy and chain checks and the hook checklist was never run at all.
