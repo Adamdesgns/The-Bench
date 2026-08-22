@@ -62,6 +62,17 @@ At this size there is no statistical signal in engagement rates. **Adam's read o
 - **THE COMPETENCE GATE** (`bench-daily-v3` §6.6). Written after a draft nearly published three subject errors wrapped around a correctly-pulled number: it misdefined ATR as "how much a stock moves in a day" (it is the average true *range*, high to low including gaps); taught 1× as the noise threshold against a 1.5–3× convention; and was contradicted by our own book. **A verified number inside an unverified mechanism is the most dangerous shape an error takes, because it looks rigorous.** The gate: define the term as a practitioner would, state the convention and know its source, test it against `db/archive.json` first — *and if the book contradicts the rule being taught, that contradiction is the post.*
 - **THE COPY GATE** (§6.7). Written from six grammar defects in one draft. Read each part alone and out of order; every sentence needs a subject and a verb; every `this/that/it/both` must have a nameable referent; no three-clause comma chains; consistent number formats. And the rule that outranks any instruction to be memorable: **read the clever line literally. If the literal reading is nonsense, it is not quotable, it is broken.** A saveable whose pronoun pointed at the wrong thing is what earned this.
 
+**THE MEASUREMENT, CORRECTED 2026-08-22.** The figure quoted all day was "24 of the last 25 posts were exactly 6 parts." True, but it is the weak version and it implies the posts were always like this. **They were not — they degraded, and the curve is sharp.** Measured across all 106 published posts:
+
+| period | avg parts | avg chars |
+|---|---|---|
+| Aug 3–4 | **1.0** | ~2,100 |
+| **Aug 5** — the day chains were mandated | **2.8** | 1,899 |
+| Aug 6 | **6.0** | 1,399 |
+| Aug 6 → Aug 22 | **6.0 every single day** | ~1,450 |
+
+**73 of the 80 posts in those 17 days were exactly six parts.** It converged on the maximum the day *after* the format changed and never came back down. And the posts got **shorter** as they got more uniform (2,400 → 1,450 chars) — so it was never a length problem. **Every post became the same shape.** Adam: *"It wasn't always like that, between our updates it got worse."*
+
 ### THE BEAT — what he covers
 
 - **The Bench narrowed from the whole market to AI INFRASTRUCTURE, full stack**, covered through the **divergence between its layers** (spec `acf9a8d`, implementation `c1c3787`).
