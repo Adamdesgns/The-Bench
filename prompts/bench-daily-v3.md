@@ -89,21 +89,41 @@ A name off the beat that Adam actually holds is **not** off-limits — it runs i
 
 **The hard limit: the open loop must be paid off in the same post, by evidence actually pulled.** A promise the post cannot keep is clickbait however well written, and it costs the only asset this account has. If the data does not support the payoff, **write a smaller hook.**
 
-### 5. THE HOOK MUST NOT CONTAIN THE MECHANISM — added 2026-08-22, from a live failure
+### 5. PART 1 MUST BE SENDABLE ON ITS OWN, *AND* LEAVE A REASON TO CONTINUE
 
-**If part 1 explains WHY, there is nothing left to find out and no reason to read part 2.** State the fact and the cost. Withhold the how.
+**Both. Not either.** This rule is derived from X's published ranking weights, which we analysed ourselves in `docs/articles/2026-08-13-x-algorithm-weights.md`, not from taste.
 
-The published stops explainer got this wrong. Part 1 as it went out:
+| Action | Weight | vs a like |
+|---|---|---|
+| **Share via copy link** | **20.0** | **40×** |
+| Reply (from a mutual) | 15.0 | 30× |
+| Reply · Quote post · DM share | 5.0 | 10× |
+| Like | 0.5 | 1× |
+| Click | 0.4 | — |
+| **Dwell** | **0.0** | — |
+| **Profile click** | **0.0** | — |
+| Report · Mute · Not-interested · Block | **−234 · −58.8 · −43.2 · −31.2** | catastrophic |
 
-> ❌ "We bought GDS at 34.40 and set our exit at 32.60. That is $1.80 below. GDS moves about $1.69 on a normal day. So we left ourselves one ordinary day of room."
+**Three consequences, and they overturn the obvious advice:**
 
-That is the entire lesson, in the hook. It is accurate, it leads on a number, and it is **self-contained**, which makes it a summary rather than an opening. The fix keeps the number and moves the mechanism to part 2:
+1. **"Pulls you in" is worth zero.** Dwell is not in the weighted sum. A hook engineered purely to keep a thumb moving down the thread scores nothing. Clicks are 0.4. **Do not optimise for retention.**
+2. **Optimise for FORWARDING.** Copy-link share is the single most valuable action on the platform at 40× a like. The question for part 1 is not *will they keep reading* — it is **would someone send this one post to a specific person they know.**
+3. **The worst reader dominates the best one.** One mute costs ~117 likes; one report, ~468. An open loop the post does not pay off is not a small credibility tax — it is a machine for producing exactly those actions. **A promise you cannot pay is the most expensive thing you can write.**
 
-> ✅ "We lost $28.82 this week on a mistake we could have caught in ten seconds. The trade was fine. The exit was in the wrong place before we bought a single share. Here is how to check yours."
+**Worked example, from a real post and its correction:**
 
-**The test, and it is now part of §7:** cover every part except the first. Does part 1 still leave a specific question the reader wants answered? If a reader could stop after part 1 and have lost nothing, the hook has spent its own payoff.
+> ⚠️ *As published (2026-08-22):* "We bought GDS at 34.40 and set our exit at 32.60. That is $1.80 below. GDS moves about $1.69 on a normal day. So we left ourselves one ordinary day of room."
+> **Sendable — yes.** Complete, self-contained, forwardable. **Reason to continue — none.**
 
-**Caution against the opposite failure:** the promise must stay concrete and payable. "Here is how to check yours" is payable in part 6. "Here is what nobody tells you" is not a promise, it is a tease, and §2's hard limit above kills it.
+> ⚠️ *First attempted fix:* "We lost $28.82 on a mistake we could have caught in ten seconds… Here is how to check yours."
+> **Reason to continue — yes. Sendable alone — no**, the insight is withheld, so there is nothing to forward. **This version optimised dwell, a term worth 0.0.**
+
+> ✅ *Correct:* "We lost $28.82 because our exit sat $1.80 under the buy on a stock that moves $1.69 in a normal day. We gave it one ordinary day of room. It took one ordinary day. Here is the ten second check that catches this before you buy."
+> **Carries the whole insight (forwardable) and still promises something specific and payable.**
+
+**THE TWO-PART TEST, now in §7:**
+- **The DM test:** if someone copied *only part 1* and sent it to a friend, is it worth sending? If it needs the rest of the thread to make sense, it is not.
+- **The promise test:** does part 1 still name something specific the post will deliver — and can the post actually deliver it? "Here is the ten second check" is payable in part 6. "Here is what nobody tells you" is a tease, and under the negative weights a tease is the most expensive sentence available.
 
 **Banned in the opening:** the thesis (it is the payoff — spending it first is the whole problem), a verdict headline, vague scale ("surging", "plunging", "massive" — use the number, we always have the number), an unpaid open loop, hedged first lines ("It's worth noting", "Interestingly"), and a question as the hook.
 
@@ -146,9 +166,17 @@ The hook shape is CMS Invests': *"if you buy 4,000 shares of this you'll make th
 
 ---
 
-## 4. THE SAVEABLE ELEMENT — required, unchanged from v2
+## 4. THE SENDABLE ELEMENT — required *(was "saveable" in v2; renamed on evidence 2026-08-22)*
 
-Every post carries one thing a trader would want to find again.
+Every post carries one thing worth **sending to another person**.
+
+**Why the rename, and it closes Open Loops row 124 (open since 2026-08-13).** v2 required a *saveable* element and justified it with "bookmarks are the heaviest positive signal in X's ranker." **That justification is false.** Our own analysis of the published weights found **no bookmark term in the scoring struct at all** — `bookmark_count` is hydrated as a feature the model can learn from, but it is not in the weighted sum. Verified three times.
+
+What *is* in the sum, at the very top: **share via copy link, 20.0 — forty times a like.** Reply, quote post and DM share sit at 5.0, ten times a like.
+
+So the rule survives and gets stronger, because the thing that made a post bookmark-worthy is the same thing that makes it worth forwarding — **but the target changes from a private save to a person-to-person send**, and that is the highest-scoring action available.
+
+**The test: would a reader send this specific part to someone they know who needs it?** Not "would they find it interesting."
 
 **Qualifies:** a level with a consequence ("760 is the gate — hold it and 765 is the next air pocket; lose 757.67 in the first hour and the gap is a fade"); a named invalidation; a short checklist they can run themselves; a volume or breadth test with the threshold stated.
 
@@ -241,7 +269,9 @@ Before teaching anything:
 
 1. Does the first sentence contain a **checkable number**? If no, rewrite.
 2. Does the opening **promise something specific**? If no, rewrite.
-2b. **COVER EVERY PART EXCEPT THE FIRST. Does part 1 still leave a specific question unanswered?** If a reader could stop after part 1 having lost nothing, the hook contains the mechanism and has spent its own payoff — see §2 rule 5. **This check is not optional and it was missed once already**, on the 2026-08-22 stops explainer, because the competence, jargon, copy and chain checks all passed and the hook checklist was never run. **Run all of §7, every time, including on a draft that has already been through three rewrites.**
+2b. **THE DM TEST.** If someone copied *only part 1* and sent it to a friend, is it worth sending on its own? Copy-link share is 20.0, forty times a like — it is the highest-scoring action there is. If part 1 needs the rest of the thread to make sense, it cannot be forwarded and the most valuable action is unavailable. See §2 rule 5.
+2c. **THE PROMISE TEST.** Does part 1 still name something specific the post will deliver, *and can the post deliver it*? Retention itself scores nothing (dwell = 0.0), so a hook that only teases is optimising a zero-weight term while risking mute at −58.8 and report at −234. **Both 2b and 2c must pass. They are not alternatives.**
+2d. **RUN ALL OF §7 EVERY TIME**, including on a draft that has already been through three rewrites — that is exactly when it feels vetted and is not. On 2026-08-22 the stops explainer passed the competence, jargon, copy and chain checks and the hook checklist was never run at all.
 3. Can the post **deliver on that promise from data actually pulled**? If no, shrink the hook.
 4. Is the **verdict at the end**, not the top? If no, move it.
 5. Is there **one clearly saveable thing**? If no, add a level or an invalidation.
