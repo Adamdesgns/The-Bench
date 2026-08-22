@@ -231,9 +231,26 @@ Open questions, none of them decided:
 
 ---
 
+## 8b. The weekend — added 2026-08-22
+
+Adam: *"We look behind on Saturday and look ahead on Sunday?"* Yes, and it resolves the three-weeklies problem in §8 rather than adding to it.
+
+| | **Saturday 11:03a — `bench-week-recap`** | **Sunday 11:03a — `bench-weekly-catalyst`** |
+|---|---|---|
+| Looks | back, with receipts | ahead, with dates |
+| Content | levels we published in advance, and what the tape did to them + the 30-day receipt | the forward catalyst calendar for the board |
+
+**The Saturday recap absorbed `bench-receipt-weekly`, which is now DISABLED** (paused, not deleted — SKILL.md kept, same as `bench-queue-daily-check`). Every guard from it was carried over verbatim and none are optional: 30-day checkpoints only and **never a 7-day verdict** ($LMT scored WRONG at a week and RIGHT at a month); **no cherry-picking** — take the most recently due, and if any due call is a loss or an expensive pass you must take one of those; never a verdict on an open position; `db/receipt-posted.json` tracking so nothing posts twice; the **guru test**; and losses given identical prominence to wins.
+
+**This recap is deliberately NOT The Assembly's recap.** Theirs is a highlight reel — *"we covered $FLY +60%, $OUST +46%"* — a marketing claim the reader must take on trust. Ours is what we published **before** the outcome was known, misses included, from an append-only timestamped book. That asymmetry is the whole strategic position (§"The one thing they cannot copy back" in the growth playbook).
+
+**The evidence that this is the right call, from the week of 2026-08-17:** 71 book rows, **only 3 with a graded outcome, and all 3 losses.** A highlight reel was not available. But the material is outstanding — GDS entered at 34.40 on the published buy zone, stopped at 32.60, realized **−$28.82 against a planned risk of $28.80; the two-cent difference is the SEC fee.** Held 24 hours and 52 seconds, filled at exactly the named level with zero slippage, and the stock then traded *below* the exit. Next to it in the same book, HPQ stopped at 0.11 ATR — inside the noise band — and recovered above its fill. That is the v25 ATR Floor tested live in both directions in one week. **A loss landing within two cents of its own forecast proves the process in a way no win can**, because a win can be luck.
+
+Expect most weeks to look like this: the majority of rows are passes or untriggered conditionals and are not gradeable. That is normal, not a failure, and the format is built for it.
+
 ## 9. Explicitly not decided
 
-- Which of the six daily routines survive, merge, or retire. Adam rejected cutting to two; the specific slot-by-slot mapping is unresolved.
+- ~~Which of the six daily routines survive, merge, or retire.~~ **SETTLED 2026-08-22.** All six keep their schedules — Adam's 6–8 posts/day stands and nothing was cut on the daily side. A proposed two-week deferral on *weekly* consolidation was **reversed by him the same night**: *"We're not waiting 2 weeks to fold it in. Everything starts Monday."* The full lineup goes live Monday 2026-08-24 with no phased rollout. The only consolidation made was folding the Monday receipt into the Saturday recap (§8b).
 - Whether the chart drop needs a chart-generation script, and what renders it.
 - Whether the reply game (the CMS model) is ever revisited. Declined in July, unchanged here.
 - ~~How the beat handles a day when nothing on the board moves.~~ **RESOLVED by the explainer format** (§5). A quiet tape is exactly when you teach: the explainer needs no catalyst, only a live number to anchor to. This replaces the old answer — "a quiet tape does not need a post" — which was correct when every format required a market event, and is now unnecessarily restrictive. The gate that survives: **never force a market read out of a tape that did not give one.** Teaching instead of manufacturing a move is the point.
