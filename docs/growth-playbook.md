@@ -57,7 +57,16 @@ Their recap is a **marketing claim**. Ours is `db/archive.json` — one row per 
 
 That asymmetry is the entire strategic position. Everything in `bench-daily-v1.md` exists to get more people to the point where they see it.
 
-## Honest baseline
+## Tracked baseline — update this, do not replace it
+
+| Date | Followers | Note |
+|---|---|---|
+| 2026-07-28 | **89** | this playbook written; daily routines not yet auto-publishing |
+| 2026-08-22 | **135** | reported by Adam. **+46 in 25 days, +51.7%, ~1.8/day** |
+
+**Do not claim causation from this.** The auto-publishing routines went live 2026-08-04, so most of that period overlaps them — but Adam's own account, the KEORIS and build-in-public work, and plain drift are all uncontrolled. Two points is a trend, not an attribution. **Add a row whenever a figure is confirmed, and keep the old ones** — the series is worth more than any single reading, and it is the only outcome measure this account has that is not noise at current scale.
+
+*Original 2026-07-28 baseline, kept verbatim:*
 
 At the time of writing, @TheBenchTrades: **89 followers, 382 posts, following 35.** The data pipeline is not the problem — six scheduled routines already pull live Robinhood quotes, catalysts, volume and web sentiment, which is more than either account above has. The gap is packaging.
 

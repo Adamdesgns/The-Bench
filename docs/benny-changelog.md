@@ -59,6 +59,12 @@ The floor is **1.0 ATR**. Checked against the outside world on 2026-08-22, the c
 - **A finding that made the gate matter more:** a Windows task, **"X Poster Daily," runs `post_next.py` at 8:00a, 10:00a, 12:00p, 4:00p and 7:00p CT.** Anything in `approved\` publishes at the next tick with **no routine involved**. `approved\` is a live publish queue, not a staging folder. The stale power-hour draft would have gone out on the 4:00p tick; it was pulled 27 minutes before.
 - **THE WEEKEND LANE.** Saturday looks back, Sunday looks ahead. `bench-week-recap` (Sat 11:03a) **absorbed `bench-receipt-weekly`**, which is now disabled — every guard carried over: 30-day checkpoints only and never a 7-day verdict, no cherry-picking with a due loss outranking a due win, never a verdict on an open position, the guru test, losses never buried. `bench-weekly-catalyst` (Sun 11:03a) is the forward calendar.
 
+### THE ONLY OUTCOME NUMBER WE HAVE
+
+**135 followers**, reported by Adam 2026-08-22, against **89** when the growth playbook was written on 2026-07-28. **+46 in 25 days, +51.7%, roughly 1.8 a day.**
+
+Two points is a trend, not an attribution — the auto-publishing routines went live 2026-08-04 and overlap most of that window, but so does everything else Adam does. **No causal claim.** It is recorded because at this size follower count is the only measure that is not noise: engagement rates on 13-impression posts tell you nothing, and a cumulative count tells you something. The series lives in `docs/growth-playbook.md` and gets a new row each time a figure is confirmed.
+
 ### WHAT WENT OUT
 
 - **2026-08-21** — the ownership-math post, the first of the new beat. CMS's *"buy 4,000 shares and make this much"* hook, inverted: 4,000 shares of Vertiv costs $1,048,000 and pays **$1,000/yr**, and the absence of a dividend across the whole board *is* the story, because the capital goes into capacity.
