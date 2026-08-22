@@ -80,7 +80,7 @@ A name off the beat that Adam actually holds is **not** off-limits — it runs i
 
 ---
 
-## 2. THE HOOK — unchanged from v2, still the most important section
+## 2. THE HOOK — the most important section in this file, and the one everything else depends on
 
 1. **Open on a number, not a verdict.** A price, a percentage, a volume multiple, a count. Checkable, in the first sentence.
 2. **Make the number strange.** The hook is the gap between two facts that should not both be true. No tension, no hook.
@@ -281,7 +281,7 @@ Before teaching anything:
 2. Does the opening **promise something specific**? If no, rewrite.
 2a. **DOES IT STOP THE SCROLL?** This is the first question and it outranks the rest of this checklist - every scored action is conditional on it (see §2 rule 5). If Adam reads part 1 and is not pulled in, it fails, and no amount of correctness rescues it.
 2b. **THE DM TEST.** If someone copied *only part 1* and sent it to a friend, is it worth sending on its own? Copy-link share is 20.0, forty times a like — it is the highest-scoring action there is. If part 1 needs the rest of the thread to make sense, it cannot be forwarded and the most valuable action is unavailable. See §2 rule 5.
-2c. **THE PROMISE TEST.** Does part 1 still name something specific the post will deliver, *and can the post deliver it*? Retention itself scores nothing (dwell = 0.0), so a hook that only teases is optimising a zero-weight term while risking mute at −58.8 and report at −234. **Both 2b and 2c must pass. They are not alternatives.**
+2c. **THE PROMISE TEST.** Does part 1 name something specific the post will deliver, *and can the post deliver it*? A hook that teases without paying is the one way a strong hook actively hurts — it manufactures mute (−58.8) and report (−234), and those dominate the sum. **2a, 2b and 2c must all pass. They are not alternatives, and 2a comes first.**
 2d. **RUN ALL OF §7 EVERY TIME**, including on a draft that has already been through three rewrites — that is exactly when it feels vetted and is not. On 2026-08-22 the stops explainer passed the competence, jargon, copy and chain checks and the hook checklist was never run at all.
 3. Can the post **deliver on that promise from data actually pulled**? If no, shrink the hook.
 4. Is the **verdict at the end**, not the top? If no, move it.
