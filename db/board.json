@@ -1,0 +1,36 @@
+{
+  "beat": "AI infrastructure",
+  "asof": "2026-08-22",
+  "_rule": "VERIFY A TICKER'S ACTUAL BUSINESS BEFORE ADDING IT. Pull get_equity_fundamentals and read the description field. LTH sat on the old board for months and it is Life Time Group Holdings, a gym and spa operator. A ticker list buried in prose is a list nobody audits, which is why this file exists.",
+  "_shape": "The layers are ordered the way the money flows: hyperscaler capex funds silicon, silicon goes in boxes, boxes need power and cooling. Every story sits somewhere on that chain. The crypto bridge is the seam where this beat meets crypto.",
+  "_source": "Designed 2026-08-21, docs/superpowers/specs/2026-08-21-ai-infrastructure-beat-design.md. Every ticker below verified against get_equity_fundamentals on 2026-08-21.",
+  "layers": {
+    "buyers": {
+      "what": "The hyperscaler capex line that funds everything below. Leading indicator for the whole chain.",
+      "tickers": ["MSFT", "GOOGL", "AMZN", "META"]
+    },
+    "silicon": {
+      "what": "The chips.",
+      "tickers": ["NVDA", "AMD", "MU", "AVGO"]
+    },
+    "box": {
+      "what": "Servers and the networking that connects them.",
+      "tickers": ["SMCI", "DELL", "ANET"]
+    },
+    "power": {
+      "what": "Power, cooling, electrical equipment and the generation behind it. The actual bottleneck, and the least covered layer.",
+      "tickers": ["VRT", "ETN", "GEV", "PWR", "CEG", "VST", "TLN"]
+    },
+    "crypto_bridge": {
+      "what": "Bitcoin miners converting to AI compute. From their own filings: Core Scientific runs Mining and Hosting segments; Applied Digital splits Data Center Hosting from HPC Hosting; TeraWulf is Digital Asset Mining and HPC Leasing; IREN is a data centre business for Bitcoin and AI. When crypto moves, these move, and they are already on the beat.",
+      "tickers": ["CORZ", "IREN", "APLD", "WULF"]
+    }
+  },
+  "removed": [
+    {
+      "sym": "LTH",
+      "removed_on": "2026-08-22",
+      "why": "Life Time Group Holdings - gyms and spas, Consumer Services, 44,000 employees, founded 1992. Not AI infrastructure and never was. It was on the board because the old board accreted rather than being designed."
+    }
+  ]
+}
