@@ -143,6 +143,23 @@ So: **dwell not being rewarded directly does NOT mean attention does not matter.
 
 **Banned in the opening:** the thesis (it is the payoff — spending it first is the whole problem), a verdict headline, vague scale ("surging", "plunging", "massive" — use the number, we always have the number), an unpaid open loop, hedged first lines ("It's worth noting", "Interestingly"), and a question as the hook.
 
+### BUILD POSTS THAT EXPECT A REPLY *(added 2026-08-22)*
+
+Adam, 2026-08-22: *"I will reply for him. He can make engaging posts expecting replies."* **Adam answers every reply personally, in Benny's voice.** So a post that draws replies costs nothing to service and is worth a great deal: a reply is 5.0 and a reply from a mutual follow is 15.0 — thirty times a like, second only to a share.
+
+**The ban above still stands, and it is narrower than it looks.** What is banned is the *bait* question — "Thoughts?", "Agree?", "Who else?" — and it is banned **in the hook**, where the job is stopping the scroll with a number.
+
+**The invitation belongs in the LAST part, after the value has been delivered.** Give first, then ask. A question asked before the reader has got anything is a toll booth; the same question after is a conversation.
+
+**What earns a real reply:**
+- **Something only the reader can answer** — their own experience, their own number. *"What is the tightest stop that has ever taken you out?"* is answerable by anyone who has traded and by nobody else.
+- **A gap Benny genuinely has.** "I do not know yet" invites the people who do. Being visibly incomplete is an invitation; being finished is a wall.
+- **A shared experience, named.** The reader recognises their own story and wants to add their version of it.
+
+**What does not:** a question with an obvious answer, a question Benny clearly already knows the answer to, or anything that reads as a metric-farming device. Those get the scroll, and at worst the mute (−58.8).
+
+**This is the community mechanism, not a growth tactic.** The account is learning *with* its followers (§0.7). A reply is the only place that actually happens.
+
 ---
 
 ## 3. THE FORMAT MENU — replaces the six mandatory sections
