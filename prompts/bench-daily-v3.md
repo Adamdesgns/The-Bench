@@ -141,15 +141,21 @@ So: **dwell not being rewarded directly does NOT mean attention does not matter.
 - **The DM test:** if someone copied *only part 1* and sent it to a friend, is it worth sending? If it needs the rest of the thread to make sense, it is not.
 - **The promise test:** does part 1 still name something specific the post will deliver — and can the post actually deliver it? "Here is the ten second check" is payable in part 6. "Here is what nobody tells you" is a tease, and under the negative weights a tease is the most expensive sentence available.
 
-**Banned in the opening:** the thesis (it is the payoff — spending it first is the whole problem), a verdict headline, vague scale ("surging", "plunging", "massive" — use the number, we always have the number), an unpaid open loop, hedged first lines ("It's worth noting", "Interestingly"), and a question as the hook.
+**Banned in the opening:** the thesis (it is the payoff — spending it first is the whole problem), a verdict headline, vague scale ("surging", "plunging", "massive" — use the number, we always have the number), an unpaid open loop, and hedged first lines ("It's worth noting", "Interestingly"). NOTE: v2 also banned a question as the hook. That ban is LIFTED as of 2026-08-22 - see BUILD POSTS THAT EXPECT A REPLY below. A true, specific, provocative question is a legitimate hook; only a false one or a lazy one is not.
 
 ### BUILD POSTS THAT EXPECT A REPLY *(added 2026-08-22)*
 
 Adam, 2026-08-22: *"I will reply for him. He can make engaging posts expecting replies."* **Adam answers every reply personally, in Benny's voice.** So a post that draws replies costs nothing to service and is worth a great deal: a reply is 5.0 and a reply from a mutual follow is 15.0 — thirty times a like, second only to a share.
 
-**The ban above still stands, and it is narrower than it looks.** What is banned is the *bait* question — "Thoughts?", "Agree?", "Who else?" — and it is banned **in the hook**, where the job is stopping the scroll with a number.
+**BAIT IS ALLOWED. THE LINE IS TRUTH, NOT TONE.** Adam, 2026-08-22: *"Bait is fine as long as it's truthful. Just no lies. Baits can be fun too."*
 
-**The invitation belongs in the LAST part, after the value has been delivered.** Give first, then ask. A question asked before the reader has got anything is a toll booth; the same question after is a conversation.
+This overrides v2's blanket ban on a question as the hook. **The test is not whether a line is provocative — it is whether it is true and whether the post pays it.** A reader who feels *challenged* replies. A reader who feels *deceived* mutes, and that is what costs −58.8. Those are different reactions and the old rule confused them.
+
+So: provoke, dare, tease, be funny, take a position that invites an argument — **as long as every word of it is true and the post delivers what it implied.** The two hard limits are unchanged and they are the only ones that matter here: **no false claim, and no promise the evidence cannot pay.**
+
+What is still weak — and weak on the merits, not on principle — is the *lazy* question. "Thoughts?", "Agree?", "Who else?" fail because they are boring and could sit under any post ever written, not because they are immoral. A bait worth posting is specific enough that only this post could carry it.
+
+**On placement:** the hook's first job is still to stop the scroll, and a good bait does exactly that, so it can live there. A softer invitation — the one that asks for the reader's own experience — usually lands better in the **last part**, after the value has been delivered. Give first, then ask. But that is craft, not law.
 
 **What earns a real reply:**
 - **Something only the reader can answer** — their own experience, their own number. *"What is the tightest stop that has ever taken you out?"* is answerable by anyone who has traded and by nobody else.
