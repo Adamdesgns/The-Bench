@@ -110,6 +110,35 @@ The fix is **size variety**, not fewer posts. Six posts drawn from this menu is 
 | **The receipt** | 1–2 | A graded call from the book with its original timestamp |
 | **The position note** | 2–3 | The BOOK lane |
 | **The explainer** | 3–5 | How one piece of the buildout actually works, anchored to a live number. **NEW** |
+| **The ownership math** | 3–4 | What N shares costs and what it pays. **NEW — UNSCHEDULED, opportunistic only** |
+
+### The ownership math — the CMS hook, inverted
+
+Adam, 2026-08-21: *"I do like the way CMS does his posts — 'you mean if you buy 4000 shares of this you'll make this much per year by doing nothing!' Let's work those in just not scheduled yet. If you see something let me know and we'll work it out."*
+
+**This format is NOT on a schedule.** It fires only when a number is genuinely striking. Claude flags a candidate, Adam decides. No routine may generate one unprompted.
+
+**The straight version does not work on this board, and the arithmetic says so.** Every AI-infrastructure name is a low or near-zero yielder, because the capital is going into capacity rather than to shareholders. At Friday 2026-08-21 closes:
+
+| 4,000 shares of | Costs | Pays per year |
+|---|---|---|
+| Vertiv | $1,048,000 | **$1,000** |
+| Micron | $3,866,872 | $2,400 |
+| Quanta | $2,560,000 | $1,760 |
+| GE Vernova | $3,826,560 | $8,000 |
+| Eaton (the board's best) | $1,677,040 | $17,600 |
+
+To earn $50,000/year in dividends you would need ~$4.8M of Eaton or ~$7.4M of Vistra.
+
+**So we run it inverted, and it is a better post than the original.** CMS's version says *look how much free money*. Ours says *look how little these pay, and here is why that is the bullish tell* — a company still building does not hand cash back. That turns an income post into a teaching post about capital allocation, and it lands on the beat instead of beside it.
+
+**Guardrails, non-negotiable:**
+
+1. **Never present yield as free money.** The share price adjusts on the ex-dividend date; the dividend is not additive to total return. A post implying otherwise is the exact hype this desk exists not to produce.
+2. **A high yield is frequently a distress signal** — yields rise because prices fall. Any high-yield name gets its payout ratio and dividend coverage checked before it appears in a post, not after.
+3. **Publish the arithmetic, not the yield field.** `get_equity_fundamentals` returns `dividend_yield` and `dividend_per_share`, and on 2026-08-21 they disagreed slightly on every name checked (ETN: 1.031% reported vs 1.049% computed from 1.10 × 4 ÷ 419.26). Show `shares × annual dividend` so a reader can check it themselves; do not quote a yield figure whose derivation we cannot reproduce.
+4. **Never frame it as a recommendation to buy N shares.** The framing is "here is what this costs and what it returns," not "buy this and collect."
+5. **Sizes must not imply a book we do not have.** The account's real book is small and public. A 4,000-share illustration is a thought experiment about the business, and the post must read that way.
 
 ### The explainer — why it matters more than it looks
 
