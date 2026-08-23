@@ -1,29 +1,57 @@
 {
   "beat": "AI infrastructure",
-  "asof": "2026-08-22",
+  "asof": "2026-08-23",
   "_rule": "VERIFY A TICKER'S ACTUAL BUSINESS BEFORE ADDING IT. Pull get_equity_fundamentals and read the description field. LTH sat on the old board for months and it is Life Time Group Holdings, a gym and spa operator. A ticker list buried in prose is a list nobody audits, which is why this file exists.",
   "_shape": "The layers are ordered the way the money flows: hyperscaler capex funds silicon, silicon goes in boxes, boxes need power and cooling. Every story sits somewhere on that chain. The crypto bridge is the seam where this beat meets crypto.",
   "_source": "Designed 2026-08-21, docs/superpowers/specs/2026-08-21-ai-infrastructure-beat-design.md. Every ticker below verified against get_equity_fundamentals on 2026-08-21.",
   "layers": {
     "buyers": {
       "what": "The hyperscaler capex line that funds everything below. Leading indicator for the whole chain.",
-      "tickers": ["MSFT", "GOOGL", "AMZN", "META"]
+      "tickers": [
+        "MSFT",
+        "GOOGL",
+        "AMZN",
+        "META"
+      ]
     },
     "silicon": {
       "what": "The chips.",
-      "tickers": ["NVDA", "AMD", "MU", "AVGO"]
+      "tickers": [
+        "NVDA",
+        "AMD",
+        "MU",
+        "AVGO",
+        "MRVL"
+      ]
     },
     "box": {
       "what": "Servers and the networking that connects them.",
-      "tickers": ["SMCI", "DELL", "ANET"]
+      "tickers": [
+        "SMCI",
+        "DELL",
+        "ANET"
+      ]
     },
     "power": {
       "what": "Power, cooling, electrical equipment and the generation behind it. The actual bottleneck, and the least covered layer.",
-      "tickers": ["VRT", "ETN", "GEV", "PWR", "CEG", "VST", "TLN"]
+      "tickers": [
+        "VRT",
+        "ETN",
+        "GEV",
+        "PWR",
+        "CEG",
+        "VST",
+        "TLN"
+      ]
     },
     "crypto_bridge": {
       "what": "Bitcoin miners converting to AI compute. From their own filings: Core Scientific runs Mining and Hosting segments; Applied Digital splits Data Center Hosting from HPC Hosting; TeraWulf is Digital Asset Mining and HPC Leasing; IREN is a data centre business for Bitcoin and AI. When crypto moves, these move, and they are already on the beat.",
-      "tickers": ["CORZ", "IREN", "APLD", "WULF"]
+      "tickers": [
+        "CORZ",
+        "IREN",
+        "APLD",
+        "WULF"
+      ]
     }
   },
   "removed": [
@@ -31,6 +59,14 @@
       "sym": "LTH",
       "removed_on": "2026-08-22",
       "why": "Life Time Group Holdings - gyms and spas, Consumer Services, 44,000 employees, founded 1992. Not AI infrastructure and never was. It was on the board because the old board accreted rather than being designed."
+    }
+  ],
+  "added": [
+    {
+      "sym": "MRVL",
+      "layer": "silicon",
+      "added_on": "2026-08-23",
+      "why": "Marvell Technology - custom AI silicon and data-centre interconnect, the largest such name after Broadcom. $207.6B market cap, 7,480 employees, founded 1995. Business verified per bench-daily-v4 section 1 from get_equity_fundamentals: data processing units, coherent DSP, DCI optical modules, ethernet controllers/PHYs/switches, PAM DSP, transimpedance amplifiers, ASIC. Added by Adam's decision 2026-08-23 after the 8/23 weekly catalyst post reported the week as two board names when four AI-infrastructure names actually reported - the board had the hole, not the week. It reports 2026-08-27 pm, the night after NVDA, which makes it the direct read on whether hyperscaler spend is moving from merchant GPUs to chips built for one buyer."
     }
   ]
 }
