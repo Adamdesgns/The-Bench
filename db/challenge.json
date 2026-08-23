@@ -1,62 +1,44 @@
 [
   {
-    "date": "2026-08-04",
-    "total_value": 749.59,
-    "equity_value": 379.99,
-    "cash": 369.6,
+    "date": "2026-08-16",
+    "total_value": 1037.81,
+    "equity_value": 450.45,
+    "cash": 587.36,
     "options_value": 0,
     "deposit": 0,
+    "deposit_source": null,
     "accounts": [
       "769507724",
       "929016137"
     ],
     "source": "robinhood-mcp",
-    "note": "Starting line, at the 2026-08-04 close. Agentic 7724 ($548.71: 1 GOOGL @ $379.99 close, $168.72 cash) + margin 6137 ($200.88 cash, allocated for options at level 3). Same money, two accounts.",
+    "note": "NEW STARTING LINE. Challenge restarted at Adam's direction 2026-08-16: all $1,037.81 across both accounts is challenge capital, and every transfer from here is labelled with its source so the $10,000 post can state exactly how it got there. Held: HPQ 15 sh @ 29.145 avg, GTC stop 29.30. Prior ledger retired to db/challenge-v1-retired-2026-08-16.json; two closed trades before this line (GOOGL -22.99, HPQ scratch -2.06 = -25.05) are already inside this balance and belong in the win-rate column, not the contributed column.",
     "pct_from_start": 0,
-    "multiple_to_target": 13.34,
-    "pct_of_target": 7.5,
-    "contributed": 749.59,
+    "multiple_to_target": 9.64,
+    "pct_of_target": 10.4,
+    "contributed": 1037.81,
     "trading_pnl": 0,
     "pct_return_on_contributed": 0
   },
   {
-    "date": "2026-08-05",
-    "total_value": 726.6,
-    "equity_value": 0,
-    "cash": 726.6,
+    "date": "2026-08-23",
+    "total_value": 2024.59,
+    "equity_value": 434.1,
+    "cash": 1590.49,
     "options_value": 0,
-    "deposit": 0,
+    "deposit": 1000,
+    "deposit_source": "Adam's paycheck - $1,000 deposit, landed between 2026-08-16 and 2026-08-21",
     "accounts": [
       "769507724",
       "929016137"
     ],
     "source": "robinhood-mcp",
-    "note": "GOOGL stop filled 357.00 at 11:12 CDT. Flat, all cash. NOTE: only 168.72 is spendable today - the 357.00 proceeds are unsettled T+1 in the cash account.",
-    "pct_from_start": -3.07,
-    "multiple_to_target": 13.76,
-    "pct_of_target": 7.3,
-    "contributed": 749.59,
-    "trading_pnl": -22.99,
-    "pct_return_on_contributed": -3.07
-  },
-  {
-    "date": "2026-08-09",
-    "total_value": 1226.6,
-    "equity_value": 0,
-    "cash": 1226.6,
-    "options_value": 0,
-    "deposit": 500,
-    "accounts": [
-      "769507724",
-      "929016137"
-    ],
-    "source": "robinhood-mcp",
-    "note": "Week 1 close. Flat, all cash, no open positions. $500.00 external deposit this week (Agentic 7724 $720.76 + margin 6137 $505.84). Deposit earns nothing: trading P&L unchanged from 08-05 at -$22.99.",
-    "pct_from_start": 63.64,
-    "multiple_to_target": 8.15,
-    "pct_of_target": 12.3,
-    "contributed": 1249.59,
-    "trading_pnl": -22.99,
-    "pct_return_on_contributed": -1.84
+    "note": "Deposit source confirmed by Adam 2026-08-23, which unfroze this ledger - the row was deliberately withheld on 8/23 because $987 was unexplained and writing it would have recorded a $986.78 'trading P&L' that was actually a paycheck. RECONCILIATION: realized trades since 8/16 are HPQ +2.17 (stop 8/17) and GDS -28.80 (stop 8/19) = -26.63. ZYME 15 sh basis 407.40, broker marks equity at 434.10 (28.94, the extended-hours print) = +26.70 unrealized. Those two net to +0.07, but the ledger's trading P&L is -13.22, leaving a -13.29 RESIDUAL THIS SNAPSHOT DOES NOT EXPLAIN. Most likely fees or margin interest on 929016137 - NOT asserted, just flagged, and worth chasing if it recurs next week. Deposit landed before Friday: book row B-170 (8/21 7:15a) already referenced a $1,997.89 pool. Live pull 2026-08-23 via get_portfolio on both accounts.",
+    "pct_from_start": 95.08,
+    "multiple_to_target": 4.94,
+    "pct_of_target": 20.2,
+    "contributed": 2037.81,
+    "trading_pnl": -13.22,
+    "pct_return_on_contributed": -0.65
   }
 ]
