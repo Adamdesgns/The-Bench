@@ -216,6 +216,18 @@
         "ticker": "GDS",
         "detail": "GDS missed Q2 EPS by 61% (0.52 actual vs 1.35 est) and CLOSED +6.72% at 34.94 on 5.05M shares vs a 1.65M 30-day average = 3.05x relative volume. The guide is the entire move: FY26 revenue guidance RAISED from RMB12.4-12.9B to RMB12.7-13.0B, and the full-year bookings target DOUBLED from 500MW to 1GW, with H1 bookings at a record 470MW, 600MW of additional customer reservations, binding commitments now above 2GW, and capex guidance raised RMB9B to RMB10B. Net income RMB837.6M vs a RMB70.6M LOSS a year ago. Quarter and guide pointed opposite ways and the reaction followed the GUIDE - 4th instance, and the first one measured on 3x relative volume, which per P-003 marks it as a real institutional repricing rather than a retail bounce. Verified via GlobeNewswire release and the SEC 6-K exhibit.",
         "holds": true
+      },
+      {
+        "date": "2026-08-10",
+        "ticker": "HIMS",
+        "detail": "FIRST FAILURE. Textbook P-008 setup: EPS MISSED by 32c (-0.37 vs -0.05) while the company RAISED FY26 revenue guidance to 3.1-3.3B and guided Q3 to 880-900M, +47-50% YoY. Quarter and guide pointed opposite ways, and the reaction followed the MISS, not the guide: D+1 -3.97% (gapped 31.77 to 29.71), then four consecutive lower closes to 28.16 = -11.4%, losing the 200-day on day three. DISCRIMINATOR vs the SMCI cases that built this pattern: SMCI missed on shipment TIMING while its guide rewrote forward revenue, so the guide was new information. HIMS missed on STRUCTURAL MARGIN - gross margin 63.8% vs 76.4% a year earlier on the compounded-to-branded GLP-1 pivot, six straight quarters of compression, and net income from +42.5M to -86.3M on revenue up 38.2%. When the miss IS the forward economics, the raise gets discounted rather than priced. Candidate refinement for v25, NOT applied on one instance.",
+        "holds": false
+      },
+      {
+        "date": "2026-08-23",
+        "ticker": "SMCI",
+        "detail": "PERSISTENCE CHECK, 10 sessions after the 2026-08-11 mirror pair - the guide repricings did NOT mean-revert, which is the objection this pattern most needed answered. SMCI closed 37.56 on 8/12 (D+1, +18.85%) and closed 37.25 on Friday 2026-08-21, holding essentially all of the guide move. ONON closed 30.91 on 8/11 after the FY26 cut and closed 30.03 Friday, still below where the cut left it - it never bounced. Live get_equity_quotes pull 2026-08-23 13:35 CT, last_trade_price at 2026-08-21T19:59:59Z. So the guide does not produce a pop that fades, it reprices the company and the price stays repriced. Falsification for this leg: a P-008 instance whose post-guide move is fully retraced inside 10 sessions on average-or-below volume.",
+        "holds": true
       }
     ]
   },
@@ -284,5 +296,46 @@
     "why": null,
     "logged_by": "claude",
     "instances": []
+  },
+  {
+    "id": "P-013",
+    "claim": "Every closed swing in this book has exited at its STOP; not one has ever reached Target 1. A 1.0-1.1 ATR stop is a one-to-three-day stop, not a two-to-eight-week stop, so the framework's own default holding window and its own minimum stop distance are in structural conflict.",
+    "test": "For each closed swing, record (a) whether the exit was the stop or a target, and (b) the holding period in sessions against the 2-8 week default window. The pattern FAILS the moment a trade exits at T1 or T2, or the moment a stop at or near 1.0 ATR survives a full four-week hold.",
+    "first_seen": "2026-08-19",
+    "status": "supported",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-08-19",
+        "ticker": "GDS",
+        "detail": "Stop 1.064 ATR from basis. Entered 34.40 on 8/18 8:49:34a, stopped 32.60 on 8/19 8:50:26a. Held 24 hours 52 seconds against a 2-8 week intended window. T1 37.85 never approached; best print was 35.045, which is 7.4% short of target. Exit was the stop.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-17",
+        "ticker": "HPQ",
+        "detail": "Stop ratcheted to 0.11 ATR (the B-113 case that earned the v25 ATR Floor). Entered 29.145 on 8/11, stopped 29.29 on 8/17. Held 6 sessions against a 2-8 week window. T1 32.80 never paid; best print 31.30, 4.6% short. Exit was the stop. Stock is 30.245 today, 3.3% ABOVE the stop - the one genuine case where the stop cost money.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-05",
+        "ticker": "GOOGL",
+        "detail": "Entered 332.38 on 7/30, exited 357.00 on 8/5 via a RATCHETED TRAILING stop, +24.62 = +7.41%. Held 6 sessions against a 2-8 week window. Still an exit at the stop rather than at a target - but the honest note is that the trailing stop CAPTURED the gain here rather than cutting it, and GOOGL is 345.45 today, 3.2% BELOW the exit. Holding would have made 11.55 LESS. This instance holds on mechanism (stop, not target) while cutting against the idea that stops are the problem.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-19",
+        "ticker": "HPQ",
+        "detail": "COUNTERFACTUAL RUN 8/19 REFUTES THE HYPOTHESIS ON THIS INSTANCE. P-013 claims a 1.0-1.1 ATR stop is too tight for a multi-week hold. HPQ's ORIGINAL stop was 27.65 = 1.09 ATR and was NEVER HIT - the lowest print across the whole holding period was 28.305 on 8/12, leaving 0.39 ATR of clearance at the worst moment. A hypothetical 1.0 ATR stop at 27.771 also survives. What killed the trade was the RATCHET to 29.30 (0.11 ATR), not the stop distance. Without the ratchet the position is open today at 30.245 = +16.50 instead of +2.17. The 1.0 ATR floor was sufficient here; the ratchet rule was not.",
+        "holds": false
+      },
+      {
+        "date": "2026-08-19",
+        "ticker": "GDS",
+        "detail": "COUNTERFACTUAL RUN 8/19 ALSO REFUTES THE FIX ON THIS INSTANCE. A 2.0 ATR stop would sit at 31.02 (34.40 basis, ATR 1.6916) and would NOT have been hit - the lowest print since entry is ~32.55. But the position would simply still be OPEN and losing: marked 32.70 = -27.20 against a realized -28.80. The wider stop buys 1.60 and an unresolved loser. Widening the ATR Floor does not rescue this trade, so this instance cuts against the proposed remedy even though the underlying observation (exited at the stop, never reached T1) still holds.",
+        "holds": false
+      }
+    ]
   }
 ]
