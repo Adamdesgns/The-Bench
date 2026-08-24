@@ -2,18 +2,18 @@
 
 **Status:** written 2026-08-14, **not applied.** Both files below belong in `apps/x-poster` (a separate repo). Claude's permission classifier blocks writes into that repo — it is the live unattended publisher for a public account — so the code lives here for Adam to review and drop in.
 
-**Companion to:** `prompts/benny-v1.md` section 6 (the mentions lane).
+**Companion to:** `prompts/benny-v2.md` section 6 (the mentions lane — **SPEC ONLY** until this code is in x-poster).
 
 ---
 
 ## The architecture, and why it splits this way
 
-Benny cannot answer a question from inside a Python script. Answering means pulling live quotes through the Robinhood MCP, applying v24, checking the board, and writing in his voice — that is a Claude routine, not a poller. So the work splits along the seam the rest of x-poster already uses:
+Benny cannot answer a question from inside a Python script. Answering means pulling live quotes through the Robinhood MCP, applying v25, checking the board, and writing in his voice — that is a Claude routine, not a poller. So the work splits along the seam the rest of x-poster already uses:
 
 ```
 listen_mentions.py   poll → filter to the operator → dedupe → write inbox/<id>.txt
         ↓
-Claude routine       read inbox/ → run v24 on live data → draft to approved/
+Claude routine       read inbox/ → run v25 on live data → draft to approved/
                      with "REPLY-TO: <id>" as the first line → move to inbox/answered/
         ↓
 post_next.py         publish the draft as a reply chain under the question
@@ -51,10 +51,10 @@ Usage:
     python listen_mentions.py --dry-run   # show what would be filed, write nothing
     python listen_mentions.py             # poll once and file new operator mentions
 
-This is the "ears" half of Benny (see the-bench prompts/benny-v1.md section 6).
+This is the "ears" half of Benny (see the-bench prompts/benny-v2.md section 6).
 It does NOT answer anything. It polls, filters, de-duplicates, and writes each
 qualifying question to inbox/. A separate Claude routine reads inbox/, runs the
-v24 framework against live data, drafts the answer to approved/ with a
+v25 framework against live data, drafts the answer to approved/ with a
 REPLY-TO header, and post_next.py publishes it. Same shape as every other
 routine here: this script never composes and never publishes.
 
@@ -296,7 +296,7 @@ Today the chain can only ever reply to itself: `reply_to` starts at `None` and i
 # A draft whose FIRST line is "REPLY-TO: <tweet id>" posts as a reply to that
 # tweet instead of as a new top-level post. The header never reaches X.
 #
-# This exists for Benny's mentions lane (the-bench prompts/benny-v1.md sec 6):
+# This exists for Benny's mentions lane (the-bench prompts/benny-v2.md sec 6):
 # the listener writes a question to inbox/, a routine drafts the answer, and the
 # answer has to land UNDER the question instead of floating free in the timeline.
 #
