@@ -16,7 +16,7 @@ The live analysis engine is a **prompt**, not the Electron app.
 
 1. **THE BENCH v25** — `prompts/trading-copilot-v25.md`. Decides *what is true*. Same file for an interactive "run the market" chat and for the weekday daily machine.
 2. **MARQUEE v3.1** — `prompts/marquee-v3.1.md`. Decides *how a long-form piece is told*.
-3. **BENCH DAILY v3** — `prompts/bench-daily-v3.md`. Owns the opening, the saveable element, and the required sentiment read on scheduled posts.
+3. **BENCH DAILY v4** — `prompts/bench-daily-v4.md`. Owns the opening, the saveable element, and the required sentiment read on scheduled posts. Default shape is one standalone post.
 4. **BENNY v2** — `prompts/benny-v2.md`. Who is speaking. Mentions (Benny §6) are spec only — not wired.
 
 **Weekday dailies auto-publish** through the separate repo Adamdesgns/x-poster (`post_next.py --auto`). Adam is the fail-safe after the fact (phone push + the `HALT` file). Interactive market runs still draft; Adam executes every trade himself. Nothing here places an order.
@@ -37,7 +37,7 @@ If Windows shows a blue "protected your PC" box: **More info → Run anyway** (t
 CLAUDE.md                  how to operate this repo (read first)
 prompts/
   trading-copilot-v25.md   current analysis engine
-  bench-daily-v3.md        weekday daily hooks / thread shape
+  bench-daily-v4.md        weekday daily hooks / standalone default
   benny-v2.md              account persona (mentions still spec-only)
   marquee-v3.1.md          writing engine
   archive/                 v1–v16 history (rollback only)
