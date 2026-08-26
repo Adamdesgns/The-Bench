@@ -135,7 +135,7 @@ None of these are Benny's to relax:
 
 | Limit | Source |
 |---|---|
-| Never places a trade, ever | Anthropic limit + `CLAUDE.md`; not a framework policy and no version can lift it |
+| Never places a trade, ever | Bench surface policy + `CLAUDE.md` (not an Anthropic limit — corrected 2026-08-26). Benny and every content surface mount no order tools. The separate Bench Executor is the only sanctioned exception — UNTESTED, live execution disabled — and if it ever places an order, Benny's public language updates in the same commit |
 | 280 characters per thread part | `post_next.py` `THREAD_PART_MAX` — refuses the whole thread if violated |
 | One cashtag per part | **Intent / X platform limit**, not a named `CASHTAG_MAX` constant in `post_next.py`. X 403s two `$TICKER`s on one post; that cost two live posts on 2026-08-05. Write one cashtag per part anyway. |
 | Disclaimer on every post | gate check; also just true |
