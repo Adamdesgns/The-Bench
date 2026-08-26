@@ -181,6 +181,12 @@
         "ticker": "ASTS",
         "detail": "CONTROL/no-run case: DOWN 10.6% in the 5 sessions before the print, MISSED by the widest margin of the set (-0.41 vs -0.12 est), and rallied D+1 +8.4%, D+2 +9.0%. Worst miss, best reaction - because there was no run to unwind.",
         "holds": true
+      },
+      {
+        "date": "2026-08-25",
+        "ticker": "ZYME",
+        "detail": "STRONGEST FORM OF THIS PATTERN THE BOOK HAS SEEN - the catalyst resolved MAXIMALLY POSITIVE and the stock still closed RED. FDA APPROVED Ziihera (zanidatamab-hrii) in 1L HER2+ advanced gastroesophageal adenocarcinoma on 2026-08-25, both regimens (with and without tislelizumab), triggering a 250M USD milestone from Jazz to Zymeworks plus eligibility for up to 1.3B more and royalties to 20pct. This is not a beat, it is the entire binary resolving the good way. ZYME CLOSED 27.47, DOWN 4.52pct from the 28.77 prior close. THE RUN-IN: 25.31 (8/17 close) to 28.77 (8/24 close) = +13.67pct over the 5 sessions into the decision, clearing the 8pct threshold this pattern is defined on. THE SESSION: open 28.88, high 30.50 (a NEW 52-WEEK HIGH, and 30.50 is the exact bottom of B-175s 30.50-32.50 trim band, touched to the penny and reversed), low 25.6095, close 27.47. High-to-low range 16.0pct. Volume 2,059,391 = 3.85x the 534,940 30-day average. Beat-vs-miss did not merely matter less than the run - it did not matter AT ALL, because there was no version of this outcome better than the one that printed. B-175 pre-committed the exact behavior as its UPSIDE KILL SWITCH: \"an approval that CLOSES RED = milestone already priced, supply in charge.\" Logged from the flat side - the position was closed 8/24 at 28.685 (B-197), so this instance costs the book nothing and is graded without a position to defend.",
+        "holds": true
       }
     ]
   },
@@ -295,7 +301,14 @@
     "status": "proposed",
     "why": null,
     "logged_by": "claude",
-    "instances": []
+    "instances": [
+      {
+        "date": "2026-08-24",
+        "ticker": "MU",
+        "detail": "OUT-OF-WINDOW OBSERVATION - MUST NOT COUNT TOWARD THE 3-INSTANCE PROMOTION THRESHOLD. Read the caveat before using this row. P-012 specifies POST-EARNINGS reactions across the FY2027 reporting cycle, Q4-26 prints in Jan-2027 through Q3-27 in Oct-2027. Today is 2026-08-24, five months early, and the move is PRE-NVDA-earnings positioning, NOT a post-print reaction. So this is the predicted SHAPE arriving ahead of the specified mechanism. Logged because the split is unusually clean and because the LOG IT rule requires it; deliberately fenced so it cannot inflate the promotion count. THE SPLIT, all pulled live at 10:14:54 CT. BASKET A, cash earnings now - the four hyperscaler buyers, ALL GREEN: MSFT 488.02 vs 483.24 = +0.99pct; GOOGL 349.82 vs 344.82 = +1.45pct; AMZN 261.555 vs 258.63 = +1.13pct; META 553.17 vs 549.90 = +0.59pct. Layer average PLUS 1.04pct. BASKET B, story/capex priced - all five silicon names, ALL RED: NVDA 209.17 vs 214.72 = -2.59pct; AMD 456.0951 vs 473.25 = -3.62pct; MU 897.02 vs 966.78 = MINUS 7.22pct; AVGO 361.455 vs 368.45 = -1.90pct; MRVL 224.60 vs 237.04 = -5.25pct. Layer average MINUS 4.11pct. SPREAD BETWEEN THE TWO BASKETS: 5.15 PERCENTAGE POINTS IN ONE SESSION. Other layers for completeness: box -3.25pct (SMCI -7.33, DELL -2.31, ANET -0.10); power -2.27pct (VRT -3.78, ETN -2.49, GEV -2.02, PWR -4.25, CEG -0.62, VST -0.26, TLN -2.45); crypto_bridge -1.44pct (CORZ -2.16, IREN -3.44, APLD -1.06, WULF +0.90). THE DISCRIMINATION TEST PASSES, WHICH IS THE WHOLE POINT: P-012 says an INDISCRIMINATE everything-selloff must be recorded holds=false because that is a macro event and not this pattern. It is not indiscriminate. SPY 762.71 vs 765.72 = MINUS 0.39pct and QQQ 705.015 vs 713.44 = -1.18pct, while MU is down 7.22pct. The index is nearly flat and the speculative layer is being taken apart. That is a rotation inside the AI complex, not risk-off. OFF-BOARD CORROBORATION: INTC -4.1pct today on a 20B dilutive equity raise, six sessions down, minus 16.9pct in five closes - a textbook basket B name whose multiple rests on announced capex rather than delivered profit. INTC is NOT on db/board.json and is not counted in any layer average above. WHAT WOULD FALSIFY THIS EARLY READ: the buyers giving back the gain and closing red with silicon, which would make it an ordinary down day mislabelled; or silicon reclaiming tomorrow on NVDA's guide, which would make today pre-print de-risking rather than repricing. Adam's original call, logged 2026-08-14: 'the ai run has been a lot of speculation, I see next years earning wrecking some'.",
+        "holds": true
+      }
+    ]
   },
   {
     "id": "P-013",
@@ -335,6 +348,39 @@
         "ticker": "GDS",
         "detail": "COUNTERFACTUAL RUN 8/19 ALSO REFUTES THE FIX ON THIS INSTANCE. A 2.0 ATR stop would sit at 31.02 (34.40 basis, ATR 1.6916) and would NOT have been hit - the lowest print since entry is ~32.55. But the position would simply still be OPEN and losing: marked 32.70 = -27.20 against a realized -28.80. The wider stop buys 1.60 and an unresolved loser. Widening the ATR Floor does not rescue this trade, so this instance cuts against the proposed remedy even though the underlying observation (exited at the stop, never reached T1) still holds.",
         "holds": false
+      }
+    ]
+  },
+  {
+    "id": "P-014",
+    "claim": "A price target that exists only in a post or a note, and never as a RESTING LIMIT ORDER, does not get taken. The book's targets are not unreached because price failed to arrive - they are unreached because nothing was in the market to sell into them when it did. This is the mechanism behind P-013's observation that every closed swing exited at its stop and none ever reached Target 1: a stop is an order that lives in the market, and a target has only ever been a sentence.",
+    "test": "For every logged target, record (a) whether price ever traded at or through it in ANY session, extended hours included, and (b) whether a resting limit order existed at the time. The pattern FAILS the moment a target is reached in-market with a resting order present and unfilled, or the moment the book's unreached targets are shown to be genuinely unreached by price rather than unattended.",
+    "first_seen": "2026-08-24",
+    "status": "proposed",
+    "why": "Adam found this, not the framework, and he found it by asking the obvious question nobody had asked: 'you have low confidence on it why wouldn't we setup a sell price at 30 on day one'. At 55pct confidence on a binary the edge is not in the outcome, it is in the pre-event drift - and the drift has to be harvested by a mechanism, not by attention.",
+    "logged_by": "Robinhood MCP get_equity_historicals bounds=extended 5minute pulled 09:08 CT 2026-08-24; published plan x.com/i/status/2090841469842079873",
+    "instances": []
+  },
+  {
+    "id": "P-015",
+    "claim": "A post-print gap whose size vastly exceeds the change in the forward guide round-trips within the same session - the reversal is the auction repricing a wrong open, not the market rejecting the quarter",
+    "test": "Track the same-session open-to-close path of names gapping more than 15pct post-print where the forward revenue guide midpoint moves less than 2pct sequentially. Pattern FAILS if those gaps hold more than half their opening advance into the close.",
+    "first_seen": "2026-08-26",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-08-26",
+        "ticker": "PLAB",
+        "detail": "Fiscal Q3 double beat - revenue 216.0M vs 208.75M street, non-GAAP EPS 0.50 vs 0.4033 - and a Q4 guide that RAISED EPS vs street (mid 0.48 vs 0.42) on FLAT revenue (mid 217M vs Q3 216.0M = +0.5pct sequential). Opened 37.48 = +27.83pct over the 29.32 close, tagged 37.91, and the opening 5-min bar CLOSED 33.37 - 4.11 given up in five minutes on 759,709 shares. Entire gap gone by 8:50am CT at a 30.22 low; 30.7151 (+4.76pct) at 10:58am CT = -18.98pct off the high. Volume 5,535,426 vs 891,651 30-day avg = 6.21x. A 28pct open on a 0.5pct revenue guide change. Not P-006 (guide firmed) and not P-008 (quarter and guide both up) - the guide was fine and the OPEN was wrong. SPY -0.05, QQQ -0.14, SMH -0.24, so idiosyncratic, not sector beta.",
+        "holds": true
+      },
+      {
+        "date": "2026-08-26",
+        "ticker": "META",
+        "detail": "Second instance, same session, unrelated sector and a headline rather than a print - logged from the 09:23 CT tape.json entry written by the pre-market routine. META gapped to 590.71 on a reported 16.68B, 29-state teen-safety settlement (court filing 8/26, no 8-K as of 09:23 CT), tagged 593.27 and traded 561.945 within FIFTEEN MINUTES - the whole gap given back. Same mechanism as PLAB: the opening auction priced a re-rating the underlying news never delivered, and the reversal was the correction of the open. Flagged as partially unverified - the settlement figure was reported, not confirmed by filing, at the time of the tape stamp. Caveat for the falsification test: this instance is a HEADLINE gap, not a post-print guide gap, so it evidences the mechanism but sits outside the strict test population.",
+        "holds": true
       }
     ]
   }
