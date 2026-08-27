@@ -15,6 +15,7 @@ import {
   appendSnapshot,
   contributedAt,
   scopeChanged,
+  attribution,
 } from "./challenge.js";
 
 const START = {
@@ -134,7 +135,7 @@ test("with no deposits, contributed is just the starting balance", () => {
 
 test("a deposit raises contributed and does NOT count as profit", () => {
   const ledger = ledgerOf(START);
-  const funded = { ...START, date: "2026-08-11", total_value: 745.81, cash: 368.72, deposit: 200 };
+  const funded = { ...START, date: "2026-08-11", total_value: 745.81, cash: 368.72, deposit: 200, deposit_source: "savings" };
   const out = appendSnapshot(ledger, funded);
   assert.equal(out[1].contributed, 745.81);
   assert.equal(out[1].trading_pnl, 0, "moving $200 in earned nothing");
@@ -143,7 +144,7 @@ test("a deposit raises contributed and does NOT count as profit", () => {
 
 test("profit is measured against contributed, not against the start", () => {
   const ledger = ledgerOf(START);
-  const funded = { ...START, date: "2026-08-11", total_value: 800, cash: 422.91, deposit: 200 };
+  const funded = { ...START, date: "2026-08-11", total_value: 800, cash: 422.91, deposit: 200, deposit_source: "savings" };
   const out = appendSnapshot(ledger, funded);
   assert.equal(out[1].contributed, 745.81);
   assert.equal(out[1].trading_pnl, 54.19);
@@ -155,7 +156,7 @@ test("profit is measured against contributed, not against the start", () => {
 test("a withdrawal is a negative deposit and lowers contributed", () => {
   const ledger = ledgerOf(START);
   const out = appendSnapshot(ledger, {
-    ...START, date: "2026-08-11", total_value: 445.81, cash: 68.72, deposit: -100,
+    ...START, date: "2026-08-11", total_value: 445.81, cash: 68.72, deposit: -100, deposit_source: "bills",
   });
   assert.equal(out[1].contributed, 445.81);
   assert.equal(out[1].trading_pnl, 0, "taking $100 out is not a loss");
@@ -163,8 +164,8 @@ test("a withdrawal is a negative deposit and lowers contributed", () => {
 
 test("deposits accumulate across rows", () => {
   let ledger = ledgerOf(START);
-  ledger = appendSnapshot(ledger, { ...START, date: "2026-08-11", total_value: 745.81, cash: 368.72, deposit: 200 });
-  ledger = appendSnapshot(ledger, { ...START, date: "2026-08-18", total_value: 1045.81, cash: 668.72, deposit: 300 });
+  ledger = appendSnapshot(ledger, { ...START, date: "2026-08-11", total_value: 745.81, cash: 368.72, deposit: 200, deposit_source: "savings" });
+  ledger = appendSnapshot(ledger, { ...START, date: "2026-08-18", total_value: 1045.81, cash: 668.72, deposit: 300, deposit_source: "job" });
   assert.equal(ledger[2].contributed, 1045.81);
   assert.equal(ledger[2].trading_pnl, 0);
 });
@@ -204,4 +205,119 @@ test("a change in account scope is flagged, because it moves the balance", () =>
     scopeChanged(ledger, widened),
     "widening from one account to two has to be visible"
   );
+});
+
+// ── Funding sources and the finish-line breakdown ────────────────────────────
+//
+// Added 2026-08-16, after a public post asserted a $200 withdrawal that was
+// never observed — it was reconstructed from balances. The broker reports
+// balances and trades and never reports WHY money moved, so the reason has to
+// be recorded at the time or it is gone. These tests are that guarantee.
+
+test("a deposit without a source is refused — the reason cannot be recovered later", () => {
+  const problems = validateSnapshot(
+    { ...START, date: "2026-08-11", total_value: 1045.81, equity_value: 877.09, deposit: 500 },
+    ledgerOf(START)
+  );
+  assert.match(problems.join(" "), /deposit_source/);
+});
+
+test("a withdrawal needs a source too — money out is as unexplained as money in", () => {
+  const problems = validateSnapshot(
+    { ...START, date: "2026-08-11", total_value: 345.81, equity_value: 177.09, deposit: -200 },
+    ledgerOf(START)
+  );
+  assert.match(problems.join(" "), /deposit_source/);
+});
+
+test("a zero deposit needs no source — there is nothing to label", () => {
+  const problems = validateSnapshot({ ...START, date: "2026-08-11", deposit: 0 }, ledgerOf(START));
+  assert.deepEqual(problems, []);
+});
+
+test("a blank or whitespace source does not satisfy the requirement", () => {
+  for (const bad of ["", "   ", null, 7]) {
+    const problems = validateSnapshot(
+      { ...START, date: "2026-08-11", total_value: 1045.81, equity_value: 877.09,
+        deposit: 500, deposit_source: bad },
+      ledgerOf(START)
+    );
+    assert.match(problems.join(" "), /deposit_source/, `${JSON.stringify(bad)} should be refused`);
+  }
+});
+
+test("appendSnapshot stores a trimmed source, and null when there is none", () => {
+  const opened = appendSnapshot(ledgerOf(), START);
+  assert.equal(opened[0].deposit_source, null);
+
+  const withDeposit = appendSnapshot(opened, {
+    ...START, date: "2026-08-11", total_value: 1045.81, equity_value: 877.09,
+    deposit: 500, deposit_source: "  savings  ",
+  });
+  assert.equal(withDeposit[1].deposit_source, "savings");
+});
+
+test("attribution splits the balance into where it came from, and it sums", () => {
+  let ledger = appendSnapshot(ledgerOf(), START);
+  ledger = appendSnapshot(ledger, {
+    ...START, date: "2026-08-11", total_value: 1045.81, equity_value: 877.09,
+    deposit: 500, deposit_source: "savings",
+  });
+  ledger = appendSnapshot(ledger, {
+    ...START, date: "2026-08-18", total_value: 1400, equity_value: 1231.28,
+    deposit: 200, deposit_source: "job",
+  });
+
+  const report = attribution(ledger);
+  assert.ok(report.reconciles, "the buckets must sum to the account value");
+  assert.equal(report.contributed, 1245.81);
+  // 1400 in the account against 1245.81 put in = 154.19 earned.
+  assert.equal(report.trading_pnl, 154.19);
+  assert.deepEqual(report.sources, [
+    { source: "opening balance", amount: 545.81 },
+    { source: "savings", amount: 500 },
+    { source: "job", amount: 200 },
+  ]);
+});
+
+test("attribution folds the same source into one bucket regardless of case", () => {
+  let ledger = appendSnapshot(ledgerOf(), START);
+  ledger = appendSnapshot(ledger, {
+    ...START, date: "2026-08-11", total_value: 645.81, equity_value: 477.09,
+    deposit: 100, deposit_source: "savings",
+  });
+  ledger = appendSnapshot(ledger, {
+    ...START, date: "2026-08-18", total_value: 745.81, equity_value: 577.09,
+    deposit: 100, deposit_source: "Savings ",
+  });
+
+  const report = attribution(ledger);
+  const savings = report.sources.filter((s) => s.source.toLowerCase() === "savings");
+  assert.equal(savings.length, 1, "two spellings must not become two buckets");
+  assert.equal(savings[0].amount, 200);
+});
+
+test("attribution nets a withdrawal against its source rather than hiding it", () => {
+  let ledger = appendSnapshot(ledgerOf(), START);
+  ledger = appendSnapshot(ledger, {
+    ...START, date: "2026-08-11", total_value: 345.81, equity_value: 177.09,
+    deposit: -200, deposit_source: "bills",
+  });
+
+  const report = attribution(ledger);
+  assert.deepEqual(report.sources.find((s) => s.source === "bills"), {
+    source: "bills", amount: -200,
+  });
+  assert.ok(report.reconciles);
+  assert.equal(report.trading_pnl, 0, "moving money out is not a trading loss");
+});
+
+test("the opening row can name where its own capital came from", () => {
+  const ledger = appendSnapshot(ledgerOf(), { ...START, deposit_source: "savings" });
+  assert.equal(attribution(ledger).sources[0].source, "savings");
+});
+
+test("attribution reports an empty ledger as nothing rather than zero", () => {
+  assert.equal(attribution([]), null);
+  assert.equal(attribution(), null);
 });

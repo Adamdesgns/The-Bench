@@ -4,7 +4,8 @@
 //        --call "No Trade - failed reclaim into a lockup cliff" --price 125.90
 //
 //   --type      pass | long | conditional | hedge | bet
-//   --trigger   REQUIRED for conditional   (the level the gate needs)
+//   --trigger    REQUIRED for conditional   (the level the gate needs)
+//   --decide-by  REQUIRED for conditional   (YYYY-MM-DD: when the plan dies if nothing happens)
 //   --invalid   REQUIRED for long          (where the thesis is wrong)
 //   --size      REQUIRED for hedge         (shares/contracts, or it cannot be scored)
 //   --max-loss  REQUIRED for bet           (dollars at risk, stated at entry)
@@ -76,6 +77,8 @@ const input = {
   date: val("--date") ?? new Date().toISOString().slice(0, 10),
   review_time: val("--review-time"),
   trigger: num("--trigger"),
+  decide_by: val("--decide-by") ?? null,
+
   invalidation: num("--invalid"),
   size: val("--size"),
   max_loss: num("--max-loss"),
@@ -116,6 +119,7 @@ console.log(`${row.id}  ${row.ticker}  $${row.review_price}  [${row.call_type}]`
 console.log(`  call:   ${row.final_call}`);
 if (row.trigger !== null) console.log(`  trigger:      ${row.trigger}`);
 if (row.invalidation !== null) console.log(`  invalidation: ${row.invalidation}`);
+if (row.decide_by) console.log(`  DECIDE BY:    ${row.decide_by}  <- plan is dead after this date if nothing has happened`);
 if (row.size !== null) console.log(`  size:         ${row.size}`);
 if (row.max_loss !== null) console.log(`  max loss:     $${row.max_loss}`);
 if (row.hodl) console.log(`  hodl:   ${row.hodl}`);

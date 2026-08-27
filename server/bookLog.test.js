@@ -44,7 +44,7 @@ test("a conditional MUST carry a trigger level", () => {
 });
 
 test("a conditional with a trigger is accepted", () => {
-  assert.deepEqual(validateCall({ ...base, type: "conditional", trigger: 77 }), []);
+  assert.deepEqual(validateCall({ ...base, type: "conditional", trigger: 77, decide_by: "2026-08-11" }), []);
 });
 
 test("a hedge MUST carry a position size", () => {
@@ -112,7 +112,7 @@ test("buildRow leaves grades null rather than inventing them", () => {
 });
 
 test("buildRow carries the trigger through for a conditional", () => {
-  const row = buildRow({ ...base, type: "conditional", trigger: 77 }, []);
+  const row = buildRow({ ...base, type: "conditional", trigger: 77, decide_by: "2026-08-11" }, []);
   assert.equal(row.trigger, 77);
 });
 

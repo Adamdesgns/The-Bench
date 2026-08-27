@@ -22,6 +22,10 @@ export const TARGET = 10000;
 // up as an unexplained jump in the balance.
 export const DEFAULT_ACCOUNTS = ["769507724"];
 
+// Label for the opening balance in the attribution table when row 1 does not
+// name where its capital came from.
+export const OPENING_LABEL = "opening balance";
+
 // Reconciliation tolerance, in dollars. Robinhood rounds its own components,
 // so a couple of cents of drift is real and expected; anything larger means
 // the numbers did not come from one snapshot.
@@ -74,6 +78,76 @@ export function contributedAt(ledger = [], row) {
   return round(total, 2);
 }
 
+// Where every dollar in the account came from, ready to publish.
+//
+// Adam, 2026-08-16: "when we reach 10k we state how we got there. savings added
+// $2500, job added this, win rate added this, etc." This builds exactly that
+// sentence, and it is exact rather than estimated: the buckets are the opening
+// balance, one bucket per funding source, and the trading P&L as the remainder.
+// They sum to the current balance by construction, which `reconciles` asserts
+// rather than assumes.
+//
+// Sources are matched case-insensitively and trimmed, so "Savings" and
+// "savings " land in one bucket instead of quietly becoming two.
+export function attribution(ledger = []) {
+  const rows = Array.isArray(ledger) ? ledger : [];
+  const opening = rows[0];
+  if (!opening || !isNum(opening.total_value)) return null;
+
+  const latest = rows[rows.length - 1];
+  const openingLabel =
+    typeof opening.deposit_source === "string" && opening.deposit_source.trim()
+      ? opening.deposit_source.trim()
+      : OPENING_LABEL;
+
+  // Insertion-ordered, so the table reads in the order the money actually
+  // arrived rather than alphabetically.
+  const bySource = new Map([[openingLabel, opening.total_value]]);
+  const addTo = (label, amount) => {
+    const key = label.trim();
+    const existing = [...bySource.keys()].find((k) => k.toLowerCase() === key.toLowerCase());
+    const at = existing ?? key;
+    bySource.set(at, round((bySource.get(at) ?? 0) + amount, 2));
+  };
+
+  // Skip row 0: its balance is the opening bucket, not a deposit on top of it.
+  for (const r of rows.slice(1)) {
+    if (!isNum(r.deposit) || r.deposit === 0) continue;
+    addTo(
+      typeof r.deposit_source === "string" && r.deposit_source.trim()
+        ? r.deposit_source
+        : "unlabelled",
+      r.deposit
+    );
+  }
+
+  const contributed = contributedAt(rows.slice(0, -1), latest);
+  const tradingPnl = round(latest.total_value - contributed, 2);
+
+  const sources = [...bySource.entries()].map(([source, amount]) => ({
+    source,
+    amount: round(amount, 2),
+  }));
+
+  const summed = round(
+    sources.reduce((t, s) => t + s.amount, 0) + tradingPnl,
+    2
+  );
+
+  return {
+    date: latest.date,
+    total_value: latest.total_value,
+    contributed,
+    trading_pnl: tradingPnl,
+    sources,
+    // If this is ever false the table is lying, and the caller must say so
+    // rather than print it. Cheap check, and it is the whole trustworthiness
+    // of the final post.
+    reconciles: Math.abs(summed - latest.total_value) <= RECONCILE_TOLERANCE,
+    summed,
+  };
+}
+
 // True when this row covers a different set of accounts than the last one.
 // Worth surfacing: widening scope moves the balance without a trade happening.
 export function scopeChanged(ledger = [], row) {
@@ -107,6 +181,25 @@ export function validateSnapshot(row, ledger = []) {
   // as a string would be skipped by the arithmetic and silently become profit.
   if (row.deposit !== undefined && row.deposit !== null && !isNum(row.deposit)) {
     problems.push(`deposit is not a number (got ${JSON.stringify(row.deposit)})`);
+  }
+
+  // Money moving in or out has to say WHERE FROM, at the moment it moves.
+  //
+  // The whole point of this ledger is the sentence written when the target is
+  // hit: "savings put in X, the job put in Y, the trading earned Z." That
+  // sentence is only true if each dollar was labelled on the way in. Working it
+  // out afterwards from balances is reconstruction, and reconstruction is what
+  // produced a public post on 2026-08-16 asserting a withdrawal nobody had
+  // observed. The broker reports balances and trades; it never reports why
+  // money moved. Only Adam knows that, so he has to say it at the time.
+  if (isNum(row.deposit) && row.deposit !== 0) {
+    if (typeof row.deposit_source !== "string" || !row.deposit_source.trim()) {
+      problems.push(
+        `deposit of ${row.deposit} has no deposit_source — say where the money came from ` +
+          `(or went to) at the time it moved, e.g. "savings", "job", "bills". ` +
+          `It cannot be recovered later.`
+      );
+    }
   }
 
   if (row.accounts !== undefined) {
@@ -159,6 +252,12 @@ export function appendSnapshot(ledger = [], row) {
       accounts: row.accounts ?? DEFAULT_ACCOUNTS,
       options_value: isNum(row.options_value) ? row.options_value : 0,
       deposit: isNum(row.deposit) ? row.deposit : 0,
+      // Null, never "" or "unknown" -- an unlabelled zero-deposit row simply has
+      // nothing to label, and that is different from a movement we failed to ask
+      // about. validateSnapshot already refuses the second case.
+      deposit_source: typeof row.deposit_source === "string" && row.deposit_source.trim()
+        ? row.deposit_source.trim()
+        : null,
       pct_from_start: progress.pctFromStart,
       multiple_to_target: progress.multipleToTarget,
       pct_of_target: progress.pctOfTarget,

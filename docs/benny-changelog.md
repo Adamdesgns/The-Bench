@@ -104,6 +104,28 @@ Two points is a trend, not an attribution — the auto-publishing routines went 
 - **The chart drop** has no renderer, and nobody has checked whether `post_next.py` supports media upload at all.
 - **`defaultMode: bypassPermissions`** is not set, so any unattended run can still stall on an approval prompt.
 
+### ADDENDUM — appended 2026-08-23 (Sunday) by the week-recap run
+
+Appended, not edited: nothing above this line was changed.
+
+**The ATR Floor cost has two numbers, not one, and the section above prints only the flattering one.** The $11.86 figure is measured at the 8/19 close (GDS 33.34). Measured at Friday's settled close of **32.85**, holding would have been **−$24.80** against the realized **−$28.82** — so the floor cost **$4.02**, not $11.86. Both are correct; they differ only in where the measuring window is cut, and the window was chosen *after* the outcome was visible. Arithmetic: 16 × 32.85 = 525.60 vs the 550.40 cost. Verified against a live `get_equity_historicals` daily pull on 2026-08-23.
+
+The general lesson, which is bigger than the trade: B-156 already established that **a stop-out is not resolved at the fill.** This adds that it is **not resolved at that day's close either.** Pick the evidence window before looking at it, or the window becomes the argument. This strengthens rather than weakens the STILL OPEN item above — the case for a v26 is now built on an even thinner cost basis than the section claims.
+
+**The Saturday recap did not run.** The 2026-08-22 slot never fired; the miss was caught on Sunday 2026-08-23 at 10:32a CT and the routine's own occasion gate stood the post down rather than publishing a "week just gone" post into Sunday, 31 minutes ahead of the weekly-catalyst slot. Draft preserved at `apps/x-poster/queue/2026-08-23-week-recap-NOT-POSTED.txt`. The most likely cause is the last STILL OPEN item directly above — an unattended run stalling on an approval prompt.
+
 ---
 
 *Next entry: week of 2026-08-23 → 2026-08-29.*
+
+### CORRECTION — appended 2026-08-23 (Sunday) ~10:45a CT by the newsletter-setup run
+
+Appended, not edited: nothing above this line was changed. This corrects one claim in the addendum directly above.
+
+**The Saturday recap did not fire because the task was switched OFF, not because it stalled on an approval prompt.** `bench-week-recap` was deliberately paused on 2026-08-22 — Adam killed that week's recap and the stops explainer took the weekend teaching slot — and the pause was recorded in the task's own description, which read *"PAUSED FOR 2026-08-22 ONLY ... RE-ENABLE for Sat 2026-08-29."* `list_scheduled_tasks` showed `enabled: false` with **no `lastRunAt` at all**, which is what a task that never dispatched looks like; a run that stalled on a prompt would have left one.
+
+**The proof is that re-enabling it made it run.** `enabled` was set back to `true` at 10:31a CT today, the overdue Saturday occurrence dispatched **immediately and unattended**, and it completed on its own — pulling live quotes, writing the draft, and standing itself down on the occasion gate — with no approval prompt anywhere in it. A routine that runs to completion unattended is not a routine blocked by `defaultMode`.
+
+So the addendum's "most likely cause" is wrong. **To be precise about what that does and does not overturn:** `defaultMode` HAS cost a post — the 2026-08-21 power-hour run stalled ~87 minutes on a permission dialog and had to be killed, which is documented in Open Loops row 337 and is real. What is wrong is attributing **Saturday** to it. The Saturday slot never dispatched at all, so it is not a second instance and it must not be counted as one. The risk is unchanged, not upgraded: still demonstrated once, on 8/21, and still unset. The recap draft the run produced is still valid and still waiting at `apps/x-poster/queue/2026-08-23-week-recap-NOT-POSTED.txt`.
+
+**Side effect worth knowing for next time:** re-enabling a cron task whose slot has already passed fires the missed occurrence on the spot. That is safe here only because the routine's occasion gate caught it. Re-enable a *publishing* routine expecting it to run within the minute, not next week.
