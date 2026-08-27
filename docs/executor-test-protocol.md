@@ -92,6 +92,11 @@ Adam's approval of every order is enforced in code, not convention.
   non-Claude OAuth client (discovery → dynamic registration → PKCE) is
   unverified until `node executor/executor.mjs login` succeeds once. If it
   refuses, record the captured responses here — no endpoint guessing.
+  **CLEARED 2026-08-26, evening:** Adam ran `login` at his own terminal.
+  Discovery, dynamic client registration, the Robinhood consent page, the
+  127.0.0.1:8917 loopback callback, and the token exchange all completed;
+  `status` reports the token on file in `~/.bench-executor/oauth.json`.
+  The endpoint accepts a standards-compliant non-Claude OAuth client.
 - The §Authorizations rule now reads on the program: the typed line goes to
   the program's own prompt, in a terminal, bound to the commit SHA it prints.
 

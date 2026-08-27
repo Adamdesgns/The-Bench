@@ -95,7 +95,7 @@ function waitForCode(expectedState) {
       const url = new URL(req.url, `http://127.0.0.1:${REDIRECT_PORT}`);
       if (url.pathname !== '/callback') { res.writeHead(404); res.end(); return; }
       const got = Object.fromEntries(url.searchParams);
-      res.writeHead(200, { 'content-type': 'text/html' });
+      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
       res.end('<b>bench-executor:</b> login received — you can close this tab and return to the terminal.');
       server.close();
       if (got.state !== expectedState) reject(new Error('OAuth state mismatch — aborting login.'));
