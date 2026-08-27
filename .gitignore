@@ -28,3 +28,6 @@ npm-debug.log*
 # stray build artifacts
 *.tar.gz
 site/dist/
+
+# Executor raw broker payloads — unredacted, local only. NEVER commit.
+executor-tests/raw/
