@@ -34,17 +34,25 @@ export function normalizeState(payload) {
   return SCHEMA_OVERLAY[raw] ?? 'UNKNOWN_REQUIRES_RECONCILIATION';
 }
 
+// The subset of capabilities that only ever read. A binding built with
+// { readOnly: true } maps NOTHING else — review/place/cancel are not merely
+// unused, they are unreachable through the binding.
+export const READ_CAPABILITIES = ['accounts', 'portfolio', 'quotes', 'positions', 'orders'];
+
 export class Broker {
   constructor(mcp) {
     this.mcp = mcp;
     this.binding = null;
   }
 
-  bind(tools) {
+  bind(tools, { readOnly = false } = {}) {
     const names = new Set(tools.map((t) => t.name));
+    const wanted = readOnly
+      ? Object.fromEntries(Object.entries(REQUIRED_CAPABILITIES).filter(([cap]) => READ_CAPABILITIES.includes(cap)))
+      : REQUIRED_CAPABILITIES;
     const binding = {};
     const missing = [];
-    for (const [cap, name] of Object.entries(REQUIRED_CAPABILITIES)) {
+    for (const [cap, name] of Object.entries(wanted)) {
       if (names.has(name)) binding[cap] = name;
       else missing.push(`${cap} → ${name}`);
     }

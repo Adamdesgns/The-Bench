@@ -39,6 +39,7 @@ import { getAccessToken, login as oauthLogin, loadStore } from './lib/oauth.mjs'
 import {
   Broker, normalizeState, findNumberByKey, collectAccounts, collectOrders,
   collectPositions, assertParsed, orderIdOf, refIdOf,
+  REQUIRED_CAPABILITIES, READ_CAPABILITIES,
 } from './lib/broker.mjs';
 import { readSwitch, halt } from './lib/arm.mjs';
 import { alert } from './lib/ntfy.mjs';
@@ -601,6 +602,158 @@ async function runLiveTest(mode, handoffPath, liveFlag) {
   process.exit(exitCode);
 }
 
+// ---------- read-only preflight probe ---------------------------------------
+// Runs every check the live flow would run, EXCEPT the three order-shaped
+// calls (review/place/cancel), which are structurally unreachable: the probe
+// binds READ_CAPABILITIES only, so broker.call('place') is denied by default.
+// No receipt is created (the plan_id stays unburned for the real run), no arm
+// or authorization is needed, and raw responses are archived so real captures
+// start replacing the synthetic fixtures (blocker #5). Unlike the live flow,
+// the probe does NOT stop at the first failure — it reports every gate.
+
+async function runProbe(handoffPath) {
+  const sha = git(['rev-parse', '--short', 'HEAD']);
+  const handoff = JSON.parse(readFileSync(resolve(handoffPath), 'utf8'));
+  const results = [];
+  const pass = (name, detail) => { results.push({ name, ok: true }); console.log(`  PASS ${name}: ${detail}`); };
+  const fail = (name, detail) => { results.push({ name, ok: false }); console.log(`  FAIL ${name}: ${detail}`); };
+  const note = (name, detail) => { console.log(`  INFO ${name}: ${detail}`); };
+
+  console.log(`\nPREFLIGHT PROBE — read-only. review/place/cancel are NOT in the binding. Commit ${sha}.`);
+
+  // Contract + order math (offline).
+  let shares = 0;
+  let notional = 0;
+  const contract = validateHandoff(handoff, { receiptsDir: RECEIPTS_DIR });
+  if (!contract.ok) {
+    fail('contract', contract.refusals.map((r) => `${r.code}`).join(', '));
+  } else {
+    try {
+      ({ shares, notional } = computeOrderShares(handoff));
+      const risk = reconcileRisk(handoff, shares, notional);
+      pass('contract', `valid — ${shares} shares ≈ $${notional.toFixed(2)} notional; ${risk.basis}`);
+    } catch (err) {
+      fail('contract', err.message);
+    }
+  }
+
+  // Connect, list tools, bind read-only, check the full surface is present.
+  let broker = null;
+  try {
+    const mcp = new McpClient(ENDPOINT, { getToken: getAccessToken });
+    await mcp.initialize({ name: 'bench-executor', version: 'v1-program-probe' });
+    const tools = await mcp.listTools();
+    broker = new Broker(mcp);
+    broker.bind(tools, { readOnly: true });
+    pass('connect', `server reachable, ${tools.length} tools listed, bound read-only (${READ_CAPABILITIES.length} capabilities)`);
+    const names = new Set(tools.map((t) => t.name));
+    const absent = Object.values(REQUIRED_CAPABILITIES).filter((n) => !names.has(n));
+    if (absent.length) fail('tool-surface', `missing on server: ${absent.join(', ')} — the live run would refuse at binding`);
+    else pass('tool-surface', 'all required tool names present (order tools observed, NOT bound in probe)');
+  } catch (err) {
+    fail('connect', err.message);
+  }
+
+  // Account resolution.
+  let accountNumber = null;
+  if (broker) {
+    try {
+      const payload = await broker.call('accounts', {});
+      archiveRaw(RAW_DIR, handoff.plan_id, 'probe-accounts', payload);
+      assertParsed(payload, 'accounts');
+      const candidates = collectAccounts(payload).filter((a) => a.agentic_allowed === true);
+      if (candidates.length !== 1) throw new Error(`expected exactly one agentic_allowed account, found ${candidates.length}`);
+      const number = String(candidates[0].account_number ?? '');
+      if (!number.endsWith(handoff.account_alias.slice(-4))) throw new Error(`agentic account does not match alias ${handoff.account_alias}`);
+      accountNumber = number;
+      pass('account', `resolved ${handoff.account_alias}, agentic_allowed=true`);
+    } catch (err) {
+      fail('account', err.message);
+    }
+  }
+
+  if (broker && accountNumber) {
+    // Buying power via portfolio.
+    try {
+      let portfolio;
+      try {
+        portfolio = await broker.call('portfolio', { account_number: accountNumber });
+      } catch {
+        portfolio = await broker.call('portfolio', {});
+      }
+      archiveRaw(RAW_DIR, handoff.plan_id, 'probe-portfolio', portfolio);
+      const bp = findNumberByKey(portfolio, ['buying_power', 'available_buying_power', 'cash_available_for_investing', 'cash_available']);
+      if (!bp) throw new Error('no recognizable buying-power field — the live run would fail closed here');
+      const ring = bp.value <= MAX_FUNDED_TEST_BALANCE_USD;
+      const covers = bp.value >= notional;
+      const detail = `$${bp.value.toFixed(2)} (field "${bp.path}") — ring-fence ≤$${MAX_FUNDED_TEST_BALANCE_USD.toFixed(0)}: ${ring ? 'OK' : 'EXCEEDED — empty the account per the operator checklist'}; covers $${notional.toFixed(2)}: ${covers ? 'OK' : 'NO'}`;
+      (ring && covers ? pass : fail)('buying-power', detail);
+    } catch (err) {
+      fail('buying-power', err.message);
+    }
+
+    // Quote, drift, unmarketability.
+    try {
+      const quotes = await broker.call('quotes', { symbols: [handoff.ticker] });
+      archiveRaw(RAW_DIR, handoff.plan_id, 'probe-quotes', quotes);
+      assertParsed(quotes, 'quotes');
+      const last = findNumberByKey(quotes, ['last_trade_price']) ?? findNumberByKey(quotes, ['last_price', 'price', 'mark']);
+      if (!last) throw new Error('no recognizable last-trade price — the live run would fail closed here');
+      const drift = parseDriftBound(handoff.maximum_price_drift, handoff.limit_price);
+      const driftOk = Number.isFinite(drift) && drift > 0 && Math.abs(last.value - handoff.limit_price) <= drift;
+      (driftOk ? pass : fail)('quote-drift', `${handoff.ticker} last ${last.value} (field "${last.path}") vs limit ${handoff.limit_price}, bound $${Number.isFinite(drift) ? drift.toFixed(2) : '?'}`);
+      const unmkt = unmarketableEnough(handoff.action, handoff.limit_price, last.value);
+      (unmkt ? pass : fail)('unmarketable', unmkt
+        ? `limit ${handoff.limit_price} is far from last ${last.value} — test-zero OK`
+        : `limit ${handoff.limit_price} vs last ${last.value} is TOO MARKETABLE for test zero (BUY needs ≤ 50%, SELL ≥ 150%)`);
+    } catch (err) {
+      fail('quote', err.message);
+    }
+
+    // Position conflicts.
+    try {
+      let positions;
+      try {
+        positions = await broker.call('positions', { account_number: accountNumber });
+      } catch {
+        positions = await broker.call('positions', {});
+      }
+      archiveRaw(RAW_DIR, handoff.plan_id, 'probe-positions', positions);
+      assertParsed(positions, 'positions');
+      const held = collectPositions(positions)
+        .filter((p) => p.symbol === String(handoff.ticker).toUpperCase())
+        .reduce((sum, p) => sum + p.quantity, 0);
+      const conflictFree = handoff.action === 'BUY' ? held === 0 : held >= shares;
+      (conflictFree ? pass : fail)('positions', `${held} ${handoff.ticker} held (${handoff.action} ${handoff.action === 'BUY' ? 'requires none' : `requires ≥ ${shares}`})`);
+    } catch (err) {
+      fail('positions', err.message);
+    }
+
+    // Open-order conflicts.
+    try {
+      const orders = await broker.call('orders', { account_number: accountNumber, symbol: handoff.ticker });
+      archiveRaw(RAW_DIR, handoff.plan_id, 'probe-orders', orders);
+      assertParsed(orders, 'orders');
+      const open = collectOrders(orders).filter((o) => OPEN_RAW.has(String(o.state ?? o.status ?? '').toLowerCase()));
+      (open.length === 0 ? pass : fail)('open-orders', `${open.length} open order(s) in ${handoff.ticker}`);
+    } catch (err) {
+      fail('open-orders', err.message);
+    }
+  }
+
+  note('market-session', regularSessionOpen() ? 'OPEN — a live run is allowed right now' : 'CLOSED — the live run refuses outside 9:30–15:45 ET (expected if probing after hours)');
+  const arm = await readSwitch().catch((e) => ({ state: 'UNREADABLE', row: null, why: e.message }));
+  note('arm-switch', `${arm.state}${arm.row ? ` for ${arm.row}` : ''} — ${arm.why}`);
+
+  const failures = results.filter((r) => !r.ok);
+  if (failures.length) {
+    console.log(`\nPROBE: ${failures.length} gate(s) FAILED — fix before arming anything. Raw captures in executor-tests/raw/.`);
+    process.exit(1);
+  }
+  console.log('\nPROBE: every live-checkable gate PASSES. Raw captures in executor-tests/raw/.');
+  process.exit(0);
+}
+
 // ---------- commands --------------------------------------------------------
 
 async function main() {
@@ -645,6 +798,13 @@ async function main() {
     process.exit(0);
   }
 
+  if (cmd === 'preflight') {
+    const handoffPath = rest.find((a) => !a.startsWith('--')) ?? val('--handoff');
+    if (!handoffPath) { console.error('usage: executor preflight <handoff.json>'); process.exit(2); }
+    await runProbe(handoffPath);
+    return;
+  }
+
   if (cmd === 'test-zero' || cmd === 'test-one') {
     const handoffPath = val('--handoff');
     if (!handoffPath) { console.error(`usage: executor ${cmd} --handoff <file.json> --live`); process.exit(2); }
@@ -652,8 +812,10 @@ async function main() {
     return;
   }
 
-  console.error(`usage: node executor/executor.mjs <validate|status|login|test-zero|test-one> …
+  console.error(`usage: node executor/executor.mjs <validate|preflight|status|login|test-zero|test-one> …
   validate <handoff.json>            offline contract + order-math + risk check
+  preflight <handoff.json>           READ-ONLY live probe: connect, bind, account, buying power,
+                                     quote, conflicts — order tools not even bound. No arm needed.
   status                             arm switch, token, receipts
   login                              OAuth to ${ENDPOINT} (TTY only)
   test-zero --handoff F --live       cancellation-path test (protocol §test zero)

@@ -12,7 +12,7 @@ import { stateOf } from '../executor/lib/arm.mjs';
 import {
   Broker, normalizeState, unwrapToolResult, findNumberByKey,
   collectAccounts, collectOrders, collectPositions, assertParsed,
-  REQUIRED_CAPABILITIES,
+  REQUIRED_CAPABILITIES, READ_CAPABILITIES,
 } from '../executor/lib/broker.mjs';
 import { Receipt } from '../executor/lib/receipts.mjs';
 import {
@@ -108,6 +108,25 @@ test('broker: unbound capability is denied by default; extra server tools are un
   await broker.call('quotes', { symbols: ['TEST'] });
   assert.deepEqual(calls, ['get_equity_quotes']);
   await assert.rejects(broker.call('options', {}), /denied by default/);
+});
+
+test('broker: read-only binding leaves order tools structurally unreachable', async () => {
+  const calls = [];
+  const fakeMcp = { callTool: async (name) => { calls.push(name); return { content: [{ type: 'text', text: '{}' }] }; } };
+  const broker = new Broker(fakeMcp);
+  // Server carries the FULL surface, including place — the read-only binding must not map it.
+  broker.bind(Object.values(REQUIRED_CAPABILITIES).map((name) => ({ name })), { readOnly: true });
+  await broker.call('accounts', {});
+  await assert.rejects(broker.call('place', {}), /denied by default/);
+  await assert.rejects(broker.call('review', {}), /denied by default/);
+  await assert.rejects(broker.call('cancel', {}), /denied by default/);
+  assert.deepEqual(calls, ['get_accounts']);
+  // …and a read-only bind succeeds even when order tools are absent entirely.
+  const readOnlyServer = Object.entries(REQUIRED_CAPABILITIES)
+    .filter(([cap]) => READ_CAPABILITIES.includes(cap))
+    .map(([, name]) => ({ name }));
+  new Broker(fakeMcp).bind(readOnlyServer, { readOnly: true });
+  assert.throws(() => new Broker(fakeMcp).bind(readOnlyServer), /missing capabilities/);
 });
 
 test('broker: isError tool results throw, never read as success', () => {
