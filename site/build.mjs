@@ -4,7 +4,8 @@
 //
 // The site is a read-only window onto the book: every call timestamped before
 // the outcome, losses as loud as wins. No API, no server — the daily routines
-// rebuild and redeploy (netlify deploy --prod --dir site/dist).
+// rebuild and redeploy (npx --yes netlify-cli deploy --prod --dir site/dist -
+// the bare netlify CLI is not installed on this machine; see CLAUDE.md).
 //
 // Design language: a scoreboard. Condensed varsity display type, brass-gold
 // accents, monospaced figures, and the season record worn in the masthead.
@@ -223,8 +224,8 @@ ${scoredRows.map((c) => `<tr><td class="num">${esc(c.id)}</td><td class="tick">$
 const today = new Date().toISOString().slice(0, 10);
 const upcoming = catalysts.filter((c) => c.date >= today).sort((a, b) => (a.date < b.date ? -1 : 1));
 const catalystList = upcoming.length
-  ? `<div class="tablewrap"><table><tr><th>Date</th><th>Catalyst</th></tr>
-${upcoming.map((c) => `<tr><td class="num">${esc(c.date)}</td><td>${esc(c.label)}</td></tr>`).join("")}</table></div>`
+  ? `<div class="tablewrap"><table><tr><th>Date</th><th>Type</th><th>Catalyst</th></tr>
+${upcoming.map((c) => `<tr><td class="num">${esc(c.date)}</td><td>${esc((c.type ?? "—").toUpperCase())}${c.confidence && c.confidence !== "confirmed" ? " ?" : ""}</td><td>${esc(c.label)}</td></tr>`).join("")}</table></div>`
   : `<p class="lede">No dated catalysts on the board.</p>`;
 
 // ---- reviews -----------------------------------------------------------------
