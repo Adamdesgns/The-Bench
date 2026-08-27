@@ -1,149 +1,164 @@
 {
-  "asof": "2026-08-26 10:58 CT",
-  "session": "regular session - 2h28m after the 08:30 CT bell",
-  "basis": "change measured against the Tuesday 2026-08-25 settled close (sip-list-exchange-close)",
-  "source": "robinhood-mcp get_equity_quotes. PLAB, SMH, SPY and QQQ restamped from a live pull at venue timestamps 2026-08-26T15:58:13-15:58:19Z (10:58 CT). The other 22 symbols were NOT re-pulled this session and carry their 08:50 CT values from the pre-market routine - do not read them as 10:58 prices.",
-  "note": "PLAB round-tripped an entire earnings gap. Fiscal Q3 double beat (rev 216.0M vs 208.75M street, non-GAAP EPS 0.50 vs 0.4033) with a Q4 guide that RAISED EPS vs street (mid 0.48 vs 0.42) on FLAT revenue (mid 217M vs 216.0M). Opened 37.48 = +27.83pct, tagged 37.91, and gave the whole gap back by 8:50am CT at a 30.22 low - 30.7151 (+4.76pct) at 10:58 CT, -18.98pct off the high, on 5,535,426 shares vs an 891,651 30-day average (6.21x). NO TRADE, logged B-202: the B-082 gap-up branch required a HOLD above the opening range (30.22-37.91) and price failed it by 19pct. New pattern P-015 opened on it - a gap far larger than the guide change round-trips the same session - with META the second instance today. Board is FLAT: agentic ••7724 holds zero positions (HPQ stopped 8/17 at 29.29, GDS stopped 8/19 at 32.60). NVDA, HPQ and MRVL all report TONIGHT after the close (NVDA 8/26 pm verified, the B-200 Thursday-arm decision lands tomorrow).",
+  "asof": "2026-08-27 08:53 CT",
+  "session": "regular session - 23 minutes after the 08:30 CT bell",
+  "basis": "change measured against the Wednesday 2026-08-26 settled close (sip-list-exchange-close)",
+  "source": "robinhood-mcp get_equity_quotes. Base sweep of all 30 symbols at 08:33:36-08:34:12 CT; HPQ ADDED to the strip and HPQ/DELL/MU/SPY/QQQ re-pulled live at 08:51:15-08:53:15 CT for the HPQ post-print review (B-211). The other 25 symbols carry the 08:34 print and are 19 minutes old at this stamp.",
+  "note": "HPQ reported 8/26 pm and is the day's dislocation: revenue 15.7B +12.5pct and adj EPS 0.83 vs 0.68 est, FY guide RAISED to 3.19-3.29 - and the stock is DOWN 5.64pct. 0.19 of the 0.24 raise is tariff refunds, so ex-tariff the guide was HELD at 3.00-3.10 and Q4 adj EPS is guided 0.69-0.79 against 0.93 a year ago, -20.4pct y/y. Management guided Q4 operating margin BELOW Q3 and said memory input costs still rise in FY27. Gapped 30.52 to 27.86, flushed 26.73 (-12.4pct), recovered to 28.80 on ~17x normal volume pace. Peers did NOT follow - DELL +1.46, HPE +0.20, SPY +0.35, QQQ +0.87 - so this is HPQ-specific, the same peer-divergence tell as B-078. NO TRADE either side, B-211. Separately MU has flipped red since the 08:34 sweep, -0.10 from +1.24, worth watching as the memory trade digests NVDA night.",
   "quotes": [
     {
+      "sym": "HPQ",
+      "last": 28.8,
+      "chg_pct": -5.64
+    },
+    {
       "sym": "NVDA",
-      "last": 212.4401,
-      "chg_pct": -0.29
+      "last": 223.766,
+      "chg_pct": 6.73
     },
     {
       "sym": "MRVL",
-      "last": 239.715,
-      "chg_pct": -0.28
+      "last": 250.04,
+      "chg_pct": 2.01
     },
     {
       "sym": "AVGO",
-      "last": 355.65,
-      "chg_pct": -0.31
+      "last": 365.2301,
+      "chg_pct": 2.71
     },
     {
       "sym": "AMD",
-      "last": 488.93,
-      "chg_pct": 2.03
+      "last": 473.89,
+      "chg_pct": -1.46
     },
     {
       "sym": "MU",
-      "last": 931.655,
-      "chg_pct": -0.14
+      "last": 937.49,
+      "chg_pct": -0.1
     },
     {
       "sym": "SMCI",
-      "last": 37.79,
-      "chg_pct": -1.74
+      "last": 37.855,
+      "chg_pct": 1.24
     },
     {
       "sym": "DELL",
-      "last": 461.035,
-      "chg_pct": 2.11
+      "last": 470.58,
+      "chg_pct": 1.46
     },
     {
       "sym": "ANET",
-      "last": 194.335,
-      "chg_pct": 1.78
+      "last": 203.6,
+      "chg_pct": 0.67
     },
     {
       "sym": "MSFT",
-      "last": 496.874,
-      "chg_pct": 1.05
+      "last": 492.49,
+      "chg_pct": -0.78
     },
     {
       "sym": "GOOGL",
-      "last": 344.145,
-      "chg_pct": -0.81
+      "last": 339,
+      "chg_pct": -0.88
     },
     {
       "sym": "AMZN",
-      "last": 260.52,
-      "chg_pct": -0.21
+      "last": 258.08,
+      "chg_pct": -0.85
     },
     {
       "sym": "META",
-      "last": 568.08,
-      "chg_pct": -0.35
+      "last": 568.065,
+      "chg_pct": -1.4
+    },
+    {
+      "sym": "INTC",
+      "last": 91.035,
+      "chg_pct": 3.17
     },
     {
       "sym": "VRT",
-      "last": 260.425,
-      "chg_pct": 1.83
+      "last": 273.655,
+      "chg_pct": 3.73
     },
     {
       "sym": "ETN",
-      "last": 415.05,
-      "chg_pct": 1.43
+      "last": 426.605,
+      "chg_pct": 1.71
     },
     {
       "sym": "GEV",
-      "last": 933.64,
-      "chg_pct": 0.75
+      "last": 967.58,
+      "chg_pct": 1.52
     },
     {
       "sym": "PWR",
-      "last": 607.2675,
-      "chg_pct": 0.58
+      "last": 632.34,
+      "chg_pct": 2.53
     },
     {
       "sym": "CEG",
-      "last": 283.75,
-      "chg_pct": 1.91
+      "last": 280.8,
+      "chg_pct": 0.46
     },
     {
       "sym": "VST",
-      "last": 143.11,
-      "chg_pct": 2.93
+      "last": 141.185,
+      "chg_pct": 0.82
     },
     {
       "sym": "TLN",
-      "last": 314,
-      "chg_pct": 2.06
+      "last": 310,
+      "chg_pct": 1.21
     },
     {
       "sym": "CORZ",
-      "last": 17.79,
-      "chg_pct": -1.33
+      "last": 18.015,
+      "chg_pct": 3.42
     },
     {
       "sym": "IREN",
-      "last": 40.655,
-      "chg_pct": -3.68
+      "last": 40.61,
+      "chg_pct": 2.6
     },
     {
       "sym": "APLD",
-      "last": 28.0701,
-      "chg_pct": -2.7
+      "last": 27.56,
+      "chg_pct": 2.57
     },
     {
       "sym": "WULF",
-      "last": 16.325,
-      "chg_pct": 0.03
+      "last": 16.69,
+      "chg_pct": 4.51
     },
     {
       "sym": "SPY",
-      "last": 765.5101,
-      "chg_pct": -0.05
+      "last": 768.79,
+      "chg_pct": 0.35
     },
     {
       "sym": "QQQ",
-      "last": 709.7599,
-      "chg_pct": -0.14
+      "last": 717.57,
+      "chg_pct": 0.87
     },
     {
       "sym": "DIA",
-      "last": 534.88,
-      "chg_pct": -0.07
+      "last": 533.62,
+      "chg_pct": -0.11
     },
     {
       "sym": "PLAB",
-      "last": 30.7151,
-      "chg_pct": 4.76
+      "last": 30.75,
+      "chg_pct": 1.65
     },
     {
       "sym": "SMH",
-      "last": 554.485,
-      "chg_pct": -0.24
+      "last": 569.5,
+      "chg_pct": 2.47
+    },
+    {
+      "sym": "INTW",
+      "last": 19.0958,
+      "chg_pct": 6.44
     }
   ]
 }
