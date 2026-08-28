@@ -1,164 +1,169 @@
 {
-  "asof": "2026-08-27 08:53 CT",
-  "session": "regular session - 23 minutes after the 08:30 CT bell",
-  "basis": "change measured against the Wednesday 2026-08-26 settled close (sip-list-exchange-close)",
-  "source": "robinhood-mcp get_equity_quotes. Base sweep of all 30 symbols at 08:33:36-08:34:12 CT; HPQ ADDED to the strip and HPQ/DELL/MU/SPY/QQQ re-pulled live at 08:51:15-08:53:15 CT for the HPQ post-print review (B-211). The other 25 symbols carry the 08:34 print and are 19 minutes old at this stamp.",
-  "note": "HPQ reported 8/26 pm and is the day's dislocation: revenue 15.7B +12.5pct and adj EPS 0.83 vs 0.68 est, FY guide RAISED to 3.19-3.29 - and the stock is DOWN 5.64pct. 0.19 of the 0.24 raise is tariff refunds, so ex-tariff the guide was HELD at 3.00-3.10 and Q4 adj EPS is guided 0.69-0.79 against 0.93 a year ago, -20.4pct y/y. Management guided Q4 operating margin BELOW Q3 and said memory input costs still rise in FY27. Gapped 30.52 to 27.86, flushed 26.73 (-12.4pct), recovered to 28.80 on ~17x normal volume pace. Peers did NOT follow - DELL +1.46, HPE +0.20, SPY +0.35, QQQ +0.87 - so this is HPQ-specific, the same peer-divergence tell as B-078. NO TRADE either side, B-211. Separately MU has flipped red since the 08:34 sweep, -0.10 from +1.24, worth watching as the memory trade digests NVDA night.",
+  "asof": "2026-08-28 11:42 CT",
+  "session": "regular session - 3 hours 12 minutes after the 08:30 CT bell",
+  "basis": "change measured against the Thursday 2026-08-27 settled close (sip-list-exchange-close)",
+  "source": "robinhood-mcp get_equity_quotes. Full 32-symbol sweep pulled live 2026-08-28 16:42:11-16:42:46 UTC / 11:42 CT. No symbol on this strip is carrying an older print. MUU (2x daily-reset MU) ADDED to the strip this run alongside the existing INTW (2x INTC), for the B-216 leverage-lane review.",
+  "note": "THE OPEN AND MIDDAY ARE TWO DIFFERENT SESSIONS AND THE STRIP SHOWS THE SECOND ONE. At 08:38 CT the AI board split cleanly - all four hyperscaler buyers green, 15 of the 19 supplier-side names red - and SPY was +0.14 with QQQ -0.16. By 11:42 the buyers are STILL green (AMZN +3.64, MSFT +2.21, GOOGL +1.63, META +0.67) but the index has rolled over with the suppliers: SPY -0.17, QQQ -0.68, DIA flat. NVDA -3.47 has given back half of Thursday 8.74 percent post-earnings gain. MRVL -10.24 is now the worst name on the board, extending the beat-and-raise selloff to a second leg. Every crypto-bridge name is red for the second sweep running - IREN -13.07, CORZ -7.49, WULF -7.12, APLD -7.43. Power is red across the board, GEV -3.70 and VRT -3.54. B-216 logged MU as NO TRADE at 919.54 with a conditional at 957.21; MU is 918.35 here, still 4.2 percent under the 50-day and inside the six-session 888-970 range that bars the MUU leverage leg.",
   "quotes": [
     {
       "sym": "HPQ",
-      "last": 28.8,
-      "chg_pct": -5.64
+      "last": 30.2,
+      "chg_pct": 1.92
     },
     {
       "sym": "NVDA",
-      "last": 223.766,
-      "chg_pct": 6.73
+      "last": 220.07,
+      "chg_pct": -3.47
     },
     {
       "sym": "MRVL",
-      "last": 250.04,
-      "chg_pct": 2.01
+      "last": 216.715,
+      "chg_pct": -10.24
     },
     {
       "sym": "AVGO",
-      "last": 365.2301,
-      "chg_pct": 2.71
+      "last": 366.02,
+      "chg_pct": -1.49
     },
     {
       "sym": "AMD",
-      "last": 473.89,
-      "chg_pct": -1.46
+      "last": 468.065,
+      "chg_pct": -1.81
     },
     {
       "sym": "MU",
-      "last": 937.49,
-      "chg_pct": -0.1
+      "last": 918.35,
+      "chg_pct": -1.82
+    },
+    {
+      "sym": "MUU",
+      "last": 28.2856,
+      "chg_pct": -3.26
     },
     {
       "sym": "SMCI",
-      "last": 37.855,
-      "chg_pct": 1.24
+      "last": 37.04,
+      "chg_pct": -3.69
     },
     {
       "sym": "DELL",
-      "last": 470.58,
-      "chg_pct": 1.46
+      "last": 459.71,
+      "chg_pct": -2.66
     },
     {
       "sym": "ANET",
-      "last": 203.6,
-      "chg_pct": 0.67
+      "last": 195.36,
+      "chg_pct": -2.85
     },
     {
       "sym": "MSFT",
-      "last": 492.49,
-      "chg_pct": -0.78
+      "last": 516.24,
+      "chg_pct": 2.21
     },
     {
       "sym": "GOOGL",
-      "last": 339,
-      "chg_pct": -0.88
+      "last": 346.19,
+      "chg_pct": 1.63
     },
     {
       "sym": "AMZN",
-      "last": 258.08,
-      "chg_pct": -0.85
+      "last": 265.595,
+      "chg_pct": 3.64
     },
     {
       "sym": "META",
-      "last": 568.065,
-      "chg_pct": -1.4
+      "last": 574.935,
+      "chg_pct": 0.67
     },
     {
       "sym": "INTC",
-      "last": 91.035,
-      "chg_pct": 3.17
-    },
-    {
-      "sym": "VRT",
-      "last": 273.655,
-      "chg_pct": 3.73
-    },
-    {
-      "sym": "ETN",
-      "last": 426.605,
-      "chg_pct": 1.71
-    },
-    {
-      "sym": "GEV",
-      "last": 967.58,
-      "chg_pct": 1.52
-    },
-    {
-      "sym": "PWR",
-      "last": 632.34,
-      "chg_pct": 2.53
-    },
-    {
-      "sym": "CEG",
-      "last": 280.8,
-      "chg_pct": 0.46
-    },
-    {
-      "sym": "VST",
-      "last": 141.185,
-      "chg_pct": 0.82
-    },
-    {
-      "sym": "TLN",
-      "last": 310,
-      "chg_pct": 1.21
-    },
-    {
-      "sym": "CORZ",
-      "last": 18.015,
-      "chg_pct": 3.42
-    },
-    {
-      "sym": "IREN",
-      "last": 40.61,
-      "chg_pct": 2.6
-    },
-    {
-      "sym": "APLD",
-      "last": 27.56,
-      "chg_pct": 2.57
-    },
-    {
-      "sym": "WULF",
-      "last": 16.69,
-      "chg_pct": 4.51
-    },
-    {
-      "sym": "SPY",
-      "last": 768.79,
-      "chg_pct": 0.35
-    },
-    {
-      "sym": "QQQ",
-      "last": 717.57,
-      "chg_pct": 0.87
-    },
-    {
-      "sym": "DIA",
-      "last": 533.62,
-      "chg_pct": -0.11
-    },
-    {
-      "sym": "PLAB",
-      "last": 30.75,
-      "chg_pct": 1.65
-    },
-    {
-      "sym": "SMH",
-      "last": 569.5,
-      "chg_pct": 2.47
+      "last": 89.4,
+      "chg_pct": -2.92
     },
     {
       "sym": "INTW",
-      "last": 19.0958,
-      "chg_pct": 6.44
+      "last": 18.35,
+      "chg_pct": -5.66
+    },
+    {
+      "sym": "VRT",
+      "last": 259.7525,
+      "chg_pct": -3.54
+    },
+    {
+      "sym": "ETN",
+      "last": 404.5,
+      "chg_pct": -2.77
+    },
+    {
+      "sym": "GEV",
+      "last": 918.545,
+      "chg_pct": -3.7
+    },
+    {
+      "sym": "PWR",
+      "last": 607.39,
+      "chg_pct": -2.32
+    },
+    {
+      "sym": "CEG",
+      "last": 278.262,
+      "chg_pct": -1.47
+    },
+    {
+      "sym": "VST",
+      "last": 137.31,
+      "chg_pct": -1.79
+    },
+    {
+      "sym": "TLN",
+      "last": 296.96,
+      "chg_pct": -2.5
+    },
+    {
+      "sym": "CORZ",
+      "last": 16.2999,
+      "chg_pct": -7.49
+    },
+    {
+      "sym": "IREN",
+      "last": 35.235,
+      "chg_pct": -13.06
+    },
+    {
+      "sym": "APLD",
+      "last": 25.4,
+      "chg_pct": -7.43
+    },
+    {
+      "sym": "WULF",
+      "last": 15.315,
+      "chg_pct": -7.13
+    },
+    {
+      "sym": "SPY",
+      "last": 769.79,
+      "chg_pct": -0.17
+    },
+    {
+      "sym": "QQQ",
+      "last": 716.24,
+      "chg_pct": -0.68
+    },
+    {
+      "sym": "DIA",
+      "last": 535.22,
+      "chg_pct": 0
+    },
+    {
+      "sym": "PLAB",
+      "last": 28.165,
+      "chg_pct": -6.92
+    },
+    {
+      "sym": "SMH",
+      "last": 554.46,
+      "chg_pct": -3.24
     }
   ]
 }
