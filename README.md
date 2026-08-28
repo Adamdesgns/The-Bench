@@ -19,7 +19,7 @@ The live analysis engine is a **prompt**, not the Electron app.
 3. **BENCH DAILY v4** — `prompts/bench-daily-v4.md`. Owns the opening, the saveable element, and the required sentiment read on scheduled posts. Default shape is one standalone post.
 4. **BENNY v2** — `prompts/benny-v2.md`. Who is speaking. Mentions (Benny §6) are spec only — not wired.
 
-**Weekday dailies auto-publish** through the separate repo Adamdesgns/x-poster (`post_next.py --auto`). Adam is the fail-safe after the fact (phone push + the `HALT` file). Interactive market runs still draft; Adam executes every trade himself. Nothing here places an order.
+**Weekday dailies auto-publish** through the separate repo Adamdesgns/x-poster (`post_next.py --auto`). Adam is the fail-safe after the fact (phone push + the `HALT` file). Interactive market runs still draft; Adam executes every trade himself. Nothing here places an order today: the one execution artifact in the repo (`prompts/bench-executor-v1.md`) is UNTESTED with live execution disabled, and research surfaces never mount broker order tools — `docs/executor-test-protocol.md` is the only path that changes this.
 
 The operating manual for agents is `CLAUDE.md`. Read that first.
 

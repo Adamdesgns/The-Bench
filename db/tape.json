@@ -1,191 +1,169 @@
 {
-  "asof": "2026-08-18 10:15am CT (INTRADAY, market open) - THE MEMORY TRADE UNWOUND, AND IT TOOK THE WHOLE SEMI COMPLEX WITH IT. Yesterdays exact winners are todays exact losers, in order: SNDG -18.16%, MUU -14.71%, COHR -11.95%, STX -9.10%, SNDK -9.05%, WDC -8.08%, MU -7.32%, AMAT -6.53%, ASML -5.44%, SMH -4.96%, TSM -4.34%, NVDA -2.45%. EWY -7.21% says Korea (Samsung/SK Hynix) is being sold in the same trade, so this is the memory complex globally rather than a US tape event. Against that, SPY is only -0.62% and QQQ -1.77% - the index is barely down because money ROTATED rather than left: the PC assemblers that BUY memory and the defensives both caught the bid, HPQ +1.02%, NKE +3.11%, PEP +1.63%, MCD +1.55%, AAP +3.86%, VICI +0.87%. That is the precise mirror of 8/17, when memory ripped and HPQ/DELL/SMCI fell. DELL -4.02% is the exception and does not fit the rotation. The 2x daily-reset vehicles printed the Leverage Lane arithmetic live: MU -7.32% but MUU -14.71%, SNDK -9.05% but SNDG -18.16% - both WORSE than a clean 2x, on the day, before any decay is counted. MU has given back the entire 8/17 candle and more, trading 937.74 against a 1011.75 close and a 1036.13 top tick, and is now 1.9% above the 920 buy zone armed this morning in B-128. GDS 33.935 is BELOW the 34.40 fill from 8:49am CT - the position is red on day one and still 1.30 above its 32.60 stop.",
+  "asof": "2026-08-28 11:42 CT",
+  "session": "regular session - 3 hours 12 minutes after the 08:30 CT bell",
+  "basis": "change measured against the Thursday 2026-08-27 settled close (sip-list-exchange-close)",
+  "source": "robinhood-mcp get_equity_quotes. Full 32-symbol sweep pulled live 2026-08-28 16:42:11-16:42:46 UTC / 11:42 CT. No symbol on this strip is carrying an older print. MUU (2x daily-reset MU) ADDED to the strip this run alongside the existing INTW (2x INTC), for the B-216 leverage-lane review.",
+  "note": "THE OPEN AND MIDDAY ARE TWO DIFFERENT SESSIONS AND THE STRIP SHOWS THE SECOND ONE. At 08:38 CT the AI board split cleanly - all four hyperscaler buyers green, 15 of the 19 supplier-side names red - and SPY was +0.14 with QQQ -0.16. By 11:42 the buyers are STILL green (AMZN +3.64, MSFT +2.21, GOOGL +1.63, META +0.67) but the index has rolled over with the suppliers: SPY -0.17, QQQ -0.68, DIA flat. NVDA -3.47 has given back half of Thursday 8.74 percent post-earnings gain. MRVL -10.24 is now the worst name on the board, extending the beat-and-raise selloff to a second leg. Every crypto-bridge name is red for the second sweep running - IREN -13.07, CORZ -7.49, WULF -7.12, APLD -7.43. Power is red across the board, GEV -3.70 and VRT -3.54. B-216 logged MU as NO TRADE at 919.54 with a conditional at 957.21; MU is 918.35 here, still 4.2 percent under the 50-day and inside the six-session 888-970 range that bars the MUU leverage leg.",
   "quotes": [
     {
-      "sym": "SPY",
-      "last": 767.85,
-      "chg_pct": -0.62
-    },
-    {
-      "sym": "QQQ",
-      "last": 716.96,
-      "chg_pct": -1.77
-    },
-    {
-      "sym": "IWM",
-      "last": 300.96,
-      "chg_pct": -1.02
-    },
-    {
-      "sym": "VTI",
-      "last": 379.48,
-      "chg_pct": -0.69
-    },
-    {
-      "sym": "SMH",
-      "last": 564.625,
-      "chg_pct": -4.96
-    },
-    {
-      "sym": "GDS",
-      "last": 33.935,
-      "chg_pct": -4.08
-    },
-    {
-      "sym": "ZYME",
-      "last": 25.8925,
-      "chg_pct": 2.3
-    },
-    {
-      "sym": "AAP",
-      "last": 58.91,
-      "chg_pct": 3.86
-    },
-    {
-      "sym": "PLAB",
-      "last": 31.245,
-      "chg_pct": -7.01
-    },
-    {
-      "sym": "AMBA",
-      "last": 75.37,
-      "chg_pct": -4.04
-    },
-    {
       "sym": "HPQ",
-      "last": 29.7,
-      "chg_pct": 1.02
-    },
-    {
-      "sym": "MU",
-      "last": 937.7399,
-      "chg_pct": -7.32
-    },
-    {
-      "sym": "WDC",
-      "last": 492.715,
-      "chg_pct": -8.08
-    },
-    {
-      "sym": "STX",
-      "last": 904.225,
-      "chg_pct": -9.1
-    },
-    {
-      "sym": "RAM",
-      "last": 12.0913,
-      "chg_pct": -17.13
-    },
-    {
-      "sym": "EWY",
-      "last": 171.745,
-      "chg_pct": -7.22
-    },
-    {
-      "sym": "AMAT",
-      "last": 500.34,
-      "chg_pct": -6.53
-    },
-    {
-      "sym": "ASML",
-      "last": 1780.63,
-      "chg_pct": -5.44
-    },
-    {
-      "sym": "TSM",
-      "last": 412.26,
-      "chg_pct": -4.34
+      "last": 30.2,
+      "chg_pct": 1.92
     },
     {
       "sym": "NVDA",
-      "last": 219.49,
-      "chg_pct": -2.45
+      "last": 220.07,
+      "chg_pct": -3.47
     },
     {
-      "sym": "SMCI",
-      "last": 36.38,
-      "chg_pct": -4.96
+      "sym": "MRVL",
+      "last": 216.715,
+      "chg_pct": -10.24
     },
     {
-      "sym": "COHR",
-      "last": 309.255,
-      "chg_pct": -11.95
+      "sym": "AVGO",
+      "last": 366.02,
+      "chg_pct": -1.49
     },
     {
-      "sym": "APP",
-      "last": 310.35,
-      "chg_pct": -0.52
+      "sym": "AMD",
+      "last": 468.065,
+      "chg_pct": -1.81
     },
     {
-      "sym": "SPCX",
-      "last": 141.89,
-      "chg_pct": -2.97
-    },
-    {
-      "sym": "QCOM",
-      "last": 157.25,
-      "chg_pct": -3.04
-    },
-    {
-      "sym": "GOOGL",
-      "last": 343.29,
-      "chg_pct": -0.21
-    },
-    {
-      "sym": "ASPI",
-      "last": 3.9073,
-      "chg_pct": -2.8
-    },
-    {
-      "sym": "HIMS",
-      "last": 28.16,
-      "chg_pct": -1.57
-    },
-    {
-      "sym": "NKE",
-      "last": 40.305,
-      "chg_pct": 3.11
-    },
-    {
-      "sym": "VICI",
-      "last": 26.185,
-      "chg_pct": 0.87
-    },
-    {
-      "sym": "MCD",
-      "last": 269.645,
-      "chg_pct": 1.55
-    },
-    {
-      "sym": "PEP",
-      "last": 140.49,
-      "chg_pct": 1.63
+      "sym": "MU",
+      "last": 918.35,
+      "chg_pct": -1.82
     },
     {
       "sym": "MUU",
-      "last": 29.8599,
-      "chg_pct": -14.71
+      "last": 28.2856,
+      "chg_pct": -3.26
     },
     {
-      "sym": "SNDG",
-      "last": 9.71,
-      "chg_pct": -18.16
-    },
-    {
-      "sym": "SNDK",
-      "last": 1625.105,
-      "chg_pct": -9.05
+      "sym": "SMCI",
+      "last": 37.04,
+      "chg_pct": -3.69
     },
     {
       "sym": "DELL",
-      "last": 460.5,
-      "chg_pct": -4.02
+      "last": 459.71,
+      "chg_pct": -2.66
     },
     {
-      "sym": "VIX",
-      "last": null,
-      "chg_pct": null,
-      "note": "not refreshed - index quote not pulled this run"
+      "sym": "ANET",
+      "last": 195.36,
+      "chg_pct": -2.85
+    },
+    {
+      "sym": "MSFT",
+      "last": 516.24,
+      "chg_pct": 2.21
+    },
+    {
+      "sym": "GOOGL",
+      "last": 346.19,
+      "chg_pct": 1.63
+    },
+    {
+      "sym": "AMZN",
+      "last": 265.595,
+      "chg_pct": 3.64
+    },
+    {
+      "sym": "META",
+      "last": 574.935,
+      "chg_pct": 0.67
+    },
+    {
+      "sym": "INTC",
+      "last": 89.4,
+      "chg_pct": -2.92
+    },
+    {
+      "sym": "INTW",
+      "last": 18.35,
+      "chg_pct": -5.66
+    },
+    {
+      "sym": "VRT",
+      "last": 259.7525,
+      "chg_pct": -3.54
+    },
+    {
+      "sym": "ETN",
+      "last": 404.5,
+      "chg_pct": -2.77
+    },
+    {
+      "sym": "GEV",
+      "last": 918.545,
+      "chg_pct": -3.7
+    },
+    {
+      "sym": "PWR",
+      "last": 607.39,
+      "chg_pct": -2.32
+    },
+    {
+      "sym": "CEG",
+      "last": 278.262,
+      "chg_pct": -1.47
+    },
+    {
+      "sym": "VST",
+      "last": 137.31,
+      "chg_pct": -1.79
+    },
+    {
+      "sym": "TLN",
+      "last": 296.96,
+      "chg_pct": -2.5
+    },
+    {
+      "sym": "CORZ",
+      "last": 16.2999,
+      "chg_pct": -7.49
+    },
+    {
+      "sym": "IREN",
+      "last": 35.235,
+      "chg_pct": -13.06
+    },
+    {
+      "sym": "APLD",
+      "last": 25.4,
+      "chg_pct": -7.43
+    },
+    {
+      "sym": "WULF",
+      "last": 15.315,
+      "chg_pct": -7.13
+    },
+    {
+      "sym": "SPY",
+      "last": 769.79,
+      "chg_pct": -0.17
+    },
+    {
+      "sym": "QQQ",
+      "last": 716.24,
+      "chg_pct": -0.68
+    },
+    {
+      "sym": "DIA",
+      "last": 535.22,
+      "chg_pct": 0
+    },
+    {
+      "sym": "PLAB",
+      "last": 28.165,
+      "chg_pct": -6.92
+    },
+    {
+      "sym": "SMH",
+      "last": 554.46,
+      "chg_pct": -3.24
     }
   ]
 }

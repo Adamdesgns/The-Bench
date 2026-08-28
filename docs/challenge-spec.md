@@ -1,5 +1,31 @@
 # THE BENCH — the account challenge
 
+> **RESTARTED 2026-08-16 — read this box before the rest of the file.**
+>
+> The ledger was reopened at **$1,037.81** across both accounts. Everything below still
+> governs how calls are made and posted; three things changed.
+>
+> **1. The challenge tracks CHALLENGE CAPITAL, not "whatever is in these two accounts."**
+> That scoping error is the root cause of the 2026-08-16 retraction. Money that was never
+> in the game sat in the tracked accounts, and when $200 of it left for a household bill
+> the routine had no way to know that — so it reconstructed a story from arithmetic and
+> published it. Adam: *"I moved $200 to my bank for bills, nothing weird and if you
+> remember that money had nothing to do with the challenge anyway."* As of the restart,
+> **all $1,037.81 is challenge capital**, so the scope and the accounts finally agree.
+>
+> **2. Every transfer is labelled with its source, at the time it moves.** Enforced in
+> code: `validateSnapshot` refuses a non-zero `deposit` with no `deposit_source`. See
+> *Funding sources* below.
+>
+> **3. The record outranks the post.** Adam: *"The challenge matters less than getting to
+> the 10k, nobody's actually watching. It will matter if they ever do."* So the ledger is
+> the product and the weekly post is optional — a Sunday with nothing worth saying gets no
+> post. And the weekly routine **no longer auto-publishes**: it drafts, pings Adam, and he
+> reads it before anything is public (`~\.claude\scheduled-tasks\bench-challenge-weekly\SKILL.md`).
+>
+> The retired ledger is kept at `db/challenge-v1-retired-2026-08-16.json` — nothing is
+> deleted, rule 3 applies to the ledger itself.
+
 **$746.69 → $10,000, documented in public, start to finish.**
 
 Explicitly against the "I turned $500 into $50k in a week" genre. Adam's words: *"no bullshit I did it in 7 day scam vibe."*
@@ -130,6 +156,37 @@ Worked example: on a $545.81 balance, a $200 external deposit lands it at $745.8
 **The challenge is scored on trading P&L, not account value.** Account value is always reported — it is the real number in the real account — but "how far to $10,000" measured against a balance you can top up means nothing. If a transfer is ever large enough that the two numbers tell different stories, the post leads with trading P&L.
 
 Every week with a transfer says so in the post, in dollars, the week it happens. Not in a footnote.
+
+### Funding sources — added at the 2026-08-16 restart
+
+Every transfer records **where the money came from or went to**, in the row, the week it
+moves. `snapshot-challenge.js --deposit 500 --source-of-funds savings`. A non-zero
+`deposit` with no `deposit_source` is **refused**, the same way a non-reconciling total is.
+
+**Why it is enforced rather than encouraged.** The finish-line post Adam described is a
+breakdown: *"when we reach 10k we state how we got there. savings added $2500, job added
+this, win rate added this, etc."* That sentence is only true if each dollar was labelled
+on the way in. Worked out afterwards from balances, it is reconstruction — and
+reconstruction is exactly what produced the 2026-08-16 retraction, where a $200 household
+bill payment was published as a documented withdrawal because the arithmetic left a $200
+hole and the routine filled it. **The broker reports balances and trades. It never
+reports why money moved.** Only Adam knows that, so he says it at the time or it is gone.
+
+The general rule, and it is not limited to this ledger: **any figure not returned verbatim
+by a tool is an assumption, and assumptions never go in a post.** If a balance moved and
+the trades do not explain it, the honest sentence is *"$X moved and I cannot see why from
+the broker"* — followed by asking. Two reconciliations agreeing is **not** verification;
+it tests whether a number is internally consistent, never whether it is true.
+
+```
+node scripts/challenge-attribution.js
+```
+
+prints the breakdown on demand — one line per source, trading P&L as the remainder,
+account value as the total. It **asserts** that the buckets sum to the balance rather than
+assuming it, refuses to pass on an `unlabelled` bucket, and exits non-zero if either check
+fails. That is the command that writes the $10,000 post, so the post is a command rather
+than a memory exercise.
 
 ### Options
 

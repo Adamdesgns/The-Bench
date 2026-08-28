@@ -1,0 +1,82 @@
+[
+  {
+    "date": "2026-08-04",
+    "total_value": 749.59,
+    "equity_value": 379.99,
+    "cash": 369.6,
+    "options_value": 0,
+    "deposit": 0,
+    "accounts": [
+      "769507724",
+      "929016137"
+    ],
+    "source": "robinhood-mcp",
+    "note": "Starting line, at the 2026-08-04 close. Agentic 7724 ($548.71: 1 GOOGL @ $379.99 close, $168.72 cash) + margin 6137 ($200.88 cash, allocated for options at level 3). Same money, two accounts.",
+    "pct_from_start": 0,
+    "multiple_to_target": 13.34,
+    "pct_of_target": 7.5,
+    "contributed": 749.59,
+    "trading_pnl": 0,
+    "pct_return_on_contributed": 0
+  },
+  {
+    "date": "2026-08-05",
+    "total_value": 726.6,
+    "equity_value": 0,
+    "cash": 726.6,
+    "options_value": 0,
+    "deposit": 0,
+    "accounts": [
+      "769507724",
+      "929016137"
+    ],
+    "source": "robinhood-mcp",
+    "note": "GOOGL stop filled 357.00 at 11:12 CDT. Flat, all cash. NOTE: only 168.72 is spendable today - the 357.00 proceeds are unsettled T+1 in the cash account.",
+    "pct_from_start": -3.07,
+    "multiple_to_target": 13.76,
+    "pct_of_target": 7.3,
+    "contributed": 749.59,
+    "trading_pnl": -22.99,
+    "pct_return_on_contributed": -3.07
+  },
+  {
+    "date": "2026-08-09",
+    "total_value": 1226.6,
+    "equity_value": 0,
+    "cash": 1226.6,
+    "options_value": 0,
+    "deposit": 500,
+    "accounts": [
+      "769507724",
+      "929016137"
+    ],
+    "source": "robinhood-mcp",
+    "note": "Week 1 close. Flat, all cash, no open positions. $500.00 external deposit this week (Agentic 7724 $720.76 + margin 6137 $505.84). Deposit earns nothing: trading P&L unchanged from 08-05 at -$22.99.",
+    "pct_from_start": 63.64,
+    "multiple_to_target": 8.15,
+    "pct_of_target": 12.3,
+    "contributed": 1249.59,
+    "trading_pnl": -22.99,
+    "pct_return_on_contributed": -1.84
+  },
+  {
+    "date": "2026-08-16",
+    "total_value": 1037.81,
+    "equity_value": 450.45,
+    "cash": 587.36,
+    "options_value": 0,
+    "deposit": -200,
+    "accounts": [
+      "769507724",
+      "929016137"
+    ],
+    "source": "robinhood-mcp",
+    "note": "Week 2 close. HPQ 15 sh @ 29.145 avg, marked 30.03 (Fri 8/14 close 30.10), GTC stop 29.30 resting. $200.00 net moved OUT of the two tracked accounts this week (margin 6137 sent 500.00: 300.00 arrived in Agentic 7724, 200.00 left the pair). Withdrawal, not a trading loss.",
+    "pct_from_start": 38.45,
+    "multiple_to_target": 9.64,
+    "pct_of_target": 10.4,
+    "contributed": 1049.59,
+    "trading_pnl": -11.78,
+    "pct_return_on_contributed": -1.12
+  }
+]

@@ -76,7 +76,34 @@ for (const [ticker, g] of graded) {
   const stale = age > STALE_DAYS;
 
   let status, why;
-  if (!qualifies) {
+  if (w.lane === 'momentum') {
+    // MOMENTUM LANE - added 2026-08-21 at Adam's explicit direction:
+    //   "I don't care if it fails a gate. Half the fkn AI names that ran 1,000s
+    //    of %s failed the gate. The market doesn't always listen to fundamentals."
+    // He is substantially right - momentum is a real and durable effect, and this
+    // book carries its own receipt: B-169 refused HIMS at 1.29:1 on 8/20 and it
+    // ran +7.69% the very next session.
+    // So gate 1 (fundamental B or better) and the 2:1 R:R gate are BYPASSED here,
+    // deliberately, and every printed line says so.
+    // What is NOT bypassed: a name still needs a declared zone, and an open
+    // position still never emits a buy signal (the GDS bug, 2026-08-18).
+    // Standing caveat, recorded because it is the real risk: the names that ran
+    // 1,000% are visible and the ones that went to zero are not, so this lane is
+    // sized SMALLER than the accumulation lane, not larger.
+    if (['HOLDING', 'HELD'].includes(w.status)) {
+      status = 'HOLDING';
+      why = 'open position - adds are a separate decision, not a re-trigger of this zone';
+    } else if (w.buy_zone == null) {
+      status = 'NO ZONE';
+      why = 'momentum lane, but no buy_zone declared in watchlist.json';
+    } else {
+      why = 'buy at or below ' + w.buy_zone
+          + (w.floor != null ? ', floor ' + w.floor : '')
+          + ' - MOMENTUM LANE, bypasses gate 1 (fundamental ' + g.grade + '). '
+          + (w.lane_why || 'no reason recorded');
+      status = 'MOMENTUM';
+    }
+  } else if (!qualifies) {
     status = "REJECTED";
     why = `fundamental ${g.grade} — Accumulation gate 1 needs B or better`;
   } else if (w.thesis_flag) {
@@ -134,7 +161,24 @@ for (const [ticker, g] of graded) {
   });
 }
 
-const rank = { ARMED: 0, HOLDING: 1, "FAILS R:R": 2, "NO TARGET": 3, "NO ZONE": 4, "NO FLOOR": 5, "THESIS FLAG": 6, EXCLUDED: 7, STALE: 8, REJECTED: 9 };
+// Momentum-lane names carrying NO fundamental grade never enter the graded map
+// above, so they would be silently invisible here - the exact class of failure
+// this lane exists to fix. Sweep them in explicitly.
+for (const w of watch) {
+  if (w.lane !== 'momentum') continue;
+  if (entries.some((e) => e.ticker === w.sym)) continue;
+  entries.push({
+    ticker: w.sym, grade: 'n/a', graded: '-', age_days: 0, row: '-',
+    buy_zone: w.buy_zone ?? null, floor: w.floor ?? null, rr_target: w.rr_target ?? null,
+    status: w.buy_zone == null ? 'NO ZONE' : 'MOMENTUM',
+    why: w.buy_zone == null
+      ? 'momentum lane, no buy_zone declared'
+      : 'buy at or below ' + w.buy_zone + ' - MOMENTUM LANE, ungraded. ' + (w.lane_why || 'no reason recorded'),
+    note: w.note ? w.note.slice(0, 120) : null,
+  });
+}
+
+const rank = { ARMED: 0, MOMENTUM: 0.5, HOLDING: 1, "FAILS R:R": 2, "NO TARGET": 3, "NO ZONE": 4, "NO FLOOR": 5, "THESIS FLAG": 6, EXCLUDED: 7, STALE: 8, REJECTED: 9 };
 entries.sort((a, b) => rank[a.status] - rank[b.status] || a.age_days - b.age_days);
 
 const shown = has("--all") ? entries : entries.filter((e) => e.status !== "REJECTED");

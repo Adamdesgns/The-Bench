@@ -19,7 +19,13 @@ const CALL_TYPES = {
   long: ["invalidation"],
   // Gated. Without the level, the gate cannot be judged -- ETH, BNB and SOL
   // all sit unscorable in the book for exactly this.
-  conditional: ["trigger"],
+  // decide_by added 2026-08-20. A trigger says WHERE; without a deadline nothing
+  // says WHEN, so a conditional never dies -- it just rots on the board. The
+  // tripwire's first run proved the cost: 42 levels watched, a third of them
+  // fossils nobody had killed. Adam's words: "me asking about it every day if we
+  // just need to watch it for a week will get repetitive." A plan that cannot
+  // expire on its own is a plan that has to be asked about.
+  conditional: ["trigger", "decide_by"],
   // Protection. Without a size there is no position to score -- XOM, CVX, COP
   // and OXY all ran and none of them can be claimed.
   hedge: ["size"],
@@ -67,6 +73,16 @@ export function validateCall(input) {
     }
   }
 
+  // A deadline that is not a real date, or is already behind us, is worse than
+  // none -- it looks like discipline and enforces nothing.
+  if (input.decide_by !== undefined && input.decide_by !== null && input.decide_by !== "") {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(input.decide_by))) {
+      problems.push(`decide_by must be YYYY-MM-DD (got ${JSON.stringify(input.decide_by)})`);
+    } else if (input.date && String(input.decide_by) < String(input.date)) {
+      problems.push(`decide_by ${input.decide_by} is BEFORE the call date ${input.date} — a deadline that has already passed enforces nothing`);
+    }
+  }
+
   for (const f of requiredFields(type)) {
     if (input[f] === undefined || input[f] === null || input[f] === "") {
       problems.push(
@@ -109,6 +125,9 @@ export function buildRow(input, rows = []) {
     call_type: input.type,
     trigger: input.trigger ?? null,
     invalidation: input.invalidation ?? null,
+    // The date this plan stops being live if nothing happens. Distinct from
+    // invalidation, which is a PRICE. This one is the clock.
+    decide_by: input.decide_by ?? null,
     size: input.size ?? null,
     max_loss: isNum(input.max_loss) ? input.max_loss : null,
     engine: "claude",

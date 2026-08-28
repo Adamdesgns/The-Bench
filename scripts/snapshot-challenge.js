@@ -49,6 +49,11 @@ const row = {
   // Net external transfer since the last row. Positive = money in, negative =
   // money out. Allowed, but never counted as profit.
   deposit: num("--deposit") ?? 0,
+  // WHERE the money came from or went to. Required whenever --deposit is not
+  // zero; the ledger refuses an unlabelled movement. This is the field the
+  // final "how we got to $10,000" breakdown is built from, and it cannot be
+  // reconstructed afterwards -- the broker never reports why money moved.
+  deposit_source: valueOf("--source-of-funds"),
   accounts: accountsArg ? accountsArg.split(",").map((s) => s.trim()).filter(Boolean) : undefined,
   source: valueOf("--source") ?? "robinhood-mcp",
   note: valueOf("--note") ?? null,
@@ -78,7 +83,10 @@ console.log(`    options       $${added.options_value.toFixed(2)}`);
 console.log(`  accounts        ${added.accounts.join(", ")}`);
 console.log(`  started at      $${start.total_value.toFixed(2)} on ${start.date}`);
 if (added.deposit) {
-  console.log(`  transfer        ${added.deposit > 0 ? "+" : ""}$${added.deposit.toFixed(2)} this period`);
+  console.log(
+    `  transfer        ${added.deposit > 0 ? "+" : ""}$${added.deposit.toFixed(2)} this period` +
+      ` (${added.deposit_source})`
+  );
 }
 console.log("");
 console.log(`  contributed     $${added.contributed.toFixed(2)}   <- money PUT IN`);
