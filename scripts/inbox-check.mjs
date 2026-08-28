@@ -87,8 +87,29 @@ function scan(dir) {
     .sort((a, b) => b.mtime - a.mtime);
 }
 
+// Today's worklog. Lives beside the bus on purpose (Adam, 2026-08-28: local copy
+// only, no repo mirror) - a claim log on a git branch cannot be read by the other
+// desk without fetching a branch nobody told them the name of, which records
+// collisions instead of preventing them.
+function worklogToday() {
+  const d = new Date();
+  const name =
+    d.getFullYear() +
+    "-" + String(d.getMonth() + 1).padStart(2, "0") +
+    "-" + String(d.getDate()).padStart(2, "0") + ".md";
+  const p = path.join(BUS, "worklog", name);
+  if (!fs.existsSync(p)) return { name, path: p, exists: false, claims: [] };
+  const text = fs.readFileSync(p, "utf8");
+  const claims = text
+    .split(/\r?\n/)
+    .filter((l) => /^\s*(>\s*)?\*\*\[[A-Za-z]+\]\*\*\s*CLAIMED:/i.test(l))
+    .map((l) => l.replace(/^\s*>?\s*/, "").trim());
+  return { name, path: p, exists: true, claims };
+}
+
 const inbound = scan(IN);
 const outbound = scan(OUT);
+const wl = worklogToday();
 
 const unread = inbound.filter((d) => !d.answeredByClaude);
 const answered = outbound.filter((d) => d.handbackHasContent);
@@ -119,6 +140,16 @@ if (!outbound.length) {
     );
     if (d.handbackHasContent) console.log("      they filled the HANDBACK - read it");
   }
+}
+
+console.log("\nWORKLOG TODAY (" + wl.name + ")");
+if (!wl.exists) {
+  console.log("  not started - create " + wl.path);
+  console.log("  Claim a ticker here BEFORE you run it. First CLAIMED owns it today.");
+} else if (!wl.claims.length) {
+  console.log("  exists, no CLAIMED lines yet - nothing is taken");
+} else {
+  for (const c of wl.claims) console.log("  " + c);
 }
 
 console.log("\n" + "=".repeat(62));
