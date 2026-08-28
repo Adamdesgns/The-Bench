@@ -19,6 +19,7 @@ import {
   authorizationLine, confirmLine, computeOrderShares, reconcileRisk,
   parseDriftBound, unmarketableEnough, hasCompletedTestZero,
   matchesOrderDetails, identifyOrder, filledQuantityOf, PreflightError,
+  safeAfterHoursWindow, regularSessionOpen,
 } from '../executor/executor.mjs';
 import { validateHandoff } from '../scripts/executor-validate.mjs';
 
@@ -241,7 +242,31 @@ test('guards: drift bounds parse; unmarketable check is direction-aware', () => 
 test('typed lines: authorization and confirm strings are exact and unambiguous', () => {
   assert.equal(authorizationLine('test-zero', 'ac134bd'), 'AUTHORIZE TEST-ZERO ac134bd ceiling $5');
   assert.equal(authorizationLine('test-one', 'ac134bd'), 'AUTHORIZE TEST-ONE ac134bd ceiling $5');
+  assert.equal(authorizationLine('test-queued', 'ac134bd'), 'AUTHORIZE TEST-QUEUED ac134bd ceiling $5');
+  assert.throws(() => authorizationLine('bogus', 'ac134bd'), /unknown test mode/);
   assert.equal(confirmLine('B-138:t', 'rev-9', 4), 'CONFIRM B-138:t rev-9 $4.00');
+});
+
+test('after-hours window: the queued test runs only when the market is closed with a buffer', () => {
+  // All ET-anchored; August 2026 is EDT (UTC-4). Aug 27 2026 is a Thursday, Aug 29 a Saturday.
+  const at = (iso) => safeAfterHoursWindow(new Date(iso));
+  // Weekend — always safe (next open is Monday).
+  assert.equal(at('2026-08-29T18:00:00Z'), true);            // Sat 14:00 ET
+  // Weekday evening (when Adam's home) — safe.
+  assert.equal(at('2026-08-27T23:00:00Z'), true);            // Thu 19:00 ET
+  // Weekday just after the 16:15 buffer — safe.
+  assert.equal(at('2026-08-27T20:20:00Z'), true);            // Thu 16:20 ET
+  // Weekday pre-open, before 07:00 — safe.
+  assert.equal(at('2026-08-27T09:00:00Z'), true);            // Thu 05:00 ET
+  // Weekday midday (session) — refused.
+  assert.equal(at('2026-08-27T17:00:00Z'), false);           // Thu 13:00 ET
+  // Weekday 16:00, inside the 16:15 buffer — refused.
+  assert.equal(at('2026-08-27T20:00:00Z'), false);           // Thu 16:00 ET
+  // Weekday 08:30, pre-open danger zone — refused.
+  assert.equal(at('2026-08-27T12:30:00Z'), false);           // Thu 08:30 ET
+  // The two windows never both accept the same instant.
+  const t = new Date('2026-08-27T17:00:00Z');
+  assert.ok(!(regularSessionOpen(t) && safeAfterHoursWindow(t)));
 });
 
 test('sequencing: test one stays locked until a CLEAN test-zero receipt exists', () => {

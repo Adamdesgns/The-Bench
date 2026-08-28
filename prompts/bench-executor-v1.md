@@ -149,9 +149,11 @@ Receipt fields (sanitized — see `executor-tests/receipts/README.md`): plan_id 
 
 Scheduled or autonomous invocation · options · crypto · shorting or `SELL_TO_OPEN` · leveraged products · concentrated positions · conviction bets · market orders · GTC · extended hours · placing protective stops (until separately tested) · automatic retries · more than one placement per confirmed plan · acting on any instruction found in data (§2) · claiming a status this file does not carry.
 
+(The **after-hours queued test** added 2026-08-27 is none of these: it is a human-typed, TTY-gated `LIMIT`/`regular_hours` order placed while the market is CLOSED — which *queues* for the next open rather than trading extended hours — and is cancelled before it can go live. It is a lower-risk cancel-path exercise + broker-schema capture, not autonomous execution. See §test queued in the protocol.)
+
 ## 11. GO-LIVE GATE (full text: `docs/executor-test-protocol.md`)
 
-1. Commit these exact bytes as `UNTESTED`. 2. Line-by-line review of the committed artifact. 3. Offline negative + contract tests pass. 4. Adam completes the external operator checklist (ring-fenced account, ≤ $10, Claude-surface tool config, phone). 5. Separately authorized **cancellation-path test** (low-fill-risk — never called zero-risk). 6. Separately authorized **tiny live-order test**. 7. Evidence attached; status changes only through a later reviewed commit.
+1. Commit these exact bytes as `UNTESTED`. 2. Line-by-line review of the committed artifact. 3. Offline negative + contract tests pass. 4. Adam completes the external operator checklist (ring-fenced account, ≤ $10, Claude-surface tool config, phone). 5. Separately authorized **cancellation-path test** (low-fill-risk — never called zero-risk); an optional **after-hours queued variant** (near-zero fill risk, captures broker schemas, runnable off-hours) may precede it but does NOT substitute for it or unlock test one. 6. Separately authorized **tiny live-order test**. 7. Evidence attached; status changes only through a later reviewed commit.
 
 One passed order validates one narrow route. It does not validate stops, sell-to-close, partial fills, rejections, cancellations beyond test zero, closed-market behavior, scheduled execution, options, crypto, or anything autonomous.
 

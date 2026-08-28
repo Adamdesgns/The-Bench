@@ -17,6 +17,7 @@ Recorded per test: executor commit SHA · plan_id · full input plan · prefligh
 ## Authorizations (typed by Adam, in-session, verbatim)
 
 - Test zero: `AUTHORIZE TEST-ZERO <executor-commit-short-sha> ceiling $5`
+- Test queued (after-hours): `AUTHORIZE TEST-QUEUED <executor-commit-short-sha> ceiling $5`
 - Test one: `AUTHORIZE TEST-ONE <executor-commit-short-sha> ceiling $5`
 
 An authorization is single-session, single-test, and names the committed SHA it applies to. While the executor file says `UNTESTED`, broker tools may be touched **only** under one of these lines. No authorization, no tool calls — including reads.
@@ -43,6 +44,14 @@ Fixtures live in `executor-tests/redacted-fixtures/` and are **synthetic until r
 Low-fill-risk, **never called zero-fill-risk**: an unmarketable limit can still fill on a fast move, and the broker may reject an unreasonable price.
 
 Committed executor SHA · ring-fenced account per checklist · one unmarketable `DAY` equity limit, regular hours, within the $5 ceiling · confirm the order appears in the Robinhood app · cancel **through the executor** · query and verify `CANCELED` · confirm the phone notification fired · archive every raw response + receipt transition. If Robinhood rejects the limit as unreasonable: record a successful **rejection-path** observation and do **not** claim the cancellation path was tested.
+
+## Test queued — after-hours cancellation path (LATER, authorized, not run by this task)
+
+Added 2026-08-27, at Adam's point: an order that *cannot fill* is lower-risk than one that can. A regular-hours limit placed while the market is CLOSED **queues for the next open** instead of filling — so placing it and cancelling it entirely after hours, before it can ever go live, exercises almost the whole path (real `place` and `cancel` API calls, the receipt trail, the arm switch, and — the payoff — the **real broker response schemas**, blocker #5) at near-zero fill risk. And it runs in the evening, off the clock, so it does not need a market-hours window.
+
+`node executor/executor.mjs test-queued --handoff F --live`. Same gates as test zero (TTY, typed `AUTHORIZE TEST-QUEUED` + `CONFIRM`, arm switch, ceilings, receipts) with the market-session gate **inverted**: it refuses unless the market is closed with a buffer (`safeAfterHoursWindow()` — weekend, or before 07:00 / after 16:15 ET, so the run is never near a live session). The limit must still be unmarketable — belt-and-suspenders: if the cancel ever failed and the order reached the open, it sits far from fillable.
+
+**What it does NOT establish:** it proves the cancel path on a **queued** order, not a live working one, so it does **not** substitute for the market-hours test zero and **does not unlock test one** (`hasCompletedTestZero()` counts only a clean `test-zero` receipt). The one residual risk: if the cancel fails and is left uncancelled, a queued order becomes live at the next open — the executor verifies the cancel and alarms loudly if it did not land, and the order is a $5, ring-fenced, unmarketable one, but the operator must confirm nothing is left queued.
 
 ## Test one — tiny live order (LATER, authorized, not run by this task)
 

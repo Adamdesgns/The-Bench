@@ -9,6 +9,7 @@
 //   node executor/executor.mjs login                       OAuth to the agentic endpoint (TTY only)
 //   node executor/executor.mjs test-zero --handoff F --live  cancellation-path test (protocol §test zero)
 //   node executor/executor.mjs test-one  --handoff F --live  tiny live order (protocol §test one)
+//   node executor/executor.mjs test-queued --handoff F --live after-hours queued place+cancel (schema capture; market CLOSED)
 //
 // WHO PRESSES THE BUTTON: Adam, always. Live modes refuse without a real
 // interactive terminal, refuse without the typed AUTHORIZE line for the
@@ -71,7 +72,8 @@ export class PreflightError extends Error {}
 // ---------- pure helpers (exported for tests) -------------------------------
 
 export function authorizationLine(mode, sha) {
-  const word = mode === 'test-zero' ? 'TEST-ZERO' : 'TEST-ONE';
+  const word = { 'test-zero': 'TEST-ZERO', 'test-one': 'TEST-ONE', 'test-queued': 'TEST-QUEUED' }[mode];
+  if (!word) throw new Error(`unknown test mode: ${mode}`);
   return `AUTHORIZE ${word} ${sha} ceiling $${HARD_TEST_CEILING_USD.toFixed(0)}`;
 }
 
@@ -159,6 +161,28 @@ export function regularSessionOpen(now = new Date()) {
   const minutes = parseInt(get('hour'), 10) * 60 + parseInt(get('minute'), 10);
   // 9:30 ET open; stop starting new tests 15:45 ET so the cancel leg has room.
   return minutes >= 9 * 60 + 30 && minutes <= 15 * 60 + 45;
+}
+
+// The after-hours ("queued") test runs ONLY when the market is closed with a
+// comfortable buffer before the next open. A regular-hours limit placed now
+// queues for the next open instead of filling, so placing-and-cancelling it
+// here cannot touch a live session — and even if the run is interrupted
+// between place and cancel, the buffer means a human notices before the open.
+// Weekend: always safe (next open is Monday). Weekday: only well after the
+// close (>= 16:15 ET) or well before the open (< 07:00 ET). The 07:00-16:15 ET
+// band is refused, so the run is never near a live session.
+export function safeAfterHoursWindow(now = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York', hour12: false,
+    weekday: 'short', hour: '2-digit', minute: '2-digit',
+  }).formatToParts(now);
+  const get = (t) => parts.find((p) => p.type === t)?.value;
+  const weekday = get('weekday');
+  if (weekday === 'Sat' || weekday === 'Sun') return true;
+  const minutes = parseInt(get('hour'), 10) * 60 + parseInt(get('minute'), 10);
+  const afterClose = minutes >= 16 * 60 + 15;
+  const beforeOpen = minutes < 7 * 60;
+  return afterClose || beforeOpen;
 }
 
 // Test one is sequenced behind test zero: refuse until a receipt shows a
@@ -277,8 +301,14 @@ async function preflight(broker, handoff, accountNumber, shares, notional, mode,
     throw new PreflightError(`preflight refused — buying power $${bp.value.toFixed(2)} < order notional $${notional.toFixed(2)}`);
   }
 
-  // Market session.
-  if (!regularSessionOpen()) {
+  // Market session — mode-dependent. Live tests (test-zero/test-one) need the
+  // session OPEN. The after-hours queued test needs the OPPOSITE: the market
+  // CLOSED with a buffer, so a regular-hours limit queues instead of filling.
+  if (mode === 'test-queued') {
+    if (regularSessionOpen() || !safeAfterHoursWindow()) {
+      throw new PreflightError('preflight refused — the queued test needs the market CLOSED with a buffer (weekend, or before 07:00 / after 16:15 ET). It is not that now.');
+    }
+  } else if (!regularSessionOpen()) {
     throw new PreflightError('preflight refused — outside regular session (9:30–15:45 ET window for tests)');
   }
 
@@ -293,9 +323,10 @@ async function preflight(broker, handoff, accountNumber, shares, notional, mode,
   if (Math.abs(last.value - handoff.limit_price) > drift) {
     throw new PreflightError(`preflight refused — live ${last.value} vs limit ${handoff.limit_price} exceeds drift bound $${drift.toFixed(2)}`);
   }
-  if (mode === 'test-zero' && !unmarketableEnough(handoff.action, handoff.limit_price, last.value)) {
+  if ((mode === 'test-zero' || mode === 'test-queued') && !unmarketableEnough(handoff.action, handoff.limit_price, last.value)) {
     throw new PreflightError(
-      `preflight refused — test zero needs an unmarketable limit (BUY ≤ 50% / SELL ≥ 150% of last trade ${last.value}); got ${handoff.limit_price}`
+      `preflight refused — this test needs an unmarketable limit (BUY ≤ 50% / SELL ≥ 150% of last trade ${last.value}); got ${handoff.limit_price}. ` +
+      'For the queued test this is the belt-and-suspenders: even if the cancel failed and the order reached the open, it would sit far from fillable.'
     );
   }
 
@@ -517,6 +548,11 @@ async function runLiveTest(mode, handoffPath, liveFlag) {
         console.log('is yours to manage manually. This run is a fill-path observation, not a cancellation pass.');
         throw new Flow(2, 'test-zero order filled before cancel');
       }
+      if (mode === 'test-queued') {
+        console.log('\nUNEXPECTED: an after-hours order FILLED — it did NOT queue as this test assumes.');
+        console.log('That is a broker-behavior surprise worth recording. The position is yours to manage manually.');
+        throw new Flow(2, 'test-queued order filled (did not queue) — unexpected, manage manually');
+      }
     }
     if (state === 'PARTIALLY_FILLED') {
       await alert(`${mode.toUpperCase()} PARTIALLY_FILLED — ${handoff.plan_id}. Remainder still working${mode === 'test-zero' ? '; proceeding to cancel it' : ''}.`);
@@ -524,14 +560,16 @@ async function runLiveTest(mode, handoffPath, liveFlag) {
       // leg below is now the kill sequence, not just the test.
     }
 
-    if (mode === 'test-zero') {
+    if (mode === 'test-zero' || mode === 'test-queued') {
+      const TAG = mode.toUpperCase();
+      const stateWord = mode === 'test-queued' ? 'queued for the next open, not fillable now' : 'working';
       // 8. Cancel THROUGH the program, verify CANCELED — a request is not a cancellation.
-      console.log(`\nOrder ${orderId} status: ${state}. Verify it in the Robinhood app now.`);
+      console.log(`\nOrder ${orderId} status: ${state} (${stateWord}). Verify it in the Robinhood app now.`);
       await ask('Press Enter to cancel it through the executor… ');
       const cancelResult = await broker.call('cancel', { account_number: accountNumber, order_id: orderId });
       receipt.addRaw(archiveRaw(RAW_DIR, handoff.plan_id, 'cancel', cancelResult));
       receipt.transition('CANCEL_REQUESTED', `cancel requested for ${orderId}`);
-      await alert(`TEST-ZERO CANCEL_REQUESTED — ${handoff.plan_id}`);
+      await alert(`${TAG} CANCEL_REQUESTED — ${handoff.plan_id}`);
       let final = 'UNKNOWN_REQUIRES_RECONCILIATION';
       let finalOrder = null;
       for (let i = 0; i < 24; i++) {
@@ -544,22 +582,35 @@ async function runLiveTest(mode, handoffPath, liveFlag) {
       if (filledQty !== null) receipt.set('final_filled_quantity', filledQty);
       receipt.transition(final, `final state after cancel verification${filledQty !== null ? ` (filled ${filledQty})` : ''}`);
       if (final !== 'CANCELED') {
-        await alert(`TEST-ZERO ALARM — cancel NOT verified for ${handoff.plan_id}; final state ${final}. Verify in the app NOW.`);
-        console.error(`\nCancel NOT verified (final state ${final}). Kill sequence: check the app,`);
-        console.error('cancel manually if needed. If it filled, the position is your decision.');
+        const extra = mode === 'test-queued'
+          ? ' A queued after-hours order left uncancelled becomes LIVE at the next open — check the app and kill it by hand NOW.'
+          : '';
+        await alert(`${TAG} ALARM — cancel NOT verified for ${handoff.plan_id}; final state ${final}.${extra} Verify in the app NOW.`);
+        console.error(`\nCancel NOT verified (final state ${final}). Kill sequence: check the app, cancel manually if needed.`);
+        if (mode === 'test-queued') {
+          console.error('This was an after-hours QUEUED order — if it is not cancelled it goes live at the next open. Do NOT leave it.');
+        } else {
+          console.error('If it filled, the position is your decision.');
+        }
         throw new Flow(2, `cancel not verified — final state ${final}`);
       }
       if (filledQty > 0) {
-        await alert(`TEST-ZERO CANCELED WITH PARTIAL FILL ${filledQty} — position in ${handoff.ticker} is yours to manage.`);
-        console.log(`\nCancellation verified — but ${filledQty} share(s) filled first. The remainder is dead;`);
-        console.log('the filled shares are a live position and a separate manual decision.');
-        console.log('The cancellation PATH worked; the run is NOT a clean pass (test one stays locked).');
+        await alert(`${TAG} CANCELED WITH PARTIAL FILL ${filledQty} — position in ${handoff.ticker} is yours to manage.`);
+        console.log(`\nCancellation verified — but ${filledQty} share(s) filled first. The filled shares are a live position`);
+        console.log('and a separate manual decision. The cancellation PATH worked; the run is NOT a clean pass.');
         throw new Flow(2, 'canceled with partial fill');
       }
-      await alert(`TEST-ZERO CANCELED — verified clean. ${handoff.plan_id} complete. Commit the receipt.`);
-      console.log('\nTEST ZERO COMPLETE — placement verified, cancellation verified, nothing filled.');
+      await alert(`${TAG} CANCELED — verified clean. ${handoff.plan_id} complete. Commit the receipt.`);
+      if (mode === 'test-queued') {
+        console.log('\nQUEUED TEST COMPLETE — an after-hours order was placed (queued for the open), then cancelled and');
+        console.log('verified CANCELED before it could ever go live. Nothing filled. Real broker response schemas are');
+        console.log('captured in executor-tests/raw/ — the point of this run. NOTE: this proves the cancel path on a');
+        console.log('QUEUED order, not a live working one, so it does NOT unlock test-one (that still needs a market-hours test-zero).');
+      } else {
+        console.log('\nTEST ZERO COMPLETE — placement verified, cancellation verified, nothing filled.');
+      }
       console.log(`Receipt: ${receipt.path}`);
-      console.log('Commit it now: git add executor-tests/receipts && git commit -m "executor: test-zero receipt"');
+      console.log(`Commit it now: git add executor-tests/receipts && git commit -m "executor: ${mode} receipt"`);
     } else {
       await alert(`TEST-ONE ${state} — ${handoff.plan_id}, order ${orderId}. Exit owner: ${handoff.exit_owner}.`);
       console.log(`\nTEST ONE: order ${orderId} state ${state}. DAY limit — unfilled orders die at the close.`);
@@ -741,7 +792,11 @@ async function runProbe(handoffPath) {
     }
   }
 
-  note('market-session', regularSessionOpen() ? 'OPEN — a live run is allowed right now' : 'CLOSED — the live run refuses outside 9:30–15:45 ET (expected if probing after hours)');
+  note('market-session', regularSessionOpen()
+    ? 'OPEN — test-zero/test-one allowed now; the queued test is NOT (it needs the market closed)'
+    : (safeAfterHoursWindow()
+        ? 'CLOSED with a safe buffer — the queued after-hours test is allowed now; test-zero/test-one are not'
+        : 'CLOSED but near a session edge — neither the live tests nor the queued test will run; wait for the open or a clean after-hours buffer'));
   const arm = await readSwitch().catch((e) => ({ state: 'UNREADABLE', row: null, why: e.message }));
   note('arm-switch', `${arm.state}${arm.row ? ` for ${arm.row}` : ''} — ${arm.why}`);
 
@@ -805,7 +860,7 @@ async function main() {
     return;
   }
 
-  if (cmd === 'test-zero' || cmd === 'test-one') {
+  if (cmd === 'test-zero' || cmd === 'test-one' || cmd === 'test-queued') {
     const handoffPath = val('--handoff');
     if (!handoffPath) { console.error(`usage: executor ${cmd} --handoff <file.json> --live`); process.exit(2); }
     await runLiveTest(cmd, handoffPath, flag('--live'));
@@ -818,7 +873,9 @@ async function main() {
                                      quote, conflicts — order tools not even bound. No arm needed.
   status                             arm switch, token, receipts
   login                              OAuth to ${ENDPOINT} (TTY only)
-  test-zero --handoff F --live       cancellation-path test (protocol §test zero)
+  test-zero --handoff F --live       cancellation-path test, market OPEN (protocol §test zero)
+  test-queued --handoff F --live     after-hours queued place+cancel, market CLOSED — near-zero fill risk,
+                                     captures real broker schemas; does NOT unlock test-one (protocol §test queued)
   test-one  --handoff F --live       tiny live order (protocol §test one; sequenced behind a clean test zero)`);
   process.exit(2);
 }
