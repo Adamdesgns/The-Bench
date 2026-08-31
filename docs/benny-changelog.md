@@ -6,6 +6,76 @@
 
 ---
 
+## Week of 2026-08-23 → 2026-08-29
+
+The week the risk band stopped being a dollar figure, the execution leg got a name and a test harness, and the book named the same execution hole for the third and fourth time without fixing it.
+
+### THE ALGORITHM — how he trades
+
+**`trading-copilot-v26.md` shipped 2026-08-25** (commit `6645d75`). Two changes, neither of them a new gate:
+
+- **The short-side section is reconciled with v23.** For three versions the file said two opposite things about naked shorting: the v23 changelog lifted v22's permanent ban at Adam's direction, while §THE SHORT-SIDE still carried v19's *"NAKED SHORTING IS BANNED. PERMANENTLY."* verbatim. A run reading that section literally would have refused a structure the changelog permits. Put to Adam 2026-08-25; he ruled for the changelog. Defined-risk (long put / put spread) is the **default** expression of a bearish read; short shares and naked options are **available**, with the unbounded-loss arithmetic stated at the point of choice rather than enforced as a ban. **No gate changed.**
+- **The execution leg has a name:** `prompts/bench-executor-v1.md`, committed 2026-08-26 (`ac134bd`) marked `UNTESTED — LIVE EXECUTION DISABLED`, with its exact bytes committed **before** any test so the tested SHA is provable.
+
+**`trading-copilot-v27.md` shipped 2026-08-28** (commit `dda9559`, merged in `aaef039`). One change, and it is the one worth a post:
+
+**THE RISK BAND BECAME A PERCENTAGE.** Adam, 2026-08-28: *"It's 10% no reason to adjust it ever."*
+
+| | when set (2026-08-17) | 2026-08-28 |
+|---|---|---|
+| Band | $100 | $100 |
+| Account | ~$1,020.87 | $2,511.72 |
+| **Band as % of account** | **9.8%** | **4.0%** |
+
+The band was set as a fixed dollar figure and the account grew underneath it, so risk per trade **halved as a share of the account with nobody deciding to**. Nothing went wrong because of it — but the 2026-08-28 run had to stop and re-ask a question that was already settled, which is the tell. v27 states it as **10% of current account value, recomputed from the live balance every run** ($251 at the 8/28 balance). §POSITION SIZING is the only section that changed; every gate, floor, lane and grade in v26 is untouched.
+
+**What is recorded alongside it, in the file, so it does not read as an upgrade:** 10% per trade is roughly **6.7× the Aggressive tier** of the framework's own table for a $1k–$5k account (1.5%). Seven consecutive losers takes the account down **~52%** (0.9⁷ = 0.478), and recovering from −52% requires **+109%**. The one thing the percentage form genuinely buys over a fixed dollar is that **it de-risks itself on the way down** — 10% of a shrinking account is fewer dollars every time, so a losing streak tightens the band with nobody deciding to.
+
+### WHAT THE BOOK CONTRADICTED — the same hole, third and fourth instance
+
+**A level living in a logged plan with no resting order at the broker is not a plan, and this is now a pattern rather than an incident.**
+
+| Row | Date | Name | What happened |
+|---|---|---|---|
+| **B-116** | 2026-08-17 | GDS | *"ZONE TRIGGERED AND WENT UNBOUGHT, twice."* Zone live ~10 min on 8/17; no order resting, no fill. |
+| **B-205** | 2026-08-27 | BE | Trigger 205.10 armed 8/24 (B-194). Fired and never came back. *"+8.72pct past the trigger with nothing bought."* B-205 names it explicitly as *"THE B-116 FAILURE REPEATING."* |
+| **B-212 / B-217 / B-219** | 2026-08-27/28 | HIMS | The 31.50 zone went live and filled nothing on **three separate sessions**, then closed above it once and below it twice. |
+
+**And the cost of the BE miss is not one number, which is the finding worth carrying.** B-205 measured it at **+8.72%** on 8/27. Measured at the intraday high (227.99, 8/27) it is **+11.2%, $22.89 a share**. Measured at Friday's close (210.67) it is **+2.7%, $5.57 a share**. All three are true; the trade is identical in all three. **A missed-trade cost quoted without its measurement date is not evidence of anything** — which is exactly the shape of the competitor track-record posts in `docs/growth-playbook.md`. This became the Saturday recap published 2026-08-29.
+
+**No framework change has been made for the resting-order gap.** It is an execution gap, not an arithmetic one, and the executor (below) is the intended fix — but it is untested, so as of this week the hole is open and has cost real basis points three times in twelve days.
+
+### THE REFUSAL THAT WORKED — logged the same week, and it is the control case
+
+NVDA, B-200 → B-208 → B-215 → B-218. B-200 wrote the rule **in advance of the print**: re-derive the stop and the 2:1 test off the *post*-print ATR at the actual entry price, and if the arithmetic fails, no trade. NVDA beat, gapped to 222.30 pre-market on 8/27, and B-208 solved for the ceiling: any entry above **217.01** fails 2:1 to T2. It refused. The plan then died unfilled at its 8/28 deadline, and NVDA closed 217.54 that day, **−4.58%**, having crossed all three of its own triggers **from above**.
+
+**The pair is the lesson.** BE and NVDA are the same event — a published level the tape reached and no position taken — and they came out opposite ways for one reason: NVDA's plan specified what happens *at the price you would actually pay*, and BE's specified only a number. B-218 also records the general form: **a reclaim trigger crossed downward is not a fill**; it is the premise being overtaken.
+
+### THE EXECUTOR — the program surface
+
+- **`bench-executor-v1` committed UNTESTED** with live execution disabled (`ac134bd`, 2026-08-26), plus the canonical EXECUTION HANDOFF contract, offline refusal tests, a durable receipt registry and a kill sequence.
+- **Blocker #7 CLEARED** (`093ca6d`): the Robinhood endpoint accepts a non-Claude OAuth client. The surface limit was corrected in the docs from "a hard Anthropic limit" to what it actually is — **Bench policy plus configuration**.
+- **`87402b8`** gave it a local CLI; **`834f717`** a read-only preflight probe; **`fe1f1f6`** an after-hours `test-queued` mode — a near-zero-fill-risk cancel test.
+- Go-live is gated by `docs/executor-test-protocol.md`, **not by one order and a word**.
+
+### THE BUS — Adam stopped being the message bus
+
+`inbox-check.mjs` (`dc3dd78`) and the canonical worklog beside it (`4c8ccfa`). Written after 2026-08-28, when Morgan Sterling wrote a full seat map into `docs/handoffs/to-claude/` at 14:31 and this desk did not know until Adam said "check it now." **Two systems were writing to the same disk and a human was carrying the messages between them.** The bus is now step zero of every session and exits 1 when a drop is unread.
+
+### THE POSTING — what a reader would feel
+
+- **`bench-daily-v4` shipped 2026-08-23** (`2e64f99`): teaching is the purpose of the posting, and **every part of a chain is its own post**. Both rules came from Adam reading a published chain and deleting it — *"it just didn't make a lick of sense"* — on a chain whose every date was correct.
+- **The Saturday recap absorbed the Monday receipt routine** at Adam's direction 2026-08-22 (*"We're not waiting 2 weeks to fold it in. Everything starts Monday."*). The Monday task is disabled; every hard rule it carried moved into the Saturday file.
+- **The `approved\` folder is a live queue, and composing into it early publishes out of order.** Rule added 2026-08-25 after a stale-snapshot publish: nothing reaches `approved\` until the instant of publishing, and the move and the send are **one motion**. The fixed-clock drainer was disabled 2026-08-27, so each routine is now the only thing that publishes its own post.
+
+### STILL OPEN
+
+- **The resting-order gap.** Three named instances (GDS, BE, HIMS) in twelve days, no fix shipped. The executor is the intended answer and is untested.
+- **The 2026-08-29 recap ran at 17:28 CT against an 11:03a slot** — six and a half hours late, publishing under the Saturday carve-out. Same shape as the 2026-08-22 miss recorded in the section below. **An unattended run is still stalling somewhere and nothing has diagnosed it.**
+- **Only nine rows in the whole archive carry a 30-day checkpoint, and all nine score "not scorable."** The Saturday format is built around a 30-day verdict it currently cannot produce, and has fallen back to a process receipt. That is a data-shape problem in `db/archive.json`, not a writing problem, and it will recur every week until the checkpoints are seeded.
+
+---
+
 ## Week of 2026-08-16 → 2026-08-22
 
 The week Benny got a beat, a voice that was actually wired in, and a stop rule that his own book called into question four days after it shipped.
