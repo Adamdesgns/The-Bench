@@ -28,8 +28,8 @@ test("move: positive threshold means rises", () => {
 });
 
 test("breakout: close above the max of the prior lookback closes, cluster-collapsed", () => {
-  // lookback 3: idx4 close 111 > max(101,102,103)=103 -> event; idx5 (112) still above but same run
-  const bars = mkBars([100, 101, 102, 103, 111, 112, 100, 100, 100, 120]);
+  // lookback 3: idx4 close 111 > max(101,102,102)=102 -> event; idx5 (112) still above but same run
+  const bars = mkBars([100, 101, 102, 102, 111, 112, 100, 100, 100, 120]);
   const events = detectEvents(bars, { kind: "breakout", lookback: 3 });
   assert.deepEqual(events, [4, 9]);
 });
