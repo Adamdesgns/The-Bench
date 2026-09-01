@@ -1,169 +1,179 @@
 {
-  "asof": "2026-08-28 11:42 CT",
-  "session": "regular session - 3 hours 12 minutes after the 08:30 CT bell",
-  "basis": "change measured against the Thursday 2026-08-27 settled close (sip-list-exchange-close)",
-  "source": "robinhood-mcp get_equity_quotes. Full 32-symbol sweep pulled live 2026-08-28 16:42:11-16:42:46 UTC / 11:42 CT. No symbol on this strip is carrying an older print. MUU (2x daily-reset MU) ADDED to the strip this run alongside the existing INTW (2x INTC), for the B-216 leverage-lane review.",
-  "note": "THE OPEN AND MIDDAY ARE TWO DIFFERENT SESSIONS AND THE STRIP SHOWS THE SECOND ONE. At 08:38 CT the AI board split cleanly - all four hyperscaler buyers green, 15 of the 19 supplier-side names red - and SPY was +0.14 with QQQ -0.16. By 11:42 the buyers are STILL green (AMZN +3.64, MSFT +2.21, GOOGL +1.63, META +0.67) but the index has rolled over with the suppliers: SPY -0.17, QQQ -0.68, DIA flat. NVDA -3.47 has given back half of Thursday 8.74 percent post-earnings gain. MRVL -10.24 is now the worst name on the board, extending the beat-and-raise selloff to a second leg. Every crypto-bridge name is red for the second sweep running - IREN -13.07, CORZ -7.49, WULF -7.12, APLD -7.43. Power is red across the board, GEV -3.70 and VRT -3.54. B-216 logged MU as NO TRADE at 919.54 with a conditional at 957.21; MU is 918.35 here, still 4.2 percent under the 50-day and inside the six-session 888-970 range that bars the MUU leverage leg.",
+  "asof": "2026-09-01 15:25 CT",
+  "session": "closed",
+  "basis": "2026-09-01 last regular-hours trades vs 8/31 OFFICIAL settled closes (lesson from the MU 956.68-vs-958.73 correction: prior-close side is always the official print)",
+  "source": "robinhood-mcp get_equity_quotes",
+  "note": "REGULAR SESSION, NOT SETTLED. Refreshed by the B-236 GOOGL position delta. Every 'last' is an intraday print pulled 2026-09-01 11:42 CT and every chg_pct is measured against the 2026-08-31 official settled close. MOVER SINCE THE 10:37 REFRESH: MU 958.12 -> 939.25 (-2.0 pct on the day) and its 2x MUU 30.74 -> 29.53 (-3.6 pct), the sharpest board move of the late morning. GPRO 1.25 -> 1.32 is still ABOVE the 1.14 cash merger consideration logged in B-235. GOOGL 335.42 backs an OPEN 5-share position at 335.255 whose 326.00 stop is still NOT resting at the broker (B-236).",
   "quotes": [
     {
       "sym": "HPQ",
-      "last": 30.2,
-      "chg_pct": 1.92
+      "last": 31.325,
+      "chg_pct": 4.35
     },
     {
       "sym": "NVDA",
-      "last": 220.07,
-      "chg_pct": -3.47
-    },
-    {
-      "sym": "MRVL",
-      "last": 216.715,
-      "chg_pct": -10.24
-    },
-    {
-      "sym": "AVGO",
-      "last": 366.02,
-      "chg_pct": -1.49
-    },
-    {
-      "sym": "AMD",
-      "last": 468.065,
-      "chg_pct": -1.81
-    },
-    {
-      "sym": "MU",
-      "last": 918.35,
-      "chg_pct": -1.82
-    },
-    {
-      "sym": "MUU",
-      "last": 28.2856,
-      "chg_pct": -3.26
-    },
-    {
-      "sym": "SMCI",
-      "last": 37.04,
-      "chg_pct": -3.69
-    },
-    {
-      "sym": "DELL",
-      "last": 459.71,
-      "chg_pct": -2.66
-    },
-    {
-      "sym": "ANET",
-      "last": 195.36,
-      "chg_pct": -2.85
-    },
-    {
-      "sym": "MSFT",
-      "last": 516.24,
-      "chg_pct": 2.21
-    },
-    {
-      "sym": "GOOGL",
-      "last": 346.19,
-      "chg_pct": 1.63
-    },
-    {
-      "sym": "AMZN",
-      "last": 265.595,
-      "chg_pct": 3.64
-    },
-    {
-      "sym": "META",
-      "last": 574.935,
-      "chg_pct": 0.67
-    },
-    {
-      "sym": "INTC",
-      "last": 89.4,
-      "chg_pct": -2.92
-    },
-    {
-      "sym": "INTW",
-      "last": 18.35,
-      "chg_pct": -5.66
-    },
-    {
-      "sym": "VRT",
-      "last": 259.7525,
-      "chg_pct": -3.54
-    },
-    {
-      "sym": "ETN",
-      "last": 404.5,
-      "chg_pct": -2.77
-    },
-    {
-      "sym": "GEV",
-      "last": 918.545,
-      "chg_pct": -3.7
-    },
-    {
-      "sym": "PWR",
-      "last": 607.39,
-      "chg_pct": -2.32
-    },
-    {
-      "sym": "CEG",
-      "last": 278.262,
+      "last": 217.54,
       "chg_pct": -1.47
     },
     {
-      "sym": "VST",
-      "last": 137.31,
-      "chg_pct": -1.79
+      "sym": "MRVL",
+      "last": 210.36,
+      "chg_pct": -0.61
     },
     {
-      "sym": "TLN",
-      "last": 296.96,
-      "chg_pct": -2.5
+      "sym": "AVGO",
+      "last": 369.65,
+      "chg_pct": -0.19
     },
     {
-      "sym": "CORZ",
-      "last": 16.2999,
-      "chg_pct": -7.49
+      "sym": "AMD",
+      "last": 459.75,
+      "chg_pct": -2.33
     },
     {
-      "sym": "IREN",
-      "last": 35.235,
-      "chg_pct": -13.06
+      "sym": "MU",
+      "last": 933.24,
+      "chg_pct": -2.66
     },
     {
-      "sym": "APLD",
-      "last": 25.4,
-      "chg_pct": -7.43
+      "sym": "MUU",
+      "last": 29.145,
+      "chg_pct": -4.82
     },
     {
-      "sym": "WULF",
-      "last": 15.315,
-      "chg_pct": -7.13
+      "sym": "SMCI",
+      "last": 36.72,
+      "chg_pct": -1.5
     },
     {
-      "sym": "SPY",
-      "last": 769.79,
-      "chg_pct": -0.17
+      "sym": "DELL",
+      "last": 424.36,
+      "chg_pct": -6.94
     },
     {
-      "sym": "QQQ",
-      "last": 716.24,
-      "chg_pct": -0.68
+      "sym": "ANET",
+      "last": 189.17,
+      "chg_pct": -3.33
     },
     {
-      "sym": "DIA",
-      "last": 535.22,
+      "sym": "MSFT",
+      "last": 501.15,
+      "chg_pct": -1.21
+    },
+    {
+      "sym": "GOOGL",
+      "last": 335.02,
+      "chg_pct": -1.28
+    },
+    {
+      "sym": "AMZN",
+      "last": 254.92,
+      "chg_pct": -1.87
+    },
+    {
+      "sym": "META",
+      "last": 578.53,
+      "chg_pct": 1.08
+    },
+    {
+      "sym": "INTC",
+      "last": 88.97,
+      "chg_pct": -0.6
+    },
+    {
+      "sym": "INTW",
+      "last": 18.135,
+      "chg_pct": -1.23
+    },
+    {
+      "sym": "VRT",
+      "last": 255.92,
+      "chg_pct": -1.08
+    },
+    {
+      "sym": "ETN",
+      "last": 390.57,
+      "chg_pct": -2.81
+    },
+    {
+      "sym": "GEV",
+      "last": 898.49,
       "chg_pct": 0
     },
     {
+      "sym": "PWR",
+      "last": 611.609,
+      "chg_pct": 0.74
+    },
+    {
+      "sym": "CEG",
+      "last": 280.27,
+      "chg_pct": 2
+    },
+    {
+      "sym": "VST",
+      "last": 138.09,
+      "chg_pct": 0.52
+    },
+    {
+      "sym": "TLN",
+      "last": 293.86,
+      "chg_pct": -0.64
+    },
+    {
+      "sym": "CORZ",
+      "last": 16.09,
+      "chg_pct": -1.29
+    },
+    {
+      "sym": "IREN",
+      "last": 36.825,
+      "chg_pct": -0.78
+    },
+    {
+      "sym": "APLD",
+      "last": 24.285,
+      "chg_pct": -4.43
+    },
+    {
+      "sym": "WULF",
+      "last": 14.65,
+      "chg_pct": -3.17
+    },
+    {
+      "sym": "SPY",
+      "last": 761.65,
+      "chg_pct": -0.7
+    },
+    {
+      "sym": "QQQ",
+      "last": 707.655,
+      "chg_pct": -1.27
+    },
+    {
+      "sym": "DIA",
+      "last": 527.74,
+      "chg_pct": -0.72
+    },
+    {
       "sym": "PLAB",
-      "last": 28.165,
-      "chg_pct": -6.92
+      "last": 27.36,
+      "chg_pct": -2.77
     },
     {
       "sym": "SMH",
-      "last": 554.46,
-      "chg_pct": -3.24
+      "last": 545.32,
+      "chg_pct": -2.03
+    },
+    {
+      "sym": "KLIC",
+      "last": 77.73,
+      "chg_pct": -2.91
+    },
+    {
+      "sym": "GPRO",
+      "last": 1.32,
+      "chg_pct": 50.65
     }
   ]
 }

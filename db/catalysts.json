@@ -855,5 +855,26 @@
     "logged": "2026-08-23",
     "source": "get_earnings_calendar pulled 2026-08-23 by Claude: MRVL 2026-08-27, timing pm, year 2027 quarter 2, est EPS 0.87, verified=true. NOT independently confirmed at Marvell's own IR page - broker-verified only, which is a weaker provenance than the NVDA row above and is flagged here rather than presented as primary-sourced.",
     "verified_by": "claude 2026-08-23 - broker earnings calendar, verified=true"
+  },
+  {
+    "date": "2026-09-01",
+    "type": "lockup",
+    "confidence": "confirmed",
+    "label": "XRP Up to 1B XRP releases from on-ledger escrow (~104th consecutive monthly unlock since Jan 2018); Ripple typically re-locks 600-800M, so net new supply ~200-400M. Aug 2026 precedent: 700M re-locked, net 300M. Watch the RE-LOCK size, not the headline. Reported wrinkle (unconfirmed): possible larger releases if the CLARITY Act passes.",
+    "ticker": "XRP",
+    "what": "Up to 1B XRP releases from on-ledger escrow (~104th consecutive monthly unlock since Jan 2018); Ripple typically re-locks 600-800M, so net new supply ~200-400M. Aug 2026 precedent: 700M re-locked, net 300M. Watch the RE-LOCK size, not the headline. Reported wrinkle (unconfirmed): possible larger releases if the CLARITY Act passes.",
+    "source": "on-ledger escrow schedule",
+    "logged": "2026-08-31"
+  },
+  {
+    "date": "2026-09-02",
+    "type": "earnings",
+    "confidence": "confirmed",
+    "label": "AVGO AVGO Q3 FY2026 earnings, after the close. Consensus EPS 3.16. Broker earnings calendar returns verified=true. · FILLS A CALENDAR HOLE FOUND BY THE 12:50 CT FAST-MOVER RUN. db/catalysts.json carried ZERO dated AVGO rows before this - the four AVGO string matches in the file were all prose inside the AMBA and MRVL rows, so catalyst-watch --days 10 was blind to it and never printed a T-1 flag. B-214 is a LIVE conditional (trigger 386.59, invalidation 350.06) whose decide_by is 2026-09-03, i.e. the day after this print: its entire plan is the REACTION on 9/3, not the print. An in-play plan's own binary landing at T-1 with nothing on the board is the same failure mode that let the SPCX unlock reach T-minus-one unseen, which is why STEP 2C exists. Also sets the mood for AMBA 9/3 pm (B-089). B-214 already PASSED ON SIZE - the 9/18 380/400 spread marks 6.5x the risk band - so this is a watch, not a setup.",
+    "ticker": "AVGO",
+    "what": "AVGO Q3 FY2026 earnings, after the close. Consensus EPS 3.16. Broker earnings calendar returns verified=true.",
+    "source": "Robinhood get_earnings_calendar pulled 2026-09-01 12:5x CT by Claude: AVGO year 2026 quarter 3, report date 2026-09-02, timing pm, est EPS 3.160000, verified=true. Matches B-214's independently-verified date. Broker-verified, NOT confirmed at Broadcom's own IR page - weaker provenance than a primary source and flagged here rather than presented as one.",
+    "action": "FILLS A CALENDAR HOLE FOUND BY THE 12:50 CT FAST-MOVER RUN. db/catalysts.json carried ZERO dated AVGO rows before this - the four AVGO string matches in the file were all prose inside the AMBA and MRVL rows, so catalyst-watch --days 10 was blind to it and never printed a T-1 flag. B-214 is a LIVE conditional (trigger 386.59, invalidation 350.06) whose decide_by is 2026-09-03, i.e. the day after this print: its entire plan is the REACTION on 9/3, not the print. An in-play plan's own binary landing at T-1 with nothing on the board is the same failure mode that let the SPCX unlock reach T-minus-one unseen, which is why STEP 2C exists. Also sets the mood for AMBA 9/3 pm (B-089). B-214 already PASSED ON SIZE - the 9/18 380/400 spread marks 6.5x the risk band - so this is a watch, not a setup.",
+    "logged": "2026-09-01"
   }
 ]
