@@ -1,169 +1,179 @@
 {
-  "asof": "2026-08-31 15:45 CT",
+  "asof": "2026-09-01 15:25 CT",
   "session": "closed",
-  "basis": "2026-08-31 4:00 ET closing prints (last regular-hours trade; official close feed still settling)",
+  "basis": "2026-09-01 last regular-hours trades vs 8/31 OFFICIAL settled closes (lesson from the MU 956.68-vs-958.73 correction: prior-close side is always the official print)",
   "source": "robinhood-mcp get_equity_quotes",
-  "note": "THE OPEN AND MIDDAY ARE TWO DIFFERENT SESSIONS AND THE STRIP SHOWS THE SECOND ONE. At 08:38 CT the AI board split cleanly - all four hyperscaler buyers green, 15 of the 19 supplier-side names red - and SPY was +0.14 with QQQ -0.16. By 11:42 the buyers are STILL green (AMZN +3.64, MSFT +2.21, GOOGL +1.63, META +0.67) but the index has rolled over with the suppliers: SPY -0.17, QQQ -0.68, DIA flat. NVDA -3.47 has given back half of Thursday 8.74 percent post-earnings gain. MRVL -10.24 is now the worst name on the board, extending the beat-and-raise selloff to a second leg. Every crypto-bridge name is red for the second sweep running - IREN -13.07, CORZ -7.49, WULF -7.12, APLD -7.43. Power is red across the board, GEV -3.70 and VRT -3.54. B-216 logged MU as NO TRADE at 919.54 with a conditional at 957.21; MU is 918.35 here, still 4.2 percent under the 50-day and inside the six-session 888-970 range that bars the MUU leverage leg.",
+  "note": "REGULAR SESSION, NOT SETTLED. Refreshed by the B-236 GOOGL position delta. Every 'last' is an intraday print pulled 2026-09-01 11:42 CT and every chg_pct is measured against the 2026-08-31 official settled close. MOVER SINCE THE 10:37 REFRESH: MU 958.12 -> 939.25 (-2.0 pct on the day) and its 2x MUU 30.74 -> 29.53 (-3.6 pct), the sharpest board move of the late morning. GPRO 1.25 -> 1.32 is still ABOVE the 1.14 cash merger consideration logged in B-235. GOOGL 335.42 backs an OPEN 5-share position at 335.255 whose 326.00 stop is still NOT resting at the broker (B-236).",
   "quotes": [
     {
       "sym": "HPQ",
-      "last": 30.02,
-      "chg_pct": -1.64
+      "last": 31.325,
+      "chg_pct": 4.35
     },
     {
       "sym": "NVDA",
-      "last": 220.88,
-      "chg_pct": 1.53
+      "last": 217.54,
+      "chg_pct": -1.47
     },
     {
       "sym": "MRVL",
-      "last": 211.64,
-      "chg_pct": -2.3
+      "last": 210.36,
+      "chg_pct": -0.61
     },
     {
       "sym": "AVGO",
-      "last": 370.82,
-      "chg_pct": 0.55
+      "last": 369.65,
+      "chg_pct": -0.19
     },
     {
       "sym": "AMD",
-      "last": 469.95,
-      "chg_pct": 0.94
+      "last": 459.75,
+      "chg_pct": -2.33
     },
     {
       "sym": "MU",
-      "last": 956.68,
-      "chg_pct": 2.55
+      "last": 933.24,
+      "chg_pct": -2.66
     },
     {
       "sym": "MUU",
-      "last": 30.695,
-      "chg_pct": 5.19
+      "last": 29.145,
+      "chg_pct": -4.82
     },
     {
       "sym": "SMCI",
-      "last": 37.28,
-      "chg_pct": 0.54
+      "last": 36.72,
+      "chg_pct": -1.5
     },
     {
       "sym": "DELL",
-      "last": 456.78,
-      "chg_pct": 0.12
+      "last": 424.36,
+      "chg_pct": -6.94
     },
     {
       "sym": "ANET",
-      "last": 195.69,
-      "chg_pct": 0.16
+      "last": 189.17,
+      "chg_pct": -3.33
     },
     {
       "sym": "MSFT",
-      "last": 507.32,
+      "last": 501.15,
       "chg_pct": -1.21
     },
     {
       "sym": "GOOGL",
-      "last": 339.31,
-      "chg_pct": -2.1
+      "last": 335.02,
+      "chg_pct": -1.28
     },
     {
       "sym": "AMZN",
-      "last": 259.93,
-      "chg_pct": -2.44
+      "last": 254.92,
+      "chg_pct": -1.87
     },
     {
       "sym": "META",
-      "last": 572.91,
-      "chg_pct": -0.88
+      "last": 578.53,
+      "chg_pct": 1.08
     },
     {
       "sym": "INTC",
-      "last": 89.47,
-      "chg_pct": 0
+      "last": 88.97,
+      "chg_pct": -0.6
     },
     {
       "sym": "INTW",
-      "last": 18.38,
-      "chg_pct": -0.05
+      "last": 18.135,
+      "chg_pct": -1.23
     },
     {
       "sym": "VRT",
-      "last": 258.525,
-      "chg_pct": 0.56
+      "last": 255.92,
+      "chg_pct": -1.08
     },
     {
       "sym": "ETN",
-      "last": 401.86,
-      "chg_pct": -0.23
+      "last": 390.57,
+      "chg_pct": -2.81
     },
     {
       "sym": "GEV",
-      "last": 898.23,
-      "chg_pct": -1.5
+      "last": 898.49,
+      "chg_pct": 0
     },
     {
       "sym": "PWR",
-      "last": 606.66,
-      "chg_pct": 0.66
+      "last": 611.609,
+      "chg_pct": 0.74
     },
     {
       "sym": "CEG",
-      "last": 274.77,
-      "chg_pct": -0.72
+      "last": 280.27,
+      "chg_pct": 2
     },
     {
       "sym": "VST",
-      "last": 137.33,
-      "chg_pct": 0.18
+      "last": 138.09,
+      "chg_pct": 0.52
     },
     {
       "sym": "TLN",
-      "last": 295.73,
-      "chg_pct": -0.13
+      "last": 293.86,
+      "chg_pct": -0.64
     },
     {
       "sym": "CORZ",
-      "last": 16.305,
-      "chg_pct": -1.24
+      "last": 16.09,
+      "chg_pct": -1.29
     },
     {
       "sym": "IREN",
-      "last": 37.1158,
-      "chg_pct": 4.7
+      "last": 36.825,
+      "chg_pct": -0.78
     },
     {
       "sym": "APLD",
-      "last": 25.41,
-      "chg_pct": 0.28
+      "last": 24.285,
+      "chg_pct": -4.43
     },
     {
       "sym": "WULF",
-      "last": 15.13,
-      "chg_pct": -1.43
+      "last": 14.65,
+      "chg_pct": -3.17
     },
     {
       "sym": "SPY",
-      "last": 766.95,
-      "chg_pct": -0.31
+      "last": 761.65,
+      "chg_pct": -0.7
     },
     {
       "sym": "QQQ",
-      "last": 716.86,
-      "chg_pct": 0.06
+      "last": 707.655,
+      "chg_pct": -1.27
     },
     {
       "sym": "DIA",
-      "last": 531.55,
-      "chg_pct": -0.66
+      "last": 527.74,
+      "chg_pct": -0.72
     },
     {
       "sym": "PLAB",
-      "last": 28.14,
-      "chg_pct": 1.48
+      "last": 27.36,
+      "chg_pct": -2.77
     },
     {
       "sym": "SMH",
-      "last": 556.44,
-      "chg_pct": 0.6
+      "last": 545.32,
+      "chg_pct": -2.03
+    },
+    {
+      "sym": "KLIC",
+      "last": 77.73,
+      "chg_pct": -2.91
+    },
+    {
+      "sym": "GPRO",
+      "last": 1.32,
+      "chg_pct": 50.65
     }
   ]
 }
