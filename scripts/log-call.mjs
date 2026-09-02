@@ -94,6 +94,12 @@ const input = {
   score: num("--score"),
   confidence: num("--confidence"),
   fomo: val("--fomo"),
+  // v29 — readiness beside opportunity, and how the ticker reached the desk.
+  readiness: num("--readiness"),
+  origin: val("--origin"),
+  universe: val("--universe"),
+  hunter_opportunity: num("--hunter-opportunity"),
+  hunter_readiness: num("--hunter-readiness"),
   now: new Date().toISOString(),
 };
 
@@ -133,6 +139,11 @@ if (g.fundamental || g.technical || g.execution || g.overall) {
   console.log(`  grades:       ${parts.join(" · ")}`);
 }
 if (row.opportunity_score !== null) console.log(`  opportunity:  ${row.opportunity_score}/100`);
+if (row.readiness !== null) console.log(`  readiness:    ${row.readiness}/100`);
+console.log(`  origin:       ${row.origin}${row.universe ? ` (${row.universe})` : ""}`);
+if (row.hunter_opportunity !== null || row.hunter_readiness !== null) {
+  console.log(`  hunter said:  opportunity ${row.hunter_opportunity ?? "-"} · readiness ${row.hunter_readiness ?? "-"}`);
+}
 if (row.confidence_pct !== null) console.log(`  confidence:   ${row.confidence_pct}%`);
 if (row.fomo) console.log(`  fomo:         ${row.fomo}`);
 console.log(`  logged by:    ${row.logged_by}`);
@@ -145,6 +156,20 @@ if (!g.fundamental && input.type !== "pass") {
     `\n  note: no --fundamental grade, so ${row.ticker} stays invisible to\n` +
       `        scripts/buy-zone.mjs and can never clear Accumulation gate 1.`
   );
+}
+
+// v29 nudges, not refusals: a row without an origin still scores, but it can
+// never be bucketed by how the name reached the desk, which is the one question
+// the hunter project has to answer. A row without readiness cannot be bucketed
+// by "was it actually ready".
+if (row.origin === "unspecified") {
+  console.log(
+    `\n  note: no --origin (adam | x-post | routine | hunter | delta), so ${row.ticker}\n` +
+      `        cannot be scored by how it reached the desk.`
+  );
+}
+if (row.readiness === null && input.type !== "pass") {
+  console.log(`  note: no --readiness, so this row cannot be bucketed by readiness later.`);
 }
 
 if (has("--dry-run")) {

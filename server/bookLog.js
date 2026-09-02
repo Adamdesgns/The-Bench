@@ -35,7 +35,15 @@ const CALL_TYPES = {
 
 const ALWAYS = ["ticker", "price", "call", "date"];
 
+// v29 — how the ticker reached the desk. This is the field that lets the book
+// answer, later, whether hunter-sourced calls beat attention-sourced ones.
+// Every name run in the week of 2026-08-31 arrived by attention (a tweet, a
+// merger headline, someone else's preview); nothing sourced names internally.
+export const ORIGINS = ["adam", "x-post", "routine", "hunter", "delta"];
+export const UNIVERSES = ["market", "ai-infra"];
+
 const isNum = (v) => typeof v === "number" && Number.isFinite(v);
+const isScore = (v) => Number.isInteger(v) && v >= 0 && v <= 100;
 
 // What a given call type must carry beyond the universal fields.
 export function requiredFields(type) {
@@ -91,6 +99,20 @@ export function validateCall(input) {
     }
   }
 
+  // v29 — a readiness that is not an integer 0-100 cannot be bucketed later.
+  for (const f of ["readiness", "hunter_opportunity", "hunter_readiness"]) {
+    const v = input[f];
+    if (v !== undefined && v !== null && !isScore(v)) {
+      problems.push(`${f} must be an integer 0-100 (got ${JSON.stringify(v)})`);
+    }
+  }
+  if (input.origin !== undefined && input.origin !== null && !ORIGINS.includes(input.origin)) {
+    problems.push(`origin must be one of ${ORIGINS.join(", ")} (got ${JSON.stringify(input.origin)})`);
+  }
+  if (input.universe !== undefined && input.universe !== null && !UNIVERSES.includes(input.universe)) {
+    problems.push(`universe must be one of ${UNIVERSES.join(", ")} (got ${JSON.stringify(input.universe)})`);
+  }
+
   return problems;
 }
 
@@ -111,6 +133,17 @@ export function buildRow(input, rows = []) {
     review_price: input.price,
     review_time: input.review_time ?? null,
     opportunity_score: isNum(input.score) ? input.score : null,
+    // v29 — "is it ready NOW?" 0-100, beside Opportunity ("is it worth attention?").
+    // A row can be Opportunity 90 / Readiness 15: great business, wrong day.
+    readiness: isScore(input.readiness) ? input.readiness : null,
+    // v29 — how the name reached the desk. "unspecified" is a warning upstream,
+    // never a refusal, so unattended routines keep logging.
+    origin: input.origin ?? "unspecified",
+    universe: input.universe ?? null,
+    // v29 — the hunter's own numbers, read only AFTER this desk graded. The gap
+    // between these and the desk's numbers is the hunter's calibration record.
+    hunter_opportunity: isScore(input.hunter_opportunity) ? input.hunter_opportunity : null,
+    hunter_readiness: isScore(input.hunter_readiness) ? input.hunter_readiness : null,
     confidence_pct: isNum(input.confidence) ? input.confidence : null,
     grades: {
       technical: input.grades?.technical ?? null,
