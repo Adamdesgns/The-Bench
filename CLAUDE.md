@@ -4,7 +4,16 @@
 **Monday 2026-08-24:** Fundy left an overnight board in `docs/2026-08-23-fundy-night-scan.md`. Check GDS stop vs Friday low 32.47 (unverified), PLAB 30.75 line vs Friday close 30.51 (unverified), ZYME PDUFA Tue 8/25. Re-pull live. Do not git-pull over this tree.
 <!-- /FUNDY NIGHT SCAN -->
 
-**Read this first, every session.** THE BENCH is Adam's build-in-public trading-research system (@TheBenchTrades). Motto: **proof, not hype** — every call goes on the record before the outcome, losses logged as loud as wins.
+**Read this first, every session.** THE BENCH is Adam's **personal trade-hunting system**. Motto: **proof, not hype** — every call goes on the record before the outcome, losses logged as loud as wins.
+
+## 🔴 THE PUBLIC CHANNEL IS GONE (Adam, 2026-09-03 ~10:50 CT; cleanup landed 2026-09-05)
+
+**@TheBenchTrades is gone and The Bench is not a public channel.** Everywhere below this file still says "publish", "chain", "approved\", "post_next.py", "@TheBenchTrades" or "build-in-public", that is the retired pipeline, kept for history. What is true now:
+
+- **Every routine writes a private READ to `docs/reads/<YYYY-MM-DD>-<slot>.md` and sends it to Adam's phone** with `node scripts/ntfy-read.mjs --slot <slot> --file docs/reads/<file>` (ntfy topic `bench-adam-7x3`, splits long reads into numbered parts). Plain prose for one reader, no chains, no signoff, no cashtag rules. Each paragraph is written so Adam could lift it into a post on **his own** account if he chooses; that is his call, never a routine's.
+- **Nothing writes to `apps/x-poster/` any more.** `HALT` stays in place there permanently. `post_next.py` is never invoked. The last public post was the 2026-09-02 close.
+- The nine routines that used to publish carry a `STANDING ORDER 2026-09-05` block at the top of their SKILL.md that outranks everything under it. `bench-quote-tweet-nightly` is paused (it quoted receipts from an account that no longer exists). `bench-fastmover-watch` is unchanged (it never posted).
+- The research, the book, LOG IT, the framework, the catalyst board and the site build are all unchanged. The site is still deployed publicly at the Netlify URL below; whether it stays public is an **open question for Adam**, not something a routine decides.
 
 ## 🔴 SESSION START — CHECK THE HANDOFF BUS BEFORE ANYTHING ELSE
 
