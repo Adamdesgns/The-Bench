@@ -1076,5 +1076,27 @@
     "source": "https://www.sec.gov/Archives/edgar/data/2021728/000162828026035214/cerebras-424b4.htm (424B4 prospectus 2026-05-14, lock-up section p.193: clauses (v) and (vi))",
     "action": "Supply event, not a thesis event. Read from the prospectus 2026-09-09 22:05 CT, closing the gap B-312 and B-313 both named. Insiders have sold into every prior release (CEO/CTO/director on 9/4). Any CBRS long plan should not have a decide-by that ignores these dates; B-312 zone 170-175 is only credible on a hold AFTER a release day, not into one.",
     "logged": "2026-09-10"
+  },
+  {
+    "date": "2026-11-05",
+    "type": "earnings",
+    "confidence": "expected",
+    "label": "IREN IREN Q1 FY27 results, after the close (est. -0.52/sh). First print after management said 2026 capacity is largely sold out; the AI-cloud revenue line (70.5M in Q4, +110 pct QoQ) is the number. — date EXPECTED, not confirmed · Pre-Catalyst Deadline 11/4 for anything held from B-315. Outside a 4-6 week swing window from 9/9.",
+    "ticker": "IREN",
+    "what": "IREN Q1 FY27 results, after the close (est. -0.52/sh). First print after management said 2026 capacity is largely sold out; the AI-cloud revenue line (70.5M in Q4, +110 pct QoQ) is the number.",
+    "source": "Robinhood get_earnings_results 2026-09-09 (verified=false, tentative); company date not yet announced",
+    "action": "Pre-Catalyst Deadline 11/4 for anything held from B-315. Outside a 4-6 week swing window from 9/9.",
+    "logged": "2026-09-10"
+  },
+  {
+    "date": "2026-09-10",
+    "type": "earnings",
+    "confidence": "expected",
+    "label": "ORCL Oracle fiscal Q1 FY27, after the close. Off-board name, ON the board because it is the capex cohort read for the crypto_bridge layer (IREN, CORZ, APLD, WULF) and power (VST, CEG): CRWV +13-14 pct and IREN +8 pct on 9/8 were positioning into it (Benzinga 9/8 12:13 CT). R-011 grades on it. — date EXPECTED, not confirmed · A guide raise pushes the bridge through its highs (IREN 49.29 double top); a cut turns the 5-day run into a rejection. Nothing in the bridge layer arms before the reaction, per the post-catalyst rule.",
+    "ticker": "ORCL",
+    "what": "Oracle fiscal Q1 FY27, after the close. Off-board name, ON the board because it is the capex cohort read for the crypto_bridge layer (IREN, CORZ, APLD, WULF) and power (VST, CEG): CRWV +13-14 pct and IREN +8 pct on 9/8 were positioning into it (Benzinga 9/8 12:13 CT). R-011 grades on it. IREN row B-315.",
+    "source": "Benzinga 2026-09-08 (secondary); Robinhood get_earnings_results pulled 2026-09-09 22:20 CT for verification",
+    "action": "A guide raise pushes the bridge through its highs (IREN 49.29 double top); a cut turns the 5-day run into a rejection. Nothing in the bridge layer arms before the reaction, per the post-catalyst rule.",
+    "logged": "2026-09-10"
   }
 ]
