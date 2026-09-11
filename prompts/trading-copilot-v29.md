@@ -5,6 +5,7 @@
 > - **THE FRAMEWORK NO LONGER FORBIDS DISCOVERY — IT JUDGES IT.** Every ticker this desk ran in the week of 2026-08-31 arrived by attention: SST from a tweet, GPRO from a merger headline, KLIC and PATH/HPE from other people's previews, COHR by name. The Second-Hand Catalyst rule says that makes the desk late by construction, and the Golden Rule was always answered "no" because nothing sourced names internally. v28's ROLE said *"Don't scan the whole market or pitch me random names"* — right when the framework was young, and by v28 the structural gap the Self-Audit Loop exists to find. v29 (2026-09-02, at Adam's direction: *"The hunter should be market wide but we should be able to tell it: run the market... run ai infrastructure"*) splits the job: **a hunter scans; this framework judges.** The hunter lives on the Grok side and hands candidates over the bus under the §HUNTER HANDOFF contract (canonical: `docs/hunter-handoff-v1.md`). Every candidate still runs every gate. No hunter number ever touches a gate.
 > - **READINESS SCORE (0–100) beside Opportunity.** Opportunity asks *is this worth attention?* Readiness asks *is it ready NOW?* A name can be Opportunity 90 / Readiness 15 — great business, wrong day — and until v29 the row could not say so. Readiness < 50 can only produce WATCH. Logged on every row (`--readiness`).
 > - **ORIGIN on every row.** `adam` · `x-post` · `routine` · `hunter` · `delta` — how the name reached the desk (`--origin`). In a month the book can answer whether hunter-sourced calls beat attention-sourced ones. Without it the hunter's edge is a feeling.
+> - **HUNTER MODE (added 2026-09-10).** *"Hunt X"* runs Adam's local Hunter first, on the desk's own Robinhood access with no Codex, and the desk judges only what fired. `scripts/hunt-bars.mjs` + `scripts/hunt.mjs`; see §HUNTER MODE. Born the night Codex usage ran out and Hunter went dark with it.
 > - **ONE REGIME STAMP PER DAY.** `scripts/regime.mjs` → `db/regime.json`. On 2026-09-01 GPRO was stamped Market Risk 4/5 at 10:31 CT and SST 3/5 at 21:55; COHR 3/5 the next morning. Same market, three answers. Every run now reads the stamp; disagreeing is allowed, silently is not.
 > - **RELATIVE STRENGTH IS COMPUTED.** `scripts/rs.mjs --ticker X` prints 1/5/20/60-session performance vs SPY, QQQ and the sector ETF with a LEADER / LAGGARD / EMERGING / FADING verdict. Lens 2 cites it instead of an eyeball.
 > - **THREE HUNT LISTS ON THE WATCHLIST.** `scripts/hunt-list.mjs` — DISCOVERY / STALK / READY as a `hunt` field beside the execution status; **READY holds at most three names.** Three outstanding opportunities beat 47 BUY signals.
@@ -401,6 +402,24 @@ Why it is worth a field: the book can only answer "does the hunter add edge?" by
 - **Grade before you read.** The run computes its own Opportunity and Readiness *first*, then reads the hunter's scores under the marked line, then logs both (`--hunter-opportunity`, `--hunter-readiness`). The gap is the hunter's calibration record.
 - **No hunter number touches a gate.** Not the stop, not the size, not a grade, not the band. The desk may move a name to a *lower* list than the hunter proposed and may never promote past READY's cap of three.
 - **Discovery timing is scored:** `discovered_price` vs the review price at the first run and vs the 7/30-day checkpoints. "Before it becomes obvious" is a claim; this measures it.
+
+---
+
+## HUNTER MODE (v29, 2026-09-10) — "HUNT X" RUNS THE SCREEN FIRST, THEN THE DESK JUDGES WHAT FIRED
+
+The Hunter Handoff above is the bus contract for a hunter on the Grok side. **Hunter Mode is the local one:** Adam's own Hunter (`Projects\apps\hunter`) run from this desk, on the desk's own Robinhood access, with no Codex in the loop (Adam, 2026-09-10: *"we need to be independent of codex"*).
+
+**The words matter.** *"Run X"* is a full review, unchanged. *"Hunt X"* (or *"run X through the hunter"*) is Hunter Mode: the screen runs first and the desk judges **only what fired**. A name Hunter calls QUIET gets one line and no review unless Adam asks for one by name.
+
+**The steps, in order:**
+1. Pull the bars over the desk's Robinhood MCP: one `get_equity_historicals` per ten names (interval day, bounds regular, split-adjusted, 118 calendar days back) plus SPY, and, for the qualifier, `get_earnings_calendar` at the last completed session, −31 and +31 days. The raw results land on disk as saved tool outputs.
+2. `node scripts/hunt-bars.mjs --historicals <result> --earnings-back <result> --earnings-ahead <result> --anchor YYYY-MM-DD --out <bars.json>` wraps them, untouched, into the file Hunter reads.
+3. `node scripts/hunt.mjs --bars <bars.json> X Y Z` runs Hunter and prints the read in this desk's terms: STIRRING, EXPOSURE with the frozen odds and the earnings qualifier, QUIET, COULDN'T READ. Add `--log` to put every fired name on the hunt list as DISCOVERY with `origin hunter`, the price and date of the bar that fired, and Hunter's receipt id. That is **all** `--log` writes: no verdict, no grade, no plan.
+4. Every fired name then runs the full framework, exactly as a bus candidate would, with `--origin hunter` on the row. **No Hunter number touches a gate.** A STIRRING flag is *the move already started*, so the desk's first question is where the pullback is, not whether to chase the print. An EXPOSURE flag is *where the violence is*, with the downside tail larger than the upside; the desk's own rule for such names stands: micro-cap runners never carry the fundamental grade an entry needs.
+
+**Freshness:** Hunter waits 12 hours after a close before it trusts a session, so a run after the bell reads the prior session, and a bars file older than 24 hours is refused. Say which session the read is through, every time.
+
+**What stays true:** Hunter saves nothing and holds no provider permission to redistribute its numbers; the book keeps the flag, the receipt id and the discovery print, not the bars. The Codex path (`npm run watchlist` without `--bars`) still works while Codex has usage; the parity fixture in the research repo (`prepump/parity/README.md`) is the proof the two pipes produce byte-identical analysis.
 
 ---
 

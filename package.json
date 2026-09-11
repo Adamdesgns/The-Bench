@@ -10,6 +10,8 @@
     "start": "node server/index.js",
     "run:market": "node server/reviewer.js",
     "run:mock": "node server/reviewer.js --mock",
+    "hunt": "node scripts/hunt.mjs",
+    "hunt:bars": "node scripts/hunt-bars.mjs",
     "mcp": "node server/mcp.js",
     "score": "node scripts/score-book.js",
     "score:dry": "node scripts/score-book.js --dry-run",
