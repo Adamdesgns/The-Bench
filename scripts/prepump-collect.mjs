@@ -134,6 +134,41 @@ export function historyDue(date, symbols, cal) {
   return { due, state, statePath: p };
 }
 
+/**
+ * Who gets collected, and why. Pure.
+ *
+ * Every row carries a `source` array. `core` rows are the stratified base-rate
+ * sample and are the ONLY rows a base rate may count. `scan` and `desk` rows are
+ * selected because something happened to them — non-random by construction —
+ * so they ride alongside the sample and never join its denominator.
+ */
+export function buildUniverse({ core, scanSyms = new Set(), scanOf = {}, deskSyms = new Set() }) {
+  const all = [...new Set([...core, ...scanSyms, ...deskSyms])].sort();
+  const coreSet = new Set(core);
+  const symbols = all.map((s) => ({
+    symbol: s,
+    source: [
+      coreSet.has(s) ? "core" : null,
+      scanSyms.has(s) ? "scan" : null,
+      deskSyms.has(s) ? "desk" : null,
+    ].filter(Boolean),
+    scan_ids: scanOf[s] ?? [],
+  }));
+  return { all, symbols, counts: { core: core.length, scan: scanSyms.size, desk: deskSyms.size, total: all.length } };
+}
+
+/** The desk group for a session, if desk-feed.mjs wrote one. Missing = empty, never an error. */
+export function readDeskSymbols(path) {
+  if (!existsSync(path)) return { syms: new Set(), found: false };
+  const d = JSON.parse(readFileSync(path, "utf8"));
+  const syms = new Set();
+  for (const s of d.symbols ?? []) {
+    const t = typeof s === "string" ? s : s?.symbol;
+    if (typeof t === "string" && /^[A-Z]{1,5}$/.test(t)) syms.add(t);
+  }
+  return { syms, found: true };
+}
+
 // ---------- plan ----------
 
 function cmdPlan() {
@@ -147,7 +182,6 @@ function cmdPlan() {
   const u = loadUniverse();
   const core = u.symbols.map((s) => s.symbol);
   const dir = rawDir(date);
-  mkdirSync(dir, { recursive: true });
 
   // Scan membership, if the session already dropped scan payloads in.
   const scanSyms = new Set();
@@ -169,35 +203,41 @@ function cmdPlan() {
     }
   }
 
-  const all = [...new Set([...core, ...scanSyms])].sort();
-  const { due } = historyDue(date, all, cal);
+  const deskPath = join(PREPUMP, "desk", `${date}.json`);
+  const { syms: deskSyms, found: deskFound } = readDeskSymbols(deskPath);
 
-  const coreSet = new Set(core);
+  const { all, symbols, counts } = buildUniverse({ core, scanSyms, scanOf, deskSyms });
+  const { due, state } = historyDue(date, all, cal);
+  const firstSeen = due.filter((s) => !state[s]);
+
   const plan = {
     schema: "bench-prepump-plan-v1",
     date,
     planned_at: new Date().toISOString(),
     universe_version: u._version,
     early_close: isEarlyClose(date, cal),
-    counts: { core: core.length, scan: scanSyms.size, total: all.length, history_due: due.length },
+    counts: { ...counts, history_due: due.length, first_appearance: firstSeen.length },
     scans_read: scanFiles.length,
-    symbols: all.map((s) => ({
-      symbol: s,
-      source: [coreSet.has(s) ? "core" : null, scanSyms.has(s) ? "scan" : null].filter(Boolean),
-      scan_ids: scanOf[s] ?? [],
-      history_due: due.includes(s),
-    })),
+    desk_file: deskFound ? deskPath : null,
+    symbols: symbols.map((p) => ({ ...p, history_due: due.includes(p.symbol) })),
     batches: {
       fundamentals: chunk(all, 10),   // hard cap 10
       quotes: chunk(all, 20),         // >20 silently drops the `close` block from EVERY result
       historicals: chunk(due, 10),    // hard cap 10
     },
   };
-  writeFileSync(join(dir, "plan.json"), JSON.stringify(plan, null, 2) + "\n");
-  console.log(`plan ${date}: ${all.length} symbols (core ${core.length}, scan ${scanSyms.size}, both ${core.length + scanSyms.size - all.length})`);
-  console.log(`  history due: ${due.length}`);
+
+  console.log(`plan ${date}: ${all.length} symbols (core ${counts.core}, scan ${counts.scan}, desk ${counts.desk})`);
+  console.log(`  history due: ${due.length} (first appearance: ${firstSeen.length})`);
   console.log(`  batches: fundamentals ${plan.batches.fundamentals.length} x<=10 · quotes ${plan.batches.quotes.length} x<=20 · historicals ${plan.batches.historicals.length} x<=10`);
   if (!scanFiles.length) console.log(`  NOTE: no scan-*.json found in ${dir} — scan group is empty for this run.`);
+  if (!deskFound) console.log(`  NOTE: no desk file at ${deskPath} — desk group is empty for this run.`);
+  if (has("--dry-run")) {
+    console.log("  --dry-run: plan.json NOT written.");
+    return;
+  }
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, "plan.json"), JSON.stringify(plan, null, 2) + "\n");
   console.log(`  -> ${join(dir, "plan.json")}`);
 }
 
@@ -439,6 +479,7 @@ function cmdBuild() {
       not_found: rows.filter((r) => r.status === "not_found").length,
       core: rows.filter((r) => r.source.includes("core")).length,
       scan: rows.filter((r) => r.source.includes("scan")).length,
+      desk: rows.filter((r) => r.source.includes("desk")).length,
       with_history: rows.filter((r) => r.h_pulled).length,
     },
     // A short file must never be mistaken for a quiet day.
