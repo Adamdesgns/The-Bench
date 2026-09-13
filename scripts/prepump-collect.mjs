@@ -60,7 +60,7 @@ import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadCalendar, isTradingDay, isEarlyClose, sessionsSince, todayET } from "./prepump-session.mjs";
 
-const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const ROOT = process.env.BENCH_ROOT ? resolve(process.env.BENCH_ROOT) : resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PREPUMP = resolve(ROOT, "db/prepump");
 const argv = process.argv.slice(2);
 const cmd = argv[0];
@@ -84,6 +84,8 @@ const num = (v) => {
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
 };
+
+import { resolutionBlocks, captureQuality } from "./prepump-integrity.mjs";
 
 // ---------- shared ----------
 
@@ -210,15 +212,22 @@ function cmdPlan() {
   }
 
   const deskPath = join(PREPUMP, "desk", `${date}.json`);
-  const { syms: deskSyms, found: deskFound, error: deskError } = readDeskSymbols(deskPath);
+  const { syms: deskSyms, found: deskFound, error: deskError } = has('--skip-desk')
+    ? { syms: new Set(), found: false, error: 'desk builder failed; stale file deliberately excluded' }
+    : readDeskSymbols(deskPath);
 
   const { all, symbols, counts } = buildUniverse({ core, scanSyms, scanOf, deskSyms });
-  const { due, state } = historyDue(date, all, cal);
+  const blocks = resolutionBlocks(ROOT);
+  const requested = all.filter(s => !blocks.has(s));
+  const { due, state } = historyDue(date, requested, cal);
   const firstSeen = due.filter((s) => !state[s]);
 
   const plan = {
     schema: "bench-prepump-plan-v1",
     date,
+    quality_version: 2,
+    history_bases: ["none", "split"],
+    blocked_symbols: Object.fromEntries(blocks),
     planned_at: new Date().toISOString(),
     universe_version: u._version,
     early_close: isEarlyClose(date, cal),
@@ -226,17 +235,18 @@ function cmdPlan() {
     scans_read: scanFiles.length,
     desk_file: deskFound ? deskPath : null,
     desk_error: deskError ?? null,
-    symbols: symbols.map((p) => ({ ...p, history_due: due.includes(p.symbol) })),
+    symbols: symbols.map((p) => ({ ...p, history_due: due.includes(p.symbol), resolution_blocked: blocks.get(p.symbol) ?? null })),
     batches: {
-      fundamentals: chunk(all, 10),   // hard cap 10
-      quotes: chunk(all, 20),         // >20 silently drops the `close` block from EVERY result
+      fundamentals: chunk(requested, 10),   // hard cap 10
+      quotes: chunk(requested, 20),         // >20 silently drops the `close` block from EVERY result
       historicals: chunk(due, 10),    // hard cap 10
     },
   };
 
   console.log(`plan ${date}: ${all.length} symbols (core ${counts.core}, scan ${counts.scan}, desk ${counts.desk})`);
+  if (blocks.size) console.log(`  resolution-blocked: ${[...blocks.keys()].join(", ")} (placeholder rows retained; no provider requests)`);
   console.log(`  history due: ${due.length} (first appearance: ${firstSeen.length})`);
-  console.log(`  batches: fundamentals ${plan.batches.fundamentals.length} x<=10 · quotes ${plan.batches.quotes.length} x<=20 · historicals ${plan.batches.historicals.length} x<=10`);
+  console.log(`  batches: fundamentals ${plan.batches.fundamentals.length} x<=10 · quotes ${plan.batches.quotes.length} x<=20 · historicals ${plan.batches.historicals.length} x<=10 x2 bases (${plan.batches.historicals.length * 2} history requests)`);
   if (!scanFiles.length) console.log(`  NOTE: no scan-*.json found in ${dir} — scan group is empty for this run.`);
   if (deskError) console.error(`  WARNING: desk file rejected (${deskError}); continuing with core and scan only.`);
   if (!deskFound) console.log(`  NOTE: no desk file at ${deskPath} — desk group is empty for this run.`);
@@ -298,13 +308,14 @@ export function indexQuotes(envs) {
   return by;
 }
 
-export function indexHistoricals(envs) {
+export function indexHistoricals(envs, requestedBasis = "none") {
   const by = {};
   for (const { env } of envs) {
     if (!env) continue;
     const d = unwrap(env);
     const at = env.observed_at ?? null;
     const basis = env.adjustment_type ?? "UNDECLARED";
+    if (basis !== requestedBasis) continue;
     for (const r of d.results ?? []) {
       if (!r?.symbol) continue;
       const raw = r.bars ?? [];
@@ -335,7 +346,7 @@ export function indexEarnings(envs) {
       const s = r?.symbol, dt = r?.report?.date;
       if (!s || !dt) continue;
       if (r?.eps && r.eps.actual !== null && r.eps.actual !== undefined) continue; // already reported
-      if (!by[s] || dt < by[s].date) by[s] = { date: dt, timing: r.report?.timing ?? null, verified: r.report?.verified ?? null };
+      if (!by[s] || dt < by[s].date) by[s] = { date: dt, timing: r.report?.timing ?? null, verified: r.report?.verified ?? null, observed_at: env.observed_at ?? null };
     }
   }
   return by;
@@ -377,6 +388,7 @@ function cmdBuild() {
   const F = indexFundamentals(fEnvs);
   const Q = indexQuotes(qEnvs);
   const H = indexHistoricals(hEnvs);
+  const HS = indexHistoricals(hEnvs, "split");
   const E = indexEarnings(eEnvs);
   const S = indexScans(sEnvs);
 
@@ -396,11 +408,12 @@ function cmdBuild() {
     const q = Q[sym];
     const h = H[sym];
     const m = meta[sym];
-    const r = f?.r ?? null;
+    const r = p.resolution_blocked ? null : (f?.r ?? null);
 
     let status = "ok";
     const errs = [];
-    if (!f) { status = "no_data"; errs.push("no fundamentals payload for this symbol in the raw drop"); }
+    if (p.resolution_blocked) { status = "resolution_blocked"; errs.push("prior symbol resolution failure; identity review required before resuming requests"); }
+    else if (!f) { status = "no_data"; errs.push("no fundamentals payload for this symbol in the raw drop"); }
     else if (f.not_found) { status = "not_found"; errs.push("symbol did not resolve (delisted, renamed, or recycled)"); }
     else if (r && num(r.open) === null && num(r.volume) === null) { status = "no_data"; errs.push("fundamentals resolved but OHLC and volume are both null"); }
     else if (!q) { status = "partial"; errs.push("no quotes payload"); }
@@ -425,6 +438,11 @@ function cmdBuild() {
       source: p.source,
       core_band: m?.band ?? null,
       in_book: null,
+      identity_status: "stable_provider_id_unavailable",
+      identity_description: r?.description ?? null,
+      financial_status_indicator: r?.financial_status_indicator ?? null,
+      financial_status_description: r?.financial_status_description ?? null,
+      resolution_blocked: p.resolution_blocked ?? null,
       status,
       errors: errs,
 
@@ -448,6 +466,11 @@ function cmdBuild() {
       q_adjusted_previous_close: num(q?.q?.adjusted_previous_close),
       q_state: q?.q?.state ?? null,
       q_has_traded: q?.q?.has_traded ?? null,
+      q_bid_price: num(q?.q?.bid_price), q_bid_time: q?.q?.venue_bid_time ?? null,
+      q_ask_price: num(q?.q?.ask_price), q_ask_time: q?.q?.venue_ask_time ?? null,
+      q_observed_at: q?.observed_at ?? null,
+      f_observed_at: f?.observed_at ?? null,
+      h_observed_at: h?.observed_at ?? null,
 
       h_pulled: Boolean(h),
       h_adjustment_basis: h?.adjustment_basis ?? null,
@@ -457,10 +480,17 @@ function cmdBuild() {
       h_first_bar: h?.bars?.[0]?.d ?? null,
       h_last_bar: h?.bars?.length ? h.bars[h.bars.length - 1].d : null,
       h_bars: h?.bars ?? null,
+      h_split_bars: HS[sym]?.bars ?? null,
+      h_split_bar_count: HS[sym]?.bars?.length ?? null,
+      h_split_adjustment_basis: HS[sym]?.adjustment_basis ?? null,
+      h_split_observed_at: HS[sym]?.observed_at ?? null,
+      dividend_per_share: num(r?.dividend_per_share),
+      ex_dividend_date: r?.ex_dividend_date ?? null,
 
       e_next_date: E[sym]?.date ?? null,
       e_timing: E[sym]?.timing ?? null,
       e_verified: E[sym]?.verified ?? null,
+      e_observed_at: E[sym]?.observed_at ?? null,
       e_sessions_until: E[sym]?.date && DATE_RE.test(E[sym].date) ? safeSessions(date, E[sym].date, cal) : null,
 
       scan_ids: S.ids[sym] ? [...S.ids[sym]] : [],
@@ -472,8 +502,13 @@ function cmdBuild() {
 
   const outPath = join(PREPUMP, `${date}.ndjson`);
   const manifestDir = join(PREPUMP, "runs");
+  const rawErrors = [...fEnvs, ...qEnvs, ...hEnvs, ...eEnvs, ...sEnvs].filter(e => e.error).map(e => `${e.file}: ${e.error}`);
+  if (plan.quality_version >= 2 && eEnvs.filter(e => e.env).length < 3) rawErrors.push("required earnings envelopes missing");
+  const quality = captureQuality(rows, plan, rawErrors);
   const manifest = {
     schema: "bench-prepump-manifest-v1",
+    quality_version: 2,
+    quality,
     date,
     built_at: nowIso,
     universe_version: plan.universe_version,
@@ -491,7 +526,7 @@ function cmdBuild() {
       with_history: rows.filter((r) => r.h_pulled).length,
     },
     // A short file must never be mistaken for a quiet day.
-    complete: rows.length === plan.counts.total && rows.filter((r) => r.status === "ok").length >= Math.floor(rows.length * 0.9),
+    complete: quality.complete,
     market_dates_seen: marketDates,
     raw_files: { fundamentals: fEnvs.length, quotes: qEnvs.length, historicals: hEnvs.length, earnings: eEnvs.length, scans: sEnvs.length },
     failures: failures.slice(0, 200),
@@ -512,7 +547,9 @@ function cmdBuild() {
 
   // Advance history state only for symbols whose window we actually got.
   const { state, statePath } = historyDue(date, Object.keys(H), cal);
-  for (const s of Object.keys(H)) state[s] = date;
+  for (const s of Object.keys(H)) {
+    if (H[s].bars.length && (plan.quality_version !== 2 || HS[s]?.bars?.length)) state[s] = date;
+  }
   writeFileSync(statePath, JSON.stringify(state, null, 2) + "\n");
 
   const mdKeys = Object.keys(marketDates);

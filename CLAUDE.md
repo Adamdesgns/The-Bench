@@ -96,7 +96,7 @@ A pattern with no falsification test is refused, and `--holds false` matters as 
 
 **Check for gaps before you add to them:** `node scripts/book-check.mjs` lists tickers mentioned in the vault or in posted content that never made it into the book.
 
-**Screens get logged too (2026-09-12).** The desk feed collects tickers from the day's book rows and read files, tagged `desk`, when built before the capture re-plan. Automatic integration is pending approval of plan Task 5. A screen, scan or watch list that only ever lived in a chat window is invisible to it. Register those names the same day; the date defaults to today in New York, and weekend adds feed Monday's run:
+**Screens get logged too (2026-09-12).** The desk feed collects tickers from the day's book rows and read files, tagged `desk`, when built before the capture re-plan. Automatic integration was enabled with Adam's approval on 2026-09-13. The capture and outcome routines now run local backup and health checks; see docs/PREPUMP-YEAR-ONE-CONTRACT.md. A screen, scan or watch list that only ever lived in a chat window is invisible to it. Register those names the same day; the date defaults to today in New York, and weekend adds feed Monday's run:
 
 ```bash
 node scripts/desk-feed.mjs add --symbols MRVL,COHR,HPE --note "volume screen from chat"

@@ -65,7 +65,7 @@ export function toUTC(dateStr) {
   if (typeof dateStr !== "string" || !DATE_RE.test(dateStr)) throw new Error(`bad date: ${dateStr}`);
   const [y, m, d] = dateStr.split("-").map(Number);
   const t = Date.UTC(y, m - 1, d);
-  if (Number.isNaN(t)) throw new Error(`bad date: ${dateStr}`);
+  if (Number.isNaN(t) || new Date(t).toISOString().slice(0, 10) !== dateStr) throw new Error(`bad date: ${dateStr}`);
   return t;
 }
 

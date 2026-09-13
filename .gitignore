@@ -47,3 +47,9 @@ db/prepump/history-state.json
 #   db/prepump/nyse-calendar-2026-2028.json  (public NYSE schedule)
 #   db/prepump/universe-core*.json           (Adam's own frozen ticker selection)
 #   db/prepump/runs/*.json                   (run manifests — counts and failures, no prices)
+
+# Raw label payloads and private reliability records also stay on this machine.
+db/prepump/raw-outcomes/
+db/prepump/health/
+db/prepump/desk/manual/
+db/prepump/desk/20??-??-??.json
