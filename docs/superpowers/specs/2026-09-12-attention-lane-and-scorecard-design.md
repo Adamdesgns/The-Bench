@@ -93,11 +93,27 @@ size of the saves. That is a finding the desk has never seen.
 **Deadline: Monday 2026-09-14, 16:30 CT.** Every session that passes without
 this is unrecoverable coverage.
 
-### A1. Attention feed builder (new)
+### A1. Desk feed builder (new)
 
-`scripts/attention-feed.mjs` writes `db/prepump/attention/YYYY-MM-DD.json`.
+> **Corrected 2026-09-12 22:30 CT.** The source tag is `desk`, not `attention`.
+> `server/bookLog.js:39-40` already uses "attention-sourced" to mean names that
+> arrived by tweet or headline, the opposite of hunter-sourced. Reusing the word
+> for a different concept would mislead anyone joining book origin to capture
+> source. Everywhere below that says "attention", read `desk`.
+>
+> Measured against real 2026-09-11 data, the rules below catch all 13 target
+> names (HPE, ANET, SNDK, STX, WDC, SOXL, DELL, NVDA, MU, ORCL, CEG, VRT, SMCI)
+> with a known set of 607 symbols and **no live broker call**. Reads write
+> company names more often than tickers for 10 of 20 board names (Oracle 47 vs
+> ORCL 9), so an alias map is required, not optional. A chat screen that never
+> touches disk (the 17-name list) can only be captured by a manual add.
+
+`scripts/desk-feed.mjs` writes `db/prepump/desk/YYYY-MM-DD.json`.
 
 Sources, in order:
+
+0. **Manual adds** - `db/prepump/desk/manual/YYYY-MM-DD.json`, written by
+   `node scripts/desk-feed.mjs add --date D --symbols A,B,C --note "..."`.
 
 1. **`db/archive.json`** - every row whose `date` equals the session date.
    Measured yield for 2026-09-11: 33 rows, 15 unique tickers.
@@ -105,18 +121,29 @@ Sources, in order:
    This is what catches HPE, ANET, SNDK, STX, WDC and SOXL, none of which were
    logged to the book on 2026-09-11 despite leading the closing read.
 
-Extraction rule for the markdown source, deliberately conservative:
+Extraction rule for the markdown source, measured on 46 read files:
 
-- Match `\b[A-Z]{1,5}\b` only, then intersect against a resolvable-symbol set.
-- The resolvable set is a cache, `db/prepump/attention/known-symbols.json`,
-  seeded from the 460 core names plus every ticker ever seen in
-  `db/archive.json` and `db/watchlist.json`. A token already in the cache costs
-  nothing. Only a genuinely novel token is resolved live through
-  `get_equity_fundamentals`, and the verdict is written back to the cache so it
-  is resolved once, ever. An unresolvable token is dropped, never guessed.
-- Maintain `db/prepump/attention/stoplist.json` for English words that are also
-  tickers (`IT`, `ON`, `ALL`, `NOW`, `BY`, `SO`, `AN`, `OR`, `ARE`, `CEO`...).
-- Every accepted symbol records `why`: the file and line it came from.
+- **Strip book and pattern ids first** (`B-360`, `P-032`, `QR-019`, `R-017`).
+  Without this, `B` is the most frequent "ticker" in the corpus at 135 hits.
+- Match `\b[A-Z]{2,5}\b`. The two-letter floor removes `I`, `P`, `R`, `A`, `C`,
+  `D`, `B`, `S`, `T`.
+- Keep a token only if it is in the **known set**: every symbol in
+  `universe-core.json`, `archive.json` tickers, `watchlist.json` `sym`,
+  `board.json` layer `tickers` and added/removed `sym`, `tape.json` quotes `sym`,
+  and `catalysts.json` tickers. Measured size 607. Captured `.ndjson` symbols
+  are deliberately **excluded**: they added 122 names, and the ones they added
+  were the false positives (`ET`, `FAST`, `B`, `S`).
+- Drop anything on `db/prepump/desk/stoplist.json`, seeded with `AI AT ET FAST
+  HP OPEN BAND SAIL PUMP NOW ALL ON IT SO ARE BY AN OR BE GO UP CEO US`.
+- Resolve company names through `db/prepump/desk/aliases.json`, case-sensitive,
+  letter-bounded. "Meta" and "Coherent" are excluded as ordinary English words.
+- **No live resolution.** A token outside the known set is recorded as rejected
+  and never collected. The feed calls no broker tool.
+- Every accepted symbol records `why`: source, file, line and whether it came in
+  by ticker, alias, book row or manual add.
+- Instrument class (fund, index, crypto) is **not** decided here. Collection
+  stays label-free (I4); any analysis that deliberately includes `desk` rows
+  derives class later from the row's own fields.
 
 The builder is **read-only** against every source it reads.
 
@@ -218,8 +245,18 @@ No deadline. Reads a file that is not going anywhere.
 
 ### B1. Fix `call_type` once
 
-Add `bet` to `server/scoring.js` `DECLARED_TYPES` with an explicit direction
-rule. 23 rows predating B-035 carry no `call_type` at all and are currently
+Add `bet` to `server/scoring.js` `DECLARED_TYPES`, and score it **not_scorable
+with an honest reason**, never as a long.
+
+> **Corrected 2026-09-12 22:30 CT.** The first draft said to give `bet` a
+> direction rule. All three bet rows are options structures (B-091 and B-092 are
+> an IWM 304C shadow test at a 2.15 premium; B-335 is an MU call spread). The
+> scorer prices the underlying, so B-091 already carries `asset_pct: 13851.63`.
+> Scoring it like a long would write an alpha near +13,853 and one row would
+> dominate every mean in the scorecard. Today's not_scorable result is the safe
+> outcome; the fix is only to state the right reason
+> ("bet - an options structure; checkpoints price the underlying, not the
+> contract") instead of "call phrasing not recognised". 23 rows predating B-035 carry no `call_type` at all and are currently
 classified from prose; the scorecard must report declared and prose-classified
 rows as separate provenance, never silently pooled.
 
@@ -277,19 +314,28 @@ becomes the local scorecard.
 
 ### C1. Back up the dataset
 
-19 MB, one copy, gitignored. Options, recommended first:
+> **Corrected 2026-09-12 22:30 CT, before implementation.** The first draft of
+> this section recommended committing the row data to git. That contradicts a
+> documented decision in `.gitignore:37-40`: the rows are "Robinhood market data
+> pulled under Adam's personal access - not licensed for redistribution, and a
+> private GitHub repo is still an off-machine copy. It stays on this machine."
+> OneDrive is also off-machine. Growth is ~1.8 MB/day (~450 MB/yr), not 1 MB.
 
-1. **Track it in git.** Remove `db/prepump/*.ndjson` from `.gitignore` and
-   commit. The vault already auto-pushes to a private GitHub repo every 15
-   minutes; the same pattern gives this dataset an offsite copy for free.
-   NDJSON compresses well and 19 MB is not a problem at this scale. Growth is
-   roughly 1 MB per session, so about 250 MB a year - fine for years, worth
-   revisiting if the universe ever doubles.
-2. A scheduled copy into the OneDrive-synced tree.
+Two different kinds of file live under `db/prepump/`, and they get different
+treatment:
 
-Either way: **the dataset is not durable today and that must change before more
-days accumulate.** Recommend option 1 and a one-time backfill commit of the
-four sessions already collected.
+1. **Definitions - commit them now.** `universe-core.json`,
+   `nyse-calendar-2026-2028.json` and `runs/*.json` are explicitly "DELIBERATELY
+   NOT IGNORED... must be versioned" (`.gitignore:41-44`), and `git ls-files
+   db/prepump/` returns **zero files**. The sealed denominator the whole dataset
+   depends on has never been committed. Commit locally; pushing is Adam's word.
+   Note that `universe-core.json` carries `*_at_freeze` prices sourced from the
+   broker; the 2026-09-05 decision already chose to version it.
+2. **Row data - on-machine only, and Adam decides.** `*.ndjson`,
+   `history-state.json`, `raw/` and `outcomes/` stay out of git. The only backup
+   compatible with the licensing decision is a second copy on this PC (another
+   drive or an external disk). That protects against deletion and corruption,
+   not against losing the machine. **Adam owns this call.**
 
 ### C2. Record the schema and the decisions
 
