@@ -160,7 +160,13 @@ export function buildUniverse({ core, scanSyms = new Set(), scanOf = {}, deskSym
 /** The desk group for a session, if desk-feed.mjs wrote one. Missing = empty, never an error. */
 export function readDeskSymbols(path) {
   if (!existsSync(path)) return { syms: new Set(), found: false };
-  const d = JSON.parse(readFileSync(path, "utf8"));
+  let d;
+  try {
+    d = JSON.parse(readFileSync(path, "utf8"));
+    if (!Array.isArray(d?.symbols)) throw new Error("symbols must be an array");
+  } catch (e) {
+    return { syms: new Set(), found: true, error: e.message };
+  }
   const syms = new Set();
   for (const s of d.symbols ?? []) {
     const t = typeof s === "string" ? s : s?.symbol;
@@ -204,7 +210,7 @@ function cmdPlan() {
   }
 
   const deskPath = join(PREPUMP, "desk", `${date}.json`);
-  const { syms: deskSyms, found: deskFound } = readDeskSymbols(deskPath);
+  const { syms: deskSyms, found: deskFound, error: deskError } = readDeskSymbols(deskPath);
 
   const { all, symbols, counts } = buildUniverse({ core, scanSyms, scanOf, deskSyms });
   const { due, state } = historyDue(date, all, cal);
@@ -219,6 +225,7 @@ function cmdPlan() {
     counts: { ...counts, history_due: due.length, first_appearance: firstSeen.length },
     scans_read: scanFiles.length,
     desk_file: deskFound ? deskPath : null,
+    desk_error: deskError ?? null,
     symbols: symbols.map((p) => ({ ...p, history_due: due.includes(p.symbol) })),
     batches: {
       fundamentals: chunk(all, 10),   // hard cap 10
@@ -231,6 +238,7 @@ function cmdPlan() {
   console.log(`  history due: ${due.length} (first appearance: ${firstSeen.length})`);
   console.log(`  batches: fundamentals ${plan.batches.fundamentals.length} x<=10 · quotes ${plan.batches.quotes.length} x<=20 · historicals ${plan.batches.historicals.length} x<=10`);
   if (!scanFiles.length) console.log(`  NOTE: no scan-*.json found in ${dir} — scan group is empty for this run.`);
+  if (deskError) console.error(`  WARNING: desk file rejected (${deskError}); continuing with core and scan only.`);
   if (!deskFound) console.log(`  NOTE: no desk file at ${deskPath} — desk group is empty for this run.`);
   if (has("--dry-run")) {
     console.log("  --dry-run: plan.json NOT written.");

@@ -96,6 +96,14 @@ A pattern with no falsification test is refused, and `--holds false` matters as 
 
 **Check for gaps before you add to them:** `node scripts/book-check.mjs` lists tickers mentioned in the vault or in posted content that never made it into the book.
 
+**Screens get logged too (2026-09-12).** The desk feed collects tickers from the day's book rows and read files, tagged `desk`, when built before the capture re-plan. Automatic integration is pending approval of plan Task 5. A screen, scan or watch list that only ever lived in a chat window is invisible to it. Register those names the same day; the date defaults to today in New York, and weekend adds feed Monday's run:
+
+```bash
+node scripts/desk-feed.mjs add --symbols MRVL,COHR,HPE --note "volume screen from chat"
+```
+
+`desk` names ride beside the 460-name base-rate sample and never count toward a base rate. `node scripts/scorecard.mjs` reads the scored book back by setup.
+
 ## Hard rules
 
 - **Research and drafting surfaces never place trades — and never mount broker order tools.** Read + draft only; Adam executes. The ONLY sanctioned execution lane is `prompts/bench-executor-v1.md` on its own dedicated surface — currently **UNTESTED, LIVE EXECUTION DISABLED** — activated only through the gate in `docs/executor-test-protocol.md`. Bench policy + configuration, not an Anthropic platform limit (corrected 2026-08-26; the old wording here claimed otherwise). **The receipt for the assistant-side half:** the Claude Code session instructions carry a prohibited-actions list including, verbatim, *"Executing any financial trade or transfer of funds — buying or selling stocks, securities, or cryptocurrency"*, closing with *"These actions stay prohibited when the user explicitly asks for them."* That is a constraint on the assistant, and 2026-08-26 proved it travels across chat surfaces — which is why the executor needs its own program surface rather than another chat.

@@ -79,3 +79,15 @@ test("the desk file accepts objects or bare strings and drops anything that is n
   assert.equal(r.found, true);
   assert.deepEqual([...r.syms].sort(), ["ANET", "HPE"]);
 });
+
+test("a corrupt desk file cannot stop the core capture", () => {
+  const p = join(mkdtempSync(join(tmpdir(), "bad-desk-")), "desk.json");
+  for (const body of ["{broken", "null", JSON.stringify({ symbols: {} })]) {
+    writeFileSync(p, body);
+    const r = readDeskSymbols(p);
+    assert.equal(r.found, true);
+    assert.equal(r.syms.size, 0);
+    assert.ok(r.error);
+    assert.equal(buildUniverse({core: ["AAPL"], deskSyms: r.syms}).counts.core, 1);
+  }
+});

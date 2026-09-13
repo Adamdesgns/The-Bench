@@ -63,6 +63,9 @@ export function validateInstance(input) {
         "pattern held is decoration, and it will quietly inflate the hit rate"
     );
   }
+  if (input.row_ref !== undefined && input.row_ref !== null && !/^B-\d+$/.test(String(input.row_ref))) {
+    problems.push("row_ref must be a book id like B-360, so the instance can be joined to the call it tested");
+  }
 
   return problems;
 }
@@ -108,6 +111,7 @@ export function addInstance(pattern, instance) {
       ticker: instance.ticker.toUpperCase(),
       detail: instance.detail ?? null,
       holds: instance.holds,
+      row_ref: instance.row_ref ?? null,
     },
   ];
 
@@ -126,4 +130,15 @@ export function summarise(pattern) {
     rate: total ? round1((held / total) * 100) : null,
     status: pattern.status,
   };
+}
+
+
+// Whole calendar days from one YYYY-MM-DD to another, or null when either is not a date.
+// log-pattern --list uses it to show how long a claim has waited for its instances.
+export function daysSince(from, to) {
+  const DATE = /^\d{4}-\d{2}-\d{2}$/;
+  if (!DATE.test(String(from ?? "")) || !DATE.test(String(to ?? ""))) return null;
+  const dates = [from, to].map((value) => new Date(`${value}T00:00:00Z`));
+  if (dates.some((d, i) => !Number.isFinite(d.getTime()) || d.toISOString().slice(0, 10) !== [from, to][i])) return null;
+  return Math.round((dates[1] - dates[0]) / 86400000);
 }
