@@ -27,36 +27,57 @@
 
 ## Phase C - Durability
 
-### Task 1: Commit the dataset definition files
+### Task 1: Commit the capture code, its `.gitignore` block and the definition files
 
 **Files:**
-- Commit (already on disk, never tracked): `db/prepump/universe-core.json`, `db/prepump/nyse-calendar-2026-2028.json`, `db/prepump/runs/*.json`, `docs/prepump-dataset-findings.md`
+- Commit (on disk, never tracked): `scripts/prepump-collect.mjs`, `scripts/prepump-session.mjs`, `scripts/prepump-outcomes.mjs`, `test/prepump-session.test.mjs`, `db/prepump/universe-core.json`, `db/prepump/nyse-calendar-2026-2028.json`, `db/prepump/runs/*.json`, `docs/prepump-dataset-findings.md`
+- Commit (modified, uncommitted): `.gitignore`, whose only change is the 13-line pre-pump block
 
-**Interfaces:** none.
+**Interfaces:** none. Everything is committed **unchanged**, before Task 2 edits the collector, so every later diff is reviewable.
 
-- [ ] **Step 1: Prove none of the row data would be staged**
+**Why.** `git ls-files` and `git log` return nothing for any of the four capture files. The collector that has run every weekday since 2026-09-08 exists only on this disk, and so does the `.gitignore` block that keeps the licensed row data out of git. Committing `prepump-collect.mjs` alone would record a file that imports `prepump-session.mjs`, which git has never seen.
 
-Run:
+- [ ] **Step 1: Prove what is untracked and what the `.gitignore` change is**
+
+```bash
+for f in scripts/prepump-collect.mjs scripts/prepump-session.mjs scripts/prepump-outcomes.mjs test/prepump-session.test.mjs; do echo "$f tracked:[$(git ls-files -- "$f")]"; done
+git diff --stat -- .gitignore
+git diff -- .gitignore
+```
+Expected: four empty `tracked:[]`; `.gitignore | 13 +++++++++++++`; and a diff that adds only the block beginning `# Pre-pump research dataset (added 2026-09-05).`. **If `.gitignore` carries any other change, stop and report it; do not commit someone else's line.**
+
+- [ ] **Step 2: Prove none of the row data would be staged**
+
 ```bash
 for f in db/prepump/universe-core.json db/prepump/nyse-calendar-2026-2028.json db/prepump/runs/2026-09-11.json db/prepump/2026-09-11.ndjson db/prepump/history-state.json; do if git check-ignore -q "$f"; then echo "IGNORED  $f"; else echo "addable  $f"; fi; done
+git add --dry-run .gitignore scripts/prepump-collect.mjs scripts/prepump-session.mjs scripts/prepump-outcomes.mjs test/prepump-session.test.mjs db/prepump/universe-core.json db/prepump/nyse-calendar-2026-2028.json db/prepump/runs/ docs/prepump-dataset-findings.md
 ```
-Expected: the first three `addable`, the `.ndjson` and `history-state.json` `IGNORED`.
+Expected: the first three `addable`, the `.ndjson` and `history-state.json` `IGNORED`; the dry run lists only the named files plus one `db/prepump/runs/YYYY-MM-DD.json` per collected session. `--dry-run` stages nothing.
 
-- [ ] **Step 2: Stage exactly the definitions**
+- [ ] **Step 3: Stage exactly that set and look at it**
 
 ```bash
-git add db/prepump/universe-core.json db/prepump/nyse-calendar-2026-2028.json db/prepump/runs/ docs/prepump-dataset-findings.md
+git add .gitignore scripts/prepump-collect.mjs scripts/prepump-session.mjs scripts/prepump-outcomes.mjs test/prepump-session.test.mjs db/prepump/universe-core.json db/prepump/nyse-calendar-2026-2028.json db/prepump/runs/ docs/prepump-dataset-findings.md
 git diff --cached --name-only
 ```
-Expected: only those paths. **If any `.ndjson`, `raw/`, `outcomes/` or `history-state.json` appears, run `git restore --staged <path>` and stop.**
+Expected: the same list as the dry run. **If any `.ndjson`, `raw/`, `outcomes/` or `history-state.json` appears, run `git restore --staged <path>` and stop.**
 
-- [ ] **Step 3: Commit**
+- [ ] **Step 4: Commit only those paths**
+
+The pathspec keeps anything another session staged out of this commit.
 
 ```bash
-git commit -m "data: version the pre-pump definition files the gitignore always meant to keep"
+git commit -m "prepump: commit the capture code, its gitignore block and definition files, unchanged" -- .gitignore scripts/prepump-collect.mjs scripts/prepump-session.mjs scripts/prepump-outcomes.mjs test/prepump-session.test.mjs db/prepump/universe-core.json db/prepump/nyse-calendar-2026-2028.json db/prepump/runs/ docs/prepump-dataset-findings.md
 ```
 
-**Not in this task:** a backup of the row data. Off-machine copies are ruled out by `.gitignore:37-40`. An on-machine second copy is Adam's decision.
+- [ ] **Step 5: Suite unchanged**
+
+Run: `node --test test/*.test.mjs server/*.test.js`
+Expected: 282 tests, 0 fail. Nothing on disk changed.
+
+**Not in this task:**
+- A backup of the row data. Off-machine copies are ruled out by the `.gitignore` licensing note; an on-machine second copy is Adam's decision.
+- `scripts/log-read.mjs`, `scripts/resolve-reads.mjs` and `docs/reads-ledger-spec.md` are also untracked. They belong to the reads ledger, which has its own Open Loops rows. Report them to Adam; do not commit them under this plan.
 
 ---
 
@@ -2027,7 +2048,7 @@ Expected: two `IDENTICAL` lines.
 
 | Spec requirement | Task |
 |---|---|
-| C1 definitions committed, row data stays on this machine | 1 |
+| C1 capture code, its `.gitignore` block and the definitions committed; row data stays on this machine | 1 |
 | A1 desk feed: book, reads, aliases, stoplist, manual adds, no broker call | 4 |
 | A2 instrument class decided late, not at collection | 4 (not implemented by design) |
 | A3 `desk` tag in `cmdPlan`, manifest counter | 2, 3 |

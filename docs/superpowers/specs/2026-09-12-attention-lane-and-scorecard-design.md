@@ -324,6 +324,13 @@ becomes the local scorecard.
 Two different kinds of file live under `db/prepump/`, and they get different
 treatment:
 
+> **Also found 2026-09-12 23:40 CT:** the capture code has never been committed
+> either. `git ls-files` and `git log` return nothing for
+> `scripts/prepump-collect.mjs`, `prepump-session.mjs`, `prepump-outcomes.mjs`
+> or `test/prepump-session.test.mjs`, and the `.gitignore` block that keeps the
+> row data out of git is an uncommitted 13-line working-copy change. Plan Task 1
+> commits all of it unchanged, before any task edits the collector.
+
 1. **Definitions - commit them now.** `universe-core.json`,
    `nyse-calendar-2026-2028.json` and `runs/*.json` are explicitly "DELIBERATELY
    NOT IGNORED... must be versioned" (`.gitignore:41-44`), and `git ls-files
