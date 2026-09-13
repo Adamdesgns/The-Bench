@@ -34,3 +34,16 @@ executor-tests/raw/
 
 # Netlify CLI state and local build cache (site is linked; siteId lives here)
 .netlify/
+
+# Pre-pump research dataset (added 2026-09-05).
+# The ROW DATA is Robinhood market data pulled under Adam's personal access — not licensed for
+# redistribution, and a private GitHub repo is still an off-machine copy. It stays on this machine.
+# It is also ~1.8MB/day (~450MB/yr), which does not belong in git regardless.
+db/prepump/*.ndjson
+db/prepump/outcomes/
+db/prepump/raw/
+db/prepump/history-state.json
+# DELIBERATELY NOT IGNORED, these are definitions rather than market data and must be versioned:
+#   db/prepump/nyse-calendar-2026-2028.json  (public NYSE schedule)
+#   db/prepump/universe-core*.json           (Adam's own frozen ticker selection)
+#   db/prepump/runs/*.json                   (run manifests — counts and failures, no prices)
