@@ -8,10 +8,19 @@
 // Zero-dep. Read-only. Never writes, never deletes, never acks anything.
 //
 //   node scripts/inbox-check.mjs [--days N] [--all]
+//   BENCH_HANDOFF_BUS=/path/to/handoffs node scripts/inbox-check.mjs
 //
 // EXIT CODES
 //   0  nothing waiting on you
 //   1  at least one drop is UNREAD - read it before starting work
+//   2  NO BUS ON THIS CLONE - the answer is "cannot know", not "quiet"
+//
+// WHY EXIT 2 EXISTS (2026-09-10 survey, Task 3): the bus lives on Adam's local
+// disk beside the repo (Projects/docs/handoffs), never inside it. A GitHub or
+// cloud clone resolves that path to nowhere, and this script used to say
+// "nothing to check" and exit 0 - the same exit as "the other desk is quiet".
+// Those are different facts. Absent bus is loud and distinct now. The script
+// still never creates the bus: read-only means read-only.
 //
 // "UNREAD" is decided by one rule and nothing else: a drop in to-claude/ is unread
 // until its HANDBACK section carries a [Claude] tag. That is the whole convention -
@@ -25,7 +34,9 @@ import { fileURLToPath } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 // apps/the-bench/scripts -> apps/the-bench -> apps -> Projects
-const BUS = path.resolve(HERE, "..", "..", "..", "docs", "handoffs");
+const DEFAULT_BUS = path.resolve(HERE, "..", "..", "..", "docs", "handoffs");
+const BUS_ENV = (process.env.BENCH_HANDOFF_BUS || "").trim();
+const BUS = BUS_ENV ? path.resolve(BUS_ENV) : DEFAULT_BUS;
 const IN = path.join(BUS, "to-claude");
 const OUT = path.join(BUS, "to-grok");
 
@@ -38,10 +49,25 @@ const val = (n, d) => {
 const DAYS = Number(val("--days", "14"));
 const ALL = flag("--all");
 
-if (!fs.existsSync(BUS)) {
-  console.log("No handoff bus at " + BUS + " - nothing to check.");
-  process.exit(0);
+function notMounted(reason) {
+  console.log("HANDOFF BUS - NOT MOUNTED");
+  console.log("=".repeat(62));
+  console.log("  " + reason);
+  console.log("  looked at: " + BUS + (BUS_ENV ? "  (from BENCH_HANDOFF_BUS)" : "  (default: ../../../docs/handoffs)"));
+  console.log("");
+  console.log("THIS CLONE HAS NO HANDOFF BUS. That is NOT the same as 'nothing waiting'.");
+  console.log("The other desk may have written to to-claude/ on the local machine and");
+  console.log("this checkout cannot see it. Do not read this as a quiet desk.");
+  console.log("");
+  console.log("The bus lives beside the repo on Adam's local disk (Projects/docs/handoffs),");
+  console.log("deliberately outside git. If it is mounted somewhere else here, point at it:");
+  console.log("  BENCH_HANDOFF_BUS=/path/to/handoffs node scripts/inbox-check.mjs");
+  console.log("Nothing was created. This script never invents a bus or a worklog.");
+  process.exit(2);
 }
+
+if (!fs.existsSync(BUS)) notMounted("no directory at the bus path");
+if (!fs.existsSync(IN)) notMounted("bus root exists but to-claude/ (the inbound folder) is missing");
 
 const field = (text, label) => {
   const m = text.match(new RegExp("^\\s*-\\s*" + label + ":\\s*(.+)$", "im"));
