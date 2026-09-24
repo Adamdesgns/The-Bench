@@ -6,7 +6,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { renderWeeklyPost } from "./scorecardPost.js";
+import { renderWeeklyPost, draftDecision } from "./scorecardPost.js";
 
 const win = {
   id: "B-018", ticker: "DOGE", type: "pass", call: "No Trade — fails every gate",
@@ -65,4 +65,12 @@ test("the right/wrong tally matches the rows passed in", () => {
 test("the post fits X's 280-character limit", () => {
   const out = renderWeeklyPost([win, miss], { today: "2026-07-28" });
   assert.ok(out.length <= 280, `post was ${out.length} chars:\n${out}`);
+});
+
+
+test("a scorecard draft is printed, never written, unless --draft is asked for on a real run", () => {
+  assert.equal(draftDecision({ dryRun: false, draft: false, queueExists: true }), "print");
+  assert.equal(draftDecision({ dryRun: true, draft: true, queueExists: true }), "print");
+  assert.equal(draftDecision({ dryRun: false, draft: true, queueExists: false }), "print");
+  assert.equal(draftDecision({ dryRun: false, draft: true, queueExists: true }), "write");
 });

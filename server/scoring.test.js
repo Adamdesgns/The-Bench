@@ -185,3 +185,17 @@ test("an absent or malformed trigger yields null, never a guessed boolean", () =
   assert.equal(triggerFiredIn(window, "2026-07-01", "2026-07-10", { direction: "above" }), null);
   assert.equal(triggerFiredIn([], "2026-07-01", "2026-07-10", { direction: "above", level: 77 }), null);
 });
+
+// ---- bet ----
+
+test("a declared bet classifies as bet, not from prose", () => {
+  assert.equal(classifyCall({ call_type: "bet", final_call: "CONVICTION BET LANE - STRUCTURE TEST" }), "bet");
+});
+
+test("a bet is never scored like a long, because the scorer prices the underlying", () => {
+  // B-091: an IWM 304C bought at a 2.15 premium, scored against IWM at 299.96.
+  const r = scoreCall({ type: "bet", assetPct: 13851.63, benchPct: -1.37 });
+  assert.equal(r.verdict, "not_scorable");
+  assert.equal(r.alpha, null);
+  assert.match(r.note, /options structure/);
+});

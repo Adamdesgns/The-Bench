@@ -1,12 +1,13 @@
 // score-book.js — score every due checkpoint in the book and draft the post.
 //
-//   node scripts/score-book.js               # score, write archive, draft post
+//   node scripts/score-book.js               # score, write archive, print the draft
 //   node scripts/score-book.js --dry-run     # score and print, touch nothing
 //   node scripts/score-book.js --today 2026-09-30
-//   node scripts/score-book.js --no-draft    # score only, no X draft
+//   node scripts/score-book.js --no-draft    # score only, no draft at all
+//   node scripts/score-book.js --draft       # also write the draft into x-poster/queue/
 //
-// The draft lands in x-poster/queue/ — Adam approves it there, exactly like
-// every other post. The system drafts. Adam publishes.
+// Nothing is written under x-poster unless --draft is passed. The X channel was
+// retired 2026-09-05 and the standing order forbids routines writing there.
 //
 // Spec: docs/scorecard-spec.md
 
@@ -17,7 +18,7 @@ import { ROOT } from "../server/config.js";
 import { loadArchive } from "../server/reconcile.js";
 import { scoreBook, scoreRows } from "../server/scorecard.js";
 import { getDatedCloses } from "../server/dataProviders.js";
-import { renderWeeklyPost } from "../server/scorecardPost.js";
+import { renderWeeklyPost, draftDecision } from "../server/scorecardPost.js";
 
 const argv = process.argv.slice(2);
 const has = (flag) => argv.includes(flag);
@@ -85,12 +86,12 @@ if (!has("--no-draft")) {
     console.log("\nNo draft written — nothing scorable this run. That is the correct outcome, not a failure.");
   } else {
     console.log(`\n--- DRAFT (${post.length} chars) ---\n${post}\n---`);
-    if (!dryRun && existsSync(QUEUE_DIR)) {
+    if (draftDecision({ dryRun, draft: has("--draft"), queueExists: existsSync(QUEUE_DIR) }) === "write") {
       const path = nextDraftPath(today);
       writeFileSync(path, post + "\n", "utf8");
-      console.log(`\nQueued for approval: ${path}`);
+      console.log(`\nQueued: ${path}`);
     } else if (!dryRun) {
-      console.log(`\nx-poster queue not found at ${QUEUE_DIR} — draft printed only.`);
+      console.log("\nDraft printed only. Nothing written under x-poster (retired 2026-09-05). Pass --draft to write it.");
     }
   }
 }

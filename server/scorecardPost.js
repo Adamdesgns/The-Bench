@@ -97,3 +97,10 @@ export function renderWeeklyPost(rows, { link = null } = {}) {
 
   return [header, "", ...lines].join("\n") + footer;
 }
+
+
+// Where a scorecard draft goes. The X channel was retired 2026-09-05 and nothing
+// writes under x-poster unless a person explicitly asks for it with --draft.
+export function draftDecision({ dryRun, draft, queueExists }) {
+  return draft === true && dryRun !== true && queueExists === true ? "write" : "print";
+}

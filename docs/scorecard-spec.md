@@ -1,5 +1,7 @@
 # SCORECARD — scoring the book, whether or not a trade was taken
 
+> **HISTORICAL as of 2026-09-12.** This spec was written for the 22-row book of 2026-07-28 and every count in it dates from then. The book is now 367 rows. The verdict rules it describes are still the ones in `server/scoring.js` (plus `bet`, declared 2026-09-12 as not scorable). Current design: `docs/superpowers/specs/2026-09-12-attention-lane-and-scorecard-design.md`. To read the scored book back: `node scripts/scorecard.mjs`.
+
 Status: approved 2026-07-28. Implements the closing half of the archive that
 `reconcile.js` promised in its header and never had.
 

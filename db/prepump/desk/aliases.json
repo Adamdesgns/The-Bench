@@ -1,0 +1,32 @@
+{
+  "_schema": "bench-desk-aliases-v1",
+  "_note": "Company names the reads use instead of tickers. Case-sensitive and letter-bounded, so 'Dell's' matches and 'Dellwood' does not. Measured 2026-09-12 across 46 read files: 10 of 20 board names appear more often by name than by ticker (Oracle 47 vs ORCL 9, Vertiv 38 vs VRT 15). Add a name only after a read has actually used it.",
+  "_excluded": {
+    "Meta": "an ordinary English word, and META is ticker-dominant in the reads (12 vs 6)",
+    "Coherent": "an ordinary English word, with zero name uses in the reads",
+    "Hewlett Packard": "ambiguous between HPE and HPQ; only the full 'Hewlett Packard Enterprise' is mapped"
+  },
+  "_caution": {
+    "Constellation": "means Constellation Energy (CEG) on this board; Constellation Brands is STZ"
+  },
+  "aliases": {
+    "AeroVironment": "AVAV",
+    "Applied Materials": "AMAT",
+    "Arista": "ANET",
+    "Broadcom": "AVGO",
+    "Constellation": "CEG",
+    "Dell": "DELL",
+    "Hewlett Packard Enterprise": "HPE",
+    "Marvell": "MRVL",
+    "Micron": "MU",
+    "Nvidia": "NVDA",
+    "Oracle": "ORCL",
+    "SanDisk": "SNDK",
+    "Sandisk": "SNDK",
+    "Seagate": "STX",
+    "Super Micro": "SMCI",
+    "Uber": "UBER",
+    "Vertiv": "VRT",
+    "Western Digital": "WDC"
+  }
+}

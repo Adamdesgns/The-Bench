@@ -124,3 +124,38 @@ test("buildRow records which chat logged it, for the cross-chat rule", () => {
   const row = buildRow({ ...base, source: "codex" }, []);
   assert.equal(row.logged_by, "codex");
 });
+
+// ── v29: readiness, origin, hunter calibration fields ──────────────────────
+
+test("v29 fields default to null / unspecified", () => {
+  const row = buildRow(base, []);
+  assert.equal(row.readiness, null);
+  assert.equal(row.origin, "unspecified");
+  assert.equal(row.universe, null);
+  assert.equal(row.hunter_opportunity, null);
+  assert.equal(row.hunter_readiness, null);
+});
+
+test("v29 fields are carried when supplied", () => {
+  const row = buildRow(
+    { ...base, readiness: 42, origin: "hunter", universe: "market", hunter_opportunity: 87, hunter_readiness: 61 },
+    []
+  );
+  assert.equal(row.readiness, 42);
+  assert.equal(row.origin, "hunter");
+  assert.equal(row.universe, "market");
+  assert.equal(row.hunter_opportunity, 87);
+  assert.equal(row.hunter_readiness, 61);
+});
+
+test("readiness outside 0-100 or non-integer is refused", () => {
+  assert.match(validateCall({ ...base, readiness: 101 }).join(" "), /readiness must be an integer 0-100/);
+  assert.match(validateCall({ ...base, readiness: 42.5 }).join(" "), /readiness must be an integer 0-100/);
+  assert.match(validateCall({ ...base, hunter_readiness: -1 }).join(" "), /hunter_readiness must be/);
+});
+
+test("unknown origin or universe is refused; missing is fine", () => {
+  assert.match(validateCall({ ...base, origin: "twitter" }).join(" "), /origin must be one of/);
+  assert.match(validateCall({ ...base, universe: "crypto" }).join(" "), /universe must be one of/);
+  assert.deepEqual(validateCall(base), []);
+});

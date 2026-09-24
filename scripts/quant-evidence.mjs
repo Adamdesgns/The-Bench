@@ -29,6 +29,7 @@ import {
   detectEvents, independentCount, forwardReturns, summarize, gradeEvidence, barsSpanYears
 } from "../server/evidence.js";
 import { benchmarkFor } from "../server/scoring.js";
+import { nyDate } from "../server/nyDate.js";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const RUNS_PATH = resolve(ROOT, "db", "quant-runs.json");
@@ -158,7 +159,7 @@ const id = `QR-${String(nextN).padStart(3, "0")}`;
 
 runs.push({
   id,
-  date: new Date().toISOString().slice(0, 10),
+  date: nyDate(),
   ticker,
   benchmark: benchData ? benchmark : null,
   setup,
