@@ -41,6 +41,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import { ROOT } from "../server/config.js";
+import { nyDate } from "../server/nyDate.js";
 import { buildRow, validateCall, requiredFields } from "../server/bookLog.js";
 
 const ARCHIVE = resolve(ROOT, "db/archive.json");
@@ -74,7 +75,7 @@ const input = {
   type: val("--type"),
   call: val("--call"),
   price: num("--price"),
-  date: val("--date") ?? new Date().toISOString().slice(0, 10),
+  date: val("--date") ?? nyDate(),
   review_time: val("--review-time"),
   trigger: num("--trigger"),
   decide_by: val("--decide-by") ?? null,

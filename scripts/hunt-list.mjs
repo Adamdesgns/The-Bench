@@ -24,6 +24,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { nyDate } from "../server/nyDate.js";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const argv = process.argv.slice(2);
@@ -73,7 +74,7 @@ export function setHunt(watchlist, sym, state, meta = {}) {
   }
   const prev = entry.hunt ?? null;
   entry.hunt = st;
-  entry.hunt_history = [...(entry.hunt_history ?? []), { at: meta.now ?? new Date().toISOString().slice(0, 10), from: prev, to: st }];
+  entry.hunt_history = [...(entry.hunt_history ?? []), { at: meta.now ?? nyDate(), from: prev, to: st }];
   if (meta.discovered_price !== undefined && entry.discovered_price === undefined) entry.discovered_price = meta.discovered_price;
   if (meta.discovered_on !== undefined && entry.discovered_on === undefined) entry.discovered_on = meta.discovered_on;
   if (meta.origin) entry.origin = meta.origin;
@@ -87,7 +88,7 @@ export function clearHunt(watchlist, sym) {
   const next = watchlist.map((e) => ({ ...e }));
   const entry = next.find((e) => e.sym === S);
   if (!entry || !entry.hunt) return { watchlist, problems: [`${S} carries no hunt state`] };
-  entry.hunt_history = [...(entry.hunt_history ?? []), { at: new Date().toISOString().slice(0, 10), from: entry.hunt, to: null }];
+  entry.hunt_history = [...(entry.hunt_history ?? []), { at: nyDate(), from: entry.hunt, to: null }];
   delete entry.hunt;
   return { watchlist: next, problems: [] };
 }

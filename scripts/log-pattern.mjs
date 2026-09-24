@@ -23,6 +23,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import { ROOT } from "../server/config.js";
+import { nyDate } from "../server/nyDate.js";
 import { buildPattern, addInstance, summarise, daysSince } from "../server/patternLog.js";
 
 const PATTERNS = resolve(ROOT, "db/patterns.json");
@@ -64,7 +65,7 @@ if (has("--new")) {
       claim: val("--claim"),
       test: val("--test"),
       why: val("--why"),
-      first_seen: val("--date") ?? new Date().toISOString().slice(0, 10),
+      first_seen: val("--date") ?? nyDate(),
       source: val("--source") ?? "claude",
     },
     patterns
@@ -91,7 +92,7 @@ if (targetId) {
   const holdsRaw = val("--holds");
   const updated = addInstance(patterns[idx], {
     ticker: val("--ticker"),
-    date: val("--date") ?? new Date().toISOString().slice(0, 10),
+    date: val("--date") ?? nyDate(),
     detail: val("--detail"),
     row_ref: val("--row"),
     holds: holdsRaw === "true" ? true : holdsRaw === "false" ? false : undefined,
