@@ -1,0 +1,233 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-09-17",
+  "candidates_receipt": "74b13b52",
+  "band": 301.86,
+  "generated": "2026-09-17T20:34:36.864Z",
+  "top": [
+    {
+      "sym": "AIP",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "B",
+      "n": 73,
+      "p_dir": 46.58,
+      "p_reach": 15.07,
+      "market_p": 38.23,
+      "disagreement": 8.35,
+      "expiry": "2026-10-16",
+      "days": 21,
+      "long_strike": 22.5,
+      "short_strike": 20,
+      "cost": 135,
+      "max_gain": 115,
+      "payoff_ratio": 0.85,
+      "break_even": 21.15,
+      "ev": -54.79,
+      "ev_per_day": -2.61,
+      "stop": 23.65,
+      "target": 19.65,
+      "rr_shares": 2.12
+    },
+    {
+      "sym": "CORZ",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "B",
+      "n": 29,
+      "p_dir": 41.38,
+      "p_reach": 10.34,
+      "market_p": 34.58,
+      "disagreement": 6.8,
+      "expiry": "2026-09-25",
+      "days": 6,
+      "long_strike": 17,
+      "short_strike": 15,
+      "cost": 55.5,
+      "max_gain": 144.5,
+      "payoff_ratio": 2.6,
+      "break_even": 16.45,
+      "ev": -17.59,
+      "ev_per_day": -2.93,
+      "stop": 18.18,
+      "target": 14.71,
+      "rr_shares": 2.33
+    },
+    {
+      "sym": "AAP",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 75,
+      "p_dir": 44,
+      "p_reach": 13.33,
+      "market_p": 35.69,
+      "disagreement": 8.31,
+      "expiry": "2026-09-25",
+      "days": 6,
+      "long_strike": 42,
+      "short_strike": 37.5,
+      "cost": 112.5,
+      "max_gain": 337.5,
+      "payoff_ratio": 3,
+      "break_even": 40.88,
+      "ev": -18.01,
+      "ev_per_day": -3,
+      "stop": 44.09,
+      "target": 37.51,
+      "rr_shares": 2.12
+    }
+  ],
+  "rest": [],
+  "rejected": [
+    {
+      "sym": "MSFT",
+      "side": "long",
+      "why": "max loss 637 > band 301.86"
+    },
+    {
+      "sym": "GOOGL",
+      "side": "long",
+      "why": "max loss 548 > band 301.86"
+    },
+    {
+      "sym": "AMZN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "META",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AVGO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRVL",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "VRT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ETN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "PWR",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "NI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMAT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "QCOM",
+      "side": "long",
+      "why": "max loss 399 > band 301.86"
+    },
+    {
+      "sym": "AAOI",
+      "side": "short",
+      "why": "max loss 405 > band 301.86"
+    },
+    {
+      "sym": "GRAB",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CEG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "TLN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GEV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CRWV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "NKE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMD",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "SMCI",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "HPE",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "DELL",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMBA",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "UBER",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ANET",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "PATH",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SPCX",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "VICI",
+      "side": "short",
+      "why": "no marks"
+    }
+  ],
+  "id": "98a37a28"
+}

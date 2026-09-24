@@ -12,6 +12,16 @@
 // the scheduled-task console is cp1252, and HTTP headers must be ASCII. Reading
 // the file as UTF-8 here sidesteps all three.
 //
+// Priority is 'urgent' (5) on every send, and every scheduled-task card was
+// changed to match on 2026-09-11 at Adam's instruction: "I want all of them
+// always as urgent." Reads were going out at ntfy's DEFAULT priority, which
+// Android and iOS are free to batch, delay and silence, so the cards that
+// actually ask for a decision (the 9:02a entry check, a fired trigger) looked
+// and sounded exactly like the ones that only narrated the tape. Urgent is the
+// only level that rings through. This only works if the phone lets it: the
+// ntfy app must be exempt from battery optimization and allowed past Do Not
+// Disturb.
+
 // ntfy caps a message body at 4096 bytes; anything larger is silently turned
 // into an attachment, which is unreadable on the lock screen. Reads longer than
 // that are split on paragraph boundaries and sent as numbered parts, first part
@@ -24,7 +34,7 @@ export const TOPIC = 'https://ntfy.sh/bench-adam-7x3';
 const MAX_BYTES = 3800; // headroom under ntfy's 4096-byte body limit
 
 function parseArgs(argv) {
-  const out = { dryRun: false, priority: 'default' };
+  const out = { dryRun: false, priority: 'urgent' };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--dry-run') out.dryRun = true;

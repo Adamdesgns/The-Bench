@@ -1,0 +1,99 @@
+{
+  "schema": "bench-prepump-manifest-v1",
+  "quality_version": 2,
+  "quality": {
+    "complete": true,
+    "research_ready": false,
+    "issues": [],
+    "resolution_blocked": [
+      "ZEC"
+    ],
+    "field_coverage": {
+      "f_float": {
+        "present": 623,
+        "missing": 8
+      },
+      "f_shares_outstanding": {
+        "present": 630,
+        "missing": 1
+      },
+      "f_market_cap": {
+        "present": 630,
+        "missing": 1
+      },
+      "f_avg_volume_2_weeks": {
+        "present": 630,
+        "missing": 1
+      },
+      "f_avg_volume_30_days": {
+        "present": 630,
+        "missing": 1
+      },
+      "f_sector": {
+        "present": 630,
+        "missing": 1
+      },
+      "e_next_date": {
+        "present": 616,
+        "missing": 15
+      },
+      "e_timing": {
+        "present": 613,
+        "missing": 18
+      },
+      "q_bid_price": {
+        "present": 630,
+        "missing": 1
+      },
+      "q_ask_price": {
+        "present": 630,
+        "missing": 1
+      }
+    }
+  },
+  "date": "2026-09-21",
+  "built_at": "2026-09-21T21:49:19.701Z",
+  "universe_version": "core-v1",
+  "early_close": false,
+  "expected": {
+    "core": 460,
+    "scan": 151,
+    "desk": 54,
+    "total": 631,
+    "history_due": 139,
+    "first_appearance": 7
+  },
+  "written": {
+    "total": 631,
+    "ok": 630,
+    "partial": 0,
+    "no_data": 0,
+    "not_found": 0,
+    "core": 460,
+    "scan": 151,
+    "desk": 54,
+    "with_history": 139
+  },
+  "complete": true,
+  "market_dates_seen": {
+    "2026-09-21": 630
+  },
+  "raw_files": {
+    "fundamentals": 63,
+    "quotes": 32,
+    "historicals": 28,
+    "earnings": 3,
+    "scans": 2
+  },
+  "failures": [
+    {
+      "symbol": "ZEC",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    }
+  ],
+  "failure_count": 1,
+  "appended": "new file"
+}

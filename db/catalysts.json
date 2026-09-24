@@ -367,14 +367,15 @@
     "logged": "2026-08-19"
   },
   {
-    "date": "2026-09-22",
+    "date": "2026-09-30",
     "type": "earnings",
-    "confidence": "expected",
-    "label": "MU Q4 FY26 earnings, after the close (est. 31.27) — date EXPECTED, not confirmed · THE LIVE PLAN KEYS OFF THIS. B-136/B-144 set a pre-catalyst deadline of Fri 2026-09-18 — decide by then and be FLAT before this print unless an explicit hold-through is logged at the deadline. NOTE: the feed returns verified=false, so this date is TENTATIVE and the 9/18 deadline moves with it. Re-verify weekly.",
+    "confidence": "confirmed",
+    "label": "MU Q4 FY26 earnings, after the close (est. 31.26) - date COMPANY-VERIFIED (earnings feed verified=true, B-335 9/10). THE LIVE PLAN KEYS OFF THIS. B-136/B-144 pre-catalyst deadline Fri 2026-09-18 stands. CORRECTED 2026-09-15 by the v29 open run: the board carried 9/22 expected for four weeks after the feed verified 9/30.",
     "ticker": "MU",
-    "what": "Q4 FY26 earnings, after the close (est. 31.27)",
-    "action": "THE LIVE PLAN KEYS OFF THIS. B-136/B-144 set a pre-catalyst deadline of Fri 2026-09-18 — decide by then and be FLAT before this print unless an explicit hold-through is logged at the deadline. NOTE: the feed returns verified=false, so this date is TENTATIVE and the 9/18 deadline moves with it. Re-verify weekly.",
-    "logged": "2026-08-19"
+    "what": "Q4 FY26 earnings, after the close (est. 31.26)",
+    "action": "THE LIVE PLAN KEYS OFF THIS. B-136/B-144 set a pre-catalyst deadline of Fri 2026-09-18 - decide by then and be FLAT before this print unless an explicit hold-through is logged at the deadline. Date corrected 9/22 -> 9/30 on 2026-09-15 (company-verified).",
+    "logged": "2026-08-19",
+    "corrected": "2026-09-15"
   },
   {
     "date": "2026-09-22",
@@ -1098,5 +1099,51 @@
     "source": "Benzinga 2026-09-08 (secondary); Robinhood get_earnings_results pulled 2026-09-09 22:20 CT for verification",
     "action": "A guide raise pushes the bridge through its highs (IREN 49.29 double top); a cut turns the 5-day run into a rejection. Nothing in the bridge layer arms before the reaction, per the post-catalyst rule.",
     "logged": "2026-09-10"
+  },
+  {
+    "date": "2026-11-05",
+    "type": "legal",
+    "confidence": "confirmed",
+    "label": "UBER Delivery Hero takeover: acceptance deadline for the 41.50 EUR cash offer (14.8B equity value, 127 pct premium to the unaffected VWAP). Both DH boards endorsed it 9/2. Minimum acceptance 50 pct plus one share; merger-control clearances still required; close expected H2 2027. Funded in part by the 5.24B debut euro bond priced 9/9. · A dated deal milestone, not a price catalyst by itself. The read-through is leverage: 5.24B of new debt plus 14.8B of cash out is the bear case's balance-sheet leg. Earnings 11/3 am sits two days before it.",
+    "ticker": "UBER",
+    "what": "Delivery Hero takeover: acceptance deadline for the 41.50 EUR cash offer (14.8B equity value, 127 pct premium to the unaffected VWAP). Both DH boards endorsed it 9/2. Minimum acceptance 50 pct plus one share; merger-control clearances still required; close expected H2 2027. Funded in part by the 5.24B debut euro bond priced 9/9.",
+    "source": "investor.uber.com offer-document press release; Delivery Hero newsroom; Uber 8-K (sec.gov)",
+    "action": "A dated deal milestone, not a price catalyst by itself. The read-through is leverage: 5.24B of new debt plus 14.8B of cash out is the bear case's balance-sheet leg. Earnings 11/3 am sits two days before it.",
+    "logged": "2026-09-11"
+  },
+  {
+    "date": "2026-11-03",
+    "type": "earnings",
+    "confidence": "expected",
+    "label": "UBER Q3 2026 results, before the open (est. 0.98). First print with the Cybercab competition live in Austin and the Delivery Hero deal pending. — date EXPECTED, not confirmed · Pre-Catalyst Deadline 11/2 for anything held from the UBER row logged 9/10.",
+    "ticker": "UBER",
+    "what": "Q3 2026 results, before the open (est. 0.98). First print with the Cybercab competition live in Austin and the Delivery Hero deal pending.",
+    "source": "Robinhood get_earnings_results 2026-09-10 (verified=false, tentative)",
+    "action": "Pre-Catalyst Deadline 11/2 for anything held from the UBER row logged 9/10.",
+    "logged": "2026-09-11"
+  },
+  {
+    "date": "2026-09-21",
+    "type": "other",
+    "confidence": "window",
+    "label": "GOOGL ANTHROPIC IPO WINDOW (logged under GOOGL because GOOGL is the tradable instrument and we own 3 shares; Anthropic itself has no ticker and is NOT tradable). Public S-1 expected ~Sept 2026, roadshow Sept/early Oct, targeting an October Nasdaq listing. Confidential S-1 submitted 2026-06-01, company-confirmed. Goldman/JPM/Morgan Stanley; a >60B raise is being discussed against a 965B May-2026 Series H mark. No ticker, no price, no date set. THE READ FOR THIS BOOK: Alphabet holds ~14 pct of Anthropic (15 pct contractual cap, no votes, no board seat, no observer), a stake Alphabet marked at ~124B as of 2026-06-30. A public S-1 puts a market price on that stake for the first time. — WINDOW 2026-09-21 to 2026-10-31 · WATCH ONLY. Three checkable events, in order: (1) the public S-1 hitting EDGAR — it must land at least 15 days before institutional marketing, so it is the first hard date and the one to watch for; (2) GOOGL's reaction to a disclosed Anthropic mark, against the open 326.00 stop; (3) day-one supply and the 180-day lockup, which is the SPCX lockup pattern already on this board. No IPO-day chase — this book does not buy an open with no settled level.",
+    "ticker": "GOOGL",
+    "what": "ANTHROPIC IPO WINDOW (logged under GOOGL because GOOGL is the tradable instrument and we own 3 shares; Anthropic itself has no ticker and is NOT tradable). Public S-1 expected ~Sept 2026, roadshow Sept/early Oct, targeting an October Nasdaq listing. Confidential S-1 submitted 2026-06-01, company-confirmed. Goldman/JPM/Morgan Stanley; a >60B raise is being discussed against a 965B May-2026 Series H mark. No ticker, no price, no date set. THE READ FOR THIS BOOK: Alphabet holds ~14 pct of Anthropic (15 pct contractual cap, no votes, no board seat, no observer), a stake Alphabet marked at ~124B as of 2026-06-30. A public S-1 puts a market price on that stake for the first time.",
+    "window_end": "2026-10-31",
+    "source": "https://finance.yahoo.com/markets/stocks/articles/anthropic-files-confidential-1-joins-161008569.html",
+    "action": "WATCH ONLY. Three checkable events, in order: (1) the public S-1 hitting EDGAR — it must land at least 15 days before institutional marketing, so it is the first hard date and the one to watch for; (2) GOOGL's reaction to a disclosed Anthropic mark, against the open 326.00 stop; (3) day-one supply and the 180-day lockup, which is the SPCX lockup pattern already on this board. No IPO-day chase — this book does not buy an open with no settled level.",
+    "logged": "2026-09-19"
+  },
+  {
+    "date": "2026-10-01",
+    "type": "other",
+    "confidence": "window",
+    "label": "MSFT OPENAI IPO WINDOW (logged under MSFT as the listed proxy, NOT held; OpenAI has no ticker and is NOT tradable). Confidential S-1 submitted 2026-06-08, reportedly targeting a >1T valuation. Q4 2026 is the talked-about target, but CFO Sarah Friar told staff OpenAI 'will be a public company in 2027,' sooner only if the business accelerates. A pre-IPO private round at ~1.2T is also under discussion, which would push a listing out, not pull it in. 20B 2025 revenue against a projected 14B 2026 loss and cumulative losses to ~115B by 2029. — WINDOW 2026-10-01 to 2026-12-31 · WATCH ONLY, and rank it behind Anthropic — Anthropic is the one with a near-dated public S-1 and a stake sitting inside a position we already own. Treat the 2027 CFO quote as the base case and Q4 2026 as the upside case until a public S-1 says otherwise.",
+    "ticker": "MSFT",
+    "what": "OPENAI IPO WINDOW (logged under MSFT as the listed proxy, NOT held; OpenAI has no ticker and is NOT tradable). Confidential S-1 submitted 2026-06-08, reportedly targeting a >1T valuation. Q4 2026 is the talked-about target, but CFO Sarah Friar told staff OpenAI 'will be a public company in 2027,' sooner only if the business accelerates. A pre-IPO private round at ~1.2T is also under discussion, which would push a listing out, not pull it in. 20B 2025 revenue against a projected 14B 2026 loss and cumulative losses to ~115B by 2029.",
+    "window_end": "2026-12-31",
+    "source": "https://www.forbes.com/sites/investor-hub/article/openai-ipo-things-to-know/",
+    "action": "WATCH ONLY, and rank it behind Anthropic — Anthropic is the one with a near-dated public S-1 and a stake sitting inside a position we already own. Treat the 2027 CFO quote as the base case and Q4 2026 as the upside case until a public S-1 says otherwise.",
+    "logged": "2026-09-19"
   }
 ]

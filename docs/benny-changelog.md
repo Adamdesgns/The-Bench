@@ -6,6 +6,114 @@
 
 ---
 
+## Week of 2026-09-13 -> 2026-09-19
+
+The week the desk got a second entry path, and the week two buy levels written into
+uptrends expired on the same day without ever being touched.
+
+### THE ALGORITHM - how he trades
+
+**`trading-copilot-v30.md` shipped 2026-09-17** (commit `cc94bcd`, §THE NIGHT-BEFORE
+ENTRY OPTION). When the prior regular-session settle lands **inside a buy zone already on
+the book**, the night run writes a second entry path: Option B, a LIMIT/DAY order priced,
+sized, stopped and ceilinged the night before, alongside Option A (the first-30-minute
+hold, still the default). Five conditions gate it - settle genuinely inside a book zone,
+no earnings or macro release before 09:00 CT, not across a weekend, regime not RISK-OFF
+and Readiness 50 or higher, and funded when written.
+
+**What earned it: MU, 2026-09-17 (B-438 / B-441).** MU settled 926.55 on 9/16 inside a
+logged 925-940 zone and opened 954.92 - a gap-up the first-30-minute hold misses by
+construction, not by bad luck. **What it cost:** from that open MU added another 6.4
+percent to Friday's 1,015.80 close. Nothing was placed, so the cost is a position not
+owned rather than dollars lost.
+
+**What did NOT change:** no chasing (Option B carries a hard ceiling set the night before
+and a gap above it means no fill), the ATR Floor, the 10 percent band, the skip line, the
+weekend rule, and the execution boundary - Adam places every order. The rule carries its
+own review gate: the Self-Audit Loop grades Option B against what Option A would have done
+after **five instances**, and retires or tightens it if it loses.
+
+### WHAT THE BOOK CONTRADICTED - two below-spot buy levels died on the same date
+
+**P-047, logged 2026-09-18, two instances, status proposed.** Both rows came due on the
+decide-by date of 2026-09-18 and both expired untouched while the name ran:
+
+- **MU 881** (B-144, 2026-08-19; restated B-374 on 9/14 at 918.88 pre-market). Week low
+  902.60. Closed 1,015.80 on the day it was due - **15.3 percent above the level**, and MU
+  never traded within 4 percent of 881 in the month the row was alive. Killed in B-470.
+- **LITE 826.44** (B-392, 2026-09-14 at a 845.00 review, off the 50-day). Week low 832.11
+  on 9/15 - **missed by 5.67, 0.68 percent** - then 919.40, 893.61 and a 930.91 close.
+  Killed in B-472.
+
+**Cost in dollars: zero, because nothing was placed.** The cost is two positions the desk
+wrote full plans for and did not own. The claim P-047 makes is falsifiable and narrow: a
+buy level set *below* spot, carried with a decide-by, in a name trending up, expires out
+of the money. Two instances is a coincidence with a story; it needs a third.
+
+**Logged alongside it: P-043 reached `supported` (3/3) this week** - a separate failure,
+where an entry *ceiling* rejects the fill on the very gap that satisfies the trigger (LITE
+9/16 B-425, IREN 9/17 B-439, SOL 9/18 B-465). v30's Option B is the first thing built that
+addresses the same family of misses.
+
+### STILL OPEN
+
+- **The zone-ratio rule.** Named 2026-09-11 (a ratio stated for a zone must be solved at
+  the zone's worst price, with the eligible band published alongside). Still unshipped a
+  week later.
+- **P-047 at two instances.** Needs a third before it means anything.
+- **B-165's trigger status is ambiguous and the scorer and the row disagree.** score-book
+  grades B-165 (SPCX, 2026-08-20, trigger 130.50) `never triggered`; the row's own text
+  records the 130.50 printing that same session at an 11:30a CT low of 130.39, before the
+  row was written at 14:12 CT. Both are defensible - the scorer measures forward from the
+  row date - but a row whose trigger fired before it was logged cannot be graded on its
+  trigger either way. Named, not fixed. It is why the 2026-09-19 receipt took B-168 (a
+  clean pass) rather than B-165 (the larger miss).
+
+---
+
+## Week of 2026-09-06 -> 2026-09-12
+
+The week the desk got its own scanner, and the week a published entry zone quoted
+its reward-to-risk from the middle of itself.
+
+### THE ALGORITHM - how he trades
+
+**HUNTER MODE shipped 2026-09-10** (commit `3331c1a`, `prompts/trading-copilot-v29.md`
+§HUNTER MODE, plus `scripts/hunt-bars.mjs` and `scripts/hunt.mjs`). *"Hunt X"* runs
+Adam's Hunter on this desk's own Robinhood capture and the framework judges only
+what fired. **What earned it:** Codex usage ran out and Hunter went dark with it, so
+a discovery leg that depended on another assistant's quota was not a discovery leg.
+**What it cost:** nothing in dollars. Three of this week's 80 rows arrived by hunter
+origin - B-292 RARE, B-316 IREN, B-335 MU - and none of the three produced a fill,
+so the scanner has changed what reaches the board and has not yet changed the book.
+
+### WHAT THE BOOK CONTRADICTED - the ratio quoted from the middle of the zone
+
+**B-332 (ORCL, 2026-09-10 evening) published a 149.70-152.60 buy zone with a 139.50
+stop and a 170.70 first target, and stated the ratio as "2.0:1 from 150."** 150 is
+the middle of that zone, not the worst price in it. At the top of the zone, 152.60,
+the same trade pays **1.38:1** against a gate that requires 2. Only **149.70-149.90**
+- twenty cents of a 2.90-wide zone, 7 percent of it - was ever eligible.
+
+**B-361 caught it the next afternoon** and said so in the row: *"THE R:R GATE IS
+BREACHED BY 0.355."* Cost in dollars: zero, and only because nothing was bought.
+Friday's tape went through the whole zone to a 149.84 low and closed 150.255, still
+above the compliant cap, and the Friday rule makes the close a signal rather than an
+entry. **An arithmetic error covered by the tape is still an arithmetic error.**
+
+**No framework change has shipped for it.** The fix belongs in the position-sizing and
+R:R sections - a ratio stated for a zone must be solved at the zone's worst price, and
+the eligible band published alongside the zone - and as of this week it is named, not
+built.
+
+### STILL OPEN
+
+- The zone-ratio rule above. Named 2026-09-11, unshipped.
+- **There is no section in this file for the week of 2026-08-30 -> 2026-09-05.** It was
+  never written. The gap is recorded rather than backfilled from memory.
+
+---
+
 ## Week of 2026-08-23 → 2026-08-29
 
 The week the risk band stopped being a dollar figure, the execution leg got a name and a test harness, and the book named the same execution hole for the third and fourth time without fixing it.

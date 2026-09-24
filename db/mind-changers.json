@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "id": "MC-001",
+      "created": "2026-09-22",
+      "when": [
+        {
+          "ticker": "PWR",
+          "op": ">",
+          "level": 650.58
+        },
+        {
+          "ticker": "GEV",
+          "op": ">",
+          "level": 957.27
+        },
+        {
+          "ticker": "QQQ",
+          "op": ">=",
+          "level": 747.46
+        }
+      ],
+      "meaning": "the 9/14 power-layer drop was LAG, not a rates repricing - P-053's read is wrong",
+      "source": "docs/reads/2026-09-22-premarket.md",
+      "row": null,
+      "expires": "2026-09-25",
+      "status": "open"
+    }
+  ]
+}

@@ -270,6 +270,13 @@
         "ticker": "SMCI",
         "detail": "PERSISTENCE CHECK, 10 sessions after the 2026-08-11 mirror pair - the guide repricings did NOT mean-revert, which is the objection this pattern most needed answered. SMCI closed 37.56 on 8/12 (D+1, +18.85%) and closed 37.25 on Friday 2026-08-21, holding essentially all of the guide move. ONON closed 30.91 on 8/11 after the FY26 cut and closed 30.03 Friday, still below where the cut left it - it never bounced. Live get_equity_quotes pull 2026-08-23 13:35 CT, last_trade_price at 2026-08-21T19:59:59Z. So the guide does not produce a pop that fades, it reprices the company and the price stays repriced. Falsification for this leg: a P-008 instance whose post-guide move is fully retraced inside 10 sessions on average-or-below volume.",
         "holds": true
+      },
+      {
+        "date": "2026-09-22",
+        "ticker": "ASPN",
+        "detail": "PERSISTENCE FAILURE. ASPN 8/6: Q2 EPS -0.22 vs -0.21 (miss) with Q3 revenue guided 65-80M vs 49.8M and adj EBITDA swinging positive. The reaction followed the GUIDE on the day (+37.5 pct close, 5.01 -> 6.89, 14.4M sh vs ~1M) - D+0 holds. But it fully retraced over 24 sessions to 4.76 on 9/10, below the pre-print close, while the guide was reaffirmed 9/15. Where the 8/23 SMCI persistence check held, this one did not: a guide from a 7 pct gross-margin company post plant incident was repriced as not credible. Candidate refinement: the guide wins the reaction; persistence may depend on guide credibility (margin, execution history).",
+        "holds": false,
+        "row_ref": null
       }
     ]
   },
@@ -521,6 +528,13 @@
         "ticker": "META",
         "holds": true,
         "detail": "Muse launch session, tracked 08:39 to 10:08 CT. META ran 644.44 (+5.05 pct) to 656.79 (+7.06 pct) and the layers below never followed: NVDA 225.75 flat to -0.55 pct, AVGO -1.15 to -1.92 pct, VRT -2.04 to -5.93 pct. Equal-weight 23-name board -0.44 pct at 10:08. Shipper repriced, chain did not. [Merged from two same-day instances logged 08:45 and 10:07 CT - one event, one instance.]"
+      },
+      {
+        "date": "2026-09-21",
+        "ticker": "META",
+        "detail": "Muse follow-through session, 14:03 CT. META 744.26 plus 11.88 pct on 1.99x its 30-day volume, driven by Connect on 9/23, a Wells Fargo target lift to 796, and Muse sitting at number 1 free on the US App Store. Median of the 15 silicon, box and power names below it: plus 2.72 pct. Spread 9.16 points. CAVEAT recorded honestly: unlike the 9/9 instance the chain WAS green today, but on its own separate catalysts - Intel plus 13.7 pct on the SK Hynix Ohio fab report, WTI down 5.1 pct, bitcoin above 85K - not on anything Muse did. The spread test holds; the clean isolation of the 9/9 instance does not repeat.",
+        "holds": true,
+        "row_ref": null
       }
     ]
   },
@@ -529,7 +543,7 @@
     "claim": "An announced capex commitment sells the announcer on the day and does not bid the chain it funds; a product launch bids the shipper and does not bid the chain either. The chain only moves on orders, not announcements.",
     "test": "1-day return of the announcing hyperscaler vs the equal-weight AI-infrastructure board on days carrying a capex announcement over 5 billion dollars",
     "first_seen": "2026-09-09",
-    "status": "proposed",
+    "status": "supported",
     "why": null,
     "logged_by": "claude",
     "instances": [
@@ -543,6 +557,12 @@
         "date": "2026-09-09",
         "ticker": "GOOGL",
         "detail": "Alphabet still -2.54 pct at 329.78 midday after the 15.1B Finland commitment; power layer that the money buys is -2.39 pct mean, all seven names red. Announcer charged, chain not bid.",
+        "holds": true
+      },
+      {
+        "date": "2026-09-11",
+        "ticker": "ORCL",
+        "detail": "Oracle guided FY capex to 90-95B USD on the Thursday print (RPO 664B, up 209B YoY). Gapped to 164.38 open (+7.5 pct), sold to a 150.41 low, 152.19 at 13:05 CT = -0.49 pct on the day, on 61.4M shares vs a 25.1M 30-day average. Equal-weight board +2.88 pct the same session, so the announcer lags the chain it funds by 3.37 points and the written test HOLDS. But the second clause of the claim FAILED: the chain WAS bid on the announcement, hard - DELL +10.0, HPE +10.3, HPQ +6.8, SMCI +5.8, ANET +5.5. The 664B RPO is an order book, not an announcement, which is the only escape hatch, and taking it makes the pattern unfalsifiable. Logging the clause failure out loud instead.",
         "holds": true
       }
     ]
@@ -584,6 +604,12 @@
         "ticker": "BOARD",
         "detail": "FIRST INSTANCE, the session the pattern was written from. Intraday marks pulled 13:07 CT, NOT settled closes - this instance must be re-scored against the 15:00 CT settle before it counts toward promotion. TRIGGER: Brent crude plus 3.5 pct to 101.33, first print above 100 since July, after US forces destroyed five Iranian tankers near Kharg Island; WTI plus 3.6 pct to 96.35; US 10-year yield up 6bp to 4.85 pct, highest since October 2023 (Benzinga market wrap, 2026-09-09 12:15 ET). No Fed communication event on the calendar - CPI and PPI are later this week - which is what qualifies this session for THIS row instead of P-016 or P-017. LAYER MEDIANS vs 9/8 settled closes: SILICON plus 2.38 pct (NVDA -0.68, AMD +3.56, MU +2.38, AVGO -0.98, MRVL +4.90). POWER minus 1.55 pct (VRT -8.88, ETN -1.27, GEV -1.93, PWR -1.55, CEG -1.55, VST -0.79, TLN -1.76). Gap 3.93 points, over the 3-point bar, and silicon is green so the broad-risk-off exclusion does not fire. TEST CONDITION MET. THE WORST NAME IS THE MOST CAPEX-FINANCED ONE, which is the specific claim: VRT at 264.995 minus 8.88 pct on 5.45M shares against a 4.00M two-week average, one week after committing 1.45B cash plus up to 1.15B earnout for Utility Innovation, and with nothing new on its own wire - the newest VRT item is an automated five-year-returns piece. Session low 263.85 held the 200-day at 258.03 by 5.82. THE AI NEWS THAT DAY WAS GOOD, which is what makes this a rates sort and not a demand sort: META plus 6.21 pct to 651.59 on the Muse launch with Mizuho calling it the start of a substantial product cycle, and Cloudflare plus 10 pct on an OpenAI security partnership. COMPETING EXPLANATION, STATED: X-Energy fell 9.3 pct the same session and the Benzinga wrap attributes both moves to positioning ahead of this week's CPI and PPI rather than to the yield itself - if the CPI print lands soft and the power layer immediately reclaims, this was event positioning, not a duration sort, and the row should be marked accordingly. RELATED: P-022 also held today on the same tape (silicon median over +2, power median under -1, equal-weight 23-name board -0.92 pct, rotation not demand). The two rows describe the same session through different mechanisms and MUST NOT both be counted as evidence for one story.",
         "holds": true
+      },
+      {
+        "date": "2026-09-10",
+        "ticker": "BOARD",
+        "detail": "SECOND INSTANCE, settled 15:00 CT closes, and it FAILS twice over. TRIGGER QUALIFIED: Brent plus 5.9 pct to about 107.20 and WTI plus 6.1 pct to about 101.91 on the Houthi seizure of Mocha (MT Newswires 13:58 ET); US 10-year settled 4.954 pct up 11.4bp, highest since 2023; 30-year 5.365 pct up 7.9bp, highest since May 2007; no FOMC, no minutes, no Fed speaker on the calendar. MEASURE, median one-day settled returns vs 9/9 closes: SILICON minus 3.38 pct (NVDA -2.25 on adjusted close 223.42 ex-div, AMD -3.38, MU -4.65, AVGO -1.01, MRVL -3.49). POWER minus 2.65 pct (VRT -5.61, ETN -1.45, GEV -2.91, PWR -1.36, CEG -2.68, VST -2.65, TLN -2.55). POWER BEAT SILICON by 0.73 points - the claim requires power to be more than 3 points BELOW silicon, so the sign itself is wrong, and separately silicon is red by more than 3 points which fires the broad-risk-off exclusion. TWO independent fail conditions. WHY THIS MATTERS MORE THAN A 1-1 RECORD: the 9/9 instance and this one are the same trigger with today the LARGER move on every axis - more oil, more 10-year, a 30-year at a 19-year high - and the sort INVERTED. The difference is not on the trigger axis the row measures. On 9/9 nothing repriced the Fed. Today PPI annual accelerated to 5.4 pct against 5.3 pct consensus and CME FedWatch September hike odds moved from about 62 pct to about 70-72 pct (Benzinga 14:26 ET, MT Newswires 13:58 ET). P-023 excludes sessions with a Fed COMMUNICATION event and does not exclude sessions where DATA does the same job. A PPI print did what a Fed speaker does and the row had no gate for it. That is a definition hole, not a coin flip, and P-023 should be rewritten to gate on the FedWatch move rather than on who caused it. Today also fails P-017 (a 8-10 point hawkish move, inside its 5-14 band, but buyers equal-weight minus 0.21 pct BEAT silicon equal-weight minus 2.95 pct, the inverse of what P-017 requires) and does not qualify for P-016 (under the 15-point floor) - so the P-016 SHAPE showed up on a session neither rates row can claim.",
+        "holds": false
       }
     ]
   },
@@ -596,5 +622,787 @@
     "why": null,
     "logged_by": "claude",
     "instances": []
+  },
+  {
+    "id": "P-025",
+    "claim": "The pre-market ranking of supply-chain layers by median return before a scheduled upstream event survives the first hour of real volume",
+    "test": "Rank the five board layers by median pre-market return at 05:40 CT on an event day, rank them again by median return over 08:30-09:30 CT, and compare the worst-ranked layer in each",
+    "first_seen": "2026-09-10",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-10",
+        "ticker": "BOARD",
+        "detail": "Pre-market 05:42 CT worst layer was crypto_bridge at -1.42pct median. Measured again at 09:30 CT on real volume the worst layer was silicon at -2.32pct median, with crypto_bridge fourth at -1.38pct. The ranking did not survive the first hour. Crypto bridge magnitude was nearly exact (-1.42 pre vs -1.38 at 09:30); silicon was underpriced 2.8x (-0.84 pre vs -2.32 actual). Pre-market priced the periphery right and the core wrong.",
+        "holds": false
+      },
+      {
+        "date": "2026-09-11",
+        "ticker": "BOARD",
+        "detail": "Second consecutive failure. Pre-market 05:42 CT ranking was crypto_bridge +1.57 / box +1.27 / power +0.96 / silicon +0.90 / buyers +0.52. At 08:38 CT on real volume the ranking was box +3.78 / power +2.39 / crypto_bridge +2.15 / buyers +1.90 / silicon +0.53. Worst layer pre-market was buyers; worst layer at the open was silicon. Ranking did not survive. Both failures pivoted on SILICON: underpriced 2.8x to the downside on 09-10, and the only layer to go BACKWARDS from its own pre-market mark on 09-11 while the other four added. CAVEAT: the test names an 08:30-09:30 CT window and this was measured 8 minutes into it, because the routine ships at 08:38. Re-measure at 09:30 CT before treating this instance as settled.",
+        "holds": false
+      }
+    ]
+  },
+  {
+    "id": "P-026",
+    "claim": "When a macro print hits between the pre-market read and the open, every supply-chain layer falls but the SIZE of the fall from its own pre-market mark is monotone in distance from the capex buyer",
+    "test": "For each of the five board layers compute median return at 05:40 CT and again after the open, take the difference, and check the five differences are ordered buyers > power > box > silicon > crypto bridge",
+    "first_seen": "2026-09-10",
+    "status": "refuted",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-10",
+        "ticker": "BOARD",
+        "detail": "PPI +0.4pct m/m 08:30 ET. Deltas from 05:42 CT pre-market mark to 08:38 CT: buyers -0.71pp, power -1.06, box -1.24, silicon -1.40, crypto bridge -1.61. Monotone, five of five.",
+        "holds": true
+      },
+      {
+        "date": "2026-09-10",
+        "ticker": "BOARD",
+        "detail": "Same morning, 08:40 CT, two minutes after the instance above. Deltas from the 05:42 pre-market mark: box -0.19pp, buyers -0.70, silicon -1.05, power -1.10, crypto bridge -1.36. Box jumped from worst-but-two to best on an ANET bounce 189.72 to 191.76. Ordering broke in 120 seconds. The claim is measured on too short a window and its test never named one.",
+        "holds": false
+      },
+      {
+        "date": "2026-09-11",
+        "ticker": "BOARD",
+        "detail": "Core CPI +0.3 pct m/m at 07:30 CT, hotter than the 0.2 pct consensus; annual core 2.4 pct in line. Market repriced UP, not down, so the falls-monotone premise never engaged. Deltas from the 05:42 CT pre-market mark to 08:38 CT: box +2.51pp, power +1.43pp, buyers +1.38pp, crypto_bridge +0.58pp, silicon -0.37pp. Predicted order buyers gt power gt box gt silicon gt crypto_bridge. Actual order box gt power gt buyers gt crypto_bridge gt silicon. Not monotone in distance from the capex buyer, and the sign of the whole move was wrong.",
+        "holds": false
+      }
+    ]
+  },
+  {
+    "id": "P-027",
+    "claim": "The crypto bridge is the worst AI-infrastructure layer by median only on sessions when bitcoin AND the silicon layer are both negative. It is an intersection of two factors, not a fifth layer.",
+    "test": "Each session, rank the five board layers by median return and record the sign of BTC and of the silicon median. The pattern fails if the crypto bridge is worst while BTC is flat or up, or is not worst while both BTC and silicon are red.",
+    "first_seen": "2026-09-10",
+    "status": "proposed",
+    "why": "The 09-10 midday board has crypto bridge worst at -3.14 percent median with BTC at -2.00 percent and silicon at -2.66 percent. At 10:07 CT the same day silicon was worst at -2.22 and the crypto bridge fourth at -0.86, which is what makes the two-factor read testable rather than a description.",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-10",
+        "ticker": "BOARD",
+        "detail": "FIRST INSTANCE, settled 15:00 CT closes plus a 15:17 CT BTC mark. CONDITION: bitcoin RED and silicon RED. BTC mark 77,286.38 against a midnight-CT open of 78,368.245, minus 1.38 pct. Silicon median minus 3.38 pct (NVDA -2.25 on the 223.42 ex-div adjusted close, AMD -3.38, MU -4.65, AVGO -1.01, MRVL -3.49). Both red, so the row predicts the crypto bridge is the WORST layer by median. IT IS: bridge minus 4.47 pct (CORZ 17.365 -4.01, IREN 43.62 -3.86, APLD 25.80 -4.94, WULF 16.125 -5.87) against buyers minus 0.01, power minus 2.65, silicon minus 3.38, box minus 3.96. HOLDS. THE HONEST WEAKNESS OF THIS INSTANCE, STATED: it is a session where EVERY layer is red and the ordering is nearly monotone in beta, so a plain risk-off sort predicts the same answer without needing bitcoin at all. The instance that will actually test P-027 is one where silicon is red and BTC is FLAT OR UP - if the bridge is still worst there, bitcoin is not the mechanism and the row is wrong. Note also that the four bridge names fell 3.9 to 5.9 pct on volume of 0.67x to 0.80x their own 30-day averages, so this was a withdrawn bid rather than distribution (P-024 territory), which means the magnitude here is weak evidence about conviction either way. RELATED AND MUST NOT BE DOUBLE-COUNTED: P-023 also has a 2026-09-10 instance (holds false) off the same tape.",
+        "holds": true
+      },
+      {
+        "date": "2026-09-15",
+        "ticker": "BOARD",
+        "detail": "15:00 CT close, graded 17:35 CT by the closing-bell routine. Crypto bridge was the WORST layer by median (-5.01, 0/4 green: CORZ -5.28, IREN -3.66, APLD -4.74, WULF -6.40) with BTC-USD -2.77 (mark 75,518 vs 77,666 open) but the silicon median POSITIVE +0.57 (4/5 green). The claim says the bridge is worst ONLY when BTC and silicon are both red. Silicon was green, so the claim is contradicted. The written fail-list names two cases and omits this one, so this is graded against the claim, not the fail-list. The 9/10 instance said the real test was silicon red with BTC flat or up; this is the inverse case, and it says bitcoin alone was enough. Other layers: box +1.73, power -1.18, buyers -1.44.",
+        "holds": false,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-028",
+    "claim": "An X 'stocks to watch tonight' list on sub-20M-cap names front-runs its own readers: the run happens in after-hours and pre-market, and the pre-market print is the top for the majority of the names by the next close",
+    "test": "For each list of N micro-cap names (cap under 20M) posted after the close: compare each name's next-session close to the highest pre-market print reported by a wire (Benzinga/MT Newswires premarket movers). Instance HOLDS if a majority of the names close BELOW their pre-market print; FAILS if a majority close at or above it. First instance: StocksAtNight Ep. 2 (2026-09-09 ~19:00 CT): SNYR, TNON, MGN, FTFT - attach after the 2026-09-10 close.",
+    "first_seen": "2026-09-10",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": []
+  },
+  {
+    "id": "P-029",
+    "claim": "Two AI-infrastructure names that fall by the same amount into a macro print do NOT bounce by the same amount off it. The bounce sorts by LAYER position, not by how far the name fell, and silicon recovers least despite falling most.",
+    "test": "Take pairs of board names whose drawdown over the 3 sessions into a scheduled macro print is within 0.5pp of each other but sit in different layers. Measure first-hour return after the print. Pattern predicts the non-silicon name outperforms by more than 2x.",
+    "first_seen": "2026-09-11",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-11",
+        "ticker": "ANET",
+        "detail": "ANET and NVDA fell nearly identically into the CPI print: 09-08 close to 09-10 close, ANET 194.96 to 188.99 is -3.06 pct, NVDA 225.73 to 218.36 is -3.27 pct, a 0.21pp gap. Off the print at 08:41 CT, ANET +3.69 pct and NVDA +0.79 pct, with SPY +1.03 pct. Same drawdown, 4.7x difference on the recovery. ANET is box layer, NVDA is silicon.",
+        "holds": true
+      }
+    ]
+  },
+  {
+    "id": "P-030",
+    "claim": "On a broker sector-initiation day the RATING carries no information: the name rated neutral, with a price target below spot, captures most of the move of the name rated buy",
+    "test": "Same-session return of the neutral-rated name divided by the buy-rated name's return on the initiation date. Holds when the ratio exceeds 0.6",
+    "first_seen": "2026-09-11",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-11",
+        "ticker": "HPQ",
+        "detail": "RBC initiates the hardware group. DELL Outperform PT 640, +10.9pct to 561.79 at 10:06 CT. HPQ Sector Perform PT 33, which is 7.4pct BELOW its 35.645 price, and it is +8.9pct. Ratio 0.82. HPE, not in the note at all, +10.0pct.",
+        "holds": true
+      }
+    ]
+  },
+  {
+    "id": "P-031",
+    "claim": "When one layer of the AI-infrastructure chain re-rates on price while the layer upstream of it does not, midday VOLUME PACE decides whether it is demand or positioning: the re-rate gives back ground into the close unless the upstream layer is also running at or above its own normal session volume pace.",
+    "test": "At midday, take session volume divided by 30-day average volume for the re-rating name and for the upstream layer median, then measure the re-rating name close-to-midday return. Holds if the name fades when upstream pace is under 1.0x session-elapsed pace.",
+    "first_seen": "2026-09-11",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-11",
+        "ticker": "SMCI",
+        "detail": "FALSIFYING INSTANCE, first one on the board. P-031 says the re-rated layer gives the move back when the layer below it does not confirm on volume. It did not. The box layer re-rated on the Oracle 90-95B capex guide while silicon ran 0.53x its 30-day volume all session and memory-storage was outright red (SNDK -3.57, STX -3.80, WDC -3.04, MU -0.10 pct). Under P-031 the box layer should have faded into the close. It closed at or near its high instead: DELL 566.61 +11.84 pct (session L 517.52, H 567.57 - it never revisited the open), HPQ 35.425 +8.25 pct, SMCI 40.14 +7.38 pct, ANET 199.75 +5.69 pct. The named test from B-349 resolved both ways above its line. Note the irony sitting inside it: ORCL itself, the source of the capex number, closed 150.13 and was DOWN 1.84 pct on its own news after opening 164.38 and being sold 15.58 points to 150.41. The originator faded and the read-throughs did not, which is the exact inverse of what P-031 predicts.",
+        "holds": false
+      }
+    ]
+  },
+  {
+    "id": "P-032",
+    "claim": "Two moves of the same size in the same theme on the same day are not the same information: one caused by a sell-side initiation should give back more over the next five sessions than one caused by reported results.",
+    "test": "5-session return from the 2026-09-11 close for DELL (+11.95%, RBC initiation, no company news) versus HPE (+12.42%, reported record revenue +34% y/y). Holds if DELL's 5-session return is the weaker of the two.",
+    "first_seen": "2026-09-11",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-18",
+        "ticker": "DELL",
+        "detail": "5-session test resolved at the 9/18 close. DELL (RBC initiation, no company news) 567.29 -> 568.53 = +0.22 pct. HPE (reported record revenue +34 pct y/y) 62.09 -> 60.75 = -2.16 pct. The claim was that the initiation move gives back MORE; DELL was the stronger of the two, so holds=false. Floor version reads the same way: HPE broke its 56.34 gap floor on 9/14 (low 55.16, close 55.41) and again 9/15-9/16 (low 55.02), while DELL never revisited 517.72 (lowest low of the stretch 525.85 on 9/14). Rows B-360 / B-383 / B-455 / B-471.",
+        "holds": false,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-033",
+    "claim": "When a headline threatens the PACE of AI spending rather than the demand for it, the hyperscaler buyers layer outperforms every supplier layer on the day, because the same capex line is a cost to the buyer and revenue to the supplier.",
+    "test": "Session of 2026-09-14 (Amodei/Altman slowdown essay, no earnings on the board). Median one-day return, 9/11 close to 9/14 close, for each db/board.json layer. HOLDS if the buyers median beats EACH of silicon, box, power and crypto_bridge medians by 3 percentage points or more at the close. FAILS if any supplier layer median finishes within 3 points of buyers, or if buyers finish below any supplier layer. Pre-market 05:40 CT marks: buyers -0.24, power -4.20, crypto_bridge -4.52, box -4.81, silicon -5.04.",
+    "first_seen": "2026-09-14",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-14",
+        "ticker": "BOARD",
+        "detail": "15:00 CT close vs 9/11 close. Buyers median +2.35 (GOOGL +3.25, META +2.73, MSFT +1.97, AMZN -1.25). Silicon -4.74, crypto_bridge -6.27, box -5.89, power -7.52. Narrowest gap buyers over silicon 7.09, above the 3-point bar. Buyers beat every supplier layer. Gap path: 5.98 at 08:40, 6.34 at 10:06, 6.49 at 11:34, 7.09 at close - widened all day. Equal-weight 23-name board -4.73, 3 of 23 green. SPY -0.46, QQQ -0.80.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-034",
+    "claim": "On a pace-of-AI-spend headline the power layer finishes worse than silicon, because power is the supplier layer that also carries rate risk: the headline hits every supplier equally, the 10-year and a Fed hike land mostly on power.",
+    "test": "Session of 2026-09-14. At the 15:00 CT close, db/board.json power layer median one-day return is below the silicon layer median. 10:06 CT marks: power -6.22, silicon -5.77 (power worse by 0.45); 08:40 CT marks: power -5.07, silicon -6.17 (silicon worse by 1.10). XLU -1.05 at 10:05. FAILS if silicon median closes at or below power median.",
+    "first_seen": "2026-09-14",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-14",
+        "ticker": "BOARD",
+        "detail": "15:00 CT close. Power median -7.52 (ETN) vs silicon -4.74 (AVGO): power worse by 2.78. Gap path 0.45 at 10:06, 2.67 at 11:34, 2.99 at 13:06, 2.46 at 14:07, 2.78 at close - it re-widened in the last hour. MECHANISM NOT CONFIRMED: TLT closed +0.10 (80.95 vs 80.87) and the 10Y hit 5.00 intraday then reversed lower, so rates did not sell power on the close. Result holds, stated why does not. Leave why empty.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-035",
+    "claim": "When a single-name analyst action lands on a day the name's whole board layer sells off on a macro headline, most of the name's move belongs to the layer, not the analyst; the analyst's share is only the excess over the layer median with that name removed.",
+    "test": "Session of 2026-09-14, GEV (GLJ Research initiates Sell, 470 target, 08:23 ET) inside the db/board.json power layer on the Amodei pace-of-AI-spend tape. At the 15:00 CT close compute R = (power median one-day return excluding GEV) / (GEV one-day return). HOLDS if R >= 0.60. FAILS if R < 0.60, i.e. GEV finishes more than 40 percent worse than its no-initiation peers. 13:06 CT marks: GEV -8.69, power ex-GEV median -7.06, R = 0.81, GEV excess -1.62.",
+    "first_seen": "2026-09-14",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-14",
+        "ticker": "GEV",
+        "detail": "15:00 CT close. GEV 874.66 -8.63. Power ex-GEV median -7.29 (six names: PWR -4.40, VST -5.16, CEG -7.06, ETN -7.52, VRT -7.62, TLN -8.38). R = 7.29/8.63 = 0.845, above 0.60. GEV excess over peers -1.34, the analyst's share. Marks: R 0.81 at 13:06, 0.79 at 14:07, 0.845 at close.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-036",
+    "claim": "The session after a pace-of-AI-spend headline opens a wide buyers-over-silicon gap, part of that gap reverses: silicon beats the buyers layer on day two.",
+    "test": "Session of 2026-09-15, the day after 2026-09-14 closed buyers +2.35 vs silicon -4.74 (gap 7.09, P-033). Median one-day return, 9/14 close to 9/15 close, per db/board.json layer. HOLDS if the silicon median beats the buyers median at the 15:00 CT close. FAILS if buyers close at or above silicon. Pre-market 05:40 CT marks: silicon +0.70 (5/5 green), buyers -0.79 (0/4 green), gap 1.49. Caveat P-025: pre-market layer ranking failed the first hour twice.",
+    "first_seen": "2026-09-15",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-15",
+        "ticker": "BOARD",
+        "detail": "15:00 CT close (last regular prints 14:59:59 CT, pulled 17:30 CT). Silicon median +0.57 (NVDA; 4/5 green: AMD +2.21, MRVL +1.34, NVDA +0.57, MU +0.38, AVGO -1.59) vs buyers median -1.44 (1/4 green: META +0.73, GOOGL -1.25, MSFT -1.64, AMZN -2.01). Silicon ahead by 2.01. Marks: 1.49 at 05:40 pre-market, 1.59 at 08:25, 2.01 at close - the pre-market ranking held all day this time (contrast P-025). Size: 2.01 of Monday 7.09 gap reversed, about 28 pct. Other layers: box +1.73, power -1.18, crypto bridge -5.01 (0/4 green, BTC -2.63). SPY -0.46, QQQ -0.65, SMH +0.12. Mechanism not tested: why left empty.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-037",
+    "claim": "MU 920-970 range: in the 2026 range regime a daily low at or under 920 trades 970 before breaking 5 pct lower (874)",
+    "test": "Falsified if, from 2026-09-17 on, two of the next three touches of 920 hit 874 before 970, or MU closes under 874 (range break)",
+    "first_seen": "2026-09-17",
+    "status": "proposed",
+    "why": "Adam 2026-09-17 via an X trader's 10x MU post ('920-970 hits like clockwork'). Hand count on daily bars 6/1-9/17: 5 wins / 3 losses to a 874 stop; 3 for 3 since 8/19 (8/19, 8/24, 9/14). Losses 6/5, 7/15, 7/24 were all range breaks. Not graded by quant-evidence.",
+    "logged_by": "interactive run the market, daily bars robinhood-mcp",
+    "instances": []
+  },
+  {
+    "id": "P-038",
+    "claim": "A layer that gaps up 3 pct or more on a catalyst specific to that layer, then gives back the ENTIRE gap by midday while a different layer on the same board holds its gains, is the market repricing that catalyst as bad for the gapping layer - and it closes below its open",
+    "test": "Session 2026-09-17. Power layer opened on the House 417-3 Ratepayer Protection Act vote: VRT +4.40 pct (open 249.93 vs 239.41 close), GEV +3.99, PWR +2.72, CEG +2.06. By 13:06 CT the gap was fully gone: VRT +0.85, GEV +0.30, PWR -0.50, CEG +0.98 (power median +0.98). Silicon held: AMD +6.80, MU +5.50, MRVL +5.11 (silicon median +5.11). HOLDS if at the 15:00 CT close power median one-day return is below silicon median AND VRT closes below its 249.93 open. FAILS if VRT reclaims the open or power median beats silicon median.",
+    "first_seen": "2026-09-17",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-17",
+        "ticker": "VRT",
+        "detail": "Power gapped on the House 417-3 Ratepayer Protection Act vote and closed under its open. VRT open 249.93, close 241.39 (-3.42 pct from the open, +0.83 pct on the day). Power layer median +1.22 vs silicon median +4.80. Both gate conditions met.",
+        "holds": true,
+        "row_ref": "B-444"
+      }
+    ]
+  },
+  {
+    "id": "P-039",
+    "claim": "A session where the index round-trips to its own opening print is not a quiet session: when the whole day gain is the gap, the rotation moves underneath, and the spread between the best and worst AI-infrastructure layer median that day is 3 points or wider",
+    "test": "Session 2026-09-17, marks at 14:07 CT. SPY open 763.16, last 762.89 (0.27 under the open), full-day range 759.96-763.41 = 0.45 pct, day gain +1.17 pct which is entirely the gap. Layer medians: silicon +5.47, crypto_bridge +5.14, box +4.66, buyers +1.07, power +0.95. Best-worst spread 4.52 points. HOLDS if at the 15:00 CT close SPY finishes within 0.25 pct of its 763.16 open AND the best-minus-worst layer median spread is 3.0 points or more. FAILS if the spread closes under 3.0 points. Does not apply if SPY closes more than 0.25 pct from its open.",
+    "first_seen": "2026-09-17",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-17",
+        "ticker": "SPY",
+        "detail": "SPY closed 762.64 vs its 763.16 open, 0.068 pct away, inside the 0.25 pct gate. Layer medians at the close: silicon +4.80, box +4.47, crypto_bridge +4.64, buyers +1.53, power +1.22. Best-minus-worst spread 3.58 points, above the 3.0 gate. Spread narrowed from 4.52 at 14:07 but never broke the threshold.",
+        "holds": true,
+        "row_ref": "B-444"
+      }
+    ]
+  },
+  {
+    "id": "P-040",
+    "claim": "A price level is not resolved by a closing print on a triple-witching plus index-rebalance day. Three mechanical flows - quarterly options and futures expiry, the S and P DJI rebalance effective at the close, and monthly OpEx - set that auction print, so the close reports index-fund demand rather than the tapes verdict on the level. The next sessions OPEN is the real test.",
+    "test": "Session of 2026-09-18 (triple witching, S and P DJI quarterly rebalance effective at the close, monthly OpEx) against the SPY 763.16 line from B-447. HOLDS if SPYs 15:00 CT close on 2026-09-18 and SPYs 08:30 CT opening print on 2026-09-21 fall on OPPOSITE sides of 763.16 - the closes verdict did not survive the next open. FAILS if both fall on the same side of 763.16, which would mean the witching close carried the same information an ordinary close would. Pre-market mark 05:41 CT: SPY 762.83, 0.33 under the line. Generalises to any index level on any quarterly witching plus rebalance date; SPY on 2026-09-18 is instance one. CORRECTION 2026-09-18 08:45 CT (see B-462, P-041): SPY went ex-dividend TODAY, 1.90352 per share, so 763.16 is a cum-dividend number and both prints this test compares to it are ex-dividend. Read the gate as 761.27 (763.16 times 760.7112 over 762.60) for the 9/18 close AND the 9/21 open. Using 763.16 biases both sides low and would push this pattern toward FAILS for a reason that has nothing to do with witching.",
+    "first_seen": "2026-09-18",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": []
+  },
+  {
+    "id": "P-041",
+    "claim": "Any price level carried across an ETF ex-dividend date is stale by the distribution, and the raw percent change on that date overstates weakness by the same amount. The check is a sibling fund on the same index that is not ex-dividend today: if it is flat or green while the subject looks red, the decline is the distribution, not the tape.",
+    "test": "SPY ex-dividend 2026-09-18, 1.90352 per share. HOLDS if SPY's percent change against the 762.60 official 9/17 close differs from IVV's and VOO's same-day percent change by approximately the dividend yield of the day (about 0.25 pct), while SPY's change against its 760.7112 adjusted close lands within 5 basis points of IVV and VOO. FAILS if SPY's raw change matches IVV and VOO, which would mean no adjustment occurred. Mark 08:41 CT: SPY 761.14 = minus 0.19 pct raw, plus 0.056 pct adjusted; IVV plus 0.031 pct; VOO plus 0.053 pct. Generalises to every ETF ex-dividend date and to every level logged before one.",
+    "first_seen": "2026-09-18",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-18",
+        "ticker": "SPY",
+        "detail": "Measured 08:41 CT. SPY 761.14: minus 0.19 pct against the 762.60 official 9/17 close, plus 0.056 pct against the 760.7112 adjusted close. IVV plus 0.031 pct, VOO plus 0.053 pct - same index, no distribution today. The adjusted SPY number sits within 3 bp of both siblings; the raw number is 0.22 to 0.25 pct below them, which is the 1.90352 dividend. The red print was the distribution.",
+        "holds": true,
+        "row_ref": "B-462"
+      }
+    ]
+  },
+  {
+    "id": "P-042",
+    "claim": "When one headline sells an entire theme in a single session, the shock-day move does not separate the businesses but the four-session recovery does. Read the recovery, not the selloff.",
+    "test": "Take two names in the same theme that fell within 1 percentage point of each other on a shared headline day. Measure each one's return from that day's close over the next 4 sessions. The claim holds if the spread between them exceeds 5 percentage points.",
+    "first_seen": "2026-09-18",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-18",
+        "ticker": "CEG",
+        "detail": "Shared shock 2026-09-14 on the Amodei pacing essay: ETN -7.57 pct and CEG -7.09 pct from the 09-11 close, 0.48 pts apart. Four sessions later ETN is plus 6.46 pct off that close and CEG is minus 3.19 pct. Spread 9.65 pts, above the 5-pt bar.",
+        "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-09-18",
+        "ticker": "ETN",
+        "detail": "Full-session confirmation of the midday read. Base = 9/11 close (pre-Amodei). By the 9/18 close ETN 424.75 is -0.15 pct from 425.37 - the shock is fully round-tripped. CEG 254.58 is -10.60 pct from 284.75 and has recovered none of it. Spread 10.45 pts on the pre-shock base. Measured off the 9/14 shock close instead: ETN +8.03 pct, CEG -3.78 pct, spread 11.81 pts vs the 9.65 pts logged at 11:38 CT - it widened 2.16 pts in the back half of the same session. Backlog vs spot held across the whole power layer: PWR +3.24, VRT +3.07, GEV +1.63 (equipment/build) against CEG -3.13, VST -2.01, TLN -0.35 (merchant generation).",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-043",
+    "claim": "A plan whose entry carries a hard price ceiling loses the fill on the very move that confirms it. When the confirming print arrives as a gap or a one-way opening drive rather than a drift, price clears the ceiling in the same bar that satisfies the trigger, so the trigger reads TRUE and the entry reads VOID at the same moment.",
+    "test": "Across conditional rows carrying BOTH a trigger level and a stated entry ceiling, measure the price at the first moment the trigger condition is satisfied. HOLDS if in a majority of instances that price is already ABOVE the ceiling, meaning the ceiling rejects the fill the trigger just earned. FALSIFIED if a majority of triggers are satisfied at or under the ceiling, which would mean the ceilings are sized correctly and these three sessions were the coincidence.",
+    "first_seen": "2026-09-18",
+    "status": "supported",
+    "why": "Three consecutive sessions produced the identical failure on three unrelated names. LITE 9/16 (B-425): first 30-min bar closed 882.94 against an 856.46 ceiling. IREN 9/17 (B-439): first 30-min bar closed 43.32 against a 42.00 zone top. SOL 9/18 (B-465): 112.39 against B-302's 111.00 entry cap, with the trigger 110.04 already cleared. Nothing was lost in any of the three because nothing was placed - but three for three means the ceilings are being set from a settled price and then tested by an opening gap, and the desk should know whether that is the setup failing or the ceiling being the wrong tool for a gap entry.",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-16",
+        "ticker": "LITE",
+        "detail": "B-423 set the entry band 826.44-856.46 with a LIMIT 856.46 DAY to enforce the ceiling. The first 30-min bar opened 856.51 - already over the ceiling on the opening print - ran to 898.00 and closed 882.94. The plan's own trigger logic was satisfied by a move that put price 3.1 pct above the highest price the plan would pay. No trade, nothing lost.",
+        "holds": true,
+        "row_ref": "B-425"
+      },
+      {
+        "date": "2026-09-17",
+        "ticker": "IREN",
+        "detail": "B-430 required a first 30-min bar holding 41.77-42.00, with 42.00 the ceiling because 2:1 to the 49.29 target only holds at 42.00 or lower. The bar opened 45.44, high 46.17, low 42.77, closed 43.32 - it never traded down to the ceiling at all. Closest approach 42.34. No trade, nothing lost.",
+        "holds": true,
+        "row_ref": "B-439"
+      },
+      {
+        "date": "2026-09-18",
+        "ticker": "SOL",
+        "detail": "SOL 112.39 at 12:58 CT, 2.14 pct through the 110.04 trigger and 1.25 above B-302's 111.00 entry cap, with the confirming UTC close still six hours away. The ceiling is exceeded BEFORE the trigger is even confirmed, so a confirming close tonight produces a signal with no fill. Third instance in three sessions.",
+        "holds": true,
+        "row_ref": "B-465"
+      }
+    ]
+  },
+  {
+    "id": "P-044",
+    "claim": "On sessions where bitcoin moves more than 3 percent in either direction, the crypto_bridge layer lands closer to BTC than to the silicon layer. On a big-coin day the bridge is a coin proxy no matter how many AI contracts it has signed. This is the convergence case P-019 cannot see, because P-019 only samples sessions where the bridge and BTC diverge by more than 3 points.",
+    "test": "On sessions where the absolute one-day BTC-USD return exceeds 3.00 pct, compute the equal-weight one-day return of db/board.json crypto_bridge (CORZ, IREN, APLD, WULF), the BTC return, and the silicon median (NVDA, AMD, MU, AVGO, MRVL). HOLDS if the absolute gap from bridge to BTC is smaller than the absolute gap from bridge to silicon. FALSIFIED if the bridge lands nearer silicon, which would mean the AI-compute framing survives a hard coin day.",
+    "first_seen": "2026-09-18",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-18",
+        "ticker": "BOARD",
+        "detail": "FIRST INSTANCE, 13:07 CT pull, intraday not settled. QUALIFYING: BTC-USD plus 4.37 pct (mark 80,898.97 vs midnight-CT open 77,513.19), over the 3.00 bar. Equal-weight crypto_bridge plus 3.43 pct (CORZ +2.68, IREN +5.21, APLD +4.36, WULF +1.49). Silicon median plus 0.06 pct (NVDA +0.06, AMD -0.07, MU +2.57, AVGO +1.91, MRVL -1.18). Bridge-to-BTC gap 0.93 pts, bridge-to-silicon gap 3.38 pts. Bridge sits nearer the coin by a factor of 3.6, so it HOLDS. Box layer median minus 2.09 pct (SMCI -3.80, DELL -2.09, ANET -0.68) is the corroborating fact: if this were AI compute being repriced the servers would not be the worst layer on the board. THE HONEST WEAKNESS: IREN carries its own catalyst today, the JPMorgan double-upgrade to Overweight with a 65 target published 09-14 plus the ERCOT Batch Zero conditional approval for the 2GW Sweetwater Hub, so its plus 5.21 is not purely coin beta and it is the largest of the four contributions to the bridge mean. Drop IREN and the remaining three average plus 2.84, which still lands nearer BTC (1.53) than silicon (2.78), so the verdict survives the deletion but by a thinner margin. SECOND WEAKNESS: every mover on the tape is running below its own average volume - across the whole scan of 131 liquid names not one of the top fourteen movers printed relative volume above 1.00, IREN at 0.51 and APLD at 0.51 - so this is a thin bid on both sides and magnitude is weak evidence about conviction. WHY THIS ROW EXISTS: P-019 claims the bridge prices AI compute rather than bitcoin, and its test only fires on sessions where bridge and BTC diverge by more than 3 points. Today they converged to within 0.93, so P-019 is structurally blind to exactly the session that should settle it. The 09-08 instance on P-019 said the settling instances would be ones where BTC moves hard and the bridge has to choose. This is that session, and P-019 cannot record it. That is a flaw in my test design, not in the tape.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-045",
+    "claim": "On a triple-witching plus index-rebalance session, SPY and QQQ run at or above their 2-week average volume while their large-cap components run below theirs. The volume is index flow, not stock selection, so single-name moves that session carry less information than usual.",
+    "test": "On each witching/rebalance day, compute volume as a percent of 2-week average for SPY and QQQ, and the median of the same ratio across the board names. If the component median is greater than or equal to the index ratio, the claim fails.",
+    "first_seen": "2026-09-18",
+    "status": "proposed",
+    "why": "Index-level products absorb rebalance and expiry flow that never touches an individual name's tape. If both index and components are busy, the flow is real demand and this claim is wrong.",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-18",
+        "ticker": "SPY",
+        "detail": "Measured 14:08 CT, both sides partial-session. SPY 45.55M vs 44.25M 2-wk avg = 103 pct. QQQ 30.45M vs 31.03M = 98 pct. Component ratios: MU 91, CEG 78, ETN 77, SMCI 74, NVDA 68, VRT 54, DELL 45. Median 74 pct. Index above a full day, components three quarters of one, with the closing auction still ahead.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-046",
+    "claim": "A memory contract-price increase is a same-session gain for the memory maker and a same-session loss for the server OEM, because DRAM is the OEM cost of goods - one input price, two layers, opposite signs.",
+    "test": "On sessions carrying a reported DRAM or NAND contract-price increase, compare same-day return of MU/SNDK/STX/WDC against DELL/SMCI/HPQ. Holds when the memory basket is positive and the OEM basket is negative on the same session.",
+    "first_seen": "2026-09-18",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-18",
+        "ticker": "DELL",
+        "detail": "RBC put calendar Q3 DRAM contract prices up more than 20 pct QoQ. Memory basket: MU +3.81 pct to 1014.70 (fresh high, no earnings until 9/30), SNDK +11.0, STX +6.9, WDC +4.0. OEM basket: DELL -3.38 pct to 568.53 after printing a 52-week high of 595.00 the same morning on a Daiwa target raise to 625 - closed 17 cents off the session low; SMCI -3.07 pct. Caveat carried from P-045: triple witching plus S&P/DJI rebalance, DELL traded 10.81M on a 9.49M 30-day average but ran under half its average for most of the session. First instance - one session is a coincidence.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-047",
+    "claim": "A buy level set below spot and carried on the book with a decide-by date expires untouched when the name trends up in the interval: the discount never arrives, the level dies out of the money, and the position is never owned. The level being correct structurally is irrelevant if price never returns to it.",
+    "test": "Across conditional rows whose trigger sits BELOW the review price and which carry a decide-by date, measure the lowest print between the row date and the decide-by. HOLDS if price never reached the trigger and the name finished the interval ABOVE the review price. FALSIFIED if a majority of below-spot triggers are reached before their decide-by.",
+    "first_seen": "2026-09-18",
+    "status": "proposed",
+    "why": "Two rows came due on the same day, 2026-09-18, both dip-triggers written into uptrends. MU 881 (B-144 8/19, restated B-374 9/14) expired with MU at 1015.80, 15.3 pct above the level, never within 4 pct of it in a month. LITE 826.44 (B-392 9/14) missed by 5.67 on the 9/15 low of 832.11 and then closed the week at 930.91. Nothing was lost in dollars because nothing was placed - the cost is the two positions the desk wrote plans for and did not own.",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-18",
+        "ticker": "MU",
+        "detail": "B-144 named 881 on 2026-08-19 with decide-by 2026-09-18; B-374 restated it 9/14 at 918.88 pre-market, 4.1 pct above the level, Watchlist Only by rule. MU low for the decide-by week was 902.60 on 9/14, 21.60 above the trigger. Closed 1015.80 on 9/18, 15.3 pct above a level that was due that day. Never within 4 pct of 881 since the row was written. Nothing placed, nothing lost in dollars.",
+        "holds": true,
+        "row_ref": "B-470"
+      },
+      {
+        "date": "2026-09-18",
+        "ticker": "LITE",
+        "detail": "B-392 set the 826.44 buy level on 2026-09-14 at a 845.00 review price, decide-by 2026-09-18, off the 50-day. LITE low for the week was 832.11 on 9/15 - the level was missed by 5.67, 0.68 pct. It then closed 919.40 on 9/16, 893.61 on 9/17 and 930.91 on 9/18, finishing 12.7 pct above the untouched level. B-472 killed 826.44 at the close. Nothing placed, nothing lost in dollars.",
+        "holds": true,
+        "row_ref": "B-472"
+      }
+    ]
+  },
+  {
+    "id": "P-048",
+    "claim": "A level whose fill depends on a human placing the order after the level is written does not get filled on an opening-drive session. Price reaches the level inside the first thirty minutes, holds it for minutes, and is back through it before any order exists. The level was correct and the plan still paid nothing, because a level with no resting order is a prediction, not a plan.",
+    "test": "Across book rows whose fill requires an order placed manually after the row was written, check (a) whether the named level printed during the session and (b) whether a fill occurred. HOLDS if the level printed and no fill occurred. FALSIFIED if a majority of such levels either never print at all, or do fill, which would mean manual placement is not the binding constraint.",
+    "first_seen": "2026-09-21",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-21",
+        "ticker": "UBER",
+        "detail": "B-482 written 07:18 CT set SELL 13 LIMIT 71.00 DAY, to be placed by hand after cancelling stop 6aa7efa8. UBER opened 70.8173 and printed a 71.39 high inside the first nine minutes - 0.39 through the limit, and 0.39 over Friday's 71.00 high that the level was drawn from. At 08:38 CT get_equity_orders returned ZERO UBER orders created today and get_equity_positions still showed 27 shares with shares_available_for_sells 0.00, all held by the old 27-share stop. By 08:42 CT UBER was 70.29, a full 1.10 below the print, and -0.30 pct against a +0.64 pct SPY. The level was correct to the cent and paid nothing.",
+        "holds": true,
+        "row_ref": "B-482"
+      }
+    ]
+  },
+  {
+    "id": "P-049",
+    "claim": "When a layer largest name runs at or below its normal session volume pace while that layer laggards run 3x pace or more, the move is positioning in the laggards rather than layer-wide demand, and the laggards give back more of the move than the leader over the next 5 sessions",
+    "test": "At midday take session volume divided by 30-day average volume, normalised by fraction of session elapsed, for the layer largest name by market cap and for each laggard up more than 5 pct. Holds if, 5 sessions later, the laggards median return from the midday print is below the leader return. Fails if laggards outperform the leader over that window.",
+    "first_seen": "2026-09-21",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": []
+  },
+  {
+    "id": "P-050",
+    "claim": "A datacenter order announced in GIGAWATTS moves the power layer more than the box layer in the same session, because a gigawatt is a power constraint before it is a server order.",
+    "test": "On sessions carrying an AI-datacenter commitment stated in gigawatts or megawatts, compare equal-weight same-day return of the power layer (VRT ETN GEV PWR CEG VST TLN) against the box layer (SMCI DELL ANET). Pattern holds when power beats box.",
+    "first_seen": "2026-09-21",
+    "status": "refuted",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-21",
+        "ticker": "AMD",
+        "detail": "OpenAI committed to 6 GW of AMD Instinct (1 GW MI450 in H2) plus an Oracle 50,000-unit MI450 order, announced intraday. Measured at 11:34 CT, not at the close: power equal-weight +2.24 pct (CEG +4.05, ETN +3.07, TLN +2.44, GEV +2.23, VRT +2.07, VST +1.08, PWR +0.72) against box +2.58 pct (SMCI +4.89, ANET +1.67, DELL +1.18). Power turned - all seven green after five of the seven were red at 08:45 - but it still finished BEHIND box and behind silicon (+3.90). FAILS on the stated test. First instance and it goes against me: the gigawatt number reprices the chip vendor and the server, and the power names only get the sentiment, not the order. Re-measure at the 15:00 CT close before treating this as settled.",
+        "holds": false,
+        "row_ref": "B-489"
+      },
+      {
+        "date": "2026-09-21",
+        "ticker": "AMD",
+        "detail": "Second instance, same session, worse. 13:10 CT equal-weight: silicon +4.10 pct, buyers +4.05, box +2.96, crypto bridge +2.52, power +1.80. At 11:45 CT power was +2.24 and box +2.58 - power GAVE BACK 0.44 points into the afternoon while silicon added 0.20 and box added 0.38. The OpenAI 6GW Instinct order plus Oracle 50,000 MI450 is the most gigawatt-denominated headline available and the power layer is the worst-performing layer on the board.",
+        "holds": false,
+        "row_ref": null
+      },
+      {
+        "date": "2026-09-21",
+        "ticker": "PWR",
+        "detail": "THIRD instance, the 15:00 CT close re-measure that instance 1 asked for. Settled layer equal-weight: silicon +4.36 pct, buyers +4.12, box +3.24, crypto bridge +1.53, POWER +1.48 - dead last of five layers on the most gigawatt-denominated headline available (OpenAI 6GW of AMD Instinct plus an Oracle 50,000-unit MI450 order). Power +1.48 against box +3.24 fails the stated test by 1.76 points, wider than the 0.34-point gap at 11:34 CT and the 1.16-point gap at 13:10. The layer got worse every time I measured it. HONEST WEIGHTING: all three instances are the SAME SESSION, so this is one observation recorded three times, not three independent confirmations - the 0 of 3 hit rate overstates the evidence and the pattern should not be treated as refuted until a second gigawatt session tests it. What I now believe: a gigawatt order reprices where the revenue books (chip vendor, server vendor), not where the physical constraint sits.",
+        "holds": false,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-051",
+    "claim": "On a risk-on session with no capex datapoint on the tape, the power layer trades BELOW its own opening print while silicon makes session highs, and power volume pace stays under 1.0x - which identifies the move as risk appetite repricing the easy expression of the AI trade, not money entering the chain",
+    "test": "On sessions where the silicon layer median return exceeds plus 3 pct with no capex announcement on the tape, measure into the last hour (a) how many power-layer names trade below their own opening print and (b) the power layer median volume pace against 30-day average, time-adjusted for session elapsed. Holds when a majority of power names sit below their open AND power median pace is under 1.0x while silicon prints session highs.",
+    "first_seen": "2026-09-21",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-21",
+        "ticker": "PWR",
+        "detail": "14:03 CT, 85.4 pct of the session elapsed. Silicon median plus 3.36 pct (AMD plus 9.21 to 611.36 after printing a new 52-week high at 615.99, MRVL plus 6.15, MU plus 3.36, NVDA plus 2.46, AVGO plus 1.54). Power median plus 1.38 pct - green, but three of five power names trade BELOW their own opening print: PWR 644.61 vs open 648.778 (the open WAS the high of day), VST 141.39 vs open 141.97, VRT 252.67 vs open 254.02. GEV 953.31 vs open 953.00 is flat. CEG 263.05 vs open 257.14 is the only one genuinely bid. Power median volume pace 0.78x, with PWR at 0.42x - 353,660 shares against a 986,120 30-day average. AMD by contrast ran 2.07x pace and META 2.34x. No capex datapoint on the tape: the drivers were Iran and China summit hopium, WTI down 5.1 pct to 95.16, bitcoin above 85K, the SK Hynix-Intel Ohio fab report, and Anthropic IPO chatter for November. Not one of those is a spending commitment.",
+        "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-09-21",
+        "ticker": "SPY",
+        "detail": "CLOSING-BELL CONFIRMATION OF THE SAME SESSION, tested on settles rather than the 14:03 CT snapshot the pattern was written from. Silicon leg: SOXX closed 560.49, +5.14 pct, SOXL 142.845 +15.50 pct, AMD a fresh 52-week high, INTC +12.14 pct - silicon median well over the plus 3 pct condition, and SPY made its session high 774.89 in the final half hour. No capex datapoint on the tape: the day's causes were the OpenAI/AMD 6GW order, an SK Hynix report on Intel's Ohio fab, META consumer product news and Anthropic IPO chatter - none of it a signed spending commitment. Power-layer test (a): three of three names that opened at or near their highs closed UNDER their own opening print - VST opened 141.97 closed 140.76, PWR opened 648.78 closed 642.44, VRT opened 254.02 closed 250.85. All three failed the reclaim the 14:06 CT read named as what would change the mind. That is a majority of the layer below its own open. Power-layer test (b): pace stayed light into the close - PWR ran 0.42x of its daily average at 85 pct elapsed and CEG's full session ran roughly 1.08M on the intraday feed against a 2.71M 30-day average, both under 1.0x. Every power name still closed GREEN against Friday (CEG +2.91, TLN +2.61, ETN +2.50, PWR +0.90, GEV +0.60, VRT +0.59, VST +0.23) - so read by color the layer is bid, and read by shape it was distributed into all day. The color is the trap this pattern exists to name. CAVEAT RECORDED: VST is ex-dividend today, so its +0.23 pct is dividend-adjusted and raw it is +0.06 pct, flat. Second instance, one more before promotion past proposed.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-052",
+    "claim": "An invalidation written past the midpoint of a session is contaminated by the tape it was written from: when it names a level a name must reclaim, that level is usually already outside the session realised range, so the test can only confirm the thesis. The invalidation written before the move is the one that carries information.",
+    "test": "For any session carrying more than one read, record each stated invalidation and the underlying high-to-date at the moment of writing. Score an invalidation unfalsifiable when its condition sat outside the realised session range at the time it was written. Holds when the earlier pre-move invalidation and the later mid-session invalidation resolve in OPPOSITE directions with the later one favouring the thesis.",
+    "first_seen": "2026-09-21",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-21",
+        "ticker": "PWR",
+        "detail": "First instance, and it is my own work on both sides. At 08:45 CT the state-of-market read set what would change my mind as SPY closing over 769.70 WITH the power layer green - written from SPY 766.58 with five of seven power names red, so both legs were genuinely open from where price sat. Both fired: SPY settled 773.53 up 1.55 pct, and all seven power names closed green (CEG +2.91, TLN +2.61, ETN +2.50, PWR +0.90, GEV +0.60, VRT +0.59, VST +0.23). At 14:06 CT, with 85 pct of the session gone, the power-hour read replaced that test with VST over 141.97, PWR over 648.78, VRT over 254.02 - the three names own opening prints. PWR opening print of 648.778 was ALREADY the high of the day when that test was written, so the condition required PWR to close at a new session high in the final 54 minutes. All three failed: VST 140.76, PWR 642.44, VRT 250.85. The earlier test said my thesis was wrong. The later test said it was right. Only the earlier one was reachable from the price that existed when it was written. CONTROL CASE from the same session: B-493 named 612.56 a share as the AMD trillion-dollar line, computed at 11:00 CT from 1,632,480,000 shares outstanding rather than reverse-engineered from the tape, and said an intraday tag is not a break. AMD closed 615.36, market cap 1,004,562,892,800 - the level resolved cleanly and against my pass. A number derived from a fact resolves; a test derived from the chart confirms.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-053",
+    "claim": "After one headline sells the whole AI-infrastructure chain in a single session, the PRE-SHOCK CLOSE is the scoreboard: five sessions later the layer trading back above that line is the layer holding a bid, and a layer still under it while the index prints a record high is not lagging, it is being repriced.",
+    "test": "Take the last close before the shock session as each name level line. Five sessions after the shock close, compute each db/board.json layer median return from that line. HOLDS if QQQ is above its own pre-shock close AND at least one layer median is positive while another layer median is negative, with the spread between the best and worst layer medians exceeding 5 percentage points. FAILS if every layer median has the same sign, or if the best-worst spread is under 5 points.",
+    "first_seen": "2026-09-22",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-21",
+        "ticker": "QQQ",
+        "detail": "Shock 2026-09-14 (OpenAI/Anthropic AI-slowdown call). Line = 9/11 close. Measured at 9/21 close, 5 sessions on. QQQ 714.88 to 741.47 = plus 3.72 pct, record high. Layer medians off the 9/11 line: silicon plus 7.04 (NVDA 4.16, AMD 19.25, MU 7.04, AVGO 0.19, MRVL 9.01); buyers plus 3.04 (MSFT 1.21, GOOGL 4.87, AMZN 0.65, META 14.38); power MINUS 2.41 (VRT -2.41, ETN 2.36, GEV -1.15, PWR -1.23, CEG -7.95, VST -5.12, TLN -4.08). Silicon-power spread 9.45 points. Six of seven power names still under their pre-shock close; only ETN reclaimed.",
+        "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-09-22",
+        "ticker": "GEV",
+        "detail": "Open 08:44 CT: QQQ 744.56 above its 741.47 record close (+0.42 pct) and the power layer is GREEN (median +0.37 pct), yet both named invalidation names moved AWAY. PWR 642.89 still 1.20 pct under the 650.58 line; GEV 936.24 is DOWN 1.06 pct and now 2.25 pct under 957.27, widened from 1.2 pct at 05:37 CT. All six named power names remain under their 9/11 closes; only ETN 438.80 (reclaimed, +0.77 pct) is above. A green layer did not test the call - the named levels did, and they confirmed it.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-054",
+    "claim": "A layer being REPRICED does not mean-revert on a green day: the names furthest below their pre-selloff line do not lead the bounce, the ones nearest the line do.",
+    "test": "On any session the power layer median return is positive, rank the seven names by distance below their pre-selloff reference close and compare the median return of the three NEAREST the line against the three FURTHEST below it. Falsified if the three furthest below outperform the three nearest on a majority of such sessions.",
+    "first_seen": "2026-09-22",
+    "status": "proposed",
+    "why": "If the layer were merely lagging, the most beaten-down names would snap back hardest - that is what mean reversion looks like. If it is being repriced by rates and merchant-power economics, the discount is information and the market keeps paying for proximity to the line, not distance from it. This separates lag from repricing on a GREEN day, when a layer-median read tells you nothing.",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-22",
+        "ticker": "ETN",
+        "detail": "Power layer green at the 08:44 CT open, median +0.37 pct. Three names NEAREST their 9/11 line: ETN (reclaimed, +0.77 pct), PWR (-1.20 pct under, +0.04 pct), VRT (-1.81 pct under, +0.66 pct) - median +0.66 pct. Three FURTHEST below: TLN (-3.61 pct under, +0.49 pct), VST (-4.77 pct under, +0.37 pct), CEG (-7.74 pct under, +0.22 pct) - median +0.37 pct. Nearest group outperformed the furthest group by 29bp, and the single worst name in the layer (GEV -1.06 pct) is mid-distance. No mean reversion.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-055",
+    "claim": "In a group that gaps together on one shared sector headline, rank the names by KEPT = current change divided by change at the day high, not by percent change: the name with the nearest DATED catalyst holds the highest KEPT, and the lowest-KEPT name closes red",
+    "test": "Session 2026-09-22 memory complex, measured 10:13 CT. Shared driver: SK Hynix-Intel Ohio memory-fab reports (Benzinga 2026-09-21) plus CXMT fifth-generation DRAM mass production (Reuters, 2026-09-20). KEPT at 10:13 CT: MU 78 pct (+2.91 now vs +3.74 at its 1083.00 high; earnings 9/30 pm), RMBS 64 pct (+6.37 vs +9.99, no dated catalyst), SKHY 61 pct (+2.45 vs +4.03), SNDK 57 pct (+4.63 vs +8.09), WDC 17 pct (+1.01 vs +5.88). HOLDS if at the 15:00 CT close MU carries the highest KEPT of the five AND WDC, the lowest-KEPT name, closes red. FAILS if WDC closes green, or if any name without a dated catalyst finishes with a higher KEPT than MU.",
+    "first_seen": "2026-09-22",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": []
+  },
+  {
+    "id": "P-056",
+    "claim": "A layer that is unanimously green while every name in it runs UNDER 1.0x volume pace is not being bought, it is being left alone - and the layer it is outperforming is red on ABOVE-normal pace, which is where the actual money is",
+    "test": "On sessions where all seven power names are green at midday with every one under 1.0x time-adjusted volume pace against its 30-day average, while a majority of the buyer layer is red at ABOVE 1.0x pace, measure the power layer median return from the midday mark into the close. Falsified if the power layer median EXTENDS by more than +0.25 pct into the close on a majority of such sessions.",
+    "first_seen": "2026-09-22",
+    "status": "proposed",
+    "why": "Direction tells you the sign of the move and nothing about who is behind it. Volume pace is the check. Seven-for-seven green looks like leadership on a screen, but if not one of the seven can pull normal volume while the names being sold are pulling MORE than normal, the buyers did not show up - the sellers just went somewhere else. This separates a bid from a vacuum on exactly the day the screen makes them look identical.",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-22",
+        "ticker": "VRT",
+        "detail": "Power median +0.85 pct at 11:35 CT midday mark, +0.45 pct at close: faded 40bp, did not extend by 25bp. Full-session volume vs 30d avg: VRT 0.64x, ETN 0.90x, GEV 0.91x, PWR 0.63x, CEG 0.84x, VST 1.02x, TLN 0.76x. Buyer median -0.90 pct. Note: median ticked up 10bp from 14:01 to close; one session, n=1.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-057",
+    "claim": "When a low-volume green power layer fades, the merchant generators (CEG, VST, TLN) give back their opens first and the equipment names (VRT, ETN, GEV, PWR) hold theirs - the fade follows the gas-price exposure, not the size of the morning gain",
+    "test": "Session 2026-09-22, marked 14:01 CT: VST -0.37 pct and TLN -1.54 pct under their opens, CEG +0.05 pct; VRT +1.42, ETN +1.78, GEV +1.36, PWR +0.63 above theirs. HOLDS if at the 15:00 CT close at least two of CEG/VST/TLN finish below their opens (CEG 263.84, VST 141.44, TLN 300.75) AND all four equipment names finish above theirs (VRT 249.925, ETN 433.45, GEV 936.785, PWR 639.755). FAILS if any equipment name closes under its open or fewer than two merchant names do. Recurring test: same split on any session where P-056 conditions hold and the power median fades from midday into the close.",
+    "first_seen": "2026-09-22",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-22",
+        "ticker": "TLN",
+        "detail": "Close 15:00 CT: all three merchant names under their opens (CEG 263.45 vs 263.84, VST 140.42 vs 141.44, TLN 294.57 vs 300.75); all four equipment names above theirs (VRT 253.61 vs 249.925, ETN 442.52 vs 433.45, GEV 950.465 vs 936.785, PWR 642.56 vs 639.755). Power median close +0.45 pct (mid 11:35 +0.85, 14:01 +0.35).",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-058",
+    "claim": "A pre-market layer spread that reverses the prior session's leadership is thin-book noise and mostly gone by the first 30 minutes of cash trading",
+    "test": "Sessions where the ~05:35 CT pre-market buyer-minus-silicon median spread is 75bp or wider AND opposite in sign to the prior session's spread. Re-measure the same spread (vs prior close) at the 09:00 CT mark. HOLDS if the 09:00 spread is less than half the pre-market spread or has flipped sign. FALSIFIED if half or more survives on a majority of such sessions. First instance 2026-09-23: pre-market buyers +0.63 pct (MSFT +0.80, META +0.73, AMZN +0.52, GOOGL +0.48), silicon -0.33 pct (AMD -0.51, AVGO -0.44, MRVL -0.33, MU -0.30, NVDA +0.07) = +0.96 spread; prior session 9/22 buyers -0.90 median vs silicon led (MU +4.5). Hold threshold at 09:00 CT: spread under +0.48.",
+    "first_seen": "2026-09-23",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-23",
+        "ticker": "QQQ",
+        "detail": "Pre-market 05:34 CT spread +0.96 (buyers +0.63, silicon -0.33). First cash re-measure on file is 08:44 CT (no 09:00 read): +0.76, above the +0.48 half line. Most of it survived the open. Close 15:00 CT: +0.65.",
+        "holds": false,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-059",
+    "claim": "When a swing plan fails 2:1 ONLY because its target is the nearest moving average (20/50/200-day), in a TRENDING regime the price reaches the next swing-high pivot before the plan's structural stop more often than not - the average is not a ceiling",
+    "test": "For each row whose R:R was capped by a moving-average target: within 20 sessions of the row, did price print the next prior swing-high pivot before it printed the structural stop? holds=true if pivot first, false if stop first",
+    "first_seen": "2026-09-23",
+    "status": "proposed",
+    "why": "Self-audit 2026-09-23 of five META refusals: B-230 refused at 565 because targets were the 20 EMA (1.07:1) and 50 SMA (1.76:1); META cleared both by 9/2, the 200 SMA by 9/9, and hit the 690 pivot on 9/18 without touching the 523 stop. A pivot target would have read 2.98:1.",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-01",
+        "ticker": "META",
+        "detail": "B-230 at 565.14: targets were the 20 EMA 574.83 (1.07:1) and 50 SMA 592.05 (1.76:1) with the stop repaired to 523 for the ATR floor. META closed above 592 on 9/2, above the 200 SMA 630.59 on 9/9, and printed the 690 prior-range pivot on 9/18. Low after 9/1 was 577.00; the 523 stop was never threatened. Pivot target would have been 2.98:1 and paid ~+125 points.",
+        "holds": true,
+        "row_ref": "B-230"
+      },
+      {
+        "date": "2026-08-11",
+        "ticker": "META",
+        "detail": "B-061 at 594.92: a 609 breakout entry with a 581.50 stop was refused at 1.35:1 to the 646.01 target (T1 the 200 SMA 630.59 at 0.79:1). A pivot target (690, the 6-month range top) would have read 2.95:1 and ARMED it. META closed 579 on 8/12 and 569 on 8/17 - the stop goes first, a -27.50 loss. The moving-average cap SAVED this one. Net of the two META instances: one ~+125-point win the rule blocked vs one -27.50 loss it prevented.",
+        "holds": false,
+        "row_ref": "B-061"
+      }
+    ]
+  },
+  {
+    "id": "P-060",
+    "claim": "A non-earnings, company-specific news gap on 2x-plus volume that holds its first-30-minute range keeps going over the next 10 sessions rather than fading - it is a reaction to trade, the way the Guide Rule treats a guide repricing, not a chase",
+    "test": "From the gap-day close, 10-session return > 0 AND the gap-day low not closed below within those 10 sessions = holds true; either fails = false",
+    "first_seen": "2026-09-23",
+    "status": "proposed",
+    "why": "Self-audit 2026-09-23: B-296/B-300 refused META's Muse-launch gap on 9/9 (~2x volume) as a chase and because the supply chain did not follow (P-020). P-020 was correct - only the shipper repriced - but that is a reason to own the shipper, not to pass on it. META closed 654 on 9/9, never went below 642.14 after, and was 741 ten sessions later. The Guide Rule (v24) covers post-earnings guide gaps; nothing covers non-earnings news gaps.",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-09",
+        "ticker": "META",
+        "detail": "Muse launch gap: 9/8 close 613.48, 9/9 close 654 on ~2x volume. Low over the next 10 sessions 642.14 (never closed back under the gap day). Close 10 sessions later 741 = +13.3 pct from the gap-day close. The desk passed twice that morning (B-296 at 635.50, B-300 at 647.52).",
+        "holds": true,
+        "row_ref": "B-296"
+      }
+    ]
+  },
+  {
+    "id": "P-061",
+    "claim": "A layer spread carried by single-name analyst notes on half the layer, while the other half of that layer trades red, does not survive to the close - a note moves a name, not a layer",
+    "test": "2026-09-23 08:44 CT: buyer median +0.16 pct (MSFT +2.08 on Stifel Hold-to-Buy PT 575, META +1.53 on KeyBanc PT 900; GOOGL -1.21, AMZN -1.28) vs silicon median -0.60 = +0.76 spread. HOLDS if the buyer-minus-silicon median spread at the 15:00 CT close is under +0.38 (half) or flipped. FAILS if +0.38 or more survives. Recurring: any session where 2 of 4 buyers move 1.5 pct+ on same-morning analyst notes and the other 2 are red.",
+    "first_seen": "2026-09-23",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-23",
+        "ticker": "META",
+        "detail": "Close 15:00 CT: buyer median -0.83 (MSFT +0.56, META +1.01, AMZN -2.21, GOOGL -3.79) minus silicon median -1.47 (NVDA -1.47, AMD -1.42, MU -2.26, AVGO -2.61, MRVL -0.56) = +0.65, above the +0.38 line. The analyst-note names held; the spread survived. But it survived as both layers fell on a 14bp 10Y spike to 5.116 pct - see P-062.",
+        "holds": false,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-062",
+    "claim": "A layer spread that widens while both layers fall is one name wide, not rotation: on 9/23 the +0.88 buyer-minus-silicon spread at 11:32 CT rests on META (+2.91%); with META removed the buyer median (-2.07%) is below silicon (-1.81%)",
+    "test": "At the 15:00 CT close, recompute buyer median ex-META (MSFT, GOOGL, AMZN) minus silicon median (NVDA, AMD, MU, AVGO, MRVL). Holds if that ex-META spread is below zero; fails if it is zero or above.",
+    "first_seen": "2026-09-23",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-23",
+        "ticker": "META",
+        "detail": "Close 15:00 CT: buyer median ex-META (MSFT +0.56, AMZN -2.21, GOOGL -3.79) = -2.21 vs silicon median -1.47 = -0.74, below zero. With META in, spread +0.65. One name carried the layer all day.",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-063",
+    "claim": "When the 10Y makes a new cycle high, silicon falls harder than the buyers across the layer, not by one name",
+    "test": "2026-09-24 05:34 CT pre-market, day after 10Y closed 5.11 pct (highest since 2007): buyer median -0.56 (MSFT -0.47, GOOGL -0.32, AMZN -0.66, META -2.37) vs silicon median -2.10 (NVDA -1.13, AVGO -1.41, AMD -2.10, MU -2.69, MRVL -3.01) = +1.54 spread; ex-META buyer median -0.47 = +1.63. HOLDS if at the 15:00 CT close the ex-META buyer median (MSFT, GOOGL, AMZN) minus silicon median is above zero. FAILS if zero or below. Recurring: any session opening after a 10Y close at a new cycle high.",
+    "first_seen": "2026-09-24",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": []
+  },
+  {
+    "id": "P-064",
+    "claim": "When a zone-hold signal is followed by a next-morning open ABOVE the zone, the stock follows through; when it opens BELOW, it keeps falling",
+    "test": "For every CLOSE SIGNAL row: the return from the signal close to the close 5 sessions later, split by whether the next session opened above the zone top or below the zone bottom. Holds if gap-up cases average > +3% and gap-down cases average < 0",
+    "first_seen": "2026-09-24",
+    "status": "supported",
+    "why": "Entry audit 2026-09-24: the no-chase rule missed LITE (+11.7%) and IREN (+10.4%), both gapped up the morning after the signal; the void rule correctly skipped ORCL (-3.8%) and ETN twice (-7.6%, -0.7%), all gapped down. The one gap-up we did buy (ASPN, bought midday near the high, not at the open) lost 5.9%.",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-09-16",
+        "ticker": "LITE",
+        "detail": "Signal 9/15 close 838.96; 9/16 opened 856 above the 850.22 zone top; +11.7% to 937.00 by 9/23",
+        "holds": true,
+        "row_ref": "B-425"
+      },
+      {
+        "date": "2026-09-17",
+        "ticker": "IREN",
+        "detail": "Signal 9/16 close 42.62; 9/17 opened 45.44 above the 42.00 zone top; +10.4% to 47.05 by 9/23",
+        "holds": true,
+        "row_ref": "B-439"
+      },
+      {
+        "date": "2026-09-14",
+        "ticker": "ORCL",
+        "detail": "Signal 9/11 close 150.28; 9/14 opened 141.42 below the 149.70 zone; -3.8% to 144.56 by 9/23",
+        "holds": true,
+        "row_ref": "B-385"
+      },
+      {
+        "date": "2026-09-14",
+        "ticker": "ETN",
+        "detail": "Trigger 9/11 close 425.37; 9/14 opened 393.01, gap down; -7.6% next day",
+        "holds": true,
+        "row_ref": "B-363"
+      },
+      {
+        "date": "2026-09-23",
+        "ticker": "ASPN",
+        "detail": "Signal 9/22 close 5.48; 9/23 first bar closed 5.70 above the 5.54 zone top (gap-up case) and it FAILED: 5.24 by 9/24 10:02 CT, -4.4% from the signal close",
+        "holds": false,
+        "row_ref": "B-533"
+      }
+    ]
   }
 ]

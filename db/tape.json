@@ -1,428 +1,169 @@
 {
-  "asof": "2026-09-09 06:13 CT",
+  "asof": "2026-09-24 05:55 CT pre-market",
   "session": "pre-market",
-  "basis": "Rows tagged 2026-09-09 06:13 CT are PRE-MARKET prints (11:13Z) vs the 9/8 official close; SOL/BTC are 24h marks vs the midnight-CT close; all other rows are STALE (carried from earlier stamps). Regime re-stamped today on 9/8 bars: CHOP, Market Risk 3/5.",
-  "source": "robinhood-mcp get_equity_quotes + get_crypto_quotes",
-  "note": "B-312 CBRS first review 21:52 CT: 196.20, distribution range 168.70-222.50, founders sold 9/4, pullback zone 170-175 / floor 158 declared, nothing armed. | B-310 AMZN first graded review 20:10 CT: 252.40 close, lost the 50-day inside the earnings gap, accumulation zone 236-241 / floor 225.50 declared, nothing live. | B-309 ZEC first review 17:32 CT: 1,244, new 52-wk high 1,291, Late FOMO, two conditionals (1,045 retest / >1,291 close), nothing live. | Interactive run 9/9 06:13 CT (B-297..B-302): GOOGL hold on 326 stop, 334.00 pre-market under the 200-day; META 647.52 +5.55 pct alone, chain red (P-020 pending close); SPCX decide-by today, zone 14 pct below, index-rebalance bid 9/18 logged; VICI dividend raise 0.46 declared 9/3 = B-263 gate met; VST/SOL triggers untouched. | B-285 HIMS thesis review Sat 9/5: HOT-ACCUMULATE -> WATCH, double-bottom 27.38 is the floor. | B-278 CEG / B-279 MU after-close full re-runs. Memory melt-up closed on its highs: SNDK +11.89, MUU +11.63 (1.96x MU), SOXL +10.12 (2.88x SOXX), STX +6.38, MU +5.93, WDC +5.83, INTC +4.52, SOXX +3.52. SPY -0.38 / QQQ +0.19 / IWM +0.26. CEG +4.88 closed above its 200-day. BTC 79.7K still under the 80.9K SOL sector-gate reference. | B-276 GOOGL pre-close delta 14:37 CT: 6 rows re-pulled (GOOGL, SPY, QQQ, AVGO, NVDA, META); other rows carry the 12:58 CT midday stamp. | MEMORY/STORAGE MELT-UP ACCELERATED THROUGH MIDDAY ON A TAPE THAT TURNED RED. SPY -0.49 pct and QQQ -0.10 pct (both were green at 08:58), while SNDG +21.72, SNDK +10.59, MUU +8.46, SOXL +8.44, INTW +6.14, STX +4.51, MU +4.37, WDC +4.33, INTC +3.09, SOXX +2.91. Five names clear the 5 pct fast-mover screen, up from seven at the open only because WDC/STX/MU cooled while SNDK/SNDG doubled their gains. SNDG tracks 2.05x SNDK and MUU 1.94x MU - both leveraged ETFs are CONFIRMING their underlyings, not moving alone. CEG +3.48 pct is the day-two leader outside the memory complex and is testing its 200-day 296.56 for the first time this session. GOOGL -1.14 pct on the ex-dividend-adjusted close, faded from a 343.53 open-bar high all day. Crypto still red and lower than the open stamp: BTC -1.93, SOL -2.55. NFP +162K vs 55K expected; CME FedWatch 58 pct odds of a September HIKE.",
+  "basis": "Pre-market prints (last_non_reg_trade_price) vs the official 2026-09-23 settle. Not regular-session prices.",
+  "source": "robinhood-mcp get_equity_quotes",
+  "note": "Interactive run 05:55 CT 9/24. Rates shock: 10-year 5.11 pct. B-557 ETN, B-558 SPY.",
   "quotes": [
     {
-      "sym": "HPQ",
-      "last": 32.675,
-      "chg_pct": 2.33
-    },
-    {
-      "sym": "NVDA",
-      "last": 224.75,
-      "chg_pct": -0.43,
-      "asof": "2026-09-09 06:13 CT"
-    },
-    {
-      "sym": "MRVL",
-      "last": 210.36,
-      "chg_pct": -0.61
-    },
-    {
-      "sym": "AVGO",
-      "last": 366.09,
-      "chg_pct": -0.67,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "AMD",
-      "last": 459.75,
-      "chg_pct": -2.33
-    },
-    {
-      "sym": "MU",
-      "last": 994.77,
-      "chg_pct": -0.55,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "MUU",
-      "last": 34.26,
-      "chg_pct": 11.63,
-      "asof": "2026-09-04 20:25 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "SMCI",
-      "last": 39,
-      "chg_pct": 2.98
-    },
-    {
-      "sym": "DELL",
-      "last": 525.58,
-      "chg_pct": 1.78
-    },
-    {
-      "sym": "ANET",
-      "last": 189.17,
-      "chg_pct": -3.33
-    },
-    {
-      "sym": "MSFT",
-      "last": 491.65,
-      "chg_pct": -0.48,
-      "asof": "2026-09-09 close"
-    },
-    {
-      "sym": "GOOGL",
-      "last": 330.65,
-      "chg_pct": -2.28,
-      "asof": "2026-09-09 close",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close (ex-div adjusted 342.26)"
-    },
-    {
-      "sym": "AMZN",
-      "last": 252.4,
-      "chg_pct": -1.78,
-      "asof": "2026-09-09 close"
-    },
-    {
-      "sym": "META",
-      "last": 653.69,
-      "chg_pct": 6.55,
-      "asof": "2026-09-09 close"
-    },
-    {
-      "sym": "INTC",
-      "last": 95.81,
-      "chg_pct": 4.52,
-      "asof": "2026-09-04 20:25 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "INTW",
-      "last": 20.99,
-      "chg_pct": 9.21
-    },
-    {
-      "sym": "VRT",
-      "last": 277.375,
-      "chg_pct": 3.18
-    },
-    {
-      "sym": "ETN",
-      "last": 396.405,
-      "chg_pct": 1.42
-    },
-    {
-      "sym": "GEV",
-      "last": 898.49,
-      "chg_pct": 0
-    },
-    {
-      "sym": "PWR",
-      "last": 611.609,
-      "chg_pct": 0.74
-    },
-    {
-      "sym": "CEG",
-      "last": 297.6,
-      "chg_pct": -0.48,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "live 09:01 CT"
-    },
-    {
-      "sym": "VST",
-      "last": 150.83,
-      "chg_pct": -0.59,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "B-294 live 09:01 CT vs 9/4 close"
-    },
-    {
-      "sym": "TLN",
-      "last": 322.735,
-      "chg_pct": 1.81,
-      "asof": "2026-09-08 09:01 CT",
-      "basis": "live 09:01 CT"
-    },
-    {
-      "sym": "CORZ",
-      "last": 16.09,
-      "chg_pct": -1.29
-    },
-    {
-      "sym": "IREN",
-      "last": 36.825,
-      "chg_pct": -0.78
-    },
-    {
-      "sym": "APLD",
-      "last": 24.285,
-      "chg_pct": -4.43
-    },
-    {
-      "sym": "WULF",
-      "last": 14.65,
-      "chg_pct": -3.17
-    },
-    {
-      "sym": "SPY",
-      "last": 762.4,
-      "chg_pct": -0.46,
-      "asof": "2026-09-09 close",
-      "basis": "live 09:01 CT"
-    },
-    {
-      "sym": "QQQ",
-      "last": 716.31,
-      "chg_pct": -0.29,
-      "asof": "2026-09-09 close",
-      "basis": "live 09:01 CT"
-    },
-    {
-      "sym": "DIA",
-      "last": 527.74,
-      "chg_pct": -0.72
-    },
-    {
-      "sym": "PLAB",
-      "last": 27.36,
-      "chg_pct": -2.77
-    },
-    {
-      "sym": "SMH",
-      "last": 545.32,
-      "chg_pct": -2.03
-    },
-    {
-      "sym": "KLIC",
-      "last": 81.47,
-      "chg_pct": 3.36
-    },
-    {
-      "sym": "GPRO",
-      "last": 1.32,
-      "chg_pct": 50.65
-    },
-    {
-      "sym": "SST",
-      "last": 2.8218,
-      "chg_pct": 25.97
-    },
-    {
-      "sym": "COHR",
-      "last": 297.1,
-      "chg_pct": -1.58,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "HIMS",
-      "last": 28.01,
-      "chg_pct": -0.57,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "last regular trade 9/4 vs 9/3 close; official 9/4 bar close 27.71"
-    },
-    {
-      "sym": "SPCX",
-      "last": 152.35,
-      "chg_pct": -0.73,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "PATH",
-      "last": 15.1801,
-      "chg_pct": -16.68
-    },
-    {
-      "sym": "HPE",
-      "last": 53.55,
-      "chg_pct": -1.63
-    },
-    {
-      "sym": "AMBA",
-      "last": 67.14,
-      "chg_pct": 0
-    },
-    {
-      "sym": "NKE",
-      "last": 37.98,
-      "chg_pct": -0.31,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "VICI",
-      "last": 25.38,
-      "chg_pct": 0.44,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "QCOM",
-      "last": 168.55,
-      "chg_pct": -0.83
-    },
-    {
-      "sym": "AMAT",
-      "last": 434.79,
-      "chg_pct": -0.84
-    },
-    {
-      "sym": "APP",
-      "last": 323.06,
-      "chg_pct": 1.26
-    },
-    {
-      "sym": "GLPI",
-      "last": 42.05,
-      "chg_pct": -0.68
-    },
-    {
-      "sym": "XLRE",
-      "last": 43.99,
-      "chg_pct": 0.59
-    },
-    {
-      "sym": "SNDK",
-      "last": 1739.8102,
-      "chg_pct": 11.89,
-      "asof": "2026-09-04 20:25 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "WDC",
-      "last": 467.31,
-      "chg_pct": 5.83,
-      "asof": "2026-09-04 20:25 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "STX",
-      "last": 849.58,
-      "chg_pct": 6.38,
-      "asof": "2026-09-04 20:25 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "SNDG",
-      "last": 10.755,
-      "chg_pct": 23.91
-    },
-    {
-      "sym": "SOXL",
-      "last": 117.54,
-      "chg_pct": 10.12,
-      "asof": "2026-09-04 20:25 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "SOXX",
-      "last": 519.87,
-      "chg_pct": 3.52,
-      "asof": "2026-09-04 20:25 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "SOL",
-      "last": 103.55,
-      "chg_pct": -0.83,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "Robinhood mark 20:24 CT 9/4 vs Chicago-midnight close"
-    },
-    {
-      "sym": "BTC",
-      "last": 77991.43,
-      "chg_pct": -1.48,
-      "asof": "2026-09-09 17:32 CT",
-      "basis": "Robinhood mark 20:24 CT 9/4 vs Chicago-midnight close"
-    },
-    {
-      "sym": "ETH",
-      "last": 2453.24,
-      "chg_pct": -2.23,
-      "asof": "2026-09-09 17:32 CT",
-      "basis": "Robinhood mark 20:24 CT 9/4 vs Chicago-midnight close"
-    },
-    {
-      "sym": "BSOL",
-      "last": 13.96,
-      "chg_pct": -3.46,
-      "asof": "2026-09-04 20:25 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "IWM",
-      "last": 293.14,
-      "chg_pct": -0.52,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "last regular trade 14:59:59 CT 9/4 vs 9/3 official close"
-    },
-    {
-      "sym": "XLV",
-      "last": 171.46,
-      "chg_pct": -1.04,
-      "asof": "2026-09-04 14:59 CT (re-stamped Sat 9/5)",
-      "basis": "last regular trade 9/4 vs 9/3 close"
-    },
-    {
-      "sym": "AIP",
-      "last": 23.34,
-      "chg_pct": 2.73,
-      "asof": "2026-09-09 06:13 CT",
-      "basis": "last regular trade 9/4 vs 9/3 close 20.68; B-288 first review"
-    },
-    {
-      "sym": "XLU",
-      "last": 43.36,
-      "chg_pct": 0.65,
-      "asof": "2026-09-08 09:01 CT",
-      "basis": "live 09:01 CT"
-    },
-    {
-      "sym": "NRG",
-      "last": 119,
-      "chg_pct": -0.02,
-      "asof": "2026-09-08 09:01 CT",
-      "basis": "live 09:01 CT"
-    },
-    {
-      "sym": "AVAV",
-      "last": 150.39,
-      "chg_pct": 1.08,
-      "asof": "2026-09-09 06:13 CT"
-    },
-    {
-      "sym": "TLT",
-      "last": 82.19,
-      "chg_pct": -0.01,
-      "asof": "2026-09-09 06:13 CT"
-    },
-    {
-      "sym": "HYG",
-      "last": 79.13,
-      "chg_pct": 0.01,
-      "asof": "2026-09-09 06:13 CT"
-    },
-    {
-      "sym": "USO",
-      "last": 147.99,
-      "chg_pct": 1.34,
-      "asof": "2026-09-09 06:13 CT"
-    },
-    {
-      "sym": "ZEC",
-      "last": 1244,
-      "chg_pct": 0.07,
-      "asof": "2026-09-09 17:32 CT"
-    },
-    {
-      "sym": "XLY",
-      "last": 112.46,
-      "chg_pct": -0.02,
-      "asof": "2026-09-09 close"
-    },
-    {
-      "sym": "CBRS",
-      "last": 196.2,
-      "chg_pct": -1.79,
-      "asof": "2026-09-09 close"
+      "ticker": "SPY",
+      "last": 763.905,
+      "prev_close": 767.81,
+      "change_pct": -0.51,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "QQQ",
+      "last": 734.31,
+      "prev_close": 741.21,
+      "change_pct": -0.93,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "IWM",
+      "last": 281.4,
+      "prev_close": 281.92,
+      "change_pct": -0.18,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "SMH",
+      "last": 591.25,
+      "prev_close": 601.41,
+      "change_pct": -1.69,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "XBI",
+      "last": 154.67,
+      "prev_close": 155.2,
+      "change_pct": -0.34,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "XLE",
+      "last": 62.7603,
+      "prev_close": 62.37,
+      "change_pct": 0.63,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "ASPN",
+      "last": 5.7,
+      "prev_close": 5.68,
+      "change_pct": 0.35,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "GOOGL",
+      "last": 337.3,
+      "prev_close": 337.83,
+      "change_pct": -0.16,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "ETN",
+      "last": 430.35,
+      "prev_close": 438.76,
+      "change_pct": -1.92,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "PWR",
+      "last": 632,
+      "prev_close": 634.9,
+      "change_pct": -0.46,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "ATRC",
+      "last": 59.8985,
+      "prev_close": 59.955,
+      "change_pct": -0.09,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "MU",
+      "last": 1047.25,
+      "prev_close": 1071.88,
+      "change_pct": -2.3,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "SNDK",
+      "last": 1771.13,
+      "prev_close": 1816.57,
+      "change_pct": -2.5,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "IREN",
+      "last": 45.89,
+      "prev_close": 47.05,
+      "change_pct": -2.47,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "SMCI",
+      "last": 40.58,
+      "prev_close": 41.44,
+      "change_pct": -2.08,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "APLD",
+      "last": 26.81,
+      "prev_close": 27.23,
+      "change_pct": -1.54,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "VST",
+      "last": 137.3,
+      "prev_close": 137.97,
+      "change_pct": -0.49,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "GEV",
+      "last": 936,
+      "prev_close": 951.82,
+      "change_pct": -1.66,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "KEEL",
+      "last": 3.9108,
+      "prev_close": 4.01,
+      "change_pct": -2.47,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "FTRE",
+      "last": 19.52,
+      "prev_close": 19.52,
+      "change_pct": 0,
+      "asof": "2026-09-24 05:55 CT pre-market",
+      "session": "pre-market"
     }
   ]
 }

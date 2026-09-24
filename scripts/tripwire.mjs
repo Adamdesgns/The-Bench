@@ -191,7 +191,7 @@ if (!has("--dry")) {
   try {
     await fetch(NTFY, {
       method: "POST",
-      headers: { Title: "THE BENCH - level touched", Priority: "high" },
+      headers: { Title: "THE BENCH - level touched", Priority: "urgent" },
       body: `${msg} -- unverified free feed, run v25 on live data before acting`,
     });
     console.log("phone pinged.");
