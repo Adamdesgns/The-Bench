@@ -1,169 +1,185 @@
 {
-  "asof": "2026-09-24 05:55 CT pre-market",
-  "session": "pre-market",
-  "basis": "Pre-market prints (last_non_reg_trade_price) vs the official 2026-09-23 settle. Not regular-session prices.",
+  "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+  "session": "regular (Friday close)",
+  "basis": "Regular-session last trade 2026-09-25 (last_trade_price) vs the official 2026-09-24 settle.",
   "source": "robinhood-mcp get_equity_quotes",
-  "note": "Interactive run 05:55 CT 9/24. Rates shock: 10-year 5.11 pct. B-557 ETN, B-558 SPY.",
+  "note": "Interactive run Sat 9/26 (cloud session): CSAI first review B-565, No Trade - Watchlist Only.",
   "quotes": [
     {
       "ticker": "SPY",
-      "last": 763.905,
-      "prev_close": 767.81,
-      "change_pct": -0.51,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 771.3,
+      "prev_close": 767.18,
+      "change_pct": 0.54,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "QQQ",
-      "last": 734.31,
-      "prev_close": 741.21,
-      "change_pct": -0.93,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 744.44,
+      "prev_close": 741.1,
+      "change_pct": 0.45,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "IWM",
-      "last": 281.4,
-      "prev_close": 281.92,
-      "change_pct": -0.18,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 281.95,
+      "prev_close": 281.66,
+      "change_pct": 0.1,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "SMH",
-      "last": 591.25,
-      "prev_close": 601.41,
-      "change_pct": -1.69,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 606.49,
+      "prev_close": 600.52,
+      "change_pct": 0.99,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "XBI",
-      "last": 154.67,
-      "prev_close": 155.2,
-      "change_pct": -0.34,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 155.05,
+      "prev_close": 156.05,
+      "change_pct": -0.64,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "XLE",
-      "last": 62.7603,
-      "prev_close": 62.37,
-      "change_pct": 0.63,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 62.045,
+      "prev_close": 62.6,
+      "change_pct": -0.89,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "ASPN",
-      "last": 5.7,
-      "prev_close": 5.68,
-      "change_pct": 0.35,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 5.22,
+      "prev_close": 5.3,
+      "change_pct": -1.51,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "GOOGL",
-      "last": 337.3,
-      "prev_close": 337.83,
-      "change_pct": -0.16,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 343.84,
+      "prev_close": 342.36,
+      "change_pct": 0.43,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "ETN",
-      "last": 430.35,
-      "prev_close": 438.76,
-      "change_pct": -1.92,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 439.88,
+      "prev_close": 440,
+      "change_pct": -0.03,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "PWR",
-      "last": 632,
-      "prev_close": 634.9,
-      "change_pct": -0.46,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 648.75,
+      "prev_close": 643.5,
+      "change_pct": 0.82,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "ATRC",
-      "last": 59.8985,
-      "prev_close": 59.955,
-      "change_pct": -0.09,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 58.35,
+      "prev_close": 60.77,
+      "change_pct": -3.98,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "MU",
-      "last": 1047.25,
-      "prev_close": 1071.88,
-      "change_pct": -2.3,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 1081.69,
+      "prev_close": 1080.53,
+      "change_pct": 0.11,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "SNDK",
-      "last": 1771.13,
-      "prev_close": 1816.57,
-      "change_pct": -2.5,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 1777.59,
+      "prev_close": 1753.62,
+      "change_pct": 1.37,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "IREN",
-      "last": 45.89,
-      "prev_close": 47.05,
-      "change_pct": -2.47,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 44.1281,
+      "prev_close": 46.15,
+      "change_pct": -4.38,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "SMCI",
-      "last": 40.58,
-      "prev_close": 41.44,
-      "change_pct": -2.08,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 43.26,
+      "prev_close": 41.51,
+      "change_pct": 4.22,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "APLD",
-      "last": 26.81,
-      "prev_close": 27.23,
-      "change_pct": -1.54,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 26.24,
+      "prev_close": 27.06,
+      "change_pct": -3.03,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "VST",
-      "last": 137.3,
-      "prev_close": 137.97,
-      "change_pct": -0.49,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 138.475,
+      "prev_close": 137.94,
+      "change_pct": 0.39,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "GEV",
-      "last": 936,
-      "prev_close": 951.82,
-      "change_pct": -1.66,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 957.18,
+      "prev_close": 955.04,
+      "change_pct": 0.22,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "KEEL",
-      "last": 3.9108,
-      "prev_close": 4.01,
-      "change_pct": -2.47,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 3.805,
+      "prev_close": 3.9,
+      "change_pct": -2.44,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     },
     {
       "ticker": "FTRE",
-      "last": 19.52,
-      "prev_close": 19.52,
-      "change_pct": 0,
-      "asof": "2026-09-24 05:55 CT pre-market",
-      "session": "pre-market"
+      "last": 19.9,
+      "prev_close": 20.02,
+      "change_pct": -0.6,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
+    },
+    {
+      "ticker": "IGV",
+      "last": 105.98,
+      "prev_close": 107.15,
+      "change_pct": -1.09,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
+    },
+    {
+      "ticker": "CSAI",
+      "last": 3.53,
+      "prev_close": 3.55,
+      "change_pct": -0.56,
+      "asof": "2026-09-25 close (pulled Sat 2026-09-26)",
+      "session": "regular"
     }
   ]
 }

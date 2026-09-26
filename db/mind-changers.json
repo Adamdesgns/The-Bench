@@ -25,6 +25,38 @@
       "row": null,
       "expires": "2026-09-25",
       "status": "open"
+    },
+    {
+      "id": "MC-002",
+      "created": "2026-09-26",
+      "when": [
+        {
+          "ticker": "CSAI",
+          "op": ">",
+          "level": 4.06
+        }
+      ],
+      "meaning": "CSAI closed back over the 9/15 breakdown shelf (4.01) and the 20-day line (4.05): the dilution supply is being absorbed. Mandatory re-look = a fresh run and a new row citing B-565, NOT an entry (fundamental D, no B grade, earnings 11/12 in the window).",
+      "source": "site/reviews/2026-09-26-csai.md",
+      "row": "B-565",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-003",
+      "created": "2026-09-26",
+      "when": [
+        {
+          "ticker": "CSAI",
+          "op": "<",
+          "level": 3.01
+        }
+      ],
+      "meaning": "CSAI closed under its 3.01 52-week low (9/16): the eight-session base failed and the dilution read is confirming. Short gate 2 refreshes, but there are no listed options (no defined-risk vehicle) and borrow is unverified - log a delta row on B-565, no ticket.",
+      "source": "site/reviews/2026-09-26-csai.md",
+      "row": "B-565",
+      "expires": "2026-10-09",
+      "status": "open"
     }
   ]
 }
