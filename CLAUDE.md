@@ -117,6 +117,8 @@ node scripts/desk-feed.mjs add --symbols MRVL,COHR,HPE --note "volume screen fro
 
 ## Repo state note
 
+**2026-10-01 night: THE BOOK FORKED, and the cause was an unpushed book.** The live book sat uncommitted on this PC from 9/24 (B-565..B-675). A cloud run that morning started from GitHub's 9/24 copy and reused B-565..B-573 for 9 different calls (plus MC-002/003). Synced the same night: everything committed on `v29-hunter-handoff`, the cloud rows folded in as **B-676..B-684** (each carries `original_id` + `original_branch: run-2026-10-01`), the CSAI watchers as **MC-030/031**, then pushed with a PR to `main`. **Rule: any session that adds book rows commits them the same day, and the branch is pushed before a cloud run is started. A cloud run on a stale book is two desks writing the same IDs.** `origin/run-2026-10-01` is folded and can be deleted once Adam merges.
+
 **Corrected 2026-08-30 (code beats notes): the live system IS `main` again.** The v27 merge (`aaef039`, 2026-08-29) landed the live book (220 rows through B-220), the executor program, and `prompts/trading-copilot-v27.md` on `main`. The old claim below stood for two weeks of branch-first work and is kept for the history, but it is stale: ~~Live system is not `main`. `main` last moved 2026-08-14 (PR #28); the live book (137 rows) and v25 live on `v25-runs-0817` (PR #31).~~ Slice-1 quant work (v28, evidence engine) is on branch `quant-slice-1` pending Adam's merge.
 
 **Still true from 2026-08-04:** the v18–v22 framework prompts landed on `main` via PRs #1 and #2 (`ca11d5c`, `56d134b`); v22 landed in `074dd84`.
