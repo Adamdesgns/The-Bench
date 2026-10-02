@@ -1,0 +1,674 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-09-29",
+  "source": "yahoo",
+  "generated": "2026-09-29T20:35:17.248Z",
+  "universe": "all",
+  "macro_inside_2_sessions": true,
+  "band": 291.037,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "READY": [],
+  "STALK": [
+    {
+      "sym": "AMZN",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 246.67,
+      "sma50": 256.09,
+      "sma20": 252.64,
+      "atr": 5.22,
+      "low20": 244.3,
+      "volume": 31534483,
+      "vol30": 34252010,
+      "volRatio": 0.92,
+      "rs20": -4.67,
+      "rs5": -2.07,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 226.88,
+        "date": "2026-01-21",
+        "atr_away": 3.79
+      },
+      "first_shelf": {
+        "level": 244.3,
+        "date": "2026-09-16",
+        "rr": 0.45
+      },
+      "floor2": {
+        "level": 244.3000030517578,
+        "date": "2026-09-16"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 246.67,
+        "stop": 251.89,
+        "stop_atr": 1,
+        "target": 226.88,
+        "rr": 3.79
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "AVGO",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 355.1,
+      "sma50": 375.74,
+      "sma20": 356.31,
+      "atr": 9.92,
+      "low20": 335.81,
+      "volume": 18456185,
+      "vol30": 25452927,
+      "volRatio": 0.73,
+      "rs20": -3.74,
+      "rs5": -1.4,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 330.5,
+        "date": "2026-01-08",
+        "atr_away": 2.48
+      },
+      "first_shelf": {
+        "level": 350.06,
+        "date": "2026-08-26",
+        "rr": 0.51
+      },
+      "floor2": {
+        "level": 350.05999755859375,
+        "date": "2026-08-26"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 355.1,
+        "stop": 365.02,
+        "stop_atr": 1,
+        "target": 330.5,
+        "rr": 2.48
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "VRT",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 248.34,
+      "sma50": 264.17,
+      "sma20": 253.36,
+      "atr": 11.64,
+      "low20": 226.94,
+      "volume": 3241801,
+      "vol30": 5059677,
+      "volRatio": 0.64,
+      "rs20": -3.64,
+      "rs5": -0.83,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 220.92,
+        "date": "2026-07-29",
+        "atr_away": 2.36
+      },
+      "first_shelf": {
+        "level": 234.72,
+        "date": "2026-03-03",
+        "rr": 1.17
+      },
+      "floor2": {
+        "level": 234.72000122070312,
+        "date": "2026-03-03"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 248.34,
+        "stop": 259.98,
+        "stop_atr": 1,
+        "target": 220.92,
+        "rr": 2.36
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "APP",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 305.66,
+      "sma50": 338.72,
+      "sma20": 317.68,
+      "atr": 15.84,
+      "low20": 300.09,
+      "volume": 3660941,
+      "vol30": 4794383,
+      "volRatio": 0.76,
+      "rs20": -1.68,
+      "rs5": -5.83,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 246,
+        "date": "2025-04-30",
+        "atr_away": 3.77
+      },
+      "first_shelf": {
+        "level": 303.17,
+        "date": "2026-08-12",
+        "rr": 0.15
+      },
+      "floor2": {
+        "level": 303.1700134277344,
+        "date": "2026-08-12"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 305.66,
+        "stop": 322.74,
+        "stop_atr": 1.08,
+        "target": 246,
+        "rr": 3.49
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "NI",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 39.32,
+      "sma50": 42.1,
+      "sma20": 40.6,
+      "atr": 0.6,
+      "low20": 38.95,
+      "volume": 6349706,
+      "vol30": 5498970,
+      "volRatio": 1.15,
+      "rs20": -3.54,
+      "rs5": -0.22,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 38.03,
+        "date": "2025-03-10",
+        "atr_away": 2.15
+      },
+      "first_shelf": {
+        "level": 39.3,
+        "date": "2025-09-16",
+        "rr": 0.03
+      },
+      "floor2": {
+        "level": 39.29999923706055,
+        "date": "2025-09-16"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 39.32,
+        "stop": 39.92,
+        "stop_atr": 1,
+        "target": 38.03,
+        "rr": 2.15
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "AAP",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 39.73,
+      "sma50": 48.73,
+      "sma20": 42.44,
+      "atr": 1.7,
+      "low20": 39.61,
+      "volume": 1956255,
+      "vol30": 2372403,
+      "volRatio": 0.82,
+      "rs20": -5.44,
+      "rs5": -5.68,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 33.08,
+        "date": "2025-03-07",
+        "atr_away": 3.91
+      },
+      "first_shelf": {
+        "level": 37.89,
+        "date": "2026-01-02",
+        "rr": 0.78
+      },
+      "floor2": {
+        "level": 37.88999938964844,
+        "date": "2026-01-02"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 39.73,
+        "stop": 42.1,
+        "stop_atr": 1.39,
+        "target": 33.08,
+        "rr": 2.81
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "OXY",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 54.94,
+      "sma50": 58.39,
+      "sma20": 59.34,
+      "atr": 1.64,
+      "low20": 56,
+      "volume": 7529471,
+      "vol30": 8228273,
+      "volRatio": 0.92,
+      "rs20": -8.34,
+      "rs5": -1.25,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 49.51,
+        "date": "2024-11-01",
+        "atr_away": 3.32
+      },
+      "first_shelf": {
+        "level": 54.51,
+        "date": "2022-03-29",
+        "rr": 0.16
+      },
+      "floor2": {
+        "level": 54.5099983215332,
+        "date": "2022-03-29"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 54.94,
+        "stop": 57.56,
+        "stop_atr": 1.6,
+        "target": 49.51,
+        "rr": 2.07
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "HIMS",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 28.7,
+      "sma50": 29.47,
+      "sma20": 28.43,
+      "atr": 1.57,
+      "low20": 26.73,
+      "volume": 6514451,
+      "vol30": 10648963,
+      "volRatio": 0.61,
+      "rs20": -2.6,
+      "rs5": -4.5,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 25.13,
+        "date": "2025-04-22",
+        "atr_away": 2.28
+      },
+      "first_shelf": {
+        "level": 27.96,
+        "date": "2026-01-21",
+        "rr": 0.47
+      },
+      "floor2": {
+        "level": 27.959999084472656,
+        "date": "2026-01-21"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 28.7,
+        "stop": 30.27,
+        "stop_atr": 1,
+        "target": 25.13,
+        "rr": 2.28
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "AVAV",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 143.24,
+      "sma50": 158.79,
+      "sma20": 151.45,
+      "atr": 9.43,
+      "low20": 138.31,
+      "volume": 1536041,
+      "vol30": 1917040,
+      "volRatio": 0.8,
+      "rs20": -3.07,
+      "rs5": -7.08,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 122.07,
+        "date": "2023-12-12",
+        "atr_away": 2.25
+      },
+      "first_shelf": {
+        "level": 141.03,
+        "date": "2024-03-19",
+        "rr": 0.23
+      },
+      "floor2": {
+        "level": 141.02999877929688,
+        "date": "2024-03-19"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 143.24,
+        "stop": 152.67,
+        "stop_atr": 1,
+        "target": 122.07,
+        "rr": 2.25
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "RARE",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 15.32,
+      "sma50": 21.96,
+      "sma20": 15.65,
+      "atr": 0.87,
+      "low20": 12.73,
+      "volume": 5854143,
+      "vol30": 5440283,
+      "volRatio": 1.08,
+      "rs20": -38.86,
+      "rs5": -0.7,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 12.73,
+        "date": "2026-09-16",
+        "atr_away": 2.98
+      },
+      "first_shelf": {
+        "level": 13.81,
+        "date": "2026-09-03",
+        "rr": 1.74
+      },
+      "floor2": {
+        "level": 13.8100004196167,
+        "date": "2026-09-03"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 15.32,
+        "stop": 16.19,
+        "stop_atr": 1,
+        "target": 12.73,
+        "rr": 2.98
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "ORCL",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 137.79,
+      "sma50": 142.7,
+      "sma20": 147.16,
+      "atr": 7.7,
+      "low20": 131.58,
+      "volume": 45316918,
+      "vol30": 29349930,
+      "volRatio": 1.54,
+      "rs20": -7.23,
+      "rs5": -6.46,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 121.24,
+        "date": "2025-04-21",
+        "atr_away": 2.15
+      },
+      "first_shelf": {
+        "level": 137.7,
+        "date": "2025-03-11",
+        "rr": 0.01
+      },
+      "floor2": {
+        "level": 137.6999969482422,
+        "date": "2025-03-11"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 137.79,
+        "stop": 145.49,
+        "stop_atr": 1,
+        "target": 121.24,
+        "rr": 2.15
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "AAOI",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 100.67,
+      "sma50": 111.54,
+      "sma20": 102.41,
+      "atr": 6.5,
+      "low20": 93.62,
+      "volume": 7242165,
+      "vol30": 7744957,
+      "volRatio": 0.94,
+      "rs20": -6.15,
+      "rs5": -4.73,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 84.6,
+        "date": "2026-03-20",
+        "atr_away": 2.47
+      },
+      "first_shelf": {
+        "level": 96.96,
+        "date": "2026-09-03",
+        "rr": 0.57
+      },
+      "floor2": {
+        "level": 96.95999908447266,
+        "date": "2026-09-03"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 100.67,
+        "stop": 107.17,
+        "stop_atr": 1,
+        "target": 84.6,
+        "rr": 2.47
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "GRAB",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 3.12,
+      "sma50": 3.37,
+      "sma20": 3.12,
+      "atr": 0.13,
+      "low20": 2.74,
+      "volume": 71398968,
+      "vol30": 59818617,
+      "volRatio": 1.19,
+      "rs20": -11.49,
+      "rs5": -0.39,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 2.85,
+        "date": "2023-05-31",
+        "atr_away": 2.11
+      },
+      "first_shelf": {
+        "level": 3.11,
+        "date": "2024-04-05",
+        "rr": 0.08
+      },
+      "floor2": {
+        "level": 3.109999895095825,
+        "date": "2024-04-05"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 3.12,
+        "stop": 3.25,
+        "stop_atr": 1,
+        "target": 2.85,
+        "rr": 2.11
+      },
+      "readiness": 60,
+      "list": "STALK"
+    }
+  ],
+  "DISCOVERY": [
+    {
+      "sym": "VICI",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 23.2,
+      "sma50": 25.61,
+      "sma20": 24.47,
+      "atr": 0.4,
+      "low20": 23.14,
+      "volume": 11575965,
+      "vol30": 9734770,
+      "volRatio": 1.19,
+      "rs20": -9.18,
+      "rs5": -2.07,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": null,
+      "first_shelf": null,
+      "floor2": null,
+      "too_far": null,
+      "geometry": {
+        "entry": 23.2,
+        "stop": 23.6,
+        "stop_atr": 1,
+        "target": null,
+        "rr": null
+      },
+      "readiness": 39,
+      "list": "DISCOVERY"
+    },
+    {
+      "sym": "PATH",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 12.32,
+      "sma50": 14.46,
+      "sma20": 14.19,
+      "atr": 0.68,
+      "low20": 11.57,
+      "volume": 35851467,
+      "vol30": 60636930,
+      "volRatio": 0.59,
+      "rs20": -33.64,
+      "rs5": -5.83,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": null,
+      "first_shelf": {
+        "level": 12.24,
+        "date": "2025-07-14",
+        "rr": 0.12
+      },
+      "floor2": null,
+      "too_far": null,
+      "geometry": {
+        "entry": 12.32,
+        "stop": 13,
+        "stop_atr": 1,
+        "target": null,
+        "rr": 0.12
+      },
+      "readiness": 34,
+      "list": "DISCOVERY"
+    }
+  ],
+  "NO_FLOOR": [],
+  "skipped": [
+    {
+      "sym": "SOL",
+      "ok": false,
+      "problem": "yahoo SOL: 404"
+    },
+    {
+      "sym": "ZEC",
+      "ok": false,
+      "problem": "yahoo ZEC: no bars"
+    }
+  ],
+  "id": "c7a77e9e"
+}

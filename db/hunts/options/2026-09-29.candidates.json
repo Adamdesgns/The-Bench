@@ -1,0 +1,1587 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-09-29",
+  "source": "yahoo",
+  "universe": "all",
+  "generated": "2026-09-29T20:35:36.883Z",
+  "macro_inside_2_sessions": true,
+  "band": 291.037,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "scanned": 59,
+  "candidates": [
+    {
+      "sym": "MSFT",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 508.96,
+      "sma50": 480.25,
+      "atr": 11.74,
+      "high20": 519.4,
+      "volRatio": 0.93,
+      "rs20": 0.7,
+      "rs5": 3.39,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 532.7,
+        "date": "2025-08-13"
+      },
+      "first_shelf": {
+        "level": 513.5,
+        "date": "2025-11-13",
+        "rr": 0.39
+      },
+      "too_far": null,
+      "target2": {
+        "level": 513.5,
+        "date": "2025-11-13",
+        "rr": 0.39
+      },
+      "geometry": {
+        "entry": 508.96,
+        "stop": 497.22,
+        "stop_atr": 1,
+        "target": 532.7,
+        "rr": 2.02
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakout",
+        "horizon": 10,
+        "n": 97,
+        "independent": 47,
+        "pending": 1,
+        "span_years": 5,
+        "grade": "A",
+        "why": "47 independent event(s) over 5y (98 raw) — large sample across multiple regimes",
+        "p_dir": 55.67,
+        "p_reach": 14.43,
+        "avg_pct": 0.61,
+        "median_pct": 0.84,
+        "target_pct": 4.66
+      },
+      "spread_request": {
+        "structure": "call debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 508.96,
+        "short_strike_near": 532.7,
+        "stop": 497.22,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "AMZN",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 246.67,
+      "sma50": 256.09,
+      "sma20": 252.64,
+      "atr": 5.22,
+      "low20": 244.3,
+      "volume": 31534483,
+      "vol30": 34252010,
+      "volRatio": 0.92,
+      "rs20": -4.67,
+      "rs5": -2.07,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 226.88,
+        "date": "2026-01-21",
+        "atr_away": 3.79
+      },
+      "first_shelf": {
+        "level": 244.3,
+        "date": "2026-09-16",
+        "rr": 0.45
+      },
+      "floor2": {
+        "level": 244.3000030517578,
+        "date": "2026-09-16"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 246.67,
+        "stop": 251.89,
+        "stop_atr": 1,
+        "target": 226.88,
+        "rr": 3.79
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 72,
+        "independent": 38,
+        "pending": 0,
+        "span_years": 5,
+        "grade": "A",
+        "why": "38 independent event(s) over 5y (72 raw) — large sample across multiple regimes",
+        "p_dir": 48.61,
+        "p_reach": 11.11,
+        "avg_pct": 1.14,
+        "median_pct": 0.17,
+        "target_pct": -8.02
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 246.67,
+        "short_strike_near": 226.88,
+        "stop": 251.89,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "AVGO",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 355.1,
+      "sma50": 375.74,
+      "sma20": 356.31,
+      "atr": 9.92,
+      "low20": 335.81,
+      "volume": 18456185,
+      "vol30": 25452927,
+      "volRatio": 0.73,
+      "rs20": -3.74,
+      "rs5": -1.4,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 330.5,
+        "date": "2026-01-08",
+        "atr_away": 2.48
+      },
+      "first_shelf": {
+        "level": 350.06,
+        "date": "2026-08-26",
+        "rr": 0.51
+      },
+      "floor2": {
+        "level": 350.05999755859375,
+        "date": "2026-08-26"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 355.1,
+        "stop": 365.02,
+        "stop_atr": 1,
+        "target": 330.5,
+        "rr": 2.48
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 54,
+        "independent": 33,
+        "pending": 0,
+        "span_years": 5,
+        "grade": "A",
+        "why": "33 independent event(s) over 5y (54 raw) — large sample across multiple regimes",
+        "p_dir": 22.22,
+        "p_reach": 1.85,
+        "avg_pct": 4.62,
+        "median_pct": 3.03,
+        "target_pct": -6.93
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 355.1,
+        "short_strike_near": 330.5,
+        "stop": 365.02,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "sym": "MRVL",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 263.27,
+      "sma50": 223.2,
+      "atr": 12.57,
+      "high20": 267.48,
+      "volRatio": 0.71,
+      "rs20": 24.75,
+      "rs5": 1.53,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 300,
+        "date": "2026-06-30"
+      },
+      "first_shelf": {
+        "level": 300,
+        "date": "2026-06-30",
+        "rr": 2.43
+      },
+      "too_far": null,
+      "target2": null,
+      "geometry": {
+        "entry": 263.27,
+        "stop": 248.14,
+        "stop_atr": 1.2,
+        "target": 300,
+        "rr": 2.43
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakout",
+        "horizon": 10,
+        "n": 82,
+        "independent": 41,
+        "pending": 2,
+        "span_years": 5,
+        "grade": "A",
+        "why": "41 independent event(s) over 5y (84 raw) — large sample across multiple regimes",
+        "p_dir": 54.88,
+        "p_reach": 13.41,
+        "avg_pct": 3.18,
+        "median_pct": 0.76,
+        "target_pct": 13.95
+      },
+      "spread_request": {
+        "structure": "call debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 263.27,
+        "short_strike_near": 300,
+        "stop": 248.14,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "VRT",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 248.34,
+      "sma50": 264.17,
+      "sma20": 253.36,
+      "atr": 11.64,
+      "low20": 226.94,
+      "volume": 3241801,
+      "vol30": 5059677,
+      "volRatio": 0.64,
+      "rs20": -3.64,
+      "rs5": -0.83,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 220.92,
+        "date": "2026-07-29",
+        "atr_away": 2.36
+      },
+      "first_shelf": {
+        "level": 234.72,
+        "date": "2026-03-03",
+        "rr": 1.17
+      },
+      "floor2": {
+        "level": 234.72000122070312,
+        "date": "2026-03-03"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 248.34,
+        "stop": 259.98,
+        "stop_atr": 1,
+        "target": 220.92,
+        "rr": 2.36
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 63,
+        "independent": 37,
+        "pending": 0,
+        "span_years": 5,
+        "grade": "A",
+        "why": "37 independent event(s) over 5y (63 raw) — large sample across multiple regimes",
+        "p_dir": 36.51,
+        "p_reach": 9.52,
+        "avg_pct": 4.17,
+        "median_pct": 4.3,
+        "target_pct": -11.04
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 248.34,
+        "short_strike_near": 220.92,
+        "stop": 259.98,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "sym": "PWR",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 651.79,
+      "sma50": 642.13,
+      "atr": 21.16,
+      "high20": 656.51,
+      "volRatio": 0.77,
+      "rs20": 7.73,
+      "rs5": 2.61,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 708.06,
+        "date": "2026-08-04"
+      },
+      "first_shelf": {
+        "level": 653.87,
+        "date": "2026-09-11",
+        "rr": 0.1
+      },
+      "too_far": null,
+      "target2": {
+        "level": 653.87,
+        "date": "2026-09-11",
+        "rr": 0.1
+      },
+      "geometry": {
+        "entry": 651.79,
+        "stop": 630.63,
+        "stop_atr": 1,
+        "target": 708.06,
+        "rr": 2.66
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakout",
+        "horizon": 10,
+        "n": 122,
+        "independent": 57,
+        "pending": 1,
+        "span_years": 5,
+        "grade": "A",
+        "why": "57 independent event(s) over 5y (123 raw) — large sample across multiple regimes",
+        "p_dir": 70.49,
+        "p_reach": 12.3,
+        "avg_pct": 2.15,
+        "median_pct": 2.06,
+        "target_pct": 8.63
+      },
+      "spread_request": {
+        "structure": "call debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 651.79,
+        "short_strike_near": 708.06,
+        "stop": 630.63,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "APP",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 305.66,
+      "sma50": 338.72,
+      "sma20": 317.68,
+      "atr": 15.84,
+      "low20": 300.09,
+      "volume": 3660941,
+      "vol30": 4794383,
+      "volRatio": 0.76,
+      "rs20": -1.68,
+      "rs5": -5.83,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 246,
+        "date": "2025-04-30",
+        "atr_away": 3.77
+      },
+      "first_shelf": {
+        "level": 303.17,
+        "date": "2026-08-12",
+        "rr": 0.15
+      },
+      "floor2": {
+        "level": 303.1700134277344,
+        "date": "2026-08-12"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 305.66,
+        "stop": 322.74,
+        "stop_atr": 1.08,
+        "target": 246,
+        "rr": 3.49
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 68,
+        "independent": 36,
+        "pending": 0,
+        "span_years": 5,
+        "grade": "A",
+        "why": "36 independent event(s) over 5y (68 raw) — large sample across multiple regimes",
+        "p_dir": 47.06,
+        "p_reach": 8.82,
+        "avg_pct": 0.28,
+        "median_pct": 0.95,
+        "target_pct": -19.52
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 305.66,
+        "short_strike_near": 246,
+        "stop": 322.74,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "NI",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 39.32,
+      "sma50": 42.1,
+      "sma20": 40.6,
+      "atr": 0.6,
+      "low20": 38.95,
+      "volume": 6349706,
+      "vol30": 5498970,
+      "volRatio": 1.15,
+      "rs20": -3.54,
+      "rs5": -0.22,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 38.03,
+        "date": "2025-03-10",
+        "atr_away": 2.15
+      },
+      "first_shelf": {
+        "level": 39.3,
+        "date": "2025-09-16",
+        "rr": 0.03
+      },
+      "floor2": {
+        "level": 39.29999923706055,
+        "date": "2025-09-16"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 39.32,
+        "stop": 39.92,
+        "stop_atr": 1,
+        "target": 38.03,
+        "rr": 2.15
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 50,
+        "independent": 31,
+        "pending": 2,
+        "span_years": 5,
+        "grade": "A",
+        "why": "31 independent event(s) over 5y (52 raw) — large sample across multiple regimes",
+        "p_dir": 38,
+        "p_reach": 16,
+        "avg_pct": 0.93,
+        "median_pct": 1.34,
+        "target_pct": -3.28
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 39.32,
+        "short_strike_near": 38.03,
+        "stop": 39.92,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "AAP",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 39.73,
+      "sma50": 48.73,
+      "sma20": 42.44,
+      "atr": 1.7,
+      "low20": 39.61,
+      "volume": 1956255,
+      "vol30": 2372403,
+      "volRatio": 0.82,
+      "rs20": -5.44,
+      "rs5": -5.68,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 33.08,
+        "date": "2025-03-07",
+        "atr_away": 3.91
+      },
+      "first_shelf": {
+        "level": 37.89,
+        "date": "2026-01-02",
+        "rr": 0.78
+      },
+      "floor2": {
+        "level": 37.88999938964844,
+        "date": "2026-01-02"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 39.73,
+        "stop": 42.1,
+        "stop_atr": 1.39,
+        "target": 33.08,
+        "rr": 2.81
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 75,
+        "independent": 40,
+        "pending": 3,
+        "span_years": 5,
+        "grade": "A",
+        "why": "40 independent event(s) over 5y (78 raw) — large sample across multiple regimes",
+        "p_dir": 44,
+        "p_reach": 6.67,
+        "avg_pct": -0.09,
+        "median_pct": 1.18,
+        "target_pct": -16.74
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 39.73,
+        "short_strike_near": 33.08,
+        "stop": 42.1,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "OXY",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 54.94,
+      "sma50": 58.39,
+      "sma20": 59.34,
+      "atr": 1.64,
+      "low20": 56,
+      "volume": 7529471,
+      "vol30": 8228273,
+      "volRatio": 0.92,
+      "rs20": -8.34,
+      "rs5": -1.25,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 49.51,
+        "date": "2024-11-01",
+        "atr_away": 3.32
+      },
+      "first_shelf": {
+        "level": 54.51,
+        "date": "2022-03-29",
+        "rr": 0.16
+      },
+      "floor2": {
+        "level": 54.5099983215332,
+        "date": "2022-03-29"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 54.94,
+        "stop": 57.56,
+        "stop_atr": 1.6,
+        "target": 49.51,
+        "rr": 2.07
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 65,
+        "independent": 40,
+        "pending": 2,
+        "span_years": 5,
+        "grade": "A",
+        "why": "40 independent event(s) over 5y (67 raw) — large sample across multiple regimes",
+        "p_dir": 44.62,
+        "p_reach": 1.54,
+        "avg_pct": 0.98,
+        "median_pct": 1,
+        "target_pct": -9.88
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 54.94,
+        "short_strike_near": 49.51,
+        "stop": 57.56,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "HIMS",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 28.7,
+      "sma50": 29.47,
+      "sma20": 28.43,
+      "atr": 1.57,
+      "low20": 26.73,
+      "volume": 6514451,
+      "vol30": 10648963,
+      "volRatio": 0.61,
+      "rs20": -2.6,
+      "rs5": -4.5,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 25.13,
+        "date": "2025-04-22",
+        "atr_away": 2.28
+      },
+      "first_shelf": {
+        "level": 27.96,
+        "date": "2026-01-21",
+        "rr": 0.47
+      },
+      "floor2": {
+        "level": 27.959999084472656,
+        "date": "2026-01-21"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 28.7,
+        "stop": 30.27,
+        "stop_atr": 1,
+        "target": 25.13,
+        "rr": 2.28
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 75,
+        "independent": 39,
+        "pending": 0,
+        "span_years": 5,
+        "grade": "A",
+        "why": "39 independent event(s) over 5y (75 raw) — large sample across multiple regimes",
+        "p_dir": 60,
+        "p_reach": 22.67,
+        "avg_pct": 0.06,
+        "median_pct": -2.07,
+        "target_pct": -12.44
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 28.7,
+        "short_strike_near": 25.13,
+        "stop": 30.27,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "sym": "MRNA",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 203.46,
+      "sma50": 115.7,
+      "atr": 12.69,
+      "high20": 202.67,
+      "volRatio": 0.46,
+      "rs20": 45.35,
+      "rs5": 12.64,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 259.2,
+        "date": "2021-12-31"
+      },
+      "first_shelf": {
+        "level": 207.51,
+        "date": "2023-01-18",
+        "rr": 0.28
+      },
+      "too_far": null,
+      "target2": {
+        "level": 207.51,
+        "date": "2023-01-18",
+        "rr": 0.28
+      },
+      "geometry": {
+        "entry": 203.46,
+        "stop": 189.1,
+        "stop_atr": 1.13,
+        "target": 259.2,
+        "rr": 3.88
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakout",
+        "horizon": 10,
+        "n": 54,
+        "independent": 31,
+        "pending": 3,
+        "span_years": 5,
+        "grade": "A",
+        "why": "31 independent event(s) over 5y (57 raw) — large sample across multiple regimes",
+        "p_dir": 53.7,
+        "p_reach": 5.56,
+        "avg_pct": 3.7,
+        "median_pct": 0.87,
+        "target_pct": 27.4
+      },
+      "spread_request": {
+        "structure": "call debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 203.46,
+        "short_strike_near": 259.2,
+        "stop": 189.1,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "AVAV",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 143.24,
+      "sma50": 158.79,
+      "sma20": 151.45,
+      "atr": 9.43,
+      "low20": 138.31,
+      "volume": 1536041,
+      "vol30": 1917040,
+      "volRatio": 0.8,
+      "rs20": -3.07,
+      "rs5": -7.08,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 122.07,
+        "date": "2023-12-12",
+        "atr_away": 2.25
+      },
+      "first_shelf": {
+        "level": 141.03,
+        "date": "2024-03-19",
+        "rr": 0.23
+      },
+      "floor2": {
+        "level": 141.02999877929688,
+        "date": "2024-03-19"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 143.24,
+        "stop": 152.67,
+        "stop_atr": 1,
+        "target": 122.07,
+        "rr": 2.25
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 69,
+        "independent": 36,
+        "pending": 0,
+        "span_years": 5,
+        "grade": "A",
+        "why": "36 independent event(s) over 5y (69 raw) — large sample across multiple regimes",
+        "p_dir": 43.48,
+        "p_reach": 11.59,
+        "avg_pct": 1.32,
+        "median_pct": 2.35,
+        "target_pct": -14.78
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 143.24,
+        "short_strike_near": 122.07,
+        "stop": 152.67,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "RARE",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 15.32,
+      "sma50": 21.96,
+      "sma20": 15.65,
+      "atr": 0.87,
+      "low20": 12.73,
+      "volume": 5854143,
+      "vol30": 5440283,
+      "volRatio": 1.08,
+      "rs20": -38.86,
+      "rs5": -0.7,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 12.73,
+        "date": "2026-09-16",
+        "atr_away": 2.98
+      },
+      "first_shelf": {
+        "level": 13.81,
+        "date": "2026-09-03",
+        "rr": 1.74
+      },
+      "floor2": {
+        "level": 13.8100004196167,
+        "date": "2026-09-03"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 15.32,
+        "stop": 16.19,
+        "stop_atr": 1,
+        "target": 12.73,
+        "rr": 2.98
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 82,
+        "independent": 45,
+        "pending": 0,
+        "span_years": 5,
+        "grade": "A",
+        "why": "45 independent event(s) over 5y (82 raw) — large sample across multiple regimes",
+        "p_dir": 42.68,
+        "p_reach": 2.44,
+        "avg_pct": 1.61,
+        "median_pct": 2.09,
+        "target_pct": -16.91
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 15.32,
+        "short_strike_near": 12.73,
+        "stop": 16.19,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "ORCL",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 137.79,
+      "sma50": 142.7,
+      "sma20": 147.16,
+      "atr": 7.7,
+      "low20": 131.58,
+      "volume": 45316918,
+      "vol30": 29349930,
+      "volRatio": 1.54,
+      "rs20": -7.23,
+      "rs5": -6.46,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 121.24,
+        "date": "2025-04-21",
+        "atr_away": 2.15
+      },
+      "first_shelf": {
+        "level": 137.7,
+        "date": "2025-03-11",
+        "rr": 0.01
+      },
+      "floor2": {
+        "level": 137.6999969482422,
+        "date": "2025-03-11"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 137.79,
+        "stop": 145.49,
+        "stop_atr": 1,
+        "target": 121.24,
+        "rr": 2.15
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 83,
+        "independent": 41,
+        "pending": 1,
+        "span_years": 5,
+        "grade": "A",
+        "why": "41 independent event(s) over 5y (84 raw) — large sample across multiple regimes",
+        "p_dir": 53.01,
+        "p_reach": 7.23,
+        "avg_pct": 0.85,
+        "median_pct": -0.35,
+        "target_pct": -12.01
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 137.79,
+        "short_strike_near": 121.24,
+        "stop": 145.49,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "AAOI",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 100.67,
+      "sma50": 111.54,
+      "sma20": 102.41,
+      "atr": 6.5,
+      "low20": 93.62,
+      "volume": 7242165,
+      "vol30": 7744957,
+      "volRatio": 0.94,
+      "rs20": -6.15,
+      "rs5": -4.73,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 84.6,
+        "date": "2026-03-20",
+        "atr_away": 2.47
+      },
+      "first_shelf": {
+        "level": 96.96,
+        "date": "2026-09-03",
+        "rr": 0.57
+      },
+      "floor2": {
+        "level": 96.95999908447266,
+        "date": "2026-09-03"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 100.67,
+        "stop": 107.17,
+        "stop_atr": 1,
+        "target": 84.6,
+        "rr": 2.47
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 78,
+        "independent": 39,
+        "pending": 0,
+        "span_years": 5,
+        "grade": "A",
+        "why": "39 independent event(s) over 5y (78 raw) — large sample across multiple regimes",
+        "p_dir": 50,
+        "p_reach": 17.95,
+        "avg_pct": 3.17,
+        "median_pct": -0.07,
+        "target_pct": -15.96
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 100.67,
+        "short_strike_near": 84.6,
+        "stop": 107.17,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "GRAB",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 3.12,
+      "sma50": 3.37,
+      "sma20": 3.12,
+      "atr": 0.13,
+      "low20": 2.74,
+      "volume": 71398968,
+      "vol30": 59818617,
+      "volRatio": 1.19,
+      "rs20": -11.49,
+      "rs5": -0.39,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 2.85,
+        "date": "2023-05-31",
+        "atr_away": 2.11
+      },
+      "first_shelf": {
+        "level": 3.11,
+        "date": "2024-04-05",
+        "rr": 0.08
+      },
+      "floor2": {
+        "level": 3.109999895095825,
+        "date": "2024-04-05"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 3.12,
+        "stop": 3.25,
+        "stop_atr": 1,
+        "target": 2.85,
+        "rr": 2.11
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 82,
+        "independent": 44,
+        "pending": 0,
+        "span_years": 5,
+        "grade": "A",
+        "why": "44 independent event(s) over 5y (82 raw) — large sample across multiple regimes",
+        "p_dir": 46.34,
+        "p_reach": 10.98,
+        "avg_pct": 1.18,
+        "median_pct": 1.19,
+        "target_pct": -8.65
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 3.12,
+        "short_strike_near": 2.85,
+        "stop": 3.25,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "sym": "GPRO",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 1.33,
+      "sma50": 0.95,
+      "atr": 0.1,
+      "high20": 2.05,
+      "volRatio": 0.17,
+      "rs20": 51.63,
+      "rs5": 5.52,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 1.56,
+        "date": "2024-10-29"
+      },
+      "first_shelf": {
+        "level": 1.36,
+        "date": "2024-08-23",
+        "rr": 0.35
+      },
+      "too_far": null,
+      "target2": {
+        "level": 1.36,
+        "date": "2024-08-23",
+        "rr": 0.35
+      },
+      "geometry": {
+        "entry": 1.33,
+        "stop": 1.23,
+        "stop_atr": 1,
+        "target": 1.56,
+        "rr": 2.35
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakout",
+        "horizon": 10,
+        "n": 51,
+        "independent": 28,
+        "pending": 0,
+        "span_years": 5,
+        "grade": "B",
+        "why": "28 independent event(s) over 5y (51 raw) — useful, not yet regime-proof",
+        "p_dir": 47.06,
+        "p_reach": 13.73,
+        "avg_pct": -0.49,
+        "median_pct": -1.82,
+        "target_pct": 17.29
+      },
+      "spread_request": {
+        "structure": "call debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 1.33,
+        "short_strike_near": 1.56,
+        "stop": 1.23,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "sym": "AMAT",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 512.01,
+      "sma50": 489.11,
+      "atr": 19.24,
+      "high20": 487.68,
+      "volRatio": 1.09,
+      "rs20": 12.07,
+      "rs5": 9.56,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": null,
+      "first_shelf": {
+        "level": 563.76,
+        "date": "2026-08-13",
+        "rr": 1.27
+      },
+      "too_far": {
+        "level": 739.67,
+        "date": "2026-06-30"
+      },
+      "target2": null,
+      "geometry": {
+        "entry": 512.01,
+        "stop": 471.38,
+        "stop_atr": 2.11,
+        "target": null,
+        "rr": 1.27
+      },
+      "readiness": 49,
+      "list": "DISCOVERY",
+      "evidence": null,
+      "spread_request": null
+    },
+    {
+      "sym": "LITE",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 973.49,
+      "sma50": 866.99,
+      "atr": 60.54,
+      "high20": 1026.76,
+      "volRatio": 1.37,
+      "rs20": 6.79,
+      "rs5": 4.13,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": null,
+      "first_shelf": {
+        "level": 998.5,
+        "date": "2026-06-15",
+        "rr": 0.27
+      },
+      "too_far": null,
+      "target2": null,
+      "geometry": {
+        "entry": 973.49,
+        "stop": 881.23,
+        "stop_atr": 1.52,
+        "target": null,
+        "rr": 0.27
+      },
+      "readiness": 40,
+      "list": "DISCOVERY",
+      "evidence": null,
+      "spread_request": null
+    },
+    {
+      "sym": "META",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 738.79,
+      "sma50": 619,
+      "atr": 29.9,
+      "high20": 779.82,
+      "volRatio": 1.06,
+      "rs20": 29.45,
+      "rs5": 1.48,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": null,
+      "first_shelf": {
+        "level": 740.91,
+        "date": "2025-02-14",
+        "rr": 0.07
+      },
+      "too_far": null,
+      "target2": null,
+      "geometry": {
+        "entry": 738.79,
+        "stop": 708.89,
+        "stop_atr": 1,
+        "target": null,
+        "rr": 0.07
+      },
+      "readiness": 39,
+      "list": "DISCOVERY",
+      "evidence": null,
+      "spread_request": null
+    },
+    {
+      "side": "short",
+      "sym": "VICI",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 23.2,
+      "sma50": 25.61,
+      "sma20": 24.47,
+      "atr": 0.4,
+      "low20": 23.14,
+      "volume": 11575965,
+      "vol30": 9734770,
+      "volRatio": 1.19,
+      "rs20": -9.18,
+      "rs5": -2.07,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": null,
+      "first_shelf": null,
+      "floor2": null,
+      "too_far": null,
+      "geometry": {
+        "entry": 23.2,
+        "stop": 23.6,
+        "stop_atr": 1,
+        "target": null,
+        "rr": null
+      },
+      "readiness": 39,
+      "list": "DISCOVERY",
+      "evidence": null,
+      "spread_request": null
+    },
+    {
+      "side": "short",
+      "sym": "PATH",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 12.32,
+      "sma50": 14.46,
+      "sma20": 14.19,
+      "atr": 0.68,
+      "low20": 11.57,
+      "volume": 35851467,
+      "vol30": 60636930,
+      "volRatio": 0.59,
+      "rs20": -33.64,
+      "rs5": -5.83,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": null,
+      "first_shelf": {
+        "level": 12.24,
+        "date": "2025-07-14",
+        "rr": 0.12
+      },
+      "floor2": null,
+      "too_far": null,
+      "geometry": {
+        "entry": 12.32,
+        "stop": 13,
+        "stop_atr": 1,
+        "target": null,
+        "rr": 0.12
+      },
+      "readiness": 34,
+      "list": "DISCOVERY",
+      "evidence": null,
+      "spread_request": null
+    },
+    {
+      "sym": "HPE",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 61.49,
+      "sma50": 54.62,
+      "atr": 3.73,
+      "high20": 65.65,
+      "volRatio": 0.52,
+      "rs20": 18.08,
+      "rs5": 1.94,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": null,
+      "first_shelf": {
+        "level": 62.15,
+        "date": "2026-09-11",
+        "rr": 0.18
+      },
+      "too_far": null,
+      "target2": null,
+      "geometry": {
+        "entry": 61.49,
+        "stop": 57.76,
+        "stop_atr": 1,
+        "target": null,
+        "rr": 0.18
+      },
+      "readiness": 33,
+      "list": "DISCOVERY",
+      "evidence": null,
+      "spread_request": null
+    },
+    {
+      "sym": "ANET",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 202.86,
+      "sma50": 191.63,
+      "atr": 7.42,
+      "high20": 212,
+      "volRatio": 0.89,
+      "rs20": 4.04,
+      "rs5": 0.05,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": null,
+      "first_shelf": {
+        "level": 206.13,
+        "date": "2026-08-27",
+        "rr": 0.44
+      },
+      "too_far": null,
+      "target2": null,
+      "geometry": {
+        "entry": 202.86,
+        "stop": 195.44,
+        "stop_atr": 1,
+        "target": null,
+        "rr": 0.44
+      },
+      "readiness": 32,
+      "list": "DISCOVERY",
+      "evidence": null,
+      "spread_request": null
+    },
+    {
+      "sym": "NVDA",
+      "side": "long",
+      "ok": true,
+      "date": "2026-09-29",
+      "close": 227.21,
+      "sma50": 216.98,
+      "atr": 5.39,
+      "high20": 234.76,
+      "volRatio": 0.8,
+      "rs20": 3.28,
+      "rs5": 0.46,
+      "gates": {
+        "breakout": false,
+        "leader": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": null,
+      "first_shelf": {
+        "level": 227.92,
+        "date": "2026-08-17",
+        "rr": 0.13
+      },
+      "too_far": null,
+      "target2": null,
+      "geometry": {
+        "entry": 227.21,
+        "stop": 221.82,
+        "stop_atr": 1,
+        "target": null,
+        "rr": 0.13
+      },
+      "readiness": 28,
+      "list": "DISCOVERY",
+      "evidence": null,
+      "spread_request": null
+    }
+  ],
+  "skipped": [
+    {
+      "sym": "SOL",
+      "problem": "yahoo SOL: 404"
+    },
+    {
+      "sym": "ZEC",
+      "problem": "yahoo ZEC: no bars"
+    }
+  ],
+  "id": "d0d07690"
+}

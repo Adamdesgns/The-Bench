@@ -1,0 +1,2990 @@
+{
+  "schema": "bench-prepump-outcome-manifest-v2",
+  "asof": "2026-09-25",
+  "anchor_session": "2026-09-25",
+  "built_at": "2026-09-26T17:23:02.883Z",
+  "due": 2387,
+  "scored": 1794,
+  "skipped": 593,
+  "complete": false,
+  "horizons": [
+    1,
+    3,
+    5,
+    7,
+    10,
+    14,
+    30
+  ],
+  "required_horizon": 10,
+  "benchmark": "SPY",
+  "skipped_detail": [
+    {
+      "symbol": "AA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AAPL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ABBV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ABCB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ABM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ACAD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ACDC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ACHC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ACLS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ACN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ADSK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ADUS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AEO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AEP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AFL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AGI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AGX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AGYS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AHCO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AIR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AKBA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ALGM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ALKS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ALLO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ALM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ALRM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ALTO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AMC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AMCR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AMGN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AMKR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AMLX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AMPH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AMPY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AMRZ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AMTX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AMZN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ANAB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ANIP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ANNX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AORT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AOSL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "APA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "APD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "APG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "APLD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "APTV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ARDX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AREC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ARHS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ARKO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ASC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ASH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ASO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ASST",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ASTE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ASTL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ASTS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ASX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ATEC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ATEN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ATEX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ATOM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AUDC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AVA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AVGO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AVNT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "AX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "B",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BABA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BAND",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BANR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BAX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BBAI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BDX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BFLY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BHP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BIIB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BJRI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BKH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BKR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BMNR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BOOT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BORR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BRCC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BRK.B",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BROS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BSX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BTBT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BTDR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BTI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "BTU",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CAE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CAI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CAKE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CAN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CARR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CARS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CART",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CAT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CATY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CAVA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CBZ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CCCC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CCOI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CDE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CDXS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CELH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CERS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CEVA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CFG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CGC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CGEM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CHEF",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CHWY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CHYM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CIFR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CLB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CLFD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CLNE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CLOV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CLW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CMCO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CMG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CMI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CMPX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CNC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CNQ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "COF",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "COLL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "COR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CORZ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "COST",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CPRT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CRBU",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CRC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CRNC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CRUS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CSGP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CSTL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CSX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CTAS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CTMX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CTSH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CVGI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CVS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "CVX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DAC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DAL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DBI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DBX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DDOG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DHT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DHX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DINO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DIOD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DKNG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DNN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DNOW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DNUT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DOCS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DOW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DUK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DVA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DVN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "DYN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EAT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ECL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ECVT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ED",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EDIT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EDRY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EFX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EGBN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EGY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EIX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ELDN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ELV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EME",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EMR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ENPH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EPC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EPSN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EQT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ERAS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ERO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ESI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ESOA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ET",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EVER",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EVGO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EYE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "EYPT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "F",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FANG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FAST",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FATE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FCX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FF",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FFIN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FIG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FIS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FISV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FITB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FIZZ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FORM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FRO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FSLY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FWRD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "FWRG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GDOT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GDRX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GDYN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GEF",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GERN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GEV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GEVO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GFI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GFS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GILD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GIS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GLW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GLXY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GME",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GNK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GOGO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GOOGL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GORO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GPN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GPRO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GRAB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GRBK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GRC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GSK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GSL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GTLB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GWRS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "GWW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HAL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HALO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HBAN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HBM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HCA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HCAT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HCC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HCI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HDSN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HGV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HIMS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HLIT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HLT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HOPE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HPK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HPQ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HQY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HRMY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HRTG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HSY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HTLD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HTZ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HUMA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "HZO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IBM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ICHR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IDN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IDT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IHRT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ILMN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "INDI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "INO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "INSW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "INTT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IONQ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IOSP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IOT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IOVA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IQ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IRDM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IREN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "IRWD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ITRG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "JBLU",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "JBSS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "JNJ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "JPM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KEYS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KGC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KIDS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KLTR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KLXE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KMB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KOP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KOPN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KOS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KRNY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KRO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KTOS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KURA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KVHI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KVYO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KWR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "KYMR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LAC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LBRT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LCII",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LCUT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LDI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LEN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LFMD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LIN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LKFN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LLY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LODE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LOVE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LTRX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LUNR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LUV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LVS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LWAY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LXRX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LXU",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "LZB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MATX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MBUU",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MCHP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MCK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MCY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MEC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "META",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "METC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MGY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MHO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MITK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MNST",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MOH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MOS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MPAA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MRTN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MSFT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MTCH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MTDR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MTRX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MTW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MTX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MUR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MUX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MVIS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MVST",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MYE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "MYRG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NABL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NAK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NATR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NAVI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NBR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NEM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NIO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NKE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NKTX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NPWR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NRGV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NRXP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NSC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NTR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NUE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NVDA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NVO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NWE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "NXPI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OCGN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ODFL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OEC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OFIX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OII",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OIS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OKLO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OLMA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ON",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ONEW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ONON",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OOMA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OPCH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OPEN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OPK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OPRT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ORCL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ORIC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ORN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OSCR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OSS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OSUR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "OXY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PAA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PAAS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PACB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PAGP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PATH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PATK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PBR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PCAR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PCOR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PCRX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PKOH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PLAB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PLG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PLMR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PLNT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PLUG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PNC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PNR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "POR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "POWI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PRLB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PSX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PTCT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PTLO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PUMP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PWR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "PYPL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "QBTS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "QSI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RBLX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RDNT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "REAL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "REI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RELY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "REPX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RES",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RF",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RGP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RIGL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RIOT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RMBS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ROIV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ROOT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ROST",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RPRX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "RRGB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "S",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SABR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SAIL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SANA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SATL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SBH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SBLK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SEDG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SES",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SFIX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SFNC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SHAK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SHEL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SHEN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SIBN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SIF",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SIG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SKWD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SKYX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SLAB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SLB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SLDP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SLI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SLS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SMCI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SMP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SND",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SNDL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SNDX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SNOW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SPCE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SPOK",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SRPT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SSRM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "STM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "STRA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "STT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "STX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SUPN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SW",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SWX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SXC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SXT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "SYY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "T",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TDC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TDS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TDUP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TEM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TENB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TER",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TEVA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TFC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TGT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TLRY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TLYS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TMO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TNXP",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TOST",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TPG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TRMB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TRN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TROX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TRV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TRX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TSCO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TSLA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TSM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TSN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TTE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TVTX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TWI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "TXG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "U",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "UCTT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "UEC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "UFI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ULCC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "UMC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "UNH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "UPST",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "URG",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "USAR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "USAS",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "USB",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "USPH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "UTZ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "UVE",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "UWMC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "V",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "VGZ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "VIAV",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "VLO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "VNDA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "VRTX",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "VSEC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "VSH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "VUZI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "VYGR",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "VZ",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "WAFD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "WDAY",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "WDC",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "WFRD",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "WGO",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "WMT",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "WOOF",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "WRN",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "WTI",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "WULF",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "XEL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "XOM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "XPOF",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "YUM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "Z",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ZBH",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ZBRA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ZETA",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ZIM",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    },
+    {
+      "symbol": "ZNTL",
+      "entry_date": "2026-09-11",
+      "reason": "contiguous symbol/benchmark window missing or no newly completed horizon"
+    }
+  ],
+  "fully_mature": 0,
+  "revisions": 0
+}

@@ -1,0 +1,269 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-09-30",
+  "candidates_receipt": "ffa90734",
+  "band": 293.65,
+  "generated": "2026-09-30T20:37:10.981Z",
+  "top": [
+    {
+      "sym": "HIMS",
+      "side": "long",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 89,
+      "p_dir": 52.81,
+      "p_reach": 31.46,
+      "market_p": 31.8,
+      "disagreement": 21.01,
+      "expiry": "2026-10-09",
+      "days": 7,
+      "long_strike": 30,
+      "short_strike": 33,
+      "cost": 88.5,
+      "max_gain": 211.5,
+      "payoff_ratio": 2.39,
+      "break_even": 30.89,
+      "ev": 24.77,
+      "ev_per_day": 3.54,
+      "stop": 28.12,
+      "target": 33.14,
+      "rr_shares": 2.01
+    },
+    {
+      "sym": "UBER",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 82,
+      "p_dir": 46.34,
+      "p_reach": 24.39,
+      "market_p": 31.91,
+      "disagreement": 14.43,
+      "expiry": "2026-10-09",
+      "days": 7,
+      "long_strike": 68,
+      "short_strike": 65,
+      "cost": 81.5,
+      "max_gain": 218.5,
+      "payoff_ratio": 2.68,
+      "break_even": 67.19,
+      "ev": 9.56,
+      "ev_per_day": 1.37,
+      "stop": 70,
+      "target": 65.41,
+      "rr_shares": 2.07
+    },
+    {
+      "sym": "OXY",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 65,
+      "p_dir": 44.62,
+      "p_reach": 12.31,
+      "market_p": 32.58,
+      "disagreement": 12.04,
+      "expiry": "2026-10-09",
+      "days": 7,
+      "long_strike": 55,
+      "short_strike": 52,
+      "cost": 73.5,
+      "max_gain": 226.5,
+      "payoff_ratio": 3.08,
+      "break_even": 54.27,
+      "ev": -12.82,
+      "ev_per_day": -1.83,
+      "stop": 56.87,
+      "target": 52.05,
+      "rr_shares": 2.1
+    }
+  ],
+  "rest": [
+    {
+      "sym": "CORZ",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "B",
+      "n": 30,
+      "p_dir": 40,
+      "p_reach": 10,
+      "market_p": 36.24,
+      "disagreement": 3.76,
+      "expiry": "2026-10-09",
+      "days": 7,
+      "long_strike": 16,
+      "short_strike": 13.5,
+      "cost": 66,
+      "max_gain": 184,
+      "payoff_ratio": 2.79,
+      "break_even": 15.34,
+      "ev": -21.2,
+      "ev_per_day": -3.03,
+      "stop": 17.15,
+      "target": 13.56,
+      "rr_shares": 2.07
+    },
+    {
+      "sym": "AAP",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 76,
+      "p_dir": 44.74,
+      "p_reach": 7.89,
+      "market_p": 36.21,
+      "disagreement": 8.53,
+      "expiry": "2026-10-09",
+      "days": 7,
+      "long_strike": 39,
+      "short_strike": 35,
+      "cost": 125,
+      "max_gain": 275,
+      "payoff_ratio": 2.2,
+      "break_even": 37.75,
+      "ev": -47.38,
+      "ev_per_day": -6.77,
+      "stop": 40.64,
+      "target": 33.08,
+      "rr_shares": 3.37
+    }
+  ],
+  "rejected": [
+    {
+      "sym": "MSFT",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "GOOGL",
+      "side": "long",
+      "why": "max loss 507.5 > band 293.65"
+    },
+    {
+      "sym": "MU",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AVGO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRVL",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "PWR",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "APP",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMAT",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "PENG",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRNA",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AVAV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ORCL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AAOI",
+      "side": "short",
+      "why": "max loss 432.5 > band 293.65"
+    },
+    {
+      "sym": "GRAB",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CEG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CRWV",
+      "side": "long",
+      "why": "max loss 331.5 > band 293.65"
+    },
+    {
+      "sym": "SPCX",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "HPE",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "LITE",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "ANET",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "VICI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "PATH",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "NKE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMD",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "NVDA",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "VRT",
+      "side": "short",
+      "why": "no marks"
+    }
+  ],
+  "id": "e673f4e2"
+}

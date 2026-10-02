@@ -6,6 +6,47 @@
 
 ---
 
+## Week of 2026-09-20 -> 2026-09-26
+
+The week three framework versions shipped (v31, v32, v33), both open positions but GOOGL
+were stopped out at their written levels, and Friday's only entry ticket turned out to be
+unfundable.
+
+### THE ALGORITHM - how he trades
+
+**`trading-copilot-v33.md` shipped 2026-09-24** (commit `12d413e`, §THE ENTRY CHECK IS
+FINAL + THE GAP-UP PAPER TEST). The 9:02 entry verdict is final for that session: no
+same-day re-plan, raised ceiling or new band, including when the desk proposes it. A first
+bar above the zone top is still NO TRADE on live money and now also records a paper entry
+(`scripts/paper-gapup.mjs`). **What earned it: ASPN** (B-531/B-533 said no trade; B-534
+re-planned the same morning; B-541 filled 192 at 5.665; B-561 stopped at 5.33). **What it
+cost: -64.38**, the largest single loss since 9/1. The 9/26 recap corrected B-561's claim
+that the wider 5.06 stop would still be holding: ASPN traded 5.02 on 9/25 (B-582). The
+honest comparison is 0 (no entry) against -64.38, not tight stop against wide stop.
+
+**v31 (2026-09-23, commit `c17d1a4`)** - the Company Catalyst Lane (earned by the META /
+Muse miss, B-296/B-300/B-529) and watched mind-changers (`db/mind-changers.json`, checked
+at every close). MC-002 fired 9/25 on SPY's close over 769.70 (B-579). **v32 (same commit)**
+- AI Bull Market Mode, a slow 200-day switch tested on SMH since 2017.
+
+### WHAT THE BOOK CONTRADICTED
+
+- **B-575 (ETN, 9/25) was not a valid ticket.** BUY 14 at 443.57 = 6,209.98 against
+  1,887.68 of buying power on the same row, and its own R:R of 1.7:1 was under the 2:1
+  minimum. It went unplaced (B-577); ETN closed 439.88. Restated for Monday in B-581:
+  first bar inside 438.26-441.33, 4 sh, stop 423, decide-by 9/30.
+- **The resting-order split held all week.** Stops at the broker filled at the level
+  (UBER 68.90 B-530, ASPN 5.33 B-561). Entries written only in rows missed (UBER trim
+  B-483, ETN B-577). 30-day receipt B-205 (BE, expensive pass at 223.00) closed 9/25 at
+  288.65, +29.44 percent vs SPY +0.03 - the same failure a month older.
+
+### STILL OPEN
+
+- Routines still read v28; v31-v33 reach them only where a routine carries the steps
+  directly.
+
+---
+
 ## Week of 2026-09-13 -> 2026-09-19
 
 The week the desk got a second entry path, and the week two buy levels written into

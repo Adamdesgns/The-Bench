@@ -24,6 +24,471 @@
       "source": "docs/reads/2026-09-22-premarket.md",
       "row": null,
       "expires": "2026-09-25",
+      "status": "expired",
+      "expired_on": "2026-09-28"
+    },
+    {
+      "id": "MC-002",
+      "created": "2026-09-24",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 769.7
+        }
+      ],
+      "meaning": "SPY breakout confirmed - the flat tape was buyers waiting, not a stall",
+      "source": "docs/reads/2026-09-24-powerhour.md",
+      "row": null,
+      "expires": "2026-10-01",
+      "status": "fired",
+      "fired_on": "2026-09-25",
+      "fired_detail": "SPY 771.3 > 769.7 yes"
+    },
+    {
+      "id": "MC-003",
+      "created": "2026-09-24",
+      "when": [
+        {
+          "ticker": "P",
+          "op": "<",
+          "level": 122.46
+        }
+      ],
+      "meaning": "the analyst-day gap is being sold into and the rates tape is winning",
+      "source": "docs/reads/2026-09-24-snapshot-1010.md",
+      "row": "B-564",
+      "expires": "2026-09-24",
+      "status": "fired",
+      "fired_on": "2026-09-24",
+      "fired_detail": "P 121.83 < 122.46 yes"
+    },
+    {
+      "id": "MC-004",
+      "created": "2026-09-24",
+      "when": [
+        {
+          "ticker": "NBIS",
+          "op": "<",
+          "level": 225.82
+        }
+      ],
+      "meaning": "the 9/24 upgrade move is erased - back in the 9/14 no-trade",
+      "source": "docs/reads/2026-09-24-snapshot-1312.md",
+      "row": "B-566",
+      "expires": "2026-10-02",
+      "status": "open"
+    },
+    {
+      "id": "MC-005",
+      "created": "2026-09-25",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<=",
+          "level": 769.7
+        }
+      ],
+      "meaning": "the 9/25 close over 769.70 was a one-day poke, not a breakout - the box is still the range",
+      "source": "docs/reads/2026-09-25-close.md",
+      "row": null,
+      "expires": "2026-09-28",
+      "status": "fired",
+      "fired_on": "2026-09-28",
+      "fired_detail": "SPY 765.56 <= 769.7 yes"
+    },
+    {
+      "id": "MC-006",
+      "created": "2026-09-25",
+      "when": [
+        {
+          "ticker": "AKAM",
+          "op": ">",
+          "level": 123.28
+        }
+      ],
+      "meaning": "buyers took the Anthropic-deal gap back - look again (B-576 revisit line)",
+      "source": "docs/reads/2026-09-25-snapshot-1012.md",
+      "row": "B-576",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-007",
+      "created": "2026-09-28",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": ">",
+          "level": 357.48
+        }
+      ],
+      "meaning": "Google's AI launch is being priced as a real repricing (3 pct+ and 1.5 ATR over 343.92) - run the Company Catalyst Lane; check volume is 2x before acting",
+      "source": "x.com/JustLingonberry/status/2104431004337479933",
+      "row": null,
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-008",
+      "created": "2026-09-28",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 606.56
+        }
+      ],
+      "meaning": "the buyback bid is spreading into the chip layer - R-029 is wrong",
+      "source": "docs/reads/2026-09-28-close.md",
+      "row": null,
+      "expires": "2026-10-05",
+      "status": "fired",
+      "fired_on": "2026-09-29",
+      "fired_detail": "SMH 607.195 > 606.56 yes"
+    },
+    {
+      "id": "MC-009",
+      "created": "2026-09-29",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">",
+          "level": 42
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge; restate stop from fill (ATR 2.945, floor 38.40)",
+      "source": "docs/reads/2026-09-29-fastmover-1454.md",
+      "row": "B-619",
+      "expires": "2026-10-02",
+      "status": "open"
+    },
+    {
+      "id": "MC-010",
+      "created": "2026-09-29",
+      "when": [
+        {
+          "ticker": "ETN",
+          "op": "<",
+          "level": 428
+        }
+      ],
+      "meaning": "support-buy zone floor broke on a close - B-586/B-620 signal is void; re-judge",
+      "source": "docs/reads/2026-09-29-close.md",
+      "row": "B-620",
+      "expires": "2026-10-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-011",
+      "created": "2026-09-29",
+      "when": [
+        {
+          "ticker": "DELL",
+          "op": ">",
+          "level": 543.43
+        }
+      ],
+      "meaning": "box layer was late rather than skipped - R-035 at risk",
+      "source": "docs/reads/2026-09-29-close.md",
+      "row": null,
+      "expires": "2026-10-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-012",
+      "created": "2026-09-29",
+      "when": [
+        {
+          "ticker": "BE",
+          "op": ">",
+          "level": 302.35
+        }
+      ],
+      "meaning": "first close above the four-day 251.30-302.35 chop range - the move is more than noise; re-judge (B-617)",
+      "source": "docs/reads/2026-09-29-snapshot-1310.md",
+      "row": "B-617",
+      "expires": "2026-10-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-013",
+      "created": "2026-09-29",
+      "when": [
+        {
+          "ticker": "AAP",
+          "op": "<=",
+          "level": 39.61
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (close at/under the 20-session low; check volume >=1.5x before calling G1 fired)",
+      "source": "docs/reads/2026-09-29-hunt-close.md",
+      "row": "B-626",
+      "expires": "2026-10-06",
+      "status": "fired",
+      "fired_on": "2026-09-30",
+      "fired_detail": "AAP 38.9 <= 39.61 yes"
+    },
+    {
+      "id": "MC-014",
+      "created": "2026-09-30",
+      "when": [
+        {
+          "ticker": "NKE",
+          "op": ">",
+          "level": 39.38
+        }
+      ],
+      "meaning": "post-earnings reversal confirmed - reclaimed the 50-day; re-judge the reversal long and the B-108 kids-account thesis",
+      "source": "chat 2026-09-30 (Adam)",
+      "row": null,
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-015",
+      "created": "2026-09-30",
+      "when": [
+        {
+          "ticker": "HPE",
+          "op": ">",
+          "level": 67.1
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "snapshot-1310",
+      "row": "B-630",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-016",
+      "created": "2026-09-30",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 766
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (day low broke into MU print)",
+      "source": "docs/reads/2026-09-30-powerhour.md",
+      "row": "B-631",
+      "expires": "2026-10-01",
+      "status": "fired",
+      "fired_on": "2026-09-30",
+      "fired_detail": "SPY 762.36 < 766 yes"
+    },
+    {
+      "id": "MC-017",
+      "created": "2026-09-30",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 766
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (the 9/30 close-at-the-low fade was one session)",
+      "source": "docs/reads/2026-09-30-close.md",
+      "row": "B-632",
+      "expires": "2026-10-02",
+      "status": "open"
+    },
+    {
+      "id": "MC-018",
+      "created": "2026-09-30",
+      "when": [
+        {
+          "ticker": "AAP",
+          "op": "<=",
+          "level": 38.3
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (check volume >=1.5x before calling G1 fired)",
+      "source": "docs/reads/2026-09-30-close.md",
+      "row": "B-633",
+      "expires": "2026-10-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-019",
+      "created": "2026-09-30",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": ">",
+          "level": 1068.95
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (MU held its pre-print close after the beat-and-raise)",
+      "source": "docs/reads/2026-09-30-close.md",
+      "row": "B-634",
+      "expires": "2026-10-01",
+      "status": "fired",
+      "fired_on": "2026-10-01",
+      "fired_detail": "MU 1097.675 > 1068.95 yes"
+    },
+    {
+      "id": "MC-020",
+      "created": "2026-09-30",
+      "when": [
+        {
+          "ticker": "HPE",
+          "op": "<",
+          "level": 63.59
+        }
+      ],
+      "meaning": "HPE is giving the 9/30 gap back (closed under the 9/30 session low) - re-judge B-630",
+      "source": "docs/reads/2026-09-30-snapshot-1310.md",
+      "row": "B-630",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-021",
+      "created": "2026-09-30",
+      "when": [
+        {
+          "ticker": "HIMS",
+          "op": ">",
+          "level": 31.81
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (breakout over the 20-session high; needs 1.5x volume)",
+      "source": "docs/reads/2026-09-30-hunt-close.md",
+      "row": "B-637",
+      "expires": "2026-10-07",
+      "status": "open"
+    },
+    {
+      "id": "MC-022",
+      "created": "2026-09-30",
+      "when": [
+        {
+          "ticker": "UBER",
+          "op": "<",
+          "level": 67.73
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (breakdown under the 20-session low)",
+      "source": "docs/reads/2026-09-30-hunt-close.md",
+      "row": "B-638",
+      "expires": "2026-10-07",
+      "status": "open"
+    },
+    {
+      "id": "MC-023",
+      "created": "2026-10-01",
+      "when": [
+        {
+          "ticker": "ACN",
+          "op": ">",
+          "level": 227.58
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-655 (ACN reclaimed its 10/1 earnings-gap high)",
+      "source": "snapshot-1012 2026-10-01",
+      "row": "B-655",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-024",
+      "created": "2026-10-01",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": "<",
+          "level": 335.5
+        }
+      ],
+      "meaning": "support broke on a close (under the 10/01 flush low and the 9/24 336.02 shelf) - two 350+ rejections then a breakdown; re-judge the 8-sh hold before the 326 stop decides it",
+      "source": "chat 2026-10-01 hunter check (B-659)",
+      "row": "B-659",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-025",
+      "created": "2026-10-01",
+      "when": [
+        {
+          "ticker": "COHR",
+          "op": ">",
+          "level": 323.23
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-10-01-snapshot-1313.md",
+      "row": "B-661",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-026",
+      "created": "2026-10-01",
+      "when": [
+        {
+          "ticker": "LITE",
+          "op": ">",
+          "level": 1085.68
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-10-01-snapshot-1313.md",
+      "row": "B-662",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-027",
+      "created": "2026-10-01",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": ">",
+          "level": 1098.9
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (MU closed above the 10/1 high; late buyers held two sessions - new setup, fresh entry and stop)",
+      "source": "docs/reads/2026-10-01-close.md",
+      "row": "B-665",
+      "expires": "2026-10-02",
+      "status": "open"
+    },
+    {
+      "id": "MC-028",
+      "created": "2026-10-01",
+      "when": [
+        {
+          "ticker": "ACN",
+          "op": "<",
+          "level": 214.74
+        }
+      ],
+      "meaning": "the ACN earnings gap is being given back (closed under the 10/01 day low) - re-judge B-655",
+      "source": "docs/reads/2026-10-01-snapshot-1012.md",
+      "row": "B-655",
+      "expires": "2026-10-09",
+      "status": "fired",
+      "fired_on": "2026-10-01",
+      "fired_detail": "ACN 212.54 < 214.74 yes"
+    },
+    {
+      "id": "MC-029",
+      "created": "2026-10-01",
+      "when": [
+        {
+          "ticker": "SMCI",
+          "op": ">",
+          "level": 43.39
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (needs >=1.5x volume on the close, then next-session first 30-min hold; B-580 plan)",
+      "source": "docs/reads/2026-10-01-hunt-close.md",
+      "row": "B-669",
+      "expires": "2026-10-08",
       "status": "open"
     }
   ]
