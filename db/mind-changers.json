@@ -193,7 +193,9 @@
       "source": "docs/reads/2026-09-29-close.md",
       "row": null,
       "expires": "2026-10-06",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-02",
+      "fired_detail": "DELL 562.54 > 543.43 yes"
     },
     {
       "id": "MC-012",
@@ -259,7 +261,9 @@
       "source": "snapshot-1310",
       "row": "B-630",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-02",
+      "fired_detail": "HPE 69.34 > 67.1 yes"
     },
     {
       "id": "MC-016",
@@ -293,7 +297,9 @@
       "source": "docs/reads/2026-09-30-close.md",
       "row": "B-632",
       "expires": "2026-10-02",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-02",
+      "fired_detail": "SPY 769.65 > 766 yes"
     },
     {
       "id": "MC-018",
@@ -423,7 +429,9 @@
       "source": "docs/reads/2026-10-01-snapshot-1313.md",
       "row": "B-661",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-02",
+      "fired_detail": "COHR 337.15 > 323.23 yes"
     },
     {
       "id": "MC-026",
@@ -489,7 +497,9 @@
       "source": "docs/reads/2026-10-01-hunt-close.md",
       "row": "B-669",
       "expires": "2026-10-08",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-02",
+      "fired_detail": "SMCI 43.68 > 43.39 yes"
     },
     {
       "id": "MC-030",
@@ -523,9 +533,203 @@
       "source": "site/reviews/2026-09-26-csai.md",
       "row": "B-676",
       "expires": "2026-10-09",
-      "status": "open",
+      "status": "fired",
       "original_id": "MC-003",
-      "original_branch": "run-2026-10-01"
+      "original_branch": "run-2026-10-01",
+      "fired_on": "2026-10-02",
+      "fired_detail": "CSAI 2.68 < 3.01 yes"
+    },
+    {
+      "id": "MC-032",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": "<",
+          "level": 601.87
+        }
+      ],
+      "meaning": "chips lost their 10-day on a close - momentum may be leaving chips. Run the rotation check: is GRID (power equipment) or IGV (software) beating SPY by 2+ pts over 5 sessions, 3 closes running? Re-derive the 10-day (it rises daily).",
+      "source": "chat 2026-10-02 (Adam rotation watch)",
+      "row": null,
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-033",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "APLD",
+          "op": ">",
+          "level": 28.2
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (B-585 re-arm line; needs a CLOSE over 28.20 on 1.5x volume)",
+      "source": "snapshot-1011",
+      "row": "B-694",
+      "expires": "2026-10-08",
+      "status": "open"
+    },
+    {
+      "id": "MC-034",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "HIMS",
+          "op": ">=",
+          "level": 33.14
+        }
+      ],
+      "meaning": "OPTIONS HUNTER CALL HIT ITS TARGET on a close (fbc706f6: 33.14 before 28.11 within 10 sessions). Score the prediction: path = target first. Not a ticket.",
+      "source": "chat 2026-10-02 (Adam prediction watch)",
+      "row": "B-695",
+      "expires": "2026-10-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-035",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "HIMS",
+          "op": "<",
+          "level": 28.11
+        }
+      ],
+      "meaning": "OPTIONS HUNTER CALL STOPPED on a close (fbc706f6 stop 28.11, under the 28.30/28.64 higher-low shelf). Score the prediction: path = stop first. Also the B-691 base failed - re-judge.",
+      "source": "chat 2026-10-02 (Adam prediction watch)",
+      "row": "B-695",
+      "expires": "2026-10-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-036",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "STX",
+          "op": ">",
+          "level": 945.57
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (STX reclaimed pre-Toshiba close)",
+      "source": "snapshot-1311",
+      "row": "B-697",
+      "expires": "2026-10-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-037",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "CEG",
+          "op": ">",
+          "level": 263.17
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (CEG reclaimed its 10/2 gap-up open; the generator fade failed)",
+      "source": "docs/reads/2026-10-02-powerhour.md",
+      "row": "B-699",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-038",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 767.15
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (SPY closed under the 10/2 day low; sellers owned the afternoon)",
+      "source": "docs/reads/2026-10-02-powerhour.md",
+      "row": "B-700",
+      "expires": "2026-10-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-039",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "SMCI",
+          "op": ">",
+          "level": 44.59
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (SMCI closed over the 10/2 high; check volume >=1.5x of 2-wk avg before calling the B-580 gate)",
+      "source": "docs/reads/2026-10-02-close.md",
+      "row": "B-701",
+      "expires": "2026-10-08",
+      "status": "open"
+    },
+    {
+      "id": "MC-040",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 772.65
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (SPY closed over the 10/2 jobs-day high; the open-to-close fade was one session)",
+      "source": "docs/reads/2026-10-02-close.md",
+      "row": "B-702",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-041",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "WULF",
+          "op": "<=",
+          "level": 14.36
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (breakdown needs >=1.5x volume)",
+      "source": "docs/reads/2026-10-02-hunt-close.md",
+      "row": "B-707",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-042",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "APP",
+          "op": "<=",
+          "level": 200.5
+        }
+      ],
+      "meaning": "hunter target hit - score B-709 HIT",
+      "source": "docs/reads/2026-10-02-hunt-close.md",
+      "row": "B-709",
+      "expires": "2026-10-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-043",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "APP",
+          "op": ">=",
+          "level": 291.55
+        }
+      ],
+      "meaning": "hunter stop hit - score B-709 MISS",
+      "source": "docs/reads/2026-10-02-hunt-close.md",
+      "row": "B-709",
+      "expires": "2026-10-16",
+      "status": "open"
     }
   ]
 }

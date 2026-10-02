@@ -1,27 +1,25 @@
 {
-  "asof": "2026-10-01",
-  "generated": "2026-10-01T20:35:37.778Z",
+  "asof": "2026-10-02",
+  "generated": "2026-10-02T20:34:56.562Z",
   "source": "yahoo",
-  "label": "EVENT",
-  "market_risk": 2,
+  "label": "TRENDING",
+  "market_risk": 4,
   "reasons": [
-    "macro release on the next session overrides CHOP",
-    "SPY inside +/-1.5% of its 20 SMA for 10 straight sessions with a flat 20 SMA"
+    "SPY 769.64 > 20 764.83 > 50 763.70 > 200 720.47",
+    "VIX 15.31 < 20"
   ],
-  "next_session_macro": [
-    "EMPLOYMENT SITUATION (September), 8:30 ET"
-  ],
+  "next_session_macro": [],
   "inputs": {
-    "spy": 763.989990234375,
-    "sma20": 765.0049987792969,
-    "sma50": 763.072998046875,
-    "sma200": 720.0264495849609,
-    "vix": 16.389999389648438,
-    "vix_5d_pct": 4.59,
-    "tnx": 5.236999988555908,
-    "tnx_5d_change": 0.075,
-    "iwm_rel_20": -4.95,
-    "qqq_rel_20": 4.78
+    "spy": 769.6400146484375,
+    "sma20": 764.828500366211,
+    "sma50": 763.7021984863281,
+    "sma200": 720.4709997558593,
+    "vix": 15.3100004196167,
+    "vix_5d_pct": 2.96,
+    "tnx": 5.2769999504089355,
+    "tnx_5d_change": 0.093,
+    "iwm_rel_20": -4.17,
+    "qqq_rel_20": 4.9
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }

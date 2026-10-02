@@ -1,41 +1,6 @@
 {
-  "date": "2026-10-01",
-  "signals": [
-    {
-      "sym": "ETN",
-      "row": "B-666",
-      "plan_row": "B-586",
-      "zone_low": 428,
-      "zone_high": 434.67,
-      "stop": 413,
-      "target": 478,
-      "close": 437.28,
-      "signal_low": 423,
-      "atr": 14.36,
-      "decide_by": "2026-10-05",
-      "entry_session": "2026-10-02",
-      "funded": false,
-      "note": "Support-buy path (B-586): low 423.00 traded into the 423-428 support band and closed back above 428 at 437.50 (last regular print; official close not rolled at check time). Volume 0.77x (no volume condition on this path). Entry = Fri first 30-min bar holding 428-441.33, stop 413 GTC same minute, target 478, plan cap 4 sh. UNFUNDED after the GOOGL add filled 10/01 (B-659) unless Adam frees cash. MC-010 (ETN<428 close) watches the floor. | EVENING AUDIT B-673 (Claude 18:55 CT): zone_high CORRECTED 441.33 -> 434.67. 441.33 was the top of the support zone, not the 2:1 ceiling: (478-441.33)/(441.33-413) = 1.29:1. Highest 2:1 fill = 434.67. Official close 437.28 (Yahoo settled), ATR 14.36. Plan B-586 governs the hold test: first bar must close >= 428.",
-      "audit_row": "B-673"
-    },
-    {
-      "sym": "ASPN",
-      "row": "B-675",
-      "plan_row": "B-561",
-      "type": "breakout",
-      "trigger": 5.54,
-      "zone_low": 5.54,
-      "zone_high": 5.68,
-      "stop": 5.27,
-      "target": 6.51,
-      "close": 5.56,
-      "signal_low": 5.3,
-      "atr": 0.288,
-      "decide_by": "2026-10-08",
-      "entry_session": "2026-10-02",
-      "funded": false,
-      "note": "Re-arm line from B-561 (daily close > 5.54) fired on the settled 10/01 close 5.56 at 1.23x volume. Entry = Fri first 30-min bar closing 5.54-5.68 (5.68 = highest 2:1 fill to 6.51 with stop 5.27), stop 5.27 GTC same minute (1.0 ATR, under the 5.30 signal-day low). 9/23 high 5.72 sits just above the band - no chase. ENTRY CHECK IS FINAL (v33). BP 207.30 buys ~37 sh; more needs GOOGL cash, Adam's call."
-    }
-  ],
-  "none": false
+  "date": "2026-10-02",
+  "signals": [],
+  "none": true,
+  "note": "Friday close - nothing bought today; next entry session Mon 2026-10-05. No plan signaled on the 10/02 close (last regular prints; official close not rolled at check). ETN 436.03: low 433.65 never re-tested the B-586 423-428 support band, close above the 434.67 2:1 ceiling - NO SIGNAL, B-586 decide-by 10/05. ASPN 5.69: above 5.54 but 0.90x volume and above the 5.66 2:1 ceiling. IREN 41.79 inside 38.40-42.00 on 1.13x (not light) - B-604 dead at its 10/02 decide-by. PWR 676.79 > 653.87 on 1.05x - B-539 dead at its 10/02 decide-by. VST B-294 trigger 160 retires unfired at 10/02; VST closed 139.98 under its 141.50 floor."
 }
