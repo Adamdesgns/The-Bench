@@ -97,6 +97,25 @@ A pattern with no falsification test is refused, and `--holds false` matters as 
 
 **Grades stay null unless the framework actually ran.** A guessed grade looks like work was done.
 
+**Every prediction gets logged AND watched (Adam, 2026-10-02: *"Anytime there is a prediction log it and watch it."*).** This covers predictions from the desk, a hunter, a script, a routine, a read, or a post. A prediction is any forward claim: a target, a stated probability, a "by date X", or "if A then B". Logging alone is not enough. Each prediction needs three things:
+1. **A row.** Write the claim as stated, who made it, the price when it was made, and the exact scoring test, including what counts as a hit, a miss and a timeout.
+2. **A decide-by date** on the horizon. `catalyst-watch.mjs` then shows it to the routines on the day it is due.
+3. **A watch on every level** through `mind-changer.mjs add --row B-###`, one for the target and one for the stop or invalidation.
+
+A hunter's prediction is scored even when the desk passed. That is how the hunters' stated odds get checked against what happened. The first instance is B-695 (options-hunter fbc706f6 on HIMS, scored on the 10/16 close, MC-034 / MC-035).
+
+**The prediction ledger: `scripts/predict.mjs` → `db/predictions.json`.** It scores each source's calls on that source's own horizon and puts the stated odds beside the actual hit rate.
+
+```
+node scripts/predict.mjs add --source desk|options-hunter|... --ticker X --side long|short --made YYYY-MM-DD --price P --sessions N [--target T --stop S --p-dir --p-reach --row B-### --receipt id]
+node scripts/predict.mjs import --options db/hunts/options/<date>.candidates.json --write
+node scripts/predict.mjs check --write
+node scripts/predict.mjs report
+```
+
+`bench-hunt-close` Step 6b runs import, check and report every evening. The ledger refuses a prediction with no horizon. It allows only one open call per source, ticker and side. It never writes the book.
+
+
 **Check for gaps before you add to them:** `node scripts/book-check.mjs` lists tickers mentioned in the vault or in posted content that never made it into the book.
 
 **Screens get logged too (2026-09-12).** The desk feed collects tickers from the day's book rows and read files, tagged `desk`, when built before the capture re-plan. Automatic integration was enabled with Adam's approval on 2026-09-13. The capture and outcome routines now run local backup and health checks; see docs/PREPUMP-YEAR-ONE-CONTRACT.md. A screen, scan or watch list that only ever lived in a chat window is invisible to it. Register those names the same day; the date defaults to today in New York, and weekend adds feed Monday's run:
