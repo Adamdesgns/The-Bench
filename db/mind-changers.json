@@ -762,6 +762,22 @@
       "row": "B-712",
       "expires": "2026-10-16",
       "status": "open"
+    },
+    {
+      "id": "MC-046",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "UBER",
+          "op": ">",
+          "level": 69.97
+        }
+      ],
+      "meaning": "MOMENTUM SIGN 1 (Adam's daily watch): first close above the 9/30 lower high - the lower-high chain since 8/26 breaks. Not a ticket; the trigger is still a close > 71.90 on 1.5x volume (B-711). Report the day's volume against the ~19.1M 20-day average.",
+      "source": "site/reviews/2026-10-02-uber.md",
+      "row": "B-711",
+      "expires": "2026-10-28",
+      "status": "open"
     }
   ]
 }
