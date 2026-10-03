@@ -6,6 +6,51 @@
 
 ---
 
+## Week of 2026-09-27 -> 2026-10-03
+
+The week the ETN plan passed its entry check four mornings running and never got a dollar,
+because Adam put the account into GOOGL. Two framework versions shipped (v34, v35). No
+position closed; realized P&L for the week is zero.
+
+### THE ALGORITHM - how he trades
+
+**`trading-copilot-v34.md` shipped 2026-09-29** (commit `5ce0167`). Two rules. A passed
+row that carries a trigger now registers that trigger with `mind-changer.mjs`, so the close
+routine re-looks when it fires. And a run-up into a dated non-earnings catalyst may clear at
+1.5:1 on a half band, exit by the event-day close, **paper only** for its first 5 instances.
+**What earned it: CBRS** (B-436 passed at 1.46:1 on 9/17, the trigger fired 9/18, nobody
+looked until DevDay +7.7 percent, B-614). Cost: a missed run, no money lost.
+
+**`trading-copilot-v35.md` shipped 2026-10-02** (commit `48c9aea`). Capital competition
+reads relative strength on both the 20- and 60-session windows; a name loses the market leg
+only when it trails on both, and a split is one line of report, never a cap. **What earned
+it: NVDA** (B-713 capped it at C+ on the 20-session window while the 60-session window had
+it 14 points ahead of SOXX; B-714 regraded it B+ at Adam's challenge). Cost: none, caught
+the same night.
+
+### WHAT THE BOOK CONTRADICTED
+
+- **Entry-check tickets ignored the plan's own size cap.** B-586 capped ETN at 4 shares.
+  B-612 (9/29) handed over 13 shares with ~283 of risk, and B-647 (10/01) handed over 19
+  with ~290, the second one noting the 4-share cap in the same row. Neither was placed (no
+  buying power), so the cost was zero. The ticket generator sizes to the band, not to the
+  plan; the plan governs.
+- **The capital decision came before the entry check.** ETN passed its first-bar check
+  Mon-Thu (B-589, B-612, B-628, B-647) and was unfunded every day because GOOGL's 336 buy
+  limit held the cash (B-596 "all in", B-642). ETN closed Friday 436.03, between the Monday
+  and Thursday levels, so the unfunded tickets were worth roughly nothing either way. GOOGL
+  8 sh avg 336.25 closed 343.59, +58.72 open.
+- **30-day receipt B-256 (HPE, 9/3):** "HPE's raise gets sold ... direction down, no trade,
+  50.09." HPE closed 10/02 at 69.34, +38.41 percent vs SPY -0.46. B-267 had already marked
+  it falsified at 54.44 the same session.
+
+### STILL OPEN
+
+- The ticket generator still sizes ETN-style tickets to the risk band instead of the plan
+  cap. Not fixed this week.
+
+---
+
 ## Week of 2026-09-20 -> 2026-09-26
 
 The week three framework versions shipped (v31, v32, v33), both open positions but GOOGL
