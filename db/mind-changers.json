@@ -778,6 +778,38 @@
       "row": "B-711",
       "expires": "2026-10-28",
       "status": "open"
+    },
+    {
+      "id": "MC-047",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 237.88
+        }
+      ],
+      "meaning": "MOMENTUM TRIGGER (Adam's daily watch, B-713): a close at a new 52-week high. Check volume vs the 110M 20-day average; if above, the next session's first 30-min bar must hold 237.88-243.54, stop 231.90, target 266.83, out by the 11/17 close. A trigger close the session before CPI (10/14) or FOMC (10/28) waits for the post-event close.",
+      "source": "site/reviews/2026-10-02-nvda.md",
+      "row": "B-713",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-048",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 221.09
+        }
+      ],
+      "meaning": "MOMENTUM LOST (B-713): the 9/24 higher low breaks - the chain 208.93 > 221.09 > 227.03 is over. Re-judge; the breakout watch stands down.",
+      "source": "site/reviews/2026-10-02-nvda.md",
+      "row": "B-713",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }
