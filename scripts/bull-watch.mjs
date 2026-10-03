@@ -31,6 +31,11 @@
 //   flagged sectors UNDERPERFORMED SPY over the next 60 sessions (-0.89 avg, 43% beat). 5-of-5, held-10-day,
 //   golden-cross and RS-turn versions were no better. Single 'bull market forming' events do not work
 //   on sectors; relative LEADERSHIP does.
+//   ALSO REJECTED (2026-10-02, docs/research/2026-10-02-chip-rotation-test.md): a fast ROTATION alert -
+//   SMH's 5-day return behind SPY's while another sector leads SPY by 2+ pts, 3 closes running. It fired
+//   ~13x/yr and chips went on to BEAT SPY afterward (+5.2% over 60 sessions vs +4.6% on any day); the
+//   named sector did not keep leading. 24 variants (5/10/20/63-day, 3/5/10 closes, +2/+5) - none flipped
+//   it. The leadership transitions above ARE the rotation alert.
 // Zero-dep.
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
