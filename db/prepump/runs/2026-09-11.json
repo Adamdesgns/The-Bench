@@ -1,0 +1,37 @@
+{
+  "schema": "bench-prepump-manifest-v1",
+  "date": "2026-09-11",
+  "built_at": "2026-09-11T21:51:46.073Z",
+  "universe_version": "core-v1",
+  "early_close": false,
+  "expected": {
+    "core": 460,
+    "scan": 145,
+    "total": 593,
+    "history_due": 4
+  },
+  "written": {
+    "total": 593,
+    "ok": 593,
+    "partial": 0,
+    "no_data": 0,
+    "not_found": 0,
+    "core": 460,
+    "scan": 145,
+    "with_history": 4
+  },
+  "complete": true,
+  "market_dates_seen": {
+    "2026-09-11": 593
+  },
+  "raw_files": {
+    "fundamentals": 60,
+    "quotes": 30,
+    "historicals": 1,
+    "earnings": 3,
+    "scans": 2
+  },
+  "failures": [],
+  "failure_count": 0,
+  "appended": "new file"
+}

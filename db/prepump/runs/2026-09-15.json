@@ -1,0 +1,99 @@
+{
+  "schema": "bench-prepump-manifest-v1",
+  "quality_version": 2,
+  "quality": {
+    "complete": true,
+    "research_ready": false,
+    "issues": [],
+    "resolution_blocked": [
+      "SOL"
+    ],
+    "field_coverage": {
+      "f_float": {
+        "present": 612,
+        "missing": 14
+      },
+      "f_shares_outstanding": {
+        "present": 625,
+        "missing": 1
+      },
+      "f_market_cap": {
+        "present": 625,
+        "missing": 1
+      },
+      "f_avg_volume_2_weeks": {
+        "present": 625,
+        "missing": 1
+      },
+      "f_avg_volume_30_days": {
+        "present": 625,
+        "missing": 1
+      },
+      "f_sector": {
+        "present": 625,
+        "missing": 1
+      },
+      "e_next_date": {
+        "present": 605,
+        "missing": 21
+      },
+      "e_timing": {
+        "present": 601,
+        "missing": 25
+      },
+      "q_bid_price": {
+        "present": 625,
+        "missing": 1
+      },
+      "q_ask_price": {
+        "present": 625,
+        "missing": 1
+      }
+    }
+  },
+  "date": "2026-09-15",
+  "built_at": "2026-09-15T22:54:03.831Z",
+  "universe_version": "core-v1",
+  "early_close": false,
+  "expected": {
+    "core": 460,
+    "scan": 142,
+    "desk": 51,
+    "total": 626,
+    "history_due": 139,
+    "first_appearance": 9
+  },
+  "written": {
+    "total": 626,
+    "ok": 625,
+    "partial": 0,
+    "no_data": 0,
+    "not_found": 0,
+    "core": 460,
+    "scan": 142,
+    "desk": 51,
+    "with_history": 139
+  },
+  "complete": true,
+  "market_dates_seen": {
+    "2026-09-15": 625
+  },
+  "raw_files": {
+    "fundamentals": 63,
+    "quotes": 32,
+    "historicals": 28,
+    "earnings": 3,
+    "scans": 2
+  },
+  "failures": [
+    {
+      "symbol": "SOL",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    }
+  ],
+  "failure_count": 1,
+  "appended": "new file"
+}

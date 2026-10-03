@@ -4,7 +4,7 @@
 
 export const ALERT_TOPIC = 'https://ntfy.sh/bench-adam-7x3';
 
-export async function alert(line, { title = 'BENCH EXECUTOR', priority = 'high', fetchImpl = fetch } = {}) {
+export async function alert(line, { title = 'BENCH EXECUTOR', priority = 'urgent', fetchImpl = fetch } = {}) {
   try {
     const res = await fetchImpl(ALERT_TOPIC, {
       method: 'POST',

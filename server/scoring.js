@@ -33,7 +33,7 @@ const CALL_PATTERNS = [
 
 // Types a row may declare structurally. log-call.mjs has written call_type
 // since B-035; the field outranks prose because it was validated at log time.
-const DECLARED_TYPES = new Set(["pass", "hedge", "conditional", "long", "closed"]);
+const DECLARED_TYPES = new Set(["pass", "hedge", "conditional", "long", "closed", "bet"]);
 
 export function classifyCall(row) {
   const declared = String(row?.call_type ?? "").trim().toLowerCase();
@@ -112,6 +112,12 @@ export function scoreCall({ type, assetPct, benchPct, triggerFired = null }) {
   }
   if (type === "closed") {
     return unscorable("closed trade — outcome already realized at exit; graded in the row, not at checkpoints");
+  }
+  if (type === "bet") {
+    // Every bet in the book is an options structure. The checkpoint prices the
+    // underlying, so B-091 (an IWM call bought at 2.15) reads +13,851%. Scoring
+    // that like a long would put one row on top of every mean in the scorecard.
+    return unscorable("bet — an options structure; checkpoints price the underlying, not the contract");
   }
   if (typeof assetPct !== "number" || typeof benchPct !== "number") {
     return unscorable("price not observable at this checkpoint");

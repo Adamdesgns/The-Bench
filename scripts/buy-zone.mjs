@@ -68,6 +68,15 @@ for (const r of rows) {
 
 const zoneOf = (sym) => watch.find((w) => w.sym === sym) ?? {};
 
+// isHolding — 2026-09-01 fast-mover run (14:5x CT). The GDS guard below matched
+// the status string EXACTLY ('HOLDING' / 'HELD'), so GOOGL's real watchlist
+// status "OPEN LONG - STOP NOT PLACED" fell straight through to ARMED and this
+// script printed "buy at or below 336, floor 326" on 5 shares Adam already owned
+// and had owned since 08:36 CT. Same bug as GDS on 2026-08-18, different spelling.
+// Match on the WORD, not the whole string, so a status that says what state the
+// position is in cannot re-arm a filled zone.
+const isHolding = (s) => /HOLDING|HELD|OPEN/.test(String(s || '').toUpperCase());
+
 const entries = [];
 for (const [ticker, g] of graded) {
   const age = ageDays(g.date);
@@ -90,7 +99,7 @@ for (const [ticker, g] of graded) {
     // Standing caveat, recorded because it is the real risk: the names that ran
     // 1,000% are visible and the ones that went to zero are not, so this lane is
     // sized SMALLER than the accumulation lane, not larger.
-    if (['HOLDING', 'HELD'].includes(w.status)) {
+    if (isHolding(w.status)) {
       status = 'HOLDING';
       why = 'open position - adds are a separate decision, not a re-trigger of this zone';
     } else if (w.buy_zone == null) {
@@ -113,7 +122,7 @@ for (const [ticker, g] of graded) {
     // with how old the grade is. A flag here beats a shorter timer.
     status = "THESIS FLAG";
     why = `grade is fresh but contradicted — ${w.thesis_flag}`;
-  } else if (w.status === "HOLDING") {
+  } else if (isHolding(w.status)) {
     // 2026-08-18: GDS filled at 8:49am CT and still read ARMED here, i.e. "buy at
     // or below 34.40" on 16 shares we already own. A name you HOLD is not a name
     // you are waiting to buy — the accumulation lane must not emit an entry
