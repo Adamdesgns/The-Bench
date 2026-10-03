@@ -730,6 +730,38 @@
       "row": "B-709",
       "expires": "2026-10-16",
       "status": "open"
+    },
+    {
+      "id": "MC-044",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "UBER",
+          "op": ">",
+          "level": 71.9
+        }
+      ],
+      "meaning": "Adam's quick-run target hit (B-712 path = hit) AND the desk's passed trigger fired (B-711) - re-judge: needs >=1.5x volume (~28.6M); entry is the next session's first 30-min hold 71.90-72.72, stop 69.90, target 78.35, hard exit 10/28 before earnings",
+      "source": "site/reviews/2026-10-02-uber.md",
+      "row": "B-712",
+      "expires": "2026-10-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-045",
+      "created": "2026-10-02",
+      "when": [
+        {
+          "ticker": "UBER",
+          "op": "<",
+          "level": 65.41
+        }
+      ],
+      "meaning": "Adam's quick-run call is wrong (B-712 path = stop): settled under the 7/27 52-week low - also re-judge the short side (gate 2 on volume?)",
+      "source": "site/reviews/2026-10-02-uber.md",
+      "row": "B-712",
+      "expires": "2026-10-16",
+      "status": "open"
     }
   ]
 }
