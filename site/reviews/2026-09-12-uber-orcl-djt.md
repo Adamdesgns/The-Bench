@@ -1,0 +1,109 @@
+# WEEKEND read - 2026-09-12 06:30 CT (Friday 9/11 close is the tape)
+
+Markets are shut. Nothing can be bought today, so this is the Monday plan and
+nothing else. One thing changed after Friday's bell that neither the close read
+nor the plan check could have known, and it changes which of the two live plans
+is actually buyable.
+
+Oracle disclosed at 6:14 in the evening Eastern that it added about 700 million
+dollars to its fiscal 2026 restructuring plan, taking the total estimate to as
+much as 2.1 billion. The stock then traded 1,272,291 shares after hours and
+worked steadily lower, 150.15 down to 147.81. The heaviest half-hour bar of the
+evening, 275,631 shares, landed right on that disclosure and printed the low at
+147.30. Price has now sat below the 149.70 zone floor for three straight hours.
+
+That matters because Friday's plan check named this exact scenario as the thing
+that would change its mind. Two to one from the 139.50 stop up to the 170.70
+target requires an entry at or below 149.90. The zone starts at 149.70. So the
+only compliant window was ever twenty cents wide, and the tape has already left
+it. The Friday close at 150.255 pays 1.90 to one, which is under the minimum.
+I am not buying Oracle above 149.90 on Monday under any circumstance, and a gap
+open in the 147s kills the row rather than re-pricing it.
+
+The geometry was never Oracle's problem. Average daily range, updated by hand
+through Friday's 166.00 to 149.84 bar, is 7.75. The 10.755 stop distance is 1.39
+average days, which clears the floor comfortably. The price is the problem.
+Morgan Stanley stayed at equal weight with a 210 target, gross margin came in at
+61 percent against 68.7 a year ago and below their own 62 estimate, and the
+fiscal 2027 earnings guide moved only from 8.05 to 8.10.
+
+Uber is the one that is actually buyable, and it is tight. Friday touched 71.035,
+three and a half cents off the zone floor, and closed 71.656. Average daily range
+is 2.6254. The 68.90 stop sits 1.05 average days below the close and pays 2.12 to
+one up to 77.50. Working backward: the lowest compliant entry is 71.53, because
+anything under that puts the stop inside one average day. The highest is 71.77,
+because anything over that stops paying two to one. That is the whole window.
+Twenty-four cents, with Friday's close sitting almost exactly in the middle of it.
+
+The best argument for Uber is not the chart. Two officers bought 15.3 million
+dollars of stock on the open market this week, the chief executive taking 10.0
+million at 70.96 on Wednesday. That basis sits below Friday's close and barely
+above the stop. The argument against is that relative strength reads laggard
+against the index at one day, five days and twenty days, and Friday's 25.31
+million shares against a 16.61 million average is one and a half times normal
+volume on a down day, which is heavy for a pullback that is supposed to be
+sellers running out.
+
+One correction to Friday's plan check, from the bars. It called Friday the second
+straight session of Uber falling while the index rose. Uber closed up 2.08 percent
+on Wednesday, 72.56 against 71.08. Friday was the first, not the second.
+
+Now the part that should size this trade. Rate hike odds for Wednesday's Fed
+decision are running near 90 percent after core inflation came in at 0.3 against
+a 0.2 consensus. The thirty-year Treasury yield touched 5.35 percent, the highest
+since May 2007. Crude is above 100 dollars, diesel set a record at 6.06 a gallon,
+and Michigan consumer sentiment printed 47.8, the second lowest reading in a
+survey that goes back to the 1950s. The regime stamp says chop and market risk
+three of five. I am calling market risk four for this run and saying why: a near
+certain rate increase into a tape at these multiples is not chop, and the stamp
+it disagrees with stays on the record.
+
+The account holds three shares of Alphabet at 335.26, closed 338.45, up 9.57
+dollars. The stop at 326.00 is resting at the broker as a stop market order, good
+till cancelled, regular hours only, confirmed. That commits 27.78 dollars of the
+301.63 risk band, leaving 273.85. Buying power is 2,002.09, which means Uber is
+capped by capital, not by risk. Twenty-seven shares costs 1,937 and puts 64
+percent of the account in one name. Fourteen shares costs 1,003 and puts 33
+percent. Concentration is declared either way. Given the Fed on Wednesday I would
+take the smaller one.
+
+The rest of the board produced nothing to act on. Trump Media closed 8.67 against
+a 9.70 stop line, so that row is killed rather than carried. Iren closed 43.85 and
+its 42.00 limit has not printed on any bar this week. Vertiv closed 257.06, under
+its line, and that gate reads the close only. Constellation closed 284.75, a third
+red day. Eaton and Kulicke both met triggers on plans that cannot be entered, and
+both earn a fresh run rather than an entry.
+
+What would change my mind: Oracle opening Monday inside 149.70 to 149.90 and
+holding there through the first thirty minutes. Then Friday's after-hours selling
+was a thin tape overreacting to a restructuring line item, and the plan is alive
+exactly as written.
+
+---
+
+## REPORT CARD
+
+**Verdict** - One buyable plan, not two. Uber on a Monday open inside its band;
+Oracle stands down.
+
+**Grade** - Uber B plus, readiness 72. Oracle B plus, readiness 25.
+
+**The number** - Uber 71.53 to 71.77. Nothing outside it.
+
+**Plan** - Monday 9/14, first thirty-minute bar. If it closes inside the band,
+buy at market. Stop 68.90 the same session, stop market, good till cancelled.
+Target 77.50 pays 2.12 to one. Fourteen shares is 1,003 dollars and 38.58 of
+risk; twenty-seven shares is 1,937 and 74.41. Alphabet stays untouched behind
+its 326.00 stop.
+
+**Opens** - B-365 Uber, B-366 Oracle.
+
+**Kills** - B-367 Trump Media. B-284's 9.70 line has been gone for days.
+
+**Next date** - Monday 9/14 open is the decide-by for both. Fed decision 9/15
+and 9/16 sits inside any hold.
+
+**Your call** - Fourteen shares or twenty-seven, or none. I would take fourteen
+two days ahead of a rate hike.
+
+**Row** - B-365, B-366, B-367.

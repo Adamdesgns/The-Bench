@@ -1,0 +1,117 @@
+{
+  "schema": "bench-prepump-manifest-v1",
+  "quality_version": 2,
+  "quality": {
+    "complete": false,
+    "research_ready": false,
+    "issues": [
+      "SOL: not_found",
+      "SOL: provider has not confirmed the session date",
+      "SOL: required price/volume missing",
+      "SOL: timestamp missing or invalid",
+      "SOL: required raw history missing",
+      "SOL: required split-adjusted history missing",
+      "ZEC: not_found",
+      "ZEC: provider has not confirmed the session date",
+      "ZEC: required price/volume missing",
+      "ZEC: timestamp missing or invalid",
+      "ZEC: required raw history missing",
+      "ZEC: required split-adjusted history missing"
+    ],
+    "resolution_blocked": [],
+    "field_coverage": {
+      "f_float": {
+        "present": 611,
+        "missing": 13
+      },
+      "f_shares_outstanding": {
+        "present": 622,
+        "missing": 2
+      },
+      "f_market_cap": {
+        "present": 622,
+        "missing": 2
+      },
+      "f_avg_volume_2_weeks": {
+        "present": 622,
+        "missing": 2
+      },
+      "f_avg_volume_30_days": {
+        "present": 622,
+        "missing": 2
+      },
+      "f_sector": {
+        "present": 622,
+        "missing": 2
+      },
+      "e_next_date": {
+        "present": 603,
+        "missing": 21
+      },
+      "e_timing": {
+        "present": 600,
+        "missing": 24
+      },
+      "q_bid_price": {
+        "present": 622,
+        "missing": 2
+      },
+      "q_ask_price": {
+        "present": 622,
+        "missing": 2
+      }
+    }
+  },
+  "date": "2026-09-14",
+  "built_at": "2026-09-14T21:53:58.078Z",
+  "universe_version": "core-v1",
+  "early_close": false,
+  "expected": {
+    "core": 460,
+    "scan": 138,
+    "desk": 56,
+    "total": 624,
+    "history_due": 43,
+    "first_appearance": 43
+  },
+  "written": {
+    "total": 624,
+    "ok": 622,
+    "partial": 0,
+    "no_data": 0,
+    "not_found": 2,
+    "core": 460,
+    "scan": 138,
+    "desk": 56,
+    "with_history": 41
+  },
+  "complete": false,
+  "market_dates_seen": {
+    "2026-09-14": 622
+  },
+  "raw_files": {
+    "fundamentals": 63,
+    "quotes": 32,
+    "historicals": 10,
+    "earnings": 3,
+    "scans": 2
+  },
+  "failures": [
+    {
+      "symbol": "SOL",
+      "status": "not_found",
+      "errors": [
+        "symbol did not resolve (delisted, renamed, or recycled)"
+      ]
+    },
+    {
+      "symbol": "ZEC",
+      "status": "not_found",
+      "errors": [
+        "symbol did not resolve (delisted, renamed, or recycled)"
+      ]
+    }
+  ],
+  "failure_count": 2,
+  "appended": "new file"
+}

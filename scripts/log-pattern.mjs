@@ -8,7 +8,8 @@
 //   Attach an instance (this is the part that turns a story into evidence):
 //     node scripts/log-pattern.mjs --instance P-001 \
 //       --ticker AMD --date 2026-08-04 --holds true \
-//       --detail "+8% into the print, beat, -8% after hours"
+//       --detail "+8% into the print, beat, -8% after hours" \
+//       --row B-004   (optional: the book row this instance tested)
 //
 //   --holds false is just as important as true. A pattern that only records
 //   its wins is the thing this whole system exists to not be.
@@ -22,7 +23,8 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import { ROOT } from "../server/config.js";
-import { buildPattern, addInstance, summarise } from "../server/patternLog.js";
+import { nyDate } from "../server/nyDate.js";
+import { buildPattern, addInstance, summarise, daysSince } from "../server/patternLog.js";
 
 const PATTERNS = resolve(ROOT, "db/patterns.json");
 
@@ -39,7 +41,8 @@ const save = (rows) => writeFileSync(PATTERNS, JSON.stringify(rows, null, 2) + "
 const line = (p) => {
   const s = summarise(p);
   const rate = s.rate === null ? "  --  " : `${String(s.rate).padStart(5)}%`;
-  return `${p.id}  ${s.status.padEnd(9)} ${rate}  ${s.held}/${s.total}  ${p.claim.slice(0, 78)}`;
+  const age = daysSince(p.first_seen, new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" }));
+  return `${p.id}  ${s.status.padEnd(9)} ${rate}  ${s.held}/${s.total}  ${age === null ? "  -" : String(age).padStart(3)}d  ${p.claim.slice(0, 72)}`;
 };
 
 let patterns = load();
@@ -50,7 +53,7 @@ if (has("--list") || argv.length === 0) {
     process.exit(0);
   }
   console.log(`${patterns.length} pattern(s)\n`);
-  console.log("ID     STATUS     RATE   HIT   CLAIM");
+  console.log("ID     STATUS     RATE   HIT   AGE   CLAIM");
   for (const p of patterns) console.log(line(p));
   console.log("\n'proposed' means fewer than 3 instances — a coincidence with a story.");
   process.exit(0);
@@ -62,7 +65,7 @@ if (has("--new")) {
       claim: val("--claim"),
       test: val("--test"),
       why: val("--why"),
-      first_seen: val("--date") ?? new Date().toISOString().slice(0, 10),
+      first_seen: val("--date") ?? nyDate(),
       source: val("--source") ?? "claude",
     },
     patterns
@@ -89,8 +92,9 @@ if (targetId) {
   const holdsRaw = val("--holds");
   const updated = addInstance(patterns[idx], {
     ticker: val("--ticker"),
-    date: val("--date") ?? new Date().toISOString().slice(0, 10),
+    date: val("--date") ?? nyDate(),
     detail: val("--detail"),
+    row_ref: val("--row"),
     holds: holdsRaw === "true" ? true : holdsRaw === "false" ? false : undefined,
   });
   const before = patterns[idx].status;

@@ -1,0 +1,10 @@
+{
+  "NI":   {"expiry":"2026-10-16","days":17,"long":{"strike":40,"mark":1.30,"chance_of_profit":0.401672,"delta":-0.605917},"short":{"strike":35,"mark":0.01,"delta":-0.013393},"note":"no weekly inside 7-14d; nearest beyond is 10/16. short leg bid 0 - used adjusted_mark 0.01 not the 0.175 half-ask mark"},
+  "MU":   {"expiry":"2026-10-02","days":7,"long":{"strike":1070,"mark":54.85,"chance_of_profit":0.329119,"delta":0.532364},"short":{"strike":1250,"mark":9.65,"delta":0.140125}},
+  "ASPN": {"expiry":"2026-10-16","days":17,"long":{"strike":5,"mark":0.80,"chance_of_profit":0.426168,"delta":0.815446},"short":{"strike":7.5,"mark":0.01,"delta":0.032884},"note":"no weekly inside 7-14d; nearest beyond is 10/16. strikes only in 2.5 steps. short leg bid 0 - used adjusted_mark 0.01"},
+  "CBRS": {"expiry":"2026-10-02","days":7,"long":{"strike":205,"mark":9.55,"chance_of_profit":0.331584,"delta":0.53137},"short":{"strike":245,"mark":1.325,"delta":0.106526}},
+  "MRVL": {"expiry":"2026-10-02","days":7,"long":{"strike":260,"mark":11.275,"chance_of_profit":0.336959,"delta":0.537655},"short":{"strike":300,"mark":1.42,"delta":0.109319}},
+  "ETN":  {"expiry":"2026-10-02","days":7,"long":{"strike":440,"mark":9.80,"chance_of_profit":0.332162,"delta":0.502619},"short":{"strike":480,"mark":0.01,"delta":0.002482},"note":"short leg bid 0, OI 12 - used adjusted_mark 0.01 not the 1.35 half-ask mark"},
+  "HIMS": {"expiry":"2026-10-02","days":7,"long":{"strike":28.5,"mark":1.085,"chance_of_profit":0.363945,"delta":-0.491252},"short":{"strike":21.5,"mark":0.01,"delta":-0.008471},"note":"short leg bid 0, OI 0 - used adjusted_mark 0.01 not the 1.07 half-ask mark"},
+  "IREN": {"expiry":"2026-10-02","days":7,"long":{"strike":47,"mark":2.37,"chance_of_profit":0.328685,"delta":0.530609},"short":{"strike":54,"mark":0.475,"delta":0.15927}}
+}

@@ -19,6 +19,7 @@ import {
   buildPattern,
   addInstance,
   summarise,
+  daysSince,
 } from "./patternLog.js";
 
 const base = {
@@ -124,4 +125,33 @@ test("summarise reports the hit rate so a weak pattern cannot hide", () => {
 
 test("summarise on an empty pattern does not divide by zero", () => {
   assert.equal(summarise(buildPattern(base, [])).rate, null);
+});
+
+
+// ---- row_ref: join an instance to the book row it tested ----
+
+test("an instance can carry the book row it tested, and it survives attachment", () => {
+  const out = addInstance(buildPattern(base, []), { ...inst, row_ref: "B-360" });
+  assert.equal(out.instances[0].row_ref, "B-360");
+});
+
+test("an instance without a row_ref still attaches, with row_ref null", () => {
+  assert.equal(addInstance(buildPattern(base, []), inst).instances[0].row_ref, null);
+});
+
+test("a row_ref that is not a book id is refused", () => {
+  assert.ok(validateInstance({ ...inst, row_ref: "360" }).some((p) => /row_ref/.test(p)));
+  assert.deepEqual(validateInstance({ ...inst, row_ref: "B-360" }), []);
+});
+
+test("daysSince counts whole calendar days and refuses anything that is not a date", () => {
+  assert.equal(daysSince("2026-09-11", "2026-09-12"), 1);
+  assert.equal(daysSince("2026-09-12", "2026-09-12"), 0);
+  assert.equal(daysSince("2026-08-31", "2026-09-12"), 12);
+  assert.equal(daysSince("not a date", "2026-09-12"), null);
+});
+
+test("daysSince rejects impossible dates rather than normalising them", () => {
+  assert.equal(daysSince("2026-02-30", "2026-03-03"), null);
+  assert.equal(daysSince("2026-13-01", "2026-03-03"), null);
 });

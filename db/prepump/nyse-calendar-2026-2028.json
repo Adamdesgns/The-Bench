@@ -1,0 +1,57 @@
+{
+  "_id": "US_EQ_REGULAR",
+  "_version": "nyse-us-equity-regular-2026-2028-v1",
+  "_timezone": "America/New_York",
+  "_regular_open": "09:30",
+  "_regular_close": "16:00",
+  "_supported_range": { "start": "2026-01-01", "end": "2028-12-31" },
+  "_source": "Transcribed VERBATIM 2026-09-05 from Projects/apps/hunter/src/reference-data/us-equity-calendar.ts (BASELINE_CLOSED_DATES + BASELINE_EARLY_CLOSES), which is itself Hunter's versioned encoding of NYSE's official 2026-2028 hours-and-calendars publication.",
+  "_source_url": "https://www.nyse.com/trade/hours-calendars",
+  "_why_a_table_and_not_a_formula": "Hunter's own comment: 'This table is deliberately explicit. It is the versioned schedule encoded from NYSE's official 2026-2028 hours-and-calendars publication, not a holiday formula.' Good Friday and observed-weekend-holiday rules are not derivable safely. Never replace this with computed dates.",
+  "_drift_check": "If Hunter's _version string changes, re-transcribe this file rather than editing it in place. Two copies of a calendar that disagree is worse than one that is stale and known to be.",
+  "_expiry": "This calendar ENDS 2028-12-31. The collector MUST refuse to run, loudly, for any date after that rather than guessing. A silent fallback to a weekday check would collect on Christmas.",
+
+  "closed_dates": [
+    "2026-01-01",
+    "2026-01-19",
+    "2026-02-16",
+    "2026-04-03",
+    "2026-05-25",
+    "2026-06-19",
+    "2026-07-03",
+    "2026-09-07",
+    "2026-11-26",
+    "2026-12-25",
+    "2027-01-01",
+    "2027-01-18",
+    "2027-02-15",
+    "2027-03-26",
+    "2027-05-31",
+    "2027-06-18",
+    "2027-07-05",
+    "2027-09-06",
+    "2027-11-25",
+    "2027-12-24",
+    "2028-01-17",
+    "2028-02-21",
+    "2028-04-14",
+    "2028-05-29",
+    "2028-06-19",
+    "2028-07-04",
+    "2028-09-04",
+    "2028-11-23",
+    "2028-12-25"
+  ],
+
+  "early_closes": {
+    "2026-11-27": "13:00",
+    "2026-12-24": "13:00",
+    "2027-11-26": "13:00",
+    "2028-07-03": "13:00",
+    "2028-11-24": "13:00"
+  },
+
+  "_early_close_note": "A 13:00 ET close does not stop the 17:30 ET collection run - the session is still complete by then. But volume on an early-close day is structurally ~half a normal session, which will look like a volume anomaly to any detector calibrated on this data. Every row collected on these dates MUST carry early_close: true so calibration can control for it. This is a field that costs nothing now and is impossible to add retroactively.",
+
+  "_labor_day_2026": "2026-09-07 is in closed_dates, matching the brief's explicit note. Verified against Hunter's transcription and against hunter/src/providers/robinhood-acceptance-pilot-2026-09-05.ts, which states: 'Labor Day 2026-09-07 is a market holiday; the next expected session is 2026-09-08.'"
+}

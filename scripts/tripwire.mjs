@@ -44,6 +44,8 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { ROOT } from "../server/config.js";
+import { nyDate } from "../server/nyDate.js";
+import { loadTargets } from "./position-target.mjs";
 
 const argv = process.argv.slice(2);
 const has = (f) => argv.includes(f);
@@ -51,7 +53,7 @@ const val = (f) => { const i = argv.indexOf(f); return i >= 0 ? argv[i + 1] : un
 
 const STATE = resolve(ROOT, "db/tripwire-state.json");
 const NTFY = "https://ntfy.sh/bench-adam-7x3";
-const today = new Date().toISOString().slice(0, 10);
+const today = nyDate();
 
 if (has("--reset")) { writeFileSync(STATE, JSON.stringify({ fired: [] }, null, 2)); console.log("state cleared"); process.exit(0); }
 
@@ -111,6 +113,14 @@ for (const w of wl) {
   if (["CLOSED", "PASS", "AVOID"].includes(w.status)) continue;
   if (w.buy_zone) add({ ticker: w.sym, kind: "BUY ZONE", price: Number(w.buy_zone), dir: "below", src: "watchlist" });
   if (w.floor) add({ ticker: w.sym, kind: "FLOOR", price: Number(w.floor), dir: "below", src: "watchlist" });
+}
+
+// Targets on positions already held (2026-09-28, B-594: GOOGL printed its 364.13
+// target on 9/22 and nothing was watching it). Not age-gated: a target leaves when
+// the position closes (position-target.mjs remove) or the watchlist kills the name.
+for (const t of loadTargets(val("--targets") ? resolve(val("--targets")) : undefined)) {
+  if (killed.has(t.sym)) continue;
+  add({ ticker: t.sym, kind: "TARGET", price: Number(t.target), dir: "above", src: t.row });
 }
 
 // De-dupe identical ticker+kind+price
@@ -191,7 +201,7 @@ if (!has("--dry")) {
   try {
     await fetch(NTFY, {
       method: "POST",
-      headers: { Title: "THE BENCH - level touched", Priority: "high" },
+      headers: { Title: "THE BENCH - level touched", Priority: "urgent" },
       body: `${msg} -- unverified free feed, run v25 on live data before acting`,
     });
     console.log("phone pinged.");
