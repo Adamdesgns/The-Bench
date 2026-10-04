@@ -5,7 +5,7 @@
 // routes through the Robinhood MCP connection and honors the execution policy —
 // it is never triggered by an analysis command.
 //
-// Real prices come from dataProviders (Stooq needs no key). Model steps report
+// Real prices come from dataProviders (Alpha Vantage, when a key is set). Model steps report
 // which provider they'd use, or flag that no model connection is configured.
 
 import { loadArchive, isOpen } from "./reconcile.js";

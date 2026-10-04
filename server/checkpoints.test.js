@@ -4,7 +4,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { HORIZON_DAYS, checkpointDate, dueCheckpoints, isBookClosed, closeOnOrBefore } from "./checkpoints.js";
+import {
+  HORIZON_DAYS,
+  checkpointDate,
+  dueCheckpoints,
+  settledCheckpoints,
+  isBookClosed,
+  closeOnOrBefore,
+  reviewDay
+} from "./checkpoints.js";
 
 test("the three horizons are 7, 30 and 90 calendar days", () => {
   assert.deepEqual(HORIZON_DAYS, { "1w": 7, "1m": 30, "3m": 90 });
@@ -99,4 +107,49 @@ test("closeOnOrBefore returns null when the date precedes all known bars", () =>
 
 test("closeOnOrBefore returns null on an empty series rather than inventing a price", () => {
   assert.equal(closeOnOrBefore([], "2026-07-03"), null);
+});
+
+// ---- settledCheckpoints ----
+
+test("settled checkpoints are the ones carrying a real verdict", () => {
+  const row = {
+    date: "2026-06-30",
+    checkpoints: { "1w": { verdict: "wrong" }, "1m": { verdict: "not_scorable" }, "3m": { verdict: "flat" } }
+  };
+  assert.deepEqual(settledCheckpoints(row), ["1w", "3m"]);
+  assert.deepEqual(settledCheckpoints({ date: "2026-06-30" }), []);
+});
+
+// ---- reviewDay ----
+// 42 rows carry a review_time dated before row.date (logged the evening before,
+// or over a weekend). The logged price belongs to that earlier session, so the
+// benchmark leg and the split test both have to start there.
+
+test("a row with no review_time was reviewed on its own date", () => {
+  assert.equal(reviewDay({ date: "2026-09-10" }), "2026-09-10");
+  assert.equal(reviewDay({ date: "2026-09-10", review_time: "" }), "2026-09-10");
+});
+
+test("a time-only review_time falls back to the row date", () => {
+  assert.equal(reviewDay({ date: "2026-09-10", review_time: "13:32 CT" }), "2026-09-10");
+});
+
+test("an ISO stamp with an offset resolves to its New York calendar day", () => {
+  assert.equal(reviewDay({ date: "2026-09-23", review_time: "2026-09-22T20:50:00-05:00" }), "2026-09-22");
+  assert.equal(reviewDay({ date: "2026-08-09", review_time: "2026-08-07T19:59:59Z" }), "2026-08-07");
+});
+
+test("a UTC stamp past midnight still belongs to the New York evening before", () => {
+  assert.equal(reviewDay({ date: "2026-09-24", review_time: "2026-09-24T01:30:00Z" }), "2026-09-23");
+});
+
+test("a written date leads the free-text forms the desk uses", () => {
+  assert.equal(reviewDay({ date: "2026-09-10", review_time: "2026-09-09 21:52 CT after the close (official close 196.20)" }), "2026-09-09");
+  assert.equal(reviewDay({ date: "2026-07-16", review_time: "Jul 15 close" }), "2026-07-15");
+  assert.equal(reviewDay({ date: "2026-09-10", review_time: "2026-09-10 11:59 CT midday" }), "2026-09-10");
+});
+
+test("a review date after the row date, or more than a week before it, is not trusted", () => {
+  assert.equal(reviewDay({ date: "2026-09-10", review_time: "2026-09-12 09:00 CT" }), "2026-09-10");
+  assert.equal(reviewDay({ date: "2026-09-10", review_time: "2026-08-01 close" }), "2026-09-10");
 });

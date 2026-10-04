@@ -10,7 +10,7 @@
 // verdict rule needs it and this module is the one with no dependencies —
 // dataProviders imports it from here so there is exactly one list.
 export const CRYPTO_TICKERS = new Set([
-  "BTC", "ETH", "BNB", "XRP", "SOL", "TRX", "DOGE", "HYPE", "XLM", "ADA", "LTC"
+  "BTC", "ETH", "BNB", "XRP", "SOL", "TRX", "DOGE", "HYPE", "XLM", "ADA", "LTC", "ZEC"
 ]);
 
 // Alpha inside this band is noise, not skill.
@@ -96,14 +96,78 @@ export function triggerFiredIn(bars, fromDate, toDate, trigger) {
   return window.some((b) => (direction === "above" ? b.close >= level : b.close <= level));
 }
 
+// ---- what can be priced at all ----
+//
+// The book also holds rows that are not about an instrument: capital decisions
+// and account audits, logged under a label in the ticker field. A label is not
+// a symbol. B-509 sat under "CASH", the scorer priced it as Pathward Financial
+// (the real company behind that symbol) and stored alpha -92.03 as a correct
+// skip. These are the labels the book has used, plus the two obvious siblings.
+export const NON_INSTRUMENT_TICKERS = new Set(["CASH", "BOOK", "ACCOUNT", "PORTFOLIO"]);
+
+const SYMBOL_SHAPE = /^[A-Z0-9]{1,6}([.-][A-Z0-9]{1,4})?$/;
+
+export function isInstrument(ticker) {
+  const t = String(ticker ?? "").trim().toUpperCase();
+  return SYMBOL_SHAPE.test(t) && !NON_INSTRUMENT_TICKERS.has(t);
+}
+
+// ---- splits ----
+//
+// A logged review_price is the raw print of that day. The close series is
+// split-adjusted all the way back, so once a split lands the two are on
+// different share bases. B-325 (MGN) was logged at 0.1823, then a 1-for-30
+// reverse split put the series at 5.82 for that same day, and the scorer read
+// a 32% fall as a 1,940% run.
+//
+// splits: [{ date, numerator, denominator }] — a 1-for-30 reverse split is
+// 1/30, a 20-for-1 forward split is 20/1. Returns what a raw price logged on
+// `afterDay` must be MULTIPLIED by to sit on the basis of a series fetched
+// through `throughDay`. Splits on or before `afterDay` are already in the
+// logged price; splits after `throughDay` are not yet in the series.
+export function splitFactor(splits, afterDay, throughDay) {
+  let factor = 1;
+  for (const s of splits ?? []) {
+    if (!(s?.date > afterDay && s.date <= throughDay)) continue;
+    if (!(s.numerator > 0 && s.denominator > 0)) continue;
+    factor *= s.denominator / s.numerator;
+  }
+  return factor;
+}
+
+// The backstop for everything the split events do not explain: a split the
+// feed never reported, or a label that happens to be a real symbol.
+//
+// Measured 2026-10-04 over the 711 rows that carry a numeric review_price:
+// every genuine row sat between 0.72x and 1.14x of the series close on its
+// review day. The only rows outside 0.5x-2x were B-325 (the split, 0.03x),
+// B-509 (CASH, 14x) and two option premiums already typed as bets.
+export const BASIS_TOLERANCE = 2;
+
+// entry: the logged price after split adjustment. refBar: the series close on
+// or before the review day. Returns the reason as a sentence, or null.
+export function basisProblem(entry, refBar) {
+  const close = refBar?.close;
+  if (typeof entry !== "number" || !Number.isFinite(entry) || entry <= 0) return null;
+  if (typeof close !== "number" || !Number.isFinite(close) || close <= 0) return null;
+  const ratio = entry / close;
+  if (ratio <= BASIS_TOLERANCE && ratio >= 1 / BASIS_TOLERANCE) return null;
+  const times = ratio >= 1 ? `${round2(ratio)}x` : `1/${round2(1 / ratio)}`;
+  return `logged price ${entry} is ${times} of the ${refBar.date} close ${round2(close)} — a different share basis, or not this instrument`;
+}
+
 function unscorable(note) {
   return { verdict: "not_scorable", alpha: null, note };
 }
 
-// { type, assetPct, benchPct, triggerFired } -> { verdict, alpha, note }
+// { type, assetPct, benchPct, triggerFired, problem } -> { verdict, alpha, note }
 //
 // verdict: "right" | "wrong" | "flat" | "not_scorable"
-export function scoreCall({ type, assetPct, benchPct, triggerFired = null }) {
+//
+// problem: a reason the two prices cannot be compared (see basisProblem), or
+// null. It ranks below the types that are never scorable, so a bet still says
+// it is a bet.
+export function scoreCall({ type, assetPct, benchPct, triggerFired = null, problem = null }) {
   if (type === "hedge") {
     return unscorable("hedge — no position, size or entry is recorded to score against");
   }
@@ -118,6 +182,9 @@ export function scoreCall({ type, assetPct, benchPct, triggerFired = null }) {
     // underlying, so B-091 (an IWM call bought at 2.15) reads +13,851%. Scoring
     // that like a long would put one row on top of every mean in the scorecard.
     return unscorable("bet — an options structure; checkpoints price the underlying, not the contract");
+  }
+  if (problem) {
+    return unscorable(problem);
   }
   if (typeof assetPct !== "number" || typeof benchPct !== "number") {
     return unscorable("price not observable at this checkpoint");
