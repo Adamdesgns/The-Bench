@@ -810,6 +810,38 @@
       "row": "B-713",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-049",
+      "created": "2026-10-04",
+      "when": [
+        {
+          "ticker": "CBRS",
+          "op": ">",
+          "level": 175.13
+        }
+      ],
+      "meaning": "closed back over the 10/2 breakdown-bar high and the 170-175 zone - re-judge the long (stop 158, pivots 185 / 194 / 213); still into the 10/14 and 10/28 lockup releases, so a reclaim on fading volume is the tell",
+      "source": "site/reviews/2026-10-04-cbrs.md",
+      "row": "B-716",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-050",
+      "created": "2026-10-04",
+      "when": [
+        {
+          "ticker": "CBRS",
+          "op": "<",
+          "level": 160.81
+        }
+      ],
+      "meaning": "new all-time low on a close, under the 6/26 post-IPO low - price discovery; re-judge the short side (three gates) and expect the 158 void on B-312/B-436",
+      "source": "site/reviews/2026-10-04-cbrs.md",
+      "row": "B-716",
+      "expires": "2026-10-30",
+      "status": "open"
     }
   ]
 }

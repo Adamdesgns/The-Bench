@@ -1,129 +1,129 @@
 {
-  "asof": "2026-09-28 06:01 CT pre-market",
-  "session": "pre-market",
-  "basis": "Pre-market prints (last_non_reg_trade_price) vs the official 2026-09-25 settle. Not regular-session prices.",
+  "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+  "session": "closed",
+  "basis": "Regular-session last trade Friday 2026-10-02 vs the official 2026-10-01 settle. Weekend pull, market closed.",
   "source": "robinhood-mcp get_equity_quotes",
-  "note": "Interactive run 06:01 CT 9/28. Rates + gold -3.2 pct; chips lead down. B-583 ETN, B-584 SMCI, B-585 APLD.",
+  "note": "Interactive run Sunday 10/04: CBRS delta B-716 (no trade; MC-049 / MC-050 registered).",
   "quotes": [
     {
       "ticker": "SPY",
-      "last": 767.74,
-      "prev_close": 771.35,
-      "change_pct": -0.47,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 769.65,
+      "prev_close": 763.99,
+      "change_pct": 0.74,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "QQQ",
-      "last": 738.21,
-      "prev_close": 744.5,
-      "change_pct": -0.84,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 749.53,
+      "prev_close": 742.03,
+      "change_pct": 1.01,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "SMH",
-      "last": 596.66,
-      "prev_close": 606.56,
-      "change_pct": -1.63,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 630.75,
+      "prev_close": 617.81,
+      "change_pct": 2.09,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "IWM",
-      "last": 280.31,
-      "prev_close": 281.97,
-      "change_pct": -0.59,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 281.51,
+      "prev_close": 279.02,
+      "change_pct": 0.89,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "DIA",
-      "last": 515.08,
-      "prev_close": 517.49,
-      "change_pct": -0.47,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 511.07,
+      "prev_close": 508.62,
+      "change_pct": 0.48,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "TLT",
-      "last": 78.89,
-      "prev_close": 79.32,
-      "change_pct": -0.54,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 77.485,
+      "prev_close": 77.71,
+      "change_pct": -0.29,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "GLD",
-      "last": 380.78,
-      "prev_close": 393.41,
-      "change_pct": -3.21,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 380.18,
+      "prev_close": 382.76,
+      "change_pct": -0.67,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "XLE",
-      "last": 62.98,
-      "prev_close": 62.04,
-      "change_pct": 1.52,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 62.84,
+      "prev_close": 62.7,
+      "change_pct": 0.22,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "NVDA",
-      "last": 227.29,
-      "prev_close": 225.07,
-      "change_pct": 0.99,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 233.99,
+      "prev_close": 230.86,
+      "change_pct": 1.36,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "MU",
-      "last": 1061.13,
-      "prev_close": 1082.28,
-      "change_pct": -1.95,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 1074.27,
+      "prev_close": 1097.39,
+      "change_pct": -2.11,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "AMD",
-      "last": 615.01,
-      "prev_close": 630.63,
-      "change_pct": -2.48,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 633.75,
+      "prev_close": 615.73,
+      "change_pct": 2.93,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "META",
-      "last": 729.75,
-      "prev_close": 751.66,
-      "change_pct": -2.91,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 728.07,
+      "prev_close": 725.93,
+      "change_pct": 0.29,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "GOOGL",
-      "last": 341,
-      "prev_close": 343.92,
-      "change_pct": -0.85,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 343.59,
+      "prev_close": 338.24,
+      "change_pct": 1.58,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "ETN",
-      "last": 434,
-      "prev_close": 439.98,
-      "change_pct": -1.36,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 436.03,
+      "prev_close": 437.28,
+      "change_pct": -0.29,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     },
     {
       "ticker": "SMCI",
-      "last": 42.74,
-      "prev_close": 43.26,
-      "change_pct": -1.2,
-      "asof": "2026-09-28 06:01 CT pre-market",
-      "session": "pre-market"
+      "last": 43.68,
+      "prev_close": 41.92,
+      "change_pct": 4.2,
+      "asof": "2026-10-02 close (pulled 2026-10-04 12:40 CT)",
+      "session": "closed"
     }
   ]
 }
