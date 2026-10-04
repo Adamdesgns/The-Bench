@@ -2,6 +2,7 @@
 import { readFileSync, writeFileSync, appendFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { randomUUID } from 'node:crypto';
 import { loadCalendar, isTradingDay, sessionsSince, shiftSessions, todayET, lastSessionOnOrBefore, toUTC } from './prepump-session.mjs';
 import { readRows, resolutionBlocks } from './prepump-integrity.mjs';
 const ROOT = process.env.BENCH_ROOT ? resolve(process.env.BENCH_ROOT) : resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -83,14 +84,42 @@ function context() {
   const cal=loadCalendar(),anchor=isTradingDay(asof,cal)?asof:lastSessionOnOrBefore(asof,cal);
   return {asof,cal,anchor};
 }
+// Explicit half-open UTC request bounds include the entire anchor day.
+export function historyRequest(barsFrom, anchor) {
+  return {interval:'day',bounds:'regular',adjustment_type:'split',
+    start_time:new Date(toUTC(barsFrom)-5*86400000).toISOString(),
+    end_time:new Date(toUTC(anchor)+86400000).toISOString()};
+}
+export function historyCoverage(due, by, cal) {
+  const missing=[];
+  for(const d of due) {
+    const dates=[d.entry_date,...forwardDates(d.entry_date,Math.max(...d.pending_horizons),cal)];
+    const valid=b=>b && [b.c,b.h,b.l].every(finite) && b.c>0 && b.h>=b.l;
+    const symbol_dates=dates.filter(date=>!valid(by[d.symbol]?.[date]));
+    const benchmark_dates=dates.filter(date=>!valid(by.SPY?.[date]));
+    if(symbol_dates.length||benchmark_dates.length)missing.push({symbol:d.symbol,entry_date:d.entry_date,pending_horizons:d.pending_horizons,symbol_dates,benchmark_dates});
+  }
+  return {complete:missing.length===0,pairs_due:due.length,incomplete_pairs:missing.length,missing};
+}
+function cmdVerifyHistory() {
+  const {cal,anchor}=context();
+  const report=historyCoverage(duePairs(anchor,cal),indexBars(rawDir(anchor)).by,cal);
+  console.log(JSON.stringify(report,null,2)); if(!report.complete)process.exitCode=1;
+}
+// Preserve old receipts and plans before updating the compatibility path.
+function writeReceipt(path, value) {
+  if(existsSync(path))writeFileSync(path+'.'+randomUUID()+'.previous',readFileSync(path),{flag:'wx'});
+  writeFileSync(path,JSON.stringify(value,null,2)+'\n');
+}
 function cmdPlan() {
   const {asof,cal,anchor}=context(), due=duePairs(anchor,cal);
   if(!due.length) { console.log(`nothing due as of ${asof}; resolution-blocked: ${resolutionBlocks(ROOT).size}`); process.exitCode=1; return; }
   const symbols=[...new Set([...due.map(d=>d.symbol),'SPY'])].sort();
   const plan={schema:'bench-prepump-outcome-plan-v2',asof,anchor_session:anchor,planned_at:new Date().toISOString(),pairs_due:due.length,symbols_needed:symbols.length,benchmark:'SPY',adjustment_type:'split',bars_from:shiftSessions(due[0].entry_date,-2,cal),bars_to:anchor,batches:chunk(symbols,10),entry_dates:[...new Set(due.map(d=>d.entry_date))],blocked_symbols:Object.fromEntries(resolutionBlocks(ROOT))};
+  plan.history_request=historyRequest(plan.bars_from,anchor);
   console.log(JSON.stringify(plan,null,2));
   if(has('--dry-run'))return;
-  mkdirSync(rawDir(anchor),{recursive:true});writeFileSync(join(rawDir(anchor),'plan.json'),JSON.stringify(plan,null,2)+'\n');
+  mkdirSync(rawDir(anchor),{recursive:true});writeReceipt(join(rawDir(anchor),'plan.json'),plan);
 }
 function cmdBuild() {
   const {asof,cal,anchor}=context();
@@ -113,14 +142,16 @@ function cmdBuild() {
     for(const h of HORIZONS) {row[`max_close_gain_${h}d`]=horizons[h]?.max_close_gain_pct??null;row[`worst_close_pct_${h}d`]=horizons[h]?.worst_close_pct??null;row[`spy_max_close_gain_${h}d`]=benchmark[h]?.max_close_gain_pct??null;}
     rows.push(row);
   }
-  const manifest={schema:'bench-prepump-outcome-manifest-v2',asof,anchor_session:anchor,built_at:new Date().toISOString(),due:due.length,scored:rows.length,skipped:skipped.length,complete:skipped.length===0,horizons:HORIZONS,required_horizon:10,benchmark:'SPY',skipped_detail:skipped,fully_mature:rows.filter(r=>r.fully_mature).length,revisions:rows.filter(r=>r.revision>1).length};
-  console.log(JSON.stringify(manifest,null,2)); if(has('--dry-run'))return;
+  const produced=new Map(rows.map(r=>[r.symbol+'|'+r.entry_date,r]));
+  const pending=due.flatMap(d=>{const row=produced.get(d.symbol+'|'+d.entry_date)??d.previous;const horizons=pendingHorizons(row,d.age);return horizons.length?[{symbol:d.symbol,entry_date:d.entry_date,pending_horizons:horizons}]:[];});
+  const manifest={schema:'bench-prepump-outcome-manifest-v2',asof,anchor_session:anchor,built_at:new Date().toISOString(),due:due.length,scored:rows.length,skipped:skipped.length,complete:pending.length===0,pending:pending.length,pending_detail:pending,horizons:HORIZONS,required_horizon:10,benchmark:'SPY',skipped_detail:skipped,fully_mature:rows.filter(r=>r.fully_mature).length,revisions:rows.filter(r=>r.revision>1).length};
+  console.log(JSON.stringify(manifest,null,2)); if(pending.length)process.exitCode=1; if(has('--dry-run'))return;
   mkdirSync(join(PREPUMP,'runs'),{recursive:true});
   if(rows.length) {mkdirSync(OUT,{recursive:true});appendFileSync(join(OUT,`${anchor}.ndjson`),rows.map(r=>JSON.stringify(r)).join('\n')+'\n');}
-  writeFileSync(join(PREPUMP,'runs',`outcomes-${anchor}.json`),JSON.stringify(manifest,null,2)+'\n');
+  writeReceipt(join(PREPUMP,'runs',`outcomes-${anchor}.json`),manifest);
   if(!rows.length)process.exitCode=1;
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
-  try {if(argv[0]==='plan')cmdPlan();else if(argv[0]==='build')cmdBuild();else throw new Error('Use plan | build');}
+  try {if(argv[0]==='plan')cmdPlan();else if(argv[0]==='build')cmdBuild();else if(argv[0]==='verify-history')cmdVerifyHistory();else throw new Error('Use plan | verify-history | build');}
   catch(e){console.error(`REFUSED: ${e.message}`);process.exitCode=2;}
 }
