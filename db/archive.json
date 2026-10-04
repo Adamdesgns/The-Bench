@@ -1107,11 +1107,11 @@
       "level": 52
     },
     "engine": "claude",
-    "outcome": "Unscored",
-    "outcome_price": null,
-    "pct_move": null,
+    "outcome": "Win",
+    "outcome_price": 90.87230682373047,
+    "pct_move": 40.08,
     "lesson": null,
-    "grade_verdict": "price not observable at this checkpoint",
+    "grade_verdict": "conditional — triggered and ran",
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
@@ -1119,39 +1119,42 @@
     "checkpoints": {
       "1w": {
         "asof": "2026-07-09",
-        "price": null,
-        "asset_pct": null,
+        "price": 67.1121826171875,
+        "entry": 64.87,
+        "asset_pct": 3.46,
         "bench": "BTC",
         "bench_pct": 2.78,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
-        "source": "none",
-        "scored_at": "2026-10-03T16:11:48.920Z"
+        "alpha": 0.68,
+        "verdict": "right",
+        "note": "conditional — correctly never triggered",
+        "source": "yahoo",
+        "scored_at": "2026-10-04T22:43:25.220Z"
       },
       "1m": {
         "asof": "2026-08-01",
-        "price": null,
-        "asset_pct": null,
+        "price": 52.13860321044922,
+        "entry": 64.87,
+        "asset_pct": -19.63,
         "bench": "BTC",
         "bench_pct": 2.08,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
-        "source": "none",
-        "scored_at": "2026-10-03T16:11:48.920Z"
+        "alpha": -21.71,
+        "verdict": "right",
+        "note": "conditional — correctly never triggered",
+        "source": "yahoo",
+        "scored_at": "2026-10-04T22:43:25.221Z"
       },
       "3m": {
         "asof": "2026-09-30",
-        "price": null,
-        "asset_pct": null,
+        "price": 90.87230682373047,
+        "entry": 64.87,
+        "asset_pct": 40.08,
         "bench": "BTC",
         "bench_pct": 35.89,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
-        "source": "none",
-        "scored_at": "2026-10-03T16:11:48.920Z"
+        "alpha": 4.19,
+        "verdict": "right",
+        "note": "conditional — triggered and ran",
+        "source": "yahoo",
+        "scored_at": "2026-10-04T22:43:25.221Z"
       }
     }
   },
@@ -1438,26 +1441,28 @@
       "1w": {
         "asof": "2026-07-27",
         "price": 326.55999755859375,
+        "entry": 354.46,
         "asset_pct": -7.87,
         "bench": "SPY",
-        "bench_pct": -0.4,
+        "bench_pct": -1.55,
         "alpha": null,
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.463Z"
+        "scored_at": "2026-10-04T22:43:25.739Z"
       },
       "1m": {
         "asof": "2026-08-19",
         "price": 344.7200012207031,
+        "entry": 354.46,
         "asset_pct": -2.75,
         "bench": "SPY",
-        "bench_pct": 3.63,
+        "bench_pct": 2.44,
         "alpha": null,
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.463Z"
+        "scored_at": "2026-10-04T22:43:25.739Z"
       }
     }
   },
@@ -5655,6 +5660,7 @@
       "1w": {
         "asof": "2026-08-21",
         "price": 299.9599914550781,
+        "entry": 2.15,
         "asset_pct": 13851.63,
         "bench": "SPY",
         "bench_pct": -1.37,
@@ -5662,11 +5668,12 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.684Z"
+        "scored_at": "2026-10-04T22:43:31.461Z"
       },
       "1m": {
         "asof": "2026-09-13",
         "price": 288.8900146484375,
+        "entry": 2.15,
         "asset_pct": 13336.74,
         "bench": "SPY",
         "bench_pct": -1.55,
@@ -5674,7 +5681,7 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.684Z"
+        "scored_at": "2026-10-04T22:43:31.461Z"
       }
     }
   },
@@ -5716,6 +5723,7 @@
       "1w": {
         "asof": "2026-08-21",
         "price": 299.9599914550781,
+        "entry": 2.15,
         "asset_pct": 13851.63,
         "bench": "SPY",
         "bench_pct": -1.37,
@@ -5723,11 +5731,12 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.684Z"
+        "scored_at": "2026-10-04T22:43:31.461Z"
       },
       "1m": {
         "asof": "2026-09-13",
         "price": 288.8900146484375,
+        "entry": 2.15,
         "asset_pct": 13336.74,
         "bench": "SPY",
         "bench_pct": -1.55,
@@ -5735,7 +5744,7 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.684Z"
+        "scored_at": "2026-10-04T22:43:31.461Z"
       }
     }
   },
@@ -9071,26 +9080,28 @@
       "1w": {
         "asof": "2026-08-26",
         "price": null,
+        "entry": null,
         "asset_pct": null,
         "bench": "SPY",
-        "bench_pct": -0.39,
+        "bench_pct": null,
         "alpha": null,
         "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
+        "note": "not an instrument — \"BOOK\" is a book label, there is nothing to price",
         "source": "none",
-        "scored_at": "2026-10-03T16:11:50.002Z"
+        "scored_at": "2026-10-04T22:43:34.446Z"
       },
       "1m": {
         "asof": "2026-09-18",
         "price": null,
+        "entry": null,
         "asset_pct": null,
         "bench": "SPY",
-        "bench_pct": -0.96,
+        "bench_pct": null,
         "alpha": null,
         "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
+        "note": "not an instrument — \"BOOK\" is a book label, there is nothing to price",
         "source": "none",
-        "scored_at": "2026-10-03T16:11:50.002Z"
+        "scored_at": "2026-10-04T22:43:34.446Z"
       }
     }
   },
@@ -9132,26 +9143,28 @@
       "1w": {
         "asof": "2026-08-26",
         "price": null,
+        "entry": null,
         "asset_pct": null,
         "bench": "SPY",
-        "bench_pct": -0.39,
+        "bench_pct": null,
         "alpha": null,
         "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
+        "note": "not an instrument — \"BOOK\" is a book label, there is nothing to price",
         "source": "none",
-        "scored_at": "2026-10-03T16:11:50.002Z"
+        "scored_at": "2026-10-04T22:43:34.446Z"
       },
       "1m": {
         "asof": "2026-09-18",
         "price": null,
+        "entry": null,
         "asset_pct": null,
         "bench": "SPY",
-        "bench_pct": -0.96,
+        "bench_pct": null,
         "alpha": null,
         "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
+        "note": "not an instrument — \"BOOK\" is a book label, there is nothing to price",
         "source": "none",
-        "scored_at": "2026-10-03T16:11:50.002Z"
+        "scored_at": "2026-10-04T22:43:34.446Z"
       }
     }
   },
@@ -18566,6 +18579,7 @@
       "1w": {
         "asof": "2026-09-16",
         "price": 342.8699951171875,
+        "entry": 330.03,
         "asset_pct": 3.89,
         "bench": "SPY",
         "bench_pct": -1.1,
@@ -18573,7 +18587,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:54.751Z"
+        "scored_at": "2026-10-04T22:43:39.204Z"
       }
     }
   },
@@ -18676,6 +18690,7 @@
       "1w": {
         "asof": "2026-09-16",
         "price": 239.41000366210938,
+        "entry": 266.65,
         "asset_pct": -10.22,
         "bench": "SPY",
         "bench_pct": -1.1,
@@ -18683,7 +18698,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:54.752Z"
+        "scored_at": "2026-10-04T22:43:39.205Z"
       }
     }
   },
@@ -18895,15 +18910,16 @@
     "checkpoints": {
       "1w": {
         "asof": "2026-09-16",
-        "price": null,
-        "asset_pct": null,
-        "bench": "SPY",
-        "bench_pct": -1.1,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
-        "source": "none",
-        "scored_at": "2026-10-03T16:11:55.477Z"
+        "price": 1335.099365234375,
+        "entry": 1244,
+        "asset_pct": 7.32,
+        "bench": "BTC",
+        "bench_pct": -2.7,
+        "alpha": 10.02,
+        "verdict": "wrong",
+        "note": "conditional — never triggered and it ran without us",
+        "source": "yahoo",
+        "scored_at": "2026-10-04T22:43:39.349Z"
       }
     }
   },
@@ -19776,14 +19792,25 @@
       "1w": {
         "asof": "2026-09-17",
         "price": 3.7200000286102295,
-        "asset_pct": 1940.59,
+        "entry": 5.469,
+        "split_factor": 30,
+        "asset_pct": -31.98,
         "bench": "SPY",
         "bench_pct": 0.63,
-        "alpha": 1939.96,
-        "verdict": "wrong",
-        "note": "pass — expensive pass, it ran without us",
+        "alpha": -32.61,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
         "source": "yahoo",
-        "scored_at": "2026-09-19T16:10:45.885Z"
+        "scored_at": "2026-10-04T22:43:40.144Z",
+        "supersedes": {
+          "verdict": "wrong",
+          "alpha": 1939.96,
+          "asset_pct": 1940.59,
+          "price": 3.7200000286102295,
+          "note": "pass — expensive pass, it ran without us",
+          "scored_at": "2026-09-19T16:10:45.885Z",
+          "reason": "scored across a split: the series carried a x30 adjustment on 2026-09-19, the logged price 0.1823 carried x1"
+        }
       }
     }
   },
@@ -20326,14 +20353,15 @@
       "1w": {
         "asof": "2026-09-18",
         "price": 1015.7999877929688,
+        "entry": 977.41,
         "asset_pct": 3.93,
         "bench": "SPY",
-        "bench_pct": -0.34,
+        "bench_pct": 0.51,
         "alpha": null,
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:55.477Z"
+        "scored_at": "2026-10-04T22:43:40.489Z"
       }
     }
   },
@@ -20876,6 +20904,7 @@
       "1w": {
         "asof": "2026-09-18",
         "price": 568.0599975585938,
+        "entry": 561.3,
         "asset_pct": 1.2,
         "bench": "SPY",
         "bench_pct": -0.34,
@@ -20883,7 +20912,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:55.705Z"
+        "scored_at": "2026-10-04T22:43:40.490Z"
       }
     }
   },
@@ -24781,6 +24810,7 @@
       "1w": {
         "asof": "2026-09-23",
         "price": 1071.8800048828125,
+        "entry": 918.64,
         "asset_pct": 16.68,
         "bench": "SPY",
         "bench_pct": 1.82,
@@ -24788,7 +24818,7 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:55.706Z"
+        "scored_at": "2026-10-04T22:43:40.974Z"
       }
     }
   },
@@ -25111,6 +25141,7 @@
       "1w": {
         "asof": "2026-09-23",
         "price": 1071.8800048828125,
+        "entry": 924.03,
         "asset_pct": 16,
         "bench": "SPY",
         "bench_pct": 1.82,
@@ -25118,7 +25149,7 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:55.706Z"
+        "scored_at": "2026-10-04T22:43:40.974Z"
       }
     }
   },
@@ -29895,15 +29926,25 @@
     "checkpoints": {
       "1w": {
         "asof": "2026-09-29",
-        "price": 71.56999969482422,
-        "asset_pct": -93.22,
+        "price": null,
+        "entry": null,
+        "asset_pct": null,
         "bench": "SPY",
-        "bench_pct": -1.19,
-        "alpha": -92.03,
-        "verdict": "right",
-        "note": "pass — correctly skipped",
-        "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:57.508Z"
+        "bench_pct": null,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "not an instrument — \"CASH\" is a book label, there is nothing to price",
+        "source": "none",
+        "scored_at": "2026-10-04T22:43:41.363Z",
+        "supersedes": {
+          "verdict": "right",
+          "alpha": -92.03,
+          "asset_pct": -93.22,
+          "price": 71.56999969482422,
+          "note": "pass — correctly skipped",
+          "scored_at": "2026-10-03T16:11:57.508Z",
+          "reason": "not an instrument — \"CASH\" is a book label, there is nothing to price"
+        }
       }
     }
   },
@@ -32921,6 +32962,7 @@
       "1w": {
         "asof": "2026-10-01",
         "price": 134.1300048828125,
+        "entry": 128.79,
         "asset_pct": 4.15,
         "bench": "SPY",
         "bench_pct": -0.42,
@@ -32928,7 +32970,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:12:00.823Z"
+        "scored_at": "2026-10-04T22:43:43.325Z"
       }
     }
   },
@@ -39407,5 +39449,46 @@
     "last": "unverified",
     "last_source": "none",
     "last_checked": "2026-10-03T11:13:24.322Z"
+  },
+  {
+    "id": "B-716",
+    "date": "2026-10-04",
+    "ticker": "CBRS",
+    "review_price": 166.43,
+    "review_time": "2026-10-04 12:40 CT Sunday, market closed; official Fri 10/02 close 166.43, after-hours last 171.51 (18:59 CT Fri)",
+    "opportunity_score": 31,
+    "readiness": 24,
+    "origin": "delta",
+    "universe": "ai-infra",
+    "hunter_opportunity": null,
+    "hunter_readiness": null,
+    "confidence_pct": null,
+    "grades": {
+      "technical": "D",
+      "fundamental": "B-",
+      "execution": "F",
+      "overall": "D"
+    },
+    "fomo": "Post-FOMO Fade",
+    "market_risk": null,
+    "hodl": "NOT YET - trade-only until the staged lockup clears (10/14, 10/28, final ~11/9 or 2 days after the Q3 print) and the OpenAI question is answered in a filing or on the Q3 call",
+    "final_call": "DELTA of B-312/B-436 at Adam: run cbrs (Sunday 10/04 12:40 CT, market closed). NO TRADE, WATCHLIST ONLY. Opp 31 / Readiness 24 / D B- F D / Post-FOMO Fade. PRINT: official Fri 10/02 close 166.43 (-1.82 pct), the LOWEST CLOSE SINCE THE IPO (prior 168.52 on 6/25); bar O 172.39 H 175.125 L 165.22 on 12.53M = 1.79x the 6.99M 30-day; after-hours last 171.51 at 18:59 CT Fri (+3.05 pct on ~254K sh) after Altman posted at 17:19 CT that Cerebras is a close partner (financefeeds 10/3, secondary). WEEK: -19.5 pct from 206.75; -22.2 pct from the 9/29 DevDay high 214.00 in four sessions. WHAT CHANGED SINCE B-614: (1) DevDay 9/29 reversed the same day: high 214.00, close 194.95, under the 198.37 trigger-day close. The v34 lane (exit by event-day close) would have booked about -0.2R from 198.37 or -0.3R from the 9/21 open 200.00 on the 16.49 risk; only an intraday sale near 212 paid (+0.8R). (2) SemiAnalysis 9/29 18:00 ET: OpenAI's new Ultrafast tier runs on Nvidia GPUs, not Cerebras - the opposite of the X-post guess in B-436; neither confirmed nor denied by OpenAI or Cerebras as of 10/2 (secondary). (3) 9/30 lockup tranche (up to 19.4M sh): gap to 183.69, then 13.90M / 12.20M / 12.53M shares on three straight down closes 177.65 / 169.52 / 166.43. (4) Form 4s filed 9/28-9/30 (EDGAR), 0 buys: COO Mallick 396,000 sh / ~77.9M at 194.91-212.93, CTO Lie 120,000 sh / ~25.1M at 204.50-212.14, CFO Komin 32,500 sh / ~6.6M, CAO Patel 1,320 sh = ~110M sold into the DevDay run; per-share prices match the CBRS tape. Press says the officer sales are 10b5-1 plans adopted after the IPO (scheduled supply, not a conviction read; not checked against the filing footnotes). PLAN A (B-312, zone 170-175 on a close holding 168.70 on fading volume): THE HOLD FAILED. 10/1 touched the zone and closed 169.52 on 1.75x; 10/2 closed 166.43 under 168.70 on 1.79x. A lockup dump on heavy volume is the case B-312 named as the opposite of a hold. Not void (void = close < 158), not armed. CHART: under EMA20 191.67 / SMA20 194.10 / SMA50 201.05, RSI14 35.8, ATR14 13.90 (8.35 pct; settled 10/2 point, hand-checked from the 10/1 point). Lower highs 265.63 / 261.08 / 222.50 / 214.00 and now a lower closing low. Trend Strength 2/10. Only intraday shelf left: 165.22 (10/2) / 164.72 / 162.35 / 161.26 / 160.81 (all-time low 6/26); under 160.81 there is no price history. Overhead: 175.13 (10/2 high), 184.67-185.35 (10/1 and 9/30 highs plus the 185 IPO price), then the 185.35-194.21 gap. GEOMETRY, LONG: stop 158 from 166.43 = 0.61 ATR, fails the ATR Floor; a 1.0-ATR stop (152.53) sits under all price history. From 172 (stop 158 = 1.01 ATR) the first pivot 185 pays 0.93:1. 2:1 to 185 needs entry <= 167.00 and the Floor needs entry >= 171.90: no entry satisfies both. 2:1 exists only to 213, three resistance layers up. NO COMPLIANT LONG. SHORT SIDE (hunt-short and options-hunter both screened it 10/2: DISCOVERY, catalyst OWED): gate 2 PASSES (168.70 lost on a close at 1.79x), gate 3 passes (invalidation 175.13 / 184.67), gate 1 NOT PROVEN (one research report, no guide cut, RPO 25.4B stands until the Q3 print), and the geometry fails anyway: 166.43 to the 160.81 all-time low = 5.62 against a 13.90 one-ATR stop = 0.4:1 (hunter printed 0.22 to 162.35). No put, no short. SUPPLY AHEAD: 10/14 and 10/28, ~19.4M sh each (each ~20 pct of the 97.9M float); final tranche the 2nd trading day after the Q3 print or ~11/9. Q3 date not yet scheduled (11/19 tentative on the board) = inside the 8-week window. CAPITAL COMPETITION (rs.mjs 10/2, both windows): 20D -12.61 vs SPY -0.46 / QQQ +4.45 / SOXX +17.26; 60D -16.17 vs SPY +2.39 / QQQ +3.64 / SOXX +1.24. Trails all three on BOTH windows: loses the market and watchlist legs = NO TRADE. Loses to cash; not worth swapping the 8 GOOGL. REGIME: TRENDING (10/2 stamp, SPY 769.64 over its 20/50/200, VIX 15.31); BULL MODE ON (SMH 630.75 vs 200-day 499.50, +26.3 pct). The sector is the strongest on the board and this name is making all-time closing lows inside it. ISM services Mon 09:00 CT. READINESS 24: trigger 84 (0.47 ATR under 173) / FOMO 10 / volume 0 (the heavy volume is the breakdown) / stop 0 / catalyst 50 / macro-event 0 (Q3 print inside the window). SIZE for the record: band 10 pct of 2,947.30 = 294.73; at a 14-pt stop = 21 sh ~3,612 = 123 pct of the account, CONCENTRATED; buying power 202.30. WATCHED (v34, registered this session): close > 175.13 = breakdown bar reclaimed, re-judge the long (still into the 10/14 release); close < 160.81 = new all-time low, re-judge the short and expect the 158 void on B-312/B-436. Fundamentals B- carried from B-436 (Q2 core rev 209.9M +74 pct, FY26 guide 880-890M, RPO 25.4B), not re-pulled; the OpenAI concentration question is now live instead of hypothetical. Other secondary: Freedom Capital Hold->Buy, PT 209 (10/2, GuruFocus); ARK bought 10/2. Full review: site/reviews/2026-10-04-cbrs.md.",
+    "call_type": "pass",
+    "trigger": null,
+    "invalidation": null,
+    "decide_by": null,
+    "size": null,
+    "max_loss": null,
+    "engine": "claude",
+    "logged_by": "claude",
+    "outcome": null,
+    "outcome_price": null,
+    "pct_move": null,
+    "lesson": null,
+    "grade_verdict": null,
+    "not_observable": [],
+    "last": "unverified",
+    "last_source": "none",
+    "last_checked": "2026-10-04T17:30:54.883Z"
   }
 ]

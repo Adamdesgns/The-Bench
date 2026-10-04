@@ -86,7 +86,7 @@ if (rowRef) {
 
 // ---- bars ----
 // Fixtures are for tests and offline work; the live path is the same
-// Yahoo -> Stooq chain the checkpoint scorer uses. With a bars fixture and no
+// Yahoo chain the checkpoint scorer uses. With a bars fixture and no
 // bench fixture the benchmark leg is skipped rather than silently fetched.
 function readBarsFile(path) {
   const bars = JSON.parse(readFileSync(path, "utf8"));

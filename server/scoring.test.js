@@ -6,7 +6,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { classifyCall, benchmarkFor, pctMove, scoreCall, triggerFiredIn } from "./scoring.js";
+import {
+  classifyCall,
+  benchmarkFor,
+  pctMove,
+  scoreCall,
+  triggerFiredIn,
+  isInstrument,
+  splitFactor,
+  basisProblem
+} from "./scoring.js";
 
 // ---- classifyCall ----
 
@@ -197,5 +206,86 @@ test("a bet is never scored like a long, because the scorer prices the underlyin
   const r = scoreCall({ type: "bet", assetPct: 13851.63, benchPct: -1.37 });
   assert.equal(r.verdict, "not_scorable");
   assert.equal(r.alpha, null);
+  assert.match(r.note, /options structure/);
+});
+
+test("ZEC is crypto, so it is graded against BTC like the rest", () => {
+  // B-309 was fetched as a stock called ZEC, which has no bars.
+  assert.equal(benchmarkFor("ZEC"), "BTC");
+});
+
+// ---- instruments, splits and the price basis (2026-10-04) ----
+// B-509 was a capital-allocation row logged under "CASH" and got priced as
+// Pathward Financial. B-325 (MGN) crossed a 1-for-30 reverse split and scored
+// +1,939.96 of alpha on a raw price against a split-adjusted series.
+
+test("a book label such as CASH or BOOK is not an instrument", () => {
+  assert.equal(isInstrument("CASH"), false);
+  assert.equal(isInstrument("cash"), false);
+  assert.equal(isInstrument("BOOK"), false);
+});
+
+test("real symbols, share classes and crypto are instruments", () => {
+  assert.equal(isInstrument("GOOGL"), true);
+  assert.equal(isInstrument("BRK.B"), true);
+  assert.equal(isInstrument("BTC"), true);
+});
+
+test("an empty or non-symbol ticker is not an instrument", () => {
+  assert.equal(isInstrument(""), false);
+  assert.equal(isInstrument(null), false);
+  assert.equal(isInstrument("CAPITAL DECISION"), false);
+});
+
+const MGN_SPLITS = [
+  { date: "2026-09-08", numerator: 1, denominator: 40 },
+  { date: "2026-09-17", numerator: 1, denominator: 30 }
+];
+
+test("a reverse split after the review multiplies the logged price onto the series basis", () => {
+  assert.equal(splitFactor(MGN_SPLITS, "2026-09-10", "2026-10-02"), 30);
+});
+
+test("a forward split after the review divides the logged price", () => {
+  assert.equal(splitFactor([{ date: "2026-07-15", numerator: 20, denominator: 1 }], "2026-07-10", "2026-10-02"), 0.05);
+});
+
+test("splits on or before the review day, or after the window, do not count", () => {
+  assert.equal(splitFactor(MGN_SPLITS, "2026-09-17", "2026-10-02"), 1);
+  assert.equal(splitFactor(MGN_SPLITS, "2026-09-10", "2026-09-16"), 1);
+  assert.equal(splitFactor([], "2026-09-10", "2026-10-02"), 1);
+  assert.equal(splitFactor(undefined, "2026-09-10", "2026-10-02"), 1);
+});
+
+test("successive splits compound", () => {
+  assert.equal(splitFactor(MGN_SPLITS, "2026-09-05", "2026-10-02"), 1200);
+});
+
+test("an entry within 2x of the series close is on the same basis", () => {
+  assert.equal(basisProblem(125.75, { date: "2026-08-19", close: 174.38 }), null);
+  assert.equal(basisProblem(5.469, { date: "2026-09-10", close: 5.82 }), null);
+});
+
+test("an entry far off the series close is named as a basis problem, with the numbers", () => {
+  const cash = basisProblem(1056.38, { date: "2026-09-22", close: 74.56 });
+  assert.match(cash, /1056\.38/);
+  assert.match(cash, /74\.56/);
+  assert.match(cash, /2026-09-22/);
+  assert.match(basisProblem(0.1823, { date: "2026-09-10", close: 5.82 }), /share basis/);
+});
+
+test("with no reference close there is nothing to compare, so no problem is claimed", () => {
+  assert.equal(basisProblem(100, null), null);
+});
+
+test("a basis problem scores not_scorable and carries the reason", () => {
+  const r = scoreCall({ type: "pass", assetPct: 1940.59, benchPct: 0.63, problem: "split on the review day" });
+  assert.equal(r.verdict, "not_scorable");
+  assert.equal(r.alpha, null);
+  assert.equal(r.note, "split on the review day");
+});
+
+test("a type that is never scorable keeps its own reason ahead of a basis problem", () => {
+  const r = scoreCall({ type: "bet", assetPct: 13851.63, benchPct: -1.37, problem: "basis" });
   assert.match(r.note, /options structure/);
 });
