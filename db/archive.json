@@ -1107,11 +1107,11 @@
       "level": 52
     },
     "engine": "claude",
-    "outcome": "Unscored",
-    "outcome_price": null,
-    "pct_move": null,
+    "outcome": "Win",
+    "outcome_price": 90.87230682373047,
+    "pct_move": 40.08,
     "lesson": null,
-    "grade_verdict": "price not observable at this checkpoint",
+    "grade_verdict": "conditional — triggered and ran",
     "not_observable": [],
     "last": "unverified",
     "last_source": "none",
@@ -1119,39 +1119,42 @@
     "checkpoints": {
       "1w": {
         "asof": "2026-07-09",
-        "price": null,
-        "asset_pct": null,
+        "price": 67.1121826171875,
+        "entry": 64.87,
+        "asset_pct": 3.46,
         "bench": "BTC",
         "bench_pct": 2.78,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
-        "source": "none",
-        "scored_at": "2026-10-03T16:11:48.920Z"
+        "alpha": 0.68,
+        "verdict": "right",
+        "note": "conditional — correctly never triggered",
+        "source": "yahoo",
+        "scored_at": "2026-10-04T22:43:25.220Z"
       },
       "1m": {
         "asof": "2026-08-01",
-        "price": null,
-        "asset_pct": null,
+        "price": 52.13860321044922,
+        "entry": 64.87,
+        "asset_pct": -19.63,
         "bench": "BTC",
         "bench_pct": 2.08,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
-        "source": "none",
-        "scored_at": "2026-10-03T16:11:48.920Z"
+        "alpha": -21.71,
+        "verdict": "right",
+        "note": "conditional — correctly never triggered",
+        "source": "yahoo",
+        "scored_at": "2026-10-04T22:43:25.221Z"
       },
       "3m": {
         "asof": "2026-09-30",
-        "price": null,
-        "asset_pct": null,
+        "price": 90.87230682373047,
+        "entry": 64.87,
+        "asset_pct": 40.08,
         "bench": "BTC",
         "bench_pct": 35.89,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
-        "source": "none",
-        "scored_at": "2026-10-03T16:11:48.920Z"
+        "alpha": 4.19,
+        "verdict": "right",
+        "note": "conditional — triggered and ran",
+        "source": "yahoo",
+        "scored_at": "2026-10-04T22:43:25.221Z"
       }
     }
   },
@@ -1438,26 +1441,28 @@
       "1w": {
         "asof": "2026-07-27",
         "price": 326.55999755859375,
+        "entry": 354.46,
         "asset_pct": -7.87,
         "bench": "SPY",
-        "bench_pct": -0.4,
+        "bench_pct": -1.55,
         "alpha": null,
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.463Z"
+        "scored_at": "2026-10-04T22:43:25.739Z"
       },
       "1m": {
         "asof": "2026-08-19",
         "price": 344.7200012207031,
+        "entry": 354.46,
         "asset_pct": -2.75,
         "bench": "SPY",
-        "bench_pct": 3.63,
+        "bench_pct": 2.44,
         "alpha": null,
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.463Z"
+        "scored_at": "2026-10-04T22:43:25.739Z"
       }
     }
   },
@@ -5655,6 +5660,7 @@
       "1w": {
         "asof": "2026-08-21",
         "price": 299.9599914550781,
+        "entry": 2.15,
         "asset_pct": 13851.63,
         "bench": "SPY",
         "bench_pct": -1.37,
@@ -5662,11 +5668,12 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.684Z"
+        "scored_at": "2026-10-04T22:43:31.461Z"
       },
       "1m": {
         "asof": "2026-09-13",
         "price": 288.8900146484375,
+        "entry": 2.15,
         "asset_pct": 13336.74,
         "bench": "SPY",
         "bench_pct": -1.55,
@@ -5674,7 +5681,7 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.684Z"
+        "scored_at": "2026-10-04T22:43:31.461Z"
       }
     }
   },
@@ -5716,6 +5723,7 @@
       "1w": {
         "asof": "2026-08-21",
         "price": 299.9599914550781,
+        "entry": 2.15,
         "asset_pct": 13851.63,
         "bench": "SPY",
         "bench_pct": -1.37,
@@ -5723,11 +5731,12 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.684Z"
+        "scored_at": "2026-10-04T22:43:31.461Z"
       },
       "1m": {
         "asof": "2026-09-13",
         "price": 288.8900146484375,
+        "entry": 2.15,
         "asset_pct": 13336.74,
         "bench": "SPY",
         "bench_pct": -1.55,
@@ -5735,7 +5744,7 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:49.684Z"
+        "scored_at": "2026-10-04T22:43:31.461Z"
       }
     }
   },
@@ -9071,26 +9080,28 @@
       "1w": {
         "asof": "2026-08-26",
         "price": null,
+        "entry": null,
         "asset_pct": null,
         "bench": "SPY",
-        "bench_pct": -0.39,
+        "bench_pct": null,
         "alpha": null,
         "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
+        "note": "not an instrument — \"BOOK\" is a book label, there is nothing to price",
         "source": "none",
-        "scored_at": "2026-10-03T16:11:50.002Z"
+        "scored_at": "2026-10-04T22:43:34.446Z"
       },
       "1m": {
         "asof": "2026-09-18",
         "price": null,
+        "entry": null,
         "asset_pct": null,
         "bench": "SPY",
-        "bench_pct": -0.96,
+        "bench_pct": null,
         "alpha": null,
         "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
+        "note": "not an instrument — \"BOOK\" is a book label, there is nothing to price",
         "source": "none",
-        "scored_at": "2026-10-03T16:11:50.002Z"
+        "scored_at": "2026-10-04T22:43:34.446Z"
       }
     }
   },
@@ -9132,26 +9143,28 @@
       "1w": {
         "asof": "2026-08-26",
         "price": null,
+        "entry": null,
         "asset_pct": null,
         "bench": "SPY",
-        "bench_pct": -0.39,
+        "bench_pct": null,
         "alpha": null,
         "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
+        "note": "not an instrument — \"BOOK\" is a book label, there is nothing to price",
         "source": "none",
-        "scored_at": "2026-10-03T16:11:50.002Z"
+        "scored_at": "2026-10-04T22:43:34.446Z"
       },
       "1m": {
         "asof": "2026-09-18",
         "price": null,
+        "entry": null,
         "asset_pct": null,
         "bench": "SPY",
-        "bench_pct": -0.96,
+        "bench_pct": null,
         "alpha": null,
         "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
+        "note": "not an instrument — \"BOOK\" is a book label, there is nothing to price",
         "source": "none",
-        "scored_at": "2026-10-03T16:11:50.002Z"
+        "scored_at": "2026-10-04T22:43:34.446Z"
       }
     }
   },
@@ -18566,6 +18579,7 @@
       "1w": {
         "asof": "2026-09-16",
         "price": 342.8699951171875,
+        "entry": 330.03,
         "asset_pct": 3.89,
         "bench": "SPY",
         "bench_pct": -1.1,
@@ -18573,7 +18587,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:54.751Z"
+        "scored_at": "2026-10-04T22:43:39.204Z"
       }
     }
   },
@@ -18676,6 +18690,7 @@
       "1w": {
         "asof": "2026-09-16",
         "price": 239.41000366210938,
+        "entry": 266.65,
         "asset_pct": -10.22,
         "bench": "SPY",
         "bench_pct": -1.1,
@@ -18683,7 +18698,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:54.752Z"
+        "scored_at": "2026-10-04T22:43:39.205Z"
       }
     }
   },
@@ -18895,15 +18910,16 @@
     "checkpoints": {
       "1w": {
         "asof": "2026-09-16",
-        "price": null,
-        "asset_pct": null,
-        "bench": "SPY",
-        "bench_pct": -1.1,
-        "alpha": null,
-        "verdict": "not_scorable",
-        "note": "price not observable at this checkpoint",
-        "source": "none",
-        "scored_at": "2026-10-03T16:11:55.477Z"
+        "price": 1335.099365234375,
+        "entry": 1244,
+        "asset_pct": 7.32,
+        "bench": "BTC",
+        "bench_pct": -2.7,
+        "alpha": 10.02,
+        "verdict": "wrong",
+        "note": "conditional — never triggered and it ran without us",
+        "source": "yahoo",
+        "scored_at": "2026-10-04T22:43:39.349Z"
       }
     }
   },
@@ -19776,14 +19792,25 @@
       "1w": {
         "asof": "2026-09-17",
         "price": 3.7200000286102295,
-        "asset_pct": 1940.59,
+        "entry": 5.469,
+        "split_factor": 30,
+        "asset_pct": -31.98,
         "bench": "SPY",
         "bench_pct": 0.63,
-        "alpha": 1939.96,
-        "verdict": "wrong",
-        "note": "pass — expensive pass, it ran without us",
+        "alpha": -32.61,
+        "verdict": "right",
+        "note": "pass — correctly skipped",
         "source": "yahoo",
-        "scored_at": "2026-09-19T16:10:45.885Z"
+        "scored_at": "2026-10-04T22:43:40.144Z",
+        "supersedes": {
+          "verdict": "wrong",
+          "alpha": 1939.96,
+          "asset_pct": 1940.59,
+          "price": 3.7200000286102295,
+          "note": "pass — expensive pass, it ran without us",
+          "scored_at": "2026-09-19T16:10:45.885Z",
+          "reason": "scored across a split: the series carried a x30 adjustment on 2026-09-19, the logged price 0.1823 carried x1"
+        }
       }
     }
   },
@@ -20326,14 +20353,15 @@
       "1w": {
         "asof": "2026-09-18",
         "price": 1015.7999877929688,
+        "entry": 977.41,
         "asset_pct": 3.93,
         "bench": "SPY",
-        "bench_pct": -0.34,
+        "bench_pct": 0.51,
         "alpha": null,
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:55.477Z"
+        "scored_at": "2026-10-04T22:43:40.489Z"
       }
     }
   },
@@ -20876,6 +20904,7 @@
       "1w": {
         "asof": "2026-09-18",
         "price": 568.0599975585938,
+        "entry": 561.3,
         "asset_pct": 1.2,
         "bench": "SPY",
         "bench_pct": -0.34,
@@ -20883,7 +20912,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:55.705Z"
+        "scored_at": "2026-10-04T22:43:40.490Z"
       }
     }
   },
@@ -24781,6 +24810,7 @@
       "1w": {
         "asof": "2026-09-23",
         "price": 1071.8800048828125,
+        "entry": 918.64,
         "asset_pct": 16.68,
         "bench": "SPY",
         "bench_pct": 1.82,
@@ -24788,7 +24818,7 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:55.706Z"
+        "scored_at": "2026-10-04T22:43:40.974Z"
       }
     }
   },
@@ -25111,6 +25141,7 @@
       "1w": {
         "asof": "2026-09-23",
         "price": 1071.8800048828125,
+        "entry": 924.03,
         "asset_pct": 16,
         "bench": "SPY",
         "bench_pct": 1.82,
@@ -25118,7 +25149,7 @@
         "verdict": "not_scorable",
         "note": "bet — an options structure; checkpoints price the underlying, not the contract",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:55.706Z"
+        "scored_at": "2026-10-04T22:43:40.974Z"
       }
     }
   },
@@ -29895,15 +29926,25 @@
     "checkpoints": {
       "1w": {
         "asof": "2026-09-29",
-        "price": 71.56999969482422,
-        "asset_pct": -93.22,
+        "price": null,
+        "entry": null,
+        "asset_pct": null,
         "bench": "SPY",
-        "bench_pct": -1.19,
-        "alpha": -92.03,
-        "verdict": "right",
-        "note": "pass — correctly skipped",
-        "source": "yahoo",
-        "scored_at": "2026-10-03T16:11:57.508Z"
+        "bench_pct": null,
+        "alpha": null,
+        "verdict": "not_scorable",
+        "note": "not an instrument — \"CASH\" is a book label, there is nothing to price",
+        "source": "none",
+        "scored_at": "2026-10-04T22:43:41.363Z",
+        "supersedes": {
+          "verdict": "right",
+          "alpha": -92.03,
+          "asset_pct": -93.22,
+          "price": 71.56999969482422,
+          "note": "pass — correctly skipped",
+          "scored_at": "2026-10-03T16:11:57.508Z",
+          "reason": "not an instrument — \"CASH\" is a book label, there is nothing to price"
+        }
       }
     }
   },
@@ -32921,6 +32962,7 @@
       "1w": {
         "asof": "2026-10-01",
         "price": 134.1300048828125,
+        "entry": 128.79,
         "asset_pct": 4.15,
         "bench": "SPY",
         "bench_pct": -0.42,
@@ -32928,7 +32970,7 @@
         "verdict": "not_scorable",
         "note": "conditional — trigger level not recorded, so the gate cannot be judged",
         "source": "yahoo",
-        "scored_at": "2026-10-03T16:12:00.823Z"
+        "scored_at": "2026-10-04T22:43:43.325Z"
       }
     }
   },
