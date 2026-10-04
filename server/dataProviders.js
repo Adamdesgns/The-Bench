@@ -1,12 +1,22 @@
-// dataProviders.js — live market data with a hard fallback chain.
+// dataProviders.js — market data, two separate chains.
 //
-//   Alpha Vantage (if key + daily budget remain) -> Stooq (delayed/provisional)
-//   -> "not observable" (never guessed, never omitted).
+//   Live quotes / close series (the app):  Alpha Vantage (if key + daily
+//   budget remain) -> "not observable", with the reason attached and warned.
+//
+//   Dated history (the scorer, quant evidence):  Yahoo chart -> "none", with
+//   the reason attached.
+//
+// Never guessed, never omitted, and never silent about why.
 //
 // AV free tier is 25 calls/day. A 50-name queue blows that on run one, so every
 // AV call is counted against a per-day budget persisted to db/av-usage.json.
-// Once spent, the layer degrades to Stooq and labels those numbers provisional.
 // (HANDOFF-code issues #4 and #7.)
+//
+// STOOQ WAS REMOVED 2026-10-04. It used to be the keyless fallback on both
+// chains. Its history endpoint has served a JavaScript bot-wall since
+// 2026-07-28 and its quote endpoint now answers 404, so every call fell
+// through to "not observable" without a word. A fallback that cannot succeed
+// only hides the failure of the thing in front of it.
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
@@ -42,14 +52,9 @@ function avAvailable() {
 }
 
 // ---- Symbol mapping ----
-// Crypto tickers -> Stooq crypto symbols (btcusd, ethusd, ...).
 // The crypto universe is owned by scoring.js — it is the module with no
 // dependencies, and the verdict rule needs the same list this layer does.
 const CRYPTO = CRYPTO_TICKERS;
-function stooqSymbol(ticker, kind) {
-  if (kind === "crypto") return `${ticker.toLowerCase()}usd`;
-  return `${ticker.toLowerCase()}.us`; // US equities on Stooq
-}
 export function classify(ticker) {
   return CRYPTO.has(ticker.toUpperCase()) ? "crypto" : "equity";
 }
@@ -59,6 +64,24 @@ async function fetchText(url) {
   const res = await fetch(url, { headers: { "user-agent": "the-bench-runner" } });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.text();
+}
+
+// A missing price is reported once per distinct reason per process: loud
+// enough to be seen, not a line per ticker on a 50-name queue. stderr, so the
+// MCP server's stdout protocol stream is never touched.
+const warned = new Set();
+function warnOnce(message) {
+  if (warned.has(message)) return;
+  warned.add(message);
+  console.warn(`[dataProviders] ${message}`);
+}
+
+// Why there is no live price for this ticker, as a sentence.
+function noLiveSource(kind, avError) {
+  if (avError) return `Alpha Vantage failed (${avError}) and there is no second live source`;
+  if (kind === "crypto") return "no live source for crypto — Alpha Vantage is equity-only here";
+  if (!AV.key) return "no live source — Alpha Vantage key is not set (ALPHAVANTAGE_KEY)";
+  return `no live source — Alpha Vantage daily budget of ${AV.dailyBudget} is spent`;
 }
 
 // Alpha Vantage GLOBAL_QUOTE -> latest price.
@@ -88,71 +111,31 @@ async function avDailyCloses(ticker) {
     .map((d) => Number(series[d]["4. close"]));
 }
 
-// Stooq single-quote CSV: Symbol,Date,Time,Open,High,Low,Close,Volume
-async function stooqQuote(symbol) {
-  const url = `https://stooq.com/q/l/?s=${encodeURIComponent(symbol)}&f=sd2t2ohlcv&h&e=csv`;
-  const csv = await fetchText(url);
-  const line = csv.trim().split("\n")[1];
-  if (!line) throw new Error("stooq: empty");
-  const cols = line.split(",");
-  const close = Number(cols[6]);
-  if (!close || Number.isNaN(close)) throw new Error("stooq: no close");
-  return { price: close, asof: cols[1] || today() };
-}
-
-// Stooq daily history CSV -> closes (oldest -> newest).
-async function stooqDailyCloses(symbol) {
-  const url = `https://stooq.com/q/d/l/?s=${encodeURIComponent(symbol)}&i=d`;
-  const csv = await fetchText(url);
-  const lines = csv.trim().split("\n").slice(1);
-  const closes = lines.map((l) => Number(l.split(",")[4])).filter((n) => !Number.isNaN(n));
-  if (!closes.length) throw new Error("stooq: no history");
-  return closes;
-}
-
 // ---- Public: one quote with full provenance ----
-// Returns { ticker, price, source, asof, provisional } or price = NOT_OBSERVABLE.
+// Returns { ticker, price, source, asof, provisional }, or price =
+// NOT_OBSERVABLE with `error` saying why.
 export async function getQuote(ticker) {
   const kind = classify(ticker);
+  let avError = null;
   if (kind === "equity" && avAvailable()) {
     try {
       const { price, asof } = await avQuote(ticker);
       return { ticker, price, source: "alphavantage", asof, provisional: false };
-    } catch {
-      /* fall through to Stooq */
+    } catch (err) {
+      avError = err.message;
     }
   }
-  try {
-    const { price, asof } = await stooqQuote(stooqSymbol(ticker, kind));
-    return { ticker, price, source: "stooq", asof, provisional: true };
-  } catch {
-    return { ticker, price: NOT_OBSERVABLE, source: "none", asof: null, provisional: true };
-  }
-}
-
-// Stooq daily history CSV -> dated bars: Date,Open,High,Low,Close,Volume
-async function stooqDatedCloses(symbol) {
-  const url = `https://stooq.com/q/d/l/?s=${encodeURIComponent(symbol)}&i=d`;
-  const csv = await fetchText(url);
-  const bars = csv
-    .trim()
-    .split("\n")
-    .slice(1)
-    .map((line) => {
-      const cols = line.split(",");
-      return { date: cols[0], close: Number(cols[4]) };
-    })
-    .filter((b) => /^\d{4}-\d{2}-\d{2}$/.test(b.date || "") && !Number.isNaN(b.close));
-  if (!bars.length) throw new Error("stooq: no dated history");
-  return bars;
+  const error = noLiveSource(kind, avError);
+  warnOnce(`quote not observable: ${error}`);
+  return { ticker, price: NOT_OBSERVABLE, source: "none", asof: null, provisional: true, error };
 }
 
 // ---- Yahoo chart API: keyless dated history ----
 //
-// Stooq began serving a JavaScript bot-wall instead of CSV (verified
-// 2026-07-28: every history request returns an HTML challenge page, with or
-// without a browser user-agent). Yahoo's chart endpoint needs no key, carries
-// dates, and covers both equities and crypto.
+// Yahoo's chart endpoint needs no key, carries dates, and covers both equities
+// and crypto. Its `close` is SPLIT-ADJUSTED all the way back (and not
+// dividend-adjusted), so the split events are fetched with it: a price logged
+// before a split is on a different share basis from every bar in the series.
 
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36";
@@ -177,50 +160,66 @@ export function mapYahooBars(json) {
   return bars;
 }
 
+// Pure: chart JSON -> [{date, numerator, denominator}], oldest first. A
+// 1-for-30 reverse split is 1/30; a 20-for-1 forward split is 20/1. The date
+// is the first session that trades on the new basis. An event without a
+// usable ratio is dropped, never guessed.
+export function mapYahooSplits(json) {
+  const events = json?.chart?.result?.[0]?.events?.splits;
+  if (!events || typeof events !== "object") return [];
+  return Object.values(events)
+    .filter((e) => typeof e?.date === "number" && e.numerator > 0 && e.denominator > 0)
+    .map((e) => ({
+      date: new Date(e.date * 1000).toISOString().slice(0, 10),
+      numerator: e.numerator,
+      denominator: e.denominator
+    }))
+    .sort((x, y) => x.date.localeCompare(y.date));
+}
+
 async function yahooDatedCloses(symbol, range) {
   const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(
     symbol
-  )}?range=${range}&interval=1d`;
+  )}?range=${range}&interval=1d&events=split`;
   const res = await fetch(url, { headers: { "user-agent": BROWSER_UA } });
   if (!res.ok) throw new Error(`yahoo: ${res.status}`);
-  const bars = mapYahooBars(await res.json());
+  const json = await res.json();
+  const bars = mapYahooBars(json);
   if (!bars.length) throw new Error("yahoo: no bars");
-  return bars;
+  return { bars, splits: mapYahooSplits(json) };
 }
 
 // Dated closes for scoring past checkpoints — "what did this close at on X".
 //
-// Yahoo first (keyless, dated, still serving), Stooq second in case it comes
-// back. Alpha Vantage is deliberately not used: its free tier is 25 calls/day
-// and already metered, and scoring the book costs rows x horizons x 2 symbols.
-// (docs/scorecard-spec.md)
+// Yahoo only. Alpha Vantage is deliberately not used: its free tier is 25
+// calls/day and already metered, and scoring the book costs rows x horizons x
+// 2 symbols. (docs/scorecard-spec.md)
+//
+// Returns { bars, splits, source: "yahoo" }, or { bars: [], splits: [],
+// source: "none", error } — the caller decides how loud to be, and the scorer
+// prints every failure by name.
 export async function getDatedCloses(ticker, { range = "1y" } = {}) {
   const kind = classify(ticker);
   try {
-    return { bars: await yahooDatedCloses(yahooSymbol(ticker, kind), range), source: "yahoo" };
-  } catch {
-    /* fall through to Stooq */
-  }
-  try {
-    return { bars: await stooqDatedCloses(stooqSymbol(ticker, kind)), source: "stooq" };
-  } catch {
-    return { bars: [], source: "none" };
+    const { bars, splits } = await yahooDatedCloses(yahooSymbol(ticker, kind), range);
+    return { bars, splits, source: "yahoo" };
+  } catch (err) {
+    return { bars: [], splits: [], source: "none", error: err.message };
   }
 }
 
-// Close series for indicators, same fallback chain.
+// Close series for indicators, same chain as getQuote.
 export async function getDailyCloses(ticker) {
   const kind = classify(ticker);
+  let avError = null;
   if (kind === "equity" && avAvailable()) {
     try {
       return { closes: await avDailyCloses(ticker), source: "alphavantage", provisional: false };
-    } catch {
-      /* fall through */
+    } catch (err) {
+      avError = err.message;
     }
   }
-  try {
-    return { closes: await stooqDailyCloses(stooqSymbol(ticker, kind)), source: "stooq", provisional: true };
-  } catch {
-    return { closes: [], source: "none", provisional: true };
-  }
+  const error = noLiveSource(kind, avError);
+  warnOnce(`close series not observable: ${error}`);
+  return { closes: [], source: "none", provisional: true, error };
 }

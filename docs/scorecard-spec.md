@@ -5,6 +5,97 @@
 Status: approved 2026-07-28. Implements the closing half of the archive that
 `reconcile.js` promised in its header and never had.
 
+## 2026-10-04: price basis, book labels and corrections
+
+An independent recompute of the book found two stored checkpoints that were
+scorer artifacts, not calls. Both are fixed in the scorer. Neither row's text
+was edited.
+
+**What was wrong**
+
+| Row | Stored | Cause | Correct |
+|---|---|---|---|
+| B-325 MGN, 1w | `wrong`, alpha +1939.96 | Logged at a raw 0.1823 on 9/10. A 1-for-30 reverse split took effect 9/17. Yahoo's `close` is split-adjusted all the way back, so the end price (3.72) was on the new share basis and the start price was on the old one. | `right`, alpha -32.61 (entry 0.1823 x 30 = 5.469) |
+| B-509 CASH, 1w | `right`, alpha -92.03 | A capital-allocation row logged under the label "CASH". CASH is also the real symbol of Pathward Financial, so the scorer priced it. | `not_scorable` |
+
+**The rules now**
+
+1. **Book labels are never priced.** `isInstrument()` in `scoring.js` refuses
+   `CASH`, `BOOK`, `ACCOUNT`, `PORTFOLIO` and anything that is not shaped like
+   a symbol. No price is fetched. The checkpoint says `not an instrument` and
+   is written once, not on every run.
+2. **Splits are carried into the entry.** `getDatedCloses()` asks Yahoo for
+   split events with the bars. A logged `review_price` is multiplied by
+   `denominator / numerator` for every split that took effect after the review
+   day. The checkpoint records `entry` (the start price actually used) and
+   `split_factor` (only when it is not 1). A conditional's trigger level is
+   carried across the same splits.
+3. **A split on the review day is not guessed.** The logged price could be on
+   either basis, so the row scores `not_scorable` with that reason.
+4. **Basis backstop.** After split adjustment the entry must sit within 2x of
+   the series close on the review day, or the row scores `not_scorable` with
+   the two numbers in the note. This catches a split the feed never reported
+   and a label that happens to be a real symbol. Measured on 711 rows: every
+   genuine row sat between 0.72x and 1.14x. Only B-325, B-509 and two option
+   premiums (already typed `bet`) were outside 0.5x to 2x.
+5. **Missing price series are printed by name.** `score-book.js` ends with a
+   `NO PRICE SERIES` block instead of a quiet `price not observable`.
+
+**Corrections: `--recheck`**
+
+Real verdicts are still append-only on a normal run. The one exception is
+explicit:
+
+```
+node scripts/score-book.js --recheck --dry-run --no-draft   # look
+node scripts/score-book.js --recheck --no-draft             # apply
+```
+
+`--recheck` re-fetches every ticker that has a settled checkpoint and
+re-scores only what it can prove was an artifact: a book label, a basis
+mismatch on a checkpoint written before the check existed, or a split that
+was already in the series on the day the checkpoint was scored and not in
+its entry. A split that landed after a checkpoint was scored does not count:
+that verdict was computed on one basis and stands. The old verdict is kept
+inside the new checkpoint:
+
+```json
+"supersedes": { "verdict": "wrong", "alpha": 1939.96, "asset_pct": 1940.59,
+                "price": 3.72, "note": "...", "scored_at": "...", "reason": "..." }
+```
+
+A real verdict is never replaced by `price not observable`. If the prices
+needed to redo it are missing, it waits for a run that has them. Corrections
+are printed in their own block and stay out of the tally and the draft.
+
+**Where each leg starts (known limit)**
+
+The asset leg starts at the logged `review_price`, which is a print at the
+time of the review. The benchmark leg starts at a daily close. Two cases:
+
+- **Logged the evening before, or over a weekend** (42 rows as of 2026-10-04,
+  for example `review_time: "2026-09-09 21:52 CT after the close"` on a row
+  dated 9/10). The benchmark used to start at the close of `row.date`, one
+  session after the asset. **Fixed going forward:** `reviewDay()` in
+  `checkpoints.js` reads the session from `review_time` and both legs start
+  there. Stored verdicts were not re-scored for this. Measured: 26 stored
+  checkpoints start on a different session, the largest shift is 1.90 points
+  of benchmark, and 4 verdicts near the dead band would flip (B-311, B-520,
+  B-523, B-524).
+- **Logged intraday.** The asset starts at the intraday print and the
+  benchmark at that day's close. This is not fixed. Daily bars cannot fix it,
+  and the error is at most one session of benchmark movement.
+
+**Stooq is gone**
+
+Its history endpoint has served a bot-wall since 2026-07-28 and its quote
+endpoint now answers 404. It was removed from `dataProviders.js` on both
+chains. `getDatedCloses()` is Yahoo only and returns an `error` when it fails.
+`getQuote()` and `getDailyCloses()` are Alpha Vantage only; with no key or no
+budget they return "not observable" with an `error` and warn once on stderr.
+A Stooq series would also have carried no split events, so the scorer could
+not have trusted it.
+
 ## Why this exists
 
 `db/archive.json` was built with `outcome`, `outcome_price`, `pct_move`,
@@ -171,7 +262,7 @@ Stooq, and it does not work: as of 2026-07-28 Stooq answers every history
 request with an HTML JavaScript bot-wall instead of CSV, with or without a
 browser user-agent. Yahoo is keyless, carries dates, and covers equities
 (`GOOGL`) and crypto (`BTC-USD`) alike. Stooq remains second in the chain in
-case it returns.
+case it returns. *(It did not. Removed 2026-10-04, see the section at the top.)*
 
 ⚠️ **This breaks the existing app too.** `getQuote()` and `getDailyCloses()`
 both fall back to Stooq, so the live data chain in `reviewer.js` / `reconcile.js`
