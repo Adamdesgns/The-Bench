@@ -68,6 +68,22 @@ A real verdict is never replaced by `price not observable`. If the prices
 needed to redo it are missing, it waits for a run that has them. Corrections
 are printed in their own block and stay out of the tally and the draft.
 
+`--recheck` also goes back for rows the scorer itself closed as `Unscored`
+because no price series could be fetched. A closed row is never due again, so
+without this a fixed symbol would never reach the row it was fixed for. A row
+a person closed carries their outcome and is never reopened.
+
+**ZEC and HYPE**
+
+Both had no price series. ZEC was missing from the crypto list, so it was
+fetched as a stock with no bars. HYPE's plain pair answers 404 on Yahoo, which
+lists Hyperliquid as `HYPE32196-USD`. Both are mapped now, and both series
+were checked against Robinhood's live quotes on 2026-10-04 (ZEC 1346.52 vs
+1346.36, HYPE 90.93 vs 90.97). Robinhood itself cannot feed the scorer: its
+connector has live crypto quotes but no dated crypto history, and a script
+cannot call the connector. B-309 (ZEC) scores on the next run. B-017 (HYPE)
+was closed as `Unscored` and scores on the next `--recheck`.
+
 **Where each leg starts (known limit)**
 
 The asset leg starts at the logged `review_price`, which is a print at the

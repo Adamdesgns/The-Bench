@@ -22,6 +22,7 @@ import {
 } from "./scoring.js";
 import {
   CLOSING_HORIZON,
+  HORIZON_DAYS,
   checkpointDate,
   closeOnOrBefore,
   dueCheckpoints,
@@ -171,6 +172,16 @@ function artifactReason(old, row, basis, splits) {
   return null;
 }
 
+// Checkpoints that say "no price" on a row the SCORER closed as Unscored. A
+// closed row is never due again, so once its price series can be fetched only
+// --recheck can go back for it. A row a person closed carries their outcome,
+// not "Unscored", and is never reopened.
+function unobservedCheckpoints(row) {
+  if (row?.outcome !== OUTCOME_FOR.not_scorable) return [];
+  const stored = row.checkpoints ?? {};
+  return Object.keys(HORIZON_DAYS).filter((key) => stored[key]?.verdict === "not_scorable" && stored[key].source === "none");
+}
+
 // rows -> { rows, scored, failures }. Mutates rows in place (the archive is the
 // record).
 //
@@ -178,7 +189,8 @@ function artifactReason(old, row, basis, splits) {
 // stored verdict an artifact rather than a call — a book label priced as a
 // symbol, and a logged price scored against a series on another share basis.
 // An artifact is recomputed and the old verdict is kept under `supersedes`.
-// Without recheck a settled verdict is never touched.
+// It also goes back for rows closed as Unscored for want of a price. Without
+// recheck a settled verdict and a closed row are never touched.
 export async function scoreRows(rows, { today, fetchBars, recheck = false }) {
   const failures = new Map();
   const bars = memoize(async (ticker) => {
@@ -191,7 +203,8 @@ export async function scoreRows(rows, { today, fetchBars, recheck = false }) {
   for (const row of rows) {
     const due = dueCheckpoints(row, today);
     const settled = recheck ? settledCheckpoints(row) : [];
-    if (!due.length && !settled.length) continue;
+    const unobserved = recheck ? unobservedCheckpoints(row) : [];
+    if (!due.length && !settled.length && !unobserved.length) continue;
 
     const type = classifyCall(row);
     const bench = benchmarkFor(row.ticker);
@@ -266,6 +279,14 @@ export async function scoreRows(rows, { today, fetchBars, recheck = false }) {
       if (!basis.problem && (checkpoint.asset_pct === null || checkpoint.bench_pct === null)) continue;
       writeCheckpoint(row, horizon, checkpoint, supersededRecord(old, reason));
       report(horizon, checkpoint, { triggerFired, ...correction(old) });
+    }
+
+    for (const horizon of unobserved) {
+      const { checkpoint, triggerFired } = computeCheckpoint(row, horizon, ctx);
+      // Still no series: the placeholder already says so.
+      if (checkpoint.price === null) continue;
+      writeCheckpoint(row, horizon, checkpoint);
+      report(horizon, checkpoint, { triggerFired });
     }
   }
 

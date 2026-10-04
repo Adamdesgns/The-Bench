@@ -448,6 +448,71 @@ test("a conditional's trigger level is carried onto the split basis before it is
   assert.equal(out[0].checkpoints["1w"].note, "conditional — correctly never triggered");
 });
 
+// ---- rows closed for want of a price (B-017, HYPE) ----
+// HYPE's series could not be fetched, so all three checkpoints were written
+// "price not observable" and the 3m one closed the row as Unscored. A closed
+// row is never due again, so fixing the symbol alone would not have scored it.
+
+const UNOBSERVED = (asof) => ({
+  asof,
+  price: null,
+  asset_pct: null,
+  bench: "SPY",
+  bench_pct: 2,
+  alpha: null,
+  verdict: "not_scorable",
+  note: "price not observable at this checkpoint",
+  source: "none",
+  scored_at: "2026-09-30T12:00:00.000Z"
+});
+
+function unscoredRow(extra = {}) {
+  return longRow({
+    outcome: "Unscored",
+    outcome_price: null,
+    pct_move: null,
+    grade_verdict: "price not observable at this checkpoint",
+    checkpoints: { "1w": UNOBSERVED("2026-07-09"), "3m": UNOBSERVED("2026-09-30") },
+    ...extra
+  });
+}
+
+test("recheck scores a row that was closed as Unscored once its price series exists", async () => {
+  const { rows: out, scored } = await scoreRows([unscoredRow()], { today: "2026-10-04", fetchBars, recheck: true });
+
+  assert.equal(out[0].checkpoints["1w"].verdict, "right");
+  assert.equal(out[0].checkpoints["1w"].alpha, 8);
+  assert.equal(out[0].checkpoints["3m"].verdict, "right");
+  assert.equal(out[0].outcome, "Win");
+  assert.equal(out[0].outcome_price, 110);
+  assert.equal(scored.length, 2);
+});
+
+test("without recheck a row closed as Unscored stays closed", async () => {
+  const rows = [unscoredRow()];
+  const { scored } = await scoreRows(rows, { today: "2026-10-04", fetchBars });
+
+  assert.deepEqual(scored, []);
+  assert.equal(rows[0].outcome, "Unscored");
+});
+
+test("recheck leaves an Unscored row alone while its price is still missing", async () => {
+  const rows = [unscoredRow({ ticker: "NOSUCH" })];
+  const { scored } = await scoreRows(rows, { today: "2026-10-04", fetchBars, recheck: true });
+
+  assert.deepEqual(scored, []);
+  assert.equal(rows[0].checkpoints["3m"].scored_at, "2026-09-30T12:00:00.000Z");
+});
+
+test("recheck never reopens a row a person closed", async () => {
+  const rows = [unscoredRow({ outcome: "Stopped", outcome_price: 95, pct_move: -5 })];
+  const { scored } = await scoreRows(rows, { today: "2026-10-04", fetchBars, recheck: true });
+
+  assert.deepEqual(scored, []);
+  assert.equal(rows[0].outcome, "Stopped");
+  assert.equal(rows[0].outcome_price, 95);
+});
+
 test("a symbol with no price series is reported, not silently left unscored", async () => {
   const rows = [longRow({ ticker: "NOSUCH" })];
   const { failures } = await scoreRows(rows, { today: "2026-07-09", fetchBars: feed({ SPY: { bars: BARS.SPY } }).fetch });

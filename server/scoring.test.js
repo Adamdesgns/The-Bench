@@ -209,6 +209,11 @@ test("a bet is never scored like a long, because the scorer prices the underlyin
   assert.match(r.note, /options structure/);
 });
 
+test("ZEC is crypto, so it is graded against BTC like the rest", () => {
+  // B-309 was fetched as a stock called ZEC, which has no bars.
+  assert.equal(benchmarkFor("ZEC"), "BTC");
+});
+
 // ---- instruments, splits and the price basis (2026-10-04) ----
 // B-509 was a capital-allocation row logged under "CASH" and got priced as
 // Pathward Financial. B-325 (MGN) crossed a 1-for-30 reverse split and scored

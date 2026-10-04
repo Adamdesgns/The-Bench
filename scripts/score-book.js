@@ -11,8 +11,10 @@
 // every ticker that has one and corrects two provable faults: a book label
 // priced as a symbol (B-509, "CASH"), and a logged price scored against a
 // series on a different share basis (B-325, MGN across a 1-for-30). The old
-// verdict is kept inside the checkpoint under `supersedes`. Run it after a
-// scorer fix, or now and then; it costs one fetch per ticker in the book.
+// verdict is kept inside the checkpoint under `supersedes`. It also scores rows
+// that were closed as Unscored only because no price could be fetched (B-017,
+// HYPE). Run it after a scorer fix, or now and then; it costs one fetch per
+// ticker in the book.
 //
 // Nothing is written under x-poster unless --draft is passed. The X channel was
 // retired 2026-09-05 and the standing order forbids routines writing there.

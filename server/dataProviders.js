@@ -140,8 +140,14 @@ export async function getQuote(ticker) {
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36";
 
-function yahooSymbol(ticker, kind) {
-  return kind === "crypto" ? `${ticker.toUpperCase()}-USD` : ticker.toUpperCase();
+// Coins Yahoo lists under a numbered symbol. The plain pair answers 404, which
+// is how B-017 (HYPE) was closed as Unscored without ever being priced.
+const YAHOO_CRYPTO_SYMBOL = { HYPE: "HYPE32196-USD" };
+
+export function yahooSymbol(ticker, kind) {
+  const t = ticker.toUpperCase();
+  if (kind !== "crypto") return t;
+  return YAHOO_CRYPTO_SYMBOL[t] ?? `${t}-USD`;
 }
 
 // Pure: chart JSON -> [{date, close}]. A missing or error payload maps to [],

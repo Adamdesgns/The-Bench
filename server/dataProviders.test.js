@@ -7,7 +7,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { mapYahooBars, mapYahooSplits, getQuote, getDailyCloses, NOT_OBSERVABLE } from "./dataProviders.js";
+import {
+  mapYahooBars,
+  mapYahooSplits,
+  yahooSymbol,
+  classify,
+  getQuote,
+  getDailyCloses,
+  NOT_OBSERVABLE
+} from "./dataProviders.js";
 import { AV } from "./config.js";
 
 // 2026-07-02 and 2026-07-06 as UTC midnights.
@@ -54,6 +62,20 @@ test("an error payload maps to no bars rather than throwing", () => {
 
 test("a result with no quote block maps to no bars", () => {
   assert.deepEqual(mapYahooBars({ chart: { result: [{ timestamp: [1782000000], indicators: {} }] } }), []);
+});
+
+// ---- Yahoo symbols ----
+// Checked 2026-10-04 against Robinhood's live quotes: ZEC-USD 1346.52 vs
+// 1346.36, HYPE32196-USD 90.93 vs 90.97. Plain HYPE-USD answers 404.
+
+test("crypto maps to its Yahoo pair, with the numbered symbol where Yahoo uses one", () => {
+  assert.equal(yahooSymbol("ZEC", classify("ZEC")), "ZEC-USD");
+  assert.equal(yahooSymbol("btc", classify("btc")), "BTC-USD");
+  assert.equal(yahooSymbol("HYPE", classify("HYPE")), "HYPE32196-USD");
+});
+
+test("an equity maps to its own symbol", () => {
+  assert.equal(yahooSymbol("googl", classify("googl")), "GOOGL");
 });
 
 // ---- split events ----

@@ -10,7 +10,7 @@
 // verdict rule needs it and this module is the one with no dependencies —
 // dataProviders imports it from here so there is exactly one list.
 export const CRYPTO_TICKERS = new Set([
-  "BTC", "ETH", "BNB", "XRP", "SOL", "TRX", "DOGE", "HYPE", "XLM", "ADA", "LTC"
+  "BTC", "ETH", "BNB", "XRP", "SOL", "TRX", "DOGE", "HYPE", "XLM", "ADA", "LTC", "ZEC"
 ]);
 
 // Alpha inside this band is noise, not skill.
