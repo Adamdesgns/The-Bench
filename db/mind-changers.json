@@ -874,6 +874,27 @@
       "row": "B-722",
       "expires": "2026-10-05",
       "status": "open"
+    },
+    {
+      "id": "MC-053",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": ">",
+          "level": 143.02
+        },
+        {
+          "ticker": "VST",
+          "op": "<=",
+          "level": 144.98
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-723: VST closed over the 143.02 line AND at or under the 2:1 ceiling (144.98 at ATR 4.96, target 154.90), so a day-two entry is legal on price. Recompute the ceiling from the new ATR, check volume >= 9.7M and whether the loan was ANNOUNCED (MC-051). A close above 144.98 leaves day two a pass unless the first bar comes back under the ceiling. Not a ticket.",
+      "source": "docs/reads/2026-10-05-snapshot-1012.md",
+      "row": "B-723",
+      "expires": "2026-10-09",
+      "status": "open"
     }
   ]
 }
