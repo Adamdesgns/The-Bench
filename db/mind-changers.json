@@ -911,6 +911,22 @@
       "row": "B-724",
       "expires": "2026-10-05",
       "status": "open"
+    },
+    {
+      "id": "MC-055",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 772.65
+        }
+      ],
+      "meaning": "the 14:02 power-hour read was wrong - buyers did not control the last hour: SPY was 776.04 after eleven straight higher half-hour closes and still closed back under the 10/02 high. Re-look only, not a ticket.",
+      "source": "docs/reads/2026-10-05-powerhour.md",
+      "row": "B-727",
+      "expires": "2026-10-05",
+      "status": "open"
     }
   ]
 }
