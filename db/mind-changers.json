@@ -927,6 +927,86 @@
       "row": "B-727",
       "expires": "2026-10-05",
       "status": "open"
+    },
+    {
+      "id": "MC-056",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 237.88
+        }
+      ],
+      "meaning": "FAILED BREAKOUT - NVDA closed back under the old 237.88 record after the 10/05 signal close (239.11 on 123.5M); the B-729 signal is dead and any fill from the 10/06 first bar is under its entry line. Re-judge; stop 231.90 still decides a live position.",
+      "source": "docs/reads/2026-10-05-close.md",
+      "row": "B-729",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-057",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": "<",
+          "level": 143.02
+        }
+      ],
+      "meaning": "DAY TWO FAILED - VST closed back under the 143.02 pre-news line after the loan was announced; the Company Catalyst Lane plan B-730 is dead, re-judge as an ordinary setup.",
+      "source": "docs/reads/2026-10-05-close.md",
+      "row": "B-730",
+      "expires": "2026-10-07",
+      "status": "open"
+    },
+    {
+      "id": "MC-058",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "CEG",
+          "op": ">",
+          "level": 271.19
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-731: CEG closed over the 270-271 shelf that capped 9/29, 10/01 and 10/05; check volume >= 1.5x the 30-day average (about 4.6M).",
+      "source": "docs/reads/2026-10-05-close.md",
+      "row": "B-731",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-059",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "CBRS",
+          "op": ">",
+          "level": 185.35
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-732: CBRS closed over the 9/30-10/01 highs and the 185 IPO price; next pivot 194.21; the 10/14 lockup tranche is inside any hold.",
+      "source": "docs/reads/2026-10-05-close.md",
+      "row": "B-732",
+      "expires": "2026-10-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-060",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "LITE",
+          "op": ">",
+          "level": 1124.4
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-733: LITE closed over the 10/05 intraday record; check volume >= 1.5x the 30-day average (about 7.2M) before calling it a breakout.",
+      "source": "docs/reads/2026-10-05-close.md",
+      "row": "B-733",
+      "expires": "2026-10-09",
+      "status": "open"
     }
   ]
 }
