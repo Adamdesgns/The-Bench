@@ -895,6 +895,22 @@
       "row": "B-723",
       "expires": "2026-10-09",
       "status": "open"
+    },
+    {
+      "id": "MC-054",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "RSP",
+          "op": "<",
+          "level": 209.73
+        }
+      ],
+      "meaning": "the midday broadening did not hold - the equal-weight S&P fund closed under its 10/02 close while it was level with SPY at 11:35; the 09:05 narrow read was right after all. Re-look only, not a ticket.",
+      "source": "docs/reads/2026-10-05-midday.md",
+      "row": "B-724",
+      "expires": "2026-10-05",
+      "status": "open"
     }
   ]
 }
