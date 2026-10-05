@@ -31,11 +31,21 @@ const REQUIRED_FIELDS = [
   'concentrated', 'leveraged_product', 'conviction_bet',
 ];
 
+const HANDOFF_FIELDS = new Set(REQUIRED_FIELDS);
+const TICKER_RE = /^[A-Z][A-Z0-9.-]{0,9}$/;
+const MAX_PLAN_TTL_MS = 24 * 60 * 60 * 1000;
+
 // Alias keys that would smuggle a second quantity mode in beside the canonical pair.
 const QUANTITY_ALIAS_KEYS = ['notional', 'shares', 'dollar_amount', 'share_count', 'qty', 'quantity_shares', 'quantity_notional'];
 
 const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
 const isPos = (v) => isNum(v) && v > 0;
+const STRICT_ISO_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
+const isCanonicalIso = (v) => {
+  if (typeof v !== 'string' || !STRICT_ISO_RE.test(v)) return false;
+  const parsed = Date.parse(v);
+  return !Number.isNaN(parsed) && new Date(parsed).toISOString() === v;
+};
 
 export function sanitizePlanId(id) {
   return String(id).replace(/[^A-Za-z0-9._-]/g, '-');
@@ -77,6 +87,9 @@ export function validateHandoff(h, { now = new Date(), receiptsDir = null, clock
   // R09 first: the forbidden field is a refusal even if everything else is present.
   if ('side' in h) add('R09_SIDE_FIELD_PRESENT', '`side` is forbidden — use action: BUY | SELL_TO_CLOSE');
 
+  const unknown = Object.keys(h).filter((key) => !HANDOFF_FIELDS.has(key));
+  if (unknown.length) add('X01_UNKNOWN_FIELD', `unknown handoff field(s): ${unknown.join(', ')}`);
+
   for (const k of REQUIRED_FIELDS) {
     if (!(k in h) || h[k] === null || h[k] === undefined || h[k] === '') {
       add('R01_MISSING_FIELD', `missing required field: ${k} (never inferred)`);
@@ -97,14 +110,27 @@ export function validateHandoff(h, { now = new Date(), receiptsDir = null, clock
       add('R02_PENDING_ROW_ID', 'row_id must be a real archived row (B-###); "Pending Archive ID" refuses');
     }
   }
+  if (h.plan_id !== undefined && h.row_id !== undefined && h.created_at !== undefined &&
+      h.plan_id !== `${h.row_id}:${h.created_at}`) {
+    add('X05_PLAN_ID_INVALID', 'plan_id must exactly equal <row_id>:<created_at>');
+  }
+  for (const [field, limit] of [['plan_id', 160], ['row_id', 16], ['account_alias', 32], ['maximum_price_drift', 32]]) {
+    if (typeof h[field] === 'string' && h[field].length > limit) {
+      add('X04_FIELD_TOO_LONG', `${field} exceeds ${limit} characters`);
+    }
+  }
 
   // Staleness — unparseable dates fail closed.
-  const created = Date.parse(h.created_at);
-  const expires = Date.parse(h.expires_at);
-  if (h.created_at !== undefined && Number.isNaN(created)) add('R04_STALE_PLAN', 'created_at is not parseable ISO-8601');
-  if (h.expires_at !== undefined && Number.isNaN(expires)) add('R04_STALE_PLAN', 'expires_at is not parseable ISO-8601');
+  const created = isCanonicalIso(h.created_at) ? Date.parse(h.created_at) : NaN;
+  const expires = isCanonicalIso(h.expires_at) ? Date.parse(h.expires_at) : NaN;
+  if (h.created_at !== undefined && Number.isNaN(created)) add('R04_STALE_PLAN', 'created_at must use canonical UTC ISO-8601 (YYYY-MM-DDTHH:mm:ss.sssZ)');
+  if (h.expires_at !== undefined && Number.isNaN(expires)) add('R04_STALE_PLAN', 'expires_at must use canonical UTC ISO-8601 (YYYY-MM-DDTHH:mm:ss.sssZ)');
   if (!Number.isNaN(expires) && expires <= now.getTime()) add('R04_STALE_PLAN', 'plan expired');
   if (!Number.isNaN(created) && created > now.getTime() + clockSkewMs) add('R04_STALE_PLAN', 'created_at is in the future');
+  if (!Number.isNaN(created) && !Number.isNaN(expires) &&
+      (expires <= created || expires - created > MAX_PLAN_TTL_MS)) {
+    add('X03_PLAN_TTL_UNBOUNDED', 'expires_at must be after created_at and no more than 24 hours later');
+  }
 
   // Account alias — alias only, and no long digit run anywhere in the handoff.
   if (h.account_alias !== undefined && !/^AGENTIC-\d{4}$/.test(String(h.account_alias))) {
@@ -115,6 +141,9 @@ export function validateHandoff(h, { now = new Date(), receiptsDir = null, clock
   }
 
   if (h.asset_class !== undefined && h.asset_class !== 'equity') add('R11_ASSET_NOT_EQUITY', 'v1 is equity-only');
+  if (h.ticker !== undefined && !TICKER_RE.test(String(h.ticker))) {
+    add('X02_TICKER_INVALID', 'ticker must be uppercase and contain only symbol characters');
+  }
   if (h.action !== undefined && !ALLOWED_ACTIONS.includes(h.action)) {
     add('R10_ACTION_NOT_ALLOWED', `action must be one of ${ALLOWED_ACTIONS.join(' | ')}`);
   }
@@ -183,6 +212,24 @@ export function validateHandoff(h, { now = new Date(), receiptsDir = null, clock
   }
   if (h.planned_dollar_risk !== undefined && (!isNum(h.planned_dollar_risk) || h.planned_dollar_risk < 0 || h.planned_dollar_risk > ceiling)) {
     add('R05_RISK_ABOVE_CEILING', `planned_dollar_risk must be a nonnegative number ≤ effective ceiling $${ceiling.toFixed(2)}`);
+  }
+  if (isNum(notional) && isNum(h.planned_dollar_risk)) {
+    let expectedRisk = null;
+    if (h.action === 'SELL_TO_CLOSE') expectedRisk = 0;
+    if (h.action === 'BUY' && h.exit_owner === 'MANUAL') expectedRisk = notional;
+    if (h.action === 'BUY' && h.exit_owner === 'SEPARATE_STOP_ORDER' && isPos(h.limit_price) && isPos(h.invalidation_price)) {
+      const shares = h.quantity_mode === 'shares' ? h.quantity_value : h.quantity_value / h.limit_price;
+      expectedRisk = shares * (h.limit_price - h.invalidation_price);
+    }
+    const tolerance = expectedRisk === null ? 0 : Math.max(0.01, Math.abs(expectedRisk) * 0.02);
+    if (expectedRisk !== null && Math.abs(h.planned_dollar_risk - expectedRisk) > tolerance) {
+      add(
+        'X06_RISK_ARITHMETIC_MISMATCH',
+        h.exit_owner === 'MANUAL'
+          ? `MANUAL exit requires planned_dollar_risk to equal full notional (about $${expectedRisk.toFixed(2)})`
+          : `planned_dollar_risk must reconcile to shares × (limit − invalidation) (about $${expectedRisk.toFixed(2)})`,
+      );
+    }
   }
 
   // Durable dedupe — session memory is not an idempotency store.

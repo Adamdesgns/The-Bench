@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>The Xecutor — Bench Order Gateway</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="owner-pending">
+  <a class="skip-link" href="#main-content">Skip to order workspace</a>
+
+  <div class="safety-tape" aria-label="Gateway safety status">
+    <strong>SIMULATION ONLY</strong>
+    <span aria-hidden="true">/</span>
+    <span>LIVE BROKER ROUTE ABSENT</span>
+    <span aria-hidden="true">/</span>
+    <span>HUMAN APPROVAL REQUIRED</span>
+  </div>
+
+  <section id="owner-gate" class="owner-gate" aria-labelledby="owner-gate-title">
+    <div class="owner-card">
+      <div class="owner-brand" aria-hidden="true">X</div>
+      <p class="eyebrow">LOCAL OWNER APPROVAL</p>
+      <h1 id="owner-gate-title">Open Adam's guarded console.</h1>
+      <p id="owner-gate-status" class="owner-gate-status" role="status" aria-live="polite">Checking owner access…</p>
+
+      <div id="owner-setup" class="owner-step" hidden>
+        <span class="owner-step-label">ONE-TIME SETUP REQUIRED</span>
+        <p>Create the owner approval code from a local terminal, then return here.</p>
+        <code>npm run xecutor:setup</code>
+        <button id="owner-recheck-button" class="button secondary-button" type="button">CHECK SETUP AGAIN</button>
+      </div>
+
+      <form id="owner-login-form" class="owner-step" hidden novalidate>
+        <label for="owner-code">
+          <span class="owner-step-label">OWNER APPROVAL CODE</span>
+          <input id="owner-code" name="code" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+        </label>
+        <p>The code is sent only to this local gateway and is never stored in browser storage.</p>
+        <button id="owner-login-button" class="button primary-button" type="submit">OPEN OWNER CONSOLE</button>
+      </form>
+    </div>
+  </section>
+
+  <header class="masthead">
+    <div class="brand-lockup" aria-label="The Xecutor">
+      <div class="x-seal" aria-hidden="true">X</div>
+      <div>
+        <div class="brand-name">THE XECUTOR</div>
+        <div class="brand-subtitle">BENCH ORDER GATEWAY</div>
+      </div>
+    </div>
+
+    <div class="system-strip" aria-label="Gateway status">
+      <div class="system-item">
+        <span>MODE</span>
+        <strong id="gateway-mode">CHECKING</strong>
+      </div>
+      <div class="system-item">
+        <span>EXECUTION</span>
+        <strong id="live-status">DISABLED</strong>
+      </div>
+      <div class="system-item">
+        <span>POLICY</span>
+        <strong id="policy-version">—</strong>
+      </div>
+      <div class="system-item">
+        <span>QUEUE</span>
+        <strong id="proposal-count">—</strong>
+      </div>
+    </div>
+
+    <div class="lock-control">
+      <div>
+        <span>ORDER ACTIONS</span>
+        <strong id="kill-status">VERIFYING</strong>
+      </div>
+      <button id="kill-switch-button" class="button danger-button" type="button" disabled>CHECKING</button>
+      <button id="owner-logout-button" class="text-button logout-button" type="button">LOG OUT</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <nav class="navigation-rail" aria-label="Xecutor navigation">
+      <div class="nav-group">
+        <button class="nav-button is-active" type="button" data-view="inbox" aria-current="page">
+          <span class="nav-monogram" aria-hidden="true">IN</span>
+          <span>INBOX</span>
+        </button>
+        <button class="nav-button" type="button" data-view="audit">
+          <span class="nav-monogram" aria-hidden="true">AU</span>
+          <span>AUDIT</span>
+        </button>
+      </div>
+      <div class="rail-state">
+        <span class="rail-light" id="rail-light" aria-hidden="true"></span>
+        <span id="rail-state-text">LOCKED</span>
+      </div>
+    </nav>
+
+    <main id="main-content" class="main-content" tabindex="-1">
+      <section id="view-inbox" class="view is-active" aria-labelledby="inbox-title">
+        <div class="inbox-grid">
+          <section class="queue-panel" aria-labelledby="inbox-title">
+            <header class="panel-header queue-header">
+              <div>
+                <p class="eyebrow">BOT PROPOSAL INBOX</p>
+                <h1 id="inbox-title">Orders wait here.</h1>
+              </div>
+              <button id="demo-button" class="text-button" type="button">LOAD DEMO</button>
+            </header>
+
+            <div class="queue-filter" aria-label="Filter proposals">
+              <button class="filter-button is-active" type="button" data-filter="pending" aria-pressed="true">PENDING <span id="pending-count">0</span></button>
+              <button class="filter-button" type="button" data-filter="blocked" aria-pressed="false">BLOCKED <span id="blocked-count">0</span></button>
+              <button class="filter-button" type="button" data-filter="complete" aria-pressed="false">COMPLETE <span id="complete-count">0</span></button>
+              <button class="filter-button" type="button" data-filter="all" aria-pressed="false">ALL <span id="all-count">0</span></button>
+            </div>
+
+            <div id="queue-status" class="queue-status" role="status" aria-live="polite">Loading proposals…</div>
+            <div id="proposal-list" class="proposal-list" role="list" aria-label="Order proposals"></div>
+
+            <div id="empty-queue" class="empty-state" hidden>
+              <strong>No proposals in this view.</strong>
+              <p>ChatGPT, Claude, and Grok can submit proposals. They cannot approve one.</p>
+            </div>
+          </section>
+
+          <section class="review-panel" aria-labelledby="review-title">
+            <header class="panel-header review-header">
+              <div>
+                <p class="eyebrow">EXACT ORDER REVIEW</p>
+                <h2 id="review-title">Select a proposal.</h2>
+              </div>
+              <span id="review-state" class="state-badge neutral">NO SELECTION</span>
+            </header>
+
+            <div id="review-empty" class="review-empty">
+              <div class="empty-mark" aria-hidden="true">X</div>
+              <strong>Nothing can move without your review.</strong>
+              <p>Select a proposal to inspect every frozen order field, refusal, and expiry.</p>
+            </div>
+
+            <div id="review-content" class="review-content" hidden>
+              <div class="proposal-identity">
+                <div>
+                  <span class="identity-label">PROPOSAL</span>
+                  <strong id="identity-id">—</strong>
+                </div>
+                <div>
+                  <span class="identity-label">SOURCE BOT</span>
+                  <strong id="identity-source">—</strong>
+                </div>
+                <div>
+                  <span class="identity-label">EXPIRES</span>
+                  <strong id="identity-expiry">—</strong>
+                </div>
+              </div>
+
+              <section class="order-summary" aria-labelledby="order-summary-title">
+                <div class="order-heading">
+                  <div>
+                    <span id="order-action" class="order-action">—</span>
+                    <h3 id="order-summary-title">—</h3>
+                  </div>
+                  <div class="order-ceiling">
+                    <span>MAXIMUM NOTIONAL</span>
+                    <strong id="order-notional">—</strong>
+                  </div>
+                </div>
+                <dl id="order-details" class="order-details"></dl>
+              </section>
+
+              <section class="gate-section" aria-labelledby="gate-title">
+                <div class="section-heading">
+                  <div>
+                    <span class="section-kicker">PREFLIGHT</span>
+                    <h3 id="gate-title">Every gate must pass.</h3>
+                  </div>
+                  <strong id="gate-verdict" class="gate-verdict">CHECKING</strong>
+                </div>
+                <div id="gate-list" class="gate-list"></div>
+              </section>
+
+              <div id="review-message" class="review-message" role="status" aria-live="polite"></div>
+
+              <div class="review-actions">
+                <button id="reject-button" class="button secondary-button" type="button">REJECT PROPOSAL</button>
+                <button id="review-button" class="button primary-button" type="button" disabled aria-describedby="review-message">REVIEW EXACT SIMULATION</button>
+              </div>
+            </div>
+          </section>
+
+          <aside class="ledger-panel" aria-labelledby="ledger-title">
+            <header class="panel-header ledger-header">
+              <div>
+                <p class="eyebrow">DURABLE RECEIPT</p>
+                <h2 id="ledger-title">Decision chain.</h2>
+              </div>
+            </header>
+
+            <div id="simulation-banner" class="simulation-banner" hidden>
+              <strong>SIMULATION COMPLETE — NO BROKER ORDER WAS CREATED.</strong>
+              <span id="simulation-detail"></span>
+            </div>
+
+            <div id="ledger-empty" class="ledger-empty">Select a proposal to read its recorded transitions.</div>
+            <ol id="timeline" class="timeline" aria-label="Selected proposal audit timeline"></ol>
+          </aside>
+        </div>
+      </section>
+
+      <section id="view-audit" class="view audit-view" aria-labelledby="audit-title">
+        <header class="audit-page-header">
+          <div>
+            <p class="eyebrow">APPEND-ONLY ACTIVITY</p>
+            <h1 id="audit-title">Gateway audit trail.</h1>
+          </div>
+          <button id="refresh-audit-button" class="button secondary-button" type="button">REFRESH AUDIT</button>
+        </header>
+        <div class="audit-table" role="table" aria-label="Gateway audit events">
+          <div class="audit-row audit-table-header" role="row">
+            <span role="columnheader">TIME</span>
+            <span role="columnheader">EVENT</span>
+            <span role="columnheader">ACTOR</span>
+            <span role="columnheader">PROPOSAL</span>
+            <span role="columnheader">DETAIL</span>
+          </div>
+          <div id="global-audit-body" role="rowgroup"></div>
+        </div>
+        <div id="audit-empty" class="empty-state" hidden>
+          <strong>No audit events recorded.</strong>
+          <p>Proposal receipt, refusal, review, approval, simulation, and lock changes appear here.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="approval-dialog" class="action-dialog" aria-labelledby="approval-dialog-title">
+    <form id="approval-form" novalidate>
+      <div class="dialog-kicker">FRESH HUMAN CONFIRMATION</div>
+      <h2 id="approval-dialog-title" tabindex="-1">Approve this exact simulation.</h2>
+      <p>Any changed character, order field, review reference, or maximum notional requires a new review.</p>
+
+      <dl id="approval-summary" class="approval-summary"></dl>
+
+      <label class="confirmation-field" for="confirmation-input">
+        <span>TYPE THE EXACT CONFIRMATION</span>
+        <code id="approval-required-text">—</code>
+        <input id="confirmation-input" name="confirmation" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+      </label>
+      <div id="confirmation-help" class="confirmation-help" role="status" aria-live="polite">The approval button remains locked until the text matches exactly.</div>
+
+      <div class="dialog-actions">
+        <button id="cancel-approval-button" class="button secondary-button" type="button">CLOSE WITHOUT ACTION</button>
+        <button id="approve-button" class="button primary-button" type="submit" disabled>APPROVE SIMULATION</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="reject-dialog" class="action-dialog compact-dialog" aria-labelledby="reject-dialog-title">
+    <form id="reject-form">
+      <div class="dialog-kicker">FINAL PROPOSAL STATE</div>
+      <h2 id="reject-dialog-title" tabindex="-1">Reject this proposal?</h2>
+      <p>The bot may submit a new proposal later. This proposal cannot be revived.</p>
+      <label class="reason-field" for="reject-reason">
+        <span>OPTIONAL REASON</span>
+        <textarea id="reject-reason" rows="3" maxlength="400" placeholder="Why this order was rejected"></textarea>
+      </label>
+      <div class="dialog-actions">
+        <button id="cancel-reject-button" class="button secondary-button" type="button">KEEP REVIEWING</button>
+        <button class="button danger-button" type="submit">REJECT PROPOSAL</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="unlock-dialog" class="action-dialog compact-dialog" aria-labelledby="unlock-dialog-title">
+    <form id="unlock-form">
+      <div class="dialog-kicker">LOCAL SESSION CONTROL</div>
+      <h2 id="unlock-dialog-title" tabindex="-1">Unlock the simulator?</h2>
+      <p>Live placement remains absent. Unlocking only allows exact, human-approved simulations.</p>
+      <label class="confirmation-field" for="unlock-input">
+        <span>TYPE TO UNLOCK</span>
+        <code>UNLOCK SIMULATOR</code>
+        <input id="unlock-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+      </label>
+      <div class="dialog-actions">
+        <button id="cancel-unlock-button" class="button secondary-button" type="button">KEEP BLOCKED</button>
+        <button id="unlock-button" class="button primary-button" type="submit" disabled>UNLOCK SIMULATOR</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

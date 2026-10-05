@@ -23,6 +23,20 @@ The live analysis engine is a **prompt**, not the Electron app.
 
 The operating manual for agents is `CLAUDE.md`. Read that first.
 
+## The Xecutor — guarded order proposals
+
+`npm run xecutor` starts **The Xecutor**, a separate local approval desk built
+on the committed executor handoff contract. Stage 1 accepts authenticated bot
+proposals, validates and freezes the exact order, asks Adam for a bound local
+confirmation, and writes a durable simulation receipt.
+
+**It cannot place a live order.** No broker endpoint or credential path exists
+in Stage 1, and every launch resets to `BLOCK ALL`. Run
+`npm run xecutor:setup` once to create the owner code and three bot-specific
+credentials; then use `npm run xecutor` or `npm run xecutor:app`. Setup, bot tools,
+security boundaries, and verification are documented in
+[`docs/XECUTOR.md`](docs/XECUTOR.md).
+
 ## ⬇ Desktop app (optional, not the live engine)
 
 GitHub [Releases](https://github.com/Adamdesgns/The-Bench/releases) has **v0.1.0** and **v0.2.0** (latest installer: `The-Bench-Setup-0.2.0.exe`). That Electron console is still in development. Downloading it is not "running v25." Put a Claude/OpenAI key in Settings only if you are using the app — it saves to your PC only.

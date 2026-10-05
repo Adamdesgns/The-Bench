@@ -37,7 +37,7 @@ function control(overrides = {}) {
     time_in_force: 'DAY',
     session: 'REGULAR_HOURS_ONLY',
     invalidation_price: 21.1,
-    planned_dollar_risk: 1.0,
+    planned_dollar_risk: 4.5,
     executor_absolute_ceiling: 5.0,
     maximum_price_drift: '$0.25',
     exit_owner: 'MANUAL',
@@ -61,8 +61,8 @@ test('0. valid control passes every contract gate', () => {
   assert.equal(res.ok, true);
 });
 
-test('0b. SELL_TO_CLOSE with invalidation N/A passes the contract layer', () => {
-  const res = validateHandoff(control({ action: 'SELL_TO_CLOSE', invalidation_price: 'N/A' }));
+test('0b. SELL_TO_CLOSE with invalidation N/A and zero new risk passes the contract layer', () => {
+  const res = validateHandoff(control({ action: 'SELL_TO_CLOSE', invalidation_price: 'N/A', planned_dollar_risk: 0 }));
   assert.equal(res.ok, true, codes(res).join(', '));
 });
 
@@ -80,7 +80,7 @@ test('3. duplicate plan_id in the durable registry refuses', () => {
   const h = control();
   writeFileSync(join(dir, `${sanitizePlanId(h.plan_id)}.json`), JSON.stringify({ plan_id: h.plan_id, state: 'FILLED' }));
   refusesWith(h, 'R03_DUPLICATE_PLAN_ID', { receiptsDir: dir });
-  const fresh = validateHandoff(control({ plan_id: `B-139:${h.created_at}`, row_id: 'B-139' }), { receiptsDir: dir });
+  const fresh = validateHandoff(control({ plan_id: `B-139:${h.created_at}`, row_id: 'B-139', created_at: h.created_at }), { receiptsDir: dir });
   assert.equal(fresh.ok, true, 'a new plan_id must not be blocked');
 });
 

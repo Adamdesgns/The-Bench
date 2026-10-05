@@ -1,0 +1,36 @@
+{
+  "appId": "com.thebenchtrades.xecutor",
+  "productName": "The Xecutor",
+  "extraMetadata": {
+    "main": "electron/xecutor.js",
+    "version": "0.1.0"
+  },
+  "asar": false,
+  "directories": {
+    "output": "dist-xecutor"
+  },
+  "files": [
+    "electron/xecutor.js",
+    "server/xecutor.js",
+    "server/xecutor-mcp.js",
+    "server/xecutor-setup.js",
+    "server/xecutor/**",
+    "public/xecutor/**",
+    "scripts/executor-validate.mjs",
+    "package.json"
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
+    ]
+  },
+  "nsis": {
+    "oneClick": true,
+    "perMachine": false,
+    "deleteAppDataOnUninstall": false,
+    "artifactName": "The-Xecutor-Setup-${version}.${ext}"
+  }
+}

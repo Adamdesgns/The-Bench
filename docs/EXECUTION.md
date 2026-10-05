@@ -5,6 +5,11 @@ live orders.**
 
 > **STATUS NOTE (2026-08-26): two execution designs exist in this repo; only one is sanctioned for the first live test.** This file describes the desktop app's `executeOrder` path — **NOT WIRED, Paper by default** — and it stays that way for now. The sanctioned lane for the first live order is `prompts/bench-executor-v1.md` under `docs/executor-test-protocol.md`, whose hardcoded $5/order test ceiling outranks the $150/$500 defaults below. Do not wire both; consolidation is an open decision. This file's "order audit log" item maps to the executor's durable receipt registry (`executor-tests/receipts/`).
 
+> **THE XECUTOR STAGE 1 (2026-08-26):** `docs/XECUTOR.md` documents a
+> separate proposal and owner-approval program. It is simulation-only and does
+> not create a third live lane: no broker endpoint, OAuth path, placement tool,
+> or live-mode switch exists. Do not route it through `executeOrder` below.
+
 ## Principle: no keys in the app
 
 The app holds **zero secrets.** Credentials live in the MCP servers or the host
