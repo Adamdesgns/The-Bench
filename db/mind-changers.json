@@ -1026,6 +1026,38 @@
       "row": "B-733",
       "expires": "2026-10-09",
       "status": "open"
+    },
+    {
+      "id": "MC-061",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "ASPN",
+          "op": ">",
+          "level": 5.82
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (hunter breakout gate; needs a CLOSE over 5.82 on >=1.5x volume)",
+      "source": "docs/reads/2026-10-05-hunt-close.md",
+      "row": "B-735",
+      "expires": "2026-10-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-062",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "APLD",
+          "op": "<=",
+          "level": 23.39
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (short-side breakdown; needs >=1.5x volume; earnings 10/07 after the close)",
+      "source": "docs/reads/2026-10-05-hunt-close.md",
+      "row": "B-737",
+      "expires": "2026-10-12",
+      "status": "open"
     }
   ]
 }
