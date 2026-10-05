@@ -842,6 +842,22 @@
       "row": "B-716",
       "expires": "2026-10-30",
       "status": "open"
+    },
+    {
+      "id": "MC-051",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": ">",
+          "level": 143.02
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-717: the loan-report gap held Friday's high on a close. Check volume >= 9.7M (2x the 30-day) and whether the company or the Energy Department has ANNOUNCED the loan; if both, plan a day-two entry with a fresh 1-ATR stop and a 2:1 ceiling against 154.90 / 156.99. Not a ticket.",
+      "source": "docs/reads/2026-10-05-premarket.md",
+      "row": "B-717",
+      "expires": "2026-10-09",
+      "status": "open"
     }
   ]
 }
