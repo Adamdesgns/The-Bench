@@ -77,7 +77,8 @@
       "source": "docs/reads/2026-09-24-snapshot-1312.md",
       "row": "B-566",
       "expires": "2026-10-02",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-05"
     },
     {
       "id": "MC-005",
@@ -161,7 +162,8 @@
       "source": "docs/reads/2026-09-29-fastmover-1454.md",
       "row": "B-619",
       "expires": "2026-10-02",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-05"
     },
     {
       "id": "MC-010",
@@ -447,7 +449,9 @@
       "source": "docs/reads/2026-10-01-snapshot-1313.md",
       "row": "B-662",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-05",
+      "fired_detail": "LITE 1092.45 > 1085.68 yes"
     },
     {
       "id": "MC-027",
@@ -463,7 +467,8 @@
       "source": "docs/reads/2026-10-01-close.md",
       "row": "B-665",
       "expires": "2026-10-02",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-05"
     },
     {
       "id": "MC-028",
@@ -633,7 +638,9 @@
       "source": "docs/reads/2026-10-02-powerhour.md",
       "row": "B-699",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-05",
+      "fired_detail": "CEG 267.71 > 263.17 yes"
     },
     {
       "id": "MC-038",
@@ -681,7 +688,9 @@
       "source": "docs/reads/2026-10-02-close.md",
       "row": "B-702",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-05",
+      "fired_detail": "SPY 774.94 > 772.65 yes"
     },
     {
       "id": "MC-041",
@@ -793,7 +802,9 @@
       "source": "site/reviews/2026-10-02-nvda.md",
       "row": "B-713",
       "expires": "2026-11-06",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-05",
+      "fired_detail": "NVDA 239.11 > 237.88 yes"
     },
     {
       "id": "MC-048",
@@ -825,7 +836,9 @@
       "source": "site/reviews/2026-10-04-cbrs.md",
       "row": "B-716",
       "expires": "2026-10-30",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-05",
+      "fired_detail": "CBRS 181.61 > 175.13 yes"
     },
     {
       "id": "MC-050",
@@ -857,7 +870,9 @@
       "source": "docs/reads/2026-10-05-premarket.md",
       "row": "B-717",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-05",
+      "fired_detail": "VST 144.91 > 143.02 yes"
     },
     {
       "id": "MC-052",
@@ -873,7 +888,9 @@
       "source": "docs/reads/2026-10-05-sotm.md",
       "row": "B-722",
       "expires": "2026-10-05",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-05",
+      "fired_detail": "SMH 634.07 > 630.6 yes"
     },
     {
       "id": "MC-053",
@@ -894,7 +911,9 @@
       "source": "docs/reads/2026-10-05-snapshot-1012.md",
       "row": "B-723",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-05",
+      "fired_detail": "VST 144.91 > 143.02 yes | VST 144.91 <= 144.98 yes"
     },
     {
       "id": "MC-054",

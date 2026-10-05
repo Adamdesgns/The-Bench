@@ -1,6 +1,31 @@
 {
-  "date": "2026-10-02",
-  "signals": [],
-  "none": true,
-  "note": "Friday close - nothing bought today; next entry session Mon 2026-10-05. No plan signaled on the 10/02 close (last regular prints; official close not rolled at check). ETN 436.03: low 433.65 never re-tested the B-586 423-428 support band, close above the 434.67 2:1 ceiling - NO SIGNAL, B-586 decide-by 10/05. ASPN 5.69: above 5.54 but 0.90x volume and above the 5.66 2:1 ceiling. IREN 41.79 inside 38.40-42.00 on 1.13x (not light) - B-604 dead at its 10/02 decide-by. PWR 676.79 > 653.87 on 1.05x - B-539 dead at its 10/02 decide-by. VST B-294 trigger 160 retires unfired at 10/02; VST closed 139.98 under its 141.50 floor."
+  "date": "2026-10-05",
+  "signals": [
+    {
+      "sym": "NVDA",
+      "row": "B-729",
+      "zone_low": 237.88,
+      "zone_high": 243.54,
+      "stop": 231.90,
+      "target": 266.83,
+      "close": 239.11,
+      "signal_low": 235.15,
+      "atr": 5.93,
+      "note": "Breakout signal (B-713 plan, MC-047 fired): record close 239.11 over the old 237.88 high on 124.1M shares vs the 110M 20-day average (1.12x the 30-day 111.1M). Entry = 10/06 first 30-min bar holding 237.88-243.54 (243.54 = 2:1 ceiling), stop 231.90 GTC the same minute, target 266.83, hard exit the 11/17 close before earnings. A first bar closing above 243.54 = no trade + paper test. Size 10 pct band / (fill - 231.90); UNFUNDED (buying power about 202 per B-729) unless Adam frees cash. ATR 5.93 = broker 5.91 at the 10/02 settle rolled by hand with the 10/05 true range 6.15. Failed-breakout watch MC-056 (close < 237.88)."
+    },
+    {
+      "sym": "VST",
+      "row": "B-730",
+      "zone_low": 143.02,
+      "zone_high": 144.70,
+      "stop": 139.60,
+      "target": 154.90,
+      "close": 144.91,
+      "signal_low": 140.90,
+      "atr": 5.10,
+      "note": "Company Catalyst Lane DAY TWO (B-730, MC-051 + MC-053 fired): close 144.91 over the 143.02 pre-news line on 10.74M shares = 2.08x the 30-day average, Energy Department conditional loan commitment announced 10/05 (B-726). Entry = 10/06 first 30-min bar CLOSING above 143.02 AND at or under 144.70 (2:1 ceiling to 154.90 at ATR 5.10). STOP IS FILL MINUS 5.10 (1 ATR), not a fixed level: 139.60 is the stop only for a fill at the 144.70 ceiling; a lower fill moves the stop down by the same amount. A first bar closing above 144.70 = no trade all session + paper test. The 10/05 close itself (144.91) is 0.21 above the ceiling, so the bar has to come back under it. UNFUNDED (buying power about 202 per B-729). ATR 5.10 = broker 4.96 at the 10/02 settle rolled by hand with the 10/05 true range 6.88. Day-two-failed watch MC-057 (close < 143.02)."
+    }
+  ],
+  "none": false,
+  "note": "Monday 10/05 close check. Prices are last regular-session prints (19:59:59Z); the official close had not rolled at 15:31 CT. NO SIGNAL: ETN 432.59 (low 431.38 never traded into the 423-428 support band; B-586/B-666/B-673 dead after 10/05 - expired tonight unsignaled), ASPN 5.69 (0.81x volume, above the 5.66 2:1 ceiling), IREN 40.50 (inside 38.40-42.00 but no live plan since 10/02 and a 1-ATR stop sits under the 38.40 floor), UBER 69.50 (needs a close > 71.90 on 1.5x; 0.89x today), PWR 683.58 (far above the 656.69 ceiling, B-678 dies 10/09)."
 }
