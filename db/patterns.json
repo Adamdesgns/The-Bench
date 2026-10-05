@@ -1412,5 +1412,23 @@
         "row_ref": "B-533"
       }
     ]
+  },
+  {
+    "id": "P-065",
+    "claim": "A pre-market gap of 1 ATR or more on news that no named party has confirmed (a report of a plan, not an announcement) trades back through a 1.0-ATR stop set from the pre-market price inside the first 30 minutes of cash trading, whatever the stock does by the close",
+    "test": "Board or book names quoted 1.0+ ATR(14) above the prior close at the ~05:35 CT pre-market read on news not yet confirmed by the company or the counterparty. HOLDS if the first 30-minute regular-session bar low is below (pre-market price minus 1.0 ATR). FALSIFIED if the low stays above that stop on a majority of such sessions. Record the day close vs prior close beside each instance so right-direction-wrong-price cases are counted separately.",
+    "first_seen": "2026-10-05",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-10-05",
+        "ticker": "VST",
+        "detail": "Pre-market 147.98 at 05:36 CT (+7.96 = 1.8 ATR over the 140.02 close) on a Bloomberg/Reuters report of a DOE loan, unannounced. 1.0-ATR stop (4.44) = 143.54. First 30-min bar O 144.03 H 145.78 L 140.90 C 144.005 - low 2.64 under the stop. VST +2.67 pct at 143.76 at 09:01 CT, so right direction, wrong price. Day close to be added by the close routine.",
+        "holds": true,
+        "row_ref": "B-721"
+      }
+    ]
   }
 ]

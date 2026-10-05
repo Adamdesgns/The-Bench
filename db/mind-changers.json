@@ -858,6 +858,22 @@
       "row": "B-717",
       "expires": "2026-10-09",
       "status": "open"
+    },
+    {
+      "id": "MC-052",
+      "created": "2026-10-05",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 630.6
+        }
+      ],
+      "meaning": "chips closed back above the 10/02 close after opening red with box and miners - the morning selling in the middle of the build-out was an opening move, not the day; the neutral read was too cautious. Re-look only, not a ticket.",
+      "source": "docs/reads/2026-10-05-sotm.md",
+      "row": "B-722",
+      "expires": "2026-10-05",
+      "status": "open"
     }
   ]
 }
