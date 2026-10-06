@@ -756,6 +756,48 @@
       "note": "",
       "logged_at": "2026-09-30T10:35:23.033Z",
       "resolved_at": "2026-09-30T20:14:31.721Z"
+    },
+    {
+      "id": "R-037",
+      "date": "2026-10-06",
+      "slot": "14:01",
+      "scope": "name",
+      "ticker": "CEG",
+      "claim": "Into the close the Google-CEG gap names hold their opening prints (CEG 291.11, VST 151.64, TLN 349.19) while SPY stays parked at a record; the contract name CEG is the weakest of the three, having given back 57 pct of its open-to-high run vs 28 pct VST and 26 pct TLN",
+      "direction": "continuation",
+      "invalidation": "CEG official close under 291.11",
+      "resolve_by": "2026-10-06",
+      "ref": 291.11,
+      "post": null,
+      "source": "claude",
+      "status": "open",
+      "outcome": null,
+      "error_direction": null,
+      "actual": null,
+      "note": "",
+      "logged_at": "2026-10-06T19:04:30.840Z",
+      "resolved_at": null
+    },
+    {
+      "id": "R-038",
+      "date": "2026-10-06",
+      "slot": "15:20",
+      "scope": "name",
+      "ticker": "CEG",
+      "claim": "The Google-CEG gap names held their opens into a record close; the pass cost nothing on CEG from the 8:45 price (300.52 to 300.16) and 4.30 on VST",
+      "direction": "continuation",
+      "invalidation": "CEG closes over 305.28 (the first legal bar) on 10/07",
+      "resolve_by": "2026-10-09",
+      "ref": 305.28,
+      "post": "docs/reads/2026-10-06-close.md",
+      "source": "claude",
+      "status": "open",
+      "outcome": null,
+      "error_direction": null,
+      "actual": null,
+      "note": "",
+      "logged_at": "2026-10-06T20:19:39.276Z",
+      "resolved_at": null
     }
   ]
 }

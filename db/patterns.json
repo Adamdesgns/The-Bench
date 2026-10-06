@@ -83,6 +83,13 @@
         "ticker": "BRKR",
         "detail": "Only row of 49 in the broad scan with rel-vol >1.0 (2.9x). Fell -20.2% and held it, while MU +7.7%, SMCI +10.5%, AMD +8.5% all ran on sub-1.1x and faded",
         "holds": true
+      },
+      {
+        "date": "2026-10-06",
+        "ticker": "CEG",
+        "detail": "All three plant owners ran 3x+ volume (CEG 4.25x, VST 3.26x, TLN 3.11x) and all three held their opens into the close. Caveat: within the group the ranking inverted - highest rel-vol (CEG) gave back the most of its open-to-high run (52 pct), lowest (TLN) the least (17 pct). MC-073 did not fire.",
+        "holds": true,
+        "row_ref": "B-752"
       }
     ]
   },
@@ -1428,6 +1435,45 @@
         "detail": "Pre-market 147.98 at 05:36 CT (+7.96 = 1.8 ATR over the 140.02 close) on a Bloomberg/Reuters report of a DOE loan, unannounced. 1.0-ATR stop (4.44) = 143.54. First 30-min bar O 144.03 H 145.78 L 140.90 C 144.005 - low 2.64 under the stop. VST +2.67 pct at 143.76 at 09:01 CT, so right direction, wrong price. Day close to be added by the close routine.",
         "holds": true,
         "row_ref": "B-721"
+      }
+    ]
+  },
+  {
+    "id": "P-066",
+    "claim": "On a news-gap day, a board name whose 11:00-11:30 CT 30-minute bar is its highest 30-minute close of the session closes the day above its open; a name whose 11:00 CT bar is its lowest 30-minute close of the session closes the day below its open",
+    "test": "On days with a 1-ATR+ gap in any board name, rank each gapping name's 11:00 CT 30-minute close against the session's earlier 30-minute closes (highest / lowest / neither) and record session close vs open. HOLDS if highest-rank names close above the open and lowest-rank names close below the open in a majority of instances; FALSIFIED if either group is 50% or worse. First instances 2026-10-06: CEG 309.05 highest (open 291.11), VST 161.97 highest (open 151.64), TLN 376.67 within 0.03% of highest (open 349.19), NVDA 240.86 lowest (open 242.09).",
+    "first_seen": "2026-10-06",
+    "status": "supported",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-10-06",
+        "ticker": "CEG",
+        "detail": "11:00 CT bar 309.05 was the highest 30-min close of the session (open 291.11); closed 300.16, 9.05 over the open",
+        "holds": true,
+        "row_ref": "B-752"
+      },
+      {
+        "date": "2026-10-06",
+        "ticker": "VST",
+        "detail": "11:00 CT bar 161.97 was the highest 30-min close of the session (open 151.64); closed 160.475, 8.84 over the open",
+        "holds": true,
+        "row_ref": "B-753"
+      },
+      {
+        "date": "2026-10-06",
+        "ticker": "TLN",
+        "detail": "11:00 CT bar 376.67 within 0.03 pct of the highest 30-min close (open 349.19); closed 373.04, 23.85 over the open",
+        "holds": true,
+        "row_ref": "B-754"
+      },
+      {
+        "date": "2026-10-06",
+        "ticker": "NVDA",
+        "detail": "11:00 CT bar 240.86 was the lowest 30-min close of the session (open 242.09); closed 239.17, 2.92 under the open",
+        "holds": true,
+        "row_ref": "B-758"
       }
     ]
   }

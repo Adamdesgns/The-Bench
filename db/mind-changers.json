@@ -179,7 +179,8 @@
       "source": "docs/reads/2026-09-29-close.md",
       "row": "B-620",
       "expires": "2026-10-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-06"
     },
     {
       "id": "MC-011",
@@ -656,7 +657,8 @@
       "source": "docs/reads/2026-10-02-powerhour.md",
       "row": "B-700",
       "expires": "2026-10-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-06"
     },
     {
       "id": "MC-039",
@@ -929,7 +931,8 @@
       "source": "docs/reads/2026-10-05-midday.md",
       "row": "B-724",
       "expires": "2026-10-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-06"
     },
     {
       "id": "MC-055",
@@ -945,7 +948,8 @@
       "source": "docs/reads/2026-10-05-powerhour.md",
       "row": "B-727",
       "expires": "2026-10-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-06"
     },
     {
       "id": "MC-056",
@@ -993,7 +997,9 @@
       "source": "docs/reads/2026-10-05-close.md",
       "row": "B-731",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-06",
+      "fired_detail": "CEG 300.16 > 271.19 yes"
     },
     {
       "id": "MC-059",
@@ -1025,7 +1031,9 @@
       "source": "docs/reads/2026-10-05-close.md",
       "row": "B-733",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-06",
+      "fired_detail": "LITE 1133.45 > 1124.4 yes"
     },
     {
       "id": "MC-061",
@@ -1041,7 +1049,9 @@
       "source": "docs/reads/2026-10-05-hunt-close.md",
       "row": "B-735",
       "expires": "2026-10-12",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-06",
+      "fired_detail": "ASPN 5.88 > 5.82 yes"
     },
     {
       "id": "MC-062",
@@ -1089,7 +1099,9 @@
       "source": "docs/reads/2026-10-06-premarket.md",
       "row": "B-739",
       "expires": "2026-10-20",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-06",
+      "fired_detail": "VST 160.475 > 154.9 yes"
     },
     {
       "id": "MC-065",
@@ -1185,6 +1197,285 @@
       "source": "docs/reads/2026-10-06-entry-check.md",
       "row": "B-745",
       "expires": "2026-11-17",
+      "status": "open"
+    },
+    {
+      "id": "MC-071",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "TLN",
+          "op": ">",
+          "level": 373.97
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-747: TLN closed over the 8/12 high 373.97 (August shelf 372.78-373.97) on the Google-CEG read-through day; day-two first-bar entry only with volume >= 1.5x the 30-day average (about 1.34M)",
+      "source": "docs/reads/2026-10-06-snapshot-1015.md",
+      "row": "B-747",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-072",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">",
+          "level": 280
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-748: MRVL closed over the 10/2 high 280.00 after Investor Day; day-two first-bar entry only if the bar holds above 280.00 and under the 284.98 2:1 ceiling (1.75-ATR stop, ATR 12.83, target 329.88)",
+      "source": "docs/reads/2026-10-06-snapshot-1015.md",
+      "row": "B-748",
+      "expires": "2026-10-09",
+      "status": "fired",
+      "fired_on": "2026-10-06",
+      "fired_detail": "MRVL 287.19 > 280 yes"
+    },
+    {
+      "id": "MC-073",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "TLN",
+          "op": ">",
+          "level": 349.19
+        },
+        {
+          "ticker": "CEG",
+          "op": "<",
+          "level": 291.11
+        }
+      ],
+      "meaning": "THE VOLUME READ WAS WRONG TODAY (P-003 family): the read-through name (TLN, 1.14x volume by 10:15) held its 349.19 open while the contract name (CEG, 1.93x) lost its 291.11 open. Score a P-003 instance holds=false; if instead CEG holds and TLN gives back more, score holds=true. Re-look only, not a ticket",
+      "source": "docs/reads/2026-10-06-snapshot-1015.md",
+      "row": "B-747",
+      "expires": "2026-10-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-074",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "TLN",
+          "op": "<",
+          "level": 349.19
+        }
+      ],
+      "meaning": "P-066 instance holds=false for TLN: the 11:00 CT highest-close read did not carry to the close - TLN gave back the whole 349.19 open on the Google-CEG read-through day. Re-look only, not a ticket",
+      "source": "docs/reads/2026-10-06-midday.md",
+      "row": "B-747",
+      "expires": "2026-10-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-075",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": "<",
+          "level": 151.64
+        }
+      ],
+      "meaning": "P-066 instance holds=false for VST: the 11:00 CT highest-close read did not carry to the close - VST closed under its 151.64 open after the DOE loan plus Google-CEG day. Re-look only, not a ticket",
+      "source": "docs/reads/2026-10-06-midday.md",
+      "row": "B-741",
+      "expires": "2026-10-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-076",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 242.09
+        }
+      ],
+      "meaning": "P-066 instance holds=false for NVDA: the 11:00 CT lowest-close read did not carry - NVDA closed back above its 242.09 open. Re-look only; B-745 plan unchanged",
+      "source": "docs/reads/2026-10-06-midday.md",
+      "row": "B-745",
+      "expires": "2026-10-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-077",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "CEG",
+          "op": "<",
+          "level": 290.39
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-750: CEG closed under the 290.39 Company Catalyst Lane 2:1 ceiling (stop under the 271.19 pre-news shelf, target 328.80). This is the only price where a day-two lane entry is legal, and it is under the 291.11 opening print, so the gap has failed (MC-066) at the same time. Re-judge the lane vs P-064 with both facts; a 1.5x volume gate (about 4.6M) is already met",
+      "source": "docs/reads/2026-10-06-snapshot-1315.md",
+      "row": "B-750",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-078",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 777.96
+        }
+      ],
+      "meaning": "the 14:01 power-hour read was wrong - the parked index was not parked: SPY closed under the day's low after six half-hour closes in a 0.59 band (779.70-780.29) at a record, so the last hour owned the day and the gap names' closes are a sell program's, not a verdict on the Google-CEG contract. Re-look only, not a ticket",
+      "source": "docs/reads/2026-10-06-powerhour.md",
+      "row": "B-751",
+      "expires": "2026-10-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-079",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "CEG",
+          "op": ">",
+          "level": 305.28
+        }
+      ],
+      "meaning": "the first legal bar (305.28 first-bar close 10/06) was the right price - the pass cost the whole move, not 0.36; the ceiling rule owes P-064 a rewrite. Re-judge B-752",
+      "source": "docs/reads/2026-10-06-close.md",
+      "row": "B-752",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-080",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": "<",
+          "level": 151.64
+        }
+      ],
+      "meaning": "the DOE-loan plus Google-CEG gap failed on a close - VST back under its 10/06 open; the P-064 day-one read reverses and the 154.90 target was the ceiling after all. Re-look, not a ticket",
+      "source": "docs/reads/2026-10-06-close.md",
+      "row": "B-753",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-081",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": "<",
+          "level": 280
+        }
+      ],
+      "meaning": "the Investor Day breakout failed on a close back under the 280.00 10/02 high - B-755 is dead, the 284.98 ceiling never mattered",
+      "source": "docs/reads/2026-10-06-close.md",
+      "row": "B-755",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-082",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "LITE",
+          "op": ">",
+          "level": 1137.21
+        }
+      ],
+      "meaning": "passed plan re-arm fired - LITE closed over the 10/06 record high; re-judge B-756 ONLY if volume >= 7.2M (1.5x the 30-day average), otherwise it is still a price-only trigger",
+      "source": "docs/reads/2026-10-06-close.md",
+      "row": "B-756",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-083",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "ASPN",
+          "op": ">",
+          "level": 5.925
+        }
+      ],
+      "meaning": "passed plan re-arm fired - ASPN closed over the 10/06 high; re-judge B-757 ONLY if volume >= 1.45M (1.5x the 30-day average)",
+      "source": "docs/reads/2026-10-06-close.md",
+      "row": "B-757",
+      "expires": "2026-10-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-084",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "ETN",
+          "op": ">",
+          "level": 446
+        }
+      ],
+      "meaning": "B-761 zone left without a fill - ETN closed above the 446 zone top after the 10/06 close signal; the 441.33 2:1 ceiling kept us out, score it with the paper test and re-judge",
+      "source": "plan check close 2026-10-06, B-761",
+      "row": "B-761",
+      "expires": "2026-10-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-085",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">",
+          "level": 42
+        }
+      ],
+      "meaning": "B-762 momentum zone left without a fill - IREN closed above 42.00 after the 10/06 close signal; score the zone-top rule with the paper test and re-judge the lane",
+      "source": "plan check close 2026-10-06, B-762",
+      "row": "B-762",
+      "expires": "2026-10-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-086",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 39.33
+        }
+      ],
+      "meaning": "B-768 short-side breakdown trigger fired (close under the 39.33 20-session low; needs >=1.5x volume) - re-judge the short, and only if the B-762 long plan has died or filled",
+      "source": "docs/reads/2026-10-06-hunt-close.md",
+      "row": "B-768",
+      "expires": "2026-10-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-087",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "WULF",
+          "op": "<=",
+          "level": 14.36
+        }
+      ],
+      "meaning": "B-770 breakdown trigger fired (close at or under the 14.36 20-session low; needs >=1.5x volume) - re-judge the short; extends MC-041 past its 10/09 expiry",
+      "source": "docs/reads/2026-10-06-hunt-close.md",
+      "row": "B-770",
+      "expires": "2026-10-13",
       "status": "open"
     }
   ]
