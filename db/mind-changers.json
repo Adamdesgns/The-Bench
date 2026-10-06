@@ -1154,6 +1154,38 @@
       "row": "B-744",
       "expires": "2026-10-13",
       "status": "open"
+    },
+    {
+      "id": "MC-069",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 266.83
+        }
+      ],
+      "meaning": "B-745 TARGET HIT - the 10/06 entry-check long reached 266.83 (2.36:1 from 242.30); score the row a hit, book it, re-judge whether anything is left",
+      "source": "docs/reads/2026-10-06-entry-check.md",
+      "row": "B-745",
+      "expires": "2026-11-17",
+      "status": "open"
+    },
+    {
+      "id": "MC-070",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 231.9
+        }
+      ],
+      "meaning": "B-745 STOP - the 10/06 entry-check long is stopped at 231.90 (1.75 ATR under the 242.30 entry); score the row a miss, confirm the GTC stop fired if Adam placed it, re-judge",
+      "source": "docs/reads/2026-10-06-entry-check.md",
+      "row": "B-745",
+      "expires": "2026-11-17",
+      "status": "open"
     }
   ]
 }
