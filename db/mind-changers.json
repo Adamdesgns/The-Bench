@@ -1058,6 +1058,102 @@
       "row": "B-737",
       "expires": "2026-10-12",
       "status": "open"
+    },
+    {
+      "id": "MC-063",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 243.54
+        }
+      ],
+      "meaning": "NVDA closed above the 2:1 ceiling with no fill from the 10/06 first bar - the breakout left without us; score the ceiling rule with the paper chase test (what buying above 243.54 would have paid) and re-judge B-738/B-729",
+      "source": "docs/reads/2026-10-06-premarket.md",
+      "row": "B-738",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-064",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": ">",
+          "level": 154.9
+        }
+      ],
+      "meaning": "the 154.90 day-two target printed after the desk passed at 147.00 above the 144.70 ceiling - the pass cost the trade; score the ceiling rule (P-065 family) and re-judge B-739/B-730",
+      "source": "docs/reads/2026-10-06-premarket.md",
+      "row": "B-739",
+      "expires": "2026-10-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-065",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "CEG",
+          "op": "<",
+          "level": 271.19
+        }
+      ],
+      "meaning": "the Google-deal gap failed on a close - CEG settled back under the 271.19 shelf it opened above on 10/06; the shelf is resistance again and B-731/B-740 re-judge from scratch",
+      "source": "docs/reads/2026-10-06-premarket.md",
+      "row": "B-740",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-066",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "CEG",
+          "op": "<",
+          "level": 291.11
+        }
+      ],
+      "meaning": "the Google-deal gap sold from the first print: CEG closed under its 291.11 opening print, so the plant-owner rotation was an opening move, not the day. Re-look only, not a ticket",
+      "source": "docs/reads/2026-10-06-sotm.md",
+      "row": null,
+      "expires": "2026-10-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-067",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "ETN",
+          "op": "<",
+          "level": 423
+        }
+      ],
+      "meaning": "B-538 accumulation floor broke on a close after the zone fired 10/06 (B-743) - thesis review, not a discount; re-judge the zone",
+      "source": "docs/reads fastmover 2026-10-06 08:55",
+      "row": "B-743",
+      "expires": "2026-10-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-068",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 38.4
+        }
+      ],
+      "meaning": "B-412 MOMENTUM-lane floor broke on a close after the zone fired 10/06 (B-744) - thesis review, the lane stands down; re-judge",
+      "source": "docs/reads fastmover 2026-10-06 08:55",
+      "row": "B-744",
+      "expires": "2026-10-13",
+      "status": "open"
     }
   ]
 }
