@@ -1573,6 +1573,70 @@
       "row": "B-774",
       "expires": "2026-10-07",
       "status": "open"
+    },
+    {
+      "id": "MC-094",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": ">=",
+          "level": 360
+        }
+      ],
+      "meaning": "SELL ZONE REACHED on a close - B-663 swing: the exit is manual (both stops hold all 8 shares). Tell Adam at the next routine; T1 364.13 is the sell-4 line",
+      "source": "site/reviews/2026-10-07-market.md",
+      "row": "B-775",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-095",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": ">=",
+          "level": 364.13
+        }
+      ],
+      "meaning": "T1 HIT on a close - B-775: sell 4 and move the stop on the other 4 to 350; score the swing a hit",
+      "source": "site/reviews/2026-10-07-market.md",
+      "row": "B-775",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-096",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": ">=",
+          "level": 380
+        }
+      ],
+      "meaning": "T2 HIT on a close - B-775: the last 4 are at target; score T2 and close the swing",
+      "source": "site/reviews/2026-10-07-market.md",
+      "row": "B-775",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-097",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": "<",
+          "level": 326
+        }
+      ],
+      "meaning": "STOPPED - B-775 swing is over: confirm both 326 GTC stops filled at the broker, score the row a miss",
+      "source": "site/reviews/2026-10-07-market.md",
+      "row": "B-775",
+      "expires": "2026-10-28",
+      "status": "open"
     }
   ]
 }
