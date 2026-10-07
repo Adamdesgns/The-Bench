@@ -1685,6 +1685,38 @@
       "row": "B-778",
       "expires": "2026-10-16",
       "status": "open"
+    },
+    {
+      "id": "MC-101",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">",
+          "level": 329.88
+        }
+      ],
+      "meaning": "B-779 target hit - score the ticket",
+      "source": "entry-check-2026-10-07",
+      "row": "B-779",
+      "expires": "2026-10-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-102",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": "<",
+          "level": 261.28
+        }
+      ],
+      "meaning": "B-779 stop level broken - ticket invalidated",
+      "source": "entry-check-2026-10-07",
+      "row": "B-779",
+      "expires": "2026-10-20",
+      "status": "open"
     }
   ]
 }
