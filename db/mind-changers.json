@@ -1477,6 +1477,54 @@
       "row": "B-770",
       "expires": "2026-10-13",
       "status": "open"
+    },
+    {
+      "id": "MC-088",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">=",
+          "level": 329.88
+        }
+      ],
+      "meaning": "B-755 target hit on a close (the 6/18 high) - if entered 10/07, take T2 / trail; if not entered, the day-two window was the trade and the record says so",
+      "source": "chat 2026-10-06 (Adam: watch it)",
+      "row": "B-755",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-089",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "KRKNF",
+          "op": ">",
+          "level": 3.4
+        }
+      ],
+      "meaning": "first close over the 9/24 pivot since the 52-week low - re-judge with a fresh stop and ceiling; needs >= 1.3M shares (1.5x) or it is noise. Not a ticket: from 3.41+ the 3.93 target cannot pay 2:1 against a 3.14 stop",
+      "source": "site/reviews/2026-10-06-krknf.md",
+      "row": "B-772",
+      "expires": "2026-10-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-090",
+      "created": "2026-10-06",
+      "when": [
+        {
+          "ticker": "KRKNF",
+          "op": "<",
+          "level": 2.85
+        }
+      ],
+      "meaning": "new 52-week low on a close - the two-day bounce failed, downtrend resumed; the watch stands down",
+      "source": "site/reviews/2026-10-06-krknf.md",
+      "row": "B-772",
+      "expires": "2026-10-20",
+      "status": "open"
     }
   ]
 }
