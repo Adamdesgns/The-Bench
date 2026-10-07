@@ -1669,6 +1669,22 @@
       "row": "B-776",
       "expires": "2026-10-28",
       "status": "open"
+    },
+    {
+      "id": "MC-100",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "CBRS",
+          "op": "<",
+          "level": 165.22
+        }
+      ],
+      "meaning": "HUNT SHORT G1 fired (B-778): CBRS closed under the 165.22 20-session low - re-judge the short ONLY on >= 1.5x volume (about 10.7M) and only if a floor pays 2:1 (160.81 is 4.41 away, so it probably does not; under 160.81 is MC-050 price discovery). Also kills the B-312/B-778 170-175 post-release hold",
+      "source": "site/reviews/2026-10-07-market.md",
+      "row": "B-778",
+      "expires": "2026-10-16",
+      "status": "open"
     }
   ]
 }
