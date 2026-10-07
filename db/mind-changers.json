@@ -1637,6 +1637,38 @@
       "row": "B-775",
       "expires": "2026-10-28",
       "status": "open"
+    },
+    {
+      "id": "MC-098",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": ">=",
+          "level": 355
+        }
+      ],
+      "meaning": "RATCHET 1 (B-776): GOOGL closed at or over 355.00, past the 353.22 10/01 high - raise both OCO stops from 326 to 345.00 next session (1.03 ATR over the 336.25 cost, 1.18 ATR under 355). Adam replaces the orders",
+      "source": "site/reviews/2026-10-07-market.md",
+      "row": "B-776",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-099",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": "<",
+          "level": 335.51
+        }
+      ],
+      "meaning": "SUPPORT BROKE (B-776): GOOGL closed under the 335.51 10/01 flush low - re-look the swing; the 326 stop still decides, nothing is sold on this alone. Extends MC-024 (expires 10/09) to the 10/28 exit",
+      "source": "site/reviews/2026-10-07-market.md",
+      "row": "B-776",
+      "expires": "2026-10-28",
+      "status": "open"
     }
   ]
 }
