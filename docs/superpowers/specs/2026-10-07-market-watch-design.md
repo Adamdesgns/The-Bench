@@ -37,7 +37,7 @@ Modes:
 
 One tick:
 
-1. If `apps/x-poster/HALT` exists or the local config has `halt: true`, do nothing.
+1. If the local config has `halt: true`, do nothing. (The x-poster HALT file is NOT used: it has been in place permanently since 2026-09-05, so reading it would mean the watcher never runs.)
 2. Run the tripwire check as a module call (see component 2). Get the list of levels tripped today.
 3. Any tripped level not already inside an open alarm opens one (or joins the open alarm if one exists: one alarm per burst, so several levels hitting together make one nag).
 4. Poll the ack topic since the alarm opened. A message whose `attachment.type` starts with `image/` acks every open alarm. Record who and when.
@@ -103,7 +103,7 @@ A Windows scheduled task, `Bench Market Watch`, weekdays 08:25 CT, runs `node sc
 
 ### 10. Tests (`test/market-watch.test.mjs`, offline)
 
-Fake fetch injected for Yahoo and ntfy. Cases: the nag schedule (0/2/5/10/15); one alarm per burst; a second level during an open alarm joins it; image attachment acks, text does not; an attachment older than the alarm does not ack; no sends after 15:05; the unanswered card next morning; HALT stops everything; feed failure skips without closing; `--ack --from chat` records the source; the split tripwire still passes its existing behavior (levels derived, day-range trick, state file, exit codes).
+Fake fetch injected for Yahoo and ntfy. Cases: the nag schedule (0/2/5/10/15); one alarm per burst; a second level during an open alarm joins it; image attachment acks, text does not; an attachment older than the alarm does not ack; no sends after 15:05; the unanswered card next morning; halt flag stops everything; feed failure skips without closing; `--ack --from chat` records the source; the split tripwire still passes its existing behavior (levels derived, day-range trick, state file, exit codes).
 
 ## Verify before building past Task 1
 
