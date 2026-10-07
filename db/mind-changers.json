@@ -1525,6 +1525,54 @@
       "row": "B-772",
       "expires": "2026-10-20",
       "status": "open"
+    },
+    {
+      "id": "MC-091",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">",
+          "level": 284.98
+        }
+      ],
+      "meaning": "the 10/07 first bar closed in 280.88-284.98 or above and the rolled 24.50 stop kept us out while the logged 22.45 stop would have filled - score the paper test (what a fill at the bar close would have paid toward 329.88) and re-judge whether the ATR is recomputed the morning of entry",
+      "source": "docs/reads/2026-10-07-premarket.md",
+      "row": "B-773",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-092",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": ">=",
+          "level": 160
+        }
+      ],
+      "meaning": "DAY TWO HELD THE OLD CEILING - VST closed at or over 160.00 (the B-294 seven-touch ceiling and 200-day test, broken 10/06 on 3.26x volume) a second session; the close routine writes a real plan: fresh ATR, next verified pivot target, 2:1 ceiling. Not a ticket",
+      "source": "site/reviews/2026-10-07-market.md",
+      "row": "B-774",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-093",
+      "created": "2026-10-07",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": "<",
+          "level": 160
+        }
+      ],
+      "meaning": "THE CEILING BREAK FAILED ON DAY TWO - VST closed back under 160.00 after the 10/06 3.26x-volume break of the B-294 ceiling; 160 is resistance again, no plan. MC-080 (< 151.64) is the deeper failed-gap line. Re-look only",
+      "source": "site/reviews/2026-10-07-market.md",
+      "row": "B-774",
+      "expires": "2026-10-07",
+      "status": "open"
     }
   ]
 }
