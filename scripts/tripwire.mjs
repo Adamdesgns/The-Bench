@@ -46,6 +46,7 @@ import { resolve } from "node:path";
 import { ROOT } from "../server/config.js";
 import { nyDate } from "../server/nyDate.js";
 import { loadTargets } from "./position-target.mjs";
+import { deriveLevels, fetchQuotes, checkLevels, recordFired } from "../server/tripwire.js";
 
 const argv = process.argv.slice(2);
 const has = (f) => argv.includes(f);
@@ -58,74 +59,12 @@ const today = nyDate();
 if (has("--reset")) { writeFileSync(STATE, JSON.stringify({ fired: [] }, null, 2)); console.log("state cleared"); process.exit(0); }
 
 // ---- 1. derive every level we have actually committed to ---------------------
+// The gates (latest row, watchlist kill switch, staleness) live in server/tripwire.js.
 const wl = JSON.parse(readFileSync(resolve(ROOT, "db/watchlist.json"), "utf8"));
 const arch = JSON.parse(readFileSync(resolve(ROOT, "db/archive.json"), "utf8"));
 const rows = Array.isArray(arch) ? arch : (arch.rows || arch.archive);
-
-const levels = [];
-const add = (l) => { if (l.price > 0) levels.push(l); };
-
-// THREE GATES, and the second one is the important one.
-//
-// Gate A — latest live row per ticker. Superseded plans (MU 920 -> 915 -> 881) must
-// not all sit armed at once; that is how a dead level fires a false alert.
-//
-// Gate B — THE BOOK KILLS PLANS IN PROSE, NOT IN A FIELD. B-132 declared EWY "DEAD",
-// B-141 "RETIRED" the MUU trigger, B-147 closed GDS — and not one of those rows
-// carries a machine-readable flag saying so. A first run of this script watched
-// HPQ's closed stop, EWY's dead trigger and MUU's retired one. So the watchlist
-// STATUS is used as the kill switch, because that field is maintained. If a ticker
-// reads CLOSED / PASS / AVOID there, its levels are dropped no matter what the book
-// says. (The real fix is a superseded_by field on the row; until that exists, this
-// is the honest workaround and it is deliberately conservative.)
-//
-// Gate C — v25: "stale levels are dead levels." A conditional nobody has re-run in
-// MAX_AGE days is not a live plan, it is a fossil. Default 14 days.
-const MAX_AGE = Number(val("--max-age") ?? 14);
-const killed = new Set(wl.filter((w) => ["CLOSED", "PASS", "AVOID"].includes(w.status)).map((w) => w.sym));
-const ageDays = (d) => Math.round((Date.parse(today) - Date.parse(d)) / 86400000);
-
-const latest = new Map();
-const dropped = [];
-for (const r of rows) {
-  if (r.outcome) { latest.delete(r.ticker); continue; }   // closed: stop watching
-  if (r.call_type === "conditional" || r.call_type === "long") latest.set(r.ticker, r);
-}
-for (const [ticker, r] of [...latest]) {
-  if (killed.has(ticker)) { latest.delete(ticker); dropped.push(`${ticker} (watchlist says ${wl.find((w) => w.sym === ticker).status})`); continue; }
-  if (!has("--all") && r.date && ageDays(r.date) > MAX_AGE) { latest.delete(ticker); dropped.push(`${ticker} (${r.id}, ${ageDays(r.date)}d old)`); }
-}
-
-for (const [ticker, r] of latest) {
-  if (r.call_type === "conditional" && r.trigger) {
-    // Direction from the plan itself: a trigger BELOW the review price is a
-    // pullback/accumulation entry; ABOVE it is a breakout.
-    const dir = r.review_price && r.trigger < r.review_price ? "below" : "above";
-    add({ ticker, kind: "TRIGGER", price: Number(r.trigger), dir, src: r.id });
-  }
-  if (r.invalidation) {
-    add({ ticker, kind: r.call_type === "long" ? "STOP" : "FLOOR", price: Number(r.invalidation), dir: "below", src: r.id });
-  }
-}
-
-// Watchlist zones and floors, for names carrying a declared accumulation zone.
-for (const w of wl) {
-  if (["CLOSED", "PASS", "AVOID"].includes(w.status)) continue;
-  if (w.buy_zone) add({ ticker: w.sym, kind: "BUY ZONE", price: Number(w.buy_zone), dir: "below", src: "watchlist" });
-  if (w.floor) add({ ticker: w.sym, kind: "FLOOR", price: Number(w.floor), dir: "below", src: "watchlist" });
-}
-
-// Targets on positions already held (2026-09-28, B-594: GOOGL printed its 364.13
-// target on 9/22 and nothing was watching it). Not age-gated: a target leaves when
-// the position closes (position-target.mjs remove) or the watchlist kills the name.
-for (const t of loadTargets(val("--targets") ? resolve(val("--targets")) : undefined)) {
-  if (killed.has(t.sym)) continue;
-  add({ ticker: t.sym, kind: "TARGET", price: Number(t.target), dir: "above", src: t.row });
-}
-
-// De-dupe identical ticker+kind+price
-const seen = new Set();
-const watching = levels.filter((l) => { const k = `${l.ticker}|${l.kind}|${l.price}`; if (seen.has(k)) return false; seen.add(k); return true; });
+const targets = loadTargets(val("--targets") ? resolve(val("--targets")) : undefined);
+const { watching, dropped } = deriveLevels({ rows, watchlist: wl, targets, today, maxAge: Number(val("--max-age") ?? 14), all: has("--all") });
 
 if (has("--list")) {
   console.log(`\nWATCHING ${watching.length} level(s) — no network called\n`);
@@ -137,19 +76,7 @@ if (has("--list")) {
 
 // ---- 2. one cheap fetch per ticker -------------------------------------------
 const tickers = [...new Set(watching.map((l) => l.ticker))];
-const quotes = {};
-const failed = [];
-
-for (const t of tickers) {
-  try {
-    const res = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(t)}?interval=1m&range=1d`, {
-      headers: { "User-Agent": "Mozilla/5.0" },
-    });
-    if (!res.ok) throw new Error(`${res.status}`);
-    const m = (await res.json()).chart.result[0].meta;
-    quotes[t] = { last: m.regularMarketPrice, low: m.regularMarketDayLow, high: m.regularMarketDayHigh, prev: m.previousClose };
-  } catch (e) { failed.push(`${t} (${e.message})`); }
-}
+const { quotes, failed } = await fetchQuotes(tickers);
 
 if (!Object.keys(quotes).length) {
   console.error(`\nAll quote fetches failed: ${failed.join(", ")}`);
@@ -159,20 +86,7 @@ if (!Object.keys(quotes).length) {
 
 // ---- 3. compare against the session RANGE, not just spot ---------------------
 const state = existsSync(STATE) ? JSON.parse(readFileSync(STATE, "utf8")) : { fired: [] };
-const alreadyFired = new Set((state.fired || []).filter((f) => f.date === today).map((f) => f.key));
-
-const tripped = [];
-for (const l of watching) {
-  const q = quotes[l.ticker];
-  if (!q) continue;
-  const extreme = l.dir === "below" ? q.low : q.high;
-  if (extreme == null) continue;
-  const hit = l.dir === "below" ? extreme <= l.price : extreme >= l.price;
-  if (!hit) continue;
-  const key = `${l.ticker}|${l.kind}|${l.price}|${l.dir}`;
-  if (alreadyFired.has(key)) continue;
-  tripped.push({ ...l, key, touched: extreme, last: q.last });
-}
+const tripped = checkLevels(watching, quotes, state, today);
 
 // ---- 4. report ----------------------------------------------------------------
 if (has("--json")) {
@@ -207,8 +121,7 @@ if (!has("--dry")) {
     console.log("phone pinged.");
   } catch (e) { console.log(`push failed (${e.message}) — state still recorded.`); }
 
-  state.fired = [...(state.fired || []).filter((f) => f.date === today), ...tripped.map((t) => ({ date: today, key: t.key, ticker: t.ticker, kind: t.kind, price: t.price, touched: t.touched, at: new Date().toISOString() }))];
-  writeFileSync(STATE, JSON.stringify(state, null, 2) + "\n", "utf8");
+  writeFileSync(STATE, JSON.stringify(recordFired(state, tripped, today), null, 2) + "\n", "utf8");
   console.log(`recorded to db/tripwire-state.json — bench-fastmover-watch reads this on its next run, so the trip is not lost if the push is missed.`);
 }
 
