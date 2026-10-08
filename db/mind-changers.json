@@ -1849,6 +1849,38 @@
       "row": "B-800",
       "expires": "2026-10-22",
       "status": "open"
+    },
+    {
+      "id": "MC-110",
+      "created": "2026-10-08",
+      "when": [
+        {
+          "ticker": "CEG",
+          "op": "<",
+          "level": 271.19
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-802: CEG closed under the 271.19 pre-news shelf, the Google-deal gap is fully undone on a no-news generator selloff",
+      "source": "docs/reads/2026-10-08-snapshot-1310.md",
+      "row": "B-802",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-111",
+      "created": "2026-10-08",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 618.07
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-803: SMH closed back over its own rising 10-day (616.92 on 10/08); the 10/08 loss was one day, not a trend change. Re-derive the 10-day from the bars, never from a copied number",
+      "source": "docs/reads/2026-10-08-close.md",
+      "row": "B-803",
+      "expires": "2026-10-09",
+      "status": "open"
     }
   ]
 }
