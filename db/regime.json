@@ -1,25 +1,25 @@
 {
-  "asof": "2026-10-07",
-  "generated": "2026-10-07T20:35:43.425Z",
+  "asof": "2026-10-08",
+  "generated": "2026-10-08T20:35:09.096Z",
   "source": "yahoo",
   "label": "TRENDING",
   "market_risk": 4,
   "reasons": [
-    "SPY 777.22 > 20 766.46 > 50 765.95 > 200 721.99",
-    "VIX 15.08 < 20"
+    "SPY 773.93 > 20 767.26 > 50 766.84 > 200 722.46",
+    "VIX 15.41 < 20"
   ],
   "next_session_macro": [],
   "inputs": {
-    "spy": 777.219970703125,
-    "sma20": 766.4579986572265,
-    "sma50": 765.9473986816406,
-    "sma200": 721.9929998779297,
-    "vix": 15.079999923706055,
-    "vix_5d_pct": -7.71,
-    "tnx": 5.2769999504089355,
-    "tnx_5d_change": -0.016,
-    "iwm_rel_20": -6.4,
-    "qqq_rel_20": 3.84
+    "spy": 773.9299926757812,
+    "sma20": 767.2629974365234,
+    "sma50": 766.8367980957031,
+    "sma200": 722.4596997070313,
+    "vix": 15.40999984741211,
+    "vix_5d_pct": -5.98,
+    "tnx": 5.230999946594238,
+    "tnx_5d_change": -0.006,
+    "iwm_rel_20": -5.65,
+    "qqq_rel_20": 3.36
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }

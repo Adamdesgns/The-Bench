@@ -1919,6 +1919,22 @@
       "status": "fired",
       "fired_on": "2026-10-08",
       "fired_detail": "GEV 998.965 > 997.09 yes"
+    },
+    {
+      "id": "MC-113",
+      "created": "2026-10-08",
+      "when": [
+        {
+          "ticker": "WULF",
+          "op": "<=",
+          "level": 13.2
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (first shelf broke; short still needs positive EV and a verified catalyst)",
+      "source": "docs/reads/2026-10-08-hunt-close.md",
+      "row": "B-813",
+      "expires": "2026-10-15",
+      "status": "open"
     }
   ]
 }
