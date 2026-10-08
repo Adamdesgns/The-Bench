@@ -35,7 +35,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
-import { sma, atr14, pct, verifiedFloor, screenSymbol as screenShort, DEFAULTS as SHORT_DEFAULTS } from "./hunt-short.mjs";
+import { sma, atr14, pct, verifiedFloor, screenSymbol as screenShort, DEFAULTS as SHORT_DEFAULTS, rsVs, tradesWeekends, applyMarks, whyNotShort } from "./hunt-short.mjs";
 import { detectEvents, independentCount, forwardReturns, summarize, gradeEvidence, barsSpanYears } from "../server/evidence.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -86,8 +86,7 @@ export function screenLong(sym, bars, spy, opts = {}) {
   const high20 = Math.max(...prior20.map((b) => b.high));
   const vol30 = sma(vols.slice(0, -1), 30);
   const volRatio = vol30 ? last.volume / vol30 : null;
-  const spyC = spy.map((b) => b.close);
-  const rs20 = pct(closes, 20) - pct(spyC, 20), rs5 = pct(closes, 5) - pct(spyC, 5);
+  const rs20 = rsVs(bars, spy, 20), rs5 = rsVs(bars, spy, 5);   // by date on a crypto calendar (hunt-short.mjs)
   const g1 = last.close > sma50 && last.close >= high20 && volRatio !== null && volRatio >= o.volMin;
   const g2 = rs20 > 0 && rs5 > 0;
   const low2 = Math.min(bars.at(-1).low, bars.at(-2).low);
@@ -118,6 +117,17 @@ export function screenLong(sym, bars, spy, opts = {}) {
   return out;
 }
 
+// A NAMED ticker is never dropped in silence: which long gates failed.
+export function whyNotLong(r) {
+  const why = [];
+  if (r.close <= r.sma50) why.push(`below the 50-day (${r.close} vs ${r.sma50})`);
+  if (r.close < r.high20) why.push(`not at the 20-bar high (${r.high20})`);
+  if (r.volRatio === null || r.volRatio < DEFAULTS.volMin) why.push(`volume ${r.volRatio ?? "-"}x < ${DEFAULTS.volMin}x`);
+  if (!(r.rs20 > 0 && r.rs5 > 0)) why.push(`not leading SPY (rs20 ${r.rs20}, rs5 ${r.rs5})`);
+  if (!r.target) why.push(r.too_far ? `no paying ceiling inside 6 ATR (next ${r.too_far.level})` : "no verified ceiling that pays 2:1");
+  return why.join("; ");
+}
+
 // ---------- base rates ----------
 // p_dir   = share of past events that moved in the trade's direction by the horizon
 // p_reach = share that moved at least as far as this trade's target (the payoff the spread needs)
@@ -144,27 +154,28 @@ export function baseRate(bars, side, horizon, targetPct, lookback = DEFAULTS.loo
 export function candidates(series, opts = {}) {
   const o = { ...DEFAULTS, ...opts };
   const spy = series.SPY;
-  const out = [], skipped = [];
+  const out = [], skipped = [], notListed = [];
   for (const [sym, bars] of Object.entries(series)) {
     if (sym === "SPY") continue;
     if (!Array.isArray(bars)) { skipped.push({ sym, problem: bars?.error ?? "no bars" }); continue; }
     for (const side of ["long", "short"]) {
       const r = side === "long" ? screenLong(sym, bars, spy, o) : { side: "short", ...screenShort(sym, bars, spy, { volMin: o.volMin, macroInside2: o.macroInside2 }) };
       if (!r.ok) { if (side === "long") skipped.push({ sym, problem: r.problem }); continue; }
-      if (!r.list) continue;
+      if (!r.list) { notListed.push({ ...r, sym, side }); continue; }
       const g = r.geometry;
       const targetPct = g.target ? ((g.target - g.entry) / g.entry) * 100 : null;
       const evidence = targetPct === null ? null : baseRate(bars, side, o.horizon, targetPct, o.lookback);
       out.push({
         ...r, sym, side, evidence,
-        spread_request: g.target ? { structure: side === "long" ? "call debit spread" : "put debit spread", expiry_days: o.expiryDays, long_strike_near: g.entry, short_strike_near: g.target, stop: g.stop, decide_by_sessions: 5 } : null,
+        // A crypto pair has no listed options. Never substitute another ticker (Adam, 2026-10-08): spot only.
+        spread_request: /-USD$/.test(sym) ? null : g.target ? { structure: side === "long" ? "call debit spread" : "put debit spread", expiry_days: o.expiryDays, long_strike_near: g.entry, short_strike_near: g.target, stop: g.stop, decide_by_sessions: 5 } : null,
       });
     }
   }
   // order: READY first, then by readiness; evidence grade breaks ties (A best)
   const gradeRank = { A: 0, B: 1, C: 2, D: 3, F: 4 };
   out.sort((a, b) => (a.list === "READY" ? 0 : 1) - (b.list === "READY" ? 0 : 1) || b.readiness - a.readiness || (gradeRank[a.evidence?.grade?.[0]] ?? 9) - (gradeRank[b.evidence?.grade?.[0]] ?? 9));
-  return { candidates: out, skipped };
+  return { candidates: out, skipped, notListed };
 }
 
 // ---------- EV ranking ----------
@@ -223,7 +234,7 @@ function defaultUniverse(which) {
     try { const w = JSON.parse(readFileSync(resolve(ROOT, "db/watchlist.json"), "utf8")); for (const e of w) if (e.sym && !/^(CLOSED|PASS)$/.test(e.status ?? "")) syms.add(e.sym.toUpperCase()); } catch {}
   }
   for (const x of ["SPY", "QQQ", "IWM", "DIA", "SMH"]) syms.delete(x);
-  return [...syms].filter((s) => /^[A-Z.]{1,6}$/.test(s));
+  return [...syms].filter((s) => /^[A-Z.]{1,6}(-USD)?$/.test(s));
 }
 
 function macroInside2(asof) {
@@ -279,10 +290,11 @@ async function main() {
     series.SPY = await yahooBars("SPY", "1y");
     for (const s of syms) { try { series[s] = await yahooBars(s); } catch (e) { series[s] = { error: e.message }; } }
   }
+  const marks = applyMarks(series, val("--mark"));
   const asof = series.SPY?.at?.(-1)?.date ?? new Date().toISOString().slice(0, 10);
   const macro = macroInside2(asof);
-  const { candidates: cands, skipped } = candidates(series, { ...opts, macroInside2: macro });
-  const receipt = { kind: "options-hunter-candidates", asof, source, universe, generated: new Date().toISOString(), macro_inside_2_sessions: macro, band: band === Infinity ? null : band, opts, scanned: Object.keys(series).length - 1, candidates: cands, skipped };
+  const { candidates: cands, skipped, notListed } = candidates(series, { ...opts, macroInside2: macro });
+  const receipt = { kind: "options-hunter-candidates", asof, source, universe, generated: new Date().toISOString(), macro_inside_2_sessions: macro, band: band === Infinity ? null : band, opts, marks, scanned: Object.keys(series).length - 1, candidates: cands, skipped, not_listed: notListed };
   receipt.id = createHash("sha1").update(JSON.stringify({ asof, cands })).digest("hex").slice(0, 8);
   if (has("--write")) { if (!existsSync(dir)) mkdirSync(dir, { recursive: true }); const p = resolve(dir, `${asof}.candidates.json`); writeFileSync(p, JSON.stringify(receipt, null, 2) + "\n"); receipt.wrote = p; }
   if (has("--json")) { console.log(JSON.stringify(receipt, null, 2)); return; }
@@ -296,6 +308,19 @@ async function main() {
   }
   const withReq = cands.filter((c) => c.spread_request && c.list !== "DISCOVERY");
   if (withReq.length) { console.log(`\nSPREAD REQUESTS for the routine (pull marks ${DEFAULTS.expiryDays[0]}-${DEFAULTS.expiryDays[1]} days out, then --ev-file):`); for (const c of withReq) console.log(`  ${c.sym} ${c.side}: ${c.spread_request.structure}, long strike near ${c.spread_request.long_strike_near}, short strike near ${c.spread_request.short_strike_near}, stop ${c.spread_request.stop}`); }
+  if (marks.length) console.log(`\nlive marks applied: ${marks.map((m) => `${m.sym} ${m.mark} (was ${m.was} on the ${m.date} bar)`).join(", ")}`);
+  const pairs = cands.filter((c) => /-USD$/.test(c.sym));
+  if (pairs.length) console.log(`\nno listed options on ${[...new Set(pairs.map((c) => c.sym))].join(", ")}: spot only, no spread request, no substitute ticker`);
+  if (notListed.length) {
+    if (universe === "named") {
+      console.log(`\nSCREENED, NOT LISTED (${notListed.length})`);
+      for (const r of notListed) {
+        const g = r.geometry ?? {};
+        console.log(`  ${r.sym.padEnd(7)} ${r.side.padEnd(5)} ${String(r.close).padStart(9)}  50d ${r.sma50}  rs20 ${r.rs20} rs5 ${r.rs5}  vol ${r.volRatio ?? "-"}x  stop ${g.stop} target ${g.target ?? "-"} R:R ${g.rr ?? "-"}  readiness ${r.readiness}`);
+        console.log(`          why: ${r.side === "long" ? whyNotLong(r) : whyNotShort(r)}${tradesWeekends(series[r.sym]) ? " · crypto calendar: 50-day = 50 days, rs vs SPY by date" : ""}`);
+      }
+    } else console.log(`\nscreened, not listed: ${new Set(notListed.map((r) => r.sym)).size} name(s) (name them with --symbols to see why)`);
+  }
   if (skipped.length) console.log(`\nskipped: ${skipped.map((s) => `${s.sym} (${s.problem})`).join(", ")}`);
   if (receipt.wrote) console.log(`\nwrote ${receipt.wrote}`);
   console.log(`\nRule: every name here still runs the full v29 framework, verifies its catalyst, and gets a row. Nothing here is a ticket.`);

@@ -92,3 +92,54 @@ test("CLI runs offline from --bars-file and prints the lists", () => {
   assert.match(out, /MAX LOSS <= 303/);
   assert.match(out, /Nothing here is a ticket/);
 });
+
+// ---- crypto and named-ticker fixes (2026-10-08, BTC-USD vanished from both hunters) ----
+import { rsVs, tradesWeekends, whyNotShort, applyMarks } from "../scripts/hunt-short.mjs";
+
+// real calendar: a weekday series (SPY) and a 7-day series (crypto) over the same span
+function calendarBars(days, { weekends, start = 100, step = 0 }) {
+  const out = []; let p = start;
+  for (let i = 0; i < days; i++) {
+    const d = new Date(Date.UTC(2026, 6, 1) + i * 864e5); const wd = d.getUTCDay();
+    if (!weekends && (wd === 0 || wd === 6)) continue;
+    p = p + step;
+    out.push({ date: d.toISOString().slice(0, 10), open: p, high: p * 1.01, low: p * 0.99, close: p, volume: 1000 });
+  }
+  return out;
+}
+
+test("rsVs lines crypto up with SPY by DATE; stocks keep the old count-based math", () => {
+  const spyCal = calendarBars(120, { weekends: false, start: 500, step: 1 });
+  const btc = calendarBars(120, { weekends: true, start: 100, step: 0 });     // flat
+  assert.equal(tradesWeekends(btc), true);
+  assert.equal(tradesWeekends(spyCal), false);
+  // flat crypto vs SPY over the same 20 CALENDAR days: SPY gained 1/day on ~14 weekdays
+  const a = btc.at(-21).date, b = btc.at(-1).date;
+  const s0 = spyCal.filter((x) => x.date <= a).at(-1).close, s1 = spyCal.filter((x) => x.date <= b).at(-1).close;
+  assert.equal(Number(rsVs(btc, spyCal, 20).toFixed(4)), Number((-(s1 - s0) / s0 * 100).toFixed(4)));
+  // a stock on the SPY calendar: identical to the old pct - pct
+  const stock = calendarBars(120, { weekends: false, start: 50, step: 0.5 });
+  const old = ((stock.at(-1).close / stock.at(-21).close - 1) - (spyCal.at(-1).close / spyCal.at(-21).close - 1)) * 100;
+  assert.equal(Number(rsVs(stock, spyCal, 20).toFixed(6)), Number(old.toFixed(6)));
+  // the synthetic test bars (dates repeat every 28 days) are never treated as a crypto calendar
+  assert.equal(tradesWeekends(bars({ n: 60 })), false);
+});
+
+test("a named ticker that misses every list is reported with its reasons, never dropped", () => {
+  const quiet = bars({ n: 300, start: 100, drift: 0.05 });   // above its 50-day, not lagging much
+  const r = screenSymbol("QUIET", quiet, spy);
+  assert.equal(r.list, null);
+  const ranked = rank([r]);
+  assert.deepEqual(ranked.NOT_LISTED.map((x) => x.sym), ["QUIET"]);
+  const why = whyNotShort(r);
+  assert.match(why, /above the 50-day/);
+});
+
+test("applyMarks puts a live price on the last bar and widens its range", () => {
+  const s = { "BTC-USD": [{ date: "2026-10-07", open: 1, high: 84000, low: 82000, close: 83276, volume: 1 }, { date: "2026-10-08", open: 83276, high: 83500, low: 80900, close: 80651, volume: 1 }] };
+  const applied = applyMarks(s, "BTC-USD=80000,NOPE=5");
+  assert.deepEqual(applied, [{ sym: "BTC-USD", mark: 80000, was: 80651, date: "2026-10-08" }]);
+  assert.equal(s["BTC-USD"].at(-1).close, 80000);
+  assert.equal(s["BTC-USD"].at(-1).low, 80000);
+  assert.equal(s["BTC-USD"].at(-1).high, 83500);
+});

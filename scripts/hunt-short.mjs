@@ -66,6 +66,52 @@ export function atr14(bars, n = 14) {
 
 export function pct(closes, n) { if (closes.length < n + 1) return null; const a = closes.at(-1 - n), b = closes.at(-1); return ((b - a) / a) * 100; }
 
+// CRYPTO CALENDAR (2026-10-08, BTC-USD): a 7-day series and SPY's 5-day series cannot be
+// compared bar-for-bar - 20 BTC bars are 20 days, 20 SPY bars are ~28. A series that trades
+// weekends (with clean ascending dates) is compared with SPY over the SAME calendar span.
+// Everything on the stock calendar keeps the original count-based math, unchanged.
+const weekday = (d) => new Date(d + "T00:00:00Z").getUTCDay();
+export function tradesWeekends(bars) {
+  const t = bars.slice(-30);
+  for (let i = 1; i < t.length; i++) if (!(t[i].date > t[i - 1].date)) return false;
+  return t.some((b) => weekday(b.date) === 0 || weekday(b.date) === 6);
+}
+const closeOnOrBefore = (series, date) => { for (let i = series.length - 1; i >= 0; i--) if (series[i].date <= date) return series[i].close; return null; };
+export function rsVs(bars, spy, n) {
+  if (bars.length < n + 1 || spy.length < n + 1) return null;
+  if (!tradesWeekends(bars)) return pct(bars.map((b) => b.close), n) - pct(spy.map((b) => b.close), n);
+  const a = bars.at(-1 - n), b = bars.at(-1);
+  const s0 = closeOnOrBefore(spy, a.date), s1 = closeOnOrBefore(spy, b.date);
+  if (s0 == null || s1 == null) return null;
+  return ((b.close - a.close) / a.close - (s1 - s0) / s0) * 100;
+}
+
+// LIVE MARKS: --mark BTC-USD=80676 puts a live broker price (Robinhood) on the latest bar, so a
+// screen run mid-session reads the real price instead of a delayed free-feed bar. Widens the range.
+export function applyMarks(series, arg) {
+  const applied = [];
+  for (const pair of String(arg ?? "").split(",").map((s) => s.trim()).filter(Boolean)) {
+    const [sym, raw] = pair.split("="); const mark = Number(raw);
+    const bars = series[sym?.toUpperCase()];
+    if (!Array.isArray(bars) || !bars.length || !(mark > 0)) continue;
+    const last = bars.at(-1);
+    applied.push({ sym: sym.toUpperCase(), mark, was: last.close, date: last.date });
+    last.close = mark; last.high = Math.max(last.high, mark); last.low = Math.min(last.low, mark);
+  }
+  return applied;
+}
+
+// A NAMED ticker is never dropped in silence: if it misses every list, say which gates failed.
+export function whyNotShort(r) {
+  const why = [];
+  if (r.close >= r.sma50) why.push(`above the 50-day (${r.close} vs ${r.sma50})`);
+  if (r.close > r.low20) why.push(`not at the 20-bar low (${r.low20})`);
+  if (r.volRatio === null || r.volRatio < DEFAULTS.volMin) why.push(`volume ${r.volRatio ?? "-"}x < ${DEFAULTS.volMin}x`);
+  if (!(r.rs20 < 0 && r.rs5 < 0)) why.push(`not lagging SPY (rs20 ${r.rs20}, rs5 ${r.rs5})`);
+  if (!r.floor) why.push(r.too_far ? `no paying floor inside 6 ATR (next ${r.too_far.level})` : "no verified floor that pays 2:1");
+  return why.join("; ");
+}
+
 // Nearest pivot low strictly below `price`, searching all bars except the last `skip` (today's bar is not a pivot yet).
 export function verifiedFloor(bars, price, width = DEFAULTS.pivotWidth, skip = 1) {
   let best = null;
@@ -107,8 +153,7 @@ export function screenSymbol(sym, bars, spy, opts = {}) {
   const low20 = Math.min(...prior20.map((b) => b.low));
   const vol30 = sma(vols.slice(0, -1), 30);
   const volRatio = vol30 ? last.volume / vol30 : null;
-  const spyC = spy.map((b) => b.close);
-  const rs20 = pct(closes, 20) - pct(spyC, 20), rs5 = pct(closes, 5) - pct(spyC, 5);
+  const rs20 = rsVs(bars, spy, 20), rs5 = rsVs(bars, spy, 5);
   const g1 = last.close < sma50 && last.close <= low20 && volRatio !== null && volRatio >= o.volMin;
   const g2 = rs20 < 0 && rs5 < 0;
   const high2 = Math.max(bars.at(-1).high, bars.at(-2).high);
@@ -151,6 +196,7 @@ export function rank(results, cap = DEFAULTS.cap) {
     STALK: [...ok.filter((r) => r.list === "STALK"), ...demoted].sort((a, b) => b.readiness - a.readiness),
     DISCOVERY: ok.filter((r) => r.list === "DISCOVERY").sort((a, b) => b.readiness - a.readiness),
     NO_FLOOR: ok.filter((r) => (r.gates.breakdown && r.gates.laggard) && !r.floor),
+    NOT_LISTED: results.filter((r) => r.ok && !r.list),
     skipped: results.filter((r) => !r.ok),
   };
 }
@@ -196,7 +242,7 @@ function defaultUniverse(which) {
     } catch {}
   }
   for (const x of ["SPY", "QQQ", "IWM", "DIA", "SMH"]) syms.delete(x);
-  return [...syms].filter((s) => /^[A-Z.]{1,6}$/.test(s));
+  return [...syms].filter((s) => /^[A-Z.]{1,6}(-USD)?$/.test(s));
 }
 
 function macroInside2(asof) {
@@ -222,6 +268,7 @@ async function main() {
     series.SPY = await yahooBars("SPY", "1y");
     for (const s of syms) { try { series[s] = await yahooBars(s); } catch (e) { series[s] = { error: e.message }; } }
   }
+  const marks = applyMarks(series, val("--mark"));
   const spy = series.SPY;
   const asof = spy?.at?.(-1)?.date ?? new Date().toISOString().slice(0, 10);
   const macro = macroInside2(asof);
@@ -232,7 +279,7 @@ async function main() {
     results.push(screenSymbol(sym, bars, spy, { ...opts, macroInside2: macro }));
   }
   const ranked = rank(results, opts.cap);
-  const receipt = { kind: "hunt-short", asof, source, generated: new Date().toISOString(), universe: symbolsArg ? "named" : universe, macro_inside_2_sessions: macro, band: band || null, opts, ...ranked };
+  const receipt = { kind: "hunt-short", asof, source, generated: new Date().toISOString(), universe: symbolsArg ? "named" : universe, macro_inside_2_sessions: macro, band: band || null, opts, marks, ...ranked };
   receipt.id = createHash("sha1").update(JSON.stringify({ asof, results })).digest("hex").slice(0, 8);
 
   if (has("--write")) {
@@ -250,6 +297,16 @@ async function main() {
     for (const r of ranked[L]) { console.log(line(r)); if (L === "READY") console.log(`         ${spreadLine(r, band || r.close)}`); }
   }
   if (ranked.NO_FLOOR.length) { console.log(`\nBOTH GATES, NO VERIFIED FLOOR (cannot show 2:1 - the GRAB gap)`); for (const r of ranked.NO_FLOOR) console.log(line(r)); }
+  if (marks.length) console.log(`\nlive marks applied: ${marks.map((m) => `${m.sym} ${m.mark} (was ${m.was} on the ${m.date} bar)`).join(", ")}`);
+  if (ranked.NOT_LISTED.length) {
+    if (symbolsArg) {
+      console.log(`\nSCREENED, NOT LISTED (${ranked.NOT_LISTED.length})`);
+      for (const r of ranked.NOT_LISTED) {
+        console.log(line(r));
+        console.log(`         why: ${whyNotShort(r)}${tradesWeekends(series[r.sym]) ? " · crypto calendar: 50-day = 50 days, rs vs SPY by date" : ""}`);
+      }
+    } else console.log(`\nscreened, not listed: ${ranked.NOT_LISTED.length} (name them with --symbols to see why)`);
+  }
   if (ranked.skipped.length) console.log(`\nskipped: ${ranked.skipped.map((s) => `${s.sym} (${s.problem})`).join(", ")}`);
   if (receipt.wrote) console.log(`\nwrote ${receipt.wrote}`);
   console.log(`\nRule: every READY name still runs the full v29 framework, prices its spread at the open, and gets a row via log-call.mjs. Nothing here is a ticket.`);
