@@ -370,7 +370,8 @@
       "source": "docs/reads/2026-09-30-hunt-close.md",
       "row": "B-637",
       "expires": "2026-10-07",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-08"
     },
     {
       "id": "MC-022",
@@ -386,7 +387,8 @@
       "source": "docs/reads/2026-09-30-hunt-close.md",
       "row": "B-638",
       "expires": "2026-10-07",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-08"
     },
     {
       "id": "MC-023",
@@ -609,7 +611,9 @@
       "source": "chat 2026-10-02 (Adam prediction watch)",
       "row": "B-695",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-08",
+      "fired_detail": "HIMS 28.06 < 28.11 yes"
     },
     {
       "id": "MC-036",
@@ -712,7 +716,9 @@
       "source": "docs/reads/2026-10-02-hunt-close.md",
       "row": "B-707",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-08",
+      "fired_detail": "WULF 13.65 <= 14.36 yes"
     },
     {
       "id": "MC-042",
@@ -792,7 +798,9 @@
       "source": "site/reviews/2026-10-02-uber.md",
       "row": "B-711",
       "expires": "2026-10-28",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-08",
+      "fired_detail": "UBER 70.245 > 69.97 yes"
     },
     {
       "id": "MC-047",
@@ -987,7 +995,8 @@
       "source": "docs/reads/2026-10-05-close.md",
       "row": "B-730",
       "expires": "2026-10-07",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-08"
     },
     {
       "id": "MC-058",
@@ -1172,7 +1181,9 @@
       "source": "docs/reads fastmover 2026-10-06 08:55",
       "row": "B-744",
       "expires": "2026-10-13",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-08",
+      "fired_detail": "IREN 35.7246 < 38.4 yes"
     },
     {
       "id": "MC-069",
@@ -1204,7 +1215,9 @@
       "source": "docs/reads/2026-10-06-entry-check.md",
       "row": "B-745",
       "expires": "2026-11-17",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-08",
+      "fired_detail": "NVDA 230.57 < 231.9 yes"
     },
     {
       "id": "MC-071",
@@ -1329,7 +1342,9 @@
       "source": "docs/reads/2026-10-06-snapshot-1315.md",
       "row": "B-750",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-08",
+      "fired_detail": "CEG 285.015 < 290.39 yes"
     },
     {
       "id": "MC-078",
@@ -1394,7 +1409,9 @@
       "source": "docs/reads/2026-10-06-close.md",
       "row": "B-755",
       "expires": "2026-10-09",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-08",
+      "fired_detail": "MRVL 274.61 < 280 yes"
     },
     {
       "id": "MC-082",
@@ -1492,7 +1509,9 @@
       "source": "docs/reads/2026-10-06-hunt-close.md",
       "row": "B-770",
       "expires": "2026-10-13",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-08",
+      "fired_detail": "WULF 13.65 <= 14.36 yes"
     },
     {
       "id": "MC-088",
@@ -1592,7 +1611,8 @@
       "source": "site/reviews/2026-10-07-market.md",
       "row": "B-774",
       "expires": "2026-10-07",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-08"
     },
     {
       "id": "MC-094",
@@ -1881,6 +1901,24 @@
       "row": "B-803",
       "expires": "2026-10-09",
       "status": "open"
+    },
+    {
+      "id": "MC-112",
+      "created": "2026-10-08",
+      "when": [
+        {
+          "ticker": "GEV",
+          "op": ">",
+          "level": 997.09
+        }
+      ],
+      "meaning": "with SMH also closing over 601.87: the noon flush in power/chips was a one-day shakeout, not a rotation",
+      "source": "docs/reads/2026-10-08-powerhour.md",
+      "row": null,
+      "expires": "2026-10-08",
+      "status": "fired",
+      "fired_on": "2026-10-08",
+      "fired_detail": "GEV 998.965 > 997.09 yes"
     }
   ]
 }
