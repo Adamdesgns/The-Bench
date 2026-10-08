@@ -105,3 +105,55 @@ test("unansweredCard and downCard", () => {
   assert.equal(d.title, "THE BENCH - MARKET WATCH DOWN");
   assert.equal(d.headers.Priority, "urgent");
 });
+
+import { execFileSync } from "node:child_process";
+import { mkdtempSync, readFileSync, writeFileSync, existsSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve, join } from "node:path";
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const CLI = resolve(HERE, "../scripts/market-watch.mjs");
+const run = (dir, args, env = {}) => execFileSync(process.execPath, [CLI, "--dir", dir, ...args], { encoding: "utf8", env: { ...process.env, ...env }, stdio: ["ignore", "pipe", "pipe"] });
+const fresh = () => {
+  const dir = mkdtempSync(join(tmpdir(), "mw-"));
+  writeFileSync(join(dir, "archive.json"), "[]");
+  writeFileSync(join(dir, "watchlist.json"), "[]");
+  return dir;
+};
+
+test("CLI --init writes a local config with a random ack topic and refuses to overwrite it", () => {
+  const dir = fresh();
+  const out = run(dir, ["--init"]);
+  assert.match(out, /created/);
+  const cfg = JSON.parse(readFileSync(join(dir, "market-watch.local.json"), "utf8"));
+  assert.match(cfg.ack_topic, /^bench-ack-[0-9a-f]{12}$/);
+  assert.equal(cfg.chat_link, "");
+  assert.equal(cfg.halt, false);
+  assert.throws(() => run(dir, ["--init"]), /already exists/);
+  assert.equal(out.includes(cfg.ack_topic), true, "--init prints the topic once so Adam can subscribe to it");
+});
+
+test("CLI --link, --halt, --resume and --status edit and show the config", () => {
+  const dir = fresh();
+  run(dir, ["--init"]);
+  run(dir, ["--link", "claude://claude.ai/epitaxy/local_abc"]);
+  run(dir, ["--halt"]);
+  let cfg = JSON.parse(readFileSync(join(dir, "market-watch.local.json"), "utf8"));
+  assert.equal(cfg.chat_link, "claude://claude.ai/epitaxy/local_abc");
+  assert.equal(cfg.halt, true);
+  let status = run(dir, ["--status"]);
+  assert.match(status, /HALTED/);
+  assert.equal(status.includes(cfg.ack_topic), false, "--status never prints the topic name");
+  run(dir, ["--resume"]);
+  cfg = JSON.parse(readFileSync(join(dir, "market-watch.local.json"), "utf8"));
+  assert.equal(cfg.halt, false);
+  status = run(dir, ["--status"]);
+  assert.match(status, /running state: ok/);
+  assert.match(status, /open alarms: 0/);
+});
+
+test("CLI refuses to run a mode that needs config before --init", () => {
+  const dir = fresh();
+  assert.throws(() => run(dir, ["--status"]), /run --init first/);
+});
