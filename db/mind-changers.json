@@ -1737,6 +1737,54 @@
       "row": "B-779",
       "expires": "2026-10-20",
       "status": "open"
+    },
+    {
+      "id": "MC-103",
+      "created": "2026-10-08",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": ">",
+          "level": 171.35
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: VST cleared the 167.40-171.35 May-July shelf on a close; B-795 had no 2:1 window under it, a new target and plan are owed",
+      "source": "docs/reads/2026-10-08-premarket.md",
+      "row": "B-795",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-104",
+      "created": "2026-10-08",
+      "when": [
+        {
+          "ticker": "TLN",
+          "op": ">",
+          "level": 394.63
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: TLN cleared the 381.50-394.63 shelf on a close; B-796 had no 2:1 window under it, a fresh plan to 414.79 is owed",
+      "source": "docs/reads/2026-10-08-premarket.md",
+      "row": "B-796",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-105",
+      "created": "2026-10-08",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 625.03
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: SMH reclaimed its 10/07 close; silicon stopped lagging the buyers, B-797 no longer has its reason",
+      "source": "docs/reads/2026-10-08-sotm.md",
+      "row": "B-797",
+      "expires": "2026-10-09",
+      "status": "open"
     }
   ]
 }
