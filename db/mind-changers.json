@@ -2052,6 +2052,38 @@
       "row": "B-822",
       "expires": "2026-10-12",
       "status": "open"
+    },
+    {
+      "id": "MC-121",
+      "created": "2026-10-09",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 34.81
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-825 IREN short: closed under the first shelf; only counts on 1.5x volume (about 54.6M)",
+      "source": "docs/reads/2026-10-09-hunt-close.md",
+      "row": "B-825",
+      "expires": "2026-10-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-122",
+      "created": "2026-10-09",
+      "when": [
+        {
+          "ticker": "HIMS",
+          "op": ">",
+          "level": 31.81
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-826 HIMS breakout: closed above the 31.81 line that died on B-637/B-691; catalyst still owed",
+      "source": "docs/reads/2026-10-09-hunt-close.md",
+      "row": "B-826",
+      "expires": "2026-10-16",
+      "status": "open"
     }
   ]
 }
