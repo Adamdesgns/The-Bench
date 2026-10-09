@@ -579,7 +579,8 @@
       "source": "snapshot-1011",
       "row": "B-694",
       "expires": "2026-10-08",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-09"
     },
     {
       "id": "MC-034",
@@ -1724,7 +1725,9 @@
       "source": "site/reviews/2026-10-07-market.md",
       "row": "B-778",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-09",
+      "fired_detail": "CBRS 164.13 < 165.22 yes"
     },
     {
       "id": "MC-101",
@@ -1836,7 +1839,9 @@
       "source": "midday-read-2026-10-08",
       "row": "B-799",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-09",
+      "fired_detail": "VST 161.44 > 160 yes"
     },
     {
       "id": "MC-108",
@@ -1934,6 +1939,118 @@
       "source": "docs/reads/2026-10-08-hunt-close.md",
       "row": "B-813",
       "expires": "2026-10-15",
+      "status": "open"
+    },
+    {
+      "id": "MC-114",
+      "created": "2026-10-09",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 618.11
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: SMH closed over its own re-derived 10-day (618.11 for 10/09); judge on the settled close only",
+      "source": "docs/reads/2026-10-09-premarket.md",
+      "row": "B-816",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-115",
+      "created": "2026-10-09",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 618.11
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: SMH closed over its re-derived 10-day after the 10/09 gap faded; settled close only",
+      "source": "docs/reads/2026-10-09-sotm.md",
+      "row": "B-817",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-116",
+      "created": "2026-10-09",
+      "when": [
+        {
+          "ticker": "LITE",
+          "op": ">",
+          "level": 1137.21
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-818 ONLY on a close over 1137.21 with volume >= 7.2M (1.5x 30-day avg); same line as MC-082",
+      "source": "docs/reads/2026-10-09-snapshot-1012.md",
+      "row": "B-818",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-117",
+      "created": "2026-10-09",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 618.11
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-819: SMH settled over its 10-day while the buyers were already up; settled close only",
+      "source": "docs/reads/2026-10-09-midday.md",
+      "row": "B-819",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-118",
+      "created": "2026-10-09",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 618.11
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-820: SMH settled over its 10-day after needing +2.45% in the last hour; settled close only",
+      "source": "docs/reads/2026-10-09-powerhour.md",
+      "row": "B-820",
+      "expires": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-119",
+      "created": "2026-10-09",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": ">",
+          "level": 171.35
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-821: VST cleared the 167.40-171.35 shelf on a close after the 160.00 reclaim; new target and plan owed",
+      "source": "docs/reads/2026-10-09-close.md",
+      "row": "B-821",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-120",
+      "created": "2026-10-09",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 618.5
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-822: SMH settled over its re-derived 10-day (618.50 for 10/12); settled close only, re-derive for any later day",
+      "source": "docs/reads/2026-10-09-close.md",
+      "row": "B-822",
+      "expires": "2026-10-12",
       "status": "open"
     }
   ]
