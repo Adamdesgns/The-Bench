@@ -2084,6 +2084,54 @@
       "row": "B-826",
       "expires": "2026-10-16",
       "status": "open"
+    },
+    {
+      "id": "MC-123",
+      "created": "2026-10-11",
+      "when": [
+        {
+          "ticker": "MRNA",
+          "op": "<=",
+          "level": 216
+        }
+      ],
+      "meaning": "pulled into the B-828 run-up zone 212-216: PAPER entry if the next first-30-min bar holds the zone; exit by Fri 10/23 close regardless",
+      "source": "B-828 chat 2026-10-11",
+      "row": "B-828",
+      "expires": "2026-10-22",
+      "status": "open"
+    },
+    {
+      "id": "MC-124",
+      "created": "2026-10-11",
+      "when": [
+        {
+          "ticker": "MRNA",
+          "op": "<",
+          "level": 195.9
+        }
+      ],
+      "meaning": "breakout failed under the Fri 10/9 low; B-828 long is dead; check short gate 2 (broken level on volume) - post-event only per B-154",
+      "source": "B-828 chat 2026-10-11",
+      "row": "B-828",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-125",
+      "created": "2026-10-11",
+      "when": [
+        {
+          "ticker": "MRNA",
+          "op": ">=",
+          "level": 249.42
+        }
+      ],
+      "meaning": "target pivot (Jan-2022 high) reached without the zone filling; score B-828 as a missed move, re-look before ESMO",
+      "source": "B-828 chat 2026-10-11",
+      "row": "B-828",
+      "expires": "2026-10-23",
+      "status": "open"
     }
   ]
 }
