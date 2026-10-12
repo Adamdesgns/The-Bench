@@ -108,6 +108,29 @@ const decisions = [...livePlans.values()]
 const expired = decisions.filter((d) => d.dleft < 0);
 const dueSoon = decisions.filter((d) => d.dleft >= 0 && d.dleft <= HORIZON);
 
+// 3c. PLAN DUE (2026-10-11). MRNA's 10/24 data was on this board for two months
+// and the stock went 154 -> 225 without a plan ever being written, because
+// nothing asked for one. Adam, asked whether every non-earnings dated event should
+// get a written plan six weeks out: "yes". So: a company-specific event that is
+// not an earnings print, inside 42 days, with no book row on that ticker in the 60
+// days before the event, is PLAN DUE. A pass counts as a plan - it is written,
+// dated and scored. Earnings are left out on purpose: the 2026-10-11 study found
+// no reliable run-up into a print (docs/research/2026-10-11-earnings-runup.md).
+const PLAN_TYPES = new Set(["readout", "pdufa", "adcomm", "product", "legal", "guidance", "other"]);
+const PLAN_LEAD_DAYS = 42;
+const minusDays = (d, n) => new Date(Date.parse(d) - n * 86400000).toISOString().slice(0, 10);
+const planDue = [];
+for (const c of board) {
+  if (!c.ticker || !PLAN_TYPES.has(c.type) || c.date < today) continue;
+  const tminus = daysBetween(today, c.date);
+  if (tminus > PLAN_LEAD_DAYS) continue;
+  if (planDue.some((p) => p.ticker === c.ticker && p.date === c.date)) continue;
+  const since = minusDays(c.date, 60);
+  if (archRows.some((r) => r.ticker === c.ticker && r.date >= since)) continue;
+  planDue.push({ ...c, tminus, plan_by: minusDays(c.date, PLAN_LEAD_DAYS) });
+}
+planDue.sort((a, b) => a.tminus - b.tminus);
+
 // 4. Coverage — the gap that cost MRNA. Name the categories with zero rows, always.
 const ALL_TYPES = ["earnings", "readout", "pdufa", "adcomm", "macro", "lockup", "index", "product", "legal", "guidance"];
 const counts = {};
@@ -115,11 +138,11 @@ for (const c of board) counts[c.type ?? "UNTYPED"] = (counts[c.type ?? "UNTYPED"
 const blind = ALL_TYPES.filter((t) => !counts[t]);
 
 if (has("--json")) {
-  console.log(JSON.stringify({ today, horizon: HORIZON, upcoming, flags, blind_spots: blind }, null, 2));
-  process.exit(flags.length || expired.length ? 1 : 0);
+  console.log(JSON.stringify({ today, horizon: HORIZON, upcoming, flags, plan_due: planDue, blind_spots: blind }, null, 2));
+  process.exit(flags.length || expired.length || planDue.length ? 1 : 0);
 }
 
-if (has("--quiet") && !flags.length) process.exit(0);
+if (has("--quiet") && !flags.length && !planDue.length) process.exit(0);
 
 console.log(`\nCATALYST WATCH — ${today}, next ${HORIZON} days\n${"=".repeat(58)}`);
 
@@ -158,10 +181,19 @@ if (dueSoon.length) {
   console.log("  Nothing to check. The tripwire will ping if a level moves.");
 }
 
+if (planDue.length) {
+  console.log(`\n${"=".repeat(58)}\nPLAN DUE - dated event inside 6 weeks, no plan in the book (${planDue.length})\n`);
+  for (const p of planDue) {
+    console.log(`  T-${String(p.tminus).padEnd(4)} ${p.date}  ${p.ticker.padEnd(6)} ${p.type.toUpperCase().padEnd(8)} plan was due ${p.plan_by}`);
+    console.log(`         ${(p.what ?? p.label ?? "").slice(0, 120)}`);
+  }
+  console.log("  Write one: dead-theses, live pull, then log-call (a pass counts). Exit by the last close before the event.");
+}
+
 if (blind.length) {
   console.log(`\nBLIND SPOTS — catalyst types with ZERO rows on the board:\n  ${blind.join(", ")}`);
   console.log("  (This line is why MRNA was missed. It prints every run, on purpose.)");
 }
 
 console.log("");
-process.exit(flags.length ? 1 : 0);
+process.exit(flags.length || planDue.length ? 1 : 0);
