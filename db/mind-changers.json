@@ -2132,6 +2132,150 @@
       "row": "B-828",
       "expires": "2026-10-23",
       "status": "open"
+    },
+    {
+      "id": "MC-126",
+      "created": "2026-10-12",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 618.48
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-829: SMH settled over its re-derived 10-day (618.48 for 10/12); settled close only, re-derive for any later day",
+      "source": "docs/reads/2026-10-12-premarket.md",
+      "row": "B-829",
+      "expires": "2026-10-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-127",
+      "created": "2026-10-12",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">=",
+          "level": 38.4
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-830: IREN closed back at the 38.40 floor it lost, on a bounce BTC did not lead; B-762 decides 10/13",
+      "source": "docs/reads/2026-10-12-premarket.md",
+      "row": "B-830",
+      "expires": "2026-10-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-128",
+      "created": "2026-10-12",
+      "when": [
+        {
+          "ticker": "IRD",
+          "op": "<=",
+          "level": 4.6
+        }
+      ],
+      "meaning": "IRD in the B-831 zone 4.45-4.60: PAPER entry on a first-30-min hold; exit by Fri 10/16 close regardless",
+      "source": "B-831..833 chat 2026-10-12",
+      "row": "B-831",
+      "expires": "2026-10-15",
+      "status": "open"
+    },
+    {
+      "id": "MC-129",
+      "created": "2026-10-12",
+      "when": [
+        {
+          "ticker": "IRD",
+          "op": "<",
+          "level": 4.06
+        }
+      ],
+      "meaning": "IRD under the B-831 stop: plan dead before the PDUFA",
+      "source": "B-831..833 chat 2026-10-12",
+      "row": "B-831",
+      "expires": "2026-10-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-130",
+      "created": "2026-10-12",
+      "when": [
+        {
+          "ticker": "IRD",
+          "op": ">=",
+          "level": 5.5
+        }
+      ],
+      "meaning": "IRD at the B-831 target without a zone fill: score as a missed run-up",
+      "source": "B-831..833 chat 2026-10-12",
+      "row": "B-831",
+      "expires": "2026-10-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-131",
+      "created": "2026-10-12",
+      "when": [
+        {
+          "ticker": "IONS",
+          "op": ">",
+          "level": 46.95
+        }
+      ],
+      "meaning": "B-832 trigger: first higher high since the Sept breakdown; re-look as a paper run-up only if volume >=1.5x, exit by Fri 10/23 close",
+      "source": "B-831..833 chat 2026-10-12",
+      "row": "B-832",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-132",
+      "created": "2026-10-12",
+      "when": [
+        {
+          "ticker": "IONS",
+          "op": "<",
+          "level": 42.63
+        }
+      ],
+      "meaning": "IONS new 52-week low: B-832 pass stands; post-PDUFA reaction only",
+      "source": "B-831..833 chat 2026-10-12",
+      "row": "B-832",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-133",
+      "created": "2026-10-12",
+      "when": [
+        {
+          "ticker": "INO",
+          "op": ">",
+          "level": 1.26
+        }
+      ],
+      "meaning": "B-833 trigger: break of the three-week range; re-look as a paper run-up only if volume >=4.0M, exit by Thu 10/29 close",
+      "source": "B-831..833 chat 2026-10-12",
+      "row": "B-833",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-134",
+      "created": "2026-10-12",
+      "when": [
+        {
+          "ticker": "INO",
+          "op": "<",
+          "level": 1.06
+        }
+      ],
+      "meaning": "INO range broken: B-833 pass stands; never hold through the 10/30 decision",
+      "source": "B-831..833 chat 2026-10-12",
+      "row": "B-833",
+      "expires": "2026-10-29",
+      "status": "open"
     }
   ]
 }
