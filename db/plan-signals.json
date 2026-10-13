@@ -1,22 +1,38 @@
 {
-  "date": "2026-10-12",
+  "date": "2026-10-13",
   "signals": [
     {
-      "sym": "MRNA",
-      "row": "B-840",
-      "plan_row": "B-828",
-      "zone_low": 212,
-      "zone_high": 216,
-      "stop": 195.9,
-      "target": 249.42,
-      "close": 213.69,
-      "signal_low": 210.91,
-      "atr": 15.92,
-      "paper_only": true,
-      "exit_by": "2026-10-23",
-      "note": "DATED-CATALYST PAPER (v34 run-up lane, instance 1 of 5). Pullback into the zone on light volume (12.8M = 0.75x 30-day). Half band, hard exit Fri 10/23 close before ESMO Sat 10/24. Never a live ticket."
+      "sym": "LITE",
+      "row": "B-868",
+      "plan_row": "B-857",
+      "zone_low": 949.26,
+      "zone_high": 966.33,
+      "stop": 878,
+      "target": 1143,
+      "close": 988.19,
+      "signal_low": 952.01,
+      "atr": 69.76,
+      "readiness": 40,
+      "watchlist_only": true,
+      "exit_by": "2026-11-05 14:30 CT",
+      "note": "touch-and-hold: low 952.01 in zone, settled 988.19 above it on 0.82x volume (light), floor 878 intact. Readiness 40 = watchlist only: record the bar, no live ticket unless readiness clears 50. T1 1102 half, T2 1143. CPI 08:30 ET before the bar."
     }
   ],
   "none": false,
-  "note": "Mon 10/12 close check. Closes are last regular-session prints (19:59:5xZ); the RH official close field had not rolled at ~15:30 CT. SIGNAL: MRNA 213.69 in 212-216 (paper). IN BUY RANGE: MRNA 213.69 (212-216, B-828), ASPN 5.435 (5.40-5.54, B-561; re-arm needs a close over 5.925, MC-083), SNDG 7.445 (6.78-10.00, B-140 NO TRADE). NO SIGNAL: IRD 4.65 above its 4.45-4.60 zone; ETN 426.67 under 438.26-446, floor 423 intact; UBER 71.495 < 71.90; LITE 995.22; VST 158.10; MRVL 265.91 (B-779 stop 261.28 intact); GOOGL 352.73 held, stop 326 intact; HIMS/AMZN/VRT/SPCX/MU/AIP/IBIT above zones. VOID: CBRS 146.61 < 158 floor on 2.43x (MC-050 -> B-841); IREN 34.835 < 38.40 floor; ORCL 137.40 < 139.50 (plan dead since 10/01). MC-062 APLD -> B-842 (0.70x vol, no short). MU 988.97 < 1300, no spread held. Bull watch: SMH ON (+16.4% over 200-day), leaders SMH/XLE/XBI, no transitions. Paper test 3/10 closed, 0 open."
+  "armed_not_signaled": [
+    {
+      "sym": "MU",
+      "row": "B-856",
+      "zone_low": 930.29,
+      "zone_high": 940.72,
+      "stop": 884,
+      "close": 953.19,
+      "session_low": 929.03,
+      "note": "NO SIGNAL on the close rule: touched the zone (low 929.03) and settled 953.19 above it, but on 1.12x volume (heavier than average on a -3.6 pct day). B-856's own trigger is any first 30-min bar 10/14-10/20 closing inside 930.29-940.72, so it is listed here for the entry check, not as a signal. Readiness 50. Zone bottom moves with the settled ATR (about 931.3 per the plan)."
+    }
+  ],
+  "open_paper": [
+    {"sym": "MRNA", "row": "B-854", "entry": 212.79, "stop": 195.9, "target": 249.42, "close": 216.26, "exit_by": "2026-10-23"}
+  ],
+  "note": "Tue 10/13 close check. RH official close field had not rolled at ~15:30 CT; closes are last regular-session prints at 19:59:59Z. SIGNAL: LITE (watchlist only). IN BUY RANGE: LITE 988.19 is above its zone (touched only), so none of the signal names; inside zones at the close: AIP 21.145 (<=21.39 / floor 17.40, no target - plan incomplete), ASPN 5.46 (5.40-5.54, B-561; re-arm needs close > 5.925), SNDG 7.40 (6.78-10.00, B-140 NO TRADE). NO SIGNAL: MU (volume), XOM 174.14 above 164.25-165.90, ETN 428.33 under 438.26 (floor 423 held, low 417), IRD 4.235 under 4.45-4.60 (stop 4.06 held), UBER 71.32 < 71.90, GOOGL 353.78 (stop 326 held). VOID: CBRS 149.04 < 158, IREN 34.825 < 38.40, ORCL dead. Mind-changers fired: MC-128 IRD (B-869), MC-132 IONS (B-870), MC-134 INO (B-871). Bull watch: SMH ON (+15.7 pct over 200-day), leaders SMH/XLE/XBI, no transitions. Paper test 3/10 closed, 0 open."
 }

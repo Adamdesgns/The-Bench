@@ -1461,7 +1461,8 @@
       "source": "docs/reads/2026-10-06-close.md",
       "row": "B-757",
       "expires": "2026-10-12",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-13"
     },
     {
       "id": "MC-084",
@@ -2077,7 +2078,8 @@
       "source": "docs/reads/2026-10-09-close.md",
       "row": "B-822",
       "expires": "2026-10-12",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-13"
     },
     {
       "id": "MC-121",
@@ -2175,7 +2177,8 @@
       "source": "docs/reads/2026-10-12-premarket.md",
       "row": "B-829",
       "expires": "2026-10-12",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-13"
     },
     {
       "id": "MC-127",
@@ -2207,7 +2210,9 @@
       "source": "B-831..833 chat 2026-10-12",
       "row": "B-831",
       "expires": "2026-10-15",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-13",
+      "fired_detail": "IRD 4.235 <= 4.6 yes"
     },
     {
       "id": "MC-129",
@@ -2271,7 +2276,9 @@
       "source": "B-831..833 chat 2026-10-12",
       "row": "B-832",
       "expires": "2026-10-23",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-13",
+      "fired_detail": "IONS 42.41 < 42.63 yes"
     },
     {
       "id": "MC-133",
@@ -2303,7 +2310,9 @@
       "source": "B-831..833 chat 2026-10-12",
       "row": "B-833",
       "expires": "2026-10-29",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-13",
+      "fired_detail": "INO 0.998 < 1.06 yes"
     },
     {
       "id": "MC-135",
@@ -2527,6 +2536,38 @@
       "source": "site/reviews/2026-10-13-ai-crash-bounce.md",
       "row": "B-857",
       "expires": "2026-11-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-149",
+      "created": "2026-10-13",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 590.99
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (SMH back over Mon close: equipment/memory selling absorbed)",
+      "source": "docs/reads/2026-10-13-powerhour.md",
+      "row": "B-865",
+      "expires": "2026-10-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-150",
+      "created": "2026-10-13",
+      "when": [
+        {
+          "ticker": "LITE",
+          "op": "<=",
+          "level": 966.33
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: LITE settled inside the B-868 zone 949.26-966.33; entry is the next first 30-min bar closing in zone, stop 878 (watchlist only while readiness < 50)",
+      "source": "plan check close 2026-10-13",
+      "row": "B-868",
+      "expires": "2026-10-20",
       "status": "open"
     }
   ]
