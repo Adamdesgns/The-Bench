@@ -2448,6 +2448,86 @@
       "row": "B-849",
       "expires": "2026-10-29",
       "status": "open"
+    },
+    {
+      "id": "MC-144",
+      "created": "2026-10-13",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">",
+          "level": 38.4
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (miners reclaiming the lost floor after chip-led selling)",
+      "source": "sotm 2026-10-13",
+      "row": "B-852",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-145",
+      "created": "2026-10-13",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": "<=",
+          "level": 884
+        }
+      ],
+      "meaning": "B-856 plan dead: a close under the stop line; re-judge whether the memory thesis broke (CXMT / pricing)",
+      "source": "site/reviews/2026-10-13-ai-crash-bounce.md",
+      "row": "B-856",
+      "expires": "2026-10-27",
+      "status": "open"
+    },
+    {
+      "id": "MC-146",
+      "created": "2026-10-13",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": ">=",
+          "level": 1054.17
+        }
+      ],
+      "meaning": "B-856 T2 reached: filled = take the rest; unfilled = a missed bounce, score it",
+      "source": "site/reviews/2026-10-13-ai-crash-bounce.md",
+      "row": "B-856",
+      "expires": "2026-10-27",
+      "status": "open"
+    },
+    {
+      "id": "MC-147",
+      "created": "2026-10-13",
+      "when": [
+        {
+          "ticker": "LITE",
+          "op": "<=",
+          "level": 878
+        }
+      ],
+      "meaning": "B-857 plan dead: a close under the 9/28 floor means the leader broke, not dipped",
+      "source": "site/reviews/2026-10-13-ai-crash-bounce.md",
+      "row": "B-857",
+      "expires": "2026-10-27",
+      "status": "open"
+    },
+    {
+      "id": "MC-148",
+      "created": "2026-10-13",
+      "when": [
+        {
+          "ticker": "LITE",
+          "op": ">=",
+          "level": 1143
+        }
+      ],
+      "meaning": "B-857 T2 / new high: unfilled = the watchlist-only cap cost a bounce, score it against the earnings-cap question",
+      "source": "site/reviews/2026-10-13-ai-crash-bounce.md",
+      "row": "B-857",
+      "expires": "2026-11-05",
+      "status": "open"
     }
   ]
 }
