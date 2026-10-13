@@ -2400,6 +2400,54 @@
       "row": "B-844",
       "expires": "2026-10-19",
       "status": "open"
+    },
+    {
+      "id": "MC-141",
+      "created": "2026-10-13",
+      "when": [
+        {
+          "ticker": "XOM",
+          "op": "<=",
+          "level": 165.9
+        }
+      ],
+      "meaning": "B-849 zone reached on a close (GOOGL roll target): entry is the next session's first 30-min bar closing 164.25-165.90, stop 160.70 the same minute; readiness capped 40 until Adam rules on pre-earnings hard exits (earnings 10/30 am unverified); funding = GOOGL stop-out or cash on hand",
+      "source": "site/reviews/2026-10-13-roll-scout.md",
+      "row": "B-849",
+      "expires": "2026-10-19",
+      "status": "open"
+    },
+    {
+      "id": "MC-142",
+      "created": "2026-10-13",
+      "when": [
+        {
+          "ticker": "XOM",
+          "op": "<",
+          "level": 160.7
+        }
+      ],
+      "meaning": "B-849 dead before a fill: closed under the 10/01 low 160.81 and the 50-day - the September leg failed; no roll into XOM",
+      "source": "site/reviews/2026-10-13-roll-scout.md",
+      "row": "B-849",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-143",
+      "created": "2026-10-13",
+      "when": [
+        {
+          "ticker": "XOM",
+          "op": ">=",
+          "level": 176.41
+        }
+      ],
+      "meaning": "B-849 target (March 52-week high) reached without a zone fill: score as a missed move; above 176.41 is price discovery, re-judge as a breakout with no pivot target",
+      "source": "site/reviews/2026-10-13-roll-scout.md",
+      "row": "B-849",
+      "expires": "2026-10-29",
+      "status": "open"
     }
   ]
 }
