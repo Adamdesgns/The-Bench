@@ -47,23 +47,23 @@ Chips are down for the fourth session in a row while the companies that buy the 
 
 ## The history (QUANT EVIDENCE)
 
-Each test asks the same question: the last time this name fell this far this fast, was it higher 10 sessions later? Five years of Yahoo daily bars, graded A-F on sample size.
+Each test asks the same question: the last time this name fell this far this fast, was it higher 10 sessions later? Five years of Yahoo daily bars, graded A-F on sample size. The percentages count every qualifying drop. The grade counts only the drops spaced at least one horizon apart (independent).
 
-| Run | Setup tested | Independent events | Up 10 sessions later | Average | Median | Grade |
+| Run | Setup tested | Drops scored (independent) | Up 10 sessions later | Average | Median | Grade |
 |---|---|---|---|---|---|---|
-| QR-034 | LITE down 15% in 5 sessions | 13 | **68.8%** | +7.79% | +8.27% | C |
-| QR-033 | MU down 10% in 5 sessions | 27 | **63.9%** | +4.75% | +3.15% | B |
-| QR-038 | same MU setup, **5 sessions later** | 30 | 50.0% | +1.46% | +0.04% | A |
-| QR-037 | SNDK down 13% in 5 sessions | 11 (1.7 years) | 63.6% | +9.72% | +15.96% | C |
-| QR-032 | SMH down 6% in 5 sessions | 33 | 57.1% | +2.08% | +1.63% | A |
-| QR-036 | MRVL down 9% in 5 sessions | 36 | 53.6% | +1.23% | +2.38% | A |
-| QR-039 | STX down 18% in 10 sessions | 5 | 50.0% | +4.04% | +0.99% | C |
-| QR-035 | AMD down 9% in 5 sessions | 39 | **46.2%** | +0.29% | **-1.27%** | A |
+| QR-034 | LITE down 15% in 5 sessions | 16 (13) | **68.8%** | +7.79% | +8.27% | C |
+| QR-033 | MU down 10% in 5 sessions | 36 (27) | **63.9%** | +4.75% | +3.15% | B |
+| QR-038 | same MU setup, **5 sessions later** | 36 (30) | 50.0% | +1.46% | +0.04% | A |
+| QR-037 | SNDK down 13% in 5 sessions | 11 (11), 1.7 years | 63.6% | +9.72% | +15.96% | C |
+| QR-032 | SMH down 6% in 5 sessions | 49 (33) | 57.1% | +2.08% | +1.63% | A |
+| QR-036 | MRVL down 9% in 5 sessions | 56 (36) | 53.6% | +1.23% | +2.38% | A |
+| QR-039 | STX down 18% in 10 sessions | 6 (5) | 50.0% | +4.04% | +0.99% | C |
+| QR-035 | AMD down 9% in 5 sessions | 52 (39) | **46.2%** | +0.29% | **-1.27%** | A |
 
 **BENCH INTERPRETATION**
 - **"Quickly" is the part history does not support.** MU's one-week bounce is a coin flip on A-grade evidence (QR-038). Its two-week odds are 64% (QR-033, B). Plan on two weeks, not two days.
 - **LITE has the best odds and the thinnest sample.** A C grade is directional at best, and it cannot outrank the readiness cap.
-- **AMD is the surprise.** It is the obvious "quality on sale" name, and on 39 independent events its dips this size were higher two weeks later less than half the time. That finding is A-grade, and it says pass (B-858).
+- **AMD is the surprise.** It is the obvious "quality on sale" name, and across 52 drops this size (39 far enough apart to count separately) it was higher two weeks later less than half the time. That finding is A-grade, and it says pass (B-858).
 - **The sector as a whole has a small edge**, not a snap: SMH was higher two weeks later 57% of the time, about +2% on average.
 - **Try to kill it:** these samples span every regime, including the 2022 bear market, so they are not a crowding-unwind test. The prediction ledger also says to discount them: the options hunter's stated odds have run 9 points above its actual record (46.6% stated vs 37.7% actual over 61 scored calls). Read every number above as an upper bound. If MU closes under 884 (MC-145), the dip was a repricing and the 64% was the wrong question.
 
