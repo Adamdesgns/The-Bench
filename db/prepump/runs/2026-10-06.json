@@ -1,0 +1,107 @@
+{
+  "schema": "bench-prepump-manifest-v1",
+  "quality_version": 2,
+  "quality": {
+    "complete": true,
+    "research_ready": false,
+    "issues": [],
+    "resolution_blocked": [
+      "SOL",
+      "ZEC"
+    ],
+    "field_coverage": {
+      "f_float": {
+        "present": 615,
+        "missing": 9
+      },
+      "f_shares_outstanding": {
+        "present": 622,
+        "missing": 2
+      },
+      "f_market_cap": {
+        "present": 622,
+        "missing": 2
+      },
+      "f_avg_volume_2_weeks": {
+        "present": 622,
+        "missing": 2
+      },
+      "f_avg_volume_30_days": {
+        "present": 622,
+        "missing": 2
+      },
+      "f_sector": {
+        "present": 622,
+        "missing": 2
+      },
+      "e_next_date": {
+        "present": 608,
+        "missing": 16
+      },
+      "e_timing": {
+        "present": 605,
+        "missing": 19
+      },
+      "q_bid_price": {
+        "present": 622,
+        "missing": 2
+      },
+      "q_ask_price": {
+        "present": 622,
+        "missing": 2
+      }
+    }
+  },
+  "date": "2026-10-06",
+  "built_at": "2026-10-06T21:49:08.598Z",
+  "universe_version": "core-v1",
+  "early_close": false,
+  "expected": {
+    "core": 460,
+    "scan": 146,
+    "desk": 48,
+    "total": 624,
+    "history_due": 141,
+    "first_appearance": 1
+  },
+  "written": {
+    "total": 624,
+    "ok": 622,
+    "partial": 0,
+    "no_data": 0,
+    "not_found": 0,
+    "core": 460,
+    "scan": 146,
+    "desk": 48,
+    "with_history": 141
+  },
+  "complete": true,
+  "market_dates_seen": {
+    "2026-10-06": 622
+  },
+  "raw_files": {
+    "fundamentals": 63,
+    "quotes": 32,
+    "historicals": 30,
+    "earnings": 3,
+    "scans": 2
+  },
+  "failures": [
+    {
+      "symbol": "SOL",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    },
+    {
+      "symbol": "ZEC",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    }
+  ],
+  "failure_count": 2,
+  "appended": "new file"
+}
