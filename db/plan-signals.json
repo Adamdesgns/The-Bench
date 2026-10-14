@@ -1,53 +1,11 @@
 {
-  "date": "2026-10-13",
-  "signals": [
-    {
-      "sym": "LITE",
-      "row": "B-868",
-      "plan_row": "B-857",
-      "zone_low": 949.26,
-      "zone_high": 966.33,
-      "stop": 878,
-      "target": 1143,
-      "close": 988.19,
-      "signal_low": 952.01,
-      "atr": 69.76,
-      "readiness": 40,
-      "watchlist_only": true,
-      "exit_by": "2026-11-05 14:30 CT",
-      "note": "touch-and-hold: low 952.01 in zone, settled 988.19 above it on 0.82x volume (light), floor 878 intact. Readiness 40 = watchlist only: record the bar, no live ticket unless readiness clears 50. T1 1102 half, T2 1143. CPI 08:30 ET before the bar."
-    }
-  ],
-  "none": false,
-  "armed_not_signaled": [
-    {
-      "sym": "MU",
-      "row": "B-856",
-      "zone_low": 931.27,
-      "zone_high": 940.72,
-      "stop": 884,
-      "close": 953.19,
-      "session_low": 929.03,
-      "note": "NO SIGNAL on the close rule: touched the zone (low 929.03) and settled 953.19 above it, but on 1.12x volume (heavier than average on a -3.6 pct day). B-856's own trigger is any first 30-min bar 10/14-10/20 closing inside 930.29-940.72, so it is listed here for the entry check, not as a signal. Readiness 50. Zone bottom moves with the settled ATR (about 931.3 per the plan). | 06:45 CT 10/14 (B-876): zone_low updated to 931.27 = 884 + settled ATR 47.27 (Wilder 46.29 through 10/12 + 10/13 TR 60.01). Paper book exit_by 2026-12-09 = entry + 8 weeks (no hard exit in the plan; earnings 12/16 unverified). Test it like a signal (PAPER BOOK STANDING ORDER 2026-10-14).",
-      "atr": 47.27,
-      "t1": 1029,
-      "t2": 1054.17,
-      "readiness": 50,
-      "decide_by": "2026-10-20",
-      "exit_by": "2026-12-09",
-      "trigger_rule": "own trigger: first 30-min bar CLOSES inside the zone (no close signal needed)"
-    }
-  ],
+  "date": "2026-10-14",
+  "signals": [],
+  "none": true,
+  "armed_not_signaled": [],
   "open_paper": [
-    {
-      "sym": "MRNA",
-      "row": "B-854",
-      "entry": 212.79,
-      "stop": 195.9,
-      "target": 249.42,
-      "close": 216.26,
-      "exit_by": "2026-10-23"
-    }
+    {"sym": "MRNA", "id": "PB-001", "row": "B-854", "entry": 212.79, "stop": 195.9, "target": 249.42, "close": 226.345, "exit_by": "2026-10-23"},
+    {"sym": "MU", "id": "PB-002", "row": "B-879", "entry": 938.865, "stop": 884, "t1": 1029, "t2": 1054.17, "close": 913.915, "exit_by": "2026-12-09"}
   ],
-  "note": "Tue 10/13 close check. RH official close field had not rolled at ~15:30 CT; closes are last regular-session prints at 19:59:59Z. SIGNAL: LITE (watchlist only). IN BUY RANGE: LITE 988.19 is above its zone (touched only), so none of the signal names; inside zones at the close: AIP 21.145 (<=21.39 / floor 17.40, no target - plan incomplete), ASPN 5.46 (5.40-5.54, B-561; re-arm needs close > 5.925), SNDG 7.40 (6.78-10.00, B-140 NO TRADE). NO SIGNAL: MU (volume), XOM 174.14 above 164.25-165.90, ETN 428.33 under 438.26 (floor 423 held, low 417), IRD 4.235 under 4.45-4.60 (stop 4.06 held), UBER 71.32 < 71.90, GOOGL 353.78 (stop 326 held). VOID: CBRS 149.04 < 158, IREN 34.825 < 38.40, ORCL dead. Mind-changers fired: MC-128 IRD (B-869), MC-132 IONS (B-870), MC-134 INO (B-871). Bull watch: SMH ON (+15.7 pct over 200-day), leaders SMH/XLE/XBI, no transitions. Paper test 3/10 closed, 0 open."
+  "note": "Wed 10/14 close check. RH official close field had not rolled at ~15:30 CT; closes are last regular-session prints at 19:59:59Z. NO SIGNALS. MU B-856 dropped from armed_not_signaled: the plan was entered on the 10/14 first bar (B-879, paper PB-002 open), so a second morning test would double it; MU closed 913.92 under the 931.27-940.72 zone, 29.92 above the 884 stop. IN BUY RANGE: VRT 222.82 (<=227, floor 211.50, B-444/B-883) on 1.52x volume = wrong volume for a pullback, no signal; AIP 19.67 (<=21.39, floor 17.40, B-288, no target - plan incomplete). NO SIGNAL: LITE 896.46 under 949.03 (stop 878 held, B-891), XOM 177.06 above zone and at target (missed move, B-890), IRD 4.095 under 4.45 (stop 4.06 held), ASPN 5.155 under 5.40 (floor 5.06 held), UBER 69.31 < 71.90, AMZN/SPCX/HIMS/IBIT above zones, GOOGL 347.84 (stop 326 held). VOID: ETN 408.82 < 423 (B-889), SNDG 6.61 < 6.78, IREN 30.56 < 38.40, CBRS 141.49 < 158, MRVL B-779 (B-888), ORCL dead, PWR B-539 expired 10/02. NVDA 221.50 is under the B-745 stop 231.90 (unfunded ticket)."
 }
