@@ -146,6 +146,14 @@ test("CLI: a trade carried in from before the book opened is scored, but no bala
   assert.equal(book.history.length, 0);
 });
 
+test("CLI: a second ticket on a name already held on paper is refused, even under a new row", () => {
+  const db = join(mkdtempSync(join(tmpdir(), "pb-")), "book.json");
+  run(["init", "--balance", "1000", "--date", "2026-10-14", "--db", db]);
+  const add = (row) => run(["add", "--sym", "MU", "--row", row, "--entry", "100", "--shares", "6", "--stop", "95", "--exit-by", "2026-10-20", "--date", "2026-10-14", "--db", db]);
+  assert.match(add("B-879"), /PB-001/);
+  assert.match(add("B-881"), /REFUSED.*already open.*PB-001/);
+});
+
 test("CLI: the score line says what the account made or lost since the last recorded day", () => {
   const db = join(mkdtempSync(join(tmpdir(), "pb-")), "book.json");
   run(["init", "--balance", "1000", "--date", "2026-10-14", "--db", db]);

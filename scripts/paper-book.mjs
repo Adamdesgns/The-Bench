@@ -150,7 +150,9 @@ function main() {
     const sym = val("--sym").toUpperCase(), row = val("--row");
     const entryDate = val("--date") || nyDate();
     if (val("--exit-by") < entryDate) refuse(`the exit date ${val("--exit-by")} is before the entry date ${entryDate}`);
-    if (book.trades.some((t) => t.status === "OPEN" && t.sym === sym && t.source_row === row)) refuse(`${sym} ${row} is already open in the paper book`);
+    // One open paper position per name and side: a plan that re-fires under a new row must not double the position.
+    const held = book.trades.find((t) => t.status === "OPEN" && t.sym === sym && t.side === side);
+    if (held) refuse(`${sym} ${side} is already open in the paper book as ${held.id} (${held.source_row}); a re-fire does not add to it`);
     const t = {
       id: `PB-${String(book.trades.length + 1).padStart(3, "0")}`, sym, side, lane: val("--lane") || "entry-check", source_row: row,
       entry_date: entryDate, entry, shares, stop, t1, t2, stop_after_t1: num("--stop-after-t1") ?? null, exit_by: val("--exit-by"),
