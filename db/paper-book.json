@@ -1,0 +1,35 @@
+{
+  "account": {
+    "start_date": "2026-10-14",
+    "start_balance": 3575.98
+  },
+  "trades": [
+    {
+      "id": "PB-001",
+      "sym": "MRNA",
+      "side": "long",
+      "lane": "dated-catalyst",
+      "source_row": "B-854",
+      "entry_date": "2026-10-13",
+      "entry": 212.79,
+      "shares": 10,
+      "stop": 195.9,
+      "t1": 249.42,
+      "t2": null,
+      "stop_after_t1": null,
+      "exit_by": "2026-10-23",
+      "readiness": null,
+      "grade": null,
+      "note": "Carried in: DATED-CATALYST PAPER instance 1 of 5 (signal B-840, plan B-828), half band; exit by the 10/23 close before ESMO",
+      "status": "OPEN",
+      "shares_open": 10,
+      "t1_done": false,
+      "legs": [],
+      "realized": 0,
+      "r": null,
+      "last_scored": "2026-10-13",
+      "last_close": 216.25
+    }
+  ],
+  "history": []
+}

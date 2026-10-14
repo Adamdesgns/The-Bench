@@ -23,16 +23,31 @@
     {
       "sym": "MU",
       "row": "B-856",
-      "zone_low": 930.29,
+      "zone_low": 931.27,
       "zone_high": 940.72,
       "stop": 884,
       "close": 953.19,
       "session_low": 929.03,
-      "note": "NO SIGNAL on the close rule: touched the zone (low 929.03) and settled 953.19 above it, but on 1.12x volume (heavier than average on a -3.6 pct day). B-856's own trigger is any first 30-min bar 10/14-10/20 closing inside 930.29-940.72, so it is listed here for the entry check, not as a signal. Readiness 50. Zone bottom moves with the settled ATR (about 931.3 per the plan)."
+      "note": "NO SIGNAL on the close rule: touched the zone (low 929.03) and settled 953.19 above it, but on 1.12x volume (heavier than average on a -3.6 pct day). B-856's own trigger is any first 30-min bar 10/14-10/20 closing inside 930.29-940.72, so it is listed here for the entry check, not as a signal. Readiness 50. Zone bottom moves with the settled ATR (about 931.3 per the plan). | 06:45 CT 10/14 (B-876): zone_low updated to 931.27 = 884 + settled ATR 47.27 (Wilder 46.29 through 10/12 + 10/13 TR 60.01). Paper book exit_by 2026-12-09 = entry + 8 weeks (no hard exit in the plan; earnings 12/16 unverified). Test it like a signal (PAPER BOOK STANDING ORDER 2026-10-14).",
+      "atr": 47.27,
+      "t1": 1029,
+      "t2": 1054.17,
+      "readiness": 50,
+      "decide_by": "2026-10-20",
+      "exit_by": "2026-12-09",
+      "trigger_rule": "own trigger: first 30-min bar CLOSES inside the zone (no close signal needed)"
     }
   ],
   "open_paper": [
-    {"sym": "MRNA", "row": "B-854", "entry": 212.79, "stop": 195.9, "target": 249.42, "close": 216.26, "exit_by": "2026-10-23"}
+    {
+      "sym": "MRNA",
+      "row": "B-854",
+      "entry": 212.79,
+      "stop": 195.9,
+      "target": 249.42,
+      "close": 216.26,
+      "exit_by": "2026-10-23"
+    }
   ],
   "note": "Tue 10/13 close check. RH official close field had not rolled at ~15:30 CT; closes are last regular-session prints at 19:59:59Z. SIGNAL: LITE (watchlist only). IN BUY RANGE: LITE 988.19 is above its zone (touched only), so none of the signal names; inside zones at the close: AIP 21.145 (<=21.39 / floor 17.40, no target - plan incomplete), ASPN 5.46 (5.40-5.54, B-561; re-arm needs close > 5.925), SNDG 7.40 (6.78-10.00, B-140 NO TRADE). NO SIGNAL: MU (volume), XOM 174.14 above 164.25-165.90, ETN 428.33 under 438.26 (floor 423 held, low 417), IRD 4.235 under 4.45-4.60 (stop 4.06 held), UBER 71.32 < 71.90, GOOGL 353.78 (stop 326 held). VOID: CBRS 149.04 < 158, IREN 34.825 < 38.40, ORCL dead. Mind-changers fired: MC-128 IRD (B-869), MC-132 IONS (B-870), MC-134 INO (B-871). Bull watch: SMH ON (+15.7 pct over 200-day), leaders SMH/XLE/XBI, no transitions. Paper test 3/10 closed, 0 open."
 }
