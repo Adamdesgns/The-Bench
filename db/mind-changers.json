@@ -2590,6 +2590,54 @@
       "row": "B-875",
       "expires": "2026-10-16",
       "status": "open"
+    },
+    {
+      "id": "MC-152",
+      "created": "2026-10-14",
+      "when": [
+        {
+          "ticker": "DELL",
+          "op": ">",
+          "level": 547.17
+        }
+      ],
+      "meaning": "downgrade selling reversed - re-judge DELL",
+      "source": "docs/reads/2026-10-14-snapshot-1010.md",
+      "row": "B-881",
+      "expires": "2026-10-21",
+      "status": "open"
+    },
+    {
+      "id": "MC-153",
+      "created": "2026-10-14",
+      "when": [
+        {
+          "ticker": "VRT",
+          "op": "<",
+          "level": 211.5
+        }
+      ],
+      "meaning": "B-444 accumulation floor broke on a close - thesis review, not a discount",
+      "source": "fastmover 2026-10-14 1254",
+      "row": "B-883",
+      "expires": "2026-10-21",
+      "status": "open"
+    },
+    {
+      "id": "MC-154",
+      "created": "2026-10-14",
+      "when": [
+        {
+          "ticker": "VRT",
+          "op": ">",
+          "level": 227
+        }
+      ],
+      "meaning": "VRT closed back over the B-444 zone top after tagging it - re-judge with a fresh framework run",
+      "source": "fastmover 2026-10-14 1254",
+      "row": "B-883",
+      "expires": "2026-10-21",
+      "status": "open"
     }
   ]
 }
