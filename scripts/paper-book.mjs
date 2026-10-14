@@ -5,6 +5,11 @@
 //   node scripts/paper-book.mjs add --sym MU --row B-876 --entry 938.50 --shares 6 --stop 884 \
 //        --t1 1029 --t2 1054.17 --exit-by 2026-10-20 [--side long|short] [--lane entry-check] \
 //        [--date D] [--stop-after-t1 X] [--readiness N] [--grade B-] [--note "..."]
+//   node scripts/paper-book.mjs hunt-add --candidates db/hunts/options/<date>.candidates.json --bids '{"ASTS":41.80}' \
+//        [--rows '{"ASTS":"B-895"}'] [--earnings '{"ASTS":"2026-11-09"}'] [--skip SYM,..] [--band N] [--date D]
+//        every READY short in the hunt receipt -> lane hunter-short, short at the after-hours bid, the hunter's
+//        stop and target, shares = floor(band / (stop - bid)), out after the hunter's horizon (10 sessions) or
+//        the session before earnings, whichever is first. --skip = names the desk took live. No row = receipt id.
 //   node scripts/paper-book.mjs score --bars '{"MU":{"open":..,"high":..,"low":..,"close":..}}' [--date D] [--write]
 //   node scripts/paper-book.mjs close --id PB-001 --price P [--date D] [--why MANUAL]
 //   node scripts/paper-book.mjs report [--json]
@@ -34,6 +39,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { addWeekdays } from "./predict.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(here, "..");
@@ -112,6 +118,32 @@ export function summarize(book) {
   };
 }
 
+const prevWeekday = (iso) => {
+  const d = new Date(`${iso}T12:00:00Z`);
+  do d.setUTCDate(d.getUTCDate() - 1); while ([0, 6].includes(d.getUTCDay()));
+  return d.toISOString().slice(0, 10);
+};
+
+// Check one paper trade and build it. Returns { trade } or { refused: why }; the caller decides whether a refusal ends the run.
+function openTrade(book, f) {
+  const side = f.side, d = side === "short" ? -1 : 1, sym = String(f.sym).toUpperCase();
+  if (!Number.isInteger(f.shares) || f.shares <= 0) return { refused: `--shares must be a whole number above 0 (got ${f.shares})` };
+  if (!(d * (f.entry - f.stop) > 0)) return { refused: `the stop ${f.stop} is on the wrong side of the ${side} entry ${f.entry}` };
+  for (const x of [f.t1, f.t2]) if (x != null && !(d * (x - f.entry) > 0)) return { refused: `the target ${x} is on the wrong side of the ${side} entry ${f.entry}` };
+  if (f.exitBy < f.entryDate) return { refused: `the exit date ${f.exitBy} is before the entry date ${f.entryDate}` };
+  // One open paper position per name and side: a plan that re-fires under a new row must not double the position.
+  const held = book.trades.find((t) => t.status === "OPEN" && t.sym === sym && t.side === side);
+  if (held) return { refused: `${sym} ${side} is already open in the paper book as ${held.id} (${held.source_row}); a re-fire does not add to it` };
+  return { trade: {
+    id: `PB-${String(book.trades.length + 1).padStart(3, "0")}`, sym, side, lane: f.lane, source_row: f.row,
+    entry_date: f.entryDate, entry: f.entry, shares: f.shares, stop: f.stop, t1: f.t1, t2: f.t2, stop_after_t1: f.stopAfterT1, exit_by: f.exitBy,
+    readiness: f.readiness, grade: f.grade, note: f.note,
+    status: "OPEN", shares_open: f.shares, t1_done: false, legs: [], realized: 0, r: null, last_scored: null, last_close: null,
+  } };
+}
+
+const describe = (t) => `${t.id} ${t.side.toUpperCase()} ${t.shares} ${t.sym} at ${t.entry}, stop ${t.stop} (risk ${riskOf(t).toFixed(2)}), targets ${t.t1 ?? "none"}/${t.t2 ?? "none"}, out by the ${t.exit_by} close [${t.source_row}, ${t.lane}]. No money at risk.`;
+
 function load(p) { return existsSync(p) ? JSON.parse(readFileSync(p, "utf8")) : { account: null, trades: [], history: [] }; }
 function save(p, d) { writeFileSync(p, JSON.stringify(d, null, 2) + "\n"); }
 const money = (x) => `${x < 0 ? "-" : "+"}${Math.abs(x).toFixed(2)}`;
@@ -141,26 +173,55 @@ function main() {
     const need = ["--sym", "--row", "--entry", "--shares", "--stop", "--exit-by"];
     const miss = need.filter((f) => val(f) === undefined);
     if (miss.length) refuse(`missing ${miss.join(", ")} (a paper trade with no exit date can never be scored)`);
-    const side = val("--side") || "long", d = side === "short" ? -1 : 1;
-    const entry = num("--entry"), stop = num("--stop"), shares = num("--shares");
-    const t1 = num("--t1") ?? null, t2 = num("--t2") ?? null;
-    if (!Number.isInteger(shares) || shares <= 0) refuse(`--shares must be a whole number above 0 (got ${val("--shares")})`);
-    if (!(d * (entry - stop) > 0)) refuse(`the stop ${stop} is on the wrong side of the ${side} entry ${entry}`);
-    for (const x of [t1, t2]) if (x != null && !(d * (x - entry) > 0)) refuse(`the target ${x} is on the wrong side of the ${side} entry ${entry}`);
-    const sym = val("--sym").toUpperCase(), row = val("--row");
-    const entryDate = val("--date") || nyDate();
-    if (val("--exit-by") < entryDate) refuse(`the exit date ${val("--exit-by")} is before the entry date ${entryDate}`);
-    // One open paper position per name and side: a plan that re-fires under a new row must not double the position.
-    const held = book.trades.find((t) => t.status === "OPEN" && t.sym === sym && t.side === side);
-    if (held) refuse(`${sym} ${side} is already open in the paper book as ${held.id} (${held.source_row}); a re-fire does not add to it`);
-    const t = {
-      id: `PB-${String(book.trades.length + 1).padStart(3, "0")}`, sym, side, lane: val("--lane") || "entry-check", source_row: row,
-      entry_date: entryDate, entry, shares, stop, t1, t2, stop_after_t1: num("--stop-after-t1") ?? null, exit_by: val("--exit-by"),
+    const o = openTrade(book, {
+      sym: val("--sym"), row: val("--row"), side: val("--side") || "long", lane: val("--lane") || "entry-check",
+      entryDate: val("--date") || nyDate(), entry: num("--entry"), shares: num("--shares"), stop: num("--stop"),
+      t1: num("--t1") ?? null, t2: num("--t2") ?? null, stopAfterT1: num("--stop-after-t1") ?? null, exitBy: val("--exit-by"),
       readiness: num("--readiness") ?? null, grade: val("--grade") ?? null, note: val("--note") ?? null,
-      status: "OPEN", shares_open: shares, t1_done: false, legs: [], realized: 0, r: null, last_scored: null, last_close: null,
-    };
-    book.trades.push(t); save(DB, book);
-    console.log(`PAPER ${t.id} ${side.toUpperCase()} ${shares} ${sym} at ${entry}, stop ${stop} (risk ${riskOf(t).toFixed(2)}), targets ${t1 ?? "none"}/${t2 ?? "none"}, out by the ${t.exit_by} close [${row}, ${t.lane}]. No money at risk.`);
+    });
+    if (o.refused) refuse(o.refused);
+    book.trades.push(o.trade); save(DB, book);
+    console.log(`PAPER ${describe(o.trade)}`);
+    return;
+  }
+
+  // Every short the hunters call READY goes into the hunter-short lane (Adam, 2026-10-14: "Yes, do that"),
+  // so the record shows whether those calls make money where the desk's 2:1 rule passed them.
+  if (cmd === "hunt-add") {
+    if (!book.account) refuse("no paper book yet - run init --balance N first");
+    if (!val("--candidates")) refuse("pass --candidates db/hunts/options/<date>.candidates.json (the hunt receipt)");
+    const c = JSON.parse(readFileSync(resolve(val("--candidates")), "utf8"));
+    const map = (f) => Object.fromEntries(Object.entries(JSON.parse(val(f) || "{}")).map(([k, v]) => [k.toUpperCase(), v]));
+    const bids = map("--bids"), rows = map("--rows"), earnings = map("--earnings");
+    const skip = new Set((val("--skip") || "").toUpperCase().split(",").filter(Boolean));
+    const band = num("--band") ?? c.band;
+    const date = val("--date") || c.asof;
+    const ready = (c.candidates || []).filter((x) => x.side === "short" && x.list === "READY" && x.ok !== false);
+    const lines = [];
+    for (const x of ready) {
+      const sym = x.sym.toUpperCase(), g = x.geometry || {}, bid = Number(bids[sym]);
+      if (skip.has(sym)) { lines.push(`  SKIP     ${sym} - the desk took it live`); continue; }
+      if (!(bid > 0)) { lines.push(`  SKIP     ${sym} - no bid passed in --bids`); continue; }
+      if (!(g.stop > bid)) { lines.push(`  SKIP     ${sym} - the bid ${bid} is at or above the stop ${g.stop}`); continue; }
+      const shares = Math.floor(band / (g.stop - bid));
+      if (shares < 1) { lines.push(`  SKIP     ${sym} - the band ${r2(band)} buys less than one share against a ${r2(g.stop - bid)} stop`); continue; }
+      let exitBy = addWeekdays(date, x.evidence?.horizon ?? c.opts?.horizon ?? 10);
+      if (earnings[sym] && prevWeekday(earnings[sym]) < exitBy) exitBy = prevWeekday(earnings[sym]);
+      if (exitBy <= date) { lines.push(`  SKIP     ${sym} - earnings ${earnings[sym]} come before a session it could be held`); continue; }
+      const ev = x.evidence || {};
+      const o = openTrade(book, {
+        sym, row: rows[sym] || `hunt:${c.id}`, side: "short", lane: "hunter-short", entryDate: date, entry: bid, shares,
+        stop: g.stop, t1: g.target ?? null, t2: null, stopAfterT1: null, exitBy, readiness: x.readiness ?? null, grade: null,
+        note: `auto: hunter READY short, receipt ${c.id}; hunter p_dir ${ev.p_dir ?? "-"}% p_reach ${ev.p_reach ?? "-"}%; entry = the after-hours bid`,
+      });
+      if (o.refused) { lines.push(/already open/.test(o.refused) ? `  HELD     ${sym} - ${o.refused}` : `  REFUSED  ${sym} - ${o.refused}`); continue; }
+      book.trades.push(o.trade);
+      lines.push(`  ADDED    ${describe(o.trade)}`);
+    }
+    const added = lines.filter((l) => l.startsWith("  ADDED")).length;
+    if (added) save(DB, book);
+    console.log(`PAPER HUNT-ADD ${date} (receipt ${c.id}): ${added} added from ${ready.length} READY short(s). No money at risk.`);
+    lines.forEach((l) => console.log(l));
     return;
   }
 
@@ -223,7 +284,7 @@ function main() {
     return;
   }
 
-  console.log("usage: paper-book.mjs init|add|score|close|report  (see header)");
+  console.log("usage: paper-book.mjs init|add|hunt-add|score|close|report  (see header)");
   process.exit(1);
 }
 

@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
@@ -152,6 +152,79 @@ test("CLI: a second ticket on a name already held on paper is refused, even unde
   const add = (row) => run(["add", "--sym", "MU", "--row", row, "--entry", "100", "--shares", "6", "--stop", "95", "--exit-by", "2026-10-20", "--date", "2026-10-14", "--db", db]);
   assert.match(add("B-879"), /PB-001/);
   assert.match(add("B-881"), /REFUSED.*already open.*PB-001/);
+});
+
+// hunt-add: every short the hunters call READY goes into the hunter-short lane on paper (Adam, 2026-10-14: "Yes, do that").
+const huntFile = (cands, extra = {}) => {
+  const dir = mkdtempSync(join(tmpdir(), "pbh-"));
+  const p = join(dir, "c.json");
+  writeFileSync(p, JSON.stringify({ kind: "options-hunter-candidates", asof: "2026-10-14", id: "abc12345", band: 348, opts: { horizon: 10 }, candidates: cands, ...extra }));
+  return { db: join(dir, "book.json"), cands: p };
+};
+const ready = (sym, entry, stop, target, list = "READY", side = "short") =>
+  ({ side, sym, ok: true, list, close: entry, readiness: 60, geometry: { entry, stop, target }, evidence: { horizon: 10, p_dir: 51.76, p_reach: 0 } });
+
+test("CLI hunt-add: a READY short goes in at the bid, sized from the band, with the hunter's stop and target, out after the horizon", () => {
+  const f = huntFile([ready("X", 42.14, 48.82, 24.48), ready("Y", 20, 23, 14, "STALK"), ready("Z", 50, 45, 60, "READY", "long")]);
+  run(["init", "--balance", "3480", "--date", "2026-10-14", "--db", f.db]);
+  const out = run(["hunt-add", "--candidates", f.cands, "--bids", '{"x":41.80}', "--rows", '{"X":"B-895"}', "--db", f.db]);
+  assert.match(out, /ADDED/);
+  const book = JSON.parse(readFileSync(f.db, "utf8"));
+  assert.equal(book.trades.length, 1);
+  const t = book.trades[0];
+  assert.equal(t.sym, "X");
+  assert.equal(t.side, "short");
+  assert.equal(t.lane, "hunter-short");
+  assert.equal(t.entry, 41.8);
+  assert.equal(t.shares, 49); // floor(348 / (48.82 - 41.80))
+  assert.equal(t.stop, 48.82);
+  assert.equal(t.t1, 24.48);
+  assert.equal(t.t2, null);
+  assert.equal(t.entry_date, "2026-10-14");
+  assert.equal(t.exit_by, "2026-10-28"); // 10 weekdays on
+  assert.equal(t.source_row, "B-895");
+  assert.equal(t.readiness, 60);
+});
+
+test("CLI hunt-add: with no book row the trade is anchored to the hunt receipt", () => {
+  const f = huntFile([ready("X", 42.14, 48.82, 24.48)]);
+  run(["init", "--balance", "3480", "--date", "2026-10-14", "--db", f.db]);
+  run(["hunt-add", "--candidates", f.cands, "--bids", '{"X":41.80}', "--db", f.db]);
+  assert.equal(JSON.parse(readFileSync(f.db, "utf8")).trades[0].source_row, "hunt:abc12345");
+});
+
+test("CLI hunt-add: an earnings report inside the horizon moves the exit to the session before it, or skips the name", () => {
+  const f = huntFile([ready("X", 42.14, 48.82, 24.48), ready("W", 11.54, 13.33, 7.51)]);
+  run(["init", "--balance", "3480", "--date", "2026-10-14", "--db", f.db]);
+  const out = run(["hunt-add", "--candidates", f.cands, "--bids", '{"X":41.80,"W":11.40}', "--earnings", '{"X":"2026-10-26","W":"2026-10-15"}', "--db", f.db]);
+  const book = JSON.parse(readFileSync(f.db, "utf8"));
+  assert.equal(book.trades.length, 1);
+  assert.equal(book.trades[0].exit_by, "2026-10-23"); // the Friday before a Monday report
+  assert.match(out, /SKIP\s+W .*earnings/);
+});
+
+test("CLI hunt-add: skips a name the desk took live, a name with no bid, a bid through the stop, a band too small for one share, and holds an existing short", () => {
+  const f = huntFile([
+    ready("A", 42.14, 48.82, 24.48), ready("B", 20, 23, 14), ready("C", 30, 34, 17),
+    ready("D", 11.5, 13.3, 7.5), ready("E", 90, 99, 41), ready("F", 900, 1300, 500),
+  ]);
+  run(["init", "--balance", "3480", "--date", "2026-10-14", "--db", f.db]);
+  run(["add", "--sym", "E", "--row", "B-1", "--side", "short", "--entry", "90", "--shares", "10", "--stop", "99", "--exit-by", "2026-10-28", "--date", "2026-10-14", "--db", f.db]);
+  const out = run(["hunt-add", "--candidates", f.cands, "--bids", '{"A":41.8,"C":34.5,"D":11.4,"E":89,"F":899}', "--skip", "D", "--db", f.db]);
+  assert.match(out, /ADDED\s+PB-002 .*A/);
+  assert.match(out, /SKIP\s+B .*no bid/);
+  assert.match(out, /SKIP\s+C .*stop/);
+  assert.match(out, /SKIP\s+D .*live/);
+  assert.match(out, /HELD\s+E/);
+  assert.match(out, /SKIP\s+F .*less than one share/);
+  assert.equal(JSON.parse(readFileSync(f.db, "utf8")).trades.length, 2);
+});
+
+test("CLI hunt-add: refuses before init and without a candidates file", () => {
+  const f = huntFile([ready("X", 42.14, 48.82, 24.48)]);
+  assert.match(run(["hunt-add", "--candidates", f.cands, "--bids", '{"X":41.80}', "--db", f.db]), /REFUSED.*init/);
+  run(["init", "--balance", "3480", "--date", "2026-10-14", "--db", f.db]);
+  assert.match(run(["hunt-add", "--db", f.db]), /REFUSED.*--candidates/);
 });
 
 test("CLI: the score line says what the account made or lost since the last recorded day", () => {
