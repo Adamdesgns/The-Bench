@@ -2569,6 +2569,27 @@
       "row": "B-868",
       "expires": "2026-10-20",
       "status": "open"
+    },
+    {
+      "id": "MC-151",
+      "created": "2026-10-14",
+      "when": [
+        {
+          "ticker": "ASML",
+          "op": ">",
+          "level": 1717.76
+        },
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 590.99
+        }
+      ],
+      "meaning": "the ASML beat reached the toolmakers and the chip tape - re-judge the SMH pass",
+      "source": "docs/reads/2026-10-14-premarket.md",
+      "row": "B-875",
+      "expires": "2026-10-16",
+      "status": "open"
     }
   ]
 }
