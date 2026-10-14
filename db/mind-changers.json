@@ -2672,6 +2672,70 @@
       "row": "B-884",
       "expires": "2026-11-04",
       "status": "open"
+    },
+    {
+      "id": "MC-156",
+      "created": "2026-10-14",
+      "when": [
+        {
+          "ticker": "ASTS",
+          "op": ">=",
+          "level": 47.75
+        }
+      ],
+      "meaning": "desk stop / retest watch: back at the 10/9 break level. If it closes back under 47.00 next session, the failed-retest short is live (entry ~47, stop 51.60, target 36.08 = 2.4:1) - re-run the framework",
+      "source": "site/reviews/2026-10-14-asts.md",
+      "row": "B-895",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-157",
+      "created": "2026-10-14",
+      "when": [
+        {
+          "ticker": "ASTS",
+          "op": ">=",
+          "level": 48.82
+        }
+      ],
+      "meaning": "hunter stop (options-hunter debb836a): the 2-session high reclaimed, the hunter's short READY call is stopped",
+      "source": "site/reviews/2026-10-14-asts.md",
+      "row": "B-895",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-158",
+      "created": "2026-10-14",
+      "when": [
+        {
+          "ticker": "ASTS",
+          "op": "<=",
+          "level": 36.08
+        }
+      ],
+      "meaning": "desk target: the Sept-2025 pivot reached - B-895 passed a short that paid; score the pass as a missed move and check whether 24.48 is now in play",
+      "source": "site/reviews/2026-10-14-asts.md",
+      "row": "B-895",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-159",
+      "created": "2026-10-14",
+      "when": [
+        {
+          "ticker": "ASTS",
+          "op": "<=",
+          "level": 24.48
+        }
+      ],
+      "meaning": "hunter target: the 2025-03-04 pivot reached - the 0/85 base rate was wrong this time; score options-hunter p_reach",
+      "source": "site/reviews/2026-10-14-asts.md",
+      "row": "B-895",
+      "expires": "2026-10-28",
+      "status": "open"
     }
   ]
 }

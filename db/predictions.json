@@ -4264,6 +4264,46 @@
         "sessions_done": 0,
         "path": null
       }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "ASTS",
+      "side": "short",
+      "made": "2026-10-14",
+      "price": 42.14,
+      "target": 24.48,
+      "stop": 48.82,
+      "sessions": 10,
+      "horizon_est": "2026-10-28",
+      "p_dir": 51.76,
+      "p_reach": 0,
+      "claim": "short READY 2.64:1 to the 2025-03-04 pivot; desk passed (target never reached in 10 sessions, 0/85)",
+      "row": "B-895",
+      "receipt": "debb836a",
+      "id": "PR-127",
+      "status": "open",
+      "score": null,
+      "logged": "2026-10-14T21:22:30.197Z"
+    },
+    {
+      "source": "desk",
+      "ticker": "ASTS",
+      "side": "short",
+      "made": "2026-10-14",
+      "price": 42.13,
+      "target": 36.08,
+      "stop": 47.75,
+      "sessions": 10,
+      "horizon_est": "2026-10-28",
+      "p_dir": 55,
+      "p_reach": null,
+      "claim": "No Trade, but leans lower: 55% it trades down over 10 sessions; the realistic floor is the 36.08 Sept-2025 pivot (1.08:1 off a 47.75 stop)",
+      "row": "B-895",
+      "receipt": null,
+      "id": "PR-128",
+      "status": "open",
+      "score": null,
+      "logged": "2026-10-14T21:22:30.278Z"
     }
   ]
 }

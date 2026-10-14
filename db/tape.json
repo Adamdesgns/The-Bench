@@ -1,25 +1,25 @@
 {
-  "asof": "2026-10-14T06:19:00-05:00",
-  "session": "pre-market",
-  "basis": "last extended-hours print vs the 10/13 official close",
+  "asof": "2026-10-14T15:00:00-05:00",
+  "session": "mixed",
+  "basis": "SPY/QQQ/ASTS at the 10/14 close; the rest from the 06:19 CT pre-market pull",
   "source": "Robinhood MCP get_equity_quotes / get_crypto_quotes",
-  "note": "Run the market 06:19 CT, before CPI 08:30 ET: GOOGL +1.2 toward its 360 sell zone, MU inside its B-856 buy zone, chips soft, BAC -4.1 after its report.",
+  "note": "ASTS run 16:20 CT (B-895): -10.5% to a 52-week low after the SpaceX spectrum deal and the Piper downgrade; No Trade on both sides. Earlier: run the market 06:19 CT before CPI.",
   "quotes": [
     {
       "ticker": "SPY",
-      "last": 779.53,
+      "last": 769.63,
       "prev_close": 778.01,
-      "change_pct": 0.2,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -1.08,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "QQQ",
-      "last": 742.95,
+      "last": 728.84,
       "prev_close": 743.57,
-      "change_pct": -0.08,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -1.98,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "DIA",
@@ -292,6 +292,14 @@
       "change_pct": -0.32,
       "asof": "2026-10-14T06:19:00-05:00",
       "session": "24/7"
+    },
+    {
+      "ticker": "ASTS",
+      "last": 42.13,
+      "prev_close": 47.065,
+      "change_pct": -10.49,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     }
   ]
 }
