@@ -679,5 +679,21 @@
     "lane": "rotation-leader",
     "decide_by": "2026-10-19",
     "exit_by": "2026-10-27"
+  },
+  {
+    "sym": "BTC-USD",
+    "status": "CONDITIONAL-PAPER",
+    "note": "**B-911 (2026-10-15, full suite + hunters, supersedes B-800): PAPER until Adam confirms a Robinhood BTC sell-stop rests and triggers on weekends.** SIGNAL = a SETTLED Yahoo UTC-day bar (settles 7 PM CT; weekend bars count) from the 10/16 bar through the 10/22 bar with low <= 76,600, low > 73,775.57, close >= max(76,228, 73,725 + ATR(14) incl that bar); void if ATR > 3,009.61. BUY at the ask <= 77,324, market-maker routing only, no resting buys (crypto limits rest 90 days). STOP GTC sell-stop 73,028 (bid trigger, ~73,725 mark); confirm it filled (5% collar). T1 87,146.35 (half, by hand), T2 88,466.95. HARD EXIT 12:45 PM CT 10/28 before the Fed. Band 0.0818 BTC; funded 0.009083 BTC = 9 risk. A weekday close check of the live mark is NOT the signal: read the settled UTC bar. Watchers MC-108, MC-168..MC-176.",
+    "thesis_flag": null,
+    "buy_zone": 76600,
+    "floor": 73725,
+    "rr_target": 87146.35,
+    "zone_why": "zone 76,228-76,600 = top of the 75.9-76.9K shelf (24+ touches); stop 50 under the 4/20/26 pivot 73,775.57, 1.14 ATR under the zone bottom; 2.095:1 at the worst fill after the 1.9% spread",
+    "size_plan": "band 351.23 = 0.0818 BTC (more than the account); funded 0.009083 BTC with 702.30 crypto BP, 39.02 at risk",
+    "row": "B-911",
+    "hunt": "STALK short (hunt-short b776e4e5, options-hunter 95e7fa1c)",
+    "lane": "support-bounce",
+    "decide_by": "2026-10-22",
+    "exit_by": "2026-10-28"
   }
 ]

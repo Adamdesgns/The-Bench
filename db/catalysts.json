@@ -1297,5 +1297,15 @@
     "what": "Quarterly earnings, before the open",
     "source": "Robinhood get_earnings_calendar pull 2026-10-11 11:15 CT (verified=true)",
     "logged": "2026-10-11"
+  },
+  {
+    "date": "2026-10-29",
+    "type": "macro",
+    "confidence": "confirmed",
+    "what": "GDP (advance, Q3) + Personal Income and Outlays incl. September PCE, 08:30 ET",
+    "label": "GDP advance Q3 + September PCE, 08:30 ET",
+    "source": "US Bureau of Economic Analysis release schedule, checked by the BTC full-suite run data verifier on 2026-10-15. BEA releases are not covered by scripts/macro-sync.mjs (BLS only), which is why this row was missing.",
+    "verified_by": "BTC run verifier 2026-10-15 (B-911)",
+    "logged": "2026-10-15"
   }
 ]

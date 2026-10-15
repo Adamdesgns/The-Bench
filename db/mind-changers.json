@@ -1900,7 +1900,10 @@
       "source": "chat 2026-10-08 hunters on BTC",
       "row": "B-800",
       "expires": "2026-10-22",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-10",
+      "fired_detail": "BTC-USD 82912.23 > 82571 yes (settled Yahoo UTC bar 10/10; also held on the 10/11 83,679.47 and 10/13 83,095.13 settles)",
+      "fired_late_note": "Recorded late on 2026-10-15 by the BTC full-suite run (B-911). No routine checked BTC settles 10/09-10/14; the re-look happened in B-911, which replaces this test with MC-168 (BTC-USD>84249.22)."
     },
     {
       "id": "MC-110",
@@ -2863,6 +2866,155 @@
       "source": "docs/reads/2026-10-15-snapshot-1010.md",
       "row": "B-910",
       "expires": "2026-10-22",
+      "status": "open"
+    },
+    {
+      "id": "MC-168",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": ">",
+          "level": 84249.22
+        }
+      ],
+      "meaning": "B-911 re-judge: a settled UTC close over the 10/12 lower high breaks the lower-high chain; the 76.2K zone probably will not fill. Also the stop on desk prediction PR-131. Replaces MC-109's job",
+      "source": "site/reviews/2026-10-15-btc.md",
+      "row": "B-911",
+      "expires": "2026-10-22",
+      "status": "open"
+    },
+    {
+      "id": "MC-169",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": "<=",
+          "level": 76600
+        },
+        {
+          "ticker": "BTC-USD",
+          "op": ">=",
+          "level": 76228
+        }
+      ],
+      "meaning": "B-911 ENTRY SIGNAL (close-only proxy): a settled UTC close inside the zone. Then check the bar: low > 73,775.57 and close >= 73,725 + ATR incl that bar; buy at the ask <= 77,324 (market-maker routing), paper until the weekend stop is confirmed. A dip-and-close-above bar needs the bar low, which this test cannot see",
+      "source": "site/reviews/2026-10-15-btc.md",
+      "row": "B-911",
+      "expires": "2026-10-22",
+      "status": "open"
+    },
+    {
+      "id": "MC-170",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": "<",
+          "level": 73725
+        }
+      ],
+      "meaning": "B-911 STOP level (sell-stop 73,028 on the bid). Filled: confirm the stop actually filled (5% collar). Not filled: the floor under the 74.4-75.0K cluster is gone, vacuum to the 67,373 pivot; long dead, re-look the short side on paper",
+      "source": "site/reviews/2026-10-15-btc.md",
+      "row": "B-911",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-171",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": ">",
+          "level": 87146.35
+        }
+      ],
+      "meaning": "B-911 T1 (10/02 pivot): if filled, sell half by hand at the bid (~86,323) and trail the rest no closer than 1.0 ATR",
+      "source": "site/reviews/2026-10-15-btc.md",
+      "row": "B-911",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-172",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": ">",
+          "level": 88466.95
+        }
+      ],
+      "meaning": "B-911 T2 (4/2/25 pivot): if filled, sell the rest; otherwise the 12:45 PM CT 10/28 time exit sells it",
+      "source": "site/reviews/2026-10-15-btc.md",
+      "row": "B-911",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-173",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": "<",
+          "level": 80336.91
+        }
+      ],
+      "meaning": "B-911 short-side passed trigger: a settled close under the 10/08 pivot (20-bar low). Re-look short gate 2 only on 1.5x volume; paper only (cannot short crypto here), and the first floors still fail 2:1",
+      "source": "site/reviews/2026-10-15-btc.md",
+      "row": "B-911",
+      "expires": "2026-10-22",
+      "status": "open"
+    },
+    {
+      "id": "MC-174",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": "<=",
+          "level": 79205.52
+        }
+      ],
+      "meaning": "Desk prediction PR-131 target: a settled close at or under the 5/8/26 pivot before a close over 84,249.22 = the dip-before-rip read was right",
+      "source": "site/reviews/2026-10-15-btc.md",
+      "row": "B-911",
+      "expires": "2026-10-22",
+      "status": "open"
+    },
+    {
+      "id": "MC-175",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": "<=",
+          "level": 74436.68
+        }
+      ],
+      "meaning": "Hunter prediction PR-130 (options-hunter 95e7fa1c) target reached",
+      "source": "site/reviews/2026-10-15-btc.md",
+      "row": "B-911",
+      "expires": "2026-10-25",
+      "status": "open"
+    },
+    {
+      "id": "MC-176",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": ">=",
+          "level": 84049.06
+        }
+      ],
+      "meaning": "Hunter prediction PR-130 (options-hunter 95e7fa1c) stop: the hunter's short is wrong",
+      "source": "site/reviews/2026-10-15-btc.md",
+      "row": "B-911",
+      "expires": "2026-10-25",
       "status": "open"
     }
   ]
