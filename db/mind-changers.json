@@ -2752,6 +2752,102 @@
       "row": "B-900",
       "expires": "2026-10-16",
       "status": "open"
+    },
+    {
+      "id": "MC-161",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 728.95
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-901: QQQ closed back over Wed close after hot PPI + TSM-beat selloff",
+      "source": "docs/reads/2026-10-15-sotm.md",
+      "row": "B-901",
+      "expires": "2026-10-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-162",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "UNH",
+          "op": ">=",
+          "level": 434.3
+        }
+      ],
+      "meaning": "UNH B-906 target hit (7/9 high) - score the plan and the paper trade if it entered",
+      "source": "site/reviews/2026-10-15-market.md",
+      "row": "B-906",
+      "expires": "2026-10-27",
+      "status": "open"
+    },
+    {
+      "id": "MC-163",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "UNH",
+          "op": "<=",
+          "level": 396.3
+        }
+      ],
+      "meaning": "UNH B-906 stop: the open gap from 10/14 filled, plan dead",
+      "source": "site/reviews/2026-10-15-market.md",
+      "row": "B-906",
+      "expires": "2026-10-27",
+      "status": "open"
+    },
+    {
+      "id": "MC-164",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "LLY",
+          "op": "<=",
+          "level": 1213.38
+        }
+      ],
+      "meaning": "LLY B-907 pullback re-look: back at the 2:1 ceiling vs 1292.65 - re-run before the 10/29 print, confirm the target pivot first",
+      "source": "site/reviews/2026-10-15-market.md",
+      "row": "B-907",
+      "expires": "2026-10-19",
+      "status": "open"
+    },
+    {
+      "id": "MC-165",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "XLV",
+          "op": "<=",
+          "level": 171.15
+        }
+      ],
+      "meaning": "XLV B-908 pullback re-look: at the 2:1 ceiling vs the 176.60 pivot, stop fill minus 2.72",
+      "source": "site/reviews/2026-10-15-market.md",
+      "row": "B-908",
+      "expires": "2026-10-21",
+      "status": "open"
+    },
+    {
+      "id": "MC-166",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "TLT",
+          "op": "<=",
+          "level": 80.13
+        }
+      ],
+      "meaning": "TLT B-909 re-look: at the 2:1 ceiling vs 82.50 - only counts from the 10/22 close, when the 20-session RS window rolls; re-run rs.mjs first",
+      "source": "site/reviews/2026-10-15-market.md",
+      "row": "B-909",
+      "expires": "2026-10-29",
+      "status": "open"
     }
   ]
 }

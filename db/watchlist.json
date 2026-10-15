@@ -663,5 +663,21 @@
     "zone_why": "164.25 = 1.0 ATR (3.52) over the 160.70 stop; 165.90 keeps 2:1 to the 176.41 March 52-week high. Stop sits under the 10/01 low 160.81 and the 50-day 161.90.",
     "rr_target": 176.41,
     "lane": "pullback"
+  },
+  {
+    "sym": "UNH",
+    "status": "ARMED-CONDITIONAL",
+    "note": "**B-906 (2026-10-15 09:19 CT, run the market, rotation leader): FIRST-BAR PLAN. Trigger = the first 30-min bar of Fri 10/16 or Mon 10/19 closes inside 407.48-408.96 (zone_low = stop + 1.0 ATR on the SETTLED bars; ATR 11.176 through 10/14, recompute tonight). LIMIT never above 408.96. STOP 396.30 GTC (just under the 10/14 high 396.44, the bottom of the 10/15 open gap). TARGET 434.30 (7/9 high), 2.00:1 at the ceiling. Size 27 sh from the 350.73 band, risk 341.82, cost about 11,042 = UNFUNDED (BP 702.30), so paper only. HARD EXIT by the Tue 10/27 close, before FOMC 10/28. KILL: a first-bar close under 395.62. Void after the Mon 10/19 first bar. Readiness 77. The close task carries this in armed_not_signaled; the 9:02 entry check tests it and paper-books an ENTER.** Watchers MC-162 (434.30) / MC-163 (396.30); prediction PR-129.",
+    "thesis_flag": null,
+    "buy_zone": 408.96,
+    "floor": 396.3,
+    "rr_target": 434.3,
+    "zone_why": "2:1 ceiling = (434.30 + 2 x 396.30) / 3 = 408.96; zone bottom = 396.30 + 1.0 ATR (11.176) = 407.48",
+    "size_plan": "27 sh at 408.96, risk 341.82 on the 350.73 band; unfunded, paper only",
+    "row": "B-906",
+    "hunt": null,
+    "lane": "rotation-leader",
+    "decide_by": "2026-10-19",
+    "exit_by": "2026-10-27"
   }
 ]

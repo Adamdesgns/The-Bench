@@ -1,28 +1,25 @@
 {
-  "asof": "2026-10-14",
-  "generated": "2026-10-15T00:11:45.767Z",
-  "source": "file:C:/Users/steam/AppData/Local/Temp/claude/C--Users-steam-Projects-apps-the-bench/a6024c15-32a4-4a7f-823e-182b80019da5/scratchpad/regime-bars.json",
-  "label": "EVENT",
-  "market_risk": 2,
+  "asof": "2026-10-15",
+  "generated": "2026-10-15T14:01:30.540Z",
+  "source": "yahoo",
+  "label": "NEUTRAL",
+  "market_risk": 3,
   "reasons": [
-    "macro release on the next session overrides NEUTRAL",
-    "SPY 769.60 vs 50 SMA 768.57",
-    "VIX 16.87"
+    "SPY 766.24 vs 50 SMA 768.50",
+    "VIX 17.53"
   ],
-  "next_session_macro": [
-    "PPI — Producer Price Index, 08:30 ET"
-  ],
+  "next_session_macro": [],
   "inputs": {
-    "spy": 769.6,
-    "sma20": 770.6464978027344,
-    "sma50": 768.5679973144531,
-    "sma200": 724.2136994628906,
-    "vix": 16.8700008392334,
-    "vix_5d_pct": 11.87,
-    "tnx": 5.190000057220459,
-    "tnx_5d_change": -0.087,
-    "iwm_rel_20": -6.48,
-    "qqq_rel_20": 1.38
+    "spy": 766.2387084960938,
+    "sma20": 770.8284332275391,
+    "sma50": 768.4969714355469,
+    "sma200": 724.6056430053711,
+    "vix": 17.530000686645508,
+    "vix_5d_pct": 13.76,
+    "tnx": 5.053999900817871,
+    "tnx_5d_change": -0.177,
+    "iwm_rel_20": -5.09,
+    "qqq_rel_20": -0.25
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }
