@@ -1,13 +1,13 @@
 {
   "asof": "2026-10-14T15:00:00-05:00",
-  "session": "mixed",
-  "basis": "SPY/QQQ/ASTS at the 10/14 close; the rest from the 06:19 CT pre-market pull",
+  "session": "close",
+  "basis": "every quote is the official 10/14 settled close (BTC-USD 24h mark at 19:13 CT)",
   "source": "Robinhood MCP get_equity_quotes / get_crypto_quotes",
-  "note": "ASTS run 16:20 CT (B-895): -10.5% to a 52-week low after the SpaceX spectrum deal and the Piper downgrade; No Trade on both sides. Earlier: run the market 06:19 CT before CPI.",
+  "note": "Night run 19:15 CT for Thu 10/15 (B-896..B-898): AI selling kept going after hours (QQQ 722.69, SMH 556.70, MU 890.08, LITE 870.00); no new money; Option B barred by PPI 7:30 CT and TSM before the open.",
   "quotes": [
     {
       "ticker": "SPY",
-      "last": 769.63,
+      "last": 769.6,
       "prev_close": 778.01,
       "change_pct": -1.08,
       "asof": "2026-10-14T15:00:00-05:00",
@@ -15,289 +15,297 @@
     },
     {
       "ticker": "QQQ",
-      "last": 728.84,
+      "last": 728.95,
       "prev_close": 743.57,
-      "change_pct": -1.98,
+      "change_pct": -1.97,
       "asof": "2026-10-14T15:00:00-05:00",
       "session": "close"
     },
     {
       "ticker": "DIA",
-      "last": 517.957,
+      "last": 515.63,
       "prev_close": 516.21,
-      "change_pct": 0.34,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -0.11,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "IWM",
-      "last": 277.55,
+      "last": 271.37,
       "prev_close": 276.7,
-      "change_pct": 0.31,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -1.93,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "SMH",
-      "last": 582.99,
+      "last": 564.74,
       "prev_close": 588.12,
-      "change_pct": -0.87,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -3.98,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "TLT",
-      "last": 78.5295,
+      "last": 78.89,
       "prev_close": 78.37,
-      "change_pct": 0.2,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": 0.66,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "GOOGL",
-      "last": 358,
+      "last": 347.64,
       "prev_close": 353.78,
-      "change_pct": 1.19,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -1.74,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "MU",
-      "last": 939.54,
+      "last": 914.13,
       "prev_close": 953.19,
-      "change_pct": -1.43,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -4.1,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "LITE",
-      "last": 971.75,
+      "last": 896.33,
       "prev_close": 987.99,
-      "change_pct": -1.64,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -9.28,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "XOM",
-      "last": 175.1999,
+      "last": 177.01,
       "prev_close": 174.08,
-      "change_pct": 0.64,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": 1.68,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "ASML",
-      "last": 1716.11,
+      "last": 1650,
       "prev_close": 1717.76,
-      "change_pct": -0.1,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -3.94,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "AMAT",
-      "last": 460.78,
+      "last": 446.63,
       "prev_close": 464.24,
-      "change_pct": -0.75,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -3.79,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "NVDA",
-      "last": 227.7,
+      "last": 221.3,
       "prev_close": 228.52,
-      "change_pct": -0.36,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -3.16,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "AMD",
-      "last": 598,
+      "last": 570.82,
       "prev_close": 605.53,
-      "change_pct": -1.24,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -5.73,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "AVGO",
-      "last": 355.38,
+      "last": 346.25,
       "prev_close": 357.31,
-      "change_pct": -0.54,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -3.1,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "TSM",
-      "last": 442.4103,
+      "last": 430,
       "prev_close": 445.12,
-      "change_pct": -0.61,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -3.4,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "MRVL",
-      "last": 265.75,
+      "last": 245.28,
       "prev_close": 268.725,
-      "change_pct": -1.11,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -8.72,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "KLAC",
-      "last": 182.8,
+      "last": 178.81,
       "prev_close": 184,
-      "change_pct": -0.65,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -2.82,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "LRCX",
-      "last": 297.55,
+      "last": 286.92,
       "prev_close": 301.11,
-      "change_pct": -1.18,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -4.71,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "MSFT",
-      "last": 546.9999,
+      "last": 533.69,
       "prev_close": 543.45,
-      "change_pct": 0.65,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -1.8,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "META",
-      "last": 762.8208,
+      "last": 737.54,
       "prev_close": 762.5,
-      "change_pct": 0.04,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -3.27,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "AMZN",
-      "last": 260.1615,
+      "last": 254.08,
       "prev_close": 258.58,
-      "change_pct": 0.61,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -1.74,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "DELL",
-      "last": 557.49,
+      "last": 507.93,
       "prev_close": 572.47,
-      "change_pct": -2.62,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -11.27,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "STX",
-      "last": 735,
+      "last": 713.54,
       "prev_close": 747.2,
-      "change_pct": -1.63,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -4.5,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "BAC",
-      "last": 51.75,
+      "last": 51.39,
       "prev_close": 53.96,
-      "change_pct": -4.1,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -4.76,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "MS",
-      "last": 187.3923,
+      "last": 181.51,
       "prev_close": 186.64,
-      "change_pct": 0.4,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -2.75,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "UBER",
-      "last": 71.25,
+      "last": 69.29,
       "prev_close": 71.32,
-      "change_pct": -0.1,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -2.85,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "MRNA",
-      "last": 217.1,
+      "last": 226.3,
       "prev_close": 216.25,
-      "change_pct": 0.39,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": 4.65,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "IREN",
-      "last": 34.16,
+      "last": 30.56,
       "prev_close": 34.8,
-      "change_pct": -1.84,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -12.18,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "CBRS",
-      "last": 146,
+      "last": 141.48,
       "prev_close": 149.085,
-      "change_pct": -2.07,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -5.1,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "HIMS",
-      "last": 29.86,
+      "last": 27.72,
       "prev_close": 29.71,
-      "change_pct": 0.5,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -6.7,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "WULF",
-      "last": 13.04,
+      "last": 11.54,
       "prev_close": 13.21,
-      "change_pct": -1.29,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -12.64,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "IRD",
-      "last": 4.67,
+      "last": 4.1,
       "prev_close": 4.24,
-      "change_pct": 10.14,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -3.3,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "VST",
-      "last": 161.11,
+      "last": 151.79,
       "prev_close": 162.36,
-      "change_pct": -0.77,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -6.51,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "CEG",
-      "last": 295,
+      "last": 279.54,
       "prev_close": 295.79,
-      "change_pct": -0.27,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "pre-market"
+      "change_pct": -5.49,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "BTC-USD",
-      "last": 83366.79,
-      "prev_close": 83632.32,
-      "change_pct": -0.32,
-      "asof": "2026-10-14T06:19:00-05:00",
-      "session": "24/7"
+      "last": 81694.37,
+      "prev_close": 83672.51,
+      "change_pct": -2.36,
+      "asof": "2026-10-14T19:13:00-05:00",
+      "session": "24h"
     },
     {
       "ticker": "ASTS",
-      "last": 42.13,
+      "last": 42.14,
       "prev_close": 47.065,
-      "change_pct": -10.49,
+      "change_pct": -10.46,
+      "asof": "2026-10-14T15:00:00-05:00",
+      "session": "close"
+    },
+    {
+      "ticker": "VRT",
+      "last": 222.83,
+      "prev_close": 237.29,
+      "change_pct": -6.09,
       "asof": "2026-10-14T15:00:00-05:00",
       "session": "close"
     }

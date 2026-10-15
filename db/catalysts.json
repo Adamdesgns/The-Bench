@@ -548,13 +548,14 @@
     "logged": "2026-08-19"
   },
   {
-    "date": "2026-10-27",
+    "date": "2026-10-28",
     "type": "macro",
     "confidence": "confirmed",
-    "what": "FOMC decision (no SEP) — Oct 27-28",
-    "label": "FOMC decision (no SEP) — Oct 27-28",
+    "what": "FOMC decision (no SEP), 2:00 PM ET statement + 2:30 PM ET press conference - Oct 27-28 meeting",
+    "label": "FOMC decision (no SEP), 2:00 PM ET statement + 2:30 PM ET press conference - Oct 27-28 meeting",
     "source": "Federal Reserve FOMC calendar, https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm — agent-verified at the issuing agency.",
-    "logged": "2026-08-19"
+    "logged": "2026-08-19",
+    "corrected": "2026-10-14 [Claude]: was dated 2026-10-27 (first meeting day); the Fed releases the statement on the second day, so regime.mjs would have stamped EVENT on the wrong session"
   },
   {
     "date": "2026-10-30",
