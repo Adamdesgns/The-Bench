@@ -125,7 +125,7 @@ const prevWeekday = (iso) => {
 };
 
 // Check one paper trade and build it. Returns { trade } or { refused: why }; the caller decides whether a refusal ends the run.
-function openTrade(book, f) {
+export function openTrade(book, f) {
   const side = f.side, d = side === "short" ? -1 : 1, sym = String(f.sym).toUpperCase();
   if (!Number.isInteger(f.shares) || f.shares <= 0) return { refused: `--shares must be a whole number above 0 (got ${f.shares})` };
   if (!(d * (f.entry - f.stop) > 0)) return { refused: `the stop ${f.stop} is on the wrong side of the ${side} entry ${f.entry}` };
