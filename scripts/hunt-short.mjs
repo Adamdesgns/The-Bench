@@ -42,6 +42,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
+import { settledCloses } from "../server/yahooClose.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..");
@@ -217,10 +218,11 @@ async function yahooBars(symbol, range = "5y") {
   const j = await res.json();
   const r = j?.chart?.result?.[0];
   const ts = r?.timestamp ?? [], q = r?.indicators?.quote?.[0] ?? {};
+  const { closes: cl } = settledCloses(r); // after the bell, fills today's null close from meta
   const out = [];
   for (let i = 0; i < ts.length; i++) {
-    if (q.close?.[i] == null || q.low?.[i] == null) continue;
-    out.push({ date: new Date(ts[i] * 1000).toISOString().slice(0, 10), open: q.open[i], high: q.high[i], low: q.low[i], close: q.close[i], volume: q.volume?.[i] ?? 0 });
+    if (cl[i] == null || q.low?.[i] == null) continue;
+    out.push({ date: new Date(ts[i] * 1000).toISOString().slice(0, 10), open: q.open[i], high: q.high[i], low: q.low[i], close: cl[i], volume: q.volume?.[i] ?? 0 });
   }
   if (!out.length) throw new Error(`yahoo ${symbol}: no bars`);
   return out;
