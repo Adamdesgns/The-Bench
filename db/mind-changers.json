@@ -3016,6 +3016,22 @@
       "row": "B-911",
       "expires": "2026-10-25",
       "status": "open"
+    },
+    {
+      "id": "MC-177",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": "<",
+          "level": 874
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-912: MU closed under the 874 P-037 line after reclaiming it intraday 10/15",
+      "source": "docs/reads/2026-10-15-midday.md",
+      "row": "B-912",
+      "expires": "2026-10-22",
+      "status": "open"
     }
   ]
 }
