@@ -22,7 +22,9 @@ export const MAX_AGE_DAYS = 4;
 export const bennyHome = () => process.env.BENNY_HOME || join(homedir(), ".benny");
 
 const IDENTIFIERS = [
-  [/\b6137\b/, "an account number"], [/\b7724\b/, "an account number"], [/\bagentic\b/i, "an account nickname"],
+  // No leading \b: the full numbers end in these digits (seen 2026-10-15), so "929016137" must trip too.
+  [/6137\b/, "an account number"], [/7724\b/, "an account number"],
+  [/\bagentic\b/i, "an account nickname"], [/\bMCP\b/, "an account nickname"],
   [/\butma\b/i, "the custodial account"], [/\bcustodial\b/i, "the custodial account"],
   [/\bbuying\s+power\b/i, "buying power"], [/\bmargin\s+account\b/i, "the margin account"],
 ];

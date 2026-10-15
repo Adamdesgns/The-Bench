@@ -21,7 +21,7 @@ test("a clean lesson passes", () => {
 });
 
 test("every account identifier is refused", () => {
-  for (const x of ["account ••6137", "the 7724 account", "the Agentic account", "the UTMA", "a custodial account", "buying power", "the margin account"])
+  for (const x of ["account ••6137", "the 7724 account", "account 929016137", "the Agentic account", "the MCP account", "the UTMA", "a custodial account", "buying power", "the margin account"])
     assert.ok(refused(`Note: ${x} line.`), x);
 });
 
