@@ -22,7 +22,7 @@ Adam, 2026-10-15: *"We are not decided exactly the trading %s we will start with
 - The risk per trade is one setting, `risk_pct` in `db/benny-config.json`. It starts as `null`.
 - **While it is `null`, Benny's book refuses to size or take any trade.** #paper-trades still posts each trade plan (entry, stop, targets, why) with the size marked "sizing starts when the risk setting is chosen."
 - Benny's book opens at $10,000 on the day `risk_pct` is set. Its record starts then, not before.
-- Only Adam sets it, in a chat, in his own words. That chat writes `risk_pct` and runs `paper-book.mjs --db db/benny-book.json init --balance 10000` in the same step. No routine and no Benny answer may change it.
+- Only Adam sets it, in a chat, in his own words. That chat writes `risk_pct` and runs `benny-book.mjs open --risk-pct N`, which writes `risk_pct` and opens the book at $10,000 (`paper-book.mjs init --balance 10000 --db db/benny-book.json`; the command name comes first, so `--db` goes after it) in the same step. No routine and no Benny answer may change it.
 
 ## Hard rules
 
@@ -97,6 +97,12 @@ An always-on program on this PC that connects to Discord as the Benny bot. It us
   - file reads over the repo (Read, Grep, Glob);
   - read-only market data (equity and crypto quotes, historicals, earnings calendar).
 - **No Bash, no file writes, no broker order or account tools.** A test enforces this by listing the tools the session can see and failing on anything outside the allowlist.
+- **Tool lockdown (added 2026-10-15).** A plain `claude -p` loads every MCP server configured on this PC, and the Robinhood server carries order and account tools beside the quote tools. So the listener never relies on the prompt or on defaults:
+  - It starts Claude with `--strict-mcp-config --mcp-config benny/mcp.json`, and `benny/mcp.json` lists the Robinhood server only. No other MCP server loads, and claude.ai connectors are not used.
+  - It passes `--tools` with the exact built-in tools (Read, Grep, Glob) and `--allowedTools` with each permitted Robinhood tool **by its full name**, one by one (`mcp__robinhood-trading__get_equity_quotes`, `..._get_crypto_quotes`, `..._get_equity_historicals`, `..._get_earnings_calendar`). Never the whole server (`mcp__robinhood-trading`), never a wildcard.
+  - It also passes `--disallowedTools` naming every Robinhood order, cancel, account, position, portfolio and order-history tool, so a mistake in the allow list still cannot reach them.
+  - It runs with `--permission-mode dontAsk`, so anything not allowed is refused instead of waiting for a click.
+  - The allowlist test reads the `init` message of a real `claude -p --output-format stream-json` run (it lists every tool the session can see) and fails if any name is outside the allowlist, or if any name containing `place_`, `cancel_`, `get_accounts`, `get_portfolio`, `get_equity_positions`, `get_equity_orders` or `get_option_positions` appears.
 - The program, not Claude, posts the answer, and only after the same wall check `benny-post.mjs` uses. The program appends the fixed sign-off to every answer.
 - Logs every question and answer to `db/benny-qa.json`.
 - At most 20 answers a day. Past that it replies "done for today."
@@ -118,7 +124,7 @@ One function, shared by `benny-post.mjs` and the listener. A post fails if it co
 
 1. **Account identifiers:** `6137`, `7724`, "Agentic", "UTMA", "custodial", "buying power", "margin account".
 2. **Real numbers from `~/.benny/wall.json`:**
-   - the real total balance and buying power, matched within 0.5% in any common format (`3,512.31`, `3512`, `$3.5K`);
+   - the real total balance and buying power, matched within 0.5% in any common format (`3,512.31`, `3512`, `$3.5K`). A value under $100 matches only its exact two-decimal form (`42.17`), so a tiny buying power cannot block every small number in a post;
    - each real holding's share count next to its ticker (`8 GOOGL`, `8 shares of GOOGL`);
    - each real holding's cost basis (`336.25`).
 3. **Possessive account phrases about Adam:** "Adam's account", "Adam's position", "my operator's account", "Adam holds", "Adam bought", "Adam sold".
@@ -133,7 +139,7 @@ A stock priced near the real balance (one trading around 3,500, for example) wil
 
 1. Create a free Discord server with the six channels.
 2. For each channel: Channel settings → Integrations → Webhooks → New Webhook → Copy URL.
-3. In the Discord Developer Portal, create an application named Benny, add a bot, and copy its token. Invite it with permission to read and send messages in #ask-benny only.
+3. In the Discord Developer Portal, create an application named Benny, add a bot, and copy its token. Turn on **Message Content Intent** on the Bot page (without it the bot sees empty messages). Invite it with permission to read and send messages in #ask-benny only.
 4. Paste the six URLs, the token and his Discord user ID into `C:\Users\steam\.benny\discord.json`. Claude creates the empty template and never handles the token.
 
 ## Testing and rollout
