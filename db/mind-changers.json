@@ -2736,6 +2736,22 @@
       "row": "B-895",
       "expires": "2026-10-28",
       "status": "open"
+    },
+    {
+      "id": "MC-160",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 728.95
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-900: QQQ closed back over Wed 10/14 close after the TSM-beat selloff; AI selling absorbed",
+      "source": "docs/reads/2026-10-15-premarket.md",
+      "row": "B-900",
+      "expires": "2026-10-16",
+      "status": "open"
     }
   ]
 }
