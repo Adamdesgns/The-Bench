@@ -1,11 +1,17 @@
 {
-  "date": "2026-10-14",
+  "date": "2026-10-15",
   "signals": [],
   "none": true,
-  "armed_not_signaled": [],
-  "open_paper": [
-    {"sym": "MRNA", "id": "PB-001", "row": "B-854", "entry": 212.79, "stop": 195.9, "target": 249.42, "close": 226.345, "exit_by": "2026-10-23"},
-    {"sym": "MU", "id": "PB-002", "row": "B-879", "entry": 938.865, "stop": 884, "t1": 1029, "t2": 1054.17, "close": 913.915, "exit_by": "2026-12-09"}
+  "armed_not_signaled": [
+    {"sym": "UNH", "row": "B-906", "zone_low": 408.00, "zone_high": 408.96, "stop": 396.30, "t1": 434.30, "t2": null, "readiness": 77, "atr": 11.699, "decide_by": "2026-10-19", "exit_by": "2026-10-27", "kill_below": 395.62, "note": "First-bar plan: the first 30-min bar of Fri 10/16 or Mon 10/19 closes inside 408.00-408.96; LIMIT never above 408.96, stop 396.30 GTC. zone_low recomputed tonight = stop + 1.0 ATR on settled bars incl 10/15 (Wilder 11.176 -> 11.699; 10/15 TR 18.50 = 414.12 - 395.62). Size 27 sh from the 350.73 band, unfunded, paper. Close 406.72 on 1.82x volume, 1.28 under the zone."}
   ],
-  "note": "Wed 10/14 close check. RH official close field had not rolled at ~15:30 CT; closes are last regular-session prints at 19:59:59Z. NO SIGNALS. MU B-856 dropped from armed_not_signaled: the plan was entered on the 10/14 first bar (B-879, paper PB-002 open), so a second morning test would double it; MU closed 913.92 under the 931.27-940.72 zone, 29.92 above the 884 stop. IN BUY RANGE: VRT 222.82 (<=227, floor 211.50, B-444/B-883) on 1.52x volume = wrong volume for a pullback, no signal; AIP 19.67 (<=21.39, floor 17.40, B-288, no target - plan incomplete). NO SIGNAL: LITE 896.46 under 949.03 (stop 878 held, B-891), XOM 177.06 above zone and at target (missed move, B-890), IRD 4.095 under 4.45 (stop 4.06 held), ASPN 5.155 under 5.40 (floor 5.06 held), UBER 69.31 < 71.90, AMZN/SPCX/HIMS/IBIT above zones, GOOGL 347.84 (stop 326 held). VOID: ETN 408.82 < 423 (B-889), SNDG 6.61 < 6.78, IREN 30.56 < 38.40, CBRS 141.49 < 158, MRVL B-779 (B-888), ORCL dead, PWR B-539 expired 10/02. NVDA 221.50 is under the B-745 stop 231.90 (unfunded ticket)."
+  "open_paper": [
+    {"sym": "MRNA", "id": "PB-001", "row": "B-854", "entry": 212.79, "stop": 195.9, "target": 249.42, "close": 236.5, "exit_by": "2026-10-23"},
+    {"sym": "ASTS", "id": "PB-003", "row": "B-895", "side": "short", "entry": 41.8, "stop": 47.75, "close": 44.455, "exit_by": "2026-10-28"},
+    {"sym": "WULF", "id": "PB-004", "row": "B-892", "side": "short", "entry": 11.3, "stop": 13.33, "close": 12.605, "exit_by": "2026-10-28"},
+    {"sym": "AAOI", "id": "PB-005", "side": "short", "entry": 84.66, "stop": 99.77, "close": 83.73, "exit_by": "2026-10-28"},
+    {"sym": "IREN", "id": "PB-006", "row": "B-894", "side": "short", "entry": 30.09, "stop": 34.88, "close": 30.39, "exit_by": "2026-10-28"},
+    {"sym": "APLD", "id": "PB-007", "row": "B-893", "side": "short", "entry": 20.03, "stop": 22.63, "close": 20.385, "exit_by": "2026-10-28"}
+  ],
+  "note": "Thu 10/15 close check. RH official close field had not rolled at ~15:30 CT; closes are last regular-session prints at 19:59:59Z. NO SIGNALS. IN BUY RANGE: MU 931.40 (931.27-940.72, B-856) but the plan is spent - paper PB-002 stopped today when MU opened 871.16 under the 884 stop (-406.23, -1.23R), then closed back in the zone on 1.48x; any re-entry needs a full run. VRT 214.83 (<=227, floor 211.50, B-444/B-883) on 2.77x volume = wrong volume for a pullback, low 204.38 under the floor intraday, held on the close. AIP 19.91 (<=21.39, floor 17.40, B-288) on 1.28x, no target - plan incomplete. VOID: LITE 869.70 < 878 (MC-147 fired, B-857 dead), IRD 4.045 < 4.06 (MC-129). NO SIGNAL: XOM 174.65 above zone, ASPN 5.395 just under 5.40 (floor 5.06 held), UBER 71.22 < 71.90, AMZN/SPCX/HIMS/IBIT above zones, GOOGL 349.16 (stop 326 held). Dead/void unchanged: ETN, SNDG, IREN long, CBRS, MRVL B-779, ORCL, PWR B-539, NVDA under 231.90. BTC-USD B-911 judged on the 7 PM CT settled bar, not here."
 }

@@ -843,7 +843,9 @@
       "source": "site/reviews/2026-10-02-nvda.md",
       "row": "B-713",
       "expires": "2026-11-06",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-15",
+      "fired_detail": "NVDA 217.23 < 221.09 yes"
     },
     {
       "id": "MC-049",
@@ -1584,7 +1586,9 @@
       "source": "site/reviews/2026-10-06-krknf.md",
       "row": "B-772",
       "expires": "2026-10-20",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-15",
+      "fired_detail": "KRKNF 2.82 < 2.85 yes"
     },
     {
       "id": "MC-091",
@@ -2243,7 +2247,9 @@
       "source": "B-831..833 chat 2026-10-12",
       "row": "B-831",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-15",
+      "fired_detail": "IRD 4.045 < 4.06 yes"
     },
     {
       "id": "MC-130",
@@ -2539,7 +2545,9 @@
       "source": "site/reviews/2026-10-13-ai-crash-bounce.md",
       "row": "B-857",
       "expires": "2026-10-27",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-15",
+      "fired_detail": "LITE 869.7 <= 878 yes"
     },
     {
       "id": "MC-148",
@@ -2850,7 +2858,9 @@
       "source": "site/reviews/2026-10-15-market.md",
       "row": "B-909",
       "expires": "2026-10-29",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-15",
+      "fired_detail": "TLT 80 <= 80.13 yes"
     },
     {
       "id": "MC-167",
@@ -3031,6 +3041,27 @@
       "source": "docs/reads/2026-10-15-midday.md",
       "row": "B-912",
       "expires": "2026-10-22",
+      "status": "open"
+    },
+    {
+      "id": "MC-178",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "VRT",
+          "op": ">",
+          "level": 211.5
+        },
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 728.95
+        }
+      ],
+      "meaning": "suppliers got bought along with the buyers - the 10/15 split was a one-day event; re-judge the VRT and QQQ passes",
+      "source": "docs/reads/2026-10-15-close.md",
+      "row": null,
+      "expires": "2026-10-16",
       "status": "open"
     }
   ]
