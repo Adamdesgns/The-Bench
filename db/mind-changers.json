@@ -3063,6 +3063,38 @@
       "row": null,
       "expires": "2026-10-16",
       "status": "open"
+    },
+    {
+      "id": "MC-179",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "ASTS",
+          "op": "<=",
+          "level": 39.87
+        }
+      ],
+      "meaning": "Adam's dead-cat call hits: the 10/15 bounce failed and ASTS closed at or under its 39.87 low. Score the adam prediction, re-look B-895's failed-retest short and PB-003.",
+      "source": "docs/handoffs/worklog/2026-10-15.md",
+      "row": "B-914",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-180",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "ASTS",
+          "op": ">",
+          "level": 47.75
+        }
+      ],
+      "meaning": "Adam's dead-cat call dies: ASTS closed above the 47.75 break level, so the 10/15 bounce was more than a dead cat. Score the adam prediction as a stop.",
+      "source": "docs/handoffs/worklog/2026-10-15.md",
+      "row": "B-914",
+      "expires": "2026-10-28",
+      "status": "open"
     }
   ]
 }
