@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1080, initial-scale=1">
+  <title>THE BENCH · REPORT CARD</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1080px; height: 1350px; }
+    body { background: #0b121e; color: #f5f7fa; font-family: "Segoe UI", Arial, sans-serif; font-size: 22px; line-height: 1.23; -webkit-font-smoothing: antialiased; }
+    .card { width: 1080px; height: 1350px; padding: 32px 44px 26px; display: flex; flex-direction: column; }
+    h1, h2, p { margin: 0; }
+    h1 { font-size: 38px; line-height: 1.12; font-weight: 800; letter-spacing: 1.8px; }
+    h2 { color: #b3bece; font-size: 22px; line-height: 1.2; font-weight: 700; letter-spacing: 1.5px; }
+    .header { padding-bottom: 14px; }
+    .market { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; gap: 16px; }
+    .ticker { font-size: 27px; font-weight: 650; white-space: nowrap; }
+    .stamp { color: #c2cbd8; font-size: 22px; white-space: nowrap; }
+    .verdict { border-top: 3px solid #f2b35b; background: #151d29; padding: 13px 20px 14px; }
+    .verdict h2 { color: #f2b35b; }
+    .call { margin-top: 4px; color: #f2b35b; font-size: 49px; line-height: 1.1; font-weight: 800; letter-spacing: -1.2px; white-space: nowrap; }
+    .subtitle { margin-top: 5px; font-size: 24px; color: #e0e6ef; }
+    .section { padding: 10px 0; border-bottom: 1px solid #334050; }
+    .grades { padding-top: 12px; padding-bottom: 12px; }
+    .grade-row { display: flex; align-items: center; justify-content: space-between; gap: 9px; }
+    .grade-row h2 { margin-right: 6px; }
+    .grade { display: inline-flex; align-items: center; gap: 9px; white-space: nowrap; }
+    .chip { display: inline-flex; min-width: 47px; height: 34px; padding: 2px 10px; align-items: center; justify-content: center; border: 1px solid #556174; border-radius: 8px; background: #202b3b; color: #fff; font-size: 23px; font-weight: 750; }
+    .dot { color: #aab6c7; }
+    .metrics { margin-top: 10px; color: #d0d8e4; font-size: 23px; }
+    .metrics strong { color: #f5f7fa; font-weight: 750; }
+    .number { padding-top: 10px; padding-bottom: 10px; }
+    .zone { margin-top: 3px; font-size: 66px; line-height: 1.08; letter-spacing: -1.7px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .description { color: #c6cfdd; margin-top: 7px; }
+    .plan h2 { margin-bottom: 8px; }
+    .plan p + p { margin-top: 6px; }
+    .plan p { color: #d1d9e5; }
+    .plan .levels { color: #f3f6fa; font-weight: 650; white-space: nowrap; }
+    .conditions { display: grid; grid-template-columns: 0.94fr 1.06fr; gap: 28px; }
+    .conditions h2 { margin-bottom: 8px; }
+    .conditions p { color: #e1e7ef; }
+    .kills { border-left: 1px solid #334050; padding-left: 28px; }
+    .kills p + p { margin-top: 4px; }
+    .evidence h2 { margin-bottom: 8px; }
+    .evidence p { color: #d1d9e5; padding-left: 17px; position: relative; }
+    .evidence p::before { content: ""; position: absolute; left: 0; top: 11px; width: 5px; height: 5px; background: #8c9bad; border-radius: 50%; }
+    .evidence p + p { margin-top: 4px; }
+    .record h2, .dates h2 { margin-bottom: 7px; }
+    .record p, .dates p { color: #d1d9e5; }
+    .dates { border-bottom: none; }
+    footer { margin-top: auto; padding-top: 11px; border-top: 1px solid #334050; color: #aab7c9; font-size: 20px; line-height: 1.25; white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <header class="header">
+      <h1>THE BENCH · REPORT CARD</h1>
+      <div class="market">
+        <p class="ticker">BTC-USD (bitcoin, spot)</p>
+        <p class="stamp">Thu Oct 15, 2026 · 82,235 at 10:12 AM CT</p>
+      </div>
+    </header>
+
+    <section class="verdict">
+      <h2>VERDICT</h2>
+      <p class="call">NO TRADE TODAY - either side</p>
+      <p class="subtitle">Buy-the-dip plan, on paper only</p>
+    </section>
+
+    <section class="section grades">
+      <div class="grade-row">
+        <h2>GRADES</h2>
+        <span class="grade">Chart <span class="chip">C+</span></span>
+        <span class="dot">·</span>
+        <span class="grade">Flows <span class="chip">C</span></span>
+        <span class="dot">·</span>
+        <span class="grade">Execution <span class="chip">D+</span></span>
+        <span class="dot">·</span>
+        <span class="grade">Overall <span class="chip">C-</span></span>
+      </div>
+      <p class="metrics">Opportunity <strong>45/100</strong> · Readiness <strong>56/100</strong> · Confidence <strong>35%</strong></p>
+    </section>
+
+    <section class="section number">
+      <h2>THE NUMBER</h2>
+      <p class="zone">76,228 - 76,600</p>
+      <p class="description">The top of a shelf buyers have defended 24+ times. About 7% below today's price.</p>
+    </section>
+
+    <section class="section plan">
+      <h2>THE PLAN (paper)</h2>
+      <p>Signal: a daily close (7 PM CT) between Oct 16 and Oct 22 after a dip to 76,600 or lower, closing at or above 76,228</p>
+      <p class="levels">Stop 73,725 · Target 1: 87,146 (sell half) · Target 2: 88,467</p>
+      <p>2.09 : 1 at the worst fill, after the 1.9% spread. Risk 5.6% to make 11.6%.</p>
+      <p>Out by 12:45 PM CT Wed Oct 28, before the Fed statement</p>
+    </section>
+
+    <section class="section conditions">
+      <div>
+        <h2>OPENS IT</h2>
+        <p>A dip into the zone that closes back at or above 76,228</p>
+      </div>
+      <div class="kills">
+        <h2>KILLS IT</h2>
+        <p>A close under 76,228 on 1.5x volume</p>
+        <p>A close over 84,249</p>
+        <p>No signal by Oct 22</p>
+      </div>
+    </section>
+
+    <section class="section evidence">
+      <h2>THE EVIDENCE</h2>
+      <p>Hunters: the short setup is STALK, not READY</p>
+      <p>After 5% dips, BTC rose over the next 10 days 53% of the time (grade A, 70 events)</p>
+      <p>Breakdown shorts won 44% of the time (grade A, 59 events)</p>
+      <p>Spot bitcoin ETFs: -$859M over 6 sessions</p>
+      <p>Still above a rising 50-day and 200-day, with three lower highs: 87,364 → 87,146 → 84,249</p>
+    </section>
+
+    <section class="section record">
+      <h2>ON THE RECORD</h2>
+      <p>Last week's plan put its stop inside normal daily noise. Replaced today.</p>
+    </section>
+
+    <section class="section dates">
+      <h2>NEXT DATES</h2>
+      <p>Oct 22 last signal day · Oct 28 Fed (exit 12:45 PM CT) · Oct 29 GDP + PCE</p>
+    </section>
+
+    <footer>Paper plan, not financial advice · Row B-911 · The Bench - proof, not hype</footer>
+  </main>
+</body>
+</html>
