@@ -2848,6 +2848,22 @@
       "row": "B-909",
       "expires": "2026-10-29",
       "status": "open"
+    },
+    {
+      "id": "MC-167",
+      "created": "2026-10-15",
+      "when": [
+        {
+          "ticker": "DELL",
+          "op": ">",
+          "level": 507.93
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-910: DELL closed back over Wed 10/14 close after two days of downgrade selling",
+      "source": "docs/reads/2026-10-15-snapshot-1010.md",
+      "row": "B-910",
+      "expires": "2026-10-22",
+      "status": "open"
     }
   ]
 }
