@@ -55,8 +55,9 @@ function asciiOnly(s) {
   return s.replace(/[^\x20-\x7E]/g, '').trim() || 'THE BENCH read';
 }
 
-export function splitBody(body, maxBytes = MAX_BYTES) {
-  const bytes = (s) => Buffer.byteLength(s, 'utf8');
+// measure defaults to UTF-8 bytes (ntfy's limit); benny-post.mjs passes a character count (Discord's).
+export function splitBody(body, maxBytes = MAX_BYTES, measure = (s) => Buffer.byteLength(s, 'utf8')) {
+  const bytes = measure;
   if (bytes(body) <= maxBytes) return [body];
   const paras = body.split(/\n{2,}/);
   const parts = [];
