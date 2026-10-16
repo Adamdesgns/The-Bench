@@ -1,337 +1,137 @@
 {
-  "asof": "2026-10-15T09:21:00-05:00",
-  "session": "regular",
-  "basis": "live regular-session last trades at 09:21 CT 10/15 vs the official 10/14 closes (BTC-USD mark vs the midnight ET open)",
-  "source": "Robinhood MCP get_equity_quotes / get_crypto_quotes",
-  "note": "Run the market 09:21 CT 10/15 (B-906..B-909): hot PPI, money out of AI into health care and bonds; every AI plan on the board died at the open; UNH conditional watch (paper, unfunded); LLY/XLV/TLT pass.",
+  "asof": "2026-10-16T06:20:00-05:00",
+  "session": "pre-market",
+  "basis": "pre-market last trades ~06:18 CT 10/16 vs the official 10/15 closes",
+  "source": "Robinhood MCP get_equity_quotes",
+  "note": "Run the market 06:25 CT 10/16 (B-924): pass. QQQ 1.18 under 728.95; chips still sold, buyers and health care firm.",
   "quotes": [
     {
       "ticker": "SPY",
-      "last": 767.58,
-      "prev_close": 769.6,
-      "change_pct": -0.26,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 773.19,
+      "prev_close": 771.79,
+      "change_pct": 0.18,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "QQQ",
-      "last": 720.395,
-      "prev_close": 728.95,
-      "change_pct": -1.17,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 727.77,
+      "prev_close": 728,
+      "change_pct": -0.03,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "DIA",
-      "last": 518.37,
-      "prev_close": 515.63,
-      "change_pct": 0.53,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 521.86,
+      "prev_close": 521.18,
+      "change_pct": 0.13,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "IWM",
-      "last": 273.155,
-      "prev_close": 271.37,
-      "change_pct": 0.66,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 275.83,
+      "prev_close": 275.08,
+      "change_pct": 0.27,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "SMH",
-      "last": 547.34,
-      "prev_close": 564.74,
-      "change_pct": -3.08,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 554.5,
+      "prev_close": 558.84,
+      "change_pct": -0.78,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "TLT",
-      "last": 80.345,
-      "prev_close": 78.89,
-      "change_pct": 1.84,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "GOOGL",
-      "last": 350.71,
-      "prev_close": 347.64,
-      "change_pct": 0.88,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "MU",
-      "last": 888.3595,
-      "prev_close": 914.13,
-      "change_pct": -2.82,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "LITE",
-      "last": 836.11,
-      "prev_close": 896.33,
-      "change_pct": -6.72,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "XOM",
-      "last": 175.55,
-      "prev_close": 177.01,
-      "change_pct": -0.82,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "ASML",
-      "last": 1622.105,
-      "prev_close": 1650,
-      "change_pct": -1.69,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "AMAT",
-      "last": 422.8,
-      "prev_close": 446.63,
-      "change_pct": -5.34,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 79.82,
+      "prev_close": 79.97,
+      "change_pct": -0.19,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "NVDA",
-      "last": 216.07,
-      "prev_close": 221.3,
-      "change_pct": -2.36,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 216.97,
+      "prev_close": 217.23,
+      "change_pct": -0.12,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "AMD",
-      "last": 538.11,
-      "prev_close": 570.82,
-      "change_pct": -5.73,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 553.99,
+      "prev_close": 562.23,
+      "change_pct": -1.47,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
-      "ticker": "AVGO",
-      "last": 339.6,
-      "prev_close": 346.25,
-      "change_pct": -1.92,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "ticker": "MU",
+      "last": 910.5,
+      "prev_close": 931.24,
+      "change_pct": -2.23,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
-      "ticker": "TSM",
-      "last": 414.33,
-      "prev_close": 430,
-      "change_pct": -3.64,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "MRVL",
-      "last": 233.63,
-      "prev_close": 245.28,
-      "change_pct": -4.75,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "KLAC",
-      "last": 169.99,
-      "prev_close": 178.81,
-      "change_pct": -4.93,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "LRCX",
-      "last": 269.86,
-      "prev_close": 286.92,
-      "change_pct": -5.95,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "ticker": "GOOGL",
+      "last": 350.5,
+      "prev_close": 349.22,
+      "change_pct": 0.37,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "MSFT",
-      "last": 533.84,
-      "prev_close": 533.69,
-      "change_pct": 0.03,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 541.81,
+      "prev_close": 539.44,
+      "change_pct": 0.44,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "META",
-      "last": 731.71,
-      "prev_close": 737.54,
-      "change_pct": -0.79,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 741.01,
+      "prev_close": 736.72,
+      "change_pct": 0.58,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "AMZN",
-      "last": 252.23,
-      "prev_close": 254.08,
-      "change_pct": -0.73,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "DELL",
-      "last": 464.055,
-      "prev_close": 507.93,
-      "change_pct": -8.64,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "STX",
-      "last": 669.11,
-      "prev_close": 713.54,
-      "change_pct": -6.23,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "BAC",
-      "last": 51.24,
-      "prev_close": 51.39,
-      "change_pct": -0.29,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "MS",
-      "last": 177.84,
-      "prev_close": 181.51,
-      "change_pct": -2.02,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "UBER",
-      "last": 69.8,
-      "prev_close": 69.29,
-      "change_pct": 0.74,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "MRNA",
-      "last": 232.2002,
-      "prev_close": 226.3,
-      "change_pct": 2.61,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "IREN",
-      "last": 27.07,
-      "prev_close": 30.56,
-      "change_pct": -11.42,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "CBRS",
-      "last": 138.155,
-      "prev_close": 141.48,
-      "change_pct": -2.35,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "HIMS",
-      "last": 27.1547,
-      "prev_close": 27.72,
-      "change_pct": -2.04,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "WULF",
-      "last": 10.5999,
-      "prev_close": 11.54,
-      "change_pct": -8.15,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "IRD",
-      "last": 4.25,
-      "prev_close": 4.1,
-      "change_pct": 3.66,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "VST",
-      "last": 147.19,
-      "prev_close": 151.79,
-      "change_pct": -3.03,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "CEG",
-      "last": 270.356,
-      "prev_close": 279.54,
-      "change_pct": -3.29,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "BTC-USD",
-      "last": 82235.39,
-      "prev_close": 80806.33,
-      "change_pct": 1.77,
-      "asof": "2026-10-15T10:12:32-05:00",
-      "session": "24h"
-    },
-    {
-      "ticker": "ASTS",
-      "last": 41.24,
-      "prev_close": 42.14,
-      "change_pct": -2.14,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
-    },
-    {
-      "ticker": "VRT",
-      "last": 208.505,
-      "prev_close": 222.83,
-      "change_pct": -6.43,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 255.54,
+      "prev_close": 254.76,
+      "change_pct": 0.31,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
       "ticker": "UNH",
-      "last": 408.6805,
-      "prev_close": 395.62,
-      "change_pct": 3.3,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "last": 409.84,
+      "prev_close": 406.67,
+      "change_pct": 0.78,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
-      "ticker": "LLY",
-      "last": 1260.505,
-      "prev_close": 1208.74,
-      "change_pct": 4.28,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "ticker": "DELL",
+      "last": 477,
+      "prev_close": 473.39,
+      "change_pct": 0.76,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     },
     {
-      "ticker": "XLV",
-      "last": 178.25,
-      "prev_close": 173.96,
-      "change_pct": 2.47,
-      "asof": "2026-10-15T09:21:00-05:00",
-      "session": "regular"
+      "ticker": "VRT",
+      "last": 213.67,
+      "prev_close": 214.75,
+      "change_pct": -0.5,
+      "asof": "2026-10-16T06:20:00-05:00",
+      "session": "pre-market"
     }
   ]
 }
