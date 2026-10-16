@@ -3095,6 +3095,102 @@
       "row": "B-914",
       "expires": "2026-10-28",
       "status": "open"
+    },
+    {
+      "id": "MC-181",
+      "created": "2026-10-16",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 728.95
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-923: QQQ settled over the Wed 10/14 close; check AMD/MU green too, else it is the buyers carrying the index again",
+      "source": "docs/reads/2026-10-16-premarket.md",
+      "row": "B-923",
+      "expires": "2026-10-19",
+      "status": "open"
+    },
+    {
+      "id": "MC-182",
+      "created": "2026-10-16",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 26.6
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-928: IREN closed under the 10/15 52-week low 26.60 on the AI data-center credit scare; check CRWV and volume before any short",
+      "source": "docs/reads/2026-10-16-snapshot-1012.md",
+      "row": "B-928",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-183",
+      "created": "2026-10-16",
+      "when": [
+        {
+          "ticker": "IWM",
+          "op": ">",
+          "level": 275.08
+        }
+      ],
+      "meaning": "midday mind-changer fired - IWM back over the 10/15 close: the 08:47 rotation read is back on the table, re-judge B-929",
+      "source": "docs/reads/2026-10-16-midday.md",
+      "row": "B-929",
+      "expires": "2026-10-19",
+      "status": "open"
+    },
+    {
+      "id": "MC-184",
+      "created": "2026-10-16",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": "<=",
+          "level": 835
+        }
+      ],
+      "meaning": "B-930 zone reached: MU settled in/under the 820-835 shelf - the next session's first 30-min bar decides the paper entry (inside 820-835 = ENTER, limit <=835, stop 769); also scores @itsjcmerlo's 'flush to the 820s' leg",
+      "source": "site/reviews/2026-10-16-mu.md",
+      "row": "B-930",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-185",
+      "created": "2026-10-16",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": "<",
+          "level": 769
+        }
+      ],
+      "meaning": "B-930 dead: closed under the 8/3 770.10 low - the 820s shelf failed; re-judge the memory thesis (CXMT/pricing), score jcmerlo's 820s entry as a stop",
+      "source": "site/reviews/2026-10-16-mu.md",
+      "row": "B-930",
+      "expires": "2026-12-15",
+      "status": "open"
+    },
+    {
+      "id": "MC-186",
+      "created": "2026-10-16",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": ">=",
+          "level": 1040
+        }
+      ],
+      "meaning": "@itsjcmerlo's 1040 target reached (B-930): score his call - did it come from the 820s (hit) or from here without the flush (desk missed nothing, his entry never filled)",
+      "source": "site/reviews/2026-10-16-mu.md",
+      "row": "B-930",
+      "expires": "2026-12-15",
+      "status": "open"
     }
   ]
 }
