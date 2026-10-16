@@ -1,0 +1,364 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-10-16",
+  "candidates_receipt": "eefbbfa6",
+  "band": 341.45,
+  "generated": "2026-10-16T23:23:00.833Z",
+  "top": [
+    {
+      "sym": "NI",
+      "side": "long",
+      "list": "READY",
+      "readiness": 89,
+      "grade": "A",
+      "n": 92,
+      "p_dir": 54.35,
+      "p_reach": 0,
+      "market_p": 15.56,
+      "disagreement": 38.79,
+      "expiry": "2026-11-20",
+      "days": 25,
+      "long_strike": 45,
+      "short_strike": 50,
+      "cost": 20,
+      "max_gain": 480,
+      "payoff_ratio": 24,
+      "break_even": 45.2,
+      "ev": -9.13,
+      "ev_per_day": -0.37,
+      "stop": 41.13,
+      "target": 47.05,
+      "rr_shares": 2.82
+    },
+    {
+      "sym": "WULF",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 94,
+      "grade": "A",
+      "n": 75,
+      "p_dir": 49.33,
+      "p_reach": 6.67,
+      "market_p": 34.88,
+      "disagreement": 14.45,
+      "expiry": "2026-10-23",
+      "days": 5,
+      "long_strike": 11.5,
+      "short_strike": 9,
+      "cost": 54.5,
+      "max_gain": 195.5,
+      "payoff_ratio": 3.59,
+      "break_even": 10.96,
+      "ev": -14.58,
+      "ev_per_day": -2.92,
+      "stop": 12.83,
+      "target": 8.6,
+      "rr_shares": 2.68
+    },
+    {
+      "sym": "CORZ",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 91,
+      "grade": "B",
+      "n": 31,
+      "p_dir": 41.94,
+      "p_reach": 3.23,
+      "market_p": 36.29,
+      "disagreement": 5.65,
+      "expiry": "2026-10-23",
+      "days": 5,
+      "long_strike": 13.5,
+      "short_strike": 11,
+      "cost": 42,
+      "max_gain": 208,
+      "payoff_ratio": 4.95,
+      "break_even": 13.08,
+      "ev": -17.67,
+      "ev_per_day": -3.53,
+      "stop": 14.52,
+      "target": 11.04,
+      "rr_shares": 2.35
+    }
+  ],
+  "rest": [
+    {
+      "sym": "APLD",
+      "side": "short",
+      "list": "READY",
+      "readiness": 88,
+      "grade": "B",
+      "n": 65,
+      "p_dir": 36.92,
+      "p_reach": 3.08,
+      "market_p": 36.2,
+      "disagreement": 0.72,
+      "expiry": "2026-10-23",
+      "days": 5,
+      "long_strike": 18,
+      "short_strike": 13,
+      "cost": 53.5,
+      "max_gain": 446.5,
+      "payoff_ratio": 8.35,
+      "break_even": 17.46,
+      "ev": -20,
+      "ev_per_day": -4,
+      "stop": 20.44,
+      "target": 13.16,
+      "rr_shares": 2.05
+    },
+    {
+      "sym": "IREN",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 94,
+      "grade": "B",
+      "n": 73,
+      "p_dir": 52.05,
+      "p_reach": 1.37,
+      "market_p": 36.78,
+      "disagreement": 15.27,
+      "expiry": "2026-10-23",
+      "days": 5,
+      "long_strike": 27,
+      "short_strike": 17,
+      "cost": 155.5,
+      "max_gain": 844.5,
+      "payoff_ratio": 5.43,
+      "break_even": 25.45,
+      "ev": -62.99,
+      "ev_per_day": -12.6,
+      "stop": 30.46,
+      "target": 17.22,
+      "rr_shares": 2.82
+    },
+    {
+      "sym": "CRWV",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 100,
+      "grade": "C",
+      "n": 23,
+      "p_dir": 34.78,
+      "p_reach": 0,
+      "market_p": 35.71,
+      "disagreement": -0.93,
+      "expiry": "2026-10-23",
+      "days": 5,
+      "long_strike": 61,
+      "short_strike": 35,
+      "cost": 315.5,
+      "max_gain": 2284.5,
+      "payoff_ratio": 7.24,
+      "break_even": 57.84,
+      "ev": -205.77,
+      "ev_per_day": -41.15,
+      "stop": 69.76,
+      "target": 33.51,
+      "rr_shares": 3.33
+    }
+  ],
+  "rejected": [
+    {
+      "sym": "AAOI",
+      "side": "short",
+      "why": "max loss 405 > band 341.45"
+    },
+    {
+      "sym": "VRT",
+      "side": "short",
+      "why": "max loss 607.5 > band 341.45"
+    },
+    {
+      "sym": "ANET",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMAT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AIP",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "UNH",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "MU",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRVL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "COHR",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ETN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "DELL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "HPE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ORCL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AVGO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "LITE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMZN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KEEL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MSFT",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "NVDA",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "DIS",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "APP",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GEV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "META",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "PWR",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AVAV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GOOGL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GPRO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SPCX",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KRKNF",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "IBIT",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "SST",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SNDG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "RAM",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CBRS",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SMCI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "OXY",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "XOM",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMBA",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "PATH",
+      "side": "short",
+      "why": "no marks"
+    }
+  ],
+  "id": "e1b841b9"
+}
