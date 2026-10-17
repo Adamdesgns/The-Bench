@@ -4,127 +4,127 @@
       "switch": "BULL",
       "tier": "LEADER",
       "rank": 1,
-      "asof": "2026-10-02"
+      "asof": "2026-10-15"
     },
     "IGV": {
       "switch": "BULL",
       "tier": "-",
-      "rank": 19,
-      "asof": "2026-10-02"
+      "rank": 17,
+      "asof": "2026-10-15"
     },
     "XLK": {
       "switch": "BULL",
       "tier": "CONTENDER",
       "rank": 4,
-      "asof": "2026-10-02"
+      "asof": "2026-10-15"
     },
     "XLE": {
       "switch": "BULL",
       "tier": "LEADER",
-      "rank": 3,
-      "asof": "2026-10-02"
+      "rank": 2,
+      "asof": "2026-10-15"
     },
     "XLU": {
       "switch": "OFF",
       "tier": "-",
-      "rank": 16,
-      "asof": "2026-10-02"
+      "rank": 18,
+      "asof": "2026-10-15"
     },
     "GRID": {
-      "switch": "BULL",
+      "switch": "OFF",
       "tier": "-",
-      "rank": 10,
-      "asof": "2026-10-02"
+      "rank": 9,
+      "asof": "2026-10-15"
     },
     "XLI": {
       "switch": "OFF",
       "tier": "-",
       "rank": 11,
-      "asof": "2026-10-02"
+      "asof": "2026-10-15"
     },
     "XLF": {
       "switch": "OFF",
       "tier": "-",
       "rank": 13,
-      "asof": "2026-10-02"
+      "asof": "2026-10-15"
     },
     "KRE": {
       "switch": "OFF",
       "tier": "-",
-      "rank": 9,
-      "asof": "2026-10-02"
+      "rank": 7,
+      "asof": "2026-10-15"
     },
     "XLV": {
       "switch": "BULL",
-      "tier": "-",
-      "rank": 7,
-      "asof": "2026-10-02"
+      "tier": "CONTENDER",
+      "rank": 6,
+      "asof": "2026-10-15"
     },
     "XBI": {
       "switch": "BULL",
       "tier": "LEADER",
-      "rank": 2,
-      "asof": "2026-10-02"
+      "rank": 3,
+      "asof": "2026-10-15"
     },
     "XLY": {
       "switch": "OFF",
       "tier": "-",
-      "rank": 17,
-      "asof": "2026-10-02"
+      "rank": 16,
+      "asof": "2026-10-15"
     },
     "XLP": {
-      "switch": "OFF",
+      "switch": "BULL",
       "tier": "-",
       "rank": 12,
-      "asof": "2026-10-02"
+      "asof": "2026-10-15"
     },
     "XLB": {
       "switch": "OFF",
       "tier": "-",
-      "rank": 8,
-      "asof": "2026-10-02"
+      "rank": 10,
+      "asof": "2026-10-15"
     },
     "XLRE": {
       "switch": "OFF",
       "tier": "-",
-      "rank": 15,
-      "asof": "2026-10-02"
+      "rank": 14,
+      "asof": "2026-10-15"
     },
     "ITA": {
       "switch": "OFF",
       "tier": "-",
-      "rank": 14,
-      "asof": "2026-10-02"
+      "rank": 15,
+      "asof": "2026-10-15"
     },
     "URA": {
       "switch": "OFF",
       "tier": "-",
-      "rank": 18,
-      "asof": "2026-10-02"
+      "rank": 19,
+      "asof": "2026-10-15"
     },
     "GDX": {
       "switch": "OFF",
       "tier": "CONTENDER",
       "rank": 5,
-      "asof": "2026-10-02"
+      "asof": "2026-10-15"
     },
     "IWM": {
       "switch": "BULL",
-      "tier": "CONTENDER",
-      "rank": 6,
-      "asof": "2026-10-02"
+      "tier": "-",
+      "rank": 8,
+      "asof": "2026-10-15"
     },
     "QQQ": {
       "switch": "BULL",
       "tier": "-",
       "rank": null,
-      "asof": "2026-10-02"
+      "asof": "2026-10-15"
     },
     "IBIT": {
       "switch": "BULL",
       "tier": "-",
       "rank": null,
-      "asof": "2026-10-02"
+      "asof": "2026-10-15"
     }
   },
   "log": [
@@ -167,7 +167,23 @@
       "from": "LEADER",
       "to": "CONTENDER",
       "rank": 4
+    },
+    {
+      "date": "2026-10-15",
+      "sym": "GRID",
+      "kind": "200-day switch",
+      "from": "BULL",
+      "to": "OFF",
+      "pct200": -3.3227880849184266
+    },
+    {
+      "date": "2026-10-15",
+      "sym": "XLP",
+      "kind": "200-day switch",
+      "from": "OFF",
+      "to": "BULL",
+      "pct200": 3.2332602408692512
     }
   ],
-  "asof": "2026-10-02"
+  "asof": "2026-10-15"
 }

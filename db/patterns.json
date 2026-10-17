@@ -83,6 +83,13 @@
         "ticker": "BRKR",
         "detail": "Only row of 49 in the broad scan with rel-vol >1.0 (2.9x). Fell -20.2% and held it, while MU +7.7%, SMCI +10.5%, AMD +8.5% all ran on sub-1.1x and faded",
         "holds": true
+      },
+      {
+        "date": "2026-10-06",
+        "ticker": "CEG",
+        "detail": "All three plant owners ran 3x+ volume (CEG 4.25x, VST 3.26x, TLN 3.11x) and all three held their opens into the close. Caveat: within the group the ranking inverted - highest rel-vol (CEG) gave back the most of its open-to-high run (52 pct), lowest (TLN) the least (17 pct). MC-073 did not fire.",
+        "holds": true,
+        "row_ref": "B-752"
       }
     ]
   },
@@ -460,6 +467,13 @@
         "ticker": "BOARD",
         "detail": "FIRST INSTANCE, the one the pattern was written from. All figures are 8/28 settled closes vs 8/27 settled closes, equal weight per db/board.json layer. BUYERS PLUS 2.14 pct: MSFT 513.67 vs 505.06 plus 1.70; GOOGL 346.48 vs 340.65 plus 1.71; AMZN 266.38 vs 256.26 plus 3.95; META 578.02 vs 571.10 plus 1.21. SILICON MINUS 3.65 pct: NVDA 217.54 vs 227.98 minus 4.58; AMD 465.60 vs 476.67 minus 2.32; MU 932.77 vs 935.39 minus 0.28; AVGO 368.68 vs 371.54 minus 0.77; MRVL 216.595 vs 241.45 minus 10.29. BOX MINUS 3.30 pct: SMCI minus 3.59, DELL minus 3.43, ANET minus 2.87. POWER MINUS 3.15 pct: VRT minus 4.59, ETN minus 3.17, GEV minus 4.43, PWR minus 3.08, CEG minus 2.00, VST minus 1.95, TLN minus 2.85. CRYPTO_BRIDGE MINUS 8.26 pct: CORZ minus 6.19, IREN minus 12.60, APLD minus 7.54, WULF minus 6.73. BENCHMARKS: SPY 769.39 minus 0.22, QQQ 716.44 minus 0.65, SOXX 508.525 minus 3.22. BOTH TEST CONDITIONS MET: buyers beat every downstream layer, and buyers-minus-crypto_bridge is 10.40 points, well over the 3-point bar. THE RATES TRIGGER, which is what qualifies the session at all: Fed Chair Kevin Warsh at Jackson Hole said the predominant focus should be on prices and that underlying inflation trends have not meaningfully improved; September hike odds moved from about 35 pct to about 60 pct on CME FedWatch (Benzinga, 8/28 12:46 ET), the 2-year yield jumped 10bp to 4.34 pct and the 10-year 4bp to 4.72 pct. Corroborating duration selloff OUTSIDE the AI complex, which is the evidence that this is a rates event and not an AI event: gold minus 2.0 pct, silver minus 2.2 pct, GDX minus 3.2 pct, PBW clean energy minus 2.6 pct, IBB biotech minus 2.3 pct, BTC minus 3.1 pct to about 77,812. WHY THIS IS NOT A P-012 INSTANCE AND MUST NOT BE COUNTED AS ONE: the AI news that week was GOOD - NVDA reported 8/26 with revenue 96.2B up 106 pct, data center 89B up 117 pct, EPS 2.22 vs 2.10, guided about 108B for Q3 and about 70 pct FY2028 growth against about 45 pct consensus, and NVDA still closed 8/28 down 4.58 pct having given back the entire 8 pct pop it made on 8/27. A basket sorted by earnings quality should not sell the name that just beat and raised. It sold because it is long-duration on a day the front end repriced. SINGLE CONFOUND, STATED: MRVL minus 10.29 pct had its own cause - Q3 gross margin guided DOWN sequentially to 57.5-58.5 pct from 58.9 pct, and management put the Google custom-silicon revenue mainly in FY2029. Excluding MRVL entirely, silicon is still MINUS 1.99 pct against buyers PLUS 2.14 pct, so the test outcome does not depend on it.",
         "holds": true
+      },
+      {
+        "date": "2026-10-08",
+        "ticker": "SMH",
+        "detail": "Mirror of 10/07: TLT +0.17 at 08:44 CT (after -1.0 on 10/07), and the duration sort flipped with it. Power median -0.27 (CEG +1.1, VST flat, GEV -0.3) after being the worst layer at -2.6 on 10/07; silicon now worst of the big layers at -1.73 (AVGO -2.2, MRVL -2.0, AMD -1.7), SMH -1.6; buyers +0.2 median. Long-duration layer led the bounce when long rates eased.",
+        "holds": true,
+        "row_ref": null
       }
     ]
   },
@@ -1410,6 +1424,63 @@
         "detail": "Signal 9/22 close 5.48; 9/23 first bar closed 5.70 above the 5.54 zone top (gap-up case) and it FAILED: 5.24 by 9/24 10:02 CT, -4.4% from the signal close",
         "holds": false,
         "row_ref": "B-533"
+      }
+    ]
+  },
+  {
+    "id": "P-065",
+    "claim": "A pre-market gap of 1 ATR or more on news that no named party has confirmed (a report of a plan, not an announcement) trades back through a 1.0-ATR stop set from the pre-market price inside the first 30 minutes of cash trading, whatever the stock does by the close",
+    "test": "Board or book names quoted 1.0+ ATR(14) above the prior close at the ~05:35 CT pre-market read on news not yet confirmed by the company or the counterparty. HOLDS if the first 30-minute regular-session bar low is below (pre-market price minus 1.0 ATR). FALSIFIED if the low stays above that stop on a majority of such sessions. Record the day close vs prior close beside each instance so right-direction-wrong-price cases are counted separately.",
+    "first_seen": "2026-10-05",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-10-05",
+        "ticker": "VST",
+        "detail": "Pre-market 147.98 at 05:36 CT (+7.96 = 1.8 ATR over the 140.02 close) on a Bloomberg/Reuters report of a DOE loan, unannounced. 1.0-ATR stop (4.44) = 143.54. First 30-min bar O 144.03 H 145.78 L 140.90 C 144.005 - low 2.64 under the stop. VST +2.67 pct at 143.76 at 09:01 CT, so right direction, wrong price. Day close to be added by the close routine.",
+        "holds": true,
+        "row_ref": "B-721"
+      }
+    ]
+  },
+  {
+    "id": "P-066",
+    "claim": "On a news-gap day, a board name whose 11:00-11:30 CT 30-minute bar is its highest 30-minute close of the session closes the day above its open; a name whose 11:00 CT bar is its lowest 30-minute close of the session closes the day below its open",
+    "test": "On days with a 1-ATR+ gap in any board name, rank each gapping name's 11:00 CT 30-minute close against the session's earlier 30-minute closes (highest / lowest / neither) and record session close vs open. HOLDS if highest-rank names close above the open and lowest-rank names close below the open in a majority of instances; FALSIFIED if either group is 50% or worse. First instances 2026-10-06: CEG 309.05 highest (open 291.11), VST 161.97 highest (open 151.64), TLN 376.67 within 0.03% of highest (open 349.19), NVDA 240.86 lowest (open 242.09).",
+    "first_seen": "2026-10-06",
+    "status": "supported",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-10-06",
+        "ticker": "CEG",
+        "detail": "11:00 CT bar 309.05 was the highest 30-min close of the session (open 291.11); closed 300.16, 9.05 over the open",
+        "holds": true,
+        "row_ref": "B-752"
+      },
+      {
+        "date": "2026-10-06",
+        "ticker": "VST",
+        "detail": "11:00 CT bar 161.97 was the highest 30-min close of the session (open 151.64); closed 160.475, 8.84 over the open",
+        "holds": true,
+        "row_ref": "B-753"
+      },
+      {
+        "date": "2026-10-06",
+        "ticker": "TLN",
+        "detail": "11:00 CT bar 376.67 within 0.03 pct of the highest 30-min close (open 349.19); closed 373.04, 23.85 over the open",
+        "holds": true,
+        "row_ref": "B-754"
+      },
+      {
+        "date": "2026-10-06",
+        "ticker": "NVDA",
+        "detail": "11:00 CT bar 240.86 was the lowest 30-min close of the session (open 242.09); closed 239.17, 2.92 under the open",
+        "holds": true,
+        "row_ref": "B-758"
       }
     ]
   }

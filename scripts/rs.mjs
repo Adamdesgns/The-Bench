@@ -19,6 +19,7 @@
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { settledCloses } from "../server/yahooClose.js";
 
 const argv = process.argv.slice(2);
 const has = (f) => argv.includes(f);
@@ -76,7 +77,7 @@ async function yahooCloses(symbol) {
   const j = await res.json();
   const r = j?.chart?.result?.[0];
   const ts = r?.timestamp ?? [];
-  const cl = r?.indicators?.quote?.[0]?.close ?? [];
+  const { closes: cl } = settledCloses(r); // after the bell, fills today's null close from meta
   const out = [];
   for (let i = 0; i < ts.length; i++) if (cl[i] !== null && cl[i] !== undefined) out.push({ date: new Date(ts[i] * 1000).toISOString().slice(0, 10), close: cl[i] });
   if (!out.length) throw new Error(`yahoo ${symbol}: no bars`);

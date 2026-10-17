@@ -31,6 +31,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { settledCloses } from "../server/yahooClose.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(here, "..");
@@ -157,11 +158,12 @@ async function yahooBars(symbol, range = "6mo") {
   if (!res.ok) throw new Error(`yahoo ${symbol}: ${res.status}`);
   const j = await res.json();
   const r = j?.chart?.result?.[0];
-  const ts = r?.timestamp ?? [], q = r?.indicators?.quote?.[0] ?? {};
+  const ts = r?.timestamp ?? [];
+  const { closes: cl } = settledCloses(r); // after the bell, fills today's null close from meta
   const out = [];
   for (let i = 0; i < ts.length; i++) {
-    if (q.close?.[i] == null) continue;
-    out.push({ date: new Date(ts[i] * 1000).toISOString().slice(0, 10), close: q.close[i] });
+    if (cl[i] == null) continue;
+    out.push({ date: new Date(ts[i] * 1000).toISOString().slice(0, 10), close: cl[i] });
   }
   return out;
 }

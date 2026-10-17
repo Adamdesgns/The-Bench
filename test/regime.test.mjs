@@ -1,13 +1,13 @@
 // regime.test.mjs — the daily regime stamp, offline via --bars-file. No network, no writes.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
 
-import { classify, sma } from "../scripts/regime.mjs";
+import { classify, sma, barsFromChart } from "../scripts/regime.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CLI = resolve(HERE, "../scripts/regime.mjs");
@@ -117,4 +117,44 @@ test("CLI reads --bars-file, honors --date, prints the stamp, writes nothing wit
   assert.equal(j.asof, "2026-07-01");
   assert.equal(j.market_risk, 4);
   assert.ok(Array.isArray(j.reasons) && j.reasons.length > 0);
+});
+
+// ── Yahoo's null newest close (2026-10-14 19:10 CT) ─────────────────────────
+// After the bell Yahoo returned today's bar with close = null and the settled price only in
+// meta. regime.mjs skipped it and stamped "as of 2026-10-13", naming CPI instead of PPI.
+const SESSION_START = Date.parse("2026-10-14T13:30:00Z") / 1000;
+const SESSION_END = Date.parse("2026-10-14T20:00:00Z") / 1000;
+const nullCloseChart = () => ({
+  meta: {
+    exchangeTimezoneName: "America/New_York",
+    regularMarketPrice: 769.6,
+    regularMarketTime: SESSION_END,
+    currentTradingPeriod: { regular: { start: SESSION_START, end: SESSION_END } },
+  },
+  timestamp: [Date.parse("2026-10-13T13:30:00Z") / 1000, SESSION_START],
+  indicators: { quote: [{ close: [778.01, null] }] },
+});
+
+test("barsFromChart: after the close the null newest bar is filled, so the stamp is as of today", () => {
+  const bars = barsFromChart(nullCloseChart(), { now: new Date("2026-10-15T00:10:00Z") }); // 19:10 CT
+  assert.deepEqual(bars.at(-1), { date: "2026-10-14", close: 769.6 });
+  assert.equal(bars.length, 2);
+});
+
+test("barsFromChart: mid-session the null newest bar is dropped, never filled as a close", () => {
+  const bars = barsFromChart(nullCloseChart(), { now: new Date("2026-10-14T17:00:00Z") }); // 12:00 ET
+  assert.equal(bars.at(-1).date, "2026-10-13");
+});
+
+test("CLI warns on stderr when the inputs end on different sessions", () => {
+  const dir = mkdtempSync(join(tmpdir(), "regime-"));
+  const f = join(dir, "bars.json");
+  const vix = series(() => 14).slice(0, -1); // VIX one session behind
+  writeFileSync(f, JSON.stringify({ SPY: series((i) => 500 + i), QQQ: series((i) => 400 + i), IWM: series((i) => 200 + i * 0.4), VIX: vix, TNX: series(() => 4.3) }));
+  const empty = join(dir, "no-catalysts.json");
+  writeFileSync(empty, "[]");
+  const r = spawnSync("node", [CLI, "--bars-file", f, "--json", "--catalysts", empty], { encoding: "utf8" });
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stderr, /WARNING inputs end on different sessions/);
+  assert.doesNotThrow(() => JSON.parse(r.stdout));
 });

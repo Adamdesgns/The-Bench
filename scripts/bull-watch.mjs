@@ -41,6 +41,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { settledCloses } from "../server/yahooClose.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(here, "..");
@@ -104,13 +105,16 @@ async function yahooBars(sym) {
   const r = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?range=2y&interval=1d`, { headers: { "User-Agent": "Mozilla/5.0" } });
   if (!r.ok) throw new Error(`yahoo ${sym}: ${r.status}`);
   const res = (await r.json()).chart.result[0], q = res.indicators.quote[0];
-  // Yahoo posts the newest session with close=null for hours after the bell; a null bar is DROPPED,
-  // never guessed - the caller supplies the official close with --closes when it matters.
+  // Yahoo posts the newest session with close=null for hours after the bell. settledCloses fills that
+  // one bar from meta.regularMarketPrice once the session is over (it matched the eventual close on every
+  // name checked 2026-10-14); anything it cannot settle stays null and is DROPPED, never guessed. An
+  // official close passed with --closes still replaces whatever Yahoo says.
   // During the session the newest bar is a live PARTIAL day - also dropped until 16:30 ET.
   const today = nyDate();
   const hhmm = Number(new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date()).replace(":", ""));
   const afterClose = hhmm >= 1630;
-  return res.timestamp.map((t, k) => ({ date: new Date(t * 1000).toISOString().slice(0, 10), close: q.close[k], high: q.high[k] }))
+  const { closes } = settledCloses(res);
+  return res.timestamp.map((t, k) => ({ date: new Date(t * 1000).toISOString().slice(0, 10), close: closes[k], high: q.high[k] }))
     .filter((b) => b.close != null && (b.date < today || afterClose));
 }
 
