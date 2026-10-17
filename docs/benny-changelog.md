@@ -6,6 +6,43 @@
 
 ---
 
+## Week of 2026-10-11 -> 2026-10-17
+
+One ENTER ticket handed over (MU B-879, 10/14), unfunded, gapped through its 884 stop
+the next morning: paper PB-002 -406.23 (-1.23R). No framework version shipped; still v35
+(2026-10-02). No equity orders in ••6137 since 10/10. GOOGL 8 sh avg 336.25 closed
+340.59, +34.72 open (was +123.04).
+
+### THE ALGORITHM - how he trades
+
+- No new framework version.
+- **The paper book shipped (10/14, `ab566d1`, `3bbae17`, `cd506ab`):** every ENTER ticket
+  is bought on paper whether or not it is funded, and every hunter READY short the desk
+  passes is shorted on paper in the `hunter-short` lane. Earned by the run of unfunded
+  tickets with no record of what they would have done.
+- **Benny's own book opened (10/16, `14c3695`, `e485226`, `0b9df70`):** $10,000 paper,
+  1% risk per share trade, 3% per defined-risk option, 9% open options cap, $500 weekly
+  refill under $9,000 that never counts as a gain. First trades can go in 10/19.
+
+### WHAT THE BOOK CONTRADICTED
+
+- **The gap beat the stop.** MU B-879 bought 6 at 940.72, stop 884; 10/15 traded an 858
+  low, so the paper exit filled at the gap, -1.23R not -1R. Three breakout/zone tickets in
+  two weeks (NVDA B-745, MRVL B-779, MU B-879) all broke within two sessions.
+- **"Narrow" was wrong twice.** 10/13 midday called chip damage narrow without the
+  equipment makers; 10/16 morning said selling narrowed to silicon, and by the close it
+  was every layer except power.
+- **30-day receipt B-436 (CBRS, 9/17 at 194.51):** the DevDay run-up plan's trigger fired
+  9/18; 127.21 on 10/16, -34.6 pct vs SPY +0.09. WRONG by score-book. The plan's own
+  exit-before-9/30 is what the v34 lane keeps.
+
+### STILL OPEN
+
+- Ticket generator still sizes to the risk band, not to what the account can fund (MU
+  ticket = 160 pct of the account). Carried a third week.
+
+---
+
 ## Week of 2026-10-04 -> 2026-10-10
 
 Two breakout tickets were handed over (NVDA B-745, MRVL B-779), both unfunded and both
