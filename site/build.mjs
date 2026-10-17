@@ -113,6 +113,9 @@ td { padding:9px 12px; border-bottom:1px solid rgba(42,49,60,.55); vertical-alig
 tr:nth-child(even) td { background:rgba(255,255,255,.015); }
 tr:last-child td { border-bottom:none; }
 td.num, td.tick { font-family:var(--mono); white-space:nowrap; }
+table.gex td { padding:4px 8px; font-size:12px; } table.gex td.gx { text-align:right; color:var(--text); }
+table.gex tr.spot td.tick { color:var(--brass); }
+h3 .up { color:var(--win); } h3 .dn { color:var(--loss); }
 td.tick { font-weight:600; }
 .callcell { max-width:540px; color:var(--dim); }
 .pill { display:inline-block; font-family:var(--mono); font-size:10.5px; font-weight:600;
@@ -169,6 +172,7 @@ const NAV = [
   ["index.html", "Scoreboard"],
   ["book.html", "The Book"],
   ["patterns.html", "Patterns"],
+  ["gex.html", "Gamma"],
   ["reviews.html", "Reviews"],
   ["https://x.com/TheBenchTrades", "@TheBenchTrades"]
 ];
@@ -318,6 +322,45 @@ ${p.instances.map((i) => `<tr><td class="num">${esc(i.date)}</td><td class="tick
 <td>${i.holds ? '<span class="pill w">HOLDS</span>' : '<span class="pill l">BROKE</span>'}</td><td class="callcell">${esc(i.detail)}</td></tr>`).join("")}
 </table></div>`;
 }).join("")}`, "patterns.html"));
+
+// ---- gamma heat map (scripts/gex.mjs receipts, newest per symbol) -------------
+const GEX_DIR = resolve(ROOT, "db/gex");
+const gexLatest = {};
+if (existsSync(GEX_DIR)) {
+  for (const f of readdirSync(GEX_DIR).filter((n) => /^\d{4}-\d{2}-\d{2}-[A-Z0-9_]+\.json$/.test(n)).sort()) {
+    const g = JSON.parse(readFileSync(resolve(GEX_DIR, f), "utf8"));
+    gexLatest[g.sym] = { ...g, date: f.slice(0, 10) };
+  }
+}
+const gexM = (v) => `${v < 0 ? "−" : ""}$${(Math.abs(v) / 1e6).toFixed(0)}M`;
+const gexCell = (v, max) => {
+  const a = max ? Math.min(1, Math.abs(v) / max) ** 0.6 * 0.85 : 0;
+  const bg = v >= 0 ? `rgba(65,194,111,${a.toFixed(2)})` : `rgba(229,84,75,${a.toFixed(2)})`;
+  return `<td class="num gx" style="background:${bg}">${Math.abs(v) >= 1e6 ? (v / 1e6).toFixed(0) : ""}</td>`;
+};
+const gexSection = (g) => {
+  const cols = g.expiries.slice(0, 8);
+  const idx = cols.map((e) => g.expiries.indexOf(e));
+  const maxTotal = Math.max(...g.strikes.map((s) => Math.abs(s.total)), 1);
+  const rows = g.strikes.map((s, i) => ({ s, i })).filter(({ s }) => Math.abs(s.total) >= maxTotal * 0.02);
+  const maxCell = Math.max(...rows.flatMap(({ i }) => idx.map((j) => Math.abs(g.grid[i][j]))), 1);
+  const near = Math.min(...rows.map(({ s }) => Math.abs(s.strike - g.spot)));
+  const L = g.levels;
+  const tag = (k) => [L.king_node?.strike === k && "KING", L.call_wall?.strike === k && "CALL WALL", L.put_wall?.strike === k && "PUT WALL"].filter(Boolean).join(" · ");
+  return `<h3>${esc(g.sym)} · spot ${+g.spot.toFixed(2)} · ${esc(g.date)} · <span class="${g.regime === "negative" ? "dn" : "up"}">${g.regime.toUpperCase()} GAMMA ${gexM(g.net)}</span></h3>
+<p class="lede">${g.regime === "negative" ? "Dealers trade with the move here, so moves tend to extend." : "Dealers trade against the move here, so moves tend to stall."}
+King node <b>${L.king_node ? `${L.king_node.strike} (${gexM(L.king_node.gex)})` : "none"}</b> ·
+call wall <b>${L.call_wall ? L.call_wall.strike : "none"}</b> · put wall <b>${L.put_wall ? L.put_wall.strike : "none"}</b> ·
+flip <b>${L.flip ?? "none in range"}</b></p>
+<div class="tablewrap"><table class="gex"><tr><th>Strike</th>${cols.map((e) => `<th>${esc(e.slice(5))}</th>`).join("")}<th>Total ($M)</th><th></th></tr>
+${rows.map(({ s, i }) => `<tr${Math.abs(s.strike - g.spot) === near ? ' class="spot"' : ""}><td class="num tick">${s.strike}${Math.abs(s.strike - g.spot) === near ? " ◀" : ""}</td>${idx.map((j) => gexCell(g.grid[i][j], maxCell)).join("")}${gexCell(s.total, maxTotal)}<td class="num">${esc(tag(s.strike))}</td></tr>`).join("")}
+</table></div>`;
+};
+writeFileSync(resolve(DIST, "gex.html"), layout("Gamma", `
+<div class="kicker">Where Dealers Are Estimated To Lean</div>
+<h2>Gamma Heat Map</h2>
+<p class="lede">Dollar gamma per 1% move, by strike and expiry, from CBOE's free delayed chain. Green: positive gamma, where price tends to stall and get pulled in. Red: negative gamma, where moves tend to extend. Calls count plus and puts minus, which assumes dealers are long calls and short puts; nobody can see their real books. <b>Supporting evidence only, never a buy signal.</b> Rows under 2% of the biggest strike are hidden.</p>
+${Object.values(gexLatest).length ? Object.values(gexLatest).sort((a, b) => ["SPY", "QQQ", "SPX"].concat(a.sym).indexOf(a.sym) - ["SPY", "QQQ", "SPX"].concat(b.sym).indexOf(b.sym) || a.sym.localeCompare(b.sym)).map(gexSection).join("") : `<p class="lede">No gamma receipts yet. Run <code>node scripts/gex.mjs --symbols SPY,QQQ --write</code>.</p>`}`, "gex.html"));
 
 writeFileSync(resolve(DIST, "reviews.html"), layout("Reviews", `
 <div class="kicker">As It Looked When It Ran</div>
