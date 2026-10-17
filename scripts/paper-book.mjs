@@ -94,13 +94,18 @@ export function step(t, bar, date) {
   return out;
 }
 
+// Open profit: shares at tonight's close; an options trade (Benny's book only) at tonight's bid-side value.
+const openProfit = (t) => (t.kind === "option"
+  ? (t.last_value == null ? 0 : (t.last_value - t.entry_debit) * 100 * t.contracts)
+  : (t.last_close == null ? 0 : dirOf(t) * (t.last_close - t.entry) * t.shares_open));
+
 export function summarize(book) {
   const trades = book.trades || [];
   const start = book.account?.start_balance ?? 0;
   const closed = trades.filter((t) => t.status !== "OPEN");
   const open = trades.filter((t) => t.status === "OPEN");
   const realized = r2(trades.reduce((a, t) => a + (t.realized || 0), 0));
-  const unrealized = r2(open.reduce((a, t) => a + (t.last_close == null ? 0 : dirOf(t) * (t.last_close - t.entry) * t.shares_open), 0));
+  const unrealized = r2(open.reduce((a, t) => a + openProfit(t), 0));
   const wins = closed.filter((t) => t.realized > 0).length;
   const sumR = r2(closed.reduce((a, t) => a + t.r, 0));
   const by_lane = {};
@@ -116,6 +121,16 @@ export function summarize(book) {
     win_rate: closed.length ? Math.round(wins / closed.length * 100) : null,
     avg_r: closed.length ? r2(sumR / closed.length) : null, sum_r: sumR, by_lane,
   };
+}
+
+// The goal's yardstick (Benny, 2026-10-16): the book's return against SPY's over the same dates, and where 15% a
+// year would have the book by then. Needs account.spy_start {date, close} and a history row carrying spy.
+export function vsSpy(book, goalPct = 15) {
+  const base = book.account?.spy_start, h = (book.history || []).filter((x) => x.spy).at(-1);
+  if (!base || !h) return null;
+  const start = book.account.start_balance, days = (Date.parse(h.date) - Date.parse(base.date)) / 864e5;
+  const bookPct = (h.equity / start - 1) * 100, spyPct = (h.spy / base.close - 1) * 100;
+  return { from: base.date, to: h.date, book_pct: r2(bookPct), spy_pct: r2(spyPct), gap_pts: r2(bookPct - spyPct), pace_pct: r2(((1 + goalPct / 100) ** (days / 365.25) - 1) * 100) };
 }
 
 const prevWeekday = (iso) => {
@@ -232,7 +247,7 @@ function main() {
     const date = val("--date") || nyDate();
     const lines = [];
     book.trades = book.trades.map((t) => {
-      if (t.status !== "OPEN") return t;
+      if (t.status !== "OPEN" || t.kind === "option") return t; // options are scored at option quotes by benny-options.mjs
       const b = bars[t.sym];
       if (!b) { lines.push(`  NO BAR   ${t.id} ${t.sym} - pass today's open/high/low/close`); return t; }
       const n = step(t, b, date);
@@ -277,10 +292,16 @@ function main() {
     if (!book.account) { console.log("PAPER BOOK: not opened yet (run init --balance N)"); return; }
     console.log(`PAPER BOOK since ${book.account.start_date}: equity ${s.equity} (start ${s.start_balance}, ${money(s.realized + s.unrealized)}, ${s.return_pct}%)`);
     console.log(`  ${s.closed} closed (${s.wins} won, ${s.losses} lost${s.closed ? `, avg ${s.avg_r}R, total ${s.sum_r}R` : ""}), ${s.open} open; realized ${money(s.realized)}, open profit ${money(s.unrealized)}`);
-    for (const t of book.trades.filter((x) => x.status === "OPEN"))
+    for (const t of book.trades.filter((x) => x.status === "OPEN" && x.kind !== "option"))
       console.log(`  OPEN ${t.id} ${t.sym.padEnd(5)} ${t.shares_open}/${t.shares} sh at ${t.entry}, stop ${t.t1_done && t.stop_after_t1 != null ? t.stop_after_t1 : t.stop}, last ${t.last_close ?? "unscored"}, out by ${t.exit_by} [${t.source_row}, ${t.lane}]`);
+    const opts = book.trades.filter((x) => x.kind === "option" && x.status === "OPEN");
+    for (const t of opts)
+      console.log(`  OPTION ${t.id} ${t.sym} ${t.structure} ${t.short_strike == null ? t.long_strike : `${t.long_strike}/${t.short_strike}`} ${t.expiry} x${t.contracts} at ${t.entry_debit}, value ${t.last_value ?? "unscored"}, target ${t.target ?? "none"}, out by ${t.exit_by} [${t.source_row}, ${t.lane}]`);
+    if (opts.length) { const risk = r2(opts.reduce((a, t) => a + t.cost, 0)); console.log(`  OPTIONS OPEN RISK ${risk} (${r2(risk / s.equity * 100)}% of equity)`); }
     for (const [lane, l] of Object.entries(s.by_lane))
-      console.log(`  LANE ${lane}: ${l.closed} closed (${l.wins} won, total ${l.sum_r}R), ${l.open} open, realized ${money(l.realized)}`);
+      console.log(`  LANE ${lane}: ${l.closed} closed (${l.wins} won, total ${l.sum_r}R), ${l.open} open, realized ${money(l.realized)}${l.closed && l.closed % 10 === 0 ? ` - REVIEW DUE (${l.closed} closed: keep or change the rule behind this lane)` : ""}`);
+    const v = vsSpy(book);
+    if (v) console.log(`  VS S&P ${v.from} to ${v.to}: book ${v.book_pct}% vs SPY ${v.spy_pct}% (${v.gap_pts >= 0 ? "ahead" : "behind"} by ${Math.abs(v.gap_pts)} pts); the 15%/yr goal pace is ${v.pace_pct}% by now`);
     return;
   }
 
