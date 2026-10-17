@@ -97,3 +97,67 @@ test("open sets risk_pct and opens the book once; a second open is refused", () 
 test("open refuses a risk percent outside 0-10", () => {
   assert.equal(run(["open", "--risk-pct", "25", "--root", cliRoot()]).code, 1);
 });
+
+// ---------- the weekly refill (Adam, 2026-10-16: "correct refill until 10k ... I probably wouldn't kick that in until it's below 9k") ----------
+import { refill } from "../scripts/benny-book.mjs";
+import { summarize, vsSpy } from "../scripts/paper-book.mjs";
+const rcfg = { refill_trigger: 9000, refill_target: 10000, refill_amount: 500 };
+const lost = (pl, history = []) => ({ account: { start_date: "2026-10-16", start_balance: 10000 }, trades: [{ id: "PB-001", status: "CLOSED", realized: pl, r: -1 }], history, skipped: [], deposits: [] });
+
+test("refill stays off at or above $9,000 and says so", () => {
+  const b = lost(-500);
+  const r = refill(b, rcfg, "2026-10-19");
+  assert.equal(r.deposited, 0);
+  assert.match(r.line, /REFILL off \(equity 9500 is at or above 9000\)/);
+  assert.equal(b.deposits.length, 0);
+});
+
+test("under $9,000 on the first trading day it starts and deposits $500; it keeps going above $9,000 until $10,000, then stops", () => {
+  const b = lost(-1300);
+  let r = refill(b, rcfg, "2026-10-19");
+  assert.equal(r.deposited, 500);
+  assert.equal(b.refill.active, true);
+  assert.deepEqual(b.deposits[0], { date: "2026-10-19", amount: 500, equity_before: 8700, total: 500 });
+  assert.equal(summarize(b).equity, 9200);
+  r = refill(b, rcfg, "2026-10-26");
+  assert.equal(r.deposited, 500);
+  r = refill(b, rcfg, "2026-11-02");
+  assert.equal(r.deposited, 300);
+  assert.equal(summarize(b).equity, 10000);
+  assert.equal(b.refill.active, false);
+  assert.match(r.line, /back at 10000, refill off/);
+  assert.equal(refill(b, rcfg, "2026-11-09").deposited, 0);
+});
+
+test("one deposit a week, and only on the week's first trading day", () => {
+  const b = lost(-1300);
+  refill(b, rcfg, "2026-10-19");
+  assert.equal(refill(b, rcfg, "2026-10-19").deposited, 0);
+  const mid = lost(-1500, [{ date: "2026-10-19", equity: 9900 }]);
+  const r = refill(mid, rcfg, "2026-10-21");
+  assert.equal(r.deposited, 0);
+  assert.equal(mid.refill?.active ?? false, false);
+  assert.match(r.line, /first trading day/);
+});
+
+test("a deposit updates tonight's history row; deposits are never trading gains (summarize, vsSpy)", () => {
+  const b = lost(-1300, [{ date: "2026-10-19", equity: 8700, spy: 770 }]);
+  b.account.spy_start = { date: "2026-10-16", close: 763.3 };
+  refill(b, rcfg, "2026-10-19");
+  assert.deepEqual(b.history[0], { date: "2026-10-19", equity: 9200, spy: 770, deposits: 500 });
+  const s = summarize(b);
+  assert.equal(s.deposits, 500);
+  assert.equal(s.trading_pl, -1300);
+  assert.equal(s.return_pct, -13);
+  assert.equal(vsSpy(b).book_pct, -13);
+});
+
+test("refill on the CLI writes the book and prints the line", () => {
+  const root = cliRoot();
+  writeFileSync(join(root, "db/benny-config.json"), JSON.stringify({ start_balance: 10000, risk_pct: 1, ...rcfg }));
+  writeFileSync(join(root, "db/benny-book.json"), JSON.stringify(lost(-1300)));
+  const r = run(["refill", "--date", "2026-10-19", "--root", root]);
+  assert.equal(r.code, 0);
+  assert.match(r.out, /REFILL deposited 500/);
+  assert.equal(JSON.parse(readFileSync(join(root, "db/benny-book.json"), "utf8")).deposits.length, 1);
+});

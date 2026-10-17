@@ -21,7 +21,7 @@
 //     The mid flatters narrow spreads about 2x (UNH 400/402.5 on 10/16: 1.275 at mid, 2.60 at the fill).
 //   - SIZE: contracts = floor(equity x options_risk_pct% / (debit x 100)); open debits <= options_max_open_pct% of
 //     equity; no new entries when equity is options_pause_drawdown_pct% under its peak. Research:
-//     docs/research/2026-10-16-options-risk-sizing.md (2% / 6% / 15%). These are Adam's settings, never a routine's.
+//     docs/research/2026-10-16-options-risk-sizing.md (3% / 9% / 15% since Adam set a $500-1,000 winner). These are Adam's settings, never a routine's.
 //   - NO ENTRY when earnings fall on or before expiry, when earnings were not checked, on a Friday, or when the ticker
 //     already has an open options trade. The hunter lane only enters at positive EV at the fill.
 //   - EXITS each night: on/after expiry = intrinsic at the close (EXPIRED); the close at/through the target = sell at
@@ -83,10 +83,12 @@ export function openOption(book, cfg, f) {
   if (hasOdds && ev <= 0) return { refused: `EV at the fill is ${ev} per contract (p_dir ${r2(f.pDir * 100)}%, p_reach ${r2(f.pReach * 100)}%, debit ${f.debit})` };
   const held = openOptions(book).find((t) => t.sym === sym);
   if (held) return { refused: `${sym} already has an open options trade (${held.id})` };
-  const equity = summarize(book).equity;
-  const peak = Math.max(book.account?.start_balance ?? 0, ...(book.history || []).map((h) => h.equity));
-  if (equity <= peak * (1 - cfg.options_pause_drawdown_pct / 100))
-    return { refused: `drawdown pause: equity ${equity} is ${cfg.options_pause_drawdown_pct}%+ under the ${peak} peak; new options entries wait for Adam` };
+  const s = summarize(book), equity = s.equity;
+  // The drawdown is measured on trading alone: a refill deposit must not lift the book out of a pause.
+  const traded = r2(equity - s.deposits);
+  const peak = Math.max(book.account?.start_balance ?? 0, ...(book.history || []).map((h) => h.equity - (h.deposits || 0)));
+  if (traded <= peak * (1 - cfg.options_pause_drawdown_pct / 100))
+    return { refused: `drawdown pause: trading equity ${traded} is ${cfg.options_pause_drawdown_pct}%+ under the ${peak} peak; new options entries wait for Adam` };
   const per = r2(f.debit * 100), cap = r2((equity * cfg.options_risk_pct) / 100);
   let contracts = Math.floor(cap / per);
   if (contracts < 1) return { refused: `one contract costs ${per} over the ${cfg.options_risk_pct}% cap ${cap} (equity ${equity})` };
@@ -230,7 +232,7 @@ function main() {
     const spy = num("--spy") ?? prior?.spy;
     if (has("--write")) {
       if (date >= book.account.start_date)
-        book.history = [...book.history.filter((h) => h.date !== date), { date, equity: s.equity, realized: s.realized, unrealized: s.unrealized, open: s.open, ...(spy ? { spy } : {}) }];
+        book.history = [...book.history.filter((h) => h.date !== date), { date, equity: s.equity, realized: s.realized, unrealized: s.unrealized, open: s.open, ...(s.deposits ? { deposits: s.deposits } : {}), ...(spy ? { spy } : {}) }];
       save(DB, book);
     }
     console.log(`BENNY OPTIONS ${date}${has("--write") ? " (written)" : ""}: book equity ${s.equity}, options open risk ${optionsOpenRisk(book)}${spy ? `, SPY ${spy}` : ""}`);

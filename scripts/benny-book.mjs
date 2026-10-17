@@ -3,6 +3,7 @@
 //   node scripts/benny-book.mjs open --risk-pct 1.5 [--date D]   ADAM ONLY, in a chat, in his own words.
 //   node scripts/benny-book.mjs mirror [--date D]                 routines, right after they add to Adam's book
 //   node scripts/benny-book.mjs status
+//   node scripts/benny-book.mjs refill [--date D]                 every weekday close; deposits only on the week's first trading day
 //   Scoring: node scripts/paper-book.mjs score --bars '<json>' --date D --write --db db/benny-book.json
 //
 // Adam, 2026-10-15: "We are not decided exactly the trading %s we will start with a 10k bag but we're
@@ -51,6 +52,35 @@ export function mirror(adam, benny, cfg, date) {
   return { waiting: [], added, skipped };
 }
 
+// THE WEEKLY REFILL (Adam, 2026-10-16): "we take a loss we wait for a $500 income per week. $500 gets added back to
+// the bank until it's 10k ... as if it was me working", then "correct refill until 10k. ideally this never happens.
+// I probably wouldn't kick that in until it's below 9k". Benny's book rehearses Adam's future real $10k bag.
+// Only on the week's first trading day (no history row earlier in the same week): under refill_trigger it starts;
+// while on it deposits min(refill_amount, refill_target - equity) once a week, even back above the trigger,
+// and stops at refill_target. Deposits go in book.deposits and never count as trading gains (paper-book summarize).
+const weekOf = (iso) => { const d = new Date(`${iso}T12:00:00Z`); d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7)); return d.toISOString().slice(0, 10); };
+
+export function refill(book, cfg, date) {
+  const { refill_trigger: trigger, refill_target: target, refill_amount: amount } = cfg;
+  book.deposits ||= [];
+  const state = book.refill || { active: false };
+  const eq = summarize(book).equity, wk = weekOf(date);
+  const firstDay = !(book.history || []).some((h) => h.date < date && weekOf(h.date) === wk);
+  if (!firstDay || book.deposits.some((d) => weekOf(d.date) === wk)) {
+    book.refill = { ...state, trigger, target, amount };
+    return { deposited: 0, line: state.active ? `REFILL ON - next deposit on the first trading day of next week (${r2(target - eq)} left to ${target})` : `REFILL off - checked only on the week's first trading day (equity ${eq})` };
+  }
+  let active = state.active || eq < trigger;
+  if (active && eq >= target) active = false;
+  if (!active) { book.refill = { active, trigger, target, amount, checked: date }; return { deposited: 0, line: `REFILL off (equity ${eq} is at or above ${eq >= target ? target : trigger})` }; }
+  const dep = r2(Math.min(amount, target - eq)), total = r2(book.deposits.reduce((a, d) => a + d.amount, 0) + dep);
+  book.deposits.push({ date, amount: dep, equity_before: eq, total });
+  book.history = (book.history || []).map((h) => (h.date === date ? { ...h, equity: r2(h.equity + dep), deposits: total } : h));
+  const after = r2(eq + dep);
+  book.refill = { active: after < target, trigger, target, amount, checked: date };
+  return { deposited: dep, line: `REFILL deposited ${dep} on ${date} (equity ${eq} -> ${after}); ${after < target ? `${r2(target - after)} left to ${target}` : `back at ${target}, refill off`}. A deposit, not a trading gain.` };
+}
+
 const load = (p, fallback) => (existsSync(p) ? JSON.parse(readFileSync(p, "utf8")) : fallback);
 const save = (p, d) => writeFileSync(p, JSON.stringify(d, null, 2) + "\n");
 const refuse = (m) => { console.log(`REFUSED - ${m}`); process.exit(1); };
@@ -91,6 +121,16 @@ function main() {
     return;
   }
 
+  if (argv[0] === "refill") {
+    for (const k of ["refill_trigger", "refill_target", "refill_amount"]) if (!(cfg[k] > 0)) refuse(`${k} is not set in db/benny-config.json (Adam's setting)`);
+    const benny = load(BOOK, null);
+    if (!benny?.account) refuse("Benny's book is not open");
+    const r = refill(benny, cfg, date);
+    save(BOOK, benny);
+    console.log(r.line);
+    return;
+  }
+
   if (argv[0] === "status") {
     const benny = load(BOOK, null);
     if (cfg.risk_pct == null || !benny?.account) { console.log("BENNY BOOK WAITING - risk_pct is not set; nothing is sized or taken."); return; }
@@ -99,7 +139,7 @@ function main() {
     return;
   }
 
-  console.log("usage: benny-book.mjs open|mirror|status  (see header)");
+  console.log("usage: benny-book.mjs open|mirror|refill|status  (see header)");
   process.exit(1);
 }
 

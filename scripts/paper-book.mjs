@@ -106,6 +106,8 @@ export function summarize(book) {
   const open = trades.filter((t) => t.status === "OPEN");
   const realized = r2(trades.reduce((a, t) => a + (t.realized || 0), 0));
   const unrealized = r2(open.reduce((a, t) => a + openProfit(t), 0));
+  // Refill deposits (Benny's book) are cash added to the bag, never trading gains: in equity, out of every return.
+  const deposits = r2((book.deposits || []).reduce((a, d) => a + d.amount, 0));
   const wins = closed.filter((t) => t.realized > 0).length;
   const sumR = r2(closed.reduce((a, t) => a + t.r, 0));
   const by_lane = {};
@@ -115,7 +117,7 @@ export function summarize(book) {
     l.realized = r2(l.realized + (t.realized || 0));
   }
   return {
-    start_balance: start, realized, unrealized, equity: r2(start + realized + unrealized),
+    start_balance: start, realized, unrealized, deposits, trading_pl: r2(realized + unrealized), equity: r2(start + deposits + realized + unrealized),
     return_pct: start ? r2((realized + unrealized) / start * 100) : null,
     closed: closed.length, open: open.length, wins, losses: closed.length - wins,
     win_rate: closed.length ? Math.round(wins / closed.length * 100) : null,
@@ -129,7 +131,7 @@ export function vsSpy(book, goalPct = 15) {
   const base = book.account?.spy_start, h = (book.history || []).filter((x) => x.spy).at(-1);
   if (!base || !h) return null;
   const start = book.account.start_balance, days = (Date.parse(h.date) - Date.parse(base.date)) / 864e5;
-  const bookPct = (h.equity / start - 1) * 100, spyPct = (h.spy / base.close - 1) * 100;
+  const bookPct = ((h.equity - (h.deposits || 0)) / start - 1) * 100, spyPct = (h.spy / base.close - 1) * 100;
   return { from: base.date, to: h.date, book_pct: r2(bookPct), spy_pct: r2(spyPct), gap_pts: r2(bookPct - spyPct), pace_pct: r2(((1 + goalPct / 100) ** (days / 365.25) - 1) * 100) };
 }
 
@@ -263,7 +265,7 @@ function main() {
     if (has("--write")) {
       // A trade carried in from before the book opened still gets scored, but the balance history starts on the open date.
       if (!book.account || date >= book.account.start_date)
-        book.history = [...book.history.filter((h) => h.date !== date), { date, equity: s.equity, realized: s.realized, unrealized: s.unrealized, open: s.open }];
+        book.history = [...book.history.filter((h) => h.date !== date), { date, equity: s.equity, realized: s.realized, unrealized: s.unrealized, open: s.open, ...(s.deposits ? { deposits: s.deposits } : {}) }];
       save(DB, book);
     }
     console.log(`PAPER BOOK ${date}${has("--write") ? " (written)" : ""}: equity ${s.equity} (start ${s.start_balance}, ${money(s.realized + s.unrealized)}), today ${money(today)}, ${s.open} open, ${s.closed} closed`);
@@ -291,6 +293,8 @@ function main() {
     if (has("--json")) { console.log(JSON.stringify({ ...s, account: book.account, trades: book.trades, history: book.history }, null, 2)); return; }
     if (!book.account) { console.log("PAPER BOOK: not opened yet (run init --balance N)"); return; }
     console.log(`PAPER BOOK since ${book.account.start_date}: equity ${s.equity} (start ${s.start_balance}, ${money(s.realized + s.unrealized)}, ${s.return_pct}%)`);
+    if (book.deposits) console.log(`  TRADING P/L ${money(s.trading_pl)} (${s.return_pct}% of the ${s.start_balance} start); refill deposits ${s.deposits} (${book.deposits.length} weekly refill${book.deposits.length === 1 ? "" : "s"}); equity ${s.equity}`);
+    if (book.refill) console.log(book.refill.active ? `  REFILL ON: ${r2(book.refill.target - s.equity)} left to ${book.refill.target}, ${book.refill.amount} a week` : `  REFILL off (equity above ${book.refill.trigger})`);
     console.log(`  ${s.closed} closed (${s.wins} won, ${s.losses} lost${s.closed ? `, avg ${s.avg_r}R, total ${s.sum_r}R` : ""}), ${s.open} open; realized ${money(s.realized)}, open profit ${money(s.unrealized)}`);
     for (const t of book.trades.filter((x) => x.status === "OPEN" && x.kind !== "option"))
       console.log(`  OPEN ${t.id} ${t.sym.padEnd(5)} ${t.shares_open}/${t.shares} sh at ${t.entry}, stop ${t.t1_done && t.stop_after_t1 != null ? t.stop_after_t1 : t.stop}, last ${t.last_close ?? "unscored"}, out by ${t.exit_by} [${t.source_row}, ${t.lane}]`);

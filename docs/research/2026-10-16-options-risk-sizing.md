@@ -1,5 +1,34 @@
 # How much should Benny risk per options trade? (2026-10-16)
 
+> **UPDATED THE SAME EVENING: 3% per trade, 9% open.** Adam then gave a per-trade target: "makes 1k on 10k is optimal", with about $500 acceptable at lower risk. The 2% answer below was sized for a yearly return. A winner's size is risk x payoff, so:
+>
+> | Risk per trade | At risk | Win at 1.6R | Win at 2R | Win at 3R | 5 losses in a row | 10 losses in a row |
+> |---|---|---|---|---|---|---|
+> | 2% | $200 | $320 | $400 | $600 | -9.6% | -18.3% |
+> | **3%** | **$300** | **$480** | **$600** | **$900** | **-14.1%** | **-26.3%** |
+> | 3.3% | $333 | $533 | $667 | $1,000 | -15.6% | -28.8% |
+> | 5% | $500 | $800 | $1,000 | $1,500 | -22.6% | -40.1% |
+>
+> (A loss is counted as the whole debit, compounded.)
+>
+> **A year of 60 trades, on $10,000, without compounding:**
+>
+> | Risk | Win 40% at +1.6R, lose -0.85R | Win 35% at +1.8R, lose -0.95R (thin edge) |
+> |---|---|---|
+> | 2% | +$1,560 | +$150 |
+> | **3%** | **+$2,340** | **+$225** |
+> | 5% | +$3,900 | +$375 |
+>
+> **Why 3% and not 5%:**
+> 1. 3% gets ordinary spreads, paying 1.6-3x their cost, to $480-900 winners, which is Adam's $500 floor and close to the $1,000 ideal.
+> 2. It is the top of tastylive's defined-risk range, and still inside every source here.
+> 3. 5% would hit $1,000 at 2:1, but it is the size where the Monte Carlo puts a 27% chance of losing half the book in a year if the edge is thin, and Adam said he would take $500 wins for lower risk.
+> 4. The 15% drawdown pause stops new options entries after about five straight full losses at 3%, so the 10-loss -26% row cannot run all the way. The worst realistic hit is about the 15% pause plus whatever is still open, at most the 9% cap.
+>
+> **Open cap: 9%,** three full-size trades, keeping Elder's three-positions shape.
+>
+> **Refill:** at $9,000 the weekly $500 refill starts (design spec, last section). The deposits are never counted as trading gains.
+
 Adam, 2026-10-16, on the first draft of the options lane, which risked 1% per trade: "you will pass on every single trade at 1% risk". Then: "increase the risk to a sensible amount deep dive into what the risks really on with a good trader".
 
 **Answer: 2% of Benny's equity per options trade (about $200 on $10,000), with at most 6% of equity open in options at once (three full-size trades).** The shares lane stays at 1%. The rule is reviewed when the lane has 10 closed trades: if its measured expected value is positive, consider 3%; if it is negative, go back to 1%.

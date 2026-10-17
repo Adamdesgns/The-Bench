@@ -5,8 +5,12 @@
   "daily_answer_cap": 20,
   "persona": "prompts/benny-v3.md",
   "opened": "2026-10-16",
-  "options_risk_pct": 2,
-  "options_max_open_pct": 6,
+  "options_risk_pct": 3,
+  "options_max_open_pct": 9,
   "options_pause_drawdown_pct": 15,
-  "options_set": "2026-10-16, Adam: \"increase the risk to a sensible amount\"; evidence docs/research/2026-10-16-options-risk-sizing.md"
+  "options_set": "2026-10-16, Adam: \"increase the risk to a sensible amount\", then \"makes 1k on 10k is optimal\" with 5% ($500) acceptable at lower risk; evidence docs/research/2026-10-16-options-risk-sizing.md",
+  "refill_trigger": 9000,
+  "refill_target": 10000,
+  "refill_amount": 500,
+  "refill_set": "2026-10-16, Adam: \"correct refill until 10k. ideally this never happens. I probably wouldn't kick that in until it's below 9k\""
 }
