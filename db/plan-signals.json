@@ -1,17 +1,185 @@
 {
-  "date": "2026-10-15",
+  "date": "2026-10-16",
   "signals": [],
   "none": true,
   "armed_not_signaled": [
-    {"sym": "UNH", "row": "B-906", "zone_low": 408.00, "zone_high": 408.96, "stop": 396.30, "t1": 434.30, "t2": null, "readiness": 77, "atr": 11.699, "decide_by": "2026-10-19", "exit_by": "2026-10-27", "kill_below": 395.62, "note": "First-bar plan: the first 30-min bar of Fri 10/16 or Mon 10/19 closes inside 408.00-408.96; LIMIT never above 408.96, stop 396.30 GTC. zone_low recomputed tonight = stop + 1.0 ATR on settled bars incl 10/15 (Wilder 11.176 -> 11.699; 10/15 TR 18.50 = 414.12 - 395.62). Size 27 sh from the 350.73 band, unfunded, paper. Close 406.72 on 1.82x volume, 1.28 under the zone."}
+    {
+      "sym": "MU",
+      "row": "B-930",
+      "zone_low": 820,
+      "zone_high": 835,
+      "legal_fill_line": 815.58,
+      "stop": 769,
+      "t1": 949.42,
+      "t2": 1041,
+      "readiness": 30,
+      "atr": 46.578,
+      "decide_by": "2026-10-30",
+      "exit_by": "2026-12-15",
+      "note": "First-bar plan (B-930): Monday 10/19 or later, the first 30-min bar closes inside 820-835; LIMIT never above 835, stop 769 GTC. Stop + 1.0 ATR on settled bars incl 10/16 = 815.58 (Wilder 46.578; 10/16 bar H 907.50 L 875.00 C 878.67), under the 820 zone floor, so the whole zone is a legal fill. READINESS 30 = watchlist only: the morning check records the bar verdict, no paper-book fill unless the desk re-grades it to 50+. Fri close 878.67 is 43.67 above the zone top. B-856 (931.27-940.72) is dead: closed under its 884 floor."
+    },
+    {
+      "sym": "CRM",
+      "row": "B-944",
+      "zone_low": 224,
+      "zone_high": 224.96,
+      "stop": 214.91,
+      "t1": 245.06,
+      "t2": 251.94,
+      "readiness": 52,
+      "atr": 9.09,
+      "decide_by": "2026-10-30",
+      "exit_by": "2026-11-20",
+      "note": "Weekend hunt first-bar plan (B-944): first 30-min bar Mon 10/19+ closes inside 224.00-224.96; LIMIT never above 224.96, stop 214.91 GTC. zone_low = stop + 1.0 ATR 9.09. Software slot: if CRM fills, WDAY B-949 is blocked. Readiness 52 = ENTER-eligible."
+    },
+    {
+      "sym": "LW",
+      "row": "B-947",
+      "zone_low": 50.6,
+      "zone_high": 50.95,
+      "stop": 48.6,
+      "t1": 55.7,
+      "t2": 60.55,
+      "readiness": 55,
+      "atr": 2,
+      "decide_by": "2026-10-23",
+      "exit_by": "2026-12-17",
+      "note": "Weekend hunt first-bar plan (B-947): post-earnings drift pullback; first 30-min bar closes inside 50.60-50.95; stop 48.60 GTC. 5-session clock, re-judge after 10/23."
+    },
+    {
+      "sym": "DE",
+      "row": "B-948",
+      "zone_low": 617.89,
+      "zone_high": 619.46,
+      "stop": 599,
+      "t1": 660.39,
+      "t2": 689.69,
+      "readiness": 47,
+      "atr": 18.89,
+      "decide_by": "2026-10-30",
+      "exit_by": "2026-11-24",
+      "note": "Weekend hunt first-bar plan (B-948), READINESS 47 = watchlist only: record the bar verdict, no paper fill. Earnings 11/25 am."
+    },
+    {
+      "sym": "WDAY",
+      "row": "B-949",
+      "zone_low": 183.15,
+      "zone_high": 184.08,
+      "stop": 176,
+      "t1": 200.23,
+      "t2": 211.83,
+      "readiness": 45,
+      "atr": 7.15,
+      "decide_by": "2026-10-30",
+      "exit_by": "2026-11-20",
+      "note": "Weekend hunt first-bar plan (B-949), READINESS 45 = watchlist only, and blocked while CRM B-944 is open (one software slot)."
+    }
   ],
   "open_paper": [
-    {"sym": "MRNA", "id": "PB-001", "row": "B-854", "entry": 212.79, "stop": 195.9, "target": 249.42, "close": 236.5, "exit_by": "2026-10-23"},
-    {"sym": "ASTS", "id": "PB-003", "row": "B-895", "side": "short", "entry": 41.8, "stop": 47.75, "close": 44.455, "exit_by": "2026-10-28"},
-    {"sym": "WULF", "id": "PB-004", "row": "B-892", "side": "short", "entry": 11.3, "stop": 13.33, "close": 12.605, "exit_by": "2026-10-28"},
-    {"sym": "AAOI", "id": "PB-005", "side": "short", "entry": 84.66, "stop": 99.77, "close": 83.73, "exit_by": "2026-10-28"},
-    {"sym": "IREN", "id": "PB-006", "row": "B-894", "side": "short", "entry": 30.09, "stop": 34.88, "close": 30.39, "exit_by": "2026-10-28"},
-    {"sym": "APLD", "id": "PB-007", "row": "B-893", "side": "short", "entry": 20.03, "stop": 22.63, "close": 20.385, "exit_by": "2026-10-28"}
+    {
+      "sym": "MRNA",
+      "id": "PB-001",
+      "row": "B-854",
+      "entry": 212.79,
+      "stop": 195.9,
+      "target": 249.42,
+      "close": 218,
+      "exit_by": "2026-10-23"
+    },
+    {
+      "sym": "ASTS",
+      "id": "PB-003",
+      "row": "B-895",
+      "side": "short",
+      "entry": 41.8,
+      "stop": 47.75,
+      "close": 40.64,
+      "exit_by": "2026-10-28"
+    },
+    {
+      "sym": "WULF",
+      "id": "PB-004",
+      "row": "B-892",
+      "side": "short",
+      "entry": 11.3,
+      "stop": 13.33,
+      "close": 11.655,
+      "exit_by": "2026-10-28"
+    },
+    {
+      "sym": "AAOI",
+      "id": "PB-005",
+      "side": "short",
+      "entry": 84.66,
+      "stop": 99.77,
+      "close": 75.59,
+      "exit_by": "2026-10-28"
+    },
+    {
+      "sym": "IREN",
+      "id": "PB-006",
+      "row": "B-894",
+      "side": "short",
+      "entry": 30.09,
+      "stop": 34.88,
+      "close": 27,
+      "exit_by": "2026-10-28"
+    },
+    {
+      "sym": "APLD",
+      "id": "PB-007",
+      "row": "B-893",
+      "side": "short",
+      "entry": 20.03,
+      "stop": 22.63,
+      "close": 18.05,
+      "exit_by": "2026-10-28"
+    },
+    {
+      "sym": "ANET",
+      "id": "PB-008",
+      "side": "short",
+      "entry": 186.01,
+      "stop": 203.68,
+      "close": 177.03,
+      "exit_by": "2026-10-29"
+    },
+    {
+      "sym": "VRT",
+      "id": "PB-009",
+      "side": "short",
+      "entry": 215.7,
+      "stop": 234.8,
+      "close": 206.42,
+      "exit_by": "2026-10-27"
+    },
+    {
+      "sym": "ETN",
+      "id": "PB-010",
+      "side": "short",
+      "entry": 402.8,
+      "stop": 425.03,
+      "close": 391.14,
+      "exit_by": "2026-10-29"
+    },
+    {
+      "sym": "LITE",
+      "id": "PB-011",
+      "side": "short",
+      "entry": 875,
+      "stop": 973.7,
+      "close": 823.57,
+      "exit_by": "2026-10-29"
+    },
+    {
+      "sym": "SNDG",
+      "id": "PB-012",
+      "side": "short",
+      "entry": 6.48,
+      "stop": 7.46,
+      "close": 5.615,
+      "exit_by": "2026-10-28"
+    }
   ],
-  "note": "Thu 10/15 close check. RH official close field had not rolled at ~15:30 CT; closes are last regular-session prints at 19:59:59Z. NO SIGNALS. IN BUY RANGE: MU 931.40 (931.27-940.72, B-856) but the plan is spent - paper PB-002 stopped today when MU opened 871.16 under the 884 stop (-406.23, -1.23R), then closed back in the zone on 1.48x; any re-entry needs a full run. VRT 214.83 (<=227, floor 211.50, B-444/B-883) on 2.77x volume = wrong volume for a pullback, low 204.38 under the floor intraday, held on the close. AIP 19.91 (<=21.39, floor 17.40, B-288) on 1.28x, no target - plan incomplete. VOID: LITE 869.70 < 878 (MC-147 fired, B-857 dead), IRD 4.045 < 4.06 (MC-129). NO SIGNAL: XOM 174.65 above zone, ASPN 5.395 just under 5.40 (floor 5.06 held), UBER 71.22 < 71.90, AMZN/SPCX/HIMS/IBIT above zones, GOOGL 349.16 (stop 326 held). Dead/void unchanged: ETN, SNDG, IREN long, CBRS, MRVL B-779, ORCL, PWR B-539, NVDA under 231.90. BTC-USD B-911 judged on the 7 PM CT settled bar, not here."
+  "note": "Fri 10/16 close check, run late (~18:20 CT). RH official close field had not rolled; closes are last regular-session prints at 19:59:59Z. NO SIGNALS. Friday: nothing is bought on this close; Monday first 30 minutes decide. IN BUY RANGE: AIP 18.765 (<=21.39, floor 17.40, B-288) on 1.00x volume, no target = plan incomplete. VOIDED today: MU 878.67 < 884 floor (B-856 zone 931.27-940.72 dead; above 874 so MC-177 did not fire; B-930 820-835 not reached), VRT 206.42 < 211.50 floor on 1.30x. NO SIGNAL: XOM 178.98 above zone, ASPN 5.195 under 5.40 (floor 5.06 held), UBER 70.345 < 71.90, AMZN 249.95 / SPCX 146.03 / HIMS 28.07 / IBIT 46.135 above zones, GOOGL 340.59 (stop 326 held, under 355 ratchet). UNH 401.45 plan dead (B-927), stop line 396.30 held on the close. Dead/void unchanged: LITE, ETN, SNDG, IREN long, CBRS, MRVL, ORCL, PWR, NVDA, IRD. BTC-USD B-911 judged on the 7 PM CT settled bar, not here."
 }

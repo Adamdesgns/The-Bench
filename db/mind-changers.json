@@ -2513,7 +2513,9 @@
       "source": "site/reviews/2026-10-13-ai-crash-bounce.md",
       "row": "B-856",
       "expires": "2026-10-27",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-16",
+      "fired_detail": "MU 878.67 <= 884 yes"
     },
     {
       "id": "MC-146",
@@ -2650,7 +2652,9 @@
       "source": "fastmover 2026-10-14 1254",
       "row": "B-883",
       "expires": "2026-10-21",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-16",
+      "fired_detail": "VRT 206.42 < 211.5 yes"
     },
     {
       "id": "MC-154",
@@ -3190,6 +3194,438 @@
       "source": "site/reviews/2026-10-16-mu.md",
       "row": "B-930",
       "expires": "2026-12-15",
+      "status": "open"
+    },
+    {
+      "id": "MC-187",
+      "created": "2026-10-16",
+      "when": [
+        {
+          "ticker": "APLD",
+          "op": ">",
+          "level": 20.39
+        }
+      ],
+      "meaning": "credit scare passed in one day - re-judge B-932 (also check CRWV back over 69.69)",
+      "source": "snapshot-1310 read",
+      "row": "B-932",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-188",
+      "created": "2026-10-16",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 715
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-939: QQQ settled back over the 10/16 midday 715 shelf, so Friday's afternoon drop was opex positioning, not new selling",
+      "source": "docs/reads/2026-10-16-close.md",
+      "row": "B-939",
+      "expires": "2026-10-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-189",
+      "created": "2026-10-16",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">",
+          "level": 30.39
+        }
+      ],
+      "meaning": "credit scare being bought - IREN closed back over the 10/15 close; re-judge B-928 (check CRWV green)",
+      "source": "docs/reads/2026-10-16-snapshot-1012.md",
+      "row": "B-928",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-190",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "CRM",
+          "op": "<=",
+          "level": 224.96
+        }
+      ],
+      "meaning": "CRM back in its first-bar zone 224.00-224.96: test the Monday-or-later first 30-min bar",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-944",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-191",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "CRM",
+          "op": "<=",
+          "level": 214.91
+        }
+      ],
+      "meaning": "CRM plan stop: thesis broken",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-944",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-192",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "CRM",
+          "op": ">=",
+          "level": 245.06
+        }
+      ],
+      "meaning": "CRM reached T1 without filling: plan void, re-judge",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-944",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-193",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "APLD",
+          "op": "<=",
+          "level": 18.19
+        }
+      ],
+      "meaning": "APLD inside the short zone: test the first 30-min bar for the put spread",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-945",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-194",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "APLD",
+          "op": ">=",
+          "level": 19.95
+        }
+      ],
+      "meaning": "APLD short stop: breakdown failed",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-945",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-195",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "APLD",
+          "op": "<=",
+          "level": 13.53
+        }
+      ],
+      "meaning": "APLD short T1 reached",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-945",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-196",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<=",
+          "level": 26.45
+        }
+      ],
+      "meaning": "IREN broke 26.45: short swap zone live if APLD is not open",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-946",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-197",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">=",
+          "level": 29.3
+        }
+      ],
+      "meaning": "IREN short stop level",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-946",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-198",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "LW",
+          "op": "<=",
+          "level": 50.95
+        }
+      ],
+      "meaning": "LW in its pullback zone 50.60-50.95: test the first 30-min bar",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-947",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-199",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "LW",
+          "op": "<=",
+          "level": 48.6
+        }
+      ],
+      "meaning": "LW stop: plan dead",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-947",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-200",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "LW",
+          "op": ">=",
+          "level": 55.7
+        }
+      ],
+      "meaning": "LW reached T1 without filling: re-judge as a breakout",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-947",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-201",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "DE",
+          "op": "<=",
+          "level": 619.46
+        }
+      ],
+      "meaning": "DE back on the 617-620 shelf: test the first 30-min bar",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-948",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-202",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "DE",
+          "op": "<=",
+          "level": 599
+        }
+      ],
+      "meaning": "DE stop: shelf broken",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-948",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-203",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "DE",
+          "op": ">=",
+          "level": 660.39
+        }
+      ],
+      "meaning": "DE reached T1 without filling: re-judge",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-948",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-204",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "WDAY",
+          "op": "<=",
+          "level": 184.08
+        }
+      ],
+      "meaning": "WDAY in its pullback zone: test the first 30-min bar if CRM is not open",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-949",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-205",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "WDAY",
+          "op": "<=",
+          "level": 176
+        }
+      ],
+      "meaning": "WDAY stop: plan dead",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-949",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-206",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "EOG",
+          "op": ">",
+          "level": 158.37
+        }
+      ],
+      "meaning": "EOG closed above its all-time high: re-judge the breakout for a verified target",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-950",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-207",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "EOG",
+          "op": "<",
+          "level": 154.6
+        }
+      ],
+      "meaning": "EOG breakout idea dead",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-950",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-208",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "IOVA",
+          "op": ">",
+          "level": 15.3
+        }
+      ],
+      "meaning": "IOVA closed above its 52-week high 15.30: re-look the pass (needs 1.5x volume)",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-952",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-209",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "BBIO",
+          "op": ">",
+          "level": 69.77
+        }
+      ],
+      "meaning": "BBIO above the 9/22 high 69.77 into the 11/27 PDUFA: re-look the run-up plan",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-953",
+      "expires": "2026-11-25",
+      "status": "open"
+    },
+    {
+      "id": "MC-210",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "AAOI",
+          "op": ">",
+          "level": 85.02
+        }
+      ],
+      "meaning": "AAOI reclaimed 85.02: re-look (short unwind / long)",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-958",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-211",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "WULF",
+          "op": "<",
+          "level": 10.35
+        }
+      ],
+      "meaning": "WULF broke its 20-session low 10.35: re-look the short (needs 1.5x volume and 2:1)",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-959",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-212",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "APOG",
+          "op": ">",
+          "level": 44.05
+        }
+      ],
+      "meaning": "APOG above 44.05: re-look the post-earnings drift",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-960",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-213",
+      "created": "2026-10-17",
+      "when": [
+        {
+          "ticker": "BLK",
+          "op": "<=",
+          "level": 1091
+        }
+      ],
+      "meaning": "BLK at 1089-1091: the one geometry that pays 2:1 to 1150.30, test the first 30-min bar",
+      "source": "docs/reads/2026-10-16-weekend-hunt.md",
+      "row": "B-961",
+      "expires": "2026-10-30",
       "status": "open"
     }
   ]
