@@ -234,3 +234,57 @@ test("CLI: the score line says what the account made or lost since the last reco
   assert.match(run(["score", "--bars", '{"M":{"open":100,"high":104,"low":99,"close":103}}', "--date", "2026-10-14", "--write", "--db", db]), /today \+30\.00/);
   assert.match(run(["score", "--bars", '{"M":{"open":103,"high":103,"low":100,"close":101}}', "--date", "2026-10-15", "--write", "--db", db]), /today -20\.00/);
 });
+
+// STANDINGS (Adam, 2026-10-19: "these calls should go in my morning report to ntfy"): every open call ranked
+// best percent first, marked at the morning quote, falling back to the last scored close.
+const standBook = () => ({
+  account: { start_balance: 1000, start_date: "2026-10-14" },
+  history: [],
+  trades: [
+    { ...base, id: "PB-001", sym: "LNG", side: "long", entry: 100, shares: 10, shares_open: 10, stop: 90, t1: 120, t2: null, last_close: 104, source_row: "B-1", lane: "entry-check", exit_by: "2026-10-23" },
+    { ...base, id: "PB-002", sym: "SHT", side: "short", entry: 50, shares: 20, shares_open: 20, stop: 55, t1: 40, t2: null, last_close: 46, source_row: "hunt:abc", lane: "hunter-short", exit_by: "2026-10-28" },
+    { ...base, id: "PB-003", sym: "BAD", side: "short", entry: 10, shares: 100, shares_open: 100, stop: 12, t1: 7, t2: null, last_close: 10.5, source_row: "B-2", lane: "hunter-short", exit_by: "2026-10-28" },
+    { ...base, id: "PB-004", sym: "OLD", side: "long", entry: 200, shares: 2, shares_open: 0, status: "CLOSED", realized: -30, r: -1.5, exit_reason: "STOPPED", exit_date: "2026-10-15", source_row: "B-3", lane: "entry-check" },
+  ],
+});
+
+test("standings: open calls ranked best percent first, shorts gain when the price falls, marked at the quote given", async () => {
+  const { standings } = await import("../scripts/paper-book.mjs");
+  const s = standings(standBook(), { LNG: 103, SHT: 45 });
+  assert.deepEqual(s.rows.map((r) => r.sym), ["SHT", "LNG", "BAD"]);
+  const sht = s.rows[0];
+  assert.equal(sht.price, 45);
+  assert.equal(sht.quoted, true);
+  assert.equal(sht.pct, 10);          // (50 - 45) / 50
+  assert.equal(sht.usd, 100);         // 20 shares x 5
+  assert.equal(sht.r, 1);             // 5 of a 5-point risk
+  assert.equal(sht.to_stop_pct, 22.22); // 45 -> 55
+  assert.equal(sht.to_target_pct, 11.11); // 45 -> 40
+  const bad = s.rows[2];
+  assert.equal(bad.quoted, false);    // no quote: the last close
+  assert.equal(bad.price, 10.5);
+  assert.equal(bad.pct, -5);
+  assert.equal(bad.usd, -50);
+  assert.equal(s.closed.length, 1);
+  assert.equal(s.realized, -30);
+  assert.equal(s.open_usd, 80);       // 30 + 100 - 50
+  assert.equal(s.equity, 1050);
+  assert.equal(s.return_pct, 5);
+});
+
+test("CLI standings: prints the mark time, the book line, one ranked line per call and the closed calls", () => {
+  const db = join(mkdtempSync(join(tmpdir(), "pb-")), "book.json");
+  writeFileSync(db, JSON.stringify(standBook()));
+  const out = run(["standings", "--prices", '{"LNG":103,"SHT":45}', "--asof", "pre-market 05:40 CT", "--db", db]);
+  assert.match(out, /pre-market 05:40 CT/);
+  assert.match(out, /1050\.00.*\+50\.00.*\+5\.00%/);
+  assert.match(out, /1\. SHT short \+10\.00% \+100\.00/);
+  assert.match(out, /3\. BAD short -5\.00% -50\.00.*\(last close\)/);
+  assert.match(out, /stop 55 \(22\.2% away\), target 40 \(11\.1% away\)/);
+  assert.match(out, /OLD long -30\.00 \(-1\.5R, STOPPED 2026-10-15\) \[B-3\]/);
+});
+
+test("CLI standings: before the book is opened it says so", () => {
+  const db = join(mkdtempSync(join(tmpdir(), "pb-")), "book.json");
+  assert.match(run(["standings", "--db", db]), /not opened yet/);
+});

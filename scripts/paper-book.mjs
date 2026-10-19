@@ -13,6 +13,9 @@
 //   node scripts/paper-book.mjs score --bars '{"MU":{"open":..,"high":..,"low":..,"close":..}}' [--date D] [--write]
 //   node scripts/paper-book.mjs close --id PB-001 --price P [--date D] [--why MANUAL]
 //   node scripts/paper-book.mjs report [--json]
+//   node scripts/paper-book.mjs standings [--prices '{"ASTS":41.69}'] [--asof "pre-market 05:40 CT"]
+//        every open call ranked best percent first, marked at the quotes given (else the last close); for the
+//        morning read. Writes nothing.
 //   add --db f.json to any command for an offline test file
 //
 // WHY THIS EXISTS (Adam, 2026-10-14)
@@ -133,6 +136,37 @@ export function vsSpy(book, goalPct = 15) {
   const start = book.account.start_balance, days = (Date.parse(h.date) - Date.parse(base.date)) / 864e5;
   const bookPct = ((h.equity - (h.deposits || 0)) / start - 1) * 100, spyPct = (h.spy / base.close - 1) * 100;
   return { from: base.date, to: h.date, book_pct: r2(bookPct), spy_pct: r2(spyPct), gap_pts: r2(bookPct - spyPct), pace_pct: r2(((1 + goalPct / 100) ** (days / 365.25) - 1) * 100) };
+}
+
+// STANDINGS (Adam, 2026-10-19: "these calls should go in my morning report to ntfy"): every open share trade
+// marked at the quote given (the morning's pre-market price) or, with no quote, at its last scored close, ranked
+// best percent first. A short's percent is positive when the stock fell. Writes nothing.
+export function standings(book, prices = {}) {
+  const s = summarize(book);
+  const pct = (a, b) => r2(a / b * 100);
+  const rows = [];
+  let openUsd = 0;
+  for (const t of (book.trades || []).filter((x) => x.status === "OPEN" && x.kind !== "option")) {
+    const quoted = Number.isFinite(prices[t.sym]);
+    const price = quoted ? prices[t.sym] : (t.last_close ?? null);
+    const d = dirOf(t);
+    const stop = t.t1_done && t.stop_after_t1 != null ? t.stop_after_t1 : t.stop;
+    const target = t.t1_done ? t.t2 : t.t1;
+    const row = { id: t.id, sym: t.sym, side: t.side, lane: t.lane, source_row: t.source_row, entry: t.entry, exit_by: t.exit_by, stop, target, quoted, price };
+    if (price == null) { rows.push({ ...row, pct: null, usd: r2(t.realized || 0), r: null, to_stop_pct: null, to_target_pct: null }); continue; }
+    const open = d * (price - t.entry) * t.shares_open;
+    openUsd += open;
+    rows.push({ ...row, pct: pct(d * (price - t.entry), t.entry), usd: r2((t.realized || 0) + open),
+      r: r2(d * (price - t.entry) / Math.abs(t.entry - t.stop)), to_stop_pct: pct(d * (price - stop), price),
+      to_target_pct: target == null ? null : pct(d * (target - price), price) });
+  }
+  rows.sort((a, b) => (b.pct ?? -Infinity) - (a.pct ?? -Infinity));
+  const closed = (book.trades || []).filter((t) => t.status !== "OPEN")
+    .map((t) => ({ id: t.id, sym: t.sym, side: t.side, realized: t.realized, r: t.r, exit_reason: t.exit_reason, exit_date: t.exit_date, source_row: t.source_row }));
+  const equity = r2(s.start_balance + s.deposits + s.realized + openUsd);
+  return { rows, closed, options: (book.trades || []).filter((t) => t.kind === "option" && t.status === "OPEN").length,
+    start_balance: s.start_balance, realized: s.realized, open_usd: r2(openUsd), equity,
+    return_pct: s.start_balance ? r2((equity - s.start_balance - s.deposits) / s.start_balance * 100) : null };
 }
 
 const prevWeekday = (iso) => {
@@ -309,7 +343,27 @@ function main() {
     return;
   }
 
-  console.log("usage: paper-book.mjs init|add|hunt-add|score|close|report  (see header)");
+  if (cmd === "standings") {
+    if (!book.account) { console.log("PAPER BOOK: not opened yet (run init --balance N)"); return; }
+    let prices = {};
+    try { prices = val("--prices") ? JSON.parse(val("--prices")) : {}; } catch { refuse("--prices must be JSON like '{\"ASTS\":41.69}'"); }
+    const s = standings(book, prices);
+    const pctStr = (x) => `${x < 0 ? "-" : "+"}${Math.abs(x).toFixed(2)}%`;
+    console.log(`PAPER BOOK - where every call stands (marks: ${val("--asof") || "the quotes given"}; "last close" where no quote)`);
+    console.log(`Book ${s.equity.toFixed(2)}: ${money(s.equity - s.start_balance)} (${pctStr(s.return_pct)}) since the ${book.account.start_date} start of ${s.start_balance}. Realized ${money(s.realized)}, open ${money(s.open_usd)}.`);
+    if (s.rows.length) console.log("Best % first. On a short, + means the stock fell.");
+    s.rows.forEach((r, i) => {
+      const tail = `out ${r.exit_by} [${r.source_row}]`;
+      if (r.price == null) { console.log(` ${i + 1}. ${r.sym} ${r.side} unscored (no quote, no close yet) | ${tail}`); return; }
+      const tgt = r.target == null ? "no target" : `target ${r.target} (${r.to_target_pct.toFixed(1)}% away)`;
+      console.log(` ${i + 1}. ${r.sym} ${r.side} ${pctStr(r.pct)} ${money(r.usd)} (${r.r >= 0 ? "+" : ""}${r.r}R) | ${r.entry} -> ${r.price}${r.quoted ? "" : " (last close)"} | stop ${r.stop} (${r.to_stop_pct.toFixed(1)}% away), ${tgt} | ${tail}`);
+    });
+    for (const c of s.closed) console.log(`Closed: ${c.sym} ${c.side} ${money(c.realized)} (${c.r}R, ${c.exit_reason} ${c.exit_date}) [${c.source_row}]`);
+    if (s.options) console.log(`${s.options} open option trade(s) not shown here - see report.`);
+    return;
+  }
+
+  console.log("usage: paper-book.mjs init|add|hunt-add|score|close|report|standings  (see header)");
   process.exit(1);
 }
 
