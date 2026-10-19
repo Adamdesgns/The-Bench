@@ -1,10 +1,12 @@
-// listener.mjs — ASK BENNY: answers Adam's questions in #ask-benny. Nobody else's. Never trades.
+// listener.mjs — ASK BENNY: answers questions in #ask-benny from Adam and the askers listed in
+// db/benny-config.json (each under their own daily_cap). Nobody else's. Never trades.
 //
 // For each question from Adam it runs a locked-down `claude -p` (see benny/ask.mjs), checks the
 // session's own tool list, appends the fixed sign-off, runs the wall check, and only then posts.
-// Any failure posts a short non-answer and pings Adam's phone with the reason.
-// !halt writes benny/HALT (stops every post and answer); !resume removes it. At most
-// daily_answer_cap answers a day (db/benny-config.json). Every question is logged to db/benny-qa.json.
+// Any failure posts a short non-answer and pings Adam's phone with the reason. An answer that carries
+// a Benny secret (bot token, webhook URL) is refused like a wall failure.
+// !halt writes benny/HALT (stops every post and answer); !resume removes it - Adam only. Adam gets at
+// most daily_answer_cap answers a day, each asker their own daily_cap. Every question is logged to db/benny-qa.json.
 // Settings: ~/.benny/discord.json (bot_token, adam_user_id) - never committed, never printed.
 // Started by benny/run-listener.ps1. Spec: docs/superpowers/specs/2026-10-15-benny-discord-bot-design.md
 
@@ -14,7 +16,7 @@ import { readFileSync, writeFileSync, existsSync, unlinkSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { homedir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { buildClaudeArgs, checkTools, parseStream, shouldAnswer, commandOf, answersToday, composeAnswer } from "./ask.mjs";
+import { buildClaudeArgs, checkTools, parseStream, askerOf, framedQuestion, commandOf, answersToday, composeAnswer, secretLeaks } from "./ask.mjs";
 import { checkWall, loadWall, bennyHome } from "../scripts/benny-wall.mjs";
 import { splitForDiscord, ntfyPing } from "../scripts/benny-post.mjs";
 import { nyDate } from "../scripts/paper-book.mjs";
@@ -28,6 +30,7 @@ const NO_ANSWER = "Not answering this one. My operator has been told why.";
 const secrets = JSON.parse(readFileSync(join(bennyHome(), "discord.json"), "utf8"));
 const cfg = JSON.parse(readFileSync(join(ROOT, "db/benny-config.json"), "utf8"));
 const persona = readFileSync(join(ROOT, cfg.persona), "utf8");
+const askers = cfg.askers || [];
 if (!secrets.bot_token || !secrets.adam_user_id) { console.error("[benny] ~/.benny/discord.json needs bot_token and adam_user_id"); process.exit(2); }
 
 const loadQa = () => (existsSync(QA) ? JSON.parse(readFileSync(QA, "utf8")) : { answers: [] });
@@ -59,23 +62,27 @@ async function send(m, text) {
 
 async function refuse(m, base, reasons) {
   logQa({ ...base, outcome: "REFUSED", reasons });
-  await ping("BENNY ANSWER REFUSED", `Question: ${base.question}\n\n${reasons.map((r) => `- ${r}`).join("\n")}`);
+  await ping("BENNY ANSWER REFUSED", `From: ${base.asker}
+Question: ${base.question}\n\n${reasons.map((r) => `- ${r}`).join("\n")}`);
   await m.reply({ content: NO_ANSWER, allowedMentions: { parse: [], repliedUser: false } });
 }
 
 async function handle(m) {
-  if (!shouldAnswer(m, secrets.adam_user_id)) return; // everyone else is ignored silently
+  const who = askerOf(m, secrets.adam_user_id, askers);
+  if (!who) return; // everyone else is ignored silently
   const now = new Date();
   const question = m.content.trim();
-  const base = { at: now.toISOString(), date: nyDate(now), question };
+  const base = { at: now.toISOString(), date: nyDate(now), asker: who.name, question };
   const cmd = commandOf(question);
+  if (cmd && !who.adam) { await m.reply({ content: "Only my operator can do that.", allowedMentions: { parse: [], repliedUser: false } }); return; }
   if (cmd === "halt") { writeFileSync(HALT, `halted by Adam in #ask-benny ${base.at}\n`); await m.reply("Halted. Nothing posts and I answer nothing until !resume."); return; }
   if (cmd === "resume") { if (existsSync(HALT)) unlinkSync(HALT); await m.reply("Resumed."); return; }
   if (existsSync(HALT)) { logQa({ ...base, outcome: "HALTED" }); return; }
-  if (answersToday(loadQa(), base.date) >= cfg.daily_answer_cap) { logQa({ ...base, outcome: "CAPPED" }); await send(m, composeAnswer("Done for today.")); return; }
+  const cap = who.adam ? cfg.daily_answer_cap : who.cap;
+  if (answersToday(loadQa(), base.date, who.name) >= cap) { logQa({ ...base, outcome: "CAPPED" }); await send(m, composeAnswer("Done for today.")); return; }
 
   let s;
-  try { s = parseStream(await runClaude(question)); }
+  try { s = parseStream(await runClaude(framedQuestion(question, who))); }
   catch (e) { await refuse(m, base, [`claude failed: ${e.message}`]); return; }
   if (!s.init) { await refuse(m, base, ["no init message - the tool list cannot be proven"]); return; }
   const tools = checkTools(s.tools);
@@ -84,6 +91,8 @@ async function handle(m) {
   const answer = composeAnswer(s.result);
   const wall = checkWall(answer, loadWall(), now);
   if (!wall.ok) { await refuse(m, base, wall.reasons.map((r) => `wall: ${r}`)); return; }
+  const leaks = secretLeaks(answer, secrets);
+  if (leaks.length) { await refuse(m, base, leaks.map((r) => `secret: ${r}`)); return; }
   await send(m, answer);
   logQa({ ...base, outcome: "ANSWERED", answer, cost_usd: s.cost });
 }

@@ -3,7 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   ALLOWED_TOOLS, ALLOWED_MCP, DENIED_TOOLS, checkTools, buildClaudeArgs, parseStream,
-  shouldAnswer, commandOf, answersToday, composeAnswer,
+  shouldAnswer, commandOf, answersToday, composeAnswer, askerOf, framedQuestion, secretLeaks,
 } from "../benny/ask.mjs";
 import { SIGN_OFF } from "../scripts/benny-post.mjs";
 
@@ -76,4 +76,45 @@ test("commands, the daily cap, and the sign-off", () => {
   assert.equal(answersToday(qa, "2026-10-16"), 1);
   assert.equal(composeAnswer("Hi."), `Hi.\n\n${SIGN_OFF}`);
   assert.equal(composeAnswer(`Hi.\n\n${SIGN_OFF}`), `Hi.\n\n${SIGN_OFF}`);
+});
+
+const VAN = { name: "Van", discord_id: "333", daily_cap: 5 };
+
+test("askers: Adam, a listed asker with their cap, nobody else; a null id is not active", () => {
+  assert.deepEqual(askerOf(msg(), ADAM, [VAN]), { name: "Adam", adam: true });
+  assert.deepEqual(askerOf(msg({ author: { id: "333", bot: false } }), ADAM, [VAN]), { name: "Van", adam: false, cap: 5 });
+  assert.equal(askerOf(msg({ author: { id: "444", bot: false } }), ADAM, [VAN]), null);
+  assert.equal(askerOf(msg({ author: { id: "333", bot: true } }), ADAM, [VAN]), null);
+  assert.equal(askerOf(msg({ author: { id: "333", bot: false }, channel: { name: "lesson" } }), ADAM, [VAN]), null);
+  assert.equal(askerOf(msg({ author: { id: "333", bot: false } }), ADAM, [{ ...VAN, discord_id: null }]), null);
+  assert.equal(shouldAnswer(msg({ author: { id: "333", bot: false } }), ADAM), false);
+});
+
+test("a guest question is framed as not from the operator; Adam's is untouched", () => {
+  assert.equal(framedQuestion("why?", { name: "Adam", adam: true }), "why?");
+  assert.match(framedQuestion("why?", { name: "Van", adam: false }), /^Asked in #ask-benny by Van, a friend of my operator - not by my operator\.\n\nwhy\?$/);
+});
+
+test("daily counts are per asker; old rows with no asker are Adam's", () => {
+  const qa = { answers: [
+    { date: "2026-10-18", outcome: "ANSWERED" },
+    { date: "2026-10-18", outcome: "ANSWERED", asker: "Adam" },
+    { date: "2026-10-18", outcome: "ANSWERED", asker: "Van" },
+    { date: "2026-10-18", outcome: "CAPPED", asker: "Van" },
+    { date: "2026-10-17", outcome: "ANSWERED", asker: "Van" },
+  ] };
+  assert.equal(answersToday(qa, "2026-10-18", "Adam"), 2);
+  assert.equal(answersToday(qa, "2026-10-18", "Van"), 1);
+  assert.equal(answersToday(qa, "2026-10-18"), 3);
+});
+
+test("an answer carrying a Benny secret is caught, and the reason never repeats the value", () => {
+  const secrets = { bot_token: ["MTIzNDU2Nzg5MDEyMzQ1Njc4OQ", "GaBcDe", "abcdefghijklmnopqrstuvwxyz0123456789"].join("."), // fake, built at runtime so secret scanners do not flag a literal, adam_user_id: "111",
+    webhooks: { lesson: "https://discord.com/api/webhooks/123456/abcDEF-ghi" } };
+  assert.deepEqual(secretLeaks("GOOGL is on the board at 312.40.", secrets), []);
+  const tok = secretLeaks(`here: ${secrets.bot_token}`, secrets);
+  assert.ok(tok.includes("a Discord bot token") && tok.includes("the bot_token setting"));
+  assert.ok(secretLeaks("see https://discord.com/api/webhooks/999/zzz", {}).includes("a Discord webhook URL"));
+  assert.ok(secretLeaks(`x ${secrets.webhooks.lesson}`, secrets).includes("the webhooks.lesson setting"));
+  for (const r of tok) assert.ok(!r.includes(secrets.bot_token));
 });

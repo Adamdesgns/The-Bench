@@ -3,6 +3,10 @@
   "start_balance": 10000,
   "risk_pct": 1,
   "daily_answer_cap": 20,
+  "askers": [
+    { "name": "Van", "discord_username": "vanazadian_", "discord_id": null, "daily_cap": 5 }
+  ],
+  "askers_set": "2026-10-18, Adam: \"give van access to benny on discord\" then \"ok give him 5 a day\". Adam keeps his own 20; each asker's cap is separate. discord_id is the numeric user ID; null means not active yet.",
   "persona": "prompts/benny-v3.md",
   "opened": "2026-10-16",
   "options_risk_pct": 3,

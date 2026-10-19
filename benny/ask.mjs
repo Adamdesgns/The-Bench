@@ -70,8 +70,22 @@ export function parseStream(stdout) {
   return { init, tools: init?.tools || [], mcp: init?.mcp_servers || [], result: res?.result ?? null, isError: !!res?.is_error, cost: res?.total_cost_usd ?? null };
 }
 
-export const shouldAnswer = (m, adamUserId) =>
-  !!adamUserId && m?.author?.id === String(adamUserId) && !m.author.bot && m.channel?.name === "ask-benny";
+// Who is asking. Adam always; anyone in db/benny-config.json `askers` with a discord_id gets answers
+// under their own daily_cap (Adam, 2026-10-18: "give him 5 a day" for Van). Everyone else: null.
+export function askerOf(m, adamUserId, askers = []) {
+  if (!m || m.author?.bot || m.channel?.name !== "ask-benny") return null;
+  const id = String(m.author?.id ?? "");
+  if (!id) return null;
+  if (adamUserId && id === String(adamUserId)) return { name: "Adam", adam: true };
+  const a = askers.find((x) => x?.name && x?.discord_id && String(x.discord_id) === id);
+  return a ? { name: a.name, adam: false, cap: Number(a.daily_cap) || 0 } : null;
+}
+
+export const shouldAnswer = (m, adamUserId) => askerOf(m, adamUserId)?.adam === true;
+
+// A guest's question reaches claude with one line in front, so Benny knows it is not his operator.
+export const framedQuestion = (question, who) =>
+  who?.adam ? question : `Asked in #ask-benny by ${who.name}, a friend of my operator - not by my operator.\n\n${question}`;
 
 export function commandOf(text) {
   if (/^!halt\b/i.test(text.trim())) return "halt";
@@ -79,7 +93,24 @@ export function commandOf(text) {
   return null;
 }
 
-export const answersToday = (qa, date) => (qa.answers || []).filter((a) => a.date === date && a.outcome === "ANSWERED").length;
+// Rows written before guests existed carry no asker; they are Adam's.
+export const answersToday = (qa, date, name = null) =>
+  (qa.answers || []).filter((a) => a.date === date && a.outcome === "ANSWERED" && (name === null || (a.asker || "Adam") === name)).length;
+
+// The session can Read outside the repo, so an answer is also checked for Benny's own secrets
+// (~/.benny/discord.json: bot token, webhook URLs). Reasons name the setting, never the value.
+const SECRET_SHAPES = [
+  [/discord(?:app)?\.com\/api\/webhooks\/\d+\/[\w-]+/i, "a Discord webhook URL"],
+  [/[\w-]{23,28}\.[\w-]{6,7}\.[\w-]{27,40}/, "a Discord bot token"],
+];
+const stringsIn = (v, key = "") =>
+  typeof v === "string" ? [[key, v]] : v && typeof v === "object" ? Object.entries(v).flatMap(([k, x]) => stringsIn(x, key ? `${key}.${k}` : k)) : [];
+export function secretLeaks(text, secrets = {}) {
+  const t = String(text);
+  const out = SECRET_SHAPES.filter(([re]) => re.test(t)).map(([, why]) => why);
+  for (const [k, v] of stringsIn(secrets)) if (v.length >= 16 && t.includes(v)) out.push(`the ${k} setting`);
+  return [...new Set(out)];
+}
 
 export function composeAnswer(text) {
   const body = String(text).replace(/\r\n/g, "\n").split(SIGN_OFF).join("").trim();
