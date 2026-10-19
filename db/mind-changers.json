@@ -3707,6 +3707,54 @@
       "row": "B-967",
       "expires": "2026-10-23",
       "status": "open"
+    },
+    {
+      "id": "MC-219",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 728.95
+        }
+      ],
+      "meaning": "recovery confirmed: QQQ back over the 10/14 close, Friday was opex not new selling",
+      "source": "chat-2026-10-19",
+      "row": "B-968",
+      "expires": "2026-10-26",
+      "status": "open"
+    },
+    {
+      "id": "MC-220",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": "<",
+          "level": 700
+        }
+      ],
+      "meaning": "tank gate: QQQ under the 9/16 700 low, the range floor gave way",
+      "source": "chat-2026-10-19",
+      "row": "B-968",
+      "expires": "2026-10-26",
+      "status": "open"
+    },
+    {
+      "id": "MC-221",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 749.6
+        }
+      ],
+      "meaning": "tank gate: SPY under its 9/16 low, the 2.5-month range broke down",
+      "source": "chat-2026-10-19",
+      "row": "B-968",
+      "expires": "2026-10-26",
+      "status": "open"
     }
   ]
 }
