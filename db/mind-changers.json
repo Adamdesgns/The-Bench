@@ -4008,6 +4008,38 @@
       "row": "B-994",
       "expires": "2026-10-22",
       "status": "open"
+    },
+    {
+      "id": "MC-235",
+      "created": "2026-10-20",
+      "when": [
+        {
+          "ticker": "WULF",
+          "op": "<",
+          "level": 10.35
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (close under 20-session low)",
+      "source": "docs/reads/2026-10-20-hunt-close.md",
+      "row": "B-997",
+      "expires": "2026-10-27",
+      "status": "open"
+    },
+    {
+      "id": "MC-236",
+      "created": "2026-10-20",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 26.55
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (needs 1.5x volume too)",
+      "source": "docs/reads/2026-10-20-hunt-close.md",
+      "row": "B-998",
+      "expires": "2026-10-27",
+      "status": "open"
     }
   ]
 }

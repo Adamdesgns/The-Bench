@@ -7,7 +7,35 @@
       "close": 763.3
     }
   },
-  "trades": [],
+  "trades": [
+    {
+      "id": "PB-001",
+      "sym": "PWR",
+      "side": "short",
+      "lane": "hunter-short",
+      "source_row": "hunt:53a469fa",
+      "entry_date": "2026-10-20",
+      "entry": 593.95,
+      "shares": 1,
+      "stop": 645,
+      "t1": 451.17,
+      "t2": null,
+      "stop_after_t1": null,
+      "exit_by": "2026-10-28",
+      "readiness": 93,
+      "grade": null,
+      "note": "mirror of PB-013",
+      "status": "OPEN",
+      "shares_open": 1,
+      "t1_done": false,
+      "legs": [],
+      "realized": 0,
+      "r": null,
+      "last_scored": null,
+      "last_close": null,
+      "mirror_of": "PB-013"
+    }
+  ],
   "history": [
     {
       "date": "2026-10-19",
