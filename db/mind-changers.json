@@ -604,7 +604,8 @@
       "source": "chat 2026-10-02 (Adam prediction watch)",
       "row": "B-695",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-035",
@@ -638,7 +639,8 @@
       "source": "snapshot-1311",
       "row": "B-697",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-037",
@@ -743,7 +745,8 @@
       "source": "docs/reads/2026-10-02-hunt-close.md",
       "row": "B-709",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-043",
@@ -759,7 +762,8 @@
       "source": "docs/reads/2026-10-02-hunt-close.md",
       "row": "B-709",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-044",
@@ -775,7 +779,8 @@
       "source": "site/reviews/2026-10-02-uber.md",
       "row": "B-712",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-045",
@@ -791,7 +796,8 @@
       "source": "site/reviews/2026-10-02-uber.md",
       "row": "B-712",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-046",
@@ -2129,7 +2135,8 @@
       "source": "docs/reads/2026-10-09-hunt-close.md",
       "row": "B-826",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-123",
@@ -2265,7 +2272,8 @@
       "source": "B-831..833 chat 2026-10-12",
       "row": "B-831",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-131",
@@ -2349,7 +2357,8 @@
       "source": "docs/reads/2026-10-12-midday.md",
       "row": "B-836",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-136",
@@ -2365,7 +2374,8 @@
       "source": "docs/reads/2026-10-12-powerhour.md",
       "row": "B-825",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-137",
@@ -2620,7 +2630,8 @@
       "source": "docs/reads/2026-10-14-premarket.md",
       "row": "B-875",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-152",
@@ -2766,7 +2777,8 @@
       "source": "docs/reads/2026-10-15-premarket.md",
       "row": "B-900",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-161",
@@ -2782,7 +2794,8 @@
       "source": "docs/reads/2026-10-15-sotm.md",
       "row": "B-901",
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-162",
@@ -3066,7 +3079,8 @@
       "source": "docs/reads/2026-10-15-close.md",
       "row": null,
       "expires": "2026-10-16",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-19"
     },
     {
       "id": "MC-179",
@@ -3226,7 +3240,9 @@
       "source": "docs/reads/2026-10-16-close.md",
       "row": "B-939",
       "expires": "2026-10-20",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-19",
+      "fired_detail": "QQQ 718.32 > 715 yes"
     },
     {
       "id": "MC-189",
@@ -3754,6 +3770,160 @@
       "source": "chat-2026-10-19",
       "row": "B-968",
       "expires": "2026-10-26",
+      "status": "open"
+    },
+    {
+      "id": "MC-222",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 720
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-969: QQQ settled over the 720 call wall after the pre-market chip bounce; check MU and AMD held green",
+      "source": "docs/reads/2026-10-19-premarket.md",
+      "row": "B-969",
+      "expires": "2026-10-21",
+      "status": "open"
+    },
+    {
+      "id": "MC-223",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 720
+        },
+        {
+          "ticker": "MU",
+          "op": ">",
+          "level": 878.84
+        },
+        {
+          "ticker": "AMD",
+          "op": ">",
+          "level": 528.75
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-970: QQQ settled over the 720 call wall with MU and AMD green on the day; the relief bounce held a full session",
+      "source": "docs/reads/2026-10-19-sotm.md",
+      "row": "B-970",
+      "expires": "2026-10-21",
+      "status": "open"
+    },
+    {
+      "id": "MC-224",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": "<",
+          "level": 250
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (MS-note gap filled)",
+      "source": "snapshot-1010",
+      "row": "B-977",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-225",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "APLD",
+          "op": "<",
+          "level": 18.36
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (insider-buy bounce failed, back under B-945 void line)",
+      "source": "docs/reads/2026-10-19-snapshot-1310.md",
+      "row": "B-979",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-226",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": "<",
+          "level": 715
+        }
+      ],
+      "meaning": "the 10/19 break over the 715 shelf was an intraday print - MC-188 re-judge reverses, Friday's drop is fresh selling again",
+      "source": "docs/reads/2026-10-19-midday.md",
+      "row": "B-978",
+      "expires": "2026-10-21",
+      "status": "open"
+    },
+    {
+      "id": "MC-227",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": "<",
+          "level": 716.57
+        }
+      ],
+      "meaning": "under the 10/19 session low: the Monday bounce was a rebound that ran out, not a turn",
+      "source": "docs/reads/2026-10-19-powerhour.md",
+      "row": "B-980",
+      "expires": "2026-10-21",
+      "status": "open"
+    },
+    {
+      "id": "MC-228",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "WULF",
+          "op": "<",
+          "level": 10.35
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (close under the 20-session low; volume 1.5x owed)",
+      "source": "docs/reads/2026-10-19-hunt-close.md",
+      "row": "B-982",
+      "expires": "2026-10-26",
+      "status": "open"
+    },
+    {
+      "id": "MC-229",
+      "created": "2026-10-19",
+      "when": [
+        {
+          "ticker": "CORZ",
+          "op": "<",
+          "level": 12.31
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (close under the 20-session low; volume 1.5x owed)",
+      "source": "docs/reads/2026-10-19-hunt-close.md",
+      "row": "B-983",
+      "expires": "2026-10-26",
+      "status": "open"
+    },
+    {
+      "id": "MC-230",
+      "created": "2026-10-20",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": "<",
+          "level": 715
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-985: QQQ settled under 715, Monday's chip bounce failed; check MU vs the 874 line",
+      "source": "docs/reads/2026-10-20-premarket.md",
+      "row": "B-985",
+      "expires": "2026-10-21",
       "status": "open"
     }
   ]

@@ -56,6 +56,114 @@
       "parts": 2,
       "mode": "live",
       "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-19T10:37:28.026Z",
+      "channel": "morning",
+      "file": "docs/benny/2026-10-19-premarket.md",
+      "hash": "0b0814e305a4130e",
+      "parts": 0,
+      "mode": "live",
+      "outcome": "REFUSED",
+      "reasons": [
+        "wall: matches a real account amount"
+      ]
+    },
+    {
+      "at": "2026-10-19T10:37:44.690Z",
+      "channel": "morning",
+      "file": "docs/benny/2026-10-19-premarket.md",
+      "hash": "1a957614bbdbb1e2",
+      "parts": 2,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-19T13:46:16.156Z",
+      "channel": "morning",
+      "file": "docs/benny/2026-10-19-sotm.md",
+      "hash": "fe3c3da42ad73b33",
+      "parts": 2,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-19T14:13:42.555Z",
+      "channel": "paper-trades",
+      "file": "docs/benny/2026-10-19-entry.md",
+      "hash": "582d24f43814ef4d",
+      "parts": 1,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-19T20:15:15.601Z",
+      "channel": "close",
+      "file": "docs/benny/2026-10-19-close.md",
+      "hash": "c827464e99b4a20e",
+      "parts": 0,
+      "mode": "live",
+      "outcome": "REFUSED",
+      "reasons": [
+        "wall: matches a real account amount"
+      ]
+    },
+    {
+      "at": "2026-10-19T20:15:34.796Z",
+      "channel": "close",
+      "file": "docs/benny/2026-10-19-close.md",
+      "hash": "d8f1d876878c3ef5",
+      "parts": 0,
+      "mode": "live",
+      "outcome": "REFUSED",
+      "reasons": [
+        "wall: matches a real account amount"
+      ]
+    },
+    {
+      "at": "2026-10-19T20:33:42.353Z",
+      "channel": "paper-trades",
+      "file": "docs/benny/2026-10-19-paper-close.md",
+      "hash": "d8cc76422600fd53",
+      "parts": 1,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-19T20:42:31.603Z",
+      "channel": "paper-trades",
+      "file": "docs/benny/2026-10-19-hunt-paper.md",
+      "hash": "c26bea59e900101b",
+      "parts": 1,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-19T20:42:32.255Z",
+      "channel": "close",
+      "file": "docs/benny/2026-10-19-hunt-close.md",
+      "hash": "b2a41b07ff6bf918",
+      "parts": 2,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-20T01:31:53.131Z",
+      "channel": "lesson",
+      "file": "docs/benny/2026-10-19-lesson.md",
+      "hash": "75b82fe17d695bd0",
+      "parts": 2,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-20T10:37:21.276Z",
+      "channel": "morning",
+      "file": "docs/benny/2026-10-20-premarket.md",
+      "hash": "5c49c3959021d497",
+      "parts": 2,
+      "mode": "live",
+      "outcome": "SENT"
     }
   ]
 }
