@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-16",
+  "date": "2026-10-20",
   "signals": [],
   "none": true,
   "armed_not_signaled": [
@@ -8,15 +8,16 @@
       "row": "B-930",
       "zone_low": 820,
       "zone_high": 835,
-      "legal_fill_line": 815.58,
+      "legal_fill_line": 815.01,
       "stop": 769,
       "t1": 949.42,
       "t2": 1041,
       "readiness": 30,
-      "atr": 46.578,
+      "atr": 46.012,
       "decide_by": "2026-10-30",
       "exit_by": "2026-12-15",
-      "note": "First-bar plan (B-930): Monday 10/19 or later, the first 30-min bar closes inside 820-835; LIMIT never above 835, stop 769 GTC. Stop + 1.0 ATR on settled bars incl 10/16 = 815.58 (Wilder 46.578; 10/16 bar H 907.50 L 875.00 C 878.67), under the 820 zone floor, so the whole zone is a legal fill. READINESS 30 = watchlist only: the morning check records the bar verdict, no paper-book fill unless the desk re-grades it to 50+. Fri close 878.67 is 43.67 above the zone top. B-856 (931.27-940.72) is dead: closed under its 884 floor."
+      "note": "First-bar plan (B-930): Monday 10/19 or later, the first 30-min bar closes inside 820-835; LIMIT never above 835, stop 769 GTC. Stop + 1.0 ATR on settled bars incl 10/16 = 815.58 (Wilder 46.578; 10/16 bar H 907.50 L 875.00 C 878.67), under the 820 zone floor, so the whole zone is a legal fill. READINESS 30 = watchlist only: the morning check records the bar verdict, no paper-book fill unless the desk re-grades it to 50+. Fri close 878.67 is 43.67 above the zone top. B-856 (931.27-940.72) is dead: closed under its 884 floor. | 10/20 close recheck: 10/20 first bar opened above zone (NO TRADE B-987..B-991, final for that session); still armed to decide_by. ATR Wilder-updated with the 10/20 H/L/C (prev close = 10/19 official); legal_fill_line = stop + 1.0 ATR. Readiness 30 = watchlist only, no paper fill.",
+      "close_2026_10_20": 895.95
     },
     {
       "sym": "CRM",
@@ -27,10 +28,12 @@
       "t1": 245.06,
       "t2": 251.94,
       "readiness": 52,
-      "atr": 9.09,
+      "atr": 8.853,
       "decide_by": "2026-10-30",
       "exit_by": "2026-11-20",
-      "note": "Weekend hunt first-bar plan (B-944): first 30-min bar Mon 10/19+ closes inside 224.00-224.96; LIMIT never above 224.96, stop 214.91 GTC. zone_low = stop + 1.0 ATR 9.09. Software slot: if CRM fills, WDAY B-949 is blocked. Readiness 52 = ENTER-eligible."
+      "note": "Weekend hunt first-bar plan (B-944): first 30-min bar Mon 10/19+ closes inside 224.00-224.96; LIMIT never above 224.96, stop 214.91 GTC. zone_low = stop + 1.0 ATR 9.09. Software slot: if CRM fills, WDAY B-949 is blocked. Readiness 52 = ENTER-eligible. | 10/20 close recheck: 10/20 first bar opened above zone (NO TRADE B-987..B-991, final for that session); still armed to decide_by. ATR Wilder-updated with the 10/20 H/L/C (prev close = 10/19 official); legal_fill_line = stop + 1.0 ATR.",
+      "legal_fill_line": 223.76,
+      "close_2026_10_20": 242.45
     },
     {
       "sym": "LW",
@@ -41,10 +44,12 @@
       "t1": 55.7,
       "t2": 60.55,
       "readiness": 55,
-      "atr": 2,
+      "atr": 1.904,
       "decide_by": "2026-10-23",
       "exit_by": "2026-12-17",
-      "note": "Weekend hunt first-bar plan (B-947): post-earnings drift pullback; first 30-min bar closes inside 50.60-50.95; stop 48.60 GTC. 5-session clock, re-judge after 10/23."
+      "note": "Weekend hunt first-bar plan (B-947): post-earnings drift pullback; first 30-min bar closes inside 50.60-50.95; stop 48.60 GTC. 5-session clock, re-judge after 10/23. | 10/20 close recheck: 10/20 first bar opened above zone (NO TRADE B-987..B-991, final for that session); still armed to decide_by. ATR Wilder-updated with the 10/20 H/L/C (prev close = 10/19 official); legal_fill_line = stop + 1.0 ATR.",
+      "legal_fill_line": 50.5,
+      "close_2026_10_20": 53.76
     },
     {
       "sym": "DE",
@@ -55,24 +60,28 @@
       "t1": 660.39,
       "t2": 689.69,
       "readiness": 47,
-      "atr": 18.89,
+      "atr": 18.58,
       "decide_by": "2026-10-30",
       "exit_by": "2026-11-24",
-      "note": "Weekend hunt first-bar plan (B-948), READINESS 47 = watchlist only: record the bar verdict, no paper fill. Earnings 11/25 am."
+      "note": "Weekend hunt first-bar plan (B-948), READINESS 47 = watchlist only: record the bar verdict, no paper fill. Earnings 11/25 am. | 10/20 close recheck: 10/20 first bar opened above zone (NO TRADE B-987..B-991, final for that session); still armed to decide_by. ATR Wilder-updated with the 10/20 H/L/C (prev close = 10/19 official); legal_fill_line = stop + 1.0 ATR.",
+      "legal_fill_line": 617.58,
+      "close_2026_10_20": 632.54
     },
     {
       "sym": "WDAY",
       "row": "B-949",
-      "zone_low": 183.15,
+      "zone_low": 183.25,
       "zone_high": 184.08,
       "stop": 176,
       "t1": 200.23,
       "t2": 211.83,
       "readiness": 45,
-      "atr": 7.15,
+      "atr": 7.248,
       "decide_by": "2026-10-30",
       "exit_by": "2026-11-20",
-      "note": "Weekend hunt first-bar plan (B-949), READINESS 45 = watchlist only, and blocked while CRM B-944 is open (one software slot)."
+      "note": "Weekend hunt first-bar plan (B-949), READINESS 45 = watchlist only, and blocked while CRM B-944 is open (one software slot). | 10/20 close recheck: 10/20 first bar opened above zone (NO TRADE B-987..B-991, final for that session); still armed to decide_by. ATR Wilder-updated with the 10/20 H/L/C (prev close = 10/19 official); legal_fill_line = stop + 1.0 ATR. Legal line 183.25 now sits above the 183.15 zone floor, so zone_low raised to 183.25. WDAY closed 204.04, ABOVE T1 200.23 without a fill: the pullback plan is stale - re-judge before any fill.",
+      "legal_fill_line": 183.25,
+      "close_2026_10_20": 204.04
     }
   ],
   "open_paper": [
@@ -83,7 +92,7 @@
       "entry": 212.79,
       "stop": 195.9,
       "target": 249.42,
-      "close": 218,
+      "close": 242.08,
       "exit_by": "2026-10-23"
     },
     {
@@ -93,7 +102,7 @@
       "side": "short",
       "entry": 41.8,
       "stop": 47.75,
-      "close": 40.64,
+      "close": 41.13,
       "exit_by": "2026-10-28"
     },
     {
@@ -103,7 +112,7 @@
       "side": "short",
       "entry": 11.3,
       "stop": 13.33,
-      "close": 11.655,
+      "close": 12.015,
       "exit_by": "2026-10-28"
     },
     {
@@ -112,7 +121,7 @@
       "side": "short",
       "entry": 84.66,
       "stop": 99.77,
-      "close": 75.59,
+      "close": 76.74,
       "exit_by": "2026-10-28"
     },
     {
@@ -122,7 +131,7 @@
       "side": "short",
       "entry": 30.09,
       "stop": 34.88,
-      "close": 27,
+      "close": 26.615,
       "exit_by": "2026-10-28"
     },
     {
@@ -132,7 +141,7 @@
       "side": "short",
       "entry": 20.03,
       "stop": 22.63,
-      "close": 18.05,
+      "close": 19.345,
       "exit_by": "2026-10-28"
     },
     {
@@ -141,7 +150,7 @@
       "side": "short",
       "entry": 186.01,
       "stop": 203.68,
-      "close": 177.03,
+      "close": 181.19,
       "exit_by": "2026-10-29"
     },
     {
@@ -150,7 +159,7 @@
       "side": "short",
       "entry": 215.7,
       "stop": 234.8,
-      "close": 206.42,
+      "close": 203.55,
       "exit_by": "2026-10-27"
     },
     {
@@ -159,7 +168,7 @@
       "side": "short",
       "entry": 402.8,
       "stop": 425.03,
-      "close": 391.14,
+      "close": 381.99,
       "exit_by": "2026-10-29"
     },
     {
@@ -168,7 +177,7 @@
       "side": "short",
       "entry": 875,
       "stop": 973.7,
-      "close": 823.57,
+      "close": 822.11,
       "exit_by": "2026-10-29"
     },
     {
@@ -177,9 +186,9 @@
       "side": "short",
       "entry": 6.48,
       "stop": 7.46,
-      "close": 5.615,
+      "close": 6.17,
       "exit_by": "2026-10-28"
     }
   ],
-  "note": "Fri 10/16 close check, run late (~18:20 CT). RH official close field had not rolled; closes are last regular-session prints at 19:59:59Z. NO SIGNALS. Friday: nothing is bought on this close; Monday first 30 minutes decide. IN BUY RANGE: AIP 18.765 (<=21.39, floor 17.40, B-288) on 1.00x volume, no target = plan incomplete. VOIDED today: MU 878.67 < 884 floor (B-856 zone 931.27-940.72 dead; above 874 so MC-177 did not fire; B-930 820-835 not reached), VRT 206.42 < 211.50 floor on 1.30x. NO SIGNAL: XOM 178.98 above zone, ASPN 5.195 under 5.40 (floor 5.06 held), UBER 70.345 < 71.90, AMZN 249.95 / SPCX 146.03 / HIMS 28.07 / IBIT 46.135 above zones, GOOGL 340.59 (stop 326 held, under 355 ratchet). UNH 401.45 plan dead (B-927), stop line 396.30 held on the close. Dead/void unchanged: LITE, ETN, SNDG, IREN long, CBRS, MRVL, ORCL, PWR, NVDA, IRD. BTC-USD B-911 judged on the 7 PM CT settled bar, not here."
+  "note": "Tue 10/20 close check (~15:30 CT). RH official close field had not rolled (still 10/19); closes are last regular-session prints at 19:59:59Z. NO SIGNALS. IN BUY RANGE: AIP 19.77 (<=21.39, floor 17.40, B-288) on 1.21x volume, no target = plan incomplete. NO SIGNAL: MU 895.95 / CRM 242.45 / LW 53.76 / DE 632.54 / WDAY 204.04 above first-bar zones (WDAY over its 200.23 T1, stale). ASPN 5.34 under 5.40 (floor 5.06 held); UNH 419.34 back over the 408.96 line (B-906 dead anyway); UBER 68.93 under 69.97; EOG 157.88 under 158.37; META 694.44 above the 679.60 B-967 zone (Thu 10/22 plan); GOOGL 340.32 (stop 326 held, under 355). Dead/void unchanged: XOM, LITE, ETN, SNDG, IREN long, CBRS, MRVL, ORCL, PWR, NVDA, IRD, VRT, UNH B-906. MC FIRED: MC-214 ORIC (B-995), MC-233 QQQ (B-996)."
 }

@@ -27,8 +27,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-15",
-      "last_close": 236.5
+      "last_scored": "2026-10-20",
+      "last_close": 242.08
     },
     {
       "id": "PB-002",
@@ -88,8 +88,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-15",
-      "last_close": 44.455
+      "last_scored": "2026-10-20",
+      "last_close": 41.13
     },
     {
       "id": "PB-004",
@@ -114,8 +114,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-15",
-      "last_close": 12.605
+      "last_scored": "2026-10-20",
+      "last_close": 12.015
     },
     {
       "id": "PB-005",
@@ -140,8 +140,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-15",
-      "last_close": 83.73
+      "last_scored": "2026-10-20",
+      "last_close": 76.74
     },
     {
       "id": "PB-006",
@@ -166,8 +166,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-15",
-      "last_close": 30.39
+      "last_scored": "2026-10-20",
+      "last_close": 26.615
     },
     {
       "id": "PB-007",
@@ -192,8 +192,138 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-15",
-      "last_close": 20.385
+      "last_scored": "2026-10-20",
+      "last_close": 19.345
+    },
+    {
+      "id": "PB-008",
+      "sym": "ANET",
+      "side": "short",
+      "lane": "hunter-short",
+      "source_row": "hunt:83768624",
+      "entry_date": "2026-10-15",
+      "entry": 186.01,
+      "shares": 19,
+      "stop": 203.68,
+      "t1": 145.32,
+      "t2": null,
+      "stop_after_t1": null,
+      "exit_by": "2026-10-29",
+      "readiness": 60,
+      "grade": null,
+      "note": "auto: hunter READY short, receipt 83768624; hunter p_dir 44.64% p_reach 0%; entry = the after-hours bid",
+      "status": "OPEN",
+      "shares_open": 19,
+      "t1_done": false,
+      "legs": [],
+      "realized": 0,
+      "r": null,
+      "last_scored": "2026-10-20",
+      "last_close": 181.19
+    },
+    {
+      "id": "PB-009",
+      "sym": "VRT",
+      "side": "short",
+      "lane": "hunter-short",
+      "source_row": "hunt:83768624",
+      "entry_date": "2026-10-15",
+      "entry": 215.7,
+      "shares": 18,
+      "stop": 234.8,
+      "t1": 172.35,
+      "t2": null,
+      "stop_after_t1": null,
+      "exit_by": "2026-10-27",
+      "readiness": 60,
+      "grade": null,
+      "note": "auto: hunter READY short, receipt 83768624; hunter p_dir 36.51% p_reach 3.17%; entry = the after-hours bid",
+      "status": "OPEN",
+      "shares_open": 18,
+      "t1_done": false,
+      "legs": [],
+      "realized": 0,
+      "r": null,
+      "last_scored": "2026-10-20",
+      "last_close": 203.55
+    },
+    {
+      "id": "PB-010",
+      "sym": "ETN",
+      "side": "short",
+      "lane": "hunter-short",
+      "source_row": "hunt:83768624",
+      "entry_date": "2026-10-15",
+      "entry": 402.8,
+      "shares": 15,
+      "stop": 425.03,
+      "t1": 353.7,
+      "t2": null,
+      "stop_after_t1": null,
+      "exit_by": "2026-10-29",
+      "readiness": 60,
+      "grade": null,
+      "note": "auto: hunter READY short, receipt 83768624; hunter p_dir 29.51% p_reach 0%; entry = the after-hours bid",
+      "status": "OPEN",
+      "shares_open": 15,
+      "t1_done": false,
+      "legs": [],
+      "realized": 0,
+      "r": null,
+      "last_scored": "2026-10-20",
+      "last_close": 381.99
+    },
+    {
+      "id": "PB-011",
+      "sym": "LITE",
+      "side": "short",
+      "lane": "hunter-short",
+      "source_row": "hunt:83768624",
+      "entry_date": "2026-10-15",
+      "entry": 875,
+      "shares": 3,
+      "stop": 973.7,
+      "t1": 650.82,
+      "t2": null,
+      "stop_after_t1": null,
+      "exit_by": "2026-10-29",
+      "readiness": 60,
+      "grade": null,
+      "note": "auto: hunter READY short, receipt 83768624; hunter p_dir 39.06% p_reach 0%; entry = the after-hours bid",
+      "status": "OPEN",
+      "shares_open": 3,
+      "t1_done": false,
+      "legs": [],
+      "realized": 0,
+      "r": null,
+      "last_scored": "2026-10-20",
+      "last_close": 822.11
+    },
+    {
+      "id": "PB-012",
+      "sym": "SNDG",
+      "side": "short",
+      "lane": "hunter-short",
+      "source_row": "B-922",
+      "entry_date": "2026-10-15",
+      "entry": 6.48,
+      "shares": 356,
+      "stop": 7.46,
+      "t1": 4.12,
+      "t2": null,
+      "stop_after_t1": null,
+      "exit_by": "2026-10-28",
+      "readiness": 60,
+      "grade": null,
+      "note": "auto: hunter READY short, receipt 83768624; hunter p_dir 100% p_reach 33.33%; entry = the after-hours bid",
+      "status": "OPEN",
+      "shares_open": 356,
+      "t1_done": false,
+      "legs": [],
+      "realized": 0,
+      "r": null,
+      "last_scored": "2026-10-20",
+      "last_close": 6.17
     }
   ],
   "history": [
@@ -210,6 +340,27 @@
       "realized": -406.23,
       "unrealized": -187.47,
       "open": 6
+    },
+    {
+      "date": "2026-10-16",
+      "equity": 4897.66,
+      "realized": -406.23,
+      "unrealized": 1727.91,
+      "open": 11
+    },
+    {
+      "date": "2026-10-19",
+      "equity": 4206.42,
+      "realized": -406.23,
+      "unrealized": 1036.67,
+      "open": 11
+    },
+    {
+      "date": "2026-10-20",
+      "equity": 4794.17,
+      "realized": -406.23,
+      "unrealized": 1624.42,
+      "open": 11
     }
   ]
 }

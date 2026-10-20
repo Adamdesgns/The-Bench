@@ -8,7 +8,24 @@
     }
   },
   "trades": [],
-  "history": [],
+  "history": [
+    {
+      "date": "2026-10-19",
+      "equity": 10000,
+      "realized": 0,
+      "unrealized": 0,
+      "open": 0,
+      "spy": 766.54
+    },
+    {
+      "date": "2026-10-20",
+      "equity": 10000,
+      "realized": 0,
+      "unrealized": 0,
+      "open": 0,
+      "spy": 769.01
+    }
+  ],
   "skipped": [],
   "deposits": [],
   "refill": {
@@ -16,6 +33,6 @@
     "trigger": 9000,
     "target": 10000,
     "amount": 500,
-    "checked": "2026-10-16"
+    "checked": "2026-10-19"
   }
 }
