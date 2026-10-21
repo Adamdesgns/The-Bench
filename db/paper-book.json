@@ -21,14 +21,23 @@
       "readiness": null,
       "grade": null,
       "note": "Carried in: DATED-CATALYST PAPER instance 1 of 5 (signal B-840, plan B-828), half band; exit by the 10/23 close before ESMO",
-      "status": "OPEN",
-      "shares_open": 10,
-      "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 242.08
+      "status": "CLOSED",
+      "shares_open": 0,
+      "t1_done": true,
+      "legs": [
+        {
+          "date": "2026-10-21",
+          "shares": 10,
+          "price": 249.42,
+          "why": "T1"
+        }
+      ],
+      "realized": 366.3,
+      "r": 2.17,
+      "last_scored": "2026-10-21",
+      "last_close": 245.94,
+      "exit_reason": "TARGET",
+      "exit_date": "2026-10-21"
     },
     {
       "id": "PB-002",
@@ -88,8 +97,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 41.13
+      "last_scored": "2026-10-21",
+      "last_close": 40.9
     },
     {
       "id": "PB-004",
@@ -114,8 +123,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 12.015
+      "last_scored": "2026-10-21",
+      "last_close": 12.77
     },
     {
       "id": "PB-005",
@@ -140,8 +149,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 76.74
+      "last_scored": "2026-10-21",
+      "last_close": 77.33
     },
     {
       "id": "PB-006",
@@ -166,8 +175,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 26.615
+      "last_scored": "2026-10-21",
+      "last_close": 27.84
     },
     {
       "id": "PB-007",
@@ -192,8 +201,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 19.345
+      "last_scored": "2026-10-21",
+      "last_close": 20.98
     },
     {
       "id": "PB-008",
@@ -218,8 +227,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 181.19
+      "last_scored": "2026-10-21",
+      "last_close": 184.35
     },
     {
       "id": "PB-009",
@@ -244,8 +253,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 203.55
+      "last_scored": "2026-10-21",
+      "last_close": 212.22
     },
     {
       "id": "PB-010",
@@ -270,8 +279,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 381.99
+      "last_scored": "2026-10-21",
+      "last_close": 393.78
     },
     {
       "id": "PB-011",
@@ -296,8 +305,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 822.11
+      "last_scored": "2026-10-21",
+      "last_close": 851.37
     },
     {
       "id": "PB-012",
@@ -322,8 +331,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-20",
-      "last_close": 6.17
+      "last_scored": "2026-10-21",
+      "last_close": 6.286
     },
     {
       "id": "PB-013",
@@ -348,8 +357,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": null,
-      "last_close": null
+      "last_scored": "2026-10-21",
+      "last_close": 601.12
     }
   ],
   "history": [
@@ -386,6 +395,13 @@
       "equity": 4794.17,
       "realized": -406.23,
       "unrealized": 1624.42,
+      "open": 11
+    },
+    {
+      "date": "2026-10-21",
+      "equity": 3867.53,
+      "realized": -39.93,
+      "unrealized": 331.48,
       "open": 11
     }
   ]
