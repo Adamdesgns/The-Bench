@@ -4123,6 +4123,38 @@
       "row": "B-1009",
       "expires": "2026-10-22",
       "status": "open"
+    },
+    {
+      "id": "MC-241",
+      "created": "2026-10-21",
+      "when": [
+        {
+          "ticker": "SMCI",
+          "op": "<",
+          "level": 30.92
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-10-21-hunt-close.md",
+      "row": "B-1013",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-242",
+      "created": "2026-10-21",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 25.59
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-10-21-hunt-close.md",
+      "row": "B-1014",
+      "expires": "2026-10-28",
+      "status": "open"
     }
   ]
 }
