@@ -200,6 +200,81 @@
       "parts": 1,
       "mode": "live",
       "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-20T20:42:00.503Z",
+      "channel": "paper-trades",
+      "file": "docs/benny/2026-10-20-hunt-paper.md",
+      "hash": "edd661dfe9dc2381",
+      "parts": 1,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-20T20:42:01.195Z",
+      "channel": "close",
+      "file": "docs/benny/2026-10-20-hunt-close.md",
+      "hash": "e6edcbc9a741621a",
+      "parts": 2,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-21T01:28:13.636Z",
+      "channel": "lesson",
+      "file": "docs/benny/2026-10-20-lesson.md",
+      "hash": "7380188f477de9cd",
+      "parts": 1,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-21T10:38:39.870Z",
+      "channel": "morning",
+      "file": "docs/benny/2026-10-21-premarket.md",
+      "hash": "4abb69007a2c06ac",
+      "parts": 2,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-21T13:45:46.019Z",
+      "channel": "morning",
+      "file": "docs/benny/2026-10-21-sotm.md",
+      "hash": "d53562e17ed8a617",
+      "parts": 0,
+      "mode": "live",
+      "outcome": "REFUSED",
+      "reasons": [
+        "wall: matches a real account amount"
+      ]
+    },
+    {
+      "at": "2026-10-21T13:45:59.147Z",
+      "channel": "morning",
+      "file": "docs/benny/2026-10-21-sotm.md",
+      "hash": "105a63efe60cceb2",
+      "parts": 2,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-21T14:12:50.924Z",
+      "channel": "paper-trades",
+      "file": "docs/benny/2026-10-21-entry.md",
+      "hash": "18983ece323384a7",
+      "parts": 1,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-10-21T20:15:03.440Z",
+      "channel": "close",
+      "file": "docs/benny/2026-10-21-close.md",
+      "hash": "7e04c4d219b0e388",
+      "parts": 2,
+      "mode": "live",
+      "outcome": "SENT"
     }
   ]
 }

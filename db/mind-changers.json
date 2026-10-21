@@ -1489,7 +1489,8 @@
       "source": "plan check close 2026-10-06, B-761",
       "row": "B-761",
       "expires": "2026-10-20",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-21"
     },
     {
       "id": "MC-085",
@@ -1776,7 +1777,8 @@
       "source": "entry-check-2026-10-07",
       "row": "B-779",
       "expires": "2026-10-20",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-21"
     },
     {
       "id": "MC-102",
@@ -2593,7 +2595,8 @@
       "source": "docs/reads/2026-10-13-powerhour.md",
       "row": "B-865",
       "expires": "2026-10-20",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-21"
     },
     {
       "id": "MC-150",
@@ -3229,7 +3232,9 @@
       "source": "snapshot-1310 read",
       "row": "B-932",
       "expires": "2026-10-23",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-21",
+      "fired_detail": "APLD 20.98 > 20.39 yes"
     },
     {
       "id": "MC-188",
@@ -3343,7 +3348,9 @@
       "source": "docs/reads/2026-10-16-weekend-hunt.md",
       "row": "B-945",
       "expires": "2026-10-23",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-21",
+      "fired_detail": "APLD 20.98 >= 19.95 yes"
     },
     {
       "id": "MC-195",
@@ -3793,7 +3800,9 @@
       "source": "docs/reads/2026-10-19-premarket.md",
       "row": "B-969",
       "expires": "2026-10-21",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-21",
+      "fired_detail": "QQQ 725.21 > 720 yes"
     },
     {
       "id": "MC-223",
@@ -3819,7 +3828,9 @@
       "source": "docs/reads/2026-10-19-sotm.md",
       "row": "B-970",
       "expires": "2026-10-21",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-21",
+      "fired_detail": "QQQ 725.21 > 720 yes | MU 913.62 > 878.84 yes | AMD 552.7 > 528.75 yes"
     },
     {
       "id": "MC-224",
@@ -3952,7 +3963,9 @@
       "source": "docs/reads/2026-10-20-sotm.md",
       "row": "B-986",
       "expires": "2026-10-21",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-21",
+      "fired_detail": "QQQ 725.21 > 718.36 yes | MU 913.62 > 900 yes"
     },
     {
       "id": "MC-232",
@@ -3968,7 +3981,9 @@
       "source": "docs/reads/2026-10-20-midday.md",
       "row": "B-992",
       "expires": "2026-10-21",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-21",
+      "fired_detail": "ETN 393.78 > 391.5 yes"
     },
     {
       "id": "MC-233",
@@ -4007,7 +4022,9 @@
       "source": "docs/reads/2026-10-20-close.md",
       "row": "B-994",
       "expires": "2026-10-22",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-21",
+      "fired_detail": "QQQ 725.21 > 720 yes | MU 913.62 > 900 yes"
     },
     {
       "id": "MC-235",
@@ -4039,6 +4056,70 @@
       "source": "docs/reads/2026-10-20-hunt-close.md",
       "row": "B-998",
       "expires": "2026-10-27",
+      "status": "open"
+    },
+    {
+      "id": "MC-237",
+      "created": "2026-10-21",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 728.95
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "premarket read 2026-10-21",
+      "row": "B-1000",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-238",
+      "created": "2026-10-21",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": "<",
+          "level": 715
+        }
+      ],
+      "meaning": "bounce failed - QQQ back under the recover gate",
+      "source": "premarket read 2026-10-21",
+      "row": "B-1000",
+      "expires": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "id": "MC-239",
+      "created": "2026-10-21",
+      "when": [
+        {
+          "ticker": "SMCI",
+          "op": ">",
+          "level": 38.02
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "snapshot-1010 2026-10-21",
+      "row": "B-1008",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-240",
+      "created": "2026-10-21",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": "<",
+          "level": 900
+        }
+      ],
+      "meaning": "midday MU reclaim was a print, not a settle - re-judge MC-234",
+      "source": "docs/reads/2026-10-21-midday.md",
+      "row": "B-1009",
+      "expires": "2026-10-22",
       "status": "open"
     }
   ]
