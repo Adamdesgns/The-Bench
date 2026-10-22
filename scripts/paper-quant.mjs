@@ -30,9 +30,12 @@
 //     long holds while close > 20-day AND close > 50-day AND it leads SPY. Once the shape has held, the
 //     first close where it does not is the exit, at that close. A trade that never had the shape cannot
 //     lose it; only the stop and the hard exit apply to it.
-//   - THE TRAILING STOP, after every close: short = the higher of (close + 1.0 ATR) and the 2-session high,
-//     long = the lower of (close - 1.0 ATR) and the 2-session low - the same stop the hunter puts on a
-//     new entry. It only moves in the trade's favour and is never inside 1.0 ATR of the close.
+//   - TWO TWINS PER TRADE, run side by side (Adam, 2026-10-21, after the first backfill showed the trail did
+//     every exit: "add a shape-only twin variant: the starting stop never moves"):
+//       trail (PQ-###): THE TRAILING STOP, after every close: short = the higher of (close + 1.0 ATR) and the
+//         2-session high, long = the lower of (close - 1.0 ATR) and the 2-session low - the same stop the
+//         hunter puts on a new entry. It only moves in the trade's favour and is never inside 1.0 ATR of the close.
+//       shape (PQS-###): the starting stop never moves. Out only on the stop, the shape breaking, or the hard exit.
 //   - THE HARD EXIT (risk, not a guess): the later of the paper trade's own exit date and 20 sessions from
 //     entry, cut to the session before earnings. A dated-catalyst trade keeps its exit date (out before the
 //     event). No known earnings date: never longer than the paper trade, flagged EARNINGS UNKNOWN.
@@ -72,7 +75,10 @@ export function shapeOf(bars, spy, side) {
 }
 
 // Build the twin of one paper trade. `earnings` = the next report date (YYYY-MM-DD) or null if unknown.
-export function makeTwin(pb, { earnings = null } = {}) {
+export const VARIANTS = ["trail", "shape"];
+const variantOf = (q) => q.variant || "trail";
+
+export function makeTwin(pb, { earnings = null, variant = "trail" } = {}) {
   const span = addWeekdays(pb.entry_date, MIN_SESSIONS);
   let hard = pb.exit_by > span ? pb.exit_by : span, why = pb.exit_by > span ? "the paper trade's exit date" : `${MIN_SESSIONS} sessions`;
   if (pb.lane === "dated-catalyst") { hard = pb.exit_by; why = "the dated-catalyst event (out before it)"; }
@@ -83,7 +89,8 @@ export function makeTwin(pb, { earnings = null } = {}) {
     hard = pb.exit_by; why = "EARNINGS UNKNOWN - capped at the paper trade's exit date";
   }
   return {
-    id: pb.id.replace(/^PB-/, "PQ-"), of: pb.id, sym: pb.sym, side: pb.side, lane: "quant-exit", source_lane: pb.lane, source_row: pb.source_row,
+    id: pb.id.replace(/^PB-/, variant === "shape" ? "PQS-" : "PQ-"), of: pb.id, variant, sym: pb.sym, side: pb.side,
+    lane: variant === "shape" ? "quant-shape" : "quant-exit", source_lane: pb.lane, source_row: pb.source_row,
     entry_date: pb.entry_date, entry: pb.entry, shares: pb.shares, stop0: pb.stop, earnings: earnings || null, hard_exit: hard, hard_exit_why: why,
     status: "OPEN",
   };
@@ -118,7 +125,7 @@ export function replay(twin, bars, spy, { through = null } = {}) {
     if (d * (b.close - t.best_close) > 0) t.best_close = r2(b.close);
     if (t.shape_seen && s.holds === false) return close(b.close, b.date, "SHAPE-BROKE", s.why);
     if (b.date >= twin.hard_exit) return close(b.close, b.date, "HARD-EXIT", twin.hard_exit_why);
-    const atr = atr14(hist);
+    const atr = variantOf(twin) === "trail" ? atr14(hist) : null;   // the shape twin never moves its stop
     if (atr != null && i >= 1) {
       const p = bars[i - 1];
       const cand = d > 0 ? Math.min(b.close - atr, b.low, p.low) : Math.max(b.close + atr, b.high, p.high);
@@ -152,13 +159,14 @@ const fixedR = (pb) => (pb.status !== "OPEN" ? pb.r
   : pb.last_close == null ? null : r2(((pb.realized || 0) + dirOf(pb) * (pb.last_close - pb.entry) * pb.shares_open) / (Math.abs(pb.entry - pb.stop) * pb.shares)));
 const openR = (q) => (q.status !== "OPEN" ? q.r : q.last_close == null ? null : r2(dirOf(q) * (q.last_close - q.entry) / Math.abs(q.entry - q.stop0)));
 
-export function compare(quant, paper) {
+// One comparison per variant: only pairs where BOTH the twin and its paper trade have closed count.
+export function compare(quant, paper, variant = "trail") {
   const byId = Object.fromEntries((paper.trades || []).map((t) => [t.id, t]));
-  const pairs = (quant.twins || []).map((q) => ({ q, pb: byId[q.of] }));
+  const pairs = (quant.twins || []).filter((q) => variantOf(q) === variant).map((q) => ({ q, pb: byId[q.of] }));
   const both = pairs.filter(({ q, pb }) => pb && q.status !== "OPEN" && pb.status !== "OPEN");
   const sum = (xs) => r2(xs.reduce((a, x) => a + x, 0));
   return {
-    pairs, closed_pairs: both.length,
+    variant, pairs, closed_pairs: both.length,
     fixed: { sum_r: sum(both.map((x) => x.pb.r)), wins: both.filter((x) => x.pb.realized > 0).length, usd: sum(both.map((x) => x.pb.realized)) },
     quant: { sum_r: sum(both.map((x) => x.q.r)), wins: both.filter((x) => x.q.realized > 0).length, usd: sum(both.map((x) => x.q.realized)),
       avg_giveback_r: both.length ? r2(both.reduce((a, x) => a + (x.q.giveback_r || 0), 0) / both.length) : null },
@@ -179,14 +187,19 @@ async function main() {
     let given = {};
     try { given = Object.fromEntries(Object.entries(JSON.parse(val("--earnings") || "{}")).map(([k, v]) => [k.toUpperCase(), v])); }
     catch { console.log('REFUSED - --earnings must be JSON like \'{"ASTS":"2026-11-09"}\''); process.exit(1); }
-    const have = new Set(quant.twins.map((q) => q.of));
+    const have = new Set(quant.twins.map((q) => `${q.of}:${variantOf(q)}`));
     const lines = [];
     for (const pb of paper.trades || []) {
-      if (pb.kind === "option" || have.has(pb.id)) continue;
-      const earnings = given[pb.sym] ?? earningsFromBoard(pb.sym, pb.entry_date);
-      const q = makeTwin(pb, { earnings });
-      quant.twins.push(q);
-      lines.push(`  ADDED    ${q.id} twin of ${pb.id} ${q.side.toUpperCase()} ${q.shares} ${q.sym} at ${q.entry}, start stop ${q.stop0}, hard exit ${q.hard_exit} (${q.hard_exit_why})${given[pb.sym] ? "" : earnings ? " [earnings from the board, verify]" : ""}`);
+      if (pb.kind === "option") continue;
+      // a twin already made for this trade keeps its earnings date, so both variants share one hard exit
+      const sibling = quant.twins.find((q) => q.of === pb.id);
+      const earnings = given[pb.sym] ?? (sibling ? sibling.earnings : earningsFromBoard(pb.sym, pb.entry_date));
+      for (const variant of VARIANTS) {
+        if (have.has(`${pb.id}:${variant}`)) continue;
+        const q = makeTwin(pb, { earnings, variant });
+        quant.twins.push(q);
+        lines.push(`  ADDED    ${q.id} ${variant} twin of ${pb.id} ${q.side.toUpperCase()} ${q.shares} ${q.sym} at ${q.entry}, start stop ${q.stop0}, hard exit ${q.hard_exit} (${q.hard_exit_why})${given[pb.sym] || sibling ? "" : earnings ? " [earnings from the board, verify]" : ""}`);
+      }
     }
     if (lines.length && has("--write")) save(DB, quant);
     console.log(`PAPER QUANT SYNC: ${lines.length} added${lines.length && !has("--write") ? " (dry run - add --write)" : ""}. No money at risk.`);
@@ -214,7 +227,7 @@ async function main() {
       const pb = (paper.trades || []).find((t) => t.id === q.of);
       const vs = pb ? ` | fixed ${pb.id} ${rStr(fixedR(pb))}${pb.status === "OPEN" ? " open" : ` ${pb.exit_reason}`}` : "";
       lines.push(n.status === "OPEN"
-        ? `  OPEN     ${n.id} ${n.sym} ${n.side} close ${n.last_close} (${rStr(openR(n))}), trail stop ${n.stop}, shape ${n.shape?.holds ? "HOLDS" : n.shape_seen ? "?" : "never held"}, hard exit ${n.hard_exit}${vs}`
+        ? `  OPEN     ${n.id} ${n.sym} ${n.side} ${variantOf(n)} close ${n.last_close} (${rStr(openR(n))}), stop ${n.stop}, shape ${n.shape?.holds ? "HOLDS" : n.shape_seen ? "?" : "never held"}, hard exit ${n.hard_exit}${vs}`
         : `  ${n.exit_reason.padEnd(11)} ${n.id} ${n.sym} ${n.exit_date} at ${n.exit_price}: ${money(n.realized)} = ${rStr(n.r)} (${n.exit_why}; gave back ${n.giveback_r}R from the best close ${n.best_close})${vs}`);
       return n;
     });
@@ -225,16 +238,22 @@ async function main() {
   }
 
   if (cmd === "report") {
-    const c = compare(quant, paper);
-    if (has("--json")) { console.log(JSON.stringify({ ...c, twins: quant.twins }, null, 2)); return; }
-    const open = c.pairs.filter(({ q }) => q.status === "OPEN");
-    console.log(`QUANT-EXIT TWINS: ${open.length} open, ${c.pairs.length - open.length} closed. Same entries as the paper book; only the exit differs.`);
-    if (!has("--brief")) for (const { q, pb } of c.pairs) {
-      const f = pb ? `fixed ${pb.id} ${rStr(fixedR(pb))} ${pb.status === "OPEN" ? "open" : pb.exit_reason}` : `fixed ${q.of} missing`;
-      const z = q.status === "OPEN" ? `quant ${rStr(openR(q))} open, trail stop ${q.stop ?? q.stop0}, out by ${q.hard_exit}` : `quant ${rStr(q.r)} ${q.exit_reason} ${q.exit_date} (${q.exit_why})`;
-      console.log(`  ${q.id} ${q.sym.padEnd(5)} ${q.side.padEnd(5)} | ${f} | ${z}`);
-    } else for (const { q } of open) console.log(`  ${q.sym} ${q.side} twin: ${rStr(openR(q))}, trail stop ${q.stop ?? q.stop0}, shape ${q.shape?.holds ? "holds" : q.shape_seen ? "broke" : "never held"}, out by ${q.hard_exit}`);
-    console.log(`  CLOSED PAIRS ${c.closed_pairs}: fixed ${rStr(c.fixed.sum_r)} (${c.fixed.wins} won, ${money(c.fixed.usd)}) vs quant ${rStr(c.quant.sum_r)} (${c.quant.wins} won, ${money(c.quant.usd)})${c.quant.avg_giveback_r != null ? `, quant gave back ${c.quant.avg_giveback_r}R a trade on average` : ""}${c.closed_pairs >= 10 && c.closed_pairs % 10 === 0 ? ` - REVIEW DUE (${c.closed_pairs} closed pairs: Adam picks the exit rule)` : ""}`);
+    const cs = VARIANTS.map((v) => compare(quant, paper, v));
+    if (has("--json")) { console.log(JSON.stringify({ variants: cs, twins: quant.twins }, null, 2)); return; }
+    const twinOf = (id, v) => quant.twins.find((q) => q.of === id && variantOf(q) === v);
+    const cell = (q) => (!q ? "none" : q.status === "OPEN" ? `${rStr(openR(q))} open, stop ${q.stop ?? q.stop0}` : `${rStr(q.r)} ${q.exit_reason} ${q.exit_date}`);
+    const nOpen = quant.twins.filter((q) => q.status === "OPEN").length;
+    console.log(`QUANT-EXIT TWINS: ${nOpen} open, ${quant.twins.length - nOpen} closed. Same entries as the paper book; only the exit differs.`);
+    console.log(`  trail = stop trails 1 ATR behind the price; shape = starting stop never moves, out only when the trend check breaks.`);
+    const ids = [...new Set(quant.twins.map((q) => q.of))];
+    if (!has("--brief")) for (const id of ids) {
+      const pb = (paper.trades || []).find((t) => t.id === id), any = twinOf(id, "trail") || twinOf(id, "shape");
+      const f = pb ? `fixed ${rStr(fixedR(pb))} ${pb.status === "OPEN" ? "open" : pb.exit_reason}` : "fixed missing";
+      console.log(`  ${id} ${any.sym.padEnd(5)} ${any.side.padEnd(5)} | ${f} | trail ${cell(twinOf(id, "trail"))} | shape ${cell(twinOf(id, "shape"))}`);
+    } else for (const q of quant.twins.filter((x) => x.status === "OPEN"))
+      console.log(`  ${q.sym} ${q.side} ${variantOf(q)} twin: ${rStr(openR(q))}, stop ${q.stop ?? q.stop0}, shape ${q.shape?.holds ? "holds" : q.shape_seen ? "broke" : "never held"}, out by ${q.hard_exit}`);
+    for (const c of cs)
+      console.log(`  CLOSED PAIRS (${c.variant}) ${c.closed_pairs}: fixed ${rStr(c.fixed.sum_r)} (${c.fixed.wins} won, ${money(c.fixed.usd)}) vs ${c.variant} ${rStr(c.quant.sum_r)} (${c.quant.wins} won, ${money(c.quant.usd)})${c.quant.avg_giveback_r != null ? `, gave back ${c.quant.avg_giveback_r}R a trade on average` : ""}${c.closed_pairs >= 10 && c.closed_pairs % 10 === 0 ? ` - REVIEW DUE (${c.closed_pairs} closed pairs: Adam picks the exit rule)` : ""}`);
     return;
   }
 

@@ -105,6 +105,43 @@ test("long: mirror image - trail ratchets up, a drop through it exits", () => {
   assert.equal(t.best_close, 87.5);
 });
 
+test("shape variant: the starting stop never moves, so a one-day bounce that trips the trail does not end it", () => {
+  // same path as the trailing-stop test: falls 5 sessions, rips +6 in one day (that tripped the trail at 62.5)
+  const bars = series([...down, 64.5, 63.5, 62.5, 61.5, 60.5, 66.5], DS);
+  const t = replay(shortTwin({ variant: "shape" }), bars, spy);
+  assert.equal(t.stop, 70, "the stop is still the starting stop");
+  assert.notEqual(t.exit_reason, "STOP");
+  // 66.5 is still under the falling 20-day, so the shape holds and the twin is still in
+  assert.equal(t.status, "OPEN");
+});
+
+test("shape variant: exits only when the shape breaks, at that close", () => {
+  const bars = [...series(down, DS), { date: DS[70], open: 64, high: 64.2, low: 63, close: 64, volume: 1 }];
+  const spyFall = spy.map((b, i) => (i === 70 ? { ...b, close: 300 } : b));
+  const t = replay(shortTwin({ variant: "shape" }), bars, spyFall);
+  assert.equal(t.exit_reason, "SHAPE-BROKE");
+  assert.equal(t.exit_price, 64);
+});
+
+test("shape variant: the starting stop still stops it", () => {
+  const bars = series([...down, 64.5], DS);
+  bars.push({ date: DS[71], open: 66, high: 71, low: 65, close: 66, volume: 1 });
+  const t = replay(shortTwin({ variant: "shape" }), bars, spy);
+  assert.equal(t.exit_reason, "STOP");
+  assert.equal(t.exit_price, 70);
+  assert.equal(t.r, -1);
+});
+
+test("makeTwin: the shape variant gets its own id and lane", () => {
+  const pb = { id: "PB-003", sym: "ASTS", side: "short", lane: "hunter-short", source_row: "B-895", entry_date: "2026-10-14", entry: 41.8, shares: 58, stop: 47.75, exit_by: "2026-10-28" };
+  const s = makeTwin(pb, { earnings: "2026-11-09", variant: "shape" });
+  assert.equal(s.id, "PQS-003");
+  assert.equal(s.variant, "shape");
+  assert.equal(s.lane, "quant-shape");
+  assert.equal(s.hard_exit, "2026-11-06");
+  assert.equal(makeTwin(pb, { earnings: "2026-11-09" }).variant, "trail");
+});
+
 test("replay is a pure function of the bars: running it twice gives the same twin", () => {
   const bars = series([...down, 64.5, 63.5], DS);
   assert.deepEqual(replay(shortTwin(), bars, spy), replay(shortTwin(), bars, spy));
@@ -137,14 +174,18 @@ test("CLI: sync twins every share trade once, score offline, report the pair", (
   writeFileSync(barsFile, JSON.stringify({ SPY: spy.slice(0, 72), TEST: series([...down, 64.5, 63.5], DS) }));
   const s1 = run(["sync", "--paper", paper, "--db", db, "--earnings", '{"TEST":"2027-01-01"}', "--write"]);
   assert.match(s1, /ADDED\s+PQ-001/);
+  assert.match(s1, /ADDED\s+PQS-001/);
   assert.doesNotMatch(s1, /OPT/);
   assert.match(run(["sync", "--paper", paper, "--db", db, "--write"]), /0 added/);
   const sc = run(["score", "--paper", paper, "--db", db, "--bars-file", barsFile, "--write"]);
   assert.match(sc, /PQ-001 TEST/);
   const q = JSON.parse(readFileSync(db, "utf8"));
+  assert.equal(q.twins.length, 2);
   assert.equal(q.twins[0].status, "OPEN");
   assert.equal(q.twins[0].last_scored, DS[71]);
   const rep = run(["report", "--paper", paper, "--db", db]);
   assert.match(rep, /PB-001/);
   assert.match(rep, /fixed/i);
+  assert.match(rep, /trail/);
+  assert.match(rep, /shape/);
 });
