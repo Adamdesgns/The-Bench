@@ -1,0 +1,37 @@
+{
+  "answers": [
+    {
+      "at": "2026-10-17T02:15:09.568Z",
+      "date": "2026-10-16",
+      "question": "what's a stop-loss and where would you put one on NVDA today?",
+      "outcome": "ANSWERED",
+      "answer": "A stop-loss is an order you place in advance that sells your shares if the price falls to a level you pick. You decide the most you're willing to lose before you buy, so you aren't deciding it in a panic. Example: you buy at $214.14 with a stop at $208.00. If NVDA drops to $208.00, the order sells, and the loss is about $6.14 a share.\n\n**NVDA right now:** the last regular-session trade on 10/16 was $214.14 at 3:59 PM ET, down 1.4% from Thursday's $217.23. After hours it's $213.75. The market is closed, so treat these as Friday's close and re-pull Monday morning.\n\n**Where I'd put one: $208.00.** That sits just under two prior lows:\n- **Structure:** NVDA bottomed at $209.23 on 8/26 and $208.93 on 9/14. If it breaks both, the dip has stopped being a dip.\n- **Normal wobble:** NVDA has been moving about $6 a day over the last 14 sessions. That's the ATR, or average true range, the typical size of a day's swing. A stop closer than one ATR to your entry ($5.96) gets hit by an ordinary bad day. $208.00 is $6.14 away, so it just clears that.\n\n**What it means in dollars:** if you're willing to lose $100 on this idea, $100 ÷ $6.14 is about 16 shares. Size from the dollars you'll risk, then let the stop decide the share count.\n\n**What this is not:** there's no logged NVDA stop on the book. B-714 (10/2) is a pass with a trigger at $237.88 and no invalidation level. So $208.00 is a teaching example, not a call. A real one would come from a framework run, get a row, and have the level watched.\n\nAlso, 10/16 NVDA is below the 10/2 review price of $233.99, which was the level B-714 said was a pass.\n\nPaper trades only. Not financial advice. Educational only.",
+      "cost_usd": 0.227182
+    },
+    {
+      "at": "2026-10-17T02:48:29.407Z",
+      "date": "2026-10-16",
+      "question": "**What this channel is**\nAsk Benny about a ticker, a setup, or a trading term. He reads live market data and answers in plain English.\n- Right now he answers the server owner only, up to 20 questions a day. Everyone can read the answers.\n- Good questions: \"Where would a stop go on NVDA?\", \"What is ATR?\", \"Is AMD extended?\"\n- He never places orders and never talks about anyone's real account.\nNot financial advice.",
+      "outcome": "ANSWERED",
+      "answer": "That reads like the pinned description for #ask-benny, but I don't see a question or a task in it. Do you want me to check it against the persona file and `docs/benny/discord-pins.md`, or did you mean to send a question for Benny?\n\nIf it's the pin text, the one thing I'd change is the last line. The v3 sign-off is \"\" The pin stops at \"Not financial advice.\" A pin isn't a post or an answer, so the sign-off check won't catch it. I'd still make it word for word so the channel never shows a shorter version.\n\nShould I update the pin to the full sign-off?\n\nPaper trades only. Not financial advice. Educational only.",
+      "cost_usd": 0.1284932
+    },
+    {
+      "at": "2026-10-17T02:48:39.948Z",
+      "date": "2026-10-16",
+      "question": "",
+      "outcome": "REFUSED",
+      "reasons": [
+        "no init message - the tool list cannot be proven"
+      ]
+    },
+    {
+      "at": "2026-10-17T19:16:58.402Z",
+      "date": "2026-10-17",
+      "question": "Benny run the market this morning.",
+      "outcome": "ANSWERED",
+      "answer": "**Saturday 10/17, 2:20 PM CT. There was no market this morning, so there's nothing new to run.** US stocks traded last on Friday 10/16 and next trade Monday 10/19. I re-pulled the quotes, and they match Friday's closing read exactly.\n\n**Where Friday left things** (the last regular-session trade, 3:00 PM CT):\n- QQQ (the Nasdaq-100 fund) closed 709.86, down 2.49%. It needs a close back over 715 to show Friday's drop was options positioning rather than new selling. That's watcher MC-188.\n- SPY (the S&P 500 fund) closed 763.30, down 1.10%.\n- MU closed 878.67, under B-856's 884 stop line, so that plan stays dead (B-937). It's 4.67 above 874 (MC-177).\n- VRT closed 206.42, under the 211.5 floor. That's a thesis review (B-938), not a discount.\n- IREN closed 27.00, down 11.2% on the day.\n- NVDA closed 214.14, the best of the AI chain at -1.4%.\n- Bitcoin is the only thing trading today. It's at 81,451 as of 2:18 PM CT, about flat on the day.\n\n**What the after-hours quotes mean.** The bid and ask on thinly traded names are very wide right now. IREN, for example, shows 24.12 bid and 42.00 ask. Those aren't prices anyone should act on. The Friday close is the real level until Monday's open.\n\n**Next week.**\n- Monday has no board earnings.\n- SPCX reports Tuesday 10/20 after the close. It's in my watchlist file, but that entry is old, so I haven't re-judged it. It needs a fresh run first.\n- The calendar's big after-close days are Wednesday 10/21 (META, TSLA, LRCX, TXN, IBM) and Thursday 10/22 (WDC). Those are calendar names, not board names, until I run them.\n- VRT reports 10/26.\n\n**What I haven't done.** This session has no shell, so I couldn't run the inbox check, the regime stamp or the book scripts. I logged no new calls and no row. Friday's no-trade stands at B-939. Monday's pre-market run is where the next calls come from, and each one will carry a row and a watcher.\n\nPaper trades only. Not financial advice. Educational only.",
+      "cost_usd": 0.41065100000000004
+    }
+  ]
+}

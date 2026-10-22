@@ -6,6 +6,81 @@
 
 ---
 
+## Week of 2026-10-11 -> 2026-10-17
+
+One ENTER ticket handed over (MU B-879, 10/14), unfunded, gapped through its 884 stop
+the next morning: paper PB-002 -406.23 (-1.23R). No framework version shipped; still v35
+(2026-10-02). No equity orders in ••6137 since 10/10. GOOGL 8 sh avg 336.25 closed
+340.59, +34.72 open (was +123.04).
+
+### THE ALGORITHM - how he trades
+
+- No new framework version.
+- **The paper book shipped (10/14, `ab566d1`, `3bbae17`, `cd506ab`):** every ENTER ticket
+  is bought on paper whether or not it is funded, and every hunter READY short the desk
+  passes is shorted on paper in the `hunter-short` lane. Earned by the run of unfunded
+  tickets with no record of what they would have done.
+- **Benny's own book opened (10/16, `14c3695`, `e485226`, `0b9df70`):** $10,000 paper,
+  1% risk per share trade, 3% per defined-risk option, 9% open options cap, $500 weekly
+  refill under $9,000 that never counts as a gain. First trades can go in 10/19.
+
+### WHAT THE BOOK CONTRADICTED
+
+- **The gap beat the stop.** MU B-879 bought 6 at 940.72, stop 884; 10/15 traded an 858
+  low, so the paper exit filled at the gap, -1.23R not -1R. Three breakout/zone tickets in
+  two weeks (NVDA B-745, MRVL B-779, MU B-879) all broke within two sessions.
+- **"Narrow" was wrong twice.** 10/13 midday called chip damage narrow without the
+  equipment makers; 10/16 morning said selling narrowed to silicon, and by the close it
+  was every layer except power.
+- **30-day receipt B-436 (CBRS, 9/17 at 194.51):** the DevDay run-up plan's trigger fired
+  9/18; 127.21 on 10/16, -34.6 pct vs SPY +0.09. WRONG by score-book. The plan's own
+  exit-before-9/30 is what the v34 lane keeps.
+
+### STILL OPEN
+
+- Ticket generator still sizes to the risk band, not to what the account can fund (MU
+  ticket = 160 pct of the account). Carried a third week.
+
+---
+
+## Week of 2026-10-04 -> 2026-10-10
+
+Two breakout tickets were handed over (NVDA B-745, MRVL B-779), both unfunded and both
+broken within two sessions. No framework version shipped; the last prompt file is v35
+(2026-10-02). No equity orders in ••6137 since 10/03; realized P&L for the week is zero.
+GOOGL 8 sh avg 336.25 closed 351.63, +123.04 open.
+
+### THE ALGORITHM - how he trades
+
+- No new framework version. v34's PASSED TRIGGERS ARE WATCHED did its job in volume: the
+  close routine logged mandatory re-looks for fired watchers all week (MC-058, MC-060,
+  MC-061, MC-064, MC-071, MC-072 and more; B-763..B-767, B-787..B-791, B-805..B-812).
+- Shipped tooling, not rules: scorer fix PR #46 merged 10/04 (recheck path); tripwire
+  level logic moved into server/tripwire.js with tests (10/07); Market Watch alarm state
+  machine and CLI skeleton (10/07) - built but not in use, so not counted as a change.
+
+### WHAT THE BOOK CONTRADICTED
+
+- **A watcher reported on a stale line.** MC-032 watched an SMH 601.87 line copied on
+  10/02 and never re-derived, so it said HOLDING on 10/08 after SMH closed 606.89 under
+  its real 10-day 616.92 (B-803). Re-derived from settled bars from 10/09 (B-816). Cost:
+  none, no chip position.
+- **Both breakout tickets failed on the next close.** NVDA (B-745, buy 28 @ 242.30,
+  stop 231.90) closed under the 237.88 record 10/07 (B-790) and stopped 10/08 (B-809),
+  -291 on paper. MRVL (B-779, buy 13 @ 283.73, stop 261.28) closed under 280.00 on 10/08
+  (B-811), Friday 275.33, -109 open on paper. Unfunded; nothing lost. In NVDA's case the
+  failed-breakout close came one session before the stop (-138 vs -291). One instance,
+  not a rule.
+- **30-day receipt B-326 (FTFT, 9/10 at 2.24):** "NO TRADE - NO CATALYST, ONLY A
+  HISTORY." Closed 10/09 at 3.20, +42.86 percent vs SPY +2.74. WRONG by score-book.
+
+### STILL OPEN
+
+- The ticket generator still sizes to the risk band rather than what the account can
+  fund (NVDA ticket = 228 pct of the account, MRVL = 125 pct). Carried from last week.
+
+---
+
 ## Week of 2026-09-27 -> 2026-10-03
 
 The week the ETN plan passed its entry check four mornings running and never got a dollar,

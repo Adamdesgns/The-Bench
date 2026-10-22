@@ -32,6 +32,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { settledCloses } from "../server/yahooClose.js";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = resolve(ROOT, "db/regime.json");
@@ -138,19 +139,26 @@ export function classify({ SPY, QQQ, IWM, VIX, TNX }, { eventNext = false } = {}
 
 // ── data ────────────────────────────────────────────────────────────────────
 
-async function yahooCloses(symbol) {
-  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1y&interval=1d`;
-  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (TheBench regime.mjs)" } });
-  if (!res.ok) throw new Error(`yahoo ${symbol}: ${res.status}`);
-  const j = await res.json();
-  const r = j?.chart?.result?.[0];
+// chart.result[0] -> [{date, close}]. After the bell Yahoo posts today's bar with close = null
+// while meta.regularMarketPrice already holds the settled price; settledCloses fills that one
+// bar (and only once the session is over) so the stamp is not a session stale.
+export function barsFromChart(r, { now = new Date() } = {}) {
   const ts = r?.timestamp ?? [];
-  const cl = r?.indicators?.quote?.[0]?.close ?? [];
+  const { closes: cl } = settledCloses(r, { now });
   const bars = [];
   for (let i = 0; i < ts.length; i++) {
     if (cl[i] === null || cl[i] === undefined) continue;
     bars.push({ date: new Date(ts[i] * 1000).toISOString().slice(0, 10), close: cl[i] });
   }
+  return bars;
+}
+
+async function yahooCloses(symbol) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1y&interval=1d`;
+  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (TheBench regime.mjs)" } });
+  if (!res.ok) throw new Error(`yahoo ${symbol}: ${res.status}`);
+  const j = await res.json();
+  const bars = barsFromChart(j?.chart?.result?.[0]);
   if (!bars.length) throw new Error(`yahoo ${symbol}: no bars`);
   return bars;
 }
@@ -212,6 +220,12 @@ async function main() {
   }
   const { series, source } = await load();
   const { closes, asof } = cut(series, val("--date"));
+  // Every input should end on the same session; a mismatch (say VIX still inside its post-bell
+  // grace window while SPY has settled) means the stamp mixes two days. Say so, loudly.
+  const ends = Object.fromEntries(["SPY", "QQQ", "IWM", "VIX"].map((k) => [k, (series[k] ?? []).filter((x) => !val("--date") || x.date <= val("--date")).at(-1)?.date ?? "none"]));
+  if (new Set(Object.values(ends)).size > 1) {
+    console.error(`regime: WARNING inputs end on different sessions (${Object.entries(ends).map(([k, d]) => `${k} ${d}`).join(", ")}); the stamp mixes sessions. Re-run in a few minutes.`);
+  }
   const macro = macroOnNextSession(asof);
   const stamp = classify(closes, { eventNext: macro.eventNext });
   const out = {

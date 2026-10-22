@@ -53,3 +53,13 @@ db/prepump/raw-outcomes/
 db/prepump/health/
 db/prepump/desk/manual/
 db/prepump/desk/20??-??-??.json
+
+# Market watch (added 2026-10-07): the ack topic name and the alarm history stay on this PC.
+db/market-watch.local.json
+db/market-watch-state.json
+.cache/
+
+# Benny on Discord: kill switches are local state, not history (2026-10-15)
+benny/HALT
+benny/STOP
+benny/listener.log

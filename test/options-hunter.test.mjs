@@ -103,3 +103,16 @@ test("CLI: --hunt offline then --ev-file rank, no writes", () => {
   assert.match(rank, /UP\s+long/);
   assert.match(rank, /Nothing here is a ticket/);
 });
+
+// 2026-10-08: a named ticker that fits neither side used to vanish (BTC-USD). Now it comes back with reasons.
+import { whyNotLong } from "../scripts/options-hunter.mjs";
+
+test("candidates returns names that fit neither side as notListed, with reasons for both sides", () => {
+  const series = { SPY: spy, FLAT: bars({ n: 600, start: 100 }) };
+  const { candidates: c, notListed } = candidates(series);
+  assert.ok(!c.find((x) => x.sym === "FLAT"), "still not a candidate");
+  const flat = notListed.filter((x) => x.sym === "FLAT");
+  assert.deepEqual(flat.map((x) => x.side).sort(), ["long", "short"]);
+  const long = flat.find((x) => x.side === "long");
+  assert.match(whyNotLong(long), /not at the 20-bar high/);
+});

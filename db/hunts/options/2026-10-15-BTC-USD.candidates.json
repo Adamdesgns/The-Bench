@@ -1,0 +1,131 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-10-15",
+  "source": "yahoo",
+  "universe": "named",
+  "generated": "2026-10-15T14:32:56.262Z",
+  "macro_inside_2_sessions": true,
+  "band": 350.73400000000004,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "marks": [
+    {
+      "sym": "BTC-USD",
+      "mark": 80956.65,
+      "was": 80973.328125,
+      "date": "2026-10-15"
+    }
+  ],
+  "scanned": 1,
+  "candidates": [
+    {
+      "side": "short",
+      "sym": "BTC-USD",
+      "ok": true,
+      "date": "2026-10-15",
+      "close": 80956.65,
+      "sma50": 81203.3,
+      "sma20": 83647.44,
+      "atr": 2118.77,
+      "low20": 80336.91,
+      "volume": 41243127808,
+      "vol30": 30632896897,
+      "volRatio": 1.35,
+      "rs20": -3.19,
+      "rs5": -0.96,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 74436.68,
+        "date": "2025-04-07",
+        "atr_away": 3.08
+      },
+      "first_shelf": {
+        "level": 80659.81,
+        "date": "2025-11-21",
+        "rr": 0.1
+      },
+      "floor2": {
+        "level": 80659.8125,
+        "date": "2025-11-21"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 80956.65,
+        "stop": 84049.06,
+        "stop_atr": 1.46,
+        "target": 74436.68,
+        "rr": 2.11
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 103,
+        "independent": 59,
+        "pending": 1,
+        "span_years": 5,
+        "grade": "A",
+        "why": "59 independent event(s) over 5y (104 raw) — large sample across multiple regimes",
+        "p_dir": 43.69,
+        "p_reach": 12.62,
+        "avg_pct": 0.33,
+        "median_pct": 0.54,
+        "target_pct": -8.05
+      },
+      "spread_request": null
+    }
+  ],
+  "skipped": [],
+  "not_listed": [
+    {
+      "sym": "BTC-USD",
+      "side": "long",
+      "ok": true,
+      "date": "2026-10-15",
+      "close": 80956.65,
+      "sma50": 81203.3,
+      "atr": 2118.77,
+      "high20": 87146.35,
+      "volRatio": 1.35,
+      "rs20": -3.19,
+      "rs5": -0.96,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 86429.35,
+        "date": "2025-04-15"
+      },
+      "first_shelf": {
+        "level": 81346.95,
+        "date": "2026-08-28",
+        "rr": 0.18
+      },
+      "too_far": null,
+      "target2": {
+        "level": 81346.95,
+        "date": "2026-08-28",
+        "rr": 0.18
+      },
+      "geometry": {
+        "entry": 80956.65,
+        "stop": 78837.88,
+        "stop_atr": 1,
+        "target": 86429.35,
+        "rr": 2.58
+      },
+      "readiness": 60,
+      "list": null
+    }
+  ],
+  "id": "95e7fa1c"
+}

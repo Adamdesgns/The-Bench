@@ -1,0 +1,39 @@
+# Image generation log
+
+## 2026-10-15T16:31:26.329Z - 2026-10-15-btc-report-card-codex-v1.png
+
+- File: 2026-10-15-btc-report-card-codex-v1.png (1122x1402)
+- Codex: 0.162.0-alpha.17.2
+- Thread: 01a14066-bdef-7d60-9c12-a844667d7e05
+- Reference images: none
+- Seconds: 49.2
+
+Prompt:
+
+```text
+A vertical portrait graphic (tall, about 4:5), designed like a clean, modern sports scorecard for a trading review. Dark near-black navy background with a soft warm bitcoin-orange glow in one corner and a faint, blurred falling-then-flattening price line in the background with NO numbers, NO axis labels and NO gridline labels. Crisp flat graphic design, sharp sans-serif type, high contrast, generous spacing, easy to read on a phone.
+
+The ONLY text in the image, exactly as written, spelled exactly, every digit exact, top to bottom:
+
+1. Small header, white, letter-spaced: THE BENCH · REPORT CARD
+2. Under it, light gray: BTC-USD · Oct 15, 2026 · 82,235
+3. A wide amber banner with large bold dark text: NO TRADE TODAY
+4. Under the banner, small light gray: Buy-the-dip plan, paper only
+5. A row of four rounded grade chips, each with a small label above a big letter grade:
+   CHART C+   |   FLOWS C   |   EXECUTION D+   |   OVERALL C-
+6. Small amber label: THE NUMBER
+7. The largest text in the image, white: 76,228 – 76,600
+8. A row of three equal tiles, small label above a bold number:
+   STOP 73,725   |   TARGET 1 87,146   |   TARGET 2 88,467
+9. One line, white: 2.09 : 1 after the spread
+10. Small amber label: KILLS IT
+11. Three short lines, light gray:
+    Close under 76,228 on 1.5x volume
+    Close over 84,249
+    No signal by Oct 22
+12. A thin outlined box, white text: OUT BY 12:45 PM CT OCT 28 — BEFORE THE FED
+13. Tiny footer, dim gray: Paper plan, not financial advice · Row B-911 · proof, not hype
+
+Nothing else may appear: no other words, no other numbers, no dollar signs, no logos, no bitcoin coin logo, no brand marks, no watermark, no people, no hands, no phone mockup, no device frame. Flat graphic only, not a photo of a poster.
+```
+

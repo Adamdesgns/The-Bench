@@ -1,0 +1,19 @@
+{
+  "_purpose": "The major medical meetings where pivotal and late-breaking data lands. Big companies often announce a presentation by press release only (MRNA, 2026-09-21), which scripts/readout-sweep.mjs cannot see, so bench-weekly-catalyst web-checks every meeting starting inside 75 days for presenting companies. Added 2026-10-11 at Adam's yes.",
+  "_rule": "verified = dates read from the organiser or two independent listings. The Sunday routine re-verifies any 'unverified' row inside 120 days and adds the next year's meeting when one passes. Never trade off a meeting date alone - the catalyst is a company's presentation slot, logged with log-catalyst.mjs --type readout.",
+  "meetings": [
+    { "id": "ESMO-2026", "name": "ESMO Congress", "area": "oncology", "start": "2026-10-23", "end": "2026-10-27", "where": "Madrid", "verified": true, "source": "Moderna release 2026-09-21 (LBA1 Sat 10/24)" },
+    { "id": "SITC-2026", "name": "SITC Annual Meeting", "area": "immuno-oncology", "start": "2026-11-04", "end": "2026-11-08", "where": "Phoenix", "verified": true, "source": "sitcancer.org; pyroplane listing" },
+    { "id": "AASLD-2026", "name": "AASLD The Liver Meeting", "area": "liver", "start": "2026-11-05", "end": "2026-11-09", "where": "Denver", "verified": true, "source": "easl.eu event page; Assembly Bio IR event" },
+    { "id": "AHA-2026", "name": "AHA Scientific Sessions", "area": "cardiology", "start": "2026-11-06", "end": "2026-11-09", "where": "Chicago", "verified": true, "source": "professional.heart.org; EDIT 8-K 2026-10-08" },
+    { "id": "CTAD-2026", "name": "Clinical Trials on Alzheimer's Disease", "area": "neurology", "start": "2026-11-16", "end": "2026-11-19", "where": "Boston", "verified": true, "source": "alzint.org; ACAD 8-K 2026-09-24" },
+    { "id": "SABCS-2026", "name": "San Antonio Breast Cancer Symposium", "area": "oncology", "start": "2026-12-08", "end": "2026-12-11", "where": "San Antonio", "verified": true, "source": "sabcs.org; aacr.org" },
+    { "id": "ASH-2026", "name": "ASH Annual Meeting", "area": "hematology", "start": "2026-12-12", "end": "2026-12-15", "where": "New Orleans", "verified": true, "source": "hematology.org (one ASH press page says San Diego - template leftover)" },
+    { "id": "JPM-2027", "name": "J.P. Morgan Healthcare Conference", "area": "all (guidance, deals)", "start": "2027-01-11", "end": "2027-01-14", "where": "San Francisco", "verified": false, "source": "usual second week of January - verify" },
+    { "id": "ASCOGI-2027", "name": "ASCO Gastrointestinal Cancers Symposium", "area": "oncology", "start": "2027-01-21", "end": "2027-01-23", "where": "San Francisco", "verified": true, "source": "asco.org/gi; moscone.com" },
+    { "id": "ASCOGU-2027", "name": "ASCO Genitourinary Cancers Symposium", "area": "oncology", "start": "2027-02-11", "end": "2027-02-13", "where": "San Francisco", "verified": true, "source": "asco.org/gu; moscone.com" },
+    { "id": "ACC-2027", "name": "ACC.27 Scientific Session", "area": "cardiology", "start": "2027-03-27", "end": "2027-03-29", "where": "unknown", "verified": false, "source": "NOT RETRIEVED 2026-10-11 - placeholder from the usual late-March slot, verify" },
+    { "id": "AACR-2027", "name": "AACR Annual Meeting", "area": "oncology", "start": "2027-04-16", "end": "2027-04-21", "where": "unknown", "verified": false, "source": "NOT RETRIEVED 2026-10-11 - placeholder from the usual mid-April slot, verify" },
+    { "id": "ASCO-2027", "name": "ASCO Annual Meeting", "area": "oncology", "start": "2027-05-28", "end": "2027-06-01", "where": "Chicago", "verified": false, "source": "usual late-May/early-June slot - verify" }
+  ]
+}
