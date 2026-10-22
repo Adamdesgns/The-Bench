@@ -4155,6 +4155,22 @@
       "row": "B-1014",
       "expires": "2026-10-28",
       "status": "open"
+    },
+    {
+      "id": "MC-243",
+      "created": "2026-10-22",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 720
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "premarket-2026-10-22",
+      "row": "B-1015",
+      "expires": "2026-10-23",
+      "status": "open"
     }
   ]
 }
