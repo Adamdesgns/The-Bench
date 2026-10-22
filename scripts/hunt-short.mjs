@@ -211,7 +211,7 @@ export function spreadLine(r, band) {
 const r2 = (x) => (x === null || x === undefined || Number.isNaN(x) ? null : Number(x.toFixed(2)));
 
 // ---------- data ----------
-async function yahooBars(symbol, range = "5y") {
+export async function yahooBars(symbol, range = "5y") {
   const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=1d`;
   const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (TheBench hunt-short.mjs)" } });
   if (!res.ok) throw new Error(`yahoo ${symbol}: ${res.status}`);
