@@ -4284,6 +4284,70 @@
       "row": "B-1028",
       "expires": "2026-10-29",
       "status": "open"
+    },
+    {
+      "id": "MC-249",
+      "created": "2026-10-22",
+      "when": [
+        {
+          "ticker": "CRWV",
+          "op": ">",
+          "level": 64.58
+        }
+      ],
+      "meaning": "hunter short stop hit - short thesis dead",
+      "source": "hunt-close-2026-10-22",
+      "row": "B-1029",
+      "expires": "2026-11-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-250",
+      "created": "2026-10-22",
+      "when": [
+        {
+          "ticker": "CRWV",
+          "op": "<",
+          "level": 33.51
+        }
+      ],
+      "meaning": "hunter short floor target reached",
+      "source": "hunt-close-2026-10-22",
+      "row": "B-1029",
+      "expires": "2026-11-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-251",
+      "created": "2026-10-22",
+      "when": [
+        {
+          "ticker": "NI",
+          "op": ">",
+          "level": 47.05
+        }
+      ],
+      "meaning": "breakout target reached - re-judge",
+      "source": "hunt-close-2026-10-22",
+      "row": "B-1030",
+      "expires": "2026-11-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-252",
+      "created": "2026-10-22",
+      "when": [
+        {
+          "ticker": "NI",
+          "op": "<",
+          "level": 42.8
+        }
+      ],
+      "meaning": "breakout stop broken - long thesis dead",
+      "source": "hunt-close-2026-10-22",
+      "row": "B-1030",
+      "expires": "2026-11-05",
+      "status": "open"
     }
   ]
 }
