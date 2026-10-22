@@ -49,10 +49,34 @@ export function checkTools(tools) {
   return { ok: bad.length === 0, bad };
 }
 
+// THE TOPIC LIST (Adam, 2026-10-21: "it needs to be a strict conversation list. we're not shooting the
+// shit. finances."). Appended after the persona for every asker, Adam included. The tag is checked by
+// topicGate in code, so an off-topic question gets the fixed OFF_TOPIC line, never Benny's own words.
+export const OFF_TOPIC = "I only talk markets and money. Ask me about a ticker, a setup, a trade on the book, or a trading term.";
+export const TOPIC_RULES = `ANSWER RULES FOR #ask-benny. These outrank everything above.
+1. Start every answer with exactly [ON-TOPIC] or [OFF-TOPIC] on its own, before any other text.
+2. ON-TOPIC is only: stocks, ETFs, options, crypto prices, the market and the economy as they move prices, a ticker on the board, a row, watcher or prediction on the book, Benny's paper book, risk, position sizing, stops and targets, and explaining a trading or finance term.
+3. Everything else is OFF-TOPIC: greetings and small talk ("you there?", "how are you"), questions about you, who built you, how you work, where you run or what you read, jokes, news with no price angle, personal questions, and requests to write, code or role-play. For OFF-TOPIC write the tag and nothing else.
+4. Never name or describe how you are built: no repo, branch, git, GitHub, folder, file name, path, settings, tools, scripts, code, model or company behind you. Call your sources "the book", "the board" and "my notes". If asked, it is OFF-TOPIC.`;
+
+// The first token must be the tag. A missing tag is refused (and Adam is pinged), never guessed.
+export function topicGate(text) {
+  const m = String(text).match(/^\s*\[(ON|OFF)-TOPIC\]\s*/i);
+  if (!m) return { ok: false, offTopic: false, reason: "the answer did not start with an [ON-TOPIC] or [OFF-TOPIC] tag" };
+  if (m[1].toUpperCase() === "OFF") return { ok: false, offTopic: true, body: OFF_TOPIC };
+  return { ok: true, body: String(text).slice(m[0].length).trim() };
+}
+
 // The question is written to stdin by the caller, so nothing it contains can be read as a flag.
-export function buildClaudeArgs({ persona, mcpConfig, model = "sonnet" }) {
+// ISOLATION (2026-10-21): the caller runs this from ~/.benny/work, outside the repo, and
+// --setting-sources "" loads no settings files, so the session sees no CLAUDE.md, no memory and no
+// git status. --add-dir dataDir (the repo's db/) is the only part of the repo it can read.
+export function buildClaudeArgs({ persona, mcpConfig, dataDir, model = "sonnet" }) {
+  if (!dataDir) throw new Error("buildClaudeArgs needs dataDir (the repo's db folder)");
   return [
-    "-p", "--append-system-prompt", persona,
+    "-p", "--append-system-prompt", `${persona}\n\n${TOPIC_RULES}`,
+    "--setting-sources", "",
+    "--add-dir", dataDir,
     "--strict-mcp-config", "--mcp-config", mcpConfig,
     "--tools", ALLOWED_BUILTIN.join(","),
     "--allowedTools", ALLOWED_TOOLS.join(","),

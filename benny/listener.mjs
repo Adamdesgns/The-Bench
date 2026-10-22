@@ -12,12 +12,12 @@
 
 import { Client, Events, GatewayIntentBits } from "discord.js";
 import { spawn } from "node:child_process";
-import { readFileSync, writeFileSync, existsSync, unlinkSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, unlinkSync, mkdirSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { homedir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { buildClaudeArgs, checkTools, parseStream, askerOf, framedQuestion, commandOf, answersToday, composeAnswer, secretLeaks } from "./ask.mjs";
-import { checkWall, loadWall, bennyHome } from "../scripts/benny-wall.mjs";
+import { buildClaudeArgs, checkTools, parseStream, askerOf, framedQuestion, commandOf, answersToday, composeAnswer, secretLeaks, topicGate } from "./ask.mjs";
+import { checkWall, loadWall, bennyHome, internalsLeaks } from "../scripts/benny-wall.mjs";
 import { splitForDiscord, ntfyPing } from "../scripts/benny-post.mjs";
 import { nyDate } from "../scripts/paper-book.mjs";
 
@@ -26,6 +26,9 @@ const HALT = join(ROOT, "benny/HALT");
 const QA = join(ROOT, "db/benny-qa.json");
 const CLAUDE = process.env.BENNY_CLAUDE || join(homedir(), ".local/bin/claude.exe");
 const NO_ANSWER = "Not answering this one. My operator has been told why.";
+// Answer sessions run here, outside the repo, so they never see its CLAUDE.md or git (2026-10-21).
+const WORK = join(bennyHome(), "work");
+mkdirSync(WORK, { recursive: true });
 
 const secrets = JSON.parse(readFileSync(join(bennyHome(), "discord.json"), "utf8"));
 const cfg = JSON.parse(readFileSync(join(ROOT, "db/benny-config.json"), "utf8"));
@@ -39,7 +42,8 @@ const ping = (title, body) => ntfyPing(fetch, title, body).catch((e) => console.
 
 function runClaude(question) {
   return new Promise((ok, fail) => {
-    const p = spawn(CLAUDE, buildClaudeArgs({ persona, mcpConfig: join(ROOT, "benny/mcp.json") }), { cwd: ROOT, windowsHide: true });
+    const args = buildClaudeArgs({ persona, mcpConfig: join(ROOT, "benny/mcp.json"), dataDir: join(ROOT, "db") });
+    const p = spawn(CLAUDE, args, { cwd: WORK, windowsHide: true });
     let out = "", err = "";
     const timer = setTimeout(() => { p.kill(); fail(new Error("claude took longer than 180 seconds")); }, 180000);
     p.stdout.on("data", (d) => (out += d));
@@ -88,11 +92,16 @@ async function handle(m) {
   const tools = checkTools(s.tools);
   if (!tools.ok) { await refuse(m, base, [`tools outside the allowlist were visible: ${tools.bad.join(", ")}`]); return; }
   if (s.isError || !s.result) { await refuse(m, base, [`claude returned an error or no answer${s.result ? `: ${String(s.result).slice(0, 200)}` : ""}`]); return; }
-  const answer = composeAnswer(s.result);
+  const topic = topicGate(s.result);
+  if (topic.offTopic) { await send(m, composeAnswer(topic.body)); logQa({ ...base, outcome: "OFF_TOPIC" }); return; }
+  if (!topic.ok) { await refuse(m, base, [`topic: ${topic.reason}`]); return; }
+  const answer = composeAnswer(topic.body);
   const wall = checkWall(answer, loadWall(), now);
   if (!wall.ok) { await refuse(m, base, wall.reasons.map((r) => `wall: ${r}`)); return; }
   const leaks = secretLeaks(answer, secrets);
   if (leaks.length) { await refuse(m, base, leaks.map((r) => `secret: ${r}`)); return; }
+  const inside = internalsLeaks(answer);
+  if (inside.length) { await refuse(m, base, inside.map((r) => `internals: ${r}`)); return; }
   await send(m, answer);
   logQa({ ...base, outcome: "ANSWERED", answer, cost_usd: s.cost });
 }

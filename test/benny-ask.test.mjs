@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   ALLOWED_TOOLS, ALLOWED_MCP, DENIED_TOOLS, checkTools, buildClaudeArgs, parseStream,
   shouldAnswer, commandOf, answersToday, composeAnswer, askerOf, framedQuestion, secretLeaks,
+  topicGate, TOPIC_RULES, OFF_TOPIC,
 } from "../benny/ask.mjs";
 import { SIGN_OFF } from "../scripts/benny-post.mjs";
 
@@ -34,12 +35,12 @@ test("every order and account tool is denied by name, no allowed tool is denied,
   for (const t of ["place_equity_order", "place_option_order", "place_crypto_order", "cancel_equity_order", "get_accounts", "get_portfolio", "get_equity_positions", "get_equity_orders", "get_option_positions"])
     assert.ok(DENIED_TOOLS.includes(`mcp__robinhood-trading__${t}`), t);
   for (const t of ALLOWED_MCP) assert.ok(!DENIED_TOOLS.includes(t), t);
-  const args = buildClaudeArgs({ persona: "P", mcpConfig: "benny/mcp.json" });
+  const args = buildClaudeArgs({ persona: "P", mcpConfig: "benny/mcp.json", dataDir: "db" });
   assert.ok(!args.some((a) => a === "mcp__robinhood-trading" || a.split(",").includes("mcp__robinhood-trading") || a.includes("*")));
 });
 
 test("claude runs locked down: strict MCP config, built-in tools named, dontAsk, stream-json, no question in the args", () => {
-  const args = buildClaudeArgs({ persona: "PERSONA", mcpConfig: "benny/mcp.json" });
+  const args = buildClaudeArgs({ persona: "PERSONA", mcpConfig: "benny/mcp.json", dataDir: "db" });
   const at = (f) => args[args.indexOf(f) + 1];
   assert.ok(args.includes("-p"));
   assert.ok(args.includes("--strict-mcp-config"));
@@ -50,7 +51,7 @@ test("claude runs locked down: strict MCP config, built-in tools named, dontAsk,
   assert.equal(at("--permission-mode"), "dontAsk");
   assert.equal(at("--output-format"), "stream-json");
   assert.ok(args.includes("--verbose"));
-  assert.equal(at("--append-system-prompt"), "PERSONA");
+  assert.ok(at("--append-system-prompt").startsWith("PERSONA"));
   assert.equal(at("--model"), "sonnet");
 });
 
@@ -117,4 +118,29 @@ test("an answer carrying a Benny secret is caught, and the reason never repeats 
   assert.ok(secretLeaks("see https://discord.com/api/webhooks/999/zzz", {}).includes("a Discord webhook URL"));
   assert.ok(secretLeaks(`x ${secrets.webhooks.lesson}`, secrets).includes("the webhooks.lesson setting"));
   for (const r of tok) assert.ok(!r.includes(secrets.bot_token));
+});
+
+// Adam, 2026-10-21: "if I let you talk to other people it needs to be a strict conversation list.
+// we're not shooting the shit. finances." Every session runs outside the repo with no settings files
+// (so no CLAUDE.md, no memory, no git), reads only db/, and must tag its answer on or off topic.
+test("each answer session runs with no settings files, reads only the data folder, and carries the topic rules", () => {
+  const args = buildClaudeArgs({ persona: "PERSONA", mcpConfig: "m.json", dataDir: "C:/bench/db" });
+  const at = (f) => args[args.indexOf(f) + 1];
+  assert.equal(at("--setting-sources"), "");
+  assert.equal(at("--add-dir"), "C:/bench/db");
+  assert.ok(at("--append-system-prompt").startsWith("PERSONA"));
+  assert.ok(at("--append-system-prompt").includes(TOPIC_RULES));
+  assert.throws(() => buildClaudeArgs({ persona: "P", mcpConfig: "m.json" }), /dataDir/);
+});
+
+test("the topic gate: on-topic loses its tag, off-topic gets the fixed line, no tag is refused", () => {
+  assert.deepEqual(topicGate("[ON-TOPIC] NVDA closed at 182.40."), { ok: true, body: "NVDA closed at 182.40." });
+  assert.deepEqual(topicGate("  [on-topic]\nA stop is a price where you get out."), { ok: true, body: "A stop is a price where you get out." });
+  assert.deepEqual(topicGate("[OFF-TOPIC] Nice weather today!"), { ok: false, offTopic: true, body: OFF_TOPIC });
+  const none = topicGate("Here. I'm Benny.");
+  assert.equal(none.ok, false);
+  assert.equal(none.offTopic, false);
+  assert.match(none.reason, /tag/);
+  assert.equal(topicGate("NVDA [ON-TOPIC] later in the text").ok, false);
+  assert.ok(!/repo|file|branch/i.test(OFF_TOPIC));
 });

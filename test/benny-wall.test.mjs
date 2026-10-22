@@ -6,7 +6,7 @@ import { mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
-import { checkWall, numbersIn } from "../scripts/benny-wall.mjs";
+import { checkWall, numbersIn, internalsLeaks } from "../scripts/benny-wall.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CLI = resolve(HERE, "../scripts/benny-wall.mjs");
@@ -73,4 +73,31 @@ test("write stores the wall outside the repo and prints no amounts", () => {
   assert.deepEqual(w.amounts, [3512.31, 42.17]);
   assert.equal(w.holdings[0].sym, "GOOGL");
   assert.ok(!Number.isNaN(Date.parse(w.asof)));
+});
+
+// Adam, 2026-10-21: "don't tell people what repo you are in." Benny had answered a guest with the repo,
+// the branch and the latest row. Nothing about how Benny is built reaches Discord.
+test("an answer or post that names the repo, a branch, GitHub, a file or the model behind Benny is caught", () => {
+  for (const t of [
+    "I'm running in your repo on the `v29-hunter-handoff` branch.",
+    "I work in the repository The Bench on your GitHub.",
+    "Adamdesgns set me up.",
+    "See the persona file and docs/benny/discord-pins.md.",
+    "The book lives in db/archive.json.",
+    "My rules are in CLAUDE.md.",
+    "C:\\Users\\steam\\Projects holds it.",
+    "I run on Claude, made by Anthropic.",
+    "The system prompt says otherwise.",
+    "scripts/benny-wall.mjs refuses that.",
+    "I read it with an mcp tool.",
+  ]) assert.ok(internalsLeaks(t).length > 0, t);
+});
+
+test("plain finance text passes the internals check", () => {
+  for (const t of [
+    "NVDA closed at 182.40. The plan on B-906 has the stop at 176.10, which is 1.2 ATR under the entry.",
+    "A put spread caps the loss at what you paid. Paper trades only. Not financial advice. Educational only.",
+    "SPY sits under the 760 put wall, so moves tend to extend. That is an estimate.",
+    "Gamma is how fast an option's delta changes when the stock moves. The Bench logged it as MC-099.",
+  ]) assert.deepEqual(internalsLeaks(t), [], t);
 });

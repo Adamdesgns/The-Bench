@@ -16,7 +16,7 @@ import { createHash } from "node:crypto";
 import { join, resolve, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { splitBody, TOPIC } from "./ntfy-read.mjs";
-import { checkWall, loadWall, bennyHome } from "./benny-wall.mjs";
+import { checkWall, loadWall, bennyHome, internalsLeaks } from "./benny-wall.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const CHANNELS = ["morning", "paper-trades", "close", "lesson", "scorecard", "ask-benny"];
@@ -61,6 +61,7 @@ export async function postBenny({ channel, file, root = ROOT, home = bennyHome()
   if (done.some((p) => p.file === rel)) reasons.push(`${rel} was already posted`);
   else if (done.some((p) => p.hash === hash)) reasons.push("the same text was already posted under another file");
   reasons.push(...checkWall(text, loadWall(home), now).reasons.map((r) => `wall: ${r}`));
+  reasons.push(...internalsLeaks(text).map((r) => `internals: ${r}`));
   let hook = null;
   if (cfg.mode === "live" && CHANNELS.includes(channel)) {
     const secrets = readJson(join(home, "discord.json"), null);

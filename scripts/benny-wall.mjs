@@ -100,3 +100,24 @@ function main() {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();
+
+// THE INTERNALS CHECK (Adam, 2026-10-21: "don't tell people what repo you are in"). Benny had told a
+// guest he was "running in your repo on the v29-hunter-handoff branch". Nothing about how Benny is
+// built reaches Discord: no repo, branch, GitHub, account name, file, folder path, settings file, tool
+// plumbing or the model behind him. Runs in the listener and in the post door. Returns reasons, [] = clean.
+const INTERNALS = [
+  [/\brepo(?:s|sitor(?:y|ies))?\b/i, "the repo"],
+  [/\bbranch(?:es)?\b|\bhunter-handoff\b/i, "a branch"],
+  [/\bgit(?:hub)?\b/i, "git or GitHub"],
+  [/adamdesgns/i, "the GitHub account"],
+  [/\bclaude\.md\b|\bsystem prompt\b|\bpersona\b/i, "his instructions"],
+  [/\b[\w-]+\.(?:mjs|cjs|js|ts|json|md|ps1|py|log)\b/i, "a file name"],
+  [/\b(?:db|scripts|docs|prompts|benny|site|server|test|apps)[\\/][\w.\\/-]*/i, "a folder path"],
+  [/\b[A-Z]:\\|\\Users\\|~[\\/]\./, "a disk path"],
+  [/\bclaude\b|\banthropic\b/i, "the model behind him"],
+  [/\bmcp\b|robinhood-trading/i, "the tool plumbing"],
+];
+export function internalsLeaks(text) {
+  const t = String(text);
+  return INTERNALS.filter(([re]) => re.test(t)).map(([, why]) => `names ${why}`);
+}
