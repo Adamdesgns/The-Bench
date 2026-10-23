@@ -104,7 +104,11 @@ export function askerOf(m, adamUserId, askers = [], memberCap = 0) {
   const id = String(m.author?.id ?? "");
   if (!id) return null;
   if (adamUserId && id === String(adamUserId)) return { name: "Adam", adam: true };
-  const a = askers.find((x) => x?.name && x?.discord_id && String(x.discord_id) === id);
+  // A listed asker matches on discord_id, or on discord_username while the id is still null (Discord
+  // usernames are unique; Adam, 2026-10-22: "I just meant the 3 people in the chat now").
+  const user = String(m.author?.username ?? "").toLowerCase();
+  const a = askers.find((x) => x?.name && (x.discord_id ? String(x.discord_id) === id
+    : !!user && String(x.discord_username ?? "").toLowerCase() === user));
   if (a) return { name: a.name, adam: false, cap: Number(a.daily_cap) || 0 };
   const cap = Number(memberCap) || 0;
   return cap > 0 ? { name: `@${m.author?.username || id}`, adam: false, cap, member: true } : null;

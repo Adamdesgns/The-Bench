@@ -160,3 +160,16 @@ test("members: any human in #ask-benny gets the member cap; listed askers keep t
   assert.notEqual(askerOf(who("444", "Adam"), ADAM, [VAN], 5).name, "Adam");
   assert.match(framedQuestion("why?", { name: "@stranger", adam: false, member: true }), /^Asked in #ask-benny by stranger, a member of the server - not by my operator\.\n\nwhy\?$/);
 });
+
+// Adam, 2026-10-22: "I just meant the 3 people in the chat now." Listed askers with no id yet match on
+// their unique Discord username; an id, once set, is the only match.
+test("a listed asker with a null id matches on username; with an id set, only the id counts", () => {
+  const GRIM = { name: "Grim", discord_username: "ambassador_grim", discord_id: null, daily_cap: 5 };
+  const who = (id, username) => msg({ author: { id, username, bot: false } });
+  assert.deepEqual(askerOf(who("777", "ambassador_grim"), ADAM, [VAN, GRIM]), { name: "Grim", adam: false, cap: 5 });
+  assert.deepEqual(askerOf(who("777", "Ambassador_Grim"), ADAM, [VAN, GRIM]), { name: "Grim", adam: false, cap: 5 });
+  assert.equal(askerOf(who("777", "ambassador_grim2"), ADAM, [VAN, GRIM]), null);
+  assert.equal(askerOf(who("777", undefined), ADAM, [VAN, GRIM]), null);
+  assert.equal(askerOf(who("888", "ambassador_grim"), ADAM, [VAN, { ...GRIM, discord_id: "777" }]), null);
+  assert.equal(askerOf(who("999", "someone_new"), ADAM, [VAN, GRIM], 0), null);
+});

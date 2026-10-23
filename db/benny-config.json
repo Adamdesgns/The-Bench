@@ -4,11 +4,22 @@
   "risk_pct": 1,
   "daily_answer_cap": 20,
   "askers": [
-    { "name": "Van", "discord_username": "vanazadian_", "discord_id": null, "daily_cap": 5 }
+    {
+      "name": "Van",
+      "discord_username": "vanazadian_",
+      "discord_id": null,
+      "daily_cap": 5
+    },
+    {
+      "name": "Grim",
+      "discord_username": "ambassador_grim",
+      "discord_id": null,
+      "daily_cap": 5
+    }
   ],
-  "askers_set": "2026-10-18, Adam: \"give van access to benny on discord\" then \"ok give him 5 a day\". Adam keeps his own 20; each asker's cap is separate. discord_id is the numeric user ID; null means not active yet.",
-  "member_daily_cap": 5,
-  "member_set": "2026-10-22, Adam: \"I want every member of that discord chat to be able to ask 5 questions a day.\" Any human in #ask-benny who is not Adam or a listed asker gets this many answers a day, counted per Discord username (logged as @username). 0 turns members off.",
+  "askers_set": "2026-10-18, Adam: \"give van access to benny on discord\" then \"ok give him 5 a day\". Adam keeps his own 20; each asker's cap is separate. discord_id is the numeric user ID; null means not active yet. 2026-10-22, Adam: \"every member of that discord chat ... 5 questions a day\" then \"I just meant the 3 people in the chat now\": Grim added at 5. While discord_id is null an asker matches on discord_username.",
+  "member_daily_cap": 0,
+  "member_set": "2026-10-22: 0 = members who are not listed get no answers. Adam first said every member, then \"I just meant the 3 people in the chat now\" (Adam, Van, Grim). Raise it only on his word.",
   "persona": "prompts/benny-v3.md",
   "opened": "2026-10-16",
   "options_risk_pct": 3,
