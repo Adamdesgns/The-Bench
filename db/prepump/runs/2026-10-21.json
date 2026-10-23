@@ -1,0 +1,510 @@
+{
+  "schema": "bench-prepump-manifest-v1",
+  "quality_version": 2,
+  "quality": {
+    "complete": false,
+    "research_ready": false,
+    "issues": [
+      "earnings-03.json: Unexpected non-whitespace character after JSON at position 40970 (line 1 column 40971)",
+      "required earnings envelopes missing",
+      "GPN: no_data",
+      "GPN: provider has not confirmed the session date",
+      "GPN: required price/volume missing",
+      "GPRO: no_data",
+      "GPRO: provider has not confirmed the session date",
+      "GPRO: required price/volume missing",
+      "GRAB: no_data",
+      "GRAB: provider has not confirmed the session date",
+      "GRAB: required price/volume missing",
+      "GRBK: no_data",
+      "GRBK: provider has not confirmed the session date",
+      "GRBK: required price/volume missing",
+      "GRC: no_data",
+      "GRC: provider has not confirmed the session date",
+      "GRC: required price/volume missing",
+      "GS: no_data",
+      "GS: provider has not confirmed the session date",
+      "GS: required price/volume missing",
+      "GSK: no_data",
+      "GSK: provider has not confirmed the session date",
+      "GSK: required price/volume missing",
+      "GSL: no_data",
+      "GSL: provider has not confirmed the session date",
+      "GSL: required price/volume missing",
+      "GTLB: no_data",
+      "GTLB: provider has not confirmed the session date",
+      "GTLB: required price/volume missing",
+      "GWRS: no_data",
+      "GWRS: provider has not confirmed the session date",
+      "GWRS: required price/volume missing",
+      "GWW: no_data",
+      "GWW: provider has not confirmed the session date",
+      "GWW: required price/volume missing",
+      "HBAN: no_data",
+      "HBAN: provider has not confirmed the session date",
+      "HBAN: required price/volume missing",
+      "HBM: no_data",
+      "HBM: provider has not confirmed the session date",
+      "HBM: required price/volume missing",
+      "HCA: no_data",
+      "HCA: provider has not confirmed the session date",
+      "HCA: required price/volume missing",
+      "HCAT: no_data",
+      "HCAT: provider has not confirmed the session date",
+      "HCAT: required price/volume missing",
+      "HCC: no_data",
+      "HCC: provider has not confirmed the session date",
+      "HCC: required price/volume missing",
+      "HCI: no_data",
+      "HCI: provider has not confirmed the session date",
+      "HCI: required price/volume missing",
+      "HCM: no_data",
+      "HCM: provider has not confirmed the session date",
+      "HCM: required price/volume missing",
+      "HD: no_data",
+      "HD: provider has not confirmed the session date",
+      "HD: required price/volume missing",
+      "HDSN: no_data",
+      "HDSN: provider has not confirmed the session date",
+      "HDSN: required price/volume missing",
+      "HGV: no_data",
+      "HGV: provider has not confirmed the session date",
+      "HGV: required price/volume missing",
+      "HIMS: no_data",
+      "HIMS: provider has not confirmed the session date",
+      "HIMS: required price/volume missing",
+      "HLIT: no_data",
+      "HLIT: provider has not confirmed the session date",
+      "HLIT: required price/volume missing",
+      "HLT: no_data",
+      "HLT: provider has not confirmed the session date",
+      "HLT: required price/volume missing",
+      "HOPE: no_data",
+      "HOPE: provider has not confirmed the session date",
+      "HOPE: required price/volume missing",
+      "HP: no_data",
+      "HP: provider has not confirmed the session date",
+      "HP: required price/volume missing",
+      "HPE: no_data",
+      "HPE: provider has not confirmed the session date",
+      "HPE: required price/volume missing",
+      "HPK: no_data",
+      "HPK: provider has not confirmed the session date",
+      "HPK: required price/volume missing",
+      "HPQ: no_data",
+      "HPQ: provider has not confirmed the session date",
+      "HPQ: required price/volume missing",
+      "HQY: no_data",
+      "HQY: provider has not confirmed the session date",
+      "HQY: required price/volume missing",
+      "HRMY: no_data",
+      "HRMY: provider has not confirmed the session date",
+      "HRMY: required price/volume missing",
+      "HRTG: no_data",
+      "HRTG: provider has not confirmed the session date",
+      "HRTG: required price/volume missing",
+      "HSY: no_data",
+      "HSY: provider has not confirmed the session date",
+      "HSY: required price/volume missing",
+      "HTLD: no_data",
+      "HTLD: provider has not confirmed the session date",
+      "HTLD: required price/volume missing",
+      "HTZ: no_data",
+      "HTZ: provider has not confirmed the session date",
+      "HTZ: required price/volume missing",
+      "HUMA: no_data",
+      "HUMA: provider has not confirmed the session date",
+      "HUMA: required price/volume missing",
+      "HY: no_data",
+      "HY: provider has not confirmed the session date",
+      "HY: required price/volume missing",
+      "HZO: no_data",
+      "HZO: provider has not confirmed the session date",
+      "HZO: required price/volume missing",
+      "IBM: no_data",
+      "IBM: provider has not confirmed the session date",
+      "IBM: required price/volume missing",
+      "ICHR: no_data",
+      "ICHR: provider has not confirmed the session date",
+      "ICHR: required price/volume missing"
+    ],
+    "resolution_blocked": [
+      "BOOK",
+      "VIX"
+    ],
+    "field_coverage": {
+      "f_float": {
+        "present": 614,
+        "missing": 51
+      },
+      "f_shares_outstanding": {
+        "present": 623,
+        "missing": 42
+      },
+      "f_market_cap": {
+        "present": 623,
+        "missing": 42
+      },
+      "f_avg_volume_2_weeks": {
+        "present": 623,
+        "missing": 42
+      },
+      "f_avg_volume_30_days": {
+        "present": 623,
+        "missing": 42
+      },
+      "f_sector": {
+        "present": 623,
+        "missing": 42
+      },
+      "e_next_date": {
+        "present": 586,
+        "missing": 79
+      },
+      "e_timing": {
+        "present": 584,
+        "missing": 81
+      },
+      "q_bid_price": {
+        "present": 663,
+        "missing": 2
+      },
+      "q_ask_price": {
+        "present": 663,
+        "missing": 2
+      }
+    }
+  },
+  "date": "2026-10-21",
+  "built_at": "2026-10-21T21:49:11.566Z",
+  "universe_version": "core-v1",
+  "early_close": false,
+  "expected": {
+    "core": 460,
+    "scan": 175,
+    "desk": 79,
+    "total": 665,
+    "history_due": 20,
+    "first_appearance": 4
+  },
+  "written": {
+    "total": 665,
+    "ok": 623,
+    "partial": 0,
+    "no_data": 40,
+    "not_found": 0,
+    "core": 460,
+    "scan": 175,
+    "desk": 79,
+    "with_history": 20
+  },
+  "complete": false,
+  "market_dates_seen": {
+    "2026-10-21": 623
+  },
+  "raw_files": {
+    "fundamentals": 63,
+    "quotes": 34,
+    "historicals": 4,
+    "earnings": 3,
+    "scans": 2
+  },
+  "failures": [
+    {
+      "symbol": "BOOK",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    },
+    {
+      "symbol": "GPN",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "GPRO",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "GRAB",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "GRBK",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "GRC",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "GS",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "GSK",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "GSL",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "GTLB",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "GWRS",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "GWW",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HBAN",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HBM",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HCA",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HCAT",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HCC",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HCI",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HCM",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HD",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HDSN",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HGV",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HIMS",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HLIT",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HLT",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HOPE",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HP",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HPE",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HPK",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HPQ",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HQY",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HRMY",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HRTG",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HSY",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HTLD",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HTZ",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HUMA",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HY",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "HZO",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "IBM",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "ICHR",
+      "status": "no_data",
+      "errors": [
+        "no fundamentals payload for this symbol in the raw drop"
+      ]
+    },
+    {
+      "symbol": "VIX",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    }
+  ],
+  "failure_count": 42,
+  "appended": "new file"
+}

@@ -1900,7 +1900,8 @@
       "source": "chat 2026-10-08 hunters on BTC",
       "row": "B-800",
       "expires": "2026-10-22",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-23"
     },
     {
       "id": "MC-109",
@@ -2906,7 +2907,8 @@
       "source": "docs/reads/2026-10-15-snapshot-1010.md",
       "row": "B-910",
       "expires": "2026-10-22",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-23"
     },
     {
       "id": "MC-168",
@@ -2922,7 +2924,8 @@
       "source": "site/reviews/2026-10-15-btc.md",
       "row": "B-911",
       "expires": "2026-10-22",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-23"
     },
     {
       "id": "MC-169",
@@ -2943,7 +2946,8 @@
       "source": "site/reviews/2026-10-15-btc.md",
       "row": "B-911",
       "expires": "2026-10-22",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-23"
     },
     {
       "id": "MC-170",
@@ -3007,7 +3011,8 @@
       "source": "site/reviews/2026-10-15-btc.md",
       "row": "B-911",
       "expires": "2026-10-22",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-23"
     },
     {
       "id": "MC-174",
@@ -3023,7 +3028,8 @@
       "source": "site/reviews/2026-10-15-btc.md",
       "row": "B-911",
       "expires": "2026-10-22",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-23"
     },
     {
       "id": "MC-175",
@@ -3559,7 +3565,9 @@
       "source": "docs/reads/2026-10-16-weekend-hunt.md",
       "row": "B-950",
       "expires": "2026-10-23",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-23",
+      "fired_detail": "EOG 163.0248 > 158.37 yes"
     },
     {
       "id": "MC-207",
@@ -3707,7 +3715,8 @@
       "source": "docs/reads/2026-10-18-weekly-catalyst.md",
       "row": "B-966",
       "expires": "2026-10-22",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-23"
     },
     {
       "id": "MC-216",
@@ -3869,7 +3878,9 @@
       "source": "snapshot-1010",
       "row": "B-977",
       "expires": "2026-10-29",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-23",
+      "fired_detail": "AMZN 248.045 < 250 yes"
     },
     {
       "id": "MC-225",
@@ -3885,7 +3896,9 @@
       "source": "docs/reads/2026-10-19-snapshot-1310.md",
       "row": "B-979",
       "expires": "2026-10-23",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-23",
+      "fired_detail": "APLD 18.25 < 18.36 yes"
     },
     {
       "id": "MC-226",
@@ -4267,7 +4280,9 @@
       "source": "docs/reads/2026-10-22-powerhour.md",
       "row": "B-1027",
       "expires": "2026-10-28",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-23",
+      "fired_detail": "GEV 814.57 < 815.02 yes"
     },
     {
       "id": "MC-248",
@@ -4347,6 +4362,150 @@
       "source": "hunt-close-2026-10-22",
       "row": "B-1030",
       "expires": "2026-11-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-253",
+      "created": "2026-10-23",
+      "when": [
+        {
+          "ticker": "UBER",
+          "op": ">",
+          "level": 72.5
+        }
+      ],
+      "meaning": "range-top + 50-day breakout close - re-judge B-1031 Signal A (fails 2:1 as written)",
+      "source": "chat 2026-10-23 B-1031",
+      "row": "B-1031",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-254",
+      "created": "2026-10-23",
+      "when": [
+        {
+          "ticker": "UBER",
+          "op": "<",
+          "level": 65.8
+        }
+      ],
+      "meaning": "B-1031 invalidation: closed under the 1-ATR stop below the 67.22 double bottom - plan dead",
+      "source": "chat 2026-10-23 B-1031",
+      "row": "B-1031",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-255",
+      "created": "2026-10-23",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 772
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-10-23-premarket.md",
+      "row": "B-1032",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-256",
+      "created": "2026-10-23",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">",
+          "level": 28.93
+        }
+      ],
+      "meaning": "IREN reclaimed the 7/27 breakdown line on a close - re-judge a long (B-1034); also the PB-006 paper short is under pressure",
+      "source": "chat 2026-10-23 NoLimitGains claim check",
+      "row": "B-1034",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-257",
+      "created": "2026-10-23",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">=",
+          "level": 51.02
+        }
+      ],
+      "meaning": "x-post prediction (B-1034) hit: IREN doubled from 25.51 - score it a hit",
+      "source": "chat 2026-10-23",
+      "row": "B-1034",
+      "expires": "2027-01-22",
+      "status": "open"
+    },
+    {
+      "id": "MC-258",
+      "created": "2026-10-23",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<=",
+          "level": 17.22
+        }
+      ],
+      "meaning": "x-post prediction (B-1034) stopped: the Aug 2025 floor broke - score it a stop; PB-006 short target reached",
+      "source": "chat 2026-10-23",
+      "row": "B-1034",
+      "expires": "2027-01-22",
+      "status": "open"
+    },
+    {
+      "id": "MC-259",
+      "created": "2026-10-23",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 709.3
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1045: QQQ closed over the 10/23 high, the chips found a buyer after all",
+      "source": "docs/reads/2026-10-23-close.md",
+      "row": "B-1045",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-260",
+      "created": "2026-10-23",
+      "when": [
+        {
+          "ticker": "EOG",
+          "op": "<",
+          "level": 158.37
+        }
+      ],
+      "meaning": "EOG breakout failed back under its all-time high - the 10/23 ATH close was a one-day spike",
+      "source": "docs/reads/2026-10-23-close.md",
+      "row": "B-1045",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-261",
+      "created": "2026-10-23",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 750
+        }
+      ],
+      "meaning": "SPY settled under the 750 put wall - in negative gamma the move runs; re-judge the pass",
+      "source": "docs/reads/2026-10-23-midday.md",
+      "row": "B-1045",
+      "expires": "2026-10-30",
       "status": "open"
     }
   ]

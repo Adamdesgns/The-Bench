@@ -32,6 +32,74 @@
       "outcome": "ANSWERED",
       "answer": "**Saturday 10/17, 2:20 PM CT. There was no market this morning, so there's nothing new to run.** US stocks traded last on Friday 10/16 and next trade Monday 10/19. I re-pulled the quotes, and they match Friday's closing read exactly.\n\n**Where Friday left things** (the last regular-session trade, 3:00 PM CT):\n- QQQ (the Nasdaq-100 fund) closed 709.86, down 2.49%. It needs a close back over 715 to show Friday's drop was options positioning rather than new selling. That's watcher MC-188.\n- SPY (the S&P 500 fund) closed 763.30, down 1.10%.\n- MU closed 878.67, under B-856's 884 stop line, so that plan stays dead (B-937). It's 4.67 above 874 (MC-177).\n- VRT closed 206.42, under the 211.5 floor. That's a thesis review (B-938), not a discount.\n- IREN closed 27.00, down 11.2% on the day.\n- NVDA closed 214.14, the best of the AI chain at -1.4%.\n- Bitcoin is the only thing trading today. It's at 81,451 as of 2:18 PM CT, about flat on the day.\n\n**What the after-hours quotes mean.** The bid and ask on thinly traded names are very wide right now. IREN, for example, shows 24.12 bid and 42.00 ask. Those aren't prices anyone should act on. The Friday close is the real level until Monday's open.\n\n**Next week.**\n- Monday has no board earnings.\n- SPCX reports Tuesday 10/20 after the close. It's in my watchlist file, but that entry is old, so I haven't re-judged it. It needs a fresh run first.\n- The calendar's big after-close days are Wednesday 10/21 (META, TSLA, LRCX, TXN, IBM) and Thursday 10/22 (WDC). Those are calendar names, not board names, until I run them.\n- VRT reports 10/26.\n\n**What I haven't done.** This session has no shell, so I couldn't run the inbox check, the regime stamp or the book scripts. I logged no new calls and no row. Friday's no-trade stands at B-939. Monday's pre-market run is where the next calls come from, and each one will carry a row and a watcher.\n\nPaper trades only. Not financial advice. Educational only.",
       "cost_usd": 0.41065100000000004
+    },
+    {
+      "at": "2026-10-22T00:39:50.475Z",
+      "date": "2026-10-21",
+      "asker": "Adam",
+      "question": "you there benny?",
+      "outcome": "ANSWERED",
+      "answer": "Here. I'm Benny, the research system behind The Bench. I'm running in your repo on the `v29-hunter-handoff` branch, and the book's latest row is B-1014 from last night's hunt-close.\n\nI haven't pulled any prices or run the inbox check yet. Tell me what you want, whether that's a ticker, a row, or the morning read.\n\nPaper trades only. Not financial advice. Educational only.",
+      "cost_usd": 0.173036
+    },
+    {
+      "at": "2026-10-22T14:56:43.869Z",
+      "date": "2026-10-22",
+      "asker": "Adam",
+      "question": "How’s the market reacting to our trades and paper trades Benny? Anything I need to do?",
+      "outcome": "ANSWERED",
+      "answer": "Short version: the market is moving my way on the one open trade, and it's a bad tape for the broad market. I can only speak for my own paper book. What you hold is private.\n\n**My paper book, as of about 10:57 AM ET on Oct 22:**\n- The only open position is PB-001, a short on PWR. A short is a bet that the price falls. I sold 1 share at $593.95.\n- PWR last traded at $558.98, down about 7% from yesterday's $601.14 close.\n- On that one share, that's about $35 of gain on paper. At yesterday's close the book showed -$7.17, so it swung by about $42 in a day.\n- That puts the book near $10,035 against the $10,000 start. This isn't a final number, because the position is still open.\n- SPY, the fund that tracks the S&P 500, is at $762.57, down about 1.4% on the day. The market is falling, and my short is paying off while it falls.\n\n**What the plan on the book says (PB-001, mirror of PB-013):**\n- The stop is $645. That's the price where the plan exits to cap the loss. It's about $86 above the current price, so the stop is far away.\n- The first target (t1) is $451.17. That's about $108 below the current price, so the trade is a little under a third of the way there.\n- The exit-by date is Oct 28. If neither level is hit, the plan closes the trade then.\n\n**Anything you need to do?** I never tell anyone what to buy or sell, and I can't act on anything myself. The book is scored by the routines, and I have no new call to make today. The levels above are the plan as logged. One thing to watch: a 7% drop in a day is a big move. A sharp bounce can happen after one, and that's what the $645 stop is there for.\n\nI'm not looking at your own accounts, so I can't say how the market is treating them.\n\nPaper trades only. Not financial advice. Educational only.",
+      "cost_usd": 0.10240420000000001
+    },
+    {
+      "at": "2026-10-23T00:14:05.530Z",
+      "date": "2026-10-22",
+      "asker": "Adam",
+      "question": "Testing Benny you there? What happened to this market?!",
+      "outcome": "ANSWERED",
+      "answer": "Here. The damage is in tech, not the whole market. Prices are as of the Oct 22 close, with after-hours quotes at about 8:14 PM ET.\n\n**Today, Oct 22, close vs. Oct 21 close:**\n- QQQ (the 100 biggest Nasdaq stocks, mostly tech): $704.47, down 2.86% from $725.20. That is about $20.73 a share.\n- SPY (the S&P 500, 500 large US companies): $763.96, down 1.18% from $773.09.\n- IWM (small companies): $276.67, up 0.07% from $276.48.\n\nThe big tech names fell hard and the small caps held. That is why the broad index fell less than QQQ.\n\n**The week:**\n- QQQ closed at $746.04 on Oct 12 and is down 5.57% since. Today's close is below its Oct 16 close of $709.80, so it's the lowest close in this window.\n- SPY closed at $778.10 on Oct 12 and is down 1.82% since. Its Oct 16 close was $763.25, so it is just above that level.\n- Bitcoin is at about $81,082, down 2.15% from $82,860 at midnight ET.\n\nI can't tell you why it happened. My notes have no catalyst for today, and I won't guess one. I can only see where prices went.\n\nI have no logged call on this move. New calls come from the routines.\n\nPaper trades only. Not financial advice. Educational only.",
+      "cost_usd": 0.097009
+    },
+    {
+      "at": "2026-10-23T00:43:29.536Z",
+      "date": "2026-10-22",
+      "asker": "Grim",
+      "question": "Hey Benny! which crypto project would you recommend to farm right now for future airdrop?",
+      "outcome": "OFF_TOPIC"
+    },
+    {
+      "at": "2026-10-23T00:45:11.280Z",
+      "date": "2026-10-22",
+      "asker": "Grim",
+      "question": "if i have $1000 right now which token would you recommend?",
+      "outcome": "ANSWERED",
+      "answer": "I can't recommend a token. I don't tell anyone what to buy or sell, and that's even more true for a stranger's $1,000 where I don't know the goal or how much loss they could take. There's also no logged call on a token for this, and new calls only come from the routines.\n\nHere is what I can say about $1,000:\n\n- **Decide the loss first.** Many new traders pick the coin before they pick the risk. A common rule is to risk 1% of the account on one trade. On $1,000 that is $10. You work backward from that number to your position size.\n- **Use a stop.** A stop is a preset price where you exit and accept a small loss. If you can't say where you'd be wrong, you don't have a plan yet.\n- **Crypto swings hard.** A 20% drop in a day is normal for many tokens. At $1,000, that is $200 gone before you can react.\n- **Practice first.** I run my own $10,000 paper book, which uses pretend money, so every entry, stop and miss is on the record. That is a safer way to learn than learning with real money.\n\nIf you want, ask me to explain stops or position sizing, or ask about a ticker that's on the board. I'll show you how I'd work through it.\n\nPaper trades only. Not financial advice. Educational only.",
+      "cost_usd": 0.0117886
+    },
+    {
+      "at": "2026-10-23T01:57:01.480Z",
+      "date": "2026-10-22",
+      "asker": "Adam",
+      "question": "Benny in the crypto market right now whats on sale.",
+      "outcome": "ANSWERED",
+      "answer": "I can't call anything \"on sale.\" That's a buy signal, and I don't make those. Here is what the board has on crypto, with prices pulled live at 9:57 PM ET on 2026-10-22.\n\n**Only BTC is on the board.** ETH and SOL are not. That's not on the board, so I won't comment on them.\n\n**BTC-USD:** mark price is $81,329, against a previous close of $82,860. That's down about 1.8% on the day. A *mark price* is the midpoint between what buyers bid and what sellers ask.\n\n**What the book says about BTC:** the call is a short, not a dip-buy. Prediction PR-130 was logged 2026-10-15. It is a short from $80,956.65 with a target of $74,436.68 and a stop of $84,049.06, over 10 sessions. A *short* is a bet that the price falls. A *stop* is the price where the plan is wrong and you exit. The status is open. The grade is STALK, which means watching, not acting. There is a second BTC short from the desk with the same date. BTC is also on the watchlist as CONDITIONAL-PAPER, meaning it only becomes a paper trade if its conditions are met.\n\nBTC is trading about $370 above the logged entry and still $2,720 below the stop. The call has not triggered and has not failed. I can't say it's cheap, because a lower price is not a reason to buy. The plan on the book is betting on lower.\n\nThere's no logged call on any other coin. New calls come from the routines.\n\nPaper trades only. Not financial advice. Educational only.",
+      "cost_usd": 0.1034852
+    },
+    {
+      "at": "2026-10-23T01:58:12.915Z",
+      "date": "2026-10-22",
+      "asker": "Adam",
+      "question": "Yeah, I got to change some setting",
+      "outcome": "OFF_TOPIC"
+    },
+    {
+      "at": "2026-10-23T02:52:29.089Z",
+      "date": "2026-10-22",
+      "asker": "Grim",
+      "question": "Benny is it possible to earn $20k a year in memecoins?",
+      "outcome": "ANSWERED",
+      "answer": "Yes, it's possible. Some people do it. But it's possible the way winning a lottery is possible, not something you can plan a year around.\n\nMemecoins have no earnings or cash flow behind them, so price is just attention. Most new ones go to near zero, and the few that run usually do it before regular people can get in at a decent price. Fees, slippage and rug pulls eat a lot of what's left. The people who post big wins are a tiny slice of everyone who tried.\n\nFor scale, $20k a year on a $2,000 account is a 10x. On $20,000 it's 100% in a year, which is brutal to repeat in anything this wild. And you'd need to survive the drawdowns to get there, with 70-90% drops being normal.\n\nIf you try it anyway, only use money you can fully lose, keep each bet tiny, and don't add to losers. Treat it as a lottery ticket, not income.\n\nPaper trades only. Not financial advice. Educational only.",
+      "cost_usd": 0.007993400000000001
     }
   ]
 }

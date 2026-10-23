@@ -1148,33 +1148,23 @@
     "logged": "2026-09-19"
   },
   {
-    "date": "2026-10-23",
+    "date": "2026-11-05",
     "type": "earnings",
-    "confidence": "expected",
-    "label": "CORZ Quarterly earnings, after the close — date EXPECTED, not confirmed",
+    "confidence": "confirmed",
+    "label": "CORZ Quarterly earnings, before the open",
     "ticker": "CORZ",
-    "what": "Quarterly earnings, after the close",
-    "source": "Robinhood get_earnings_calendar pull 2026-10-11 11:15 CT (verified=false)",
-    "logged": "2026-10-11"
-  },
-  {
-    "date": "2026-10-26",
-    "type": "earnings",
-    "confidence": "expected",
-    "label": "VRT Quarterly earnings, before the open — date EXPECTED, not confirmed",
-    "ticker": "VRT",
     "what": "Quarterly earnings, before the open",
-    "source": "Robinhood get_earnings_calendar pull 2026-10-11 11:15 CT (verified=false)",
+    "source": "Robinhood get_earnings_results pull 2026-10-23 06:25 CT (verified=true); was 2026-10-23 after the close (verified=false) from the 2026-10-11 pull",
     "logged": "2026-10-11"
   },
   {
     "date": "2026-10-28",
     "type": "earnings",
-    "confidence": "expected",
-    "label": "META Quarterly earnings, after the close — date EXPECTED, not confirmed",
-    "ticker": "META",
-    "what": "Quarterly earnings, after the close",
-    "source": "Robinhood get_earnings_calendar pull 2026-10-11 11:15 CT (verified=false)",
+    "confidence": "confirmed",
+    "label": "VRT Quarterly earnings, before the open",
+    "ticker": "VRT",
+    "what": "Quarterly earnings, before the open",
+    "source": "Robinhood get_earnings_results pull 2026-10-23 07:50 CT (verified=true); was 2026-10-26 (verified=false) from the 2026-10-11 pull",
     "logged": "2026-10-11"
   },
   {
@@ -1186,7 +1176,7 @@
     "what": "Quarterly earnings, after the close",
     "source": "Robinhood get_earnings_calendar pull 2026-10-11 11:15 CT (verified=true)",
     "logged": "2026-10-11",
-    "action": "HELD POSITION: sell all 8 GOOGL by 12:45 PM CT this day, before the 1:00 PM CT Fed statement (Adam 10/14, B-899). Manual exit; the 326 stops stay until then."
+    "action": "NO POSITION (corrected 2026-10-23): the 8 GOOGL left on the 326 stops in the 10/22 selloff (MC-097); both accounts show no holdings. The B-899 pre-Fed exit has nothing to sell."
   },
   {
     "date": "2026-10-28",
@@ -1307,5 +1297,250 @@
     "source": "US Bureau of Economic Analysis release schedule, checked by the BTC full-suite run data verifier on 2026-10-15. BEA releases are not covered by scripts/macro-sync.mjs (BLS only), which is why this row was missing.",
     "verified_by": "BTC run verifier 2026-10-15 (B-911)",
     "logged": "2026-10-15"
+  },
+  {
+    "date": "2026-10-23",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "IOVA Lifileucel data in UPS and DDLPS sarcoma, oral presentation 3725RO at ESMO 2026 (early efficacy in a new tumour type)",
+    "ticker": "IOVA",
+    "what": "Lifileucel data in UPS and DDLPS sarcoma, oral presentation 3725RO at ESMO 2026 (early efficacy in a new tumour type)",
+    "window_end": "2026-10-27",
+    "source": "https://www.sec.gov/Archives/edgar/data/1425205/000110465926091619/tm2622322d1_ex99-1.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-10-23",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "ORIC Enozertinib 1L EGFR-atypical NSCLC monotherapy data at ESMO 2026 (first-line activity read)",
+    "ticker": "ORIC",
+    "what": "Enozertinib 1L EGFR-atypical NSCLC monotherapy data at ESMO 2026 (first-line activity read)",
+    "window_end": "2026-10-27",
+    "source": "https://www.sec.gov/Archives/edgar/data/1796280/000119312526330568/oric-ex99_1.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-11-06",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "EDIT EDIT-401 preclinical LDL-C durability data, oral presentation at AHA 2026 (preclinical, not patient data)",
+    "ticker": "EDIT",
+    "what": "EDIT-401 preclinical LDL-C durability data, oral presentation at AHA 2026 (preclinical, not patient data)",
+    "window_end": "2026-11-09",
+    "source": "https://www.sec.gov/Archives/edgar/data/1650664/000165066426000093/editasmedicinepressrelease.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-11-16",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "ACAD RADIANT Phase 2 detailed safety and efficacy results, oral presentation at CTAD 2026 (Alzheimer's)",
+    "ticker": "ACAD",
+    "what": "RADIANT Phase 2 detailed safety and efficacy results, oral presentation at CTAD 2026 (Alzheimer's)",
+    "window_end": "2026-11-19",
+    "source": "https://www.sec.gov/Archives/edgar/data/1070494/000119312526401157/d168737d8k.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2027-01-01",
+    "type": "readout",
+    "confidence": "window",
+    "label": "OLMA Pivotal Phase 3 OPERA-01 top-line data (moved to 1Q 2027 per company) — WINDOW 2027-01-01 to 2027-03-31",
+    "ticker": "OLMA",
+    "what": "Pivotal Phase 3 OPERA-01 top-line data (moved to 1Q 2027 per company)",
+    "window_end": "2027-03-31",
+    "source": "https://www.sec.gov/Archives/edgar/data/1750284/000119312526342334/olma-ex99_1.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2027-01-01",
+    "type": "readout",
+    "confidence": "window",
+    "label": "OCGN OCU400 Phase 3 liMeliGhT topline (retinitis pigmentosa; decides the 2Q 2027 BLA) — WINDOW 2027-01-01 to 2027-03-31",
+    "ticker": "OCGN",
+    "what": "OCU400 Phase 3 liMeliGhT topline (retinitis pigmentosa; decides the 2Q 2027 BLA)",
+    "window_end": "2027-03-31",
+    "source": "https://www.sec.gov/Archives/edgar/data/1372299/000110465926115921/tm2627592d1_ex99-1.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2027-01-01",
+    "type": "readout",
+    "confidence": "window",
+    "label": "HRMY LIGHTHOUSE (LGS) and ARGUS (Dravet) topline data, 1H 2027 — WINDOW 2027-01-01 to 2027-06-30",
+    "ticker": "HRMY",
+    "what": "LIGHTHOUSE (LGS) and ARGUS (Dravet) topline data, 1H 2027",
+    "window_end": "2027-06-30",
+    "source": "https://www.sec.gov/Archives/edgar/data/1802665/000110465926090086/hrmy-20260804xex99d1.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2027-01-01",
+    "type": "readout",
+    "confidence": "window",
+    "label": "ZNTL DENALI Part 2 topline readout, 1H 2027 — WINDOW 2027-01-01 to 2027-06-30",
+    "ticker": "ZNTL",
+    "what": "DENALI Part 2 topline readout, 1H 2027",
+    "window_end": "2027-06-30",
+    "source": "https://www.sec.gov/Archives/edgar/data/1725160/000172516026000061/zntlq22026pressrelease.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-10-19",
+    "type": "readout",
+    "confidence": "window",
+    "label": "EYPT LUCIA Phase 3 wet AMD data (decides the 1H 2027 NDA filing) — WINDOW 2026-10-19 to 2026-12-31",
+    "ticker": "EYPT",
+    "what": "LUCIA Phase 3 wet AMD data (decides the 1H 2027 NDA filing)",
+    "window_end": "2026-12-31",
+    "source": "https://www.sec.gov/Archives/edgar/data/1314102/000119312526387197/eypt-ex99_1.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-10-19",
+    "type": "readout",
+    "confidence": "window",
+    "label": "KYMR Topline readout pulled forward to year-end 2026 (company 8-K) — WINDOW 2026-10-19 to 2026-12-31",
+    "ticker": "KYMR",
+    "what": "Topline readout pulled forward to year-end 2026 (company 8-K)",
+    "window_end": "2026-12-31",
+    "source": "https://www.sec.gov/Archives/edgar/data/1815442/000119312526333834/kymr-ex99_1.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-10-19",
+    "type": "readout",
+    "confidence": "window",
+    "label": "SNDX Topline data, axatilimab plus ruxolitinib in newly diagnosed cGVHD — WINDOW 2026-10-19 to 2026-12-31",
+    "ticker": "SNDX",
+    "what": "Topline data, axatilimab plus ruxolitinib in newly diagnosed cGVHD",
+    "window_end": "2026-12-31",
+    "source": "https://www.sec.gov/Archives/edgar/data/1395937/000119312526332736/sndx-ex99_1.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-10-19",
+    "type": "readout",
+    "confidence": "window",
+    "label": "CMPX Topline data from the single-agent dose expansion study, expected 2H 2026 — WINDOW 2026-10-19 to 2026-12-31",
+    "ticker": "CMPX",
+    "what": "Topline data from the single-agent dose expansion study, expected 2H 2026",
+    "window_end": "2026-12-31",
+    "source": "https://www.sec.gov/Archives/edgar/data/1738021/000117184326004428/exh_991.htm",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-10-29",
+    "type": "earnings",
+    "confidence": "confirmed",
+    "label": "LTH Q3 earnings before the open",
+    "ticker": "LTH",
+    "what": "Q3 earnings before the open",
+    "source": "Robinhood get_earnings_calendar pull 2026-10-18 11:20 CT (verified=true)",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-11-17",
+    "type": "earnings",
+    "confidence": "confirmed",
+    "label": "NVDA Q3 FY27 earnings after the close (the silicon layer's read on buyer capex)",
+    "ticker": "NVDA",
+    "what": "Q3 FY27 earnings after the close (the silicon layer's read on buyer capex)",
+    "source": "Robinhood get_earnings_calendar pull 2026-10-18 11:20 CT (verified=true)",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-11-24",
+    "type": "earnings",
+    "confidence": "expected",
+    "label": "DELL Q3 FY27 earnings after the close (AI server backlog) — date EXPECTED, not confirmed",
+    "ticker": "DELL",
+    "what": "Q3 FY27 earnings after the close (AI server backlog)",
+    "source": "Robinhood get_earnings_calendar pull 2026-10-18 11:20 CT (verified=false)",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-12-01",
+    "type": "earnings",
+    "confidence": "expected",
+    "label": "MRVL Q3 FY27 earnings after the close (custom AI chips, optics) — date EXPECTED, not confirmed",
+    "ticker": "MRVL",
+    "what": "Q3 FY27 earnings after the close (custom AI chips, optics)",
+    "source": "Robinhood get_earnings_calendar pull 2026-10-18 11:20 CT (verified=false)",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-12-09",
+    "type": "earnings",
+    "confidence": "confirmed",
+    "label": "AVGO Q4 FY26 earnings after the close (custom accelerators, AI networking)",
+    "ticker": "AVGO",
+    "what": "Q4 FY26 earnings after the close (custom accelerators, AI networking)",
+    "source": "Robinhood get_earnings_calendar pull 2026-10-18 11:20 CT (verified=true)",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-12-16",
+    "type": "earnings",
+    "confidence": "expected",
+    "label": "MU Q1 FY27 earnings after the close (HBM memory pricing) — date EXPECTED, not confirmed",
+    "ticker": "MU",
+    "what": "Q1 FY27 earnings after the close (HBM memory pricing)",
+    "source": "Robinhood get_earnings_calendar pull 2026-10-18 11:20 CT (verified=false)",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-10-23",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "MRK Three first-time pivotal Phase 3 readouts in ESMO Presidential Symposium III incl. TroFuse-005 (sac-TMT, endometrial, LBA11) and KEYNOTE-C93 (LBA12); oncology investor event 10/26",
+    "ticker": "MRK",
+    "what": "Three first-time pivotal Phase 3 readouts in ESMO Presidential Symposium III incl. TroFuse-005 (sac-TMT, endometrial, LBA11) and KEYNOTE-C93 (LBA12); oncology investor event 10/26",
+    "window_end": "2026-10-27",
+    "source": "https://www.businesswire.com/news/home/20261013301331/en/Merck-Showcases-First-Time-Pivotal-Phase-3-Results-From-Oncology-Pipeline-and-Continued-Innovative-Potential-of-Existing-Portfolio-at-ESMO-2026",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-10-23",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "HCM SAFFRON Phase III (savolitinib combination, NSCLC) Presidential Symposium oral at ESMO 2026",
+    "ticker": "HCM",
+    "what": "SAFFRON Phase III (savolitinib combination, NSCLC) Presidential Symposium oral at ESMO 2026",
+    "window_end": "2026-10-27",
+    "source": "https://www.globenewswire.com/news-release/2026/09/24/3367914/0/en/hutchmed-highlights-clinical-data-to-be-presented-at-the-esmo-congress-2026.html",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-10-24",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "CELC VIKTORIA-1 updated Study 2 (gedatolisib, breast cancer) late-breaking rapid oral LBA16 at ESMO 2026",
+    "ticker": "CELC",
+    "what": "VIKTORIA-1 updated Study 2 (gedatolisib, breast cancer) late-breaking rapid oral LBA16 at ESMO 2026",
+    "source": "https://www.globenewswire.com/news-release/2026/10/05/3374475/0/en/celcuity-announces-multiple-presentations-at-the-european-society-for-medical-oncology-esmo-congress-2026.html",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-10-23",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "REGN Late-breaking overall survival from Phase 3 C-POST (adjuvant Libtayo, high-risk cutaneous SCC) at ESMO 2026",
+    "ticker": "REGN",
+    "what": "Late-breaking overall survival from Phase 3 C-POST (adjuvant Libtayo, high-risk cutaneous SCC) at ESMO 2026",
+    "window_end": "2026-10-27",
+    "source": "https://www.globenewswire.com/news-release/2026/10/06/3375301/0/en/regeneron-showcases-advances-in-care-across-several-cancers-and-cancer-associated-complications-at-esmo-2026.html",
+    "logged": "2026-10-18"
+  },
+  {
+    "date": "2026-11-08",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "MLYS Transform-HTN open-label extension (lorundrostat) late-breaker at AHA 2026, 3:30 pm CT (long-term extension, not a new pivotal)",
+    "ticker": "MLYS",
+    "what": "Transform-HTN open-label extension (lorundrostat) late-breaker at AHA 2026, 3:30 pm CT (long-term extension, not a new pivotal)",
+    "source": "https://www.globenewswire.com/news-release/2026/09/23/3367839/0/en/mineralys-therapeutics-transform-htn-open-label-extension-trial-data-selected-for-late-breaking-presentation-at-american-heart-association-scientific-sessions-2026.html",
+    "logged": "2026-10-18"
   }
 ]

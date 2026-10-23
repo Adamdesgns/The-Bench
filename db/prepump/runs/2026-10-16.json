@@ -1,0 +1,104 @@
+{
+  "schema": "bench-prepump-manifest-v1",
+  "quality_version": 2,
+  "quality": {
+    "complete": false,
+    "research_ready": false,
+    "issues": [
+      "VIX: not_found",
+      "VIX: provider has not confirmed the session date",
+      "VIX: required price/volume missing",
+      "VIX: timestamp missing or invalid",
+      "VIX: required raw history missing",
+      "VIX: required split-adjusted history missing"
+    ],
+    "resolution_blocked": [],
+    "field_coverage": {
+      "f_float": {
+        "present": 624,
+        "missing": 10
+      },
+      "f_shares_outstanding": {
+        "present": 633,
+        "missing": 1
+      },
+      "f_market_cap": {
+        "present": 633,
+        "missing": 1
+      },
+      "f_avg_volume_2_weeks": {
+        "present": 633,
+        "missing": 1
+      },
+      "f_avg_volume_30_days": {
+        "present": 633,
+        "missing": 1
+      },
+      "f_sector": {
+        "present": 633,
+        "missing": 1
+      },
+      "e_next_date": {
+        "present": 605,
+        "missing": 29
+      },
+      "e_timing": {
+        "present": 603,
+        "missing": 31
+      },
+      "q_bid_price": {
+        "present": 633,
+        "missing": 1
+      },
+      "q_ask_price": {
+        "present": 633,
+        "missing": 1
+      }
+    }
+  },
+  "date": "2026-10-16",
+  "built_at": "2026-10-16T23:31:31.607Z",
+  "universe_version": "core-v1",
+  "early_close": false,
+  "expected": {
+    "core": 460,
+    "scan": 159,
+    "desk": 50,
+    "total": 634,
+    "history_due": 37,
+    "first_appearance": 9
+  },
+  "written": {
+    "total": 634,
+    "ok": 633,
+    "partial": 0,
+    "no_data": 0,
+    "not_found": 1,
+    "core": 460,
+    "scan": 159,
+    "desk": 50,
+    "with_history": 36
+  },
+  "complete": false,
+  "market_dates_seen": {
+    "2026-10-16": 633
+  },
+  "raw_files": {
+    "fundamentals": 64,
+    "quotes": 32,
+    "historicals": 8,
+    "earnings": 3,
+    "scans": 2
+  },
+  "failures": [
+    {
+      "symbol": "VIX",
+      "status": "not_found",
+      "errors": [
+        "symbol did not resolve (delisted, renamed, or recycled)"
+      ]
+    }
+  ],
+  "failure_count": 1,
+  "appended": "new file"
+}

@@ -1,0 +1,113 @@
+{
+  "schema": "bench-prepump-manifest-v1",
+  "quality_version": 2,
+  "quality": {
+    "complete": false,
+    "research_ready": false,
+    "issues": [
+      "BOOK: not_found",
+      "BOOK: provider has not confirmed the session date",
+      "BOOK: required price/volume missing",
+      "BOOK: timestamp missing or invalid",
+      "BOOK: required raw history missing",
+      "BOOK: required split-adjusted history missing"
+    ],
+    "resolution_blocked": [
+      "VIX"
+    ],
+    "field_coverage": {
+      "f_float": {
+        "present": 648,
+        "missing": 10
+      },
+      "f_shares_outstanding": {
+        "present": 656,
+        "missing": 2
+      },
+      "f_market_cap": {
+        "present": 656,
+        "missing": 2
+      },
+      "f_avg_volume_2_weeks": {
+        "present": 656,
+        "missing": 2
+      },
+      "f_avg_volume_30_days": {
+        "present": 656,
+        "missing": 2
+      },
+      "f_sector": {
+        "present": 656,
+        "missing": 2
+      },
+      "e_next_date": {
+        "present": 630,
+        "missing": 28
+      },
+      "e_timing": {
+        "present": 627,
+        "missing": 31
+      },
+      "q_bid_price": {
+        "present": 656,
+        "missing": 2
+      },
+      "q_ask_price": {
+        "present": 656,
+        "missing": 2
+      }
+    }
+  },
+  "date": "2026-10-19",
+  "built_at": "2026-10-19T21:51:39.613Z",
+  "universe_version": "core-v1",
+  "early_close": false,
+  "expected": {
+    "core": 460,
+    "scan": 162,
+    "desk": 99,
+    "total": 658,
+    "history_due": 131,
+    "first_appearance": 25
+  },
+  "written": {
+    "total": 658,
+    "ok": 656,
+    "partial": 0,
+    "no_data": 0,
+    "not_found": 1,
+    "core": 460,
+    "scan": 162,
+    "desk": 99,
+    "with_history": 130
+  },
+  "complete": false,
+  "market_dates_seen": {
+    "2026-10-19": 656
+  },
+  "raw_files": {
+    "fundamentals": 66,
+    "quotes": 33,
+    "historicals": 28,
+    "earnings": 3,
+    "scans": 2
+  },
+  "failures": [
+    {
+      "symbol": "BOOK",
+      "status": "not_found",
+      "errors": [
+        "symbol did not resolve (delisted, renamed, or recycled)"
+      ]
+    },
+    {
+      "symbol": "VIX",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    }
+  ],
+  "failure_count": 2,
+  "appended": "APPENDED to an existing file — a re-run appends, it never rewrites"
+}
