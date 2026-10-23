@@ -1,0 +1,48 @@
+# Runs the test suite (`node --test`) on every pull request and on every
+# push to main.
+#
+# Until this existed the only CI was build-windows.yml, which fires on a
+# version tag and builds the Electron installer — so a PR could break
+# server/*.test.js or test/*.test.mjs and nothing would say so until
+# someone ran `npm test` by hand. The survey in PR #42 flagged that.
+#
+# There is no `npm install` step on purpose: the whole suite is zero-dep
+# and offline (no network, no node_modules), so installing electron here
+# would only add minutes and a download.
+#
+# Read-only. This job never touches the book, the executor arm state, the
+# posting queue, or any broker surface.
+
+name: test
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  node-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # package.json engines says >=20; run the current LTS pair.
+        node: [20, 22]
+    name: node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Run tests
+        run: npm test
