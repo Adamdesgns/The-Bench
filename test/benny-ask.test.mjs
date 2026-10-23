@@ -189,6 +189,9 @@ test("Adam's session carries the operator rules and no tag demand; a guest's car
   assert.ok(rules().includes(TOPIC_RULES), "operator defaults to false");
   assert.match(OPERATOR_RULES, /not on the board|any ticker/i);
   assert.match(TOPIC_RULES, /airdrop/i);
+  // Adam, 2026-10-22: "I want him giving them picks based on facts ... Then I decide."
+  assert.match(TOPIC_RULES, /my read, not on the book/);
+  assert.match(TOPIC_RULES, /Never tell them to buy/);
 });
 
 test("an operator answer loses a stray tag and is never turned into the off-topic line", () => {
