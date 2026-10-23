@@ -95,21 +95,28 @@ export function parseStream(stdout) {
 }
 
 // Who is asking. Adam always; anyone in db/benny-config.json `askers` with a discord_id gets answers
-// under their own daily_cap (Adam, 2026-10-18: "give him 5 a day" for Van). Everyone else: null.
-export function askerOf(m, adamUserId, askers = []) {
+// under their own daily_cap (Adam, 2026-10-18: "give him 5 a day" for Van). Every other human in the
+// channel is a member with memberCap a day (Adam, 2026-10-22: "every member of that discord chat ...
+// 5 questions a day"); a member's name always starts with @, so it never shares a count with Adam or a
+// listed asker. memberCap 0 or missing = members are ignored, the old rule.
+export function askerOf(m, adamUserId, askers = [], memberCap = 0) {
   if (!m || m.author?.bot || m.channel?.name !== "ask-benny") return null;
   const id = String(m.author?.id ?? "");
   if (!id) return null;
   if (adamUserId && id === String(adamUserId)) return { name: "Adam", adam: true };
   const a = askers.find((x) => x?.name && x?.discord_id && String(x.discord_id) === id);
-  return a ? { name: a.name, adam: false, cap: Number(a.daily_cap) || 0 } : null;
+  if (a) return { name: a.name, adam: false, cap: Number(a.daily_cap) || 0 };
+  const cap = Number(memberCap) || 0;
+  return cap > 0 ? { name: `@${m.author?.username || id}`, adam: false, cap, member: true } : null;
 }
 
 export const shouldAnswer = (m, adamUserId) => askerOf(m, adamUserId)?.adam === true;
 
 // A guest's question reaches claude with one line in front, so Benny knows it is not his operator.
 export const framedQuestion = (question, who) =>
-  who?.adam ? question : `Asked in #ask-benny by ${who.name}, a friend of my operator - not by my operator.\n\n${question}`;
+  who?.adam ? question
+    : who?.member ? `Asked in #ask-benny by ${who.name.slice(1)}, a member of the server - not by my operator.\n\n${question}`
+    : `Asked in #ask-benny by ${who.name}, a friend of my operator - not by my operator.\n\n${question}`;
 
 export function commandOf(text) {
   if (/^!halt\b/i.test(text.trim())) return "halt";

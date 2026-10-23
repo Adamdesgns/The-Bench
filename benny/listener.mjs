@@ -34,6 +34,7 @@ const secrets = JSON.parse(readFileSync(join(bennyHome(), "discord.json"), "utf8
 const cfg = JSON.parse(readFileSync(join(ROOT, "db/benny-config.json"), "utf8"));
 const persona = readFileSync(join(ROOT, cfg.persona), "utf8");
 const askers = cfg.askers || [];
+const memberCap = Number(cfg.member_daily_cap) || 0;
 if (!secrets.bot_token || !secrets.adam_user_id) { console.error("[benny] ~/.benny/discord.json needs bot_token and adam_user_id"); process.exit(2); }
 
 const loadQa = () => (existsSync(QA) ? JSON.parse(readFileSync(QA, "utf8")) : { answers: [] });
@@ -72,7 +73,7 @@ Question: ${base.question}\n\n${reasons.map((r) => `- ${r}`).join("\n")}`);
 }
 
 async function handle(m) {
-  const who = askerOf(m, secrets.adam_user_id, askers);
+  const who = askerOf(m, secrets.adam_user_id, askers, memberCap);
   if (!who) return; // everyone else is ignored silently
   const now = new Date();
   const question = m.content.trim();

@@ -144,3 +144,19 @@ test("the topic gate: on-topic loses its tag, off-topic gets the fixed line, no 
   assert.equal(topicGate("NVDA [ON-TOPIC] later in the text").ok, false);
   assert.ok(!/repo|file|branch/i.test(OFF_TOPIC));
 });
+
+// Adam, 2026-10-22: "I want every member of that discord chat to be able to ask 5 questions a day."
+test("members: any human in #ask-benny gets the member cap; listed askers keep theirs; no member cap = old rule", () => {
+  const who = (id, username, o = {}) => msg({ author: { id, username, bot: false }, ...o });
+  assert.deepEqual(askerOf(who("444", "stranger"), ADAM, [VAN], 5), { name: "@stranger", adam: false, cap: 5, member: true });
+  assert.deepEqual(askerOf(who("555", undefined), ADAM, [VAN], 5), { name: "@555", adam: false, cap: 5, member: true });
+  assert.deepEqual(askerOf(who("333", "vanazadian_"), ADAM, [VAN], 5), { name: "Van", adam: false, cap: 5 });
+  assert.deepEqual(askerOf(who(ADAM, "adam"), ADAM, [VAN], 5), { name: "Adam", adam: true });
+  assert.equal(askerOf(who("444", "stranger"), ADAM, [VAN]), null);
+  assert.equal(askerOf(who("444", "stranger"), ADAM, [VAN], 0), null);
+  assert.equal(askerOf(msg({ author: { id: "444", username: "bot", bot: true } }), ADAM, [VAN], 5), null);
+  assert.equal(askerOf(who("444", "stranger", { channel: { name: "lesson" } }), ADAM, [VAN], 5), null);
+  // a member can never count against Adam's or a listed asker's cap: member names always start with @
+  assert.notEqual(askerOf(who("444", "Adam"), ADAM, [VAN], 5).name, "Adam");
+  assert.match(framedQuestion("why?", { name: "@stranger", adam: false, member: true }), /^Asked in #ask-benny by stranger, a member of the server - not by my operator\.\n\nwhy\?$/);
+});

@@ -7,6 +7,8 @@
     { "name": "Van", "discord_username": "vanazadian_", "discord_id": null, "daily_cap": 5 }
   ],
   "askers_set": "2026-10-18, Adam: \"give van access to benny on discord\" then \"ok give him 5 a day\". Adam keeps his own 20; each asker's cap is separate. discord_id is the numeric user ID; null means not active yet.",
+  "member_daily_cap": 5,
+  "member_set": "2026-10-22, Adam: \"I want every member of that discord chat to be able to ask 5 questions a day.\" Any human in #ask-benny who is not Adam or a listed asker gets this many answers a day, counted per Discord username (logged as @username). 0 turns members off.",
   "persona": "prompts/benny-v3.md",
   "opened": "2026-10-16",
   "options_risk_pct": 3,
