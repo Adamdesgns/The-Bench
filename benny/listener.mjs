@@ -16,7 +16,7 @@ import { readFileSync, writeFileSync, existsSync, unlinkSync, mkdirSync } from "
 import { join, resolve, dirname } from "node:path";
 import { homedir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { buildClaudeArgs, checkTools, parseStream, askerOf, framedQuestion, commandOf, answersToday, composeAnswer, secretLeaks, topicGate } from "./ask.mjs";
+import { buildClaudeArgs, checkTools, parseStream, askerOf, framedQuestion, commandOf, answersToday, composeAnswer, secretLeaks, topicGate, operatorBody } from "./ask.mjs";
 import { checkWall, loadWall, bennyHome, internalsLeaks } from "../scripts/benny-wall.mjs";
 import { splitForDiscord, ntfyPing } from "../scripts/benny-post.mjs";
 import { nyDate } from "../scripts/paper-book.mjs";
@@ -41,9 +41,9 @@ const loadQa = () => (existsSync(QA) ? JSON.parse(readFileSync(QA, "utf8")) : { 
 function logQa(entry) { const qa = loadQa(); qa.answers.push(entry); writeFileSync(QA, JSON.stringify(qa, null, 2) + "\n"); }
 const ping = (title, body) => ntfyPing(fetch, title, body).catch((e) => console.error(`[benny] ntfy failed: ${e.message}`));
 
-function runClaude(question) {
+function runClaude(question, operator) {
   return new Promise((ok, fail) => {
-    const args = buildClaudeArgs({ persona, mcpConfig: join(ROOT, "benny/mcp.json"), dataDir: join(ROOT, "db") });
+    const args = buildClaudeArgs({ persona, mcpConfig: join(ROOT, "benny/mcp.json"), dataDir: join(ROOT, "db"), operator });
     const p = spawn(CLAUDE, args, { cwd: WORK, windowsHide: true });
     let out = "", err = "";
     const timer = setTimeout(() => { p.kill(); fail(new Error("claude took longer than 180 seconds")); }, 180000);
@@ -87,13 +87,14 @@ async function handle(m) {
   if (answersToday(loadQa(), base.date, who.name) >= cap) { logQa({ ...base, outcome: "CAPPED" }); await send(m, composeAnswer("Done for today.")); return; }
 
   let s;
-  try { s = parseStream(await runClaude(framedQuestion(question, who))); }
+  try { s = parseStream(await runClaude(framedQuestion(question, who), who.adam)); }
   catch (e) { await refuse(m, base, [`claude failed: ${e.message}`]); return; }
   if (!s.init) { await refuse(m, base, ["no init message - the tool list cannot be proven"]); return; }
   const tools = checkTools(s.tools);
   if (!tools.ok) { await refuse(m, base, [`tools outside the allowlist were visible: ${tools.bad.join(", ")}`]); return; }
   if (s.isError || !s.result) { await refuse(m, base, [`claude returned an error or no answer${s.result ? `: ${String(s.result).slice(0, 200)}` : ""}`]); return; }
-  const topic = topicGate(s.result);
+  // Adam has no topic gate (operator rules); a guest answer must carry its tag.
+  const topic = who.adam ? { ok: true, body: operatorBody(s.result) } : topicGate(s.result);
   if (topic.offTopic) { await send(m, composeAnswer(topic.body)); logQa({ ...base, outcome: "OFF_TOPIC" }); return; }
   if (!topic.ok) { await refuse(m, base, [`topic: ${topic.reason}`]); return; }
   const answer = composeAnswer(topic.body);

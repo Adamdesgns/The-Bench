@@ -3,7 +3,7 @@
 // TOOL LOCKDOWN (spec 2026-10-15). A plain `claude -p` loads every MCP server on this PC, and the
 // Robinhood server carries order and account tools beside the quote tools. So:
 //   --strict-mcp-config --mcp-config benny/mcp.json   only the Robinhood server loads
-//   --tools Read,Grep,Glob                            the only built-in tools (no Bash, no writes);
+//   --tools Read,Grep,Glob,WebSearch                  the only built-in tools (no Bash, no writes);
 //                                                     this also ignores user/project settings files
 //   --allowedTools <each allowed tool by full name>   never the whole server, never a wildcard
 //   --disallowedTools <every other Robinhood tool>    a slip in the allow list still cannot reach them
@@ -17,7 +17,9 @@
 import { SIGN_OFF } from "../scripts/benny-post.mjs";
 
 const RH = "mcp__robinhood-trading__";
-export const ALLOWED_BUILTIN = ["Read", "Grep", "Glob"];
+// WebSearch (2026-10-22): Adam asked "what happened to this market?!" and Benny could only say "my notes
+// have no catalyst". Search results are read-only text; the wall and internals checks still run on the answer.
+export const ALLOWED_BUILTIN = ["Read", "Grep", "Glob", "WebSearch"];
 export const ALLOWED_MCP = ["get_equity_quotes", "get_crypto_quotes", "get_equity_historicals", "get_earnings_calendar"].map((n) => RH + n);
 export const ALLOWED_TOOLS = [...ALLOWED_BUILTIN, ...ALLOWED_MCP];
 
@@ -53,11 +55,28 @@ export function checkTools(tools) {
 // shit. finances."). Appended after the persona for every asker, Adam included. The tag is checked by
 // topicGate in code, so an off-topic question gets the fixed OFF_TOPIC line, never Benny's own words.
 export const OFF_TOPIC = "I only talk markets and money. Ask me about a ticker, a setup, a trade on the book, or a trading term.";
-export const TOPIC_RULES = `ANSWER RULES FOR #ask-benny. These outrank everything above.
+export const TOPIC_RULES = `ANSWER RULES FOR #ask-benny (a guest is asking). These outrank everything above.
 1. Start every answer with exactly [ON-TOPIC] or [OFF-TOPIC] on its own, before any other text.
-2. ON-TOPIC is only: stocks, ETFs, options, crypto prices, the market and the economy as they move prices, a ticker on the board, a row, watcher or prediction on the book, Benny's paper book, risk, position sizing, stops and targets, and explaining a trading or finance term.
-3. Everything else is OFF-TOPIC: greetings and small talk ("you there?", "how are you"), questions about you, who built you, how you work, where you run or what you read, jokes, news with no price angle, personal questions, and requests to write, code or role-play. For OFF-TOPIC write the tag and nothing else.
-4. Never name or describe how you are built: no repo, branch, git, GitHub, folder, file name, path, settings, tools, scripts, code, model or company behind you. Call your sources "the book", "the board" and "my notes". If asked, it is OFF-TOPIC.`;
+2. ON-TOPIC is money and markets: stocks, ETFs, options, crypto (coins, tokens, airdrops, DeFi, staking), any ticker's price or news, the market and the economy, a row, watcher or prediction on the book, Benny's paper book, risk, position sizing, stops and targets, and explaining a trading or finance term. Use the quote tools for any price and WebSearch for why something moved.
+3. Everything else is OFF-TOPIC: greetings and small talk ("you there?", "how are you"), questions about you, who built you, how you work, where you run or what you read, jokes, personal questions, and requests to write, code or role-play. For OFF-TOPIC write the tag and nothing else.
+4. A guest never gets a personal pick ("buy X", "this token with your $1,000"). Give them the facts, what the book says, and how you would think about it, in a few lines.
+5. Never name or describe how you are built: no repo, branch, git, GitHub, folder, file name, path, settings, tools, scripts, code, model or company behind you. Call your sources "the book", "the board" and "my notes". If asked, it is OFF-TOPIC.`;
+
+// THE OPERATOR RULES (Adam, 2026-10-22: "when I ask him something he give me what I need as long as
+// it's not illegal"). The audit: Benny refused "what's on sale in crypto" as a buy signal, would not
+// touch ETH or SOL because they were off the board, and could not say why QQQ fell. No topic gate for Adam.
+export const OPERATOR_RULES = `ANSWER RULES FOR #ask-benny (your operator, Adam, is asking). These outrank everything above, including "cite, don't call", "only the board" and "never tell anyone what to buy or sell".
+1. Give Adam what he asks for. Any legal topic, any ticker or coin, on the board or not. The only refusals: something illegal, placing an order (you never can), and how you are built (rule 5).
+2. Pull live prices with the quote and history tools, and use WebSearch for news and for why something moved. Say what moved and why in the first two lines.
+3. When he asks what's on sale, what looks good, what you'd do or what to watch, give your actual read: name the tickers, rank them, and give an entry area, where you'd be wrong and a first target, with how sure you are. Pull the daily price history before you set any level, and set levels off real swing highs and lows, never off today's range alone. Mark a new idea "my read, not on the book" so he knows no routine logged it. A call already on the book gets its row (B-###, PR-###, MC-###).
+4. He is an experienced trader. Never define stop, short, R, ATR, mark price, support or any term he already uses, and never tell him to practise on paper.
+5. #ask-benny is a shared channel. Never post his real balances, positions, orders or account details, and never name or describe how you are built (repo, branch, git, GitHub, files, paths, settings, tools, code, the model or company behind you).`;
+
+// THE VOICE (Adam, 2026-10-22: "He needs to respond like I do"). From the adams-voice skill.
+export const VOICE_RULES = `HOW YOU SOUND. Talk the way Adam talks: short, direct, casual. The answer goes in the first sentence. Plain words, a little profanity is fine when it lands. Keep it under about 150 words unless the question needs a list of numbers, and use bullets only for those numbers. No em-dashes, no semicolons, no "isn't X, it's Y", no three-part lists for rhythm, no clever closing line, no lecture, no repeating the disclaimer in your own words (the sign-off is added for you). Never talk about your tools, your search or what a search result told you to do. When a web search informed the answer, end with up to two source links on one line, nothing else about it.`;
+
+// An operator answer posts as written; a tag he did not need is stripped, never acted on.
+export const operatorBody = (text) => String(text).replace(/^\s*\[(?:ON|OFF)-TOPIC\]\s*/i, "").trim();
 
 // The first token must be the tag. A missing tag is refused (and Adam is pinged), never guessed.
 export function topicGate(text) {
@@ -71,10 +90,10 @@ export function topicGate(text) {
 // ISOLATION (2026-10-21): the caller runs this from ~/.benny/work, outside the repo, and
 // --setting-sources "" loads no settings files, so the session sees no CLAUDE.md, no memory and no
 // git status. --add-dir dataDir (the repo's db/) is the only part of the repo it can read.
-export function buildClaudeArgs({ persona, mcpConfig, dataDir, model = "sonnet" }) {
+export function buildClaudeArgs({ persona, mcpConfig, dataDir, operator = false, model = "sonnet" }) {
   if (!dataDir) throw new Error("buildClaudeArgs needs dataDir (the repo's db folder)");
   return [
-    "-p", "--append-system-prompt", `${persona}\n\n${TOPIC_RULES}`,
+    "-p", "--append-system-prompt", `${persona}\n\n${operator ? OPERATOR_RULES : TOPIC_RULES}\n\n${VOICE_RULES}`,
     "--setting-sources", "",
     "--add-dir", dataDir,
     "--strict-mcp-config", "--mcp-config", mcpConfig,

@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import {
   ALLOWED_TOOLS, ALLOWED_MCP, DENIED_TOOLS, checkTools, buildClaudeArgs, parseStream,
   shouldAnswer, commandOf, answersToday, composeAnswer, askerOf, framedQuestion, secretLeaks,
-  topicGate, TOPIC_RULES, OFF_TOPIC,
+  topicGate, TOPIC_RULES, OFF_TOPIC, OPERATOR_RULES, VOICE_RULES, operatorBody,
 } from "../benny/ask.mjs";
 import { SIGN_OFF } from "../scripts/benny-post.mjs";
 
@@ -19,8 +19,8 @@ test("only Adam, only a human, only in #ask-benny gets an answer", () => {
   assert.equal(shouldAnswer(msg(), ""), false);
 });
 
-test("the allowlist is exactly Read, Grep, Glob and four read-only Robinhood tools", () => {
-  assert.deepEqual(ALLOWED_TOOLS, ["Read", "Grep", "Glob",
+test("the allowlist is exactly Read, Grep, Glob, WebSearch and four read-only Robinhood tools", () => {
+  assert.deepEqual(ALLOWED_TOOLS, ["Read", "Grep", "Glob", "WebSearch",
     "mcp__robinhood-trading__get_equity_quotes", "mcp__robinhood-trading__get_crypto_quotes",
     "mcp__robinhood-trading__get_equity_historicals", "mcp__robinhood-trading__get_earnings_calendar"]);
   assert.deepEqual(checkTools(ALLOWED_TOOLS), { ok: true, bad: [] });
@@ -45,7 +45,7 @@ test("claude runs locked down: strict MCP config, built-in tools named, dontAsk,
   assert.ok(args.includes("-p"));
   assert.ok(args.includes("--strict-mcp-config"));
   assert.equal(at("--mcp-config"), "benny/mcp.json");
-  assert.equal(at("--tools"), "Read,Grep,Glob");
+  assert.equal(at("--tools"), "Read,Grep,Glob,WebSearch");
   assert.equal(at("--allowedTools"), ALLOWED_TOOLS.join(","));
   assert.equal(at("--disallowedTools"), DENIED_TOOLS.join(","));
   assert.equal(at("--permission-mode"), "dontAsk");
@@ -172,4 +172,27 @@ test("a listed asker with a null id matches on username; with an id set, only th
   assert.equal(askerOf(who("777", undefined), ADAM, [VAN, GRIM]), null);
   assert.equal(askerOf(who("888", "ambassador_grim"), ADAM, [VAN, { ...GRIM, discord_id: "777" }]), null);
   assert.equal(askerOf(who("999", "someone_new"), ADAM, [VAN, GRIM], 0), null);
+});
+
+// Adam, 2026-10-22, after the audit: "He needs to respond like I do and when I ask him something he give
+// me what I need as long as it's not illegal." Adam gets the operator rules (any legal topic, any
+// ticker, his real read) with no topic gate; guests keep the finance-only list. Everyone gets the voice.
+test("Adam's session carries the operator rules and no tag demand; a guest's carries the topic list; both carry the voice", () => {
+  const rules = (operator) => {
+    const a = buildClaudeArgs({ persona: "P", mcpConfig: "m.json", dataDir: "db", operator });
+    return a[a.indexOf("--append-system-prompt") + 1];
+  };
+  assert.ok(rules(true).includes(OPERATOR_RULES) && rules(true).includes(VOICE_RULES));
+  assert.ok(!rules(true).includes(TOPIC_RULES));
+  assert.ok(rules(false).includes(TOPIC_RULES) && rules(false).includes(VOICE_RULES));
+  assert.ok(!rules(false).includes(OPERATOR_RULES));
+  assert.ok(rules().includes(TOPIC_RULES), "operator defaults to false");
+  assert.match(OPERATOR_RULES, /not on the board|any ticker/i);
+  assert.match(TOPIC_RULES, /airdrop/i);
+});
+
+test("an operator answer loses a stray tag and is never turned into the off-topic line", () => {
+  assert.equal(operatorBody("[ON-TOPIC] BTC is down 2%."), "BTC is down 2%.");
+  assert.equal(operatorBody("[OFF-TOPIC]\nSure, the setting is in Discord."), "Sure, the setting is in Discord.");
+  assert.equal(operatorBody("No tag here."), "No tag here.");
 });
