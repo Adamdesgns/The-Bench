@@ -7,6 +7,8 @@
     { "name": "Van", "discord_username": "vanazadian_", "discord_id": null, "daily_cap": 5 }
   ],
   "askers_set": "2026-10-18, Adam: \"give van access to benny on discord\" then \"ok give him 5 a day\". Adam keeps his own 20; each asker's cap is separate. discord_id is the numeric user ID; null means not active yet.",
+  "member_daily_cap": 3,
+  "member_set": "2026-10-22, Adam: \"I want to give members of the bench 3 free questions a day anyone that joins if possible\". Anyone in the server who is not Adam and not in askers gets this many a day, counted by Discord id; every question that runs Benny counts (answered, off-topic or refused). Resets at midnight Eastern with the rest of Benny's dates. 0 turns members off.",
   "persona": "prompts/benny-v3.md",
   "opened": "2026-10-16",
   "options_risk_pct": 3,
