@@ -95,21 +95,25 @@ export function parseStream(stdout) {
 }
 
 // Who is asking. Adam always; anyone in db/benny-config.json `askers` with a discord_id gets answers
-// under their own daily_cap (Adam, 2026-10-18: "give him 5 a day" for Van). Everyone else: null.
-export function askerOf(m, adamUserId, askers = []) {
+// under their own daily_cap (Adam, 2026-10-18: "give him 5 a day" for Van). Every other member of the
+// server gets memberCap a day (Adam, 2026-10-22: "give members of the bench 3 free questions a day
+// anyone that joins"), counted by Discord id. memberCap 0 (or unset) means everyone else is ignored.
+export function askerOf(m, adamUserId, askers = [], memberCap = 0) {
   if (!m || m.author?.bot || m.channel?.name !== "ask-benny") return null;
   const id = String(m.author?.id ?? "");
   if (!id) return null;
   if (adamUserId && id === String(adamUserId)) return { name: "Adam", adam: true };
   const a = askers.find((x) => x?.name && x?.discord_id && String(x.discord_id) === id);
-  return a ? { name: a.name, adam: false, cap: Number(a.daily_cap) || 0 } : null;
+  if (a) return { name: a.name, adam: false, cap: Number(a.daily_cap) || 0 };
+  const cap = Number(memberCap) || 0;
+  return cap > 0 ? { name: String(m.author?.username || "member"), id, adam: false, member: true, cap } : null;
 }
 
 export const shouldAnswer = (m, adamUserId) => askerOf(m, adamUserId)?.adam === true;
 
 // A guest's question reaches claude with one line in front, so Benny knows it is not his operator.
 export const framedQuestion = (question, who) =>
-  who?.adam ? question : `Asked in #ask-benny by ${who.name}, a friend of my operator - not by my operator.\n\n${question}`;
+  who?.adam ? question : `Asked in #ask-benny by ${who.name}, ${who.member ? "a member of The Bench" : "a friend of my operator"} - not by my operator.\n\n${question}`;
 
 export function commandOf(text) {
   if (/^!halt\b/i.test(text.trim())) return "halt";
@@ -117,9 +121,22 @@ export function commandOf(text) {
   return null;
 }
 
-// Rows written before guests existed carry no asker; they are Adam's.
+// Rows written before guests existed carry no asker; they are Adam's. Member rows are left out of a
+// named count, so a member whose username is "Adam" or "Van" never spends someone else's cap.
 export const answersToday = (qa, date, name = null) =>
-  (qa.answers || []).filter((a) => a.date === date && a.outcome === "ANSWERED" && (name === null || (a.asker || "Adam") === name)).length;
+  (qa.answers || []).filter((a) => a.date === date && a.outcome === "ANSWERED" && (name === null || (!a.member && (a.asker || "Adam") === name))).length;
+
+// A member's free questions are counted by Discord id, and every question that ran a session counts,
+// answered or not: an off-topic or refused question still costs a run (and a refusal pings Adam), so a
+// stranger cannot get unlimited runs by asking things Benny will not answer.
+export const MEMBER_SPENT = ["ANSWERED", "OFF_TOPIC", "REFUSED"];
+export const memberQuestionsToday = (qa, date, id) =>
+  (qa.answers || []).filter((a) => a.date === date && a.member && String(a.asker_id) === String(id) && MEMBER_SPENT.includes(a.outcome)).length;
+
+// The day is the New York trading day (nyDate), the same date every Benny row carries, so the free
+// questions come back at midnight Eastern, which is 11 PM Central all year.
+export const memberCapMessage = (cap) =>
+  `That's your ${cap} free question${cap === 1 ? "" : "s"} for today. You get ${cap} more at midnight Eastern (11 PM Central).`;
 
 // The session can Read outside the repo, so an answer is also checked for Benny's own secrets
 // (~/.benny/discord.json: bot token, webhook URLs). Reasons name the setting, never the value.

@@ -16,7 +16,7 @@ A private trading-research server. Benny is the research bot. He posts paper tra
 #close: the closing read and the evening hunt
 #lesson: one trading lesson at a time
 #scorecard: the weekly record, misses first
-#ask-benny: questions for Benny (owner only for now)
+#ask-benny: questions for Benny, 3 free a day for every member
 #general: open chat
 
 **House rules**
@@ -153,7 +153,8 @@ This channel is how you check whether Benny is any good. Paper trades only.
 ===== #ask-benny =====
 **What this channel is**
 Ask Benny about a ticker, a setup, or a trading term. He reads live market data and answers in plain English.
-- Right now he answers the server owner only, up to 20 questions a day. Everyone can read the answers.
+- Every member gets 3 free questions a day. They come back at midnight Eastern (11 PM Central). Everyone can read the answers.
+- Every question counts, including ones he won't answer, so keep them to markets and money.
 - Good questions: "Where would a stop go on NVDA?", "What is ATR?", "Is AMD extended?"
 - He never places orders and never talks about anyone's real account.
 Not financial advice.

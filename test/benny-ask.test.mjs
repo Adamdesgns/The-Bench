@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import {
   ALLOWED_TOOLS, ALLOWED_MCP, DENIED_TOOLS, checkTools, buildClaudeArgs, parseStream,
   shouldAnswer, commandOf, answersToday, composeAnswer, askerOf, framedQuestion, secretLeaks,
-  topicGate, TOPIC_RULES, OFF_TOPIC,
+  topicGate, TOPIC_RULES, OFF_TOPIC, memberQuestionsToday, memberCapMessage,
 } from "../benny/ask.mjs";
 import { SIGN_OFF } from "../scripts/benny-post.mjs";
 
@@ -143,4 +143,42 @@ test("the topic gate: on-topic loses its tag, off-topic gets the fixed line, no 
   assert.match(none.reason, /tag/);
   assert.equal(topicGate("NVDA [ON-TOPIC] later in the text").ok, false);
   assert.ok(!/repo|file|branch/i.test(OFF_TOPIC));
+});
+
+// Adam, 2026-10-22: "I want to give members of the bench 3 free questions a day anyone that joins".
+test("members: anyone else in #ask-benny gets the member cap, by Discord id; cap 0 keeps them out", () => {
+  const m = msg({ author: { id: "555", bot: false, username: "newguy" } });
+  assert.deepEqual(askerOf(m, ADAM, [VAN], 3), { name: "newguy", id: "555", adam: false, member: true, cap: 3 });
+  assert.equal(askerOf(m, ADAM, [VAN]), null);
+  assert.equal(askerOf(m, ADAM, [VAN], 0), null);
+  assert.equal(askerOf(msg({ author: { id: "555", bot: true } }), ADAM, [VAN], 3), null);
+  assert.equal(askerOf(msg({ author: { id: "555", bot: false }, channel: { name: "general" } }), ADAM, [VAN], 3), null);
+  assert.deepEqual(askerOf(msg(), ADAM, [VAN], 3), { name: "Adam", adam: true });
+  assert.deepEqual(askerOf(msg({ author: { id: "333", bot: false } }), ADAM, [VAN], 3), { name: "Van", adam: false, cap: 5 });
+  assert.equal(askerOf(msg({ author: { id: "556", bot: false } }), ADAM, [], 3).name, "member");
+  assert.match(framedQuestion("why?", { name: "newguy", adam: false, member: true }), /^Asked in #ask-benny by newguy, a member of The Bench - not by my operator\./);
+});
+
+test("a member's questions are counted by id, every run counts, and a member never spends a named cap", () => {
+  const D = "2026-10-23";
+  const qa = { answers: [
+    { date: D, outcome: "ANSWERED", asker: "Adam", asker_id: "555", member: true },
+    { date: D, outcome: "OFF_TOPIC", asker: "Adam", asker_id: "555", member: true },
+    { date: D, outcome: "REFUSED", asker: "Adam", asker_id: "555", member: true },
+    { date: D, outcome: "CAPPED", asker: "Adam", asker_id: "555", member: true },
+    { date: D, outcome: "HALTED", asker: "Adam", asker_id: "555", member: true },
+    { date: "2026-10-22", outcome: "ANSWERED", asker: "Adam", asker_id: "555", member: true },
+    { date: D, outcome: "ANSWERED", asker: "renamed", asker_id: "555", member: true },
+    { date: D, outcome: "ANSWERED", asker: "other", asker_id: "777", member: true },
+    { date: D, outcome: "ANSWERED", asker: "Adam" },
+  ] };
+  assert.equal(memberQuestionsToday(qa, D, "555"), 4);
+  assert.equal(memberQuestionsToday(qa, D, "777"), 1);
+  assert.equal(memberQuestionsToday(qa, D, "999"), 0);
+  assert.equal(answersToday(qa, D, "Adam"), 1);
+});
+
+test("the member cap message says how many and when they come back", () => {
+  assert.equal(memberCapMessage(3), "That's your 3 free questions for today. You get 3 more at midnight Eastern (11 PM Central).");
+  assert.match(memberCapMessage(1), /your 1 free question for today/);
 });
