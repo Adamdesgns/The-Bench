@@ -6,6 +6,61 @@
 
 ---
 
+## Week of 2026-10-18 -> 2026-10-24
+
+One real position closed: GOOGL B-776 stopped 10/22 at 326 (both 4-share GTC stops filled
+325.98 / 325.96 vs 336.25 cost), -82.24 (-3.06 pct), exactly the planned risk; Adam ruled no
+buyback (B-1025). Margin account 3,309 cash, no positions. No framework version shipped; still
+v35 (2026-10-02). Week: SPY 763.30 -> 759.85 (-0.45 pct), QQQ 709.80 -> 704.39 (-0.76), SMH -2.36,
+IWM +1.95.
+
+### THE ALGORITHM - how he trades
+
+- No new framework version.
+- **Quant-exit twins (10/21, `784f92b`, `449facc`):** every paper share trade now has two twins
+  beside the fixed-exit original: PQ-### trails the stop at the hunter stop and exits when the
+  breakdown shape breaks; PQS-### keeps the starting stop and exits on the shape alone. Adam:
+  "this is a quant system not an is my guess right system." First backfill: the trailing stop
+  did every exit, 7 of 13 twins stopped on one-day bounces, MRNA +2.17R fixed -> -0.09R trailed.
+- **Band-blocked tally (10/21, `151ccc7`):** `band-blocked.mjs` counts hunter calls the 10 pct
+  band turned down. 27 distinct calls, 19 scored at avg +0.1R vs -0.06R for all hunter calls;
+  under 20 scored, too few to say the band costs trades.
+- **Paper standings in the morning read (10/19, `c3d1180`):** every open paper call ranked by
+  percent at the pre-market quote, pasted into the 5:40a read.
+
+### WHAT THE BOOK CONTRADICTED
+
+- **"Coin flip" vs "it goes down" (B-967).** Adam called META priced in and lower on the week; I
+  graded it a coin flip with no edge. META 709.33 -> 642.26, -9.46 pct. His direction was right.
+  The conditional buy half (656-680) opened through the zone 10/22 and was not taken (B-1016).
+- **Two opening-print leans marked wrong the same day:** 10/21 08:47 "MU failing 900" (settled
+  913.62, B-1009); 10/23 08:47 "power broke" at PWR 536.13 (filled by 11:34, B-1043). An opening
+  print is not a layer read.
+- **Five armed first-bar plans, 25 entry checks, zero fills (B-930/944/947/948/949).** WDAY ran
+  190.80 -> 209.91 (+10.0 pct) and CRM 240.68 -> 248.53 without us; the scorer reads them as
+  "never triggered and it ran without us".
+- **30-day receipt B-566 (NBIS, 9/24 at 247.18):** "watch, no chase" logged as a conditional
+  with a 243.88 trigger. 158.74 on 10/23, -35.78 pct vs SPY -0.94. WRONG by score-book because
+  a fired conditional is scored as a long. The desk did not buy; the row type was the error.
+  Expensive passes in the same cohort: XLE B-569 +10.72, NI B-573 +10.63.
+- **Range call B-968 survived, not vindicated:** QQQ low 701.90 vs the 700 tank gate, settled
+  704.39.
+
+### WHAT HE COVERS / HOW HE WRITES
+
+- **Benny answers questions on Discord (10/18-10/22, `b3bff35`, `002a4c3`, `2595e78`, `95359ad`,
+  `1b2d783`, `6138022`):** Adam 20 a day, Van 5, Grim 5, nobody else; finance-only topic list, no
+  internals, answers run outside the repo, guests get fact-based picks with the call left to them.
+
+### STILL OPEN
+
+- Ticket generator still sizes to the risk band, not to what the account can fund. Fourth week.
+- The 10/19 lesson named a hole: no rule for when a correlated group of shorts pays at once
+  (`56623b5`). Not written.
+- PQ/PQS twins need 10 closed pairs before Adam is asked anything.
+
+---
+
 ## Week of 2026-10-11 -> 2026-10-17
 
 One ENTER ticket handed over (MU B-879, 10/14), unfunded, gapped through its 884 stop

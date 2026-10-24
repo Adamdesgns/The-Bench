@@ -52,5 +52,13 @@
     "posted": "2026-10-17",
     "post": "docs/reads/2026-10-17-week-recap.md (private read, ntfy)",
     "note": "30-day cohort due 2026-10-17 (9/17 rows). WRONG verdicts in it: B-430/B-439 IREN, B-431 GRAB, B-435/B-447 SPY, B-436 CBRS, B-443/B-448 VRT, B-450 AAP. Took B-436: the largest miss with a real fired trigger (B-439 IREN is a no-fill entry check the scorer reads as a long). 194.51 (9/17 08:43 CT) to 127.21 settled 10/16 = -34.6 pct vs SPY +0.09 (score-book 1m checkpoint, asof 2026-10-17). Live CBRS last 127.2391 (10/16 19:59:59Z)."
+  },
+  {
+    "row": "B-566",
+    "ticker": "NBIS",
+    "type": "conditional - triggered and did not run",
+    "posted": "2026-10-24",
+    "post": "docs/reads/2026-10-24-week-recap.md (private read, ntfy)",
+    "note": "30-day cohort due 2026-10-24 (9/24 rows). WRONG verdicts: B-557 ETN, B-558 SPY, B-560 ETN (no-fill entry check read as long), B-563 ATRC, B-565 SNDK (third-party line, not ours), B-566 NBIS, B-568 P, B-569 XLE (expensive pass), B-573 NI (expensive pass). Took B-566: largest miss on a desk-owned row with a fired trigger. 247.18 (9/24 13:11 CT) to 158.74 settled 10/23 = -35.78 pct vs SPY -0.94 (score-book 1m, asof 2026-10-24). Row-type lesson: watch-no-chase logged as conditional scores as a long."
   }
 ]
