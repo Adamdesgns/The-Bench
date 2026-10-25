@@ -1,137 +1,137 @@
 {
-  "asof": "2026-10-23T06:20:00-05:00",
-  "session": "pre-market",
-  "basis": "pre-market last trades ~06:18 CT 10/23 vs the official 10/22 closes",
-  "source": "Robinhood MCP get_equity_quotes",
-  "note": "Run the market 06:25 CT 10/23 (B-1033, delta of B-1032): pass. Buyers red, suppliers green; SPY under the 772 flip.",
+  "asof": "2026-10-23T15:00:00-05:00",
+  "session": "close",
+  "basis": "official 10/23 regular-session last trades vs the 10/22 closes",
+  "source": "Robinhood MCP get_equity_quotes (pulled Sat 10/24 22:25 CT)",
+  "note": "Run the market Sat 10/24 (delta of B-1048): weekend, no new tape. UBER B-1042 stop restated to the ATR floor.",
   "quotes": [
     {
       "ticker": "SPY",
-      "last": 762.22,
+      "last": 759.85,
       "prev_close": 763.96,
-      "change_pct": -0.23,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -0.54,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "QQQ",
-      "last": 704.04,
+      "last": 704.39,
       "prev_close": 704.47,
-      "change_pct": -0.06,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -0.01,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "DIA",
-      "last": 524.91,
+      "last": 521.4,
       "prev_close": 527.89,
-      "change_pct": -0.56,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -1.23,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "IWM",
-      "last": 275.27,
+      "last": 275.72,
       "prev_close": 276.67,
-      "change_pct": -0.51,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -0.34,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "SMH",
-      "last": 525.8,
+      "last": 527.05,
       "prev_close": 523.35,
-      "change_pct": 0.47,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": 0.71,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "TLT",
-      "last": 81.56,
+      "last": 81.34,
       "prev_close": 81.74,
-      "change_pct": -0.22,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -0.49,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "META",
-      "last": 644.69,
+      "last": 642.26,
       "prev_close": 648.85,
-      "change_pct": -0.64,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -1.02,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "MSFT",
-      "last": 518.7,
+      "last": 524.525,
       "prev_close": 521.08,
-      "change_pct": -0.46,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": 0.66,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "GOOGL",
-      "last": 323.27,
+      "last": 320.27,
       "prev_close": 324.22,
-      "change_pct": -0.29,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -1.22,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "AMZN",
-      "last": 249.99,
+      "last": 248.045,
       "prev_close": 250.38,
-      "change_pct": -0.16,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -0.93,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "MU",
-      "last": 865.77,
+      "last": 877.11,
       "prev_close": 856.49,
-      "change_pct": 1.08,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": 2.41,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "NVDA",
-      "last": 212.93,
+      "last": 210.9975,
       "prev_close": 212.21,
-      "change_pct": 0.34,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -0.57,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "AMD",
-      "last": 511.5,
+      "last": 516.87,
       "prev_close": 507.93,
-      "change_pct": 0.7,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": 1.76,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "UBER",
-      "last": 68.75,
+      "last": 66.67,
       "prev_close": 69.07,
-      "change_pct": -0.46,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -3.47,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "MRNA",
-      "last": 195.51,
+      "last": 200.05,
       "prev_close": 202.63,
-      "change_pct": -3.51,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -1.27,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     },
     {
       "ticker": "IREN",
-      "last": 25.69,
+      "last": 24.91,
       "prev_close": 25.51,
-      "change_pct": 0.71,
-      "asof": "2026-10-23T06:20:00-05:00",
-      "session": "pre-market"
+      "change_pct": -2.35,
+      "asof": "2026-10-23T15:00:00-05:00",
+      "session": "close"
     }
   ]
 }

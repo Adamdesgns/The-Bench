@@ -4507,6 +4507,22 @@
       "row": "B-1045",
       "expires": "2026-10-30",
       "status": "open"
+    },
+    {
+      "id": "MC-262",
+      "created": "2026-10-24",
+      "when": [
+        {
+          "ticker": "UBER",
+          "op": "<",
+          "level": 65.74
+        }
+      ],
+      "meaning": "B-1049 restated stop: a close under the 1-ATR stop kills the UBER plan (supersedes MC-254 at 65.80)",
+      "source": "site/reviews/2026-10-24-market.md",
+      "row": "B-1049",
+      "expires": "2026-11-03",
+      "status": "open"
     }
   ]
 }
