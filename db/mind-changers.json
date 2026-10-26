@@ -4667,6 +4667,38 @@
       "row": "B-1059",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-272",
+      "created": "2026-10-26",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 755
+        }
+      ],
+      "meaning": "SPY settled under the 755 estimated put wall and king node in negative gamma - the 755-765 box broke, re-judge the B-1061 pass",
+      "source": "docs/reads/2026-10-26-premarket.md",
+      "row": "B-1061",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-273",
+      "created": "2026-10-26",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 765
+        }
+      ],
+      "meaning": "SPY settled over the 765 estimated call wall - the 755-765 box broke up, next shelf the 771.31 gamma flip; re-judge the B-1062 pass",
+      "source": "docs/reads/2026-10-26-sotm.md",
+      "row": "B-1062",
+      "expires": "2026-10-28",
+      "status": "open"
     }
   ]
 }
