@@ -195,6 +195,13 @@ test("Adam's session carries the operator rules and no tag demand; a guest's car
   // Adam, 2026-10-22: "I want him giving them picks based on facts ... Then I decide."
   assert.match(TOPIC_RULES, /my read, not on the book/);
   assert.match(TOPIC_RULES, /Never tell them to buy/);
+  // Adam, 2026-10-25: "he still needs to be tech savvy ... not say no I can't answer that like that kaito question"
+  assert.match(TOPIC_RULES, /launchpads/);
+  assert.match(TOPIC_RULES, /AI and tech companies/);
+  assert.match(TOPIC_RULES, /Never answer with "I can't answer that"/);
+  assert.match(TOPIC_RULES, /EARLIER IN THIS CONVERSATION/);
+  assert.match(TOPIC_RULES, /short greeting .* is ON-TOPIC/);
+  assert.match(TOPIC_RULES, /never pumps a coin or a stock/);
 });
 
 test("an operator answer loses a stray tag and is never turned into the off-topic line", () => {
