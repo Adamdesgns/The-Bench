@@ -16,7 +16,8 @@ import { readFileSync, writeFileSync, existsSync, unlinkSync, mkdirSync } from "
 import { join, resolve, dirname } from "node:path";
 import { homedir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { buildClaudeArgs, checkTools, parseStream, askerOf, framedQuestion, commandOf, answersToday, composeAnswer, secretLeaks, topicGate, operatorBody } from "./ask.mjs";
+import { buildClaudeArgs, checkTools, parseStream, askerOf, framedQuestion, commandOf, answersToday, composeAnswer, secretLeaks, topicGate, operatorBody,
+  recentExchanges, knownTickers, tickersIn, bookFacts, withContext } from "./ask.mjs";
 import { checkWall, loadWall, bennyHome, internalsLeaks } from "../scripts/benny-wall.mjs";
 import { splitForDiscord, ntfyPing } from "../scripts/benny-post.mjs";
 import { nyDate } from "../scripts/paper-book.mjs";
@@ -39,6 +40,20 @@ if (!secrets.bot_token || !secrets.adam_user_id) { console.error("[benny] ~/.ben
 
 const loadQa = () => (existsSync(QA) ? JSON.parse(readFileSync(QA, "utf8")) : { answers: [] });
 function logQa(entry) { const qa = loadQa(); qa.answers.push(entry); writeFileSync(QA, JSON.stringify(qa, null, 2) + "\n"); }
+// Read fresh on every question, so a row logged a minute ago is already in the lookup. A file that is
+// missing or mid-write gives an empty list for that source, never a crash.
+const readList = (file, pick) => { try { return pick(JSON.parse(readFileSync(join(ROOT, "db", file), "utf8"))) || []; } catch { return []; } };
+const loadBookData = () => ({
+  book: readList("archive.json", (x) => x),
+  predictions: readList("predictions.json", (x) => x.predictions),
+  watchers: readList("mind-changers.json", (x) => x.items),
+  benny: readList("benny-book.json", (x) => x.trades),
+});
+function questionWithNotes(question, who, now) {
+  const data = loadBookData();
+  const asked = tickersIn(question, knownTickers(data));
+  return withContext(framedQuestion(question, who), { history: recentExchanges(loadQa(), who.name, now), facts: bookFacts(asked, data), asked });
+}
 const ping = (title, body) => ntfyPing(fetch, title, body).catch((e) => console.error(`[benny] ntfy failed: ${e.message}`));
 
 function runClaude(question, operator) {
@@ -87,7 +102,7 @@ async function handle(m) {
   if (answersToday(loadQa(), base.date, who.name) >= cap) { logQa({ ...base, outcome: "CAPPED" }); await send(m, composeAnswer("Done for today.")); return; }
 
   let s;
-  try { s = parseStream(await runClaude(framedQuestion(question, who), who.adam)); }
+  try { s = parseStream(await runClaude(questionWithNotes(question, who, now), who.adam)); }
   catch (e) { await refuse(m, base, [`claude failed: ${e.message}`]); return; }
   if (!s.init) { await refuse(m, base, ["no init message - the tool list cannot be proven"]); return; }
   const tools = checkTools(s.tools);

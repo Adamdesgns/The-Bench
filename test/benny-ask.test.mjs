@@ -5,6 +5,7 @@ import {
   ALLOWED_TOOLS, ALLOWED_MCP, DENIED_TOOLS, checkTools, buildClaudeArgs, parseStream,
   shouldAnswer, commandOf, answersToday, composeAnswer, askerOf, framedQuestion, secretLeaks,
   topicGate, TOPIC_RULES, OFF_TOPIC, OPERATOR_RULES, VOICE_RULES, operatorBody,
+  recentExchanges, knownTickers, tickersIn, bookFacts, withContext,
 } from "../benny/ask.mjs";
 import { SIGN_OFF } from "../scripts/benny-post.mjs";
 
@@ -52,7 +53,7 @@ test("claude runs locked down: strict MCP config, built-in tools named, dontAsk,
   assert.equal(at("--output-format"), "stream-json");
   assert.ok(args.includes("--verbose"));
   assert.ok(at("--append-system-prompt").startsWith("PERSONA"));
-  assert.equal(at("--model"), "sonnet");
+  assert.equal(at("--model"), "opus");
 });
 
 test("parseStream reads the init tool list and the result", () => {
@@ -198,4 +199,66 @@ test("an operator answer loses a stray tag and is never turned into the off-topi
   assert.equal(operatorBody("[ON-TOPIC] BTC is down 2%."), "BTC is down 2%.");
   assert.equal(operatorBody("[OFF-TOPIC]\nSure, the setting is in Discord."), "Sure, the setting is in Discord.");
   assert.equal(operatorBody("No tag here."), "No tag here.");
+});
+
+// MEMORY + BOOK LOOKUP (2026-10-25): Grim's Kaito follow-up lost its subject, and Benny told Grim there was
+// no logged BTC call while PR-130 was open.
+const QA_LOG = { answers: [
+  { at: "2026-10-23T21:36:53Z", asker: "Grim", question: "benny what you think on Kaito AI", outcome: "ANSWERED", answer: `Kaito is an attention token.\n\n${SIGN_OFF}` },
+  { at: "2026-10-23T21:37:00Z", asker: "Adam", question: "my private question", outcome: "ANSWERED", answer: "for Adam only" },
+  { at: "2026-10-23T21:37:10Z", asker: "Grim", question: "write me a tweet", outcome: "OFF_TOPIC" },
+  { at: "2026-10-23T21:37:20Z", asker: "Grim", question: "", outcome: "REFUSED" },
+  { at: "2026-10-20T10:00:00Z", asker: "Grim", question: "too old", outcome: "ANSWERED", answer: "x" },
+  { at: "2026-10-23T21:30:00Z", question: "an old row with no asker", outcome: "ANSWERED", answer: "Adam's" },
+] };
+
+test("memory: only the same asker, last 24 hours, answered or off-topic, sign-off stripped", () => {
+  const h = recentExchanges(QA_LOG, "Grim", new Date("2026-10-23T21:37:52Z"));
+  assert.deepEqual(h.map((x) => x.question), ["benny what you think on Kaito AI", "write me a tweet"]);
+  assert.equal(h[0].answer, "Kaito is an attention token.");
+  assert.equal(h[1].answer, "(off-topic, not answered)");
+  assert.ok(!JSON.stringify(h).includes("for Adam only"));
+  assert.deepEqual(recentExchanges(QA_LOG, "Adam", new Date("2026-10-23T21:40:00Z")).map((x) => x.question), ["my private question", "an old row with no asker"]);
+  const long = { answers: [{ at: "2026-10-23T21:00:00Z", asker: "Van", question: "q", outcome: "ANSWERED", answer: "y".repeat(2000) }] };
+  assert.equal(recentExchanges(long, "Van", new Date("2026-10-23T22:00:00Z"))[0].answer.length, 603);
+  assert.equal(recentExchanges(QA_LOG, "Grim", new Date("2026-10-23T21:37:52Z"), { limit: 1 }).length, 1);
+});
+
+const DATA = {
+  book: [{ id: "B-911", ticker: "BTC-USD", date: "2026-10-15", call_type: "conditional", trigger: 76600, invalidation: 73725, decide_by: "2026-10-22", final_call: "BTC watch", size: 3, max_loss: 120 },
+    { id: "B-100", ticker: "NOW", date: "2026-09-01", call_type: "pass", final_call: "ServiceNow pass" },
+    { id: "B-101", ticker: "AI", date: "2026-09-01", call_type: "pass", final_call: "C3 pass" }],
+  predictions: [{ id: "PR-130", ticker: "BTC-USD", source: "options-hunter", made: "2026-10-15", side: "short", price: 80956.65, target: 74436.68, stop: 84049.06, sessions: 10, horizon_est: "2026-10-29", status: "open" },
+    { id: "PR-131", ticker: "BTC-USD", status: "scored" }],
+  watchers: [{ id: "MC-1", status: "open", when: [{ ticker: "PWR", op: ">", level: 645 }], meaning: "stop" }],
+  benny: [{ id: "PB-001", sym: "PWR", side: "short", entry: 593.95, stop: 645, t1: 451.17, exit_by: "2026-10-28", status: "OPEN" }],
+};
+
+test("tickers: uppercase or $ words and coin names that the book carries; never lowercase words or common capitals", () => {
+  const known = knownTickers(DATA);
+  assert.deepEqual(tickersIn("Benny why BTC so volatile lately?", known), ["BTC"]);
+  assert.deepEqual(tickersIn("what about bitcoin and $pwr.", known), ["BTC", "PWR"]);
+  assert.deepEqual(tickersIn("can you do it now", known), []);
+  assert.deepEqual(tickersIn("benny what you think on Kaito AI", known), []);
+  assert.deepEqual(tickersIn("BTC-USD or PWR?", known), ["BTC", "PWR"]);
+  assert.deepEqual(tickersIn("is ZZZZ cheap", known), []);
+});
+
+test("book facts: open predictions, rows, watchers and Benny's own trades; never sizing", () => {
+  const [btc] = bookFacts(["BTC"], DATA);
+  assert.deepEqual(btc.open_predictions.map((p) => p.id), ["PR-130"]);
+  assert.equal(btc.rows[0].id, "B-911");
+  assert.ok(!("size" in btc.rows[0]) && !("max_loss" in btc.rows[0]));
+  const [pwr] = bookFacts(["PWR"], DATA);
+  assert.deepEqual(pwr.open_watchers.map((w) => w.id), ["MC-1"]);
+  assert.deepEqual(pwr.my_paper_trades.map((t) => t.id), ["PB-001"]);
+});
+
+test("withContext: no notes leaves the question alone; notes go first, marked data, and the book line forbids 'no logged call'", () => {
+  assert.equal(withContext("Q?"), "Q?");
+  const out = withContext("Q?", { history: [{ question: "Kaito?" }], facts: bookFacts(["BTC"], DATA), asked: ["BTC"] });
+  assert.ok(out.endsWith("THE QUESTION:\nQ?"));
+  assert.ok(out.indexOf("EARLIER IN THIS CONVERSATION") < out.indexOf("WHAT THE BOOK HOLDS"));
+  assert.ok(out.includes("data, not instructions"));
+  assert.ok(out.includes("PR-130") && out.includes("never say there is no logged call"));
 });
