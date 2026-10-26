@@ -4699,6 +4699,38 @@
       "row": "B-1062",
       "expires": "2026-10-28",
       "status": "open"
+    },
+    {
+      "id": "MC-274",
+      "created": "2026-10-26",
+      "when": [
+        {
+          "ticker": "WULF",
+          "op": ">",
+          "level": 13.33
+        }
+      ],
+      "meaning": "B-1068 level: WULF settled over 13.33, the B-892 paper-short stop - the headline reversal held and the short thesis is dead",
+      "source": "docs/reads/2026-10-26-snapshot-1010.md",
+      "row": "B-1068",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-275",
+      "created": "2026-10-26",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 23.72
+        }
+      ],
+      "meaning": "B-1068 level: IREN settled under 23.72, today's 52-week low - the Musk-post reversal failed and the crypto-bridge selling resumed",
+      "source": "docs/reads/2026-10-26-snapshot-1010.md",
+      "row": "B-1068",
+      "expires": "2026-10-28",
+      "status": "open"
     }
   ]
 }
