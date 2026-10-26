@@ -666,8 +666,8 @@
   },
   {
     "sym": "UNH",
-    "status": "DEAD-PLAN",
-    "note": "**B-927 (2026-10-16 09:0x CT, entry check): NO TRADE. First 30-min bar closed 402.045 under the 408.00 zone floor (open 410.35, high 412.17, low 395.52 - under the 396.30 stop and 395.62 kill). 10/14 open gap filled, B-906 plan DEAD, no Monday retry; next close is a fresh look.** **B-906 (2026-10-15 09:19 CT, run the market, rotation leader): FIRST-BAR PLAN. Trigger = the first 30-min bar of Fri 10/16 or Mon 10/19 closes inside 407.48-408.96 (zone_low = stop + 1.0 ATR on the SETTLED bars; ATR 11.176 through 10/14, recompute tonight). LIMIT never above 408.96. STOP 396.30 GTC (just under the 10/14 high 396.44, the bottom of the 10/15 open gap). TARGET 434.30 (7/9 high), 2.00:1 at the ceiling. Size 27 sh from the 350.73 band, risk 341.82, cost about 11,042 = UNFUNDED (BP 702.30), so paper only. HARD EXIT by the Tue 10/27 close, before FOMC 10/28. KILL: a first-bar close under 395.62. Void after the Mon 10/19 first bar. Readiness 77. The close task carries this in armed_not_signaled; the 9:02 entry check tests it and paper-books an ENTER.** Watchers MC-162 (434.30) / MC-163 (396.30); prediction PR-129.",
+    "status": "STALK",
+    "note": "B-1057 (10/25): conditional long. Signal = settled close above 426.55 (20-session high) on >= 8.85M shares; entry next session first 30-min hold, BUY LIMIT 426.55, stop 413.47, target 461.62 (2.68:1), 25 sh at the band. Void under 405.01 (MC-269). Decide by 11/06.",
     "thesis_flag": null,
     "buy_zone": 408.96,
     "floor": 396.3,

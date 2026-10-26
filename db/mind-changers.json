@@ -4523,6 +4523,150 @@
       "row": "B-1049",
       "expires": "2026-11-03",
       "status": "open"
+    },
+    {
+      "id": "MC-263",
+      "created": "2026-10-25",
+      "when": [
+        {
+          "ticker": "EDIT",
+          "op": ">",
+          "level": 2.97
+        }
+      ],
+      "meaning": "B-1051 pass trigger: a close above the 20-session high before the 11/06 AHA oral forces a re-look as a paper run-up; exit by the 11/05 close",
+      "source": "docs/reads/2026-10-25-weekly-catalyst.md",
+      "row": "B-1051",
+      "expires": "2026-11-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-264",
+      "created": "2026-10-25",
+      "when": [
+        {
+          "ticker": "MLYS",
+          "op": ">",
+          "level": 23.37
+        }
+      ],
+      "meaning": "B-1052 pass trigger: a close back above the 10/09 close (the breakdown level) before the 11/08 AHA late-breaker forces a re-look; exit by the 11/05 close",
+      "source": "docs/reads/2026-10-25-weekly-catalyst.md",
+      "row": "B-1052",
+      "expires": "2026-11-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-265",
+      "created": "2026-10-25",
+      "when": [
+        {
+          "ticker": "ACAD",
+          "op": ">",
+          "level": 20.7
+        }
+      ],
+      "meaning": "B-1053 pass trigger: a close above the 20-session high after the 11/04 print forces a re-look for a 11/05-11/13 run-up into CTAD; hard exit 11/13 close",
+      "source": "docs/reads/2026-10-25-weekly-catalyst.md",
+      "row": "B-1053",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-266",
+      "created": "2026-10-25",
+      "when": [
+        {
+          "ticker": "ZLAB",
+          "op": ">",
+          "level": 26.92
+        }
+      ],
+      "meaning": "B-1054 pass trigger: a close above the 20-session high after the 11/05 print forces a re-look for a run-up into the 11/30 povetacicept PDUFA; hard exit 11/27 close",
+      "source": "docs/reads/2026-10-25-weekly-catalyst.md",
+      "row": "B-1054",
+      "expires": "2026-11-27",
+      "status": "open"
+    },
+    {
+      "id": "MC-267",
+      "created": "2026-10-25",
+      "when": [
+        {
+          "ticker": "VRTX",
+          "op": ">",
+          "level": 537.81
+        }
+      ],
+      "meaning": "B-1055 pass trigger: a close above the 20-session high after the 11/02 print forces a re-look for a run-up into the 11/30 povetacicept PDUFA, 560.25 the pivot; hard exit 11/27 close",
+      "source": "docs/reads/2026-10-25-weekly-catalyst.md",
+      "row": "B-1055",
+      "expires": "2026-11-27",
+      "status": "open"
+    },
+    {
+      "id": "MC-268",
+      "created": "2026-10-25",
+      "when": [
+        {
+          "ticker": "UNH",
+          "op": ">",
+          "level": 426.55
+        }
+      ],
+      "meaning": "UNH breakout close: check volume >= 8.85M, then B-1057 entry next session first 30-min hold",
+      "source": "docs/reads/2026-10-25-market.md",
+      "row": "B-1057",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-269",
+      "created": "2026-10-25",
+      "when": [
+        {
+          "ticker": "UNH",
+          "op": "<",
+          "level": 405.01
+        }
+      ],
+      "meaning": "UNH stalk dead: closed more than 1 ATR under Friday, B-1057 void",
+      "source": "docs/reads/2026-10-25-market.md",
+      "row": "B-1057",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-270",
+      "created": "2026-10-25",
+      "when": [
+        {
+          "ticker": "ASPN",
+          "op": ">",
+          "level": 5.93
+        }
+      ],
+      "meaning": "ASPN over its 20-day high: re-look B-1058 only if volume >= 1.49M; exit by 11/04 close",
+      "source": "docs/reads/2026-10-25-market.md",
+      "row": "B-1058",
+      "expires": "2026-11-04",
+      "status": "open"
+    },
+    {
+      "id": "MC-271",
+      "created": "2026-10-25",
+      "when": [
+        {
+          "ticker": "SGRY",
+          "op": "<",
+          "level": 15.75
+        }
+      ],
+      "meaning": "SGRY takeover report gave the whole gap back; re-read B-1059",
+      "source": "docs/reads/2026-10-25-market.md",
+      "row": "B-1059",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }

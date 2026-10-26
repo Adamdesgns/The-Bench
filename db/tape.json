@@ -3,7 +3,7 @@
   "session": "close",
   "basis": "official 10/23 regular-session last trades vs the 10/22 closes",
   "source": "Robinhood MCP get_equity_quotes (pulled Sat 10/24 22:25 CT)",
-  "note": "Run the market Sat 10/24 (delta of B-1048): weekend, no new tape. UBER B-1042 stop restated to the ATR floor.",
+  "note": "Run the market Sun 10/25 20:50 CT: overnight session flat (B-1056). Close quotes unchanged from 10/23.",
   "quotes": [
     {
       "ticker": "SPY",
@@ -133,5 +133,48 @@
       "asof": "2026-10-23T15:00:00-05:00",
       "session": "close"
     }
-  ]
+  ],
+  "overnight": {
+    "asof": "2026-10-25T20:50:00-05:00",
+    "session": "24h overnight",
+    "source": "Robinhood MCP get_equity_quotes last_non_reg_trade_price",
+    "quotes": [
+      {
+        "ticker": "SPY",
+        "last": 760.11,
+        "prev_close": 759.85,
+        "change_pct": 0.03
+      },
+      {
+        "ticker": "QQQ",
+        "last": 703.47,
+        "prev_close": 704.39,
+        "change_pct": -0.13
+      },
+      {
+        "ticker": "IWM",
+        "last": 276.32,
+        "prev_close": 275.72,
+        "change_pct": 0.22
+      },
+      {
+        "ticker": "SMH",
+        "last": 525.69,
+        "prev_close": 527.05,
+        "change_pct": -0.26
+      },
+      {
+        "ticker": "DIA",
+        "last": 521.75,
+        "prev_close": 521.4,
+        "change_pct": 0.07
+      },
+      {
+        "ticker": "TLT",
+        "last": 81.64,
+        "prev_close": 81.34,
+        "change_pct": 0.37
+      }
+    ]
+  }
 }
