@@ -1,0 +1,344 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-10-26",
+  "candidates_receipt": "585ee119",
+  "band": 330.9,
+  "generated": "2026-10-26T20:38:39.778Z",
+  "top": [
+    {
+      "sym": "NI",
+      "side": "long",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 92,
+      "p_dir": 55.43,
+      "p_reach": 18.48,
+      "market_p": 19.63,
+      "disagreement": 35.8,
+      "expiry": "2026-11-20",
+      "days": 19,
+      "long_strike": 45,
+      "short_strike": 50,
+      "cost": 27.5,
+      "max_gain": 472.5,
+      "payoff_ratio": 17.18,
+      "break_even": 45.27,
+      "ev": 75.06,
+      "ev_per_day": 3.95,
+      "stop": 42.7,
+      "target": 44.95,
+      "rr_shares": 2.04
+    },
+    {
+      "sym": "IBIT",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "B",
+      "n": 27,
+      "p_dir": 51.85,
+      "p_reach": 33.33,
+      "market_p": 34.27,
+      "disagreement": 17.58,
+      "expiry": "2026-11-06",
+      "days": 9,
+      "long_strike": 45,
+      "short_strike": 42.5,
+      "cost": 76.5,
+      "max_gain": 173.5,
+      "payoff_ratio": 2.27,
+      "break_even": 44.23,
+      "ev": 20.99,
+      "ev_per_day": 2.33,
+      "stop": 46.4,
+      "target": 42.44,
+      "rr_shares": 2.35
+    },
+    {
+      "sym": "DIS",
+      "side": "long",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 69,
+      "p_dir": 47.83,
+      "p_reach": 23.19,
+      "market_p": 35.63,
+      "disagreement": 12.2,
+      "expiry": "2026-11-06",
+      "days": 9,
+      "long_strike": 110,
+      "short_strike": 115,
+      "cost": 184.5,
+      "max_gain": 315.5,
+      "payoff_ratio": 1.71,
+      "break_even": 111.84,
+      "ev": -23.09,
+      "ev_per_day": -2.57,
+      "stop": 108.32,
+      "target": 115.19,
+      "rr_shares": 2.31
+    }
+  ],
+  "rest": [
+    {
+      "sym": "WULF",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 77,
+      "p_dir": 50.65,
+      "p_reach": 6.49,
+      "market_p": 37.96,
+      "disagreement": 12.69,
+      "expiry": "2026-11-06",
+      "days": 9,
+      "long_strike": 12,
+      "short_strike": 9,
+      "cost": 92.5,
+      "max_gain": 207.5,
+      "payoff_ratio": 2.24,
+      "break_even": 11.07,
+      "ev": -32.18,
+      "ev_per_day": -3.58,
+      "stop": 13.15,
+      "target": 8.6,
+      "rr_shares": 2.9
+    },
+    {
+      "sym": "HIMS",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 73,
+      "p_dir": 58.9,
+      "p_reach": 4.11,
+      "market_p": 35.92,
+      "disagreement": 22.98,
+      "expiry": "2026-11-06",
+      "days": 9,
+      "long_strike": 27.5,
+      "short_strike": 22,
+      "cost": 127,
+      "max_gain": 423,
+      "payoff_ratio": 3.33,
+      "break_even": 26.23,
+      "ev": -34.81,
+      "ev_per_day": -3.87,
+      "stop": 29.49,
+      "target": 21.53,
+      "rr_shares": 3.19
+    },
+    {
+      "sym": "UBER",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 82,
+      "p_dir": 46.34,
+      "p_reach": 6.1,
+      "market_p": 35.5,
+      "disagreement": 10.84,
+      "expiry": "2026-11-06",
+      "days": 9,
+      "long_strike": 66,
+      "short_strike": 59,
+      "cost": 213.5,
+      "max_gain": 486.5,
+      "payoff_ratio": 2.28,
+      "break_even": 63.87,
+      "ev": -84.89,
+      "ev_per_day": -9.43,
+      "stop": 68.9,
+      "target": 59.33,
+      "rr_shares": 2.45
+    }
+  ],
+  "rejected": [
+    {
+      "sym": "GOOGL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "META",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "NVDA",
+      "side": "short",
+      "why": "max loss 374 > band 330.9"
+    },
+    {
+      "sym": "AMD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AVGO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRVL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ANET",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "VRT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "PWR",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "APP",
+      "side": "short",
+      "why": "max loss 980 > band 330.9"
+    },
+    {
+      "sym": "AMAT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AAP",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "NKE",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "PENG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GPRO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SST",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "COHR",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KEEL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ORCL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AAOI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GRAB",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "LITE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "UNH",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "BTC-USD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CEG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CORZ",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "IREN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "APLD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GEV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CRWV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SNDG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "RAM",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ETN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "OXY",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "CBRS",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "XOM",
+      "side": "long",
+      "why": "no marks"
+    }
+  ],
+  "id": "527bf9fd"
+}

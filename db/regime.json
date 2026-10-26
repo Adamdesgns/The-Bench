@@ -1,6 +1,6 @@
 {
-  "asof": "2026-10-23",
-  "generated": "2026-10-23T20:35:02.563Z",
+  "asof": "2026-10-26",
+  "generated": "2026-10-26T20:35:11.305Z",
   "source": "yahoo",
   "label": "CHOP",
   "market_risk": 3,
@@ -9,16 +9,16 @@
   ],
   "next_session_macro": [],
   "inputs": {
-    "spy": 759.969970703125,
-    "sma20": 770.1504974365234,
-    "sma50": 767.8083959960937,
-    "sma200": 727.0063494873046,
-    "vix": 19.450000762939453,
-    "vix_5d_pct": -2.7,
-    "tnx": 4.98799991607666,
-    "tnx_5d_change": -0.11,
-    "iwm_rel_20": -0.73,
-    "qqq_rel_20": -3.91
+    "spy": 765.3699951171875,
+    "sma20": 770.1384979248047,
+    "sma50": 767.5889953613281,
+    "sma200": 727.3856494140625,
+    "vix": 18.389999389648438,
+    "vix_5d_pct": -0.27,
+    "tnx": 4.986000061035156,
+    "tnx_5d_change": -0.15,
+    "iwm_rel_20": -1.05,
+    "qqq_rel_20": -3.27
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }

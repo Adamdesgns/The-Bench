@@ -4920,6 +4920,22 @@
       "row": "B-1075",
       "expires": "2026-10-29",
       "status": "open"
+    },
+    {
+      "id": "MC-286",
+      "created": "2026-10-26",
+      "when": [
+        {
+          "ticker": "IBIT",
+          "op": "<",
+          "level": 45.11
+        }
+      ],
+      "meaning": "hunt-short G1 breakdown fires (settled close under the 20-session low) - re-judge the IBIT short, B-1083, catalyst still owed",
+      "source": "hunt-close-2026-10-26",
+      "row": "B-1083",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }
