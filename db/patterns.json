@@ -1483,5 +1483,104 @@
         "row_ref": "B-758"
       }
     ]
+  },
+  {
+    "id": "P-067",
+    "claim": "When a stock up 100%+ from its run low sells stock or convertibles (prospectus, ATM supplement or convertible 8-K) within 10 sessions of its run high, that filing marks the area of the top: the stock is lower 40 sessions after the filing date",
+    "test": "For every name up 100%+ in 60 sessions or less with an equity/convert filing dated within 10 sessions either side of its run high: 40-session return from the filing-date close. Holds if negative; fails if zero or positive. Count every qualifying filing found, not just the dramatic ones",
+    "first_seen": "2026-10-25",
+    "status": "proposed",
+    "why": "AAOI 424B5 $600M ATM filed 5/14, the morning after its 5/13 all-time high; KEEL $458M convertible 6/4-6/9 two weeks before its peak week. From docs/reads/2026-10-25-bull-run-media.md",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-05-14",
+        "ticker": "AAOI",
+        "detail": "424B5 $600M ATM filed 5/14 (5/13 close 223.10 = run high close); 5/14 close 203.57 -> 125.45 on 7/14, -38.4% at 40 sessions",
+        "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-06-04",
+        "ticker": "KEEL",
+        "detail": "$458M 1.25% convertible priced 6/4, closed 6/9 (8-K 6/10); run high wk 6/22 at 7.37; 6/4 close 5.93 -> 4.20 on 8/3, -29.2% at 40 sessions",
+        "holds": true,
+        "row_ref": null
+      }
+    ]
+  },
+  {
+    "id": "P-068",
+    "claim": "On a stock that runs 100%+, a gain-framed retail-promo piece (up X%, soaring, smart money loading up; Fool, InvestorPlace, 24/7 Wall St, alert sites) lands within 5 sessions either side of the run high; that kind of coverage lags rather than leads",
+    "test": "For each name up 100%+ from its run low with at least one gain-framed retail piece found: is there one dated within 5 sessions of the run high? Holds if yes; fails if every such piece found is more than 5 sessions away. Report the hit rate against the share of the run's sessions that fall inside the 11-session window, so a long coverage stream does not pass by chance",
+    "first_seen": "2026-10-25",
+    "status": "supported",
+    "why": "MU/NBIS Fool 6/23, IONQ Fool 6/3 peak day, KEEL Fool Canada 6/26 peak week, PACB Tickeron/Schaeffer's 9/30-10/1 vs 10/6 high, QSI Benzinga 10/9 high day; misses SNDK, BE, AAOI. docs/reads/2026-10-25-bull-run-media.md",
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-06-23",
+        "ticker": "MU",
+        "detail": "Fool 'smart investors loading up' (MU+NBIS) 6/23; MU high wk 6/22",
+        "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-06-23",
+        "ticker": "NBIS",
+        "detail": "Fool 'soaring' 6/18 and 'loading up' 6/23; high 6/22 intraday",
+        "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-06-03",
+        "ticker": "IONQ",
+        "detail": "Fool 'skyrocketed 59.7% in May' on 6/3, the run-high day",
+        "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-06-26",
+        "ticker": "KEEL",
+        "detail": "Fool Canada 'up 190% this year' 6/26, peak week 6/22",
+        "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-10-01",
+        "ticker": "PACB",
+        "detail": "Tickeron 9/30 and Schaeffer's 10/1 vs 10/6 high (4 sessions)",
+        "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-10-09",
+        "ticker": "QSI",
+        "detail": "Benzinga 10/9 on the 1.66 high day; founder promoted on X",
+        "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-06-22",
+        "ticker": "SNDK",
+        "detail": "Fool 5/6 and Lango 5/7 mid-run; 24/7 7/22 a month after the 6/22 high; none found within 5 sessions",
+        "holds": false,
+        "row_ref": null
+      },
+      {
+        "date": "2026-06-25",
+        "ticker": "BE",
+        "detail": "CNBC meme 4/29, Benzinga momentum 6/1 (17 sessions early); none found within 5 sessions of 6/25 high",
+        "holds": false,
+        "row_ref": null
+      },
+      {
+        "date": "2026-05-13",
+        "ticker": "AAOI",
+        "detail": "Substack 4/4 early, Serenity X 6/1 about 13 sessions after; none found within 5 sessions of 5/13 high",
+        "holds": false,
+        "row_ref": null
+      }
+    ]
   }
 ]
