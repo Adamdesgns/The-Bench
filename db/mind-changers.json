@@ -4731,6 +4731,54 @@
       "row": "B-1068",
       "expires": "2026-10-28",
       "status": "open"
+    },
+    {
+      "id": "MC-276",
+      "created": "2026-10-26",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 771.31
+        }
+      ],
+      "meaning": "B-1069: SPY settled over the 771.31 estimated gamma flip - dealers turn positive gamma and moves damp instead of extend; the negative-gamma box read behind MC-272/MC-273 is stale, re-judge",
+      "source": "docs/reads/2026-10-26-midday.md",
+      "row": "B-1069",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-277",
+      "created": "2026-10-26",
+      "when": [
+        {
+          "ticker": "IBIT",
+          "op": "<",
+          "level": 45.8
+        }
+      ],
+      "meaning": "B-496 Level 1 BTC downtrend tripwire: a settled IBIT close under 45.80 (BTC about 80,560 at the stale 1759 ratio, re-derive) = first lower weekly low of the six-week advance, the first crack; traded 45.375 intraday 10/26 before any close confirmed it. Watch only, buys nothing.",
+      "source": "fastmover-check-2026-10-26",
+      "row": "B-496",
+      "expires": "2026-10-31",
+      "status": "open"
+    },
+    {
+      "id": "MC-278",
+      "created": "2026-10-26",
+      "when": [
+        {
+          "ticker": "IBIT",
+          "op": "<",
+          "level": 42.43
+        }
+      ],
+      "meaning": "B-496 Level 2 BTC invalidation: a settled IBIT close under 42.43 (BTC about 74,640, under the 9/14 week low) = the six-week uptrend is over on any definition. Watch only.",
+      "source": "fastmover-check-2026-10-26",
+      "row": "B-496",
+      "expires": "2026-10-31",
+      "status": "open"
     }
   ]
 }
