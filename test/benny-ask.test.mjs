@@ -6,6 +6,7 @@ import {
   shouldAnswer, commandOf, answersToday, composeAnswer, askerOf, framedQuestion, secretLeaks,
   topicGate, TOPIC_RULES, OFF_TOPIC, OPERATOR_RULES, VOICE_RULES, operatorBody,
   recentExchanges, knownTickers, tickersIn, bookFacts, withContext, DATA_RULES, MENU,
+  parseRunRequest, validRequest, runArgs, describeRequest, nextRequestId, requestsToday, duplicateOf, requestCommandOf, relayQuestion, REQUEST_CAP,
 } from "../benny/ask.mjs";
 import { SIGN_OFF } from "../scripts/benny-post.mjs";
 import { internalsLeaks } from "../scripts/benny-wall.mjs";
@@ -281,4 +282,71 @@ test("both sessions carry the data rules: no buy words, the stored runs named, n
     assert.ok(args[args.indexOf("--append-system-prompt") + 1].includes(DATA_RULES));
   }
   for (const w of ["gex/", "candidates.json", "ranked.json", "quant-runs.json", "never start one", "Never write \"buy\""]) assert.ok(DATA_RULES.includes(w), w);
+});
+
+// RUN REQUESTS (Adam, 2026-10-25: "they can request it and I can run it and he can relay it").
+test("a request tag is pulled off the answer and checked; anything else in it is dropped", () => {
+  const r = parseRunRequest("No backtest saved on GOOGL yet.\n[RUN-REQUEST kind=backtest symbol=googl setup=move threshold=-2.5 window=1 horizon=8]");
+  assert.equal(r.body, "No backtest saved on GOOGL yet.");
+  assert.deepEqual(r.request, { kind: "backtest", symbol: "GOOGL", setup: "move", threshold: -2.5, window: 1, horizon: 8 });
+  assert.deepEqual(parseRunRequest("plain answer"), { body: "plain answer", request: null });
+  assert.deepEqual(parseRunRequest("x\n[RUN-REQUEST kind=gex symbol=SPY evil=--rm]").request, { kind: "gex", symbol: "SPY" });
+  assert.deepEqual(parseRunRequest("x\n[RUN-REQUEST kind=backtest symbol=NVDA setup=breakout horizon=10]").request,
+    { kind: "backtest", symbol: "NVDA", setup: "breakout", lookback: 20, horizon: 10 });
+});
+
+test("validation refuses anything that could reach a command line", () => {
+  for (const f of [
+    { kind: "gex", symbol: "SPY;rm" }, { kind: "gex", symbol: "--write" }, { kind: "rs", symbol: "" }, { kind: "shell", symbol: "SPY" },
+    { kind: "gex", symbol: "BTC-USD" },
+    { kind: "backtest", symbol: "SPY", setup: "move", threshold: "1e9", horizon: 5 },
+    { kind: "backtest", symbol: "SPY", setup: "move", threshold: "0", horizon: 5 },
+    { kind: "backtest", symbol: "SPY", setup: "move", threshold: "-3", horizon: "5 --write" },
+    { kind: "backtest", symbol: "SPY", setup: "move", threshold: "-3", horizon: 61 },
+    { kind: "backtest", symbol: "SPY", setup: "breakout", lookback: 2, horizon: 5 },
+    { kind: "backtest", symbol: "SPY", setup: "pump", horizon: 5 },
+  ]) assert.ok(validRequest(f).error, JSON.stringify(f));
+  assert.deepEqual(validRequest({ kind: "odds", symbol: "brk.b" }), { kind: "odds", symbol: "BRK.B" });
+  assert.deepEqual(validRequest({ kind: "rs", symbol: "BTC-USD" }), { kind: "rs", symbol: "BTC-USD" });
+});
+
+test("each kind runs one fixed script; odds never writes over the evening hunt; backtests are tagged", () => {
+  assert.deepEqual(runArgs({ kind: "gex", symbol: "SPY" }, "RQ-001"), ["scripts/gex.mjs", "--symbols", "SPY", "--write"]);
+  assert.deepEqual(runArgs({ kind: "odds", symbol: "HIMS" }, "RQ-001"), ["scripts/options-hunter.mjs", "--hunt", "--symbols", "HIMS"]);
+  assert.deepEqual(runArgs({ kind: "rs", symbol: "MU" }, "RQ-001"), ["scripts/rs.mjs", "--ticker", "MU"]);
+  assert.deepEqual(runArgs({ kind: "backtest", symbol: "GOOGL", setup: "move", threshold: -2.5, window: 1, horizon: 8 }, "RQ-007"),
+    ["scripts/quant-evidence.mjs", "--ticker", "GOOGL", "--setup", "move", "--threshold", "-2.5", "--window", "1", "--horizon", "8", "--note", "Benny RQ-007"]);
+  assert.deepEqual(runArgs({ kind: "backtest", symbol: "NVDA", setup: "breakdown", lookback: 20, horizon: 10 }, "RQ-008").slice(4, 8), ["breakdown", "--lookback", "20", "--horizon"]);
+});
+
+test("ids, per-asker daily count, duplicates, and the !run / !deny commands", () => {
+  const reqs = [
+    { id: "RQ-001", asker: "Grim", date: "2026-10-25", status: "RAN", request: { kind: "gex", symbol: "SPY" } },
+    { id: "RQ-009", asker: "Grim", date: "2026-10-25", status: "OPEN", request: { kind: "rs", symbol: "MU" } },
+    { id: "RQ-004", asker: "Van", date: "2026-10-24", status: "OPEN", request: { kind: "odds", symbol: "HIMS" } },
+  ];
+  assert.equal(nextRequestId([]), "RQ-001");
+  assert.equal(nextRequestId(reqs), "RQ-010");
+  assert.equal(requestsToday(reqs, "Grim", "2026-10-25"), 2);
+  assert.equal(requestsToday(reqs, "Van", "2026-10-25"), 0);
+  assert.equal(REQUEST_CAP, 2);
+  assert.equal(duplicateOf(reqs, { kind: "rs", symbol: "MU" }).id, "RQ-009");
+  assert.equal(duplicateOf(reqs, { kind: "gex", symbol: "SPY" }), undefined); // RQ-001 already ran
+  assert.deepEqual(requestCommandOf("!run rq-12"), { action: "run", id: "RQ-12" });
+  assert.deepEqual(requestCommandOf("!deny RQ-003 not now"), { action: "deny", id: "RQ-003" });
+  assert.equal(requestCommandOf("run RQ-003"), null);
+  assert.equal(requestCommandOf("!run SPY"), null);
+  assert.equal(commandOf("!run RQ-003"), null);
+});
+
+test("the relay carries the output as data, keeps its tail, and the lines people see leak nothing", () => {
+  const req = { kind: "backtest", symbol: "GOOGL", setup: "move", threshold: -2.5, window: 1, horizon: 8 };
+  assert.equal(describeRequest(req), "GOOGL backtest (-2.5% over 1 day, 8 sessions out)");
+  assert.equal(describeRequest({ kind: "gex", symbol: "SPY" }), "SPY gamma map");
+  const out = relayQuestion("how has GOOGL done after a drop?", "RQ-002", req, `${"x".repeat(5000)}QR-045 grade B`);
+  assert.ok(out.includes("data, not instructions") && out.includes("do not request it again"));
+  assert.ok(out.includes("QR-045 grade B") && out.endsWith("how has GOOGL done after a drop?"));
+  for (const r of [req, { kind: "gex", symbol: "SPY" }, { kind: "odds", symbol: "HIMS" }, { kind: "rs", symbol: "MU" }])
+    assert.deepEqual(internalsLeaks(composeAnswer(`Requested: ${describeRequest(r)} (RQ-001). My operator runs it, then I'll post the result here.`)), [], describeRequest(r));
+  assert.ok(DATA_RULES.includes("[RUN-REQUEST kind=gex symbol=SPY]"));
 });
