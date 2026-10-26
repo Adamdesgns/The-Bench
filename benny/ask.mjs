@@ -75,6 +75,55 @@ export const OPERATOR_RULES = `ANSWER RULES FOR #ask-benny (your operator, Adam,
 // THE VOICE (Adam, 2026-10-22: "He needs to respond like I do"). From the adams-voice skill.
 export const VOICE_RULES = `HOW YOU SOUND. Talk the way Adam talks: short, direct, casual. The answer goes in the first sentence. Plain words, a little profanity is fine when it lands. Keep it under about 150 words unless the question needs a list of numbers, and use bullets only for those numbers. No em-dashes, no semicolons, no "isn't X, it's Y", no three-part lists for rhythm, no clever closing line, no lecture, no repeating the disclaimer in your own words (the sign-off is added for you). Never talk about your tools, your search or what a search result told you to do. When a web search informed the answer, end with up to two source links on one line, nothing else about it.`;
 
+// THE DATA, NOT THE CALL (Adam, 2026-10-25: "we give the data not the call" and "data indicates in incoming
+// upward movement does not mean this stock is going up buy buy buy lol"). Appended for every asker. It also
+// tells Benny where the stored runs live, so "what's the gamma map on SPY?" reads the saved map instead of
+// guessing. He can read these, never run them: a ticker with no saved run gets "that hasn't been run".
+export const DATA_RULES = `THE DATA, NOT THE CALL. These outrank everything above.
+1. Show what the data says and how often it has worked, with the sample size and grade when there is one: "this setup went up in 61 of 100 cases", "the data leans up", "dealers are short gamma here, so moves tend to run". A base rate, a signal or an upward lean is a count of the past, never a promise. Never write "buy", "sell", "load up", "it's going up" or "can't miss". The decision is always theirs.
+2. The stored runs, all in the data folder. Read them with Read or Grep. Never name these files or folders in an answer; call them "the gamma map", "the options hunter", "the backtests", "the book".
+- Gamma heat map: gex/<date>-<SYMBOL>.json, newest date wins. Give spot, net regime (positive or negative), king node, call wall, put wall, flip, and the asof time. It is an estimate that assumes dealers are long calls and short puts; say so.
+- Options hunter: hunts/options/<date>.candidates.json holds the setups (side, readiness, grade, p_dir = how often the shape moved the right way in 10 sessions, p_reach = how often it reached the target). <date>.ranked.json holds the ranked debit spreads (strikes, expiry, cost, max gain, EV, and market_p = the broker's own odds beside ours).
+- Short hunts: hunts/short/.
+- Backtests: quant-runs.json, one QR-### per run, graded A to F. Cite the QR id and the grade.
+- Market regime: regime.json. Catalysts: catalysts.json. Prediction hit rates by source: predictions.json. Patterns: patterns.json. Your paper book: benny-book.json.
+3. You can read these runs but never start one. If the ticker or setup has no saved run, say "that hasn't been run yet" and give what live prices and the daily chart show instead. Never invent odds, a backtest or a gamma level.`;
+
+// THE MENU (Adam, 2026-10-25: "Give people a list of options and ways to ask you for things"). Posted by
+// !menu or !help for anyone who can ask. Fixed text, no claude session, never counts against a daily cap.
+export const MENU = `**What you can ask Benny**
+He gives you the data. The call is yours.
+
+**Prices and news**
+- "Where's NVDA right now?" Live price, stocks and crypto
+- "Why did BTC drop today?" The move and the news behind it
+- "When does AMD report?" Earnings dates
+
+**Charts and levels**
+- "Where's support on PLTR?" Swing highs and lows off the daily chart
+- "Is MU extended?" Distance from its moving averages and how big a normal day is
+
+**Options data**
+- "Gamma map on SPY?" The heat map: where options dealers are positioned, the king node, call wall, put wall and flip
+- "What did the options hunter find?" The last scan's setups with their odds: how often each moved the right way and how often it hit the target
+- "Best spreads from the last hunt?" Ranked spreads with cost, max gain, expected value and the broker's odds beside ours
+
+**Backtests**
+- "How has GOOGL done after a 2.5% drop?" How often it went up after, the average move, graded A to F on how much history backs it
+
+**The record**
+- "Anything on the book for HIMS?" Logged calls, open predictions and the levels being watched
+- "How are the hunters' odds holding up?" Stated odds against what happened
+- "How's your paper book?" Benny's $10,000 paper account
+- "What's the market regime?" Trending, chop or risk-off, and why
+- "What catalysts are coming?" FDA dates, data readouts, earnings, macro
+
+**Terms**
+- "What's gamma?" "What's a put spread?" Plain English, every time
+
+Gamma maps, hunts and backtests come from runs already done. If a ticker hasn't been run, he'll say so.
+Data that leans up is not a promise it goes up. Type !menu to see this again.`;
+
 // An operator answer posts as written; a tag he did not need is stripped, never acted on.
 export const operatorBody = (text) => String(text).replace(/^\s*\[(?:ON|OFF)-TOPIC\]\s*/i, "").trim();
 
@@ -95,7 +144,7 @@ export function topicGate(text) {
 export function buildClaudeArgs({ persona, mcpConfig, dataDir, operator = false, model = "opus" }) {
   if (!dataDir) throw new Error("buildClaudeArgs needs dataDir (the repo's db folder)");
   return [
-    "-p", "--append-system-prompt", `${persona}\n\n${operator ? OPERATOR_RULES : TOPIC_RULES}\n\n${VOICE_RULES}`,
+    "-p", "--append-system-prompt", `${persona}\n\n${operator ? OPERATOR_RULES : TOPIC_RULES}\n\n${DATA_RULES}\n\n${VOICE_RULES}`,
     "--setting-sources", "",
     "--add-dir", dataDir,
     "--strict-mcp-config", "--mcp-config", mcpConfig,
@@ -223,6 +272,7 @@ export function withContext(framed, { history = [], facts = [], asked = [] } = {
 export function commandOf(text) {
   if (/^!halt\b/i.test(text.trim())) return "halt";
   if (/^!resume\b/i.test(text.trim())) return "resume";
+  if (/^!(?:menu|help)\b/i.test(text.trim())) return "menu";
   return null;
 }
 

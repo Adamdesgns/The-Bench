@@ -5,9 +5,10 @@ import {
   ALLOWED_TOOLS, ALLOWED_MCP, DENIED_TOOLS, checkTools, buildClaudeArgs, parseStream,
   shouldAnswer, commandOf, answersToday, composeAnswer, askerOf, framedQuestion, secretLeaks,
   topicGate, TOPIC_RULES, OFF_TOPIC, OPERATOR_RULES, VOICE_RULES, operatorBody,
-  recentExchanges, knownTickers, tickersIn, bookFacts, withContext,
+  recentExchanges, knownTickers, tickersIn, bookFacts, withContext, DATA_RULES, MENU,
 } from "../benny/ask.mjs";
 import { SIGN_OFF } from "../scripts/benny-post.mjs";
+import { internalsLeaks } from "../scripts/benny-wall.mjs";
 
 const ADAM = "111";
 const msg = (o = {}) => ({ content: "What is the stop on B-906?", author: { id: ADAM, bot: false }, channel: { name: "ask-benny" }, ...o });
@@ -261,4 +262,23 @@ test("withContext: no notes leaves the question alone; notes go first, marked da
   assert.ok(out.indexOf("EARLIER IN THIS CONVERSATION") < out.indexOf("WHAT THE BOOK HOLDS"));
   assert.ok(out.includes("data, not instructions"));
   assert.ok(out.includes("PR-130") && out.includes("never say there is no logged call"));
+});
+
+// THE MENU + DATA RULES (Adam, 2026-10-25: "we give the data not the call").
+test("!menu and !help bring up the menu; it fits one Discord message, leaks nothing and never says buy", () => {
+  for (const t of ["!menu", "!help", "!MENU please"]) assert.equal(commandOf(t), "menu", t);
+  assert.equal(commandOf("menu me a ticker"), null);
+  const posted = composeAnswer(MENU);
+  assert.ok(posted.length <= 2000, `menu is ${posted.length} chars`);
+  assert.deepEqual(internalsLeaks(posted), []);
+  assert.ok(!/(buy|sell|load up)/i.test(MENU));
+  for (const w of ["Gamma map", "options hunter", "Backtests", "The call is yours"]) assert.ok(MENU.includes(w), w);
+});
+
+test("both sessions carry the data rules: no buy words, the stored runs named, never run one", () => {
+  for (const operator of [false, true]) {
+    const args = buildClaudeArgs({ persona: "P", mcpConfig: "m", dataDir: "db", operator });
+    assert.ok(args[args.indexOf("--append-system-prompt") + 1].includes(DATA_RULES));
+  }
+  for (const w of ["gex/", "candidates.json", "ranked.json", "quant-runs.json", "never start one", "Never write \"buy\""]) assert.ok(DATA_RULES.includes(w), w);
 });

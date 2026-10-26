@@ -17,7 +17,7 @@ import { join, resolve, dirname } from "node:path";
 import { homedir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { buildClaudeArgs, checkTools, parseStream, askerOf, framedQuestion, commandOf, answersToday, composeAnswer, secretLeaks, topicGate, operatorBody,
-  recentExchanges, knownTickers, tickersIn, bookFacts, withContext } from "./ask.mjs";
+  recentExchanges, knownTickers, tickersIn, bookFacts, withContext, MENU } from "./ask.mjs";
 import { checkWall, loadWall, bennyHome, internalsLeaks } from "../scripts/benny-wall.mjs";
 import { splitForDiscord, ntfyPing } from "../scripts/benny-post.mjs";
 import { nyDate } from "../scripts/paper-book.mjs";
@@ -94,6 +94,8 @@ async function handle(m) {
   const question = m.content.trim();
   const base = { at: now.toISOString(), date: nyDate(now), asker: who.name, question };
   const cmd = commandOf(question);
+  // The menu is for anyone who can ask, even while halted or capped, and costs nothing (fixed text).
+  if (cmd === "menu") { await send(m, composeAnswer(MENU)); logQa({ ...base, outcome: "MENU" }); return; }
   if (cmd && !who.adam) { await m.reply({ content: "Only my operator can do that.", allowedMentions: { parse: [], repliedUser: false } }); return; }
   if (cmd === "halt") { writeFileSync(HALT, `halted by Adam in #ask-benny ${base.at}\n`); await m.reply("Halted. Nothing posts and I answer nothing until !resume."); return; }
   if (cmd === "resume") { if (existsSync(HALT)) unlinkSync(HALT); await m.reply("Resumed."); return; }

@@ -152,11 +152,12 @@ This channel is how you check whether Benny is any good. Paper trades only.
 
 ===== #ask-benny =====
 **What this channel is**
-Ask Benny about a ticker, a setup, or a trading term. He reads live market data and answers in plain English.
-- Right now he answers the server owner only, up to 20 questions a day. Everyone can read the answers.
-- Good questions: "Where would a stop go on NVDA?", "What is ATR?", "Is AMD extended?"
+Ask Benny about a ticker, a setup, options data, a backtest or a trading term. He gives you the data. The call is yours.
+- Type **!menu** for everything you can ask: live prices and news, chart levels, the gamma heat map, the options hunter's odds, ranked spreads, backtests, the book and the hunters' record.
+- He answers the owner and invited members, each with a daily limit. Everyone can read the answers.
+- Data that leans up is not a promise it goes up. He never says buy or sell.
 - He never places orders and never talks about anyone's real account.
-Not financial advice.
+Paper trades only. Not financial advice. Educational only.
 
 ===== #general =====
 **What this channel is**
