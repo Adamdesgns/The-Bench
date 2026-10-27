@@ -4936,6 +4936,118 @@
       "row": "B-1083",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-287",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 770
+        }
+      ],
+      "meaning": "B-1085: SPY settled over the 770 estimated call wall (re-struck from 765 overnight) in negative gamma - the 750-770 box broke up, next number the 770.75 flip; re-judge the pass",
+      "source": "docs/reads/2026-10-27-premarket.md",
+      "row": "B-1085",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-288",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "KWEB",
+          "op": "<",
+          "level": 22.93
+        }
+      ],
+      "meaning": "short gate trigger: re-look, check volume >= 1.5x before any spread",
+      "source": "docs/reads/2026-10-27-china-run.md",
+      "row": "B-1086",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-289",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "KWEB",
+          "op": ">",
+          "level": 24.22
+        }
+      ],
+      "meaning": "back over the 20 SMA: short idea dead",
+      "source": "docs/reads/2026-10-27-china-run.md",
+      "row": "B-1086",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-290",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "FXI",
+          "op": "<",
+          "level": 32.16
+        }
+      ],
+      "meaning": "short gate trigger: re-look, check volume >= 1.5x",
+      "source": "docs/reads/2026-10-27-china-run.md",
+      "row": "B-1087",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-291",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "FXI",
+          "op": ">",
+          "level": 33.56
+        }
+      ],
+      "meaning": "back over the 20 SMA: short idea dead",
+      "source": "docs/reads/2026-10-27-china-run.md",
+      "row": "B-1087",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-292",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "BABA",
+          "op": "<",
+          "level": 99.46
+        }
+      ],
+      "meaning": "short gate trigger: re-look, check volume >= 1.5x",
+      "source": "docs/reads/2026-10-27-china-run.md",
+      "row": "B-1088",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-293",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "BABA",
+          "op": ">",
+          "level": 107.45
+        }
+      ],
+      "meaning": "back over the 20 SMA: short idea dead",
+      "source": "docs/reads/2026-10-27-china-run.md",
+      "row": "B-1088",
+      "expires": "2026-11-03",
+      "status": "open"
     }
   ]
 }
