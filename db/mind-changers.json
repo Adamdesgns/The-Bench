@@ -3802,7 +3802,8 @@
       "source": "chat-2026-10-19",
       "row": "B-968",
       "expires": "2026-10-26",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-27"
     },
     {
       "id": "MC-220",
@@ -3818,7 +3819,8 @@
       "source": "chat-2026-10-19",
       "row": "B-968",
       "expires": "2026-10-26",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-27"
     },
     {
       "id": "MC-221",
@@ -3834,7 +3836,8 @@
       "source": "chat-2026-10-19",
       "row": "B-968",
       "expires": "2026-10-26",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-27"
     },
     {
       "id": "MC-222",
@@ -3966,7 +3969,8 @@
       "source": "docs/reads/2026-10-19-hunt-close.md",
       "row": "B-982",
       "expires": "2026-10-26",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-27"
     },
     {
       "id": "MC-229",
@@ -3982,7 +3986,8 @@
       "source": "docs/reads/2026-10-19-hunt-close.md",
       "row": "B-983",
       "expires": "2026-10-26",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-10-27"
     },
     {
       "id": "MC-230",
@@ -4268,7 +4273,9 @@
       "source": "docs/reads/2026-10-22-snapshot-1012.md",
       "row": "B-1022",
       "expires": "2026-10-28",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-27",
+      "fired_detail": "GEV 895.52 > 895.18 yes"
     },
     {
       "id": "MC-246",
@@ -4319,7 +4326,9 @@
       "source": "docs/reads/2026-10-22-close.md",
       "row": "B-1028",
       "expires": "2026-10-29",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-27",
+      "fired_detail": "QQQ 721.24 > 720 yes"
     },
     {
       "id": "MC-249",
@@ -4415,7 +4424,9 @@
       "source": "chat 2026-10-23 B-1031",
       "row": "B-1031",
       "expires": "2026-11-03",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-27",
+      "fired_detail": "UBER 65.78 < 65.8 yes"
     },
     {
       "id": "MC-255",
@@ -4871,7 +4882,9 @@
       "source": "docs/reads/2026-10-26-powerhour.md",
       "row": "B-1073",
       "expires": "2026-10-28",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-27",
+      "fired_detail": "META 620.12 < 629.02 yes"
     },
     {
       "id": "MC-283",
@@ -4887,7 +4900,9 @@
       "source": "docs/reads/2026-10-26-close.md",
       "row": "B-1074",
       "expires": "2026-10-28",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-27",
+      "fired_detail": "SPY 769.72 > 767.73 yes"
     },
     {
       "id": "MC-284",
@@ -4919,7 +4934,9 @@
       "source": "docs/reads/2026-10-26-close.md",
       "row": "B-1075",
       "expires": "2026-10-29",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-27",
+      "fired_detail": "QQQ 721.24 > 720 yes"
     },
     {
       "id": "MC-286",
@@ -5111,7 +5128,9 @@
       "source": "docs/reads/2026-10-27-sotm.md",
       "row": "B-1091",
       "expires": "2026-10-29",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-10-27",
+      "fired_detail": "QQQ 721.24 > 720 yes"
     },
     {
       "id": "MC-298",
@@ -5223,6 +5242,118 @@
       "source": "interactive 2026-10-27 BTC hunters",
       "row": "B-1099",
       "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-305",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 769.01
+        }
+      ],
+      "meaning": "B-1102 - SPY settled under 769.01, the 11:30-14:00 CT band low - the three-hour pin at the 770 call wall resolved down in the closing auction; re-judge the pass and the chip-bid-into-prints read",
+      "source": "docs/reads/2026-10-27-powerhour.md",
+      "row": "B-1102",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-306",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": "<",
+          "level": 720.31
+        }
+      ],
+      "meaning": "B-1102 - QQQ settled under 720.31, its low since 10:30 CT - the three-and-a-half-hour hold over the 720 call wall failed in the last hour, the chip bid was positioning that did not survive the day it was built",
+      "source": "docs/reads/2026-10-27-powerhour.md",
+      "row": "B-1102",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-307",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": "<",
+          "level": 712.2
+        }
+      ],
+      "meaning": "B-1103 trigger: QQQ settled back under Monday's 712.20 close after the MSFT/GOOGL prints - the two-day chip bid filled, it was positioning that the capex number did not support; re-judge the pass",
+      "source": "docs/reads/2026-10-27-close.md",
+      "row": "B-1103",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-308",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 724.68
+        }
+      ],
+      "meaning": "B-1103 trigger: QQQ settled over the 724.68 est gamma flip - dealers turn positive gamma over the prints, the chip bid extended on information; long re-look on the silicon layer",
+      "source": "docs/reads/2026-10-27-close.md",
+      "row": "B-1103",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-309",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 770
+        }
+      ],
+      "meaning": "B-1104 passed plan trigger fired - re-judge: SPY settled over the 770 est call wall after the Fed and the MSFT/GOOGL prints; the three-session pin under the wall resolved up on information",
+      "source": "docs/reads/2026-10-27-close.md",
+      "row": "B-1104",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-310",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 765.21
+        }
+      ],
+      "meaning": "B-1104 passed plan trigger fired - re-judge: SPY settled under 765.21, Tuesday's low - the pin under 770 broke down on the Fed or the prints and Tuesday's gain is gone",
+      "source": "docs/reads/2026-10-27-close.md",
+      "row": "B-1104",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-311",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "DELL",
+          "op": "<",
+          "level": 474
+        }
+      ],
+      "meaning": "B-1097: DELL closed back under 474.00, the 10/27 open - the squeeze got sold and the box layer was the wrong side into the MSFT/GOOGL prints",
+      "source": "docs/reads/2026-10-27-snapshot-1010.md",
+      "row": "B-1097",
+      "expires": "2026-10-30",
       "status": "open"
     }
   ]
