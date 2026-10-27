@@ -1,24 +1,27 @@
 {
-  "asof": "2026-10-26",
-  "generated": "2026-10-27T11:13:20.321Z",
+  "asof": "2026-10-27",
+  "generated": "2026-10-27T20:35:26.126Z",
   "source": "yahoo",
-  "label": "CHOP",
-  "market_risk": 3,
+  "label": "EVENT",
+  "market_risk": 2,
   "reasons": [
+    "macro release on the next session overrides CHOP",
     "SPY inside +/-1.5% of its 20 SMA for 10 straight sessions with a flat 20 SMA"
   ],
-  "next_session_macro": [],
+  "next_session_macro": [
+    "FOMC decision (no SEP), 2:00 PM ET statement + 2:30 PM ET press conference - Oct 27-28 meeting"
+  ],
   "inputs": {
-    "spy": 765.3699951171875,
-    "sma20": 770.1384979248047,
-    "sma50": 767.5889953613281,
-    "sma200": 727.3856494140625,
-    "vix": 17.90999984741211,
-    "vix_5d_pct": 3.47,
-    "tnx": 4.986000061035156,
-    "tnx_5d_change": -0.15,
-    "iwm_rel_20": -1.05,
-    "qqq_rel_20": -3.27
+    "spy": 769.6599731445312,
+    "sma20": 770.4114959716796,
+    "sma50": 767.5287951660156,
+    "sma200": 727.7635992431641,
+    "vix": 17.520000457763672,
+    "vix_5d_pct": 1.21,
+    "tnx": 4.993000030517578,
+    "tnx_5d_change": -0.124,
+    "iwm_rel_20": -0.3,
+    "qqq_rel_20": -2.97
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }

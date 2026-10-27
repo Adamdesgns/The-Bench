@@ -5355,6 +5355,134 @@
       "row": "B-1097",
       "expires": "2026-10-30",
       "status": "open"
+    },
+    {
+      "id": "MC-312",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "META",
+          "op": ">",
+          "level": 647.69
+        }
+      ],
+      "meaning": "hunter short stop (PR-170, B-1114) - hunter call stopped, re-judge",
+      "source": "docs/reads/2026-10-27-hunt-close.md",
+      "row": "B-1114",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-313",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "META",
+          "op": "<",
+          "level": 561.52
+        }
+      ],
+      "meaning": "hunter short target (PR-170, B-1114) - hunter call reached, re-judge the pass",
+      "source": "docs/reads/2026-10-27-hunt-close.md",
+      "row": "B-1114",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-314",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "PENG",
+          "op": ">",
+          "level": 77.4
+        }
+      ],
+      "meaning": "hunter long target (PR-173) - hunter call reached",
+      "source": "docs/reads/2026-10-27-hunt-close.md",
+      "row": "B-1114",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-315",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "PENG",
+          "op": "<",
+          "level": 51.42
+        }
+      ],
+      "meaning": "hunter long stop (PR-173) - hunter call stopped",
+      "source": "docs/reads/2026-10-27-hunt-close.md",
+      "row": "B-1114",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-316",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "ORCL",
+          "op": "<",
+          "level": 114.55
+        }
+      ],
+      "meaning": "hunter short target (PR-174) - hunter call reached",
+      "source": "docs/reads/2026-10-27-hunt-close.md",
+      "row": "B-1114",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-317",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "ORCL",
+          "op": ">",
+          "level": 137.32
+        }
+      ],
+      "meaning": "hunter short stop (PR-174) - hunter call stopped",
+      "source": "docs/reads/2026-10-27-hunt-close.md",
+      "row": "B-1114",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-318",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "KRKNF",
+          "op": "<",
+          "level": 2.39
+        }
+      ],
+      "meaning": "hunter short target (PR-175) - hunter call reached",
+      "source": "docs/reads/2026-10-27-hunt-close.md",
+      "row": "B-1114",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-319",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "KRKNF",
+          "op": ">",
+          "level": 3.07
+        }
+      ],
+      "meaning": "hunter short stop (PR-175) - hunter call stopped",
+      "source": "docs/reads/2026-10-27-hunt-close.md",
+      "row": "B-1114",
+      "expires": "2026-11-10",
+      "status": "open"
     }
   ]
 }
