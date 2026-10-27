@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import {
   ALLOWED_TOOLS, ALLOWED_MCP, DENIED_TOOLS, checkTools, buildClaudeArgs, parseStream,
   shouldAnswer, commandOf, answersToday, composeAnswer, askerOf, framedQuestion, secretLeaks,
-  topicGate, TOPIC_RULES, OFF_TOPIC, OPERATOR_RULES, VOICE_RULES, operatorBody,
+  topicGate, TOPIC_RULES, OFF_TOPIC, OPERATOR_RULES, VOICE_RULES, WRITE_RULES, operatorBody,
   recentExchanges, knownTickers, tickersIn, bookFacts, withContext, DATA_RULES, MENU,
   parseRunRequest, validRequest, runArgs, describeRequest, nextRequestId, requestsToday, duplicateOf, requestCommandOf, relayQuestion, REQUEST_CAP,
 } from "../benny/ask.mjs";
@@ -190,6 +190,12 @@ test("Adam's session carries the operator rules and no tag demand; a guest's car
   assert.ok(rules(false).includes(TOPIC_RULES) && rules(false).includes(VOICE_RULES));
   assert.ok(!rules(false).includes(OPERATOR_RULES));
   assert.ok(rules().includes(TOPIC_RULES), "operator defaults to false");
+  // 2026-10-27: everyone can get a tweet in CMS style, and a guest's topic list calls it on-topic.
+  assert.ok(rules(true).includes(WRITE_RULES) && rules(false).includes(WRITE_RULES));
+  assert.match(TOPIC_RULES, /tweet, thread, reply or caption about market, crypto or tech news is ON-TOPIC when it sticks to facts/);
+  assert.match(WRITE_RULES, /ALL-CAPS first line/);
+  assert.match(WRITE_RULES, /ONE \$cashtag/);
+  assert.match(WRITE_RULES, /Never write buy, sell/);
   assert.match(OPERATOR_RULES, /not on the board|any ticker/i);
   assert.match(TOPIC_RULES, /airdrop/i);
   // Adam, 2026-10-22: "I want him giving them picks based on facts ... Then I decide."

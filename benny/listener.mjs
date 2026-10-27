@@ -12,7 +12,7 @@
 
 import { Client, Events, GatewayIntentBits } from "discord.js";
 import { spawn } from "node:child_process";
-import { readFileSync, writeFileSync, existsSync, unlinkSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, appendFileSync, existsSync, unlinkSync, mkdirSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { homedir } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -84,8 +84,13 @@ async function send(m, text) {
   }
 }
 
-async function refuse(m, base, reasons) {
+// A refused draft is kept on this PC only (~/.benny/refused.jsonl, never committed), because the reason it
+// was refused may be that it carried a real account number. Adam reads it to tell a right block from a
+// false one (2026-10-27: Grim's 10/26 news answer was refused and nothing showed what it said).
+const REFUSED = join(bennyHome(), "refused.jsonl");
+async function refuse(m, base, reasons, draft = null) {
   logQa({ ...base, outcome: "REFUSED", reasons });
+  if (draft) { try { appendFileSync(REFUSED, JSON.stringify({ ...base, reasons, draft }) + "\n"); } catch (e) { console.error(`[benny] refused draft not saved: ${e.message}`); } }
   await ping("BENNY ANSWER REFUSED", `From: ${base.asker}
 Question: ${base.question}\n\n${reasons.map((r) => `- ${r}`).join("\n")}`);
   await m.reply({ content: NO_ANSWER, allowedMentions: { parse: [], repliedUser: false } });
@@ -101,21 +106,23 @@ async function answer(m, base, who, prompt, { relay = null } = {}) {
   if (!s.init) { await refuse(m, base, ["no init message - the tool list cannot be proven"]); return; }
   const tools = checkTools(s.tools);
   if (!tools.ok) { await refuse(m, base, [`tools outside the allowlist were visible: ${tools.bad.join(", ")}`]); return; }
-  if (s.isError || !s.result) { await refuse(m, base, [`claude returned an error or no answer${s.result ? `: ${String(s.result).slice(0, 200)}` : ""}`]); return; }
+  if (s.isError || !s.result) { await refuse(m, base, [`claude returned an error or no answer${s.result ? `: ${String(s.result).slice(0, 200)}` : ""}`], s.result || null); return; }
   // Adam has no topic gate (operator rules); a guest answer must carry its tag.
   const topic = who.adam ? { ok: true, body: operatorBody(s.result) } : topicGate(s.result);
-  if (topic.offTopic) { await send(m, composeAnswer(topic.body)); logQa({ ...base, outcome: "OFF_TOPIC" }); return; }
-  if (!topic.ok) { await refuse(m, base, [`topic: ${topic.reason}`]); return; }
-  const { body, request } = parseRunRequest(topic.body);
+  if (!topic.ok && !topic.offTopic) { await refuse(m, base, [`topic: ${topic.reason}`], s.result); return; }
+  // An off-topic reply goes through the same checks as an answer (it used to be sent unchecked), and
+  // its text is logged like one (2026-10-27).
+  const { body, request } = topic.offTopic ? { body: topic.body, request: null } : parseRunRequest(topic.body);
   const filed = relay ? null : fileRequest(m, base, who, request);
   const text = composeAnswer(filed ? `${body}\n\n${filed}` : body);
   const wall = checkWall(text, loadWall(), now);
-  if (!wall.ok) { await refuse(m, base, wall.reasons.map((r) => `wall: ${r}`)); return; }
+  if (!wall.ok) { await refuse(m, base, wall.reasons.map((r) => `wall: ${r}`), text); return; }
   const leaks = secretLeaks(text, secrets);
-  if (leaks.length) { await refuse(m, base, leaks.map((r) => `secret: ${r}`)); return; }
+  if (leaks.length) { await refuse(m, base, leaks.map((r) => `secret: ${r}`), text); return; }
   const inside = internalsLeaks(text);
-  if (inside.length) { await refuse(m, base, inside.map((r) => `internals: ${r}`)); return; }
+  if (inside.length) { await refuse(m, base, inside.map((r) => `internals: ${r}`), text); return; }
   await send(m, text);
+  if (topic.offTopic) { logQa({ ...base, outcome: "OFF_TOPIC", answer: text }); return; }
   logQa({ ...base, outcome: relay ? "RELAYED" : "ANSWERED", answer: text, cost_usd: s.cost, ...(relay ? { request_id: relay } : {}) });
 }
 

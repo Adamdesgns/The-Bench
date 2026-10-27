@@ -90,7 +90,28 @@ test("an answer or post that names the repo, a branch, GitHub, a file or the mod
     "The system prompt says otherwise.",
     "scripts/benny-wall.mjs refuses that.",
     "I read it with an mcp tool.",
+    "I'm Claude, an AI model.",
+    "I’m built on Anthropic's model.",
+    "Benny is powered by Claude Opus.",
+    "My model is Sonnet, so I can be wrong.",
+    "That change is on the main branch now.",
+    "Your repo has the book in it.",
   ]) assert.ok(internalsLeaks(t).length > 0, t);
+});
+
+// 2026-10-26: Grim asked for market news and got "Not answering this one" because the news named
+// Anthropic. The check is about Benny describing himself, not about a company in a headline.
+test("market news that names Anthropic, Claude, repo or branches passes the internals check", () => {
+  for (const t of [
+    "Anthropic raised $30B, and Amazon and Google both own a piece of it.",
+    "Claude usage is one reason Google Cloud grew 34% last quarter.",
+    "The Fed's reverse repo facility drained $40B overnight.",
+    "Repo rates spiked at month-end, a sign banks are short on cash.",
+    "JPMorgan is closing 50 branches this year.",
+    "OpenAI and Anthropic are both raising money, which feeds the AI capex trade.",
+    "I'm watching Anthropic's raise because it feeds the chip trade.",
+    "Benny is tracking Claude adoption as a cloud demand signal.",
+  ]) assert.deepEqual(internalsLeaks(t), [], t);
 });
 
 test("plain finance text passes the internals check", () => {

@@ -105,16 +105,27 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
 // guest he was "running in your repo on the v29-hunter-handoff branch". Nothing about how Benny is
 // built reaches Discord: no repo, branch, GitHub, account name, file, folder path, settings file, tool
 // plumbing or the model behind him. Runs in the listener and in the post door. Returns reasons, [] = clean.
+// 2026-10-27: "repo", "branch", "Claude" and "Anthropic" are also market words (the Fed's repo facility,
+// a bank closing branches, Anthropic in AI news). Grim's 10/26 news question was refused for naming
+// Anthropic. So the money-market repo phrases are taken out before the repo test, a branch only counts
+// in a code sense, and the model test only fires when Benny is describing himself.
+const MARKET_REPO = /\breverse\s+repos?\b|\brepos?\s+(?:rates?|markets?|facilit(?:y|ies)|operations?|funding|lending|agreements?|desks?|spikes?|volumes?)\b/gi;
+const MODEL_WORD = String.raw`\b(?:claude|anthropic|opus|sonnet|haiku|fable)\b`;
+const SELF_MODEL = { test: (t) =>
+  // "I'm Claude", "Benny is an AI model called Claude": the name right after the self-description.
+  new RegExp(String.raw`\b(?:i\s*(?:['’]m|am)|benny\s+is)\s+(?:just\s+)?(?:an?\s+)?(?:ai\s+)?(?:model\s+)?(?:called\s+|named\s+)?${MODEL_WORD}`, "i").test(t)
+  // "I run on Claude", "powered by Claude Opus", "my model is Sonnet": how he is built, within a short phrase.
+  || new RegExp(String.raw`(?:\bi\s+(?:run|was\s+(?:built|made|trained))\b|\b(?:built|made|powered|trained|running|runs)\s+(?:on|by|with)\b|\bmy\s+(?:model|brain|engine)\b)[^.!?\n]{0,30}${MODEL_WORD}`, "i").test(t) };
 const INTERNALS = [
-  [/\brepo(?:s|sitor(?:y|ies))?\b/i, "the repo"],
-  [/\bbranch(?:es)?\b|\bhunter-handoff\b/i, "a branch"],
+  [{ test: (t) => /\brepo(?:s|sitor(?:y|ies))?\b/i.test(t.replace(MARKET_REPO, " ")) }, "the repo"],
+  [/\b(?:git|code|feature|main|master|dev|v\d+[\w-]*)\s+branch(?:es)?\b|\bon\s+the\s+`[\w-]+`\s+branch\b|\bhunter-handoff\b/i, "a branch"],
   [/\bgit(?:hub)?\b/i, "git or GitHub"],
   [/adamdesgns/i, "the GitHub account"],
   [/\bclaude\.md\b|\bsystem prompt\b|\bpersona\b/i, "his instructions"],
   [/\b[\w-]+\.(?:mjs|cjs|js|ts|json|md|ps1|py|log)\b/i, "a file name"],
   [/\b(?:db|scripts|docs|prompts|benny|site|server|test|apps)[\\/][\w.\\/-]*/i, "a folder path"],
   [/\b[A-Z]:\\|\\Users\\|~[\\/]\./, "a disk path"],
-  [/\bclaude\b|\banthropic\b/i, "the model behind him"],
+  [SELF_MODEL, "the model behind him"],
   [/\bmcp\b|robinhood-trading/i, "the tool plumbing"],
 ];
 export function internalsLeaks(text) {
