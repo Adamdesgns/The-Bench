@@ -5080,6 +5080,70 @@
       "row": "B-1089",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-296",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": "<",
+          "level": 712.2
+        }
+      ],
+      "meaning": "B-1091: QQQ settled back under Monday's 712.20 close - the +0.7 chip gap filled on Fed day one, the pre-market bid was air; re-judge the pass and the crypto-bridge read",
+      "source": "docs/reads/2026-10-27-sotm.md",
+      "row": "B-1091",
+      "expires": "2026-10-28",
+      "status": "open"
+    },
+    {
+      "id": "MC-297",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 720
+        }
+      ],
+      "meaning": "B-1091: QQQ settled over the 720 estimated call wall on the chip bid, same test as MC-285; re-judge the pass",
+      "source": "docs/reads/2026-10-27-sotm.md",
+      "row": "B-1091",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-298",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": ">",
+          "level": 324.22
+        }
+      ],
+      "meaning": "B-1096: GOOGL closed back over the 10/22 close after the print; long re-look if the guide raised cloud/capex",
+      "source": "interactive 2026-10-27 GOOGL",
+      "row": "B-1096",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-299",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": "<",
+          "level": 314.9
+        }
+      ],
+      "meaning": "B-1096: GOOGL closed under the 7/23 post-earnings gap low; short re-look if volume was 1.5x",
+      "source": "interactive 2026-10-27 GOOGL",
+      "row": "B-1096",
+      "expires": "2026-10-30",
+      "status": "open"
     }
   ]
 }
