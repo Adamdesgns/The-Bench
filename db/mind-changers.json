@@ -5048,6 +5048,38 @@
       "row": "B-1088",
       "expires": "2026-11-03",
       "status": "open"
+    },
+    {
+      "id": "MC-294",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 222.19
+        }
+      ],
+      "meaning": "trigger close for the NVDA conditional long: re-look, check volume >= 20-day avg and that it came after the MSFT/GOOGL prints",
+      "source": "docs/reads/2026-10-27-china-run.md",
+      "row": "B-1089",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-295",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 210.18
+        }
+      ],
+      "meaning": "double bottom broken: NVDA long idea dead",
+      "source": "docs/reads/2026-10-27-china-run.md",
+      "row": "B-1089",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }
