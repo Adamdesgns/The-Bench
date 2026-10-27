@@ -5144,6 +5144,86 @@
       "row": "B-1096",
       "expires": "2026-10-30",
       "status": "open"
+    },
+    {
+      "id": "MC-300",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "DELL",
+          "op": ">",
+          "level": 507.93
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1097: DELL closed over the 10/14 Barclays-downgrade close; the gap shut, with or without the MSFT/GOOGL capex information",
+      "source": "docs/reads/2026-10-27-snapshot-1010.md",
+      "row": "B-1097",
+      "expires": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "id": "MC-301",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 770.75
+        }
+      ],
+      "meaning": "B-1098: SPY settled over the 770.75 re-struck gamma flip - dealers turn positive gamma, extension stops being the default; the 750-770 box is gone, re-judge the pass",
+      "source": "docs/reads/2026-10-27-midday.md",
+      "row": "B-1098",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-302",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 765.21
+        }
+      ],
+      "meaning": "B-1098: SPY settled under 765.21, today's low - the touch of 770 and 771.07 was a midday question answered no, the day's gain is gone before a single print; re-judge the pass and the book's shorts",
+      "source": "docs/reads/2026-10-27-midday.md",
+      "row": "B-1098",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-303",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": ">",
+          "level": 85594.55
+        }
+      ],
+      "meaning": "B-1099: BTC closed over its 20-day high; long breakout re-look if volume was 1.5x and it came after the Fed",
+      "source": "interactive 2026-10-27 BTC hunters",
+      "row": "B-1099",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-304",
+      "created": "2026-10-27",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": "<",
+          "level": 79145.54
+        }
+      ],
+      "meaning": "B-1099: BTC closed under its 20-day low; short gate G1 re-look on 1.5x volume, re-run hunt-short for a floor that pays 2:1 (paper only, RH crypto cannot short)",
+      "source": "interactive 2026-10-27 BTC hunters",
+      "row": "B-1099",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }
