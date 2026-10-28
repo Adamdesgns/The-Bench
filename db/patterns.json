@@ -50,6 +50,13 @@
         "detail": "Ran into the print: 825.79 to 895.08 Tuesday close (+8.4 pct). Beat 4.81 vs 4.01, FY26 revenue view raised, plus a 9B Trench Group acquisition. 912 pre-market (+1.9) then 847.20 at 08:44 CT, -5.3 pct. Beat sold.",
         "holds": true,
         "row_ref": null
+      },
+      {
+        "date": "2026-10-28",
+        "ticker": "GEV",
+        "detail": "CORRECTION at 11:32 CT of the 08:48 instance, both left in place per append-only. The 08:48 instance measured the run from 825.79, the paper short's entry, not the pattern's test. On the test (5 sessions before the print: 10/21 close 925.92 to 10/27 close 895.08) GEV went in DOWN 3.3 pct, so it never met the 8 pct gate and does not qualify as an instance. Reaction so far: 836.24 low (-6.6 pct), 889.11 at 11:32 CT (-0.7 pct); the sold beat has been bought back to within 6 of flat before the close. Same measurement error the HPE 9/3 correction named.",
+        "holds": false,
+        "row_ref": null
       }
     ]
   },
@@ -250,6 +257,13 @@
         "ticker": "VRT",
         "detail": "Sold into the print: 215.70 to 208.56 Tuesday close (-3.3 pct). Beat 2.21 vs 1.82, sales 4.31B vs 3.76B, FY raised. 236.85 at 08:44 CT, +13.6 pct, holding most of the 245 pre-market gap.",
         "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-10-28",
+        "ticker": "VRT",
+        "detail": "CORRECTION at 11:32 CT of the two 10/28 instances, left in place per append-only. On the test's own baseline (5 sessions before the print: 10/20 close 203.56 to 10/27 close 208.56) VRT went in UP 2.5 pct, not down; the -3.3 pct came from the paper short's 215.70 entry and the -21 pct from a month of wires. Not an 8 pct runner, so it does not qualify under the test as written. The bought beat (237.56 at 11:32, +13.9 pct, inside 228.82-241.55) is real; the pattern claim about it is not, until P-007 says what a sold-into name counts as.",
+        "holds": false,
         "row_ref": null
       }
     ]

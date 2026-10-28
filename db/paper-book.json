@@ -386,14 +386,23 @@
       "readiness": 94,
       "grade": null,
       "note": "auto: hunter READY short, receipt ae673494; hunter p_dir 40.98% p_reach 0%; entry = the after-hours bid",
-      "status": "OPEN",
-      "shares_open": 8,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-10-27",
-      "last_close": 395.95
+      "legs": [
+        {
+          "date": "2026-10-28",
+          "shares": 8,
+          "price": 414,
+          "why": "STOPPED"
+        }
+      ],
+      "realized": -308,
+      "r": -1,
+      "last_scored": "2026-10-28",
+      "last_close": 414,
+      "exit_reason": "STOPPED",
+      "exit_date": "2026-10-28"
     },
     {
       "id": "PB-015",

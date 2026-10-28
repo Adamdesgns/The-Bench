@@ -5595,6 +5595,102 @@
       "row": "B-1123",
       "expires": "2026-11-04",
       "status": "open"
+    },
+    {
+      "id": "MC-327",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 772.01
+        }
+      ],
+      "meaning": "B-1124 passed plan trigger fired - re-judge: SPY settled over the 772.01 est gamma flip after the Fed and the MSFT/GOOGL prints; dealers positive gamma, the four-session pin resolved up",
+      "source": "docs/reads/2026-10-28-midday.md",
+      "row": "B-1124",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-328",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 765.21
+        }
+      ],
+      "meaning": "B-1124 passed plan trigger fired - re-judge: SPY settled under 765.21, Tuesday's low - the power beats and five days of chip buying did not hold the index through the Fed; the book's shorts get their re-look",
+      "source": "docs/reads/2026-10-28-midday.md",
+      "row": "B-1124",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-329",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "GEV",
+          "op": ">",
+          "level": 895.08
+        }
+      ],
+      "meaning": "B-1124: GEV closed over Tuesday's 895.08 - a beat-and-raise with a 9B deal was sold 6.6 pct in the first half hour and bought back to green by the close; the 08:48 layer read was wrong on direction as well as on measurement, say so in the next read",
+      "source": "docs/reads/2026-10-28-midday.md",
+      "row": "B-1124",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-330",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 772.01
+        }
+      ],
+      "meaning": "B-1125 passed plan trigger fired - re-judge: SPY settled over the 772.01 est gamma flip after a 10-2 Fed hold and the MSFT/GOOGL/META prints; the presser poke to 773.35 was the start, not the whole move; dealers positive gamma, the five-session pin resolved up",
+      "source": "docs/reads/2026-10-28-powerhour.md",
+      "row": "B-1125",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-331",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 765.21
+        }
+      ],
+      "meaning": "B-1125 passed plan trigger fired - re-judge: SPY settled under 765.21, Tuesday's low - two hawkish dissents and a long end at 80.94 on TLT outweighed two power beats and five days of chip buying; the book's shorts get their re-look",
+      "source": "docs/reads/2026-10-28-powerhour.md",
+      "row": "B-1125",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-332",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "PWR",
+          "op": ">",
+          "level": 605.89
+        }
+      ],
+      "meaning": "B-1125: PWR closed over 605.89, the 14:02 CT power-hour mark, into its pre-open print - the paper short from 593.95 came off at the close under exit-before-the-print; if the beat gets bought on a flat 5-session run-in, neither P-001 nor P-007 had a claim and the read said so first",
+      "source": "docs/reads/2026-10-28-powerhour.md",
+      "row": "B-1125",
+      "expires": "2026-10-30",
+      "status": "open"
     }
   ]
 }
