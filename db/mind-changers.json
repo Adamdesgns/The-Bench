@@ -5563,6 +5563,38 @@
       "row": "B-1116",
       "expires": "2026-11-04",
       "status": "open"
+    },
+    {
+      "id": "MC-325",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "VRT",
+          "op": "<",
+          "level": 228.82
+        }
+      ],
+      "meaning": "VRT closed under the 10/28 earnings-day low - the gap is being sold, gap-fill lane toward 208.56 open; re-judge the pass",
+      "source": "docs/reads/2026-10-28-snapshot-1010.md",
+      "row": "B-1123",
+      "expires": "2026-11-04",
+      "status": "open"
+    },
+    {
+      "id": "MC-326",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "VRT",
+          "op": ">",
+          "level": 241.55
+        }
+      ],
+      "meaning": "VRT closed over the 10/28 earnings-day high - continuation above the opening range on a held gap; re-judge for a swing plan with the 228.82 low as the stop",
+      "source": "docs/reads/2026-10-28-snapshot-1010.md",
+      "row": "B-1123",
+      "expires": "2026-11-04",
+      "status": "open"
     }
   ]
 }
