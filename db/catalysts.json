@@ -924,15 +924,16 @@
     "logged": "2026-09-05"
   },
   {
-    "date": "2026-11-02",
+    "date": "2026-11-09",
     "type": "earnings",
     "ticker": "HIMS",
-    "confidence": "expected",
-    "label": "HIMS Q3 2026 earnings, after the close (date tentative per Robinhood, unverified by the company). THE B-176 FALSIFIER PRINTS HERE: gross margin below 63.8 pct (the Q2 level, an 8-quarter low) falsifies the accumulation thesis. Q3 guide 880-900M revenue, adj EBITDA 75-95M; EPS est +0.08 after two straight 30c+ misses.",
+    "confidence": "confirmed",
+    "label": "HIMS Q3 2026 earnings, after the close. THE B-176 FALSIFIER PRINTS HERE: gross margin below 63.8 pct (the Q2 level, an 8-quarter low) falsifies the accumulation thesis. Q3 guide 880-900M revenue, adj EBITDA 75-95M; EPS est +0.08 after two straight 30c+ misses.",
     "what": "Q3 2026 print. Watch gross margin vs 63.8, FCF, the FTC accrual (60M at 6/30), any peptide/BPC-157 language, and Novo refiling.",
-    "source": "Robinhood earnings calendar (unverified); Q2 2026 8-K guidance",
+    "source": "Robinhood get_earnings_results pull 2026-10-28 06:20 CT (verified=true)",
     "action": "B-286/B-287 decide-by is 10/30 - resolve or be flat before this print; Pre-Catalyst Deadline applies.",
-    "logged": "2026-09-05"
+    "logged": "2026-09-05",
+    "corrected": "2026-10-28: date moved 2026-11-02 -> 2026-11-09 (after the close), company-verified; flagged by the 10/25 Sunday re-sync, Adam: \"Yes, do both\""
   },
   {
     "date": "2026-11-03",
@@ -968,15 +969,16 @@
     "logged": "2026-09-08"
   },
   {
-    "date": "2026-11-05",
+    "date": "2026-11-06",
     "type": "earnings",
     "ticker": "VST",
-    "confidence": "expected",
-    "label": "VST Q3 2026 earnings, before the open (Robinhood, UNVERIFIED; prior prints 8/7, 5/7, 2/26, 11/6 fit). Two days OUTSIDE the 8-week window from 9/8. Read ongoing adj EBITDA vs the 6.8-7.6B guide and whether Cogentrix / Meta PPAs enter 2027 guidance; ignore GAAP EPS (hedge marks).",
+    "confidence": "confirmed",
+    "label": "VST Q3 2026 earnings, before the open (company-verified 10/28). Read ongoing adj EBITDA vs the 6.8-7.6B guide and whether Cogentrix / Meta PPAs enter 2027 guidance; ignore GAAP EPS (hedge marks).",
     "what": "Q3 print.",
-    "source": "Robinhood earnings calendar; Q2 8-K 2026-08-07",
+    "source": "Robinhood get_earnings_results pull 2026-10-28 06:20 CT (verified=true)",
     "action": "B-294: any VST swing resolves by 10/30 or is declared a hold-through.",
-    "logged": "2026-09-08"
+    "logged": "2026-09-08",
+    "corrected": "2026-10-28: date moved 2026-11-05 -> 2026-11-06 (before the open), company-verified; flagged by the 10/25 Sunday re-sync, Adam: \"Yes, do both\""
   },
   {
     "date": "2026-09-21",
@@ -1113,15 +1115,16 @@
     "logged": "2026-09-11"
   },
   {
-    "date": "2026-11-03",
+    "date": "2026-11-04",
     "type": "earnings",
-    "confidence": "expected",
-    "label": "UBER Q3 2026 results, before the open (est. 0.98). First print with the Cybercab competition live in Austin and the Delivery Hero deal pending. — date EXPECTED, not confirmed · Pre-Catalyst Deadline 11/2 for anything held from the UBER row logged 9/10.",
+    "confidence": "confirmed",
+    "label": "UBER Q3 2026 results, before the open (est. 0.98). First print with the Cybercab competition live in Austin and the Delivery Hero deal pending. · Pre-Catalyst Deadline 11/3 for anything held from the UBER row logged 9/10.",
     "ticker": "UBER",
     "what": "Q3 2026 results, before the open (est. 0.98). First print with the Cybercab competition live in Austin and the Delivery Hero deal pending.",
-    "source": "Robinhood get_earnings_results 2026-09-10 (verified=false, tentative)",
-    "action": "Pre-Catalyst Deadline 11/2 for anything held from the UBER row logged 9/10.",
-    "logged": "2026-09-11"
+    "source": "Robinhood get_earnings_results pull 2026-10-28 06:20 CT (verified=true)",
+    "action": "Pre-Catalyst Deadline 11/3 for anything held from the UBER row logged 9/10.",
+    "logged": "2026-09-11",
+    "corrected": "2026-10-28: date moved 2026-11-03 -> 2026-11-04 (before the open), company-verified; flagged by the 10/25 Sunday re-sync, Adam: \"Yes, do both\""
   },
   {
     "date": "2026-09-21",
@@ -1259,24 +1262,26 @@
     "logged": "2026-10-11"
   },
   {
-    "date": "2026-11-04",
+    "date": "2026-11-03",
     "type": "earnings",
-    "confidence": "expected",
-    "label": "TLN Quarterly earnings, after the close — date EXPECTED, not confirmed",
+    "confidence": "confirmed",
+    "label": "TLN Quarterly earnings, before the open",
     "ticker": "TLN",
-    "what": "Quarterly earnings, after the close",
-    "source": "Robinhood get_earnings_calendar pull 2026-10-11 11:15 CT (verified=false)",
-    "logged": "2026-10-11"
+    "what": "Quarterly earnings, before the open",
+    "source": "Robinhood get_earnings_results pull 2026-10-28 06:20 CT (verified=true)",
+    "logged": "2026-10-11",
+    "corrected": "2026-10-28: date moved 2026-11-04 -> 2026-11-03 (before the open), company-verified; flagged by the 10/25 Sunday re-sync, Adam: \"Yes, do both\""
   },
   {
-    "date": "2026-11-09",
+    "date": "2026-11-06",
     "type": "earnings",
-    "confidence": "expected",
-    "label": "WULF Quarterly earnings, after the close — date EXPECTED, not confirmed",
+    "confidence": "confirmed",
+    "label": "WULF Quarterly earnings, before the open",
     "ticker": "WULF",
-    "what": "Quarterly earnings, after the close",
-    "source": "Robinhood get_earnings_calendar pull 2026-10-11 11:15 CT (verified=false)",
-    "logged": "2026-10-11"
+    "what": "Quarterly earnings, before the open",
+    "source": "Robinhood get_earnings_results pull 2026-10-28 06:20 CT (verified=true)",
+    "logged": "2026-10-11",
+    "corrected": "2026-10-28: date moved 2026-11-09 -> 2026-11-06 (before the open), company-verified; flagged by the 10/25 Sunday re-sync, Adam: \"Yes, do both\""
   },
   {
     "date": "2026-11-09",
