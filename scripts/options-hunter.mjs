@@ -48,6 +48,26 @@ const r2 = (x) => (x === null || x === undefined || Number.isNaN(x) ? null : Num
 
 export const DEFAULTS = { volMin: 1.5, horizon: 10, lookback: 20, expiryDays: [7, 14], top: 3, macroCap: 60, pivotWidth: 5 };
 
+// ---------- what the long screen is known to be worth ----------
+// Vans Thesis rule R-007 (2026-10-23) tested screenLong as it stood at 12d413e (the stock gates are
+// unchanged since) on 1999-2026: the 1,000 largest US stocks, bought at the next open, held 10 trading
+// days, against 20 random buys from the same liquidity tenth. RETIRED. Only this text crosses from that
+// project. The short screen and crypto pairs were not tested. Never retune the screen against that
+// history; a changed breakout is a new Vans Thesis rule or a forward paper record.
+export const LONG_SCREEN_TESTED = {
+  rule: "R-007", project: "Vans Thesis", screen_version: "12d413e", verdict: "RETIRED", t: -2.37, bar: 3.0,
+  months: 332, universe: "1,000 largest US stocks", hold: "next open, 10 trading days",
+  against: "20 random buys from the same liquidity tenth", active_per_year_pct: -3.16,
+  says: "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+  not_tested: ["short screen", "crypto pairs"],
+};
+export function testedTag(c) {
+  if (c.side !== "long") return "";
+  return /-USD$/.test(c.sym) ? "not tested (crypto)" : "tested: no edge (R-007)";
+}
+const tagged = (c) => { const t = testedTag(c); return t ? `  [${t}]` : ""; };
+const testedNote = () => `  long screen: ${LONG_SCREEN_TESTED.says} (Vans Thesis ${LONG_SCREEN_TESTED.rule}, ${LONG_SCREEN_TESTED.months} months, ${LONG_SCREEN_TESTED.universe})`;
+
 // ---------- long side ----------
 export function verifiedCeiling(bars, price, width = DEFAULTS.pivotWidth, skip = 1) {
   let best = null;
@@ -251,7 +271,7 @@ function macroInside2(asof) {
 const line = (c) => {
   const e = c.evidence, g = c.geometry;
   const shelf = c.first_shelf && (!g.target || c.first_shelf.level !== g.target) ? ` (first shelf ${c.first_shelf.level})` : "";
-  return `  ${c.sym.padEnd(6)} ${c.side.padEnd(5)} ${c.list.padEnd(9)} ${String(c.close).padStart(9)}  stop ${String(g.stop).padStart(8)}  target ${String(g.target ?? (c.too_far ? "none<6ATR" : "-")).padStart(9)}${shelf}  R:R ${String(g.rr ?? "-").padStart(5)}  readiness ${String(c.readiness).padStart(3)}  base rate ${e ? `${e.p_dir}% dir / ${e.p_reach}% reach  n=${e.n}  grade ${e.grade}` : "n/a (no target)"}`;
+  return `  ${c.sym.padEnd(6)} ${c.side.padEnd(5)} ${c.list.padEnd(9)} ${String(c.close).padStart(9)}  stop ${String(g.stop).padStart(8)}  target ${String(g.target ?? (c.too_far ? "none<6ATR" : "-")).padStart(9)}${shelf}  R:R ${String(g.rr ?? "-").padStart(5)}  readiness ${String(c.readiness).padStart(3)}  base rate ${e ? `${e.p_dir}% dir / ${e.p_reach}% reach  n=${e.n}  grade ${e.grade}` : "n/a (no target)"}${tagged(c)}`;
 };
 
 async function main() {
@@ -265,16 +285,17 @@ async function main() {
     const cfile = val("--candidates") ?? refuse("--candidates <file> is required with --ev-file");
     const cand = JSON.parse(readFileSync(resolve(cfile), "utf8"));
     const ranked = evRank(cand.candidates, marks, { band, top, horizon: cand.opts?.horizon ?? DEFAULTS.horizon });
-    const receipt = { kind: "options-hunter-rank", asof: cand.asof, candidates_receipt: cand.id, band: band === Infinity ? null : band, generated: new Date().toISOString(), ...ranked };
+    const receipt = { kind: "options-hunter-rank", asof: cand.asof, candidates_receipt: cand.id, band: band === Infinity ? null : band, generated: new Date().toISOString(), long_screen_tested: LONG_SCREEN_TESTED, ...ranked };
     receipt.id = createHash("sha1").update(JSON.stringify(ranked)).digest("hex").slice(0, 8);
     if (has("--write")) { if (!existsSync(dir)) mkdirSync(dir, { recursive: true }); const p = resolve(dir, `${cand.asof}.ranked.json`); writeFileSync(p, JSON.stringify(receipt, null, 2) + "\n"); receipt.wrote = p; }
     if (has("--json")) { console.log(JSON.stringify(receipt, null, 2)); return; }
     console.log(`OPTIONS HUNTER - RANK  ·  as of ${cand.asof}  ·  receipt ${receipt.id}  ·  band ${band === Infinity ? "none" : band}`);
     console.log(`  EV = p_reach x max gain - (1 - p_dir) x cost, per contract; EV/day = EV / sessions to expiry. p from the name's own history, graded. Nothing here is a ticket.`);
+    if ([...ranked.top, ...ranked.rest].some((r) => r.side === "long")) console.log(testedNote());
     console.log(`\nTOP ${top}`);
     if (!ranked.top.length) console.log("  (none clears the band)");
-    for (const r of ranked.top) console.log(`  ${r.sym.padEnd(6)} ${r.side.padEnd(5)} ${r.expiry ?? ""} ${r.long_strike}/${r.short_strike}  cost ${r.cost}  max gain ${r.max_gain} (${r.payoff_ratio}x)  break-even ${r.break_even}  p_dir ${r.p_dir}% p_reach ${r.p_reach}% grade ${r.grade} n=${r.n}  market p ${r.market_p ?? "-"}%  gap ${r.disagreement ?? "-"}  EV ${r.ev}  EV/day ${r.ev_per_day}  stop ${r.stop} target ${r.target}`);
-    if (ranked.rest.length) { console.log(`\nREST (${ranked.rest.length})`); for (const r of ranked.rest) console.log(`  ${r.sym.padEnd(6)} ${r.side.padEnd(5)} cost ${r.cost} EV/day ${r.ev_per_day} grade ${r.grade}`); }
+    for (const r of ranked.top) console.log(`  ${r.sym.padEnd(6)} ${r.side.padEnd(5)} ${r.expiry ?? ""} ${r.long_strike}/${r.short_strike}  cost ${r.cost}  max gain ${r.max_gain} (${r.payoff_ratio}x)  break-even ${r.break_even}  p_dir ${r.p_dir}% p_reach ${r.p_reach}% grade ${r.grade} n=${r.n}  market p ${r.market_p ?? "-"}%  gap ${r.disagreement ?? "-"}  EV ${r.ev}  EV/day ${r.ev_per_day}  stop ${r.stop} target ${r.target}${tagged(r)}`);
+    if (ranked.rest.length) { console.log(`\nREST (${ranked.rest.length})`); for (const r of ranked.rest) console.log(`  ${r.sym.padEnd(6)} ${r.side.padEnd(5)} cost ${r.cost} EV/day ${r.ev_per_day} grade ${r.grade}${tagged(r)}`); }
     if (ranked.rejected.length) console.log(`\nrejected: ${ranked.rejected.map((x) => `${x.sym} ${x.side} (${x.why})`).join("; ")}`);
     if (receipt.wrote) console.log(`\nwrote ${receipt.wrote}`);
     return;
@@ -296,12 +317,13 @@ async function main() {
   const asof = series.SPY?.at?.(-1)?.date ?? new Date().toISOString().slice(0, 10);
   const macro = macroInside2(asof);
   const { candidates: cands, skipped, notListed } = candidates(series, { ...opts, macroInside2: macro });
-  const receipt = { kind: "options-hunter-candidates", asof, source, universe, generated: new Date().toISOString(), macro_inside_2_sessions: macro, band: band === Infinity ? null : band, opts, marks, scanned: Object.keys(series).length - 1, candidates: cands, skipped, not_listed: notListed };
+  const receipt = { kind: "options-hunter-candidates", asof, source, universe, generated: new Date().toISOString(), macro_inside_2_sessions: macro, band: band === Infinity ? null : band, opts, marks, scanned: Object.keys(series).length - 1, long_screen_tested: LONG_SCREEN_TESTED, candidates: cands, skipped, not_listed: notListed };
   receipt.id = createHash("sha1").update(JSON.stringify({ asof, cands })).digest("hex").slice(0, 8);
   if (has("--write")) { if (!existsSync(dir)) mkdirSync(dir, { recursive: true }); const p = resolve(dir, `${asof}.candidates.json`); writeFileSync(p, JSON.stringify(receipt, null, 2) + "\n"); receipt.wrote = p; }
   if (has("--json")) { console.log(JSON.stringify(receipt, null, 2)); return; }
   console.log(`OPTIONS HUNTER - HUNT  ·  as of ${asof} (${source})  ·  scanned ${receipt.scanned}  ·  receipt ${receipt.id}  ·  macro inside 2 sessions: ${macro ? "YES - readiness capped " + DEFAULTS.macroCap : "no"}`);
   console.log(`  long: breakout of the prior 20-session high on >= ${opts.volMin}x volume, leader vs SPY · short: HUNT SHORT gates · target = nearest verified pivot · base rate at ${opts.horizon} sessions from the name's own history`);
+  console.log(testedNote());
   for (const L of ["READY", "STALK", "DISCOVERY"]) {
     const rows = cands.filter((c) => c.list === L);
     console.log(`\n${L} (${rows.length})`);

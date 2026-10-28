@@ -116,3 +116,37 @@ test("candidates returns names that fit neither side as notListed, with reasons 
   const long = flat.find((x) => x.side === "long");
   assert.match(whyNotLong(long), /not at the 20-bar high/);
 });
+
+// 2026-10-23: Vans Thesis R-007 tested the long breakout (screenLong at 12d413e) on 1999-2026 and RETIRED it:
+// no edge over random buys from the same liquidity tenth. The hunter now says so beside every long stock row.
+import { LONG_SCREEN_TESTED, testedTag } from "../scripts/options-hunter.mjs";
+
+test("the long screen carries the R-007 result; short rows and crypto pairs are not claimed as tested", () => {
+  assert.equal(LONG_SCREEN_TESTED.rule, "R-007");
+  assert.equal(LONG_SCREEN_TESTED.verdict, "RETIRED");
+  assert.equal(LONG_SCREEN_TESTED.t, -2.37);
+  assert.equal(testedTag({ sym: "UP", side: "long" }), "tested: no edge (R-007)");
+  assert.equal(testedTag({ sym: "DN", side: "short" }), "");
+  assert.equal(testedTag({ sym: "BTC-USD", side: "long" }), "not tested (crypto)");
+});
+
+test("CLI: hunt and rank print the tag on long rows only, and the receipt carries the result outside the candidates", () => {
+  const dir = mkdtempSync(join(tmpdir(), "options-hunter-tested-"));
+  const barsFile = join(dir, "bars.json");
+  writeFileSync(barsFile, JSON.stringify({ SPY: spy, UP: bars({ n: 600, start: 100, endPct: 8, endVol: 3, pivotAt: 300, pivotHigh: 140 }), DN: bars({ n: 600, start: 100, endPct: -12, endVol: 3, pivotAt: 300, pivotLow: 50 }) }));
+  const json = execFileSync("node", [CLI, "--hunt", "--bars-file", barsFile, "--json"], { encoding: "utf8" });
+  const cand = JSON.parse(json);
+  assert.equal(cand.long_screen_tested.rule, "R-007");
+  assert.ok(cand.candidates.every((c) => !("long_screen_tested" in c)), "kept out of the candidates, so receipt ids stay comparable");
+  const text = execFileSync("node", [CLI, "--hunt", "--bars-file", barsFile], { encoding: "utf8" });
+  assert.match(text, /R-007/);
+  assert.match(text.split("\n").find((l) => /^\s+UP\s+long/.test(l)), /tested: no edge \(R-007\)/);
+  assert.doesNotMatch(text.split("\n").find((l) => /^\s+DN\s+short/.test(l)), /R-007/);
+  const candFile = join(dir, "cand.json"); writeFileSync(candFile, json);
+  const marksFile = join(dir, "marks.json");
+  writeFileSync(marksFile, JSON.stringify({ UP: { expiry: "2026-09-25", days: 7, long: { strike: 108, mark: 4, chance_of_profit: 0.4 }, short: { strike: 140, mark: 0.5 } } }));
+  const rank = execFileSync("node", [CLI, "--ev-file", marksFile, "--candidates", candFile, "--band", "1000"], { encoding: "utf8" });
+  assert.match(rank.split("\n").find((l) => /^\s+UP\s+long/.test(l)), /tested: no edge \(R-007\)/);
+  const rankJson = JSON.parse(execFileSync("node", [CLI, "--ev-file", marksFile, "--candidates", candFile, "--band", "1000", "--json"], { encoding: "utf8" }));
+  assert.equal(rankJson.long_screen_tested.rule, "R-007");
+});
