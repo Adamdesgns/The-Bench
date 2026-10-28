@@ -25,15 +25,24 @@
       "readiness": 93,
       "grade": null,
       "note": "mirror of PB-013",
-      "status": "OPEN",
-      "shares_open": 1,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-10-27",
-      "last_close": 578.87,
-      "mirror_of": "PB-013"
+      "legs": [
+        {
+          "date": "2026-10-28",
+          "shares": 1,
+          "price": 607.53,
+          "why": "EXIT-BY"
+        }
+      ],
+      "realized": -13.58,
+      "r": -0.27,
+      "last_scored": "2026-10-28",
+      "last_close": 607.53,
+      "mirror_of": "PB-013",
+      "exit_reason": "EXIT-BY",
+      "exit_date": "2026-10-28"
     },
     {
       "id": "PB-002",
@@ -52,15 +61,24 @@
       "readiness": 94,
       "grade": null,
       "note": "mirror of PB-014",
-      "status": "OPEN",
-      "shares_open": 2,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-10-27",
-      "last_close": 395.95,
-      "mirror_of": "PB-014"
+      "legs": [
+        {
+          "date": "2026-10-28",
+          "shares": 2,
+          "price": 414,
+          "why": "STOP"
+        }
+      ],
+      "realized": -77,
+      "r": -1,
+      "last_scored": "2026-10-28",
+      "last_close": 416.16,
+      "mirror_of": "PB-014",
+      "exit_reason": "STOPPED",
+      "exit_date": "2026-10-28"
     },
     {
       "id": "PB-003",
@@ -85,8 +103,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-27",
-      "last_close": 59.55,
+      "last_scored": "2026-10-28",
+      "last_close": 63.93,
       "mirror_of": "PB-016"
     },
     {
@@ -112,8 +130,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-27",
-      "last_close": 235.82,
+      "last_scored": "2026-10-28",
+      "last_close": 239.63,
       "mirror_of": "PB-017"
     },
     {
@@ -139,8 +157,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": null,
-      "last_close": null,
+      "last_scored": "2026-10-28",
+      "last_close": 612.405,
       "mirror_of": "PB-018"
     }
   ],
@@ -200,6 +218,14 @@
       "unrealized": -130.16,
       "open": 4,
       "spy": 769.72
+    },
+    {
+      "date": "2026-10-28",
+      "equity": 9775.84,
+      "realized": -90.58,
+      "unrealized": -133.58,
+      "open": 3,
+      "spy": 772.31
     }
   ],
   "skipped": [

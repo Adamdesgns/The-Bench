@@ -907,7 +907,15 @@
     "status": "proposed",
     "why": "Adam 2026-09-17 via an X trader's 10x MU post ('920-970 hits like clockwork'). Hand count on daily bars 6/1-9/17: 5 wins / 3 losses to a 874 stop; 3 for 3 since 8/19 (8/19, 8/24, 9/14). Losses 6/5, 7/15, 7/24 were all range breaks. Not graded by quant-evidence.",
     "logged_by": "interactive run the market, daily bars robinhood-mcp",
-    "instances": []
+    "instances": [
+      {
+        "date": "2026-10-28",
+        "ticker": "MU",
+        "detail": "10/14 touch (low 919.57) did NOT pay 970 first: the 10/15 low was 858.00 and MU CLOSED 856.49 on 10/22, both under 874, before the first close over 970 (982.12 on 10/28, MC-155). The close under 874 is also the range-break falsifier on its own. Logged from the 10/28 close check, B-1132.",
+        "holds": false,
+        "row_ref": null
+      }
+    ]
   },
   {
     "id": "P-038",
