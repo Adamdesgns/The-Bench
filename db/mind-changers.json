@@ -5515,6 +5515,54 @@
       "row": "B-1115",
       "expires": "2026-10-29",
       "status": "open"
+    },
+    {
+      "id": "MC-322",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 772.01
+        }
+      ],
+      "meaning": "B-1116 passed plan trigger fired - re-judge: SPY settled over the 772.01 est gamma flip after the Fed and the MSFT/GOOGL prints; dealers positive gamma, the pin resolved up",
+      "source": "docs/reads/2026-10-28-sotm.md",
+      "row": "B-1116",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-323",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 765.21
+        }
+      ],
+      "meaning": "B-1116 passed plan trigger fired - re-judge: SPY settled under 765.21, Tuesday's low - the power beats and the fourth-day chip bid did not hold the index through the Fed; the book's shorts get their re-look",
+      "source": "docs/reads/2026-10-28-sotm.md",
+      "row": "B-1116",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-324",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "GEV",
+          "op": "<",
+          "level": 825.79
+        }
+      ],
+      "meaning": "B-1116: GEV closed back under 825.79, the paper short's entry - a beat-and-raise with a 9B deal fully round-tripped the run into the print; P-001 instance confirmed at size, short re-look",
+      "source": "docs/reads/2026-10-28-sotm.md",
+      "row": "B-1116",
+      "expires": "2026-11-04",
+      "status": "open"
     }
   ]
 }
