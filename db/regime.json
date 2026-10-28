@@ -1,27 +1,28 @@
 {
-  "asof": "2026-10-27",
-  "generated": "2026-10-27T20:35:26.126Z",
+  "asof": "2026-10-28",
+  "generated": "2026-10-28T20:35:27.433Z",
   "source": "yahoo",
   "label": "EVENT",
   "market_risk": 2,
   "reasons": [
-    "macro release on the next session overrides CHOP",
-    "SPY inside +/-1.5% of its 20 SMA for 10 straight sessions with a flat 20 SMA"
+    "macro release on the next session overrides TRENDING",
+    "SPY 772.31 > 20 770.90 > 50 767.63 > 200 728.15",
+    "VIX 16.91 < 20"
   ],
   "next_session_macro": [
-    "FOMC decision (no SEP), 2:00 PM ET statement + 2:30 PM ET press conference - Oct 27-28 meeting"
+    "GDP (advance, Q3) + Personal Income and Outlays incl. September PCE, 08:30 ET"
   ],
   "inputs": {
-    "spy": 769.6599731445312,
-    "sma20": 770.4114959716796,
-    "sma50": 767.5287951660156,
-    "sma200": 727.7635992431641,
-    "vix": 17.520000457763672,
-    "vix_5d_pct": 1.21,
-    "tnx": 4.993000030517578,
-    "tnx_5d_change": -0.124,
-    "iwm_rel_20": -0.3,
-    "qqq_rel_20": -2.97
+    "spy": 772.3099975585938,
+    "sma20": 770.8954956054688,
+    "sma50": 767.6259948730469,
+    "sma200": 728.1493493652343,
+    "vix": 16.90999984741211,
+    "vix_5d_pct": 1.38,
+    "tnx": 5.045000076293945,
+    "tnx_5d_change": -0.101,
+    "iwm_rel_20": -0.05,
+    "qqq_rel_20": -3.18
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }

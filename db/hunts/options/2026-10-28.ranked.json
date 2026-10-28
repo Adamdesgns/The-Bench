@@ -1,0 +1,196 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-10-28",
+  "candidates_receipt": "fc728b8a",
+  "band": 300.9,
+  "generated": "2026-10-28T20:38:39.522Z",
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "top": [
+    {
+      "sym": "NI",
+      "side": "long",
+      "list": "READY",
+      "readiness": 60,
+      "grade": "A",
+      "n": 92,
+      "p_dir": 55.43,
+      "p_reach": 0,
+      "market_p": 22.09,
+      "disagreement": 33.34,
+      "expiry": "2026-11-20",
+      "days": 17,
+      "long_strike": 45,
+      "short_strike": 50,
+      "cost": 27.5,
+      "max_gain": 472.5,
+      "payoff_ratio": 17.18,
+      "break_even": 45.27,
+      "ev": -12.26,
+      "ev_per_day": -0.72,
+      "stop": 43.09,
+      "target": 47.05,
+      "rr_shares": 4.06
+    },
+    {
+      "sym": "UBER",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 82,
+      "p_dir": 46.34,
+      "p_reach": 10.98,
+      "market_p": 35.03,
+      "disagreement": 11.31,
+      "expiry": "2026-11-06",
+      "days": 7,
+      "long_strike": 65,
+      "short_strike": 61,
+      "cost": 153.5,
+      "max_gain": 246.5,
+      "payoff_ratio": 1.61,
+      "break_even": 63.47,
+      "ev": -55.3,
+      "ev_per_day": -7.9,
+      "stop": 67.03,
+      "target": 60.63,
+      "rr_shares": 2.64
+    },
+    {
+      "sym": "APLD",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "B",
+      "n": 66,
+      "p_dir": 37.88,
+      "p_reach": 1.52,
+      "market_p": 37.38,
+      "disagreement": 0.5,
+      "expiry": "2026-11-06",
+      "days": 7,
+      "long_strike": 20.5,
+      "short_strike": 14,
+      "cost": 127.5,
+      "max_gain": 522.5,
+      "payoff_ratio": 4.1,
+      "break_even": 19.23,
+      "ev": -71.26,
+      "ev_per_day": -10.18,
+      "stop": 22.21,
+      "target": 13.53,
+      "rr_shares": 3.78
+    }
+  ],
+  "rest": [],
+  "rejected": [
+    {
+      "sym": "GOOGL",
+      "side": "short",
+      "why": "max loss 637.5 > band 300.9"
+    },
+    {
+      "sym": "META",
+      "side": "short",
+      "why": "max loss 1366 > band 300.9"
+    },
+    {
+      "sym": "NVDA",
+      "side": "short",
+      "why": "max loss 378.5 > band 300.9"
+    },
+    {
+      "sym": "ETN",
+      "side": "short",
+      "why": "max loss 1032.5 > band 300.9"
+    },
+    {
+      "sym": "APP",
+      "side": "short",
+      "why": "max loss 1085 > band 300.9"
+    },
+    {
+      "sym": "AAP",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "PENG",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "GPRO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GRAB",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KRKNF",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "BTC-USD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GEV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SPCX",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CBRS",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ORCL",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "XOM",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "OXY",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "SST",
+      "side": "short",
+      "why": "no marks"
+    }
+  ],
+  "id": "3230ae72"
+}
