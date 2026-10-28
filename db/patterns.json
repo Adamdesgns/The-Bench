@@ -230,6 +230,13 @@
         "ticker": "HPE",
         "detail": "FALSIFIED ON THE SESSION CLOSE, correcting the same-day instance logged at 06:36 CT. The 5-session run into the print (incl. +3.8pct in the final 90 min, after +160pct off the Feb low) did set a violently negative OPENING reaction - 45.70 low, -11.8pct - but it did not set the reaction. HPE closed +5.03pct at 54.44, a full recovery of the gap and then some, on the heaviest half-hour volume of the day into the bell. Beat-vs-miss did not decide it either; a beat-and-raise was sold for thirty minutes and bought for six hours. Where this leaves the claim: the run predicts the opening gap reliably (P-001 and P-007 are 8/10 combined on that measurement) and predicts the closing direction much less reliably. Both HPE instances stay on the record.",
         "holds": false
+      },
+      {
+        "date": "2026-10-28",
+        "ticker": "VRT",
+        "detail": "Down about 21% over the month into the print (wires), 201.75 Monday pre to 208.56 Tue close. Beat and raise (2.21 vs 1.82; sales 4.31B vs 3.76B) and the stock is 245 pre-market, +17.5%. The sold-into run set up the bought reaction.",
+        "holds": true,
+        "row_ref": "B-1115"
       }
     ]
   },
@@ -1139,7 +1146,7 @@
     "claim": "On a risk-on session with no capex datapoint on the tape, the power layer trades BELOW its own opening print while silicon makes session highs, and power volume pace stays under 1.0x - which identifies the move as risk appetite repricing the easy expression of the AI trade, not money entering the chain",
     "test": "On sessions where the silicon layer median return exceeds plus 3 pct with no capex announcement on the tape, measure into the last hour (a) how many power-layer names trade below their own opening print and (b) the power layer median volume pace against 30-day average, time-adjusted for session elapsed. Holds when a majority of power names sit below their open AND power median pace is under 1.0x while silicon prints session highs.",
     "first_seen": "2026-09-21",
-    "status": "proposed",
+    "status": "supported",
     "why": null,
     "logged_by": "claude",
     "instances": [
@@ -1155,6 +1162,13 @@
         "ticker": "SPY",
         "detail": "CLOSING-BELL CONFIRMATION OF THE SAME SESSION, tested on settles rather than the 14:03 CT snapshot the pattern was written from. Silicon leg: SOXX closed 560.49, +5.14 pct, SOXL 142.845 +15.50 pct, AMD a fresh 52-week high, INTC +12.14 pct - silicon median well over the plus 3 pct condition, and SPY made its session high 774.89 in the final half hour. No capex datapoint on the tape: the day's causes were the OpenAI/AMD 6GW order, an SK Hynix report on Intel's Ohio fab, META consumer product news and Anthropic IPO chatter - none of it a signed spending commitment. Power-layer test (a): three of three names that opened at or near their highs closed UNDER their own opening print - VST opened 141.97 closed 140.76, PWR opened 648.78 closed 642.44, VRT opened 254.02 closed 250.85. All three failed the reclaim the 14:06 CT read named as what would change the mind. That is a majority of the layer below its own open. Power-layer test (b): pace stayed light into the close - PWR ran 0.42x of its daily average at 85 pct elapsed and CEG's full session ran roughly 1.08M on the intraday feed against a 2.71M 30-day average, both under 1.0x. Every power name still closed GREEN against Friday (CEG +2.91, TLN +2.61, ETN +2.50, PWR +0.90, GEV +0.60, VRT +0.59, VST +0.23) - so read by color the layer is bid, and read by shape it was distributed into all day. The color is the trap this pattern exists to name. CAVEAT RECORDED: VST is ex-dividend today, so its +0.23 pct is dividend-adjusted and raw it is +0.06 pct, flat. Second instance, one more before promotion past proposed.",
         "holds": true,
+        "row_ref": null
+      },
+      {
+        "date": "2026-10-27",
+        "ticker": "VRT",
+        "detail": "Risk-on session (SMH +3.0, silicon median about +4) with no capex datapoint on the tape, and the power layer did NOT lag: VRT +4.5, GEV +4.7, ETN +3.3, VST +3.5, PWR +2.7, CEG +2.6, TLN +2.4 at the 15:00 CT settle, every name over its own open at the midday check. Difference from the 9/21 instance: VRT and GEV print tomorrow morning, so the power bid was pre-earnings positioning, not the easy-expression trade the pattern describes. Counts as a non-instance on the pattern's own terms.",
+        "holds": false,
         "row_ref": null
       }
     ]

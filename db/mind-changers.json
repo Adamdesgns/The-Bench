@@ -5483,6 +5483,38 @@
       "row": "B-1114",
       "expires": "2026-11-10",
       "status": "open"
+    },
+    {
+      "id": "MC-320",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 772.01
+        }
+      ],
+      "meaning": "B-1115 passed plan trigger fired - re-judge: SPY settled over the 772.01 est gamma flip after the Fed and the MSFT/GOOGL prints; dealers turn positive gamma, the three-session pin under 770 resolved up on information",
+      "source": "docs/reads/2026-10-28-premarket.md",
+      "row": "B-1115",
+      "expires": "2026-10-29",
+      "status": "open"
+    },
+    {
+      "id": "MC-321",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 765.21
+        }
+      ],
+      "meaning": "B-1115 passed plan trigger fired - re-judge: SPY settled under 765.21, Tuesday's low - the power-layer beat and the chip bid did not hold the index through the Fed; the book's shorts get their re-look",
+      "source": "docs/reads/2026-10-28-premarket.md",
+      "row": "B-1115",
+      "expires": "2026-10-29",
+      "status": "open"
     }
   ]
 }

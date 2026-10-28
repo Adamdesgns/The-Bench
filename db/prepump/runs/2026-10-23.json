@@ -1,0 +1,107 @@
+{
+  "schema": "bench-prepump-manifest-v1",
+  "quality_version": 2,
+  "quality": {
+    "complete": true,
+    "research_ready": false,
+    "issues": [],
+    "resolution_blocked": [
+      "BOOK",
+      "VIX"
+    ],
+    "field_coverage": {
+      "f_float": {
+        "present": 684,
+        "missing": 14
+      },
+      "f_shares_outstanding": {
+        "present": 696,
+        "missing": 2
+      },
+      "f_market_cap": {
+        "present": 696,
+        "missing": 2
+      },
+      "f_avg_volume_2_weeks": {
+        "present": 696,
+        "missing": 2
+      },
+      "f_avg_volume_30_days": {
+        "present": 696,
+        "missing": 2
+      },
+      "f_sector": {
+        "present": 696,
+        "missing": 2
+      },
+      "e_next_date": {
+        "present": 635,
+        "missing": 63
+      },
+      "e_timing": {
+        "present": 634,
+        "missing": 64
+      },
+      "q_bid_price": {
+        "present": 696,
+        "missing": 2
+      },
+      "q_ask_price": {
+        "present": 696,
+        "missing": 2
+      }
+    }
+  },
+  "date": "2026-10-23",
+  "built_at": "2026-10-23T21:49:54.096Z",
+  "universe_version": "core-v1",
+  "early_close": false,
+  "expected": {
+    "core": 460,
+    "scan": 214,
+    "desk": 76,
+    "total": 698,
+    "history_due": 41,
+    "first_appearance": 26
+  },
+  "written": {
+    "total": 698,
+    "ok": 696,
+    "partial": 0,
+    "no_data": 0,
+    "not_found": 0,
+    "core": 460,
+    "scan": 214,
+    "desk": 76,
+    "with_history": 41
+  },
+  "complete": true,
+  "market_dates_seen": {
+    "2026-10-23": 696
+  },
+  "raw_files": {
+    "fundamentals": 70,
+    "quotes": 35,
+    "historicals": 10,
+    "earnings": 3,
+    "scans": 2
+  },
+  "failures": [
+    {
+      "symbol": "BOOK",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    },
+    {
+      "symbol": "VIX",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    }
+  ],
+  "failure_count": 2,
+  "appended": "new file"
+}
