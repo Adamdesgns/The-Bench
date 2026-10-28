@@ -1557,5 +1557,126 @@
     "what": "PDUFA target action date for deramiocel (Duchenne muscular dystrophy cell therapy), extended three months from 2026-08-22 after the FDA classified the HOPE-3 upper-limb amendment as a major amendment. Company 8-K filed 2026-08-24. Binary: never hold through.",
     "source": "https://www.sec.gov/Archives/edgar/data/1133869/000110465926100071/capr-20260824xex99d1.htm",
     "logged": "2026-10-25"
+  },
+  {
+    "date": "2026-11-02",
+    "type": "macro",
+    "confidence": "confirmed",
+    "what": "ISM Manufacturing PMI (October), 10:00 ET",
+    "label": "ISM Manufacturing PMI (October), 10:00 ET",
+    "source": "ISM Report On Business release calendar, https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/ . Not covered by scripts/macro-sync.mjs (BLS only).",
+    "verified_by": "Claude 2026-10-28, read from the primary source (flagged by the 10/25 Sunday re-sync; Adam: \"Add them all\")",
+    "logged": "2026-10-28"
+  },
+  {
+    "date": "2026-11-17",
+    "type": "macro",
+    "confidence": "confirmed",
+    "what": "Advance Monthly Retail and Food Services Sales (October), 08:30 ET",
+    "label": "Advance Monthly Retail and Food Services Sales (October), 08:30 ET",
+    "source": "US Census Bureau retail release schedule, https://www.census.gov/retail/release_schedule.html . Not covered by scripts/macro-sync.mjs (BLS only).",
+    "verified_by": "Claude 2026-10-28, read from the primary source (flagged by the 10/25 Sunday re-sync; Adam: \"Add them all\")",
+    "logged": "2026-10-28"
+  },
+  {
+    "date": "2026-11-25",
+    "type": "macro",
+    "confidence": "confirmed",
+    "what": "GDP second estimate Q3 + Corporate Profits, and Personal Income and Outlays incl. October PCE, 08:30 ET",
+    "label": "GDP second estimate Q3 + Corporate Profits, and Personal Income and Outlays incl. October PCE, 08:30 ET",
+    "source": "US Bureau of Economic Analysis release schedule, https://www.bea.gov/news/schedule (both releases listed November 25 8:30 AM). Not covered by scripts/macro-sync.mjs (BLS only).",
+    "verified_by": "Claude 2026-10-28, read from the primary source (flagged by the 10/25 Sunday re-sync; Adam: \"Add them all\")",
+    "logged": "2026-10-28"
+  },
+  {
+    "date": "2026-12-01",
+    "type": "macro",
+    "confidence": "confirmed",
+    "what": "ISM Manufacturing PMI (November), 10:00 ET",
+    "label": "ISM Manufacturing PMI (November), 10:00 ET",
+    "source": "ISM Report On Business release calendar, https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/ .",
+    "verified_by": "Claude 2026-10-28, read from the primary source (flagged by the 10/25 Sunday re-sync; Adam: \"Add them all\")",
+    "logged": "2026-10-28"
+  },
+  {
+    "date": "2026-12-09",
+    "type": "macro",
+    "confidence": "confirmed",
+    "what": "FOMC decision WITH Summary of Economic Projections (dot plot), 2:00 PM ET statement + 2:30 PM ET press conference - Dec 8-9 meeting",
+    "label": "FOMC decision WITH Summary of Economic Projections (dot plot), 2:00 PM ET statement + 2:30 PM ET press conference - Dec 8-9 meeting",
+    "source": "Federal Reserve FOMC calendar, https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm (December 8-9*, asterisk = SEP meeting).",
+    "verified_by": "Claude 2026-10-28, read from the primary source (flagged by the 10/25 Sunday re-sync; Adam: \"Add them all\")",
+    "logged": "2026-10-28",
+    "note": "The 10/25 weekly-catalyst read said 12/15-16; that was wrong. The Fed calendar has 8-9. Corrected before logging."
+  },
+  {
+    "date": "2027-02-04",
+    "type": "pdufa",
+    "confidence": "confirmed",
+    "ticker": "BBIO",
+    "label": "BBIO PDUFA target action date for oral infigratinib (children with achondroplasia), NDA under Priority Review. A second programme, separate from the 2026-11-27 and 2027-05-08 BBIO rows. Binary: never hold through.",
+    "what": "PDUFA for oral infigratinib in achondroplasia (Priority Review).",
+    "source": "https://www.sec.gov/Archives/edgar/data/1743881/000114036126039334/ef20083591_ex99-1.htm",
+    "logged": "2026-10-28"
+  },
+  {
+    "date": "2027-02-28",
+    "type": "pdufa",
+    "confidence": "confirmed",
+    "ticker": "APMD",
+    "label": "APMD PDUFA target action date for AD109 (proposed name Oxnimbi), oral therapy for adults with obstructive sleep apnea. Falls on a Sunday, so the action can land Friday 2/26 or earlier. Binary: never hold through.",
+    "what": "PDUFA for AD109 / Oxnimbi in obstructive sleep apnea.",
+    "source": "https://www.sec.gov/Archives/edgar/data/1745648/000119312526385355/apmd-ex99_1.htm (Q2 2026 results exhibit)",
+    "logged": "2026-10-28"
+  },
+  {
+    "date": "2027-03-10",
+    "type": "pdufa",
+    "confidence": "confirmed",
+    "ticker": "NTLA",
+    "label": "NTLA PDUFA target action date for lonvo-z (lonvoguran ziclumeran), one-time in vivo CRISPR therapy for hereditary angioedema, BLA under Priority Review; FDA not currently planning an advisory committee. Binary: never hold through.",
+    "what": "PDUFA for lonvo-z in hereditary angioedema (Priority Review, no adcomm planned).",
+    "source": "https://www.sec.gov/Archives/edgar/data/1652130/000119312526385194/ntla-ex99_1.htm (press release 2026-09-08)",
+    "logged": "2026-10-28"
+  },
+  {
+    "date": "2027-01-10",
+    "type": "other",
+    "confidence": "confirmed",
+    "ticker": "AQST",
+    "label": "AQST: VALTOCO orphan-drug exclusivity expires, after which Libervant becomes eligible for full approval for patients 12 and up (Aquestive / Eton Libervant deal). Not an FDA decision date; the approval itself can follow later.",
+    "what": "Libervant full-approval eligibility (VALTOCO exclusivity expiry).",
+    "source": "https://www.sec.gov/Archives/edgar/data/1398733/000139873326000056/etonaquestivelibervantpr.htm",
+    "logged": "2026-10-28"
+  },
+  {
+    "date": "2027-03-29",
+    "type": "pdufa",
+    "confidence": "confirmed",
+    "ticker": "AQST",
+    "label": "AQST PDUFA target action date for the Libervant Type 9 NDA adding ages 6 to 11 to the label (Aquestive / Eton deal; Eton expects the product commercially available April 2027). Binary: never hold through.",
+    "what": "PDUFA for the Libervant ages 6-11 label expansion.",
+    "source": "https://www.sec.gov/Archives/edgar/data/1398733/000139873326000056/etonaquestivelibervantpr.htm",
+    "logged": "2026-10-28"
+  },
+  {
+    "date": "2027-01-10",
+    "type": "other",
+    "confidence": "confirmed",
+    "ticker": "ETON",
+    "label": "ETON: VALTOCO orphan-drug exclusivity expires, after which Libervant becomes eligible for full approval for patients 12 and up (Aquestive / Eton Libervant deal). Not an FDA decision date; the approval itself can follow later.",
+    "what": "Libervant full-approval eligibility (VALTOCO exclusivity expiry).",
+    "source": "https://www.sec.gov/Archives/edgar/data/1710340/000143774926032600/ex_1025429.htm",
+    "logged": "2026-10-28"
+  },
+  {
+    "date": "2027-03-29",
+    "type": "pdufa",
+    "confidence": "confirmed",
+    "ticker": "ETON",
+    "label": "ETON PDUFA target action date for the Libervant Type 9 NDA adding ages 6 to 11 to the label (Aquestive / Eton deal; Eton expects the product commercially available April 2027). Binary: never hold through.",
+    "what": "PDUFA for the Libervant ages 6-11 label expansion.",
+    "source": "https://www.sec.gov/Archives/edgar/data/1710340/000143774926032600/ex_1025429.htm",
+    "logged": "2026-10-28"
   }
 ]
