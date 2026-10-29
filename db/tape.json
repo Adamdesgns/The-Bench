@@ -3,23 +3,23 @@
   "session": "close",
   "basis": "official 10/23 regular-session last trades vs the 10/22 closes",
   "source": "Robinhood MCP get_equity_quotes (pulled Sat 10/24 22:25 CT)",
-  "note": "Run the market Sun 10/25 20:50 CT: overnight session flat (B-1056). Close quotes unchanged from 10/23.",
+  "note": "Run the market Sun 10/25 20:50 CT: overnight session flat (B-1056). Close quotes unchanged from 10/23. | 10/28 19:07 CT interactive overreaction run (B-1138 GOOGL, B-1139 NOW): GOOGL/NOW/SPY/QQQ after-hours marks vs the 10/28 official closes; other names untouched.",
   "quotes": [
     {
       "ticker": "SPY",
-      "last": 759.85,
-      "prev_close": 763.96,
-      "change_pct": -0.54,
-      "asof": "2026-10-23T15:00:00-05:00",
-      "session": "close"
+      "last": 769.58,
+      "prev_close": 772.31,
+      "change_pct": -0.35,
+      "asof": "2026-10-28T19:07:00-05:00",
+      "session": "after-hours"
     },
     {
       "ticker": "QQQ",
-      "last": 704.39,
-      "prev_close": 704.47,
-      "change_pct": -0.01,
-      "asof": "2026-10-23T15:00:00-05:00",
-      "session": "close"
+      "last": 718.48,
+      "prev_close": 725.61,
+      "change_pct": -0.98,
+      "asof": "2026-10-28T19:07:00-05:00",
+      "session": "after-hours"
     },
     {
       "ticker": "DIA",
@@ -71,11 +71,11 @@
     },
     {
       "ticker": "GOOGL",
-      "last": 320.27,
-      "prev_close": 324.22,
-      "change_pct": -1.22,
-      "asof": "2026-10-23T15:00:00-05:00",
-      "session": "close"
+      "last": 294.7,
+      "prev_close": 324.89,
+      "change_pct": -9.29,
+      "asof": "2026-10-28T19:07:00-05:00",
+      "session": "after-hours"
     },
     {
       "ticker": "AMZN",
@@ -132,6 +132,14 @@
       "change_pct": -2.35,
       "asof": "2026-10-23T15:00:00-05:00",
       "session": "close"
+    },
+    {
+      "ticker": "NOW",
+      "last": 124.4,
+      "prev_close": 150.13,
+      "change_pct": -17.14,
+      "asof": "2026-10-28T19:07:00-05:00",
+      "session": "after-hours"
     }
   ],
   "overnight": {

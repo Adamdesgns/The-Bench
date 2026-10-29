@@ -5825,6 +5825,86 @@
       "row": "B-1128",
       "expires": "2026-10-30",
       "status": "open"
+    },
+    {
+      "id": "MC-339",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": ">=",
+          "level": 300
+        }
+      ],
+      "meaning": "B-1138: GOOGL settled at or over 300 by Friday - the miss was bought; long re-look with the session low as the stop",
+      "source": "docs/reads/2026-10-28-overreaction.md",
+      "row": "B-1138",
+      "expires": "2026-10-31",
+      "status": "open"
+    },
+    {
+      "id": "MC-340",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": "<",
+          "level": 287.33
+        }
+      ],
+      "meaning": "B-1138: GOOGL settled under the 10/28 after-hours low - the 272.11-273.95 base is next; write the accumulation limit (about 276, stop 265, target 314.90) that night",
+      "source": "docs/reads/2026-10-28-overreaction.md",
+      "row": "B-1138",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-341",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": "<=",
+          "level": 278
+        }
+      ],
+      "meaning": "B-1138: GOOGL settled at or under 278 - the accumulation zone is reached; gate 2 (capex breaking margins, B-103) is answered by the 10-Q before tranche 1 goes to full size",
+      "source": "docs/reads/2026-10-28-overreaction.md",
+      "row": "B-1138",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-342",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "NOW",
+          "op": ">=",
+          "level": 130.39
+        }
+      ],
+      "meaning": "B-1139: NOW settled at or over the September shelf - the cRPO guide cut was bought; long re-look",
+      "source": "docs/reads/2026-10-28-overreaction.md",
+      "row": "B-1139",
+      "expires": "2026-11-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-343",
+      "created": "2026-10-28",
+      "when": [
+        {
+          "ticker": "NOW",
+          "op": "<",
+          "level": 115.3
+        }
+      ],
+      "meaning": "B-1139: NOW settled under the 200-day on a guide step-down - breakdown; run hunt-short with 98.94 as the verified floor",
+      "source": "docs/reads/2026-10-28-overreaction.md",
+      "row": "B-1139",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
