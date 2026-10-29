@@ -1,0 +1,69 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-10-29",
+  "source": "yahoo",
+  "generated": "2026-10-29T21:55:03.534Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": 300.90000000000003,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [
+    {
+      "sym": "BTC-USD",
+      "mark": 78997,
+      "was": 78972.171875,
+      "date": "2026-10-29"
+    }
+  ],
+  "READY": [],
+  "STALK": [],
+  "DISCOVERY": [
+    {
+      "sym": "BTC-USD",
+      "ok": true,
+      "date": "2026-10-29",
+      "close": 78997,
+      "sma50": 81902.97,
+      "sma20": 81656.88,
+      "atr": 1872.12,
+      "low20": 79145.54,
+      "volume": 36054683648,
+      "vol30": 26588751354,
+      "volRatio": 1.36,
+      "rs20": -3.12,
+      "rs5": -3.46,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": null,
+      "first_shelf": {
+        "level": 78248.91,
+        "date": "2025-02-28",
+        "rr": 0.27
+      },
+      "floor2": null,
+      "too_far": {
+        "level": 66803.65,
+        "date": "2024-11-04"
+      },
+      "geometry": {
+        "entry": 78997,
+        "stop": 81771.26,
+        "stop_atr": 1.48,
+        "target": null,
+        "rr": 0.27
+      },
+      "readiness": 36,
+      "list": "DISCOVERY"
+    }
+  ],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [],
+  "skipped": [],
+  "id": "3b08805d"
+}
