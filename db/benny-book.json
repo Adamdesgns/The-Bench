@@ -103,8 +103,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-28",
-      "last_close": 63.93,
+      "last_scored": "2026-10-29",
+      "last_close": 60.72,
       "mirror_of": "PB-016"
     },
     {
@@ -124,15 +124,24 @@
       "readiness": 90,
       "grade": null,
       "note": "mirror of PB-017",
-      "status": "OPEN",
-      "shares_open": 2,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-10-28",
-      "last_close": 239.63,
-      "mirror_of": "PB-017"
+      "legs": [
+        {
+          "date": "2026-10-29",
+          "shares": 2,
+          "price": 244,
+          "why": "STOP-GAP"
+        }
+      ],
+      "realized": -75,
+      "r": -1.01,
+      "last_scored": "2026-10-29",
+      "last_close": 237.195,
+      "mirror_of": "PB-017",
+      "exit_reason": "STOPPED",
+      "exit_date": "2026-10-29"
     },
     {
       "id": "PB-005",
@@ -157,8 +166,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-28",
-      "last_close": 612.405,
+      "last_scored": "2026-10-29",
+      "last_close": 624.545,
       "mirror_of": "PB-018"
     }
   ],
@@ -226,6 +235,14 @@
       "unrealized": -133.58,
       "open": 3,
       "spy": 772.31
+    },
+    {
+      "date": "2026-10-29",
+      "equity": 9762.78,
+      "realized": -165.58,
+      "unrealized": -71.64,
+      "open": 2,
+      "spy": 769.52
     }
   ],
   "skipped": [

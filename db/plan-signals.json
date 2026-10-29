@@ -1,7 +1,39 @@
 {
-  "date": "2026-10-28",
-  "signals": [],
-  "none": true,
+  "date": "2026-10-29",
+  "signals": [
+    {
+      "sym": "PWR",
+      "row": "B-1163",
+      "plan_row": "B-1151",
+      "zone_low": 630,
+      "zone_high": 645.33,
+      "stop": 606.89,
+      "target": 722.21,
+      "close": 635.185,
+      "signal_low": 619.64,
+      "atr": 31.303,
+      "readiness": 60,
+      "decide_by": "2026-11-05",
+      "note": "B-1151 ARMED (B-1163): settled 635.185 over 630 on 2.01M = 1.73x the 1.16M avg (post-print day). Entry = first 30-min bar holds over 630, entry at or under 645.33, stop 606.89 (1.24 ATR), target 722.21 (10/06 high) at 2.09:1. VOID if it OPENS under 630 on the AMZN miss (AH 610.00 print at 15:16 CT, bid 622.79 / ask 638.50 at 15:22 CT). THE ENTRY CHECK IS FINAL. Readiness 60 = ENTER-eligible for the paper book if the bar holds."
+    },
+    {
+      "sym": "VRT",
+      "row": "B-1171",
+      "plan_row": "B-1130",
+      "zone_low": 245.31,
+      "zone_high": null,
+      "stop": 228.82,
+      "target": 271.66,
+      "next_pivot": 258.1,
+      "close": 245.965,
+      "signal_low": 236.55,
+      "atr": 14.084,
+      "readiness": 40,
+      "decide_by": "2026-11-04",
+      "note": "B-1130 trigger settled (245.965 > 245.31 on 9.54M = 1.50x). PASSED by the desk from the settle in B-1164: 17.15 risk to the 228.82 stop needs 280.26 for 2:1, next verified pivot 258.10 pays 0.71:1. Readiness 40 = watchlist only: the morning check records the first-30-min bar verdict over 245.31, NO paper fill, no ticket. Void if it opens under 241.55 (B-1130); AH 235.00 at 15:30 CT on the AMZN miss. MC-361 (settle over 258.10) is the live watch."
+    }
+  ],
+  "none": false,
   "close_source": "last regular-session print at 19:59:59Z (2:59:59 CT); the official close field had not rolled at 15:30 CT - the 9:00 check re-pulls before acting",
   "armed_not_signaled": [
     {
@@ -9,79 +41,100 @@
       "row": "B-930",
       "zone_low": 820,
       "zone_high": 835,
-      "legal_fill_line": 814.73,
+      "legal_fill_line": 815.46,
       "stop": 769,
       "t1": 949.42,
       "t2": 1041,
       "readiness": 30,
-      "atr": 45.725,
+      "atr": 46.458,
       "decide_by": "2026-10-30",
       "exit_by": "2026-12-15",
-      "note": "First-bar plan (B-930): the first 30-min bar closes inside 820-835; LIMIT never above 835, stop 769 GTC. READINESS 30 = watchlist only: the morning check records the bar verdict, no paper-book fill unless the desk re-grades it to 50+. | 10/28 close recheck: first bar above zone (B-1119, final). ATR Wilder-updated with 10/28 H 990.00 L 959.34 prev 928.76 (TR 61.24). Close 982.12 (+5.7 pct), 147.12 over the zone top (17.6 pct). Volume 1.12x. Seventh session above the band; MC-155 (>= 970, B-884) fired tonight. Decide-by Friday 10/30: two sessions left, the band is 15 pct below.",
-      "close_2026_10_28": 982.12
+      "note": "First-bar plan (B-930): the first 30-min bar closes inside 820-835; LIMIT never above 835, stop 769 GTC. READINESS 30 = watchlist only: the morning check records the bar verdict, no paper-book fill unless the desk re-grades it to 50+. | 10/29 close recheck: 934.26 (-4.98 pct), eighth close above the band (B-1147 NO TRADE this morning). ATR updated with H 971.01 L 927.24 prev 983.23 (TR 55.99). DECIDE-BY 10/30 = tomorrow is the LAST morning; drop after.",
+      "close_2026_10_29": 934.26
     },
     {
       "sym": "CRM",
       "row": "B-944",
       "zone_low": 224,
       "zone_high": 224.96,
-      "legal_fill_line": 223.45,
+      "legal_fill_line": 224.06,
       "stop": 214.91,
       "t1": 245.06,
       "t2": 251.94,
       "readiness": 52,
-      "atr": 8.541,
+      "atr": 9.15,
       "decide_by": "2026-10-30",
       "exit_by": "2026-11-20",
-      "note": "Weekend hunt first-bar plan (B-944): first 30-min bar closes inside 224.00-224.96; LIMIT never above 224.96, stop 214.91 GTC. Software slot: if CRM fills, WDAY B-949 is blocked. Readiness 52 = ENTER-eligible. | 10/28 close recheck: first bar above zone (B-1120, final). ATR updated with H 244.61 L 237.01 prev 240.89 (TR 7.60). Close 242.28 (+0.6 pct), low 237.01, 17.32 over the zone top. Volume 0.80x. After hours 229.85 at 15:30 CT on the software selloff after the GOOGL print - inside two dollars of the zone top; the morning check tests the first bar, not the after-hours print.",
-      "close_2026_10_28": 242.28
+      "note": "Weekend hunt first-bar plan (B-944): first 30-min bar closes inside 224.00-224.96; LIMIT never above 224.96, stop 214.91 GTC. Software slot: if CRM fills, WDAY B-949 is blocked. Readiness 52 = ENTER-eligible. | 10/29 close recheck: 230.92 (-4.62 pct), day low 225.04 missed the zone top by 8 cents (B-1148 NO TRADE this morning). ATR updated with H 233.97 L 225.04 prev 242.11 (TR 17.07). DECIDE-BY 10/30 = tomorrow is the LAST morning; drop after.",
+      "close_2026_10_29": 230.92
     },
     {
       "sym": "DE",
       "row": "B-948",
       "zone_low": 617.89,
       "zone_high": 619.46,
-      "legal_fill_line": 616.34,
+      "legal_fill_line": 617.87,
       "stop": 599,
       "t1": 660.39,
       "t2": 689.69,
       "readiness": 47,
-      "atr": 17.337,
+      "atr": 18.869,
       "decide_by": "2026-10-30",
       "exit_by": "2026-11-24",
-      "note": "Weekend hunt first-bar plan (B-948), READINESS 47 = watchlist only: record the bar verdict, no paper fill. Earnings 11/25 am. | 10/28 close recheck: first bar above zone (B-1121, final). ATR updated with H 644.41 L 637.90 prev 639.58 (TR 6.51). Close 640.78 (+0.2 pct), low 637.90, 21.32 over the zone top. Volume 0.68x.",
-      "close_2026_10_28": 640.78
+      "note": "Weekend hunt first-bar plan (B-948), READINESS 47 = watchlist only: record the bar verdict, no paper fill. Earnings 11/25 am. | 10/29 close recheck: 660.00 (+3.02 pct), day range 625.24-664.02, 39 cents under T1 660.39 without ever filling (MC-203 holds by 0.39). ATR updated with H 664.02 L 625.24 prev 640.67 (TR 38.78). DECIDE-BY 10/30 = tomorrow is the LAST morning; drop after.",
+      "close_2026_10_29": 660
     },
     {
       "sym": "WDAY",
       "row": "B-949",
       "zone_low": 183.15,
       "zone_high": 184.08,
-      "legal_fill_line": 182.75,
+      "legal_fill_line": 183.24,
       "stop": 176,
       "t1": 200.23,
       "t2": 211.83,
       "readiness": 45,
-      "atr": 6.751,
+      "atr": 7.243,
       "decide_by": "2026-10-30",
       "exit_by": "2026-11-20",
-      "note": "Weekend hunt first-bar plan (B-949), READINESS 45 = watchlist only, and blocked while CRM B-944 is open (one software slot). | 10/28 close recheck: first bar above zone (B-1122, final). ATR updated with H 207.13 L 201.45 prev 205.46 (TR 5.68). Close 204.36 (-0.5 pct), still above T1 200.23 without a fill: stale. Volume 0.94x. After hours 190.54 at 15:30 CT on the software selloff - 6.46 over the zone top; the morning check tests the first bar.",
-      "close_2026_10_28": 204.36
+      "note": "Weekend hunt first-bar plan (B-949), READINESS 45 = watchlist only, and blocked while CRM B-944 is open (one software slot). | 10/29 close recheck: 195.46 (-4.36 pct), day low 190.715, still 6.6 over the zone top (B-1150 NO TRADE this morning). ATR updated with H 197.53 L 190.715 prev 204.36 (TR 13.645). DECIDE-BY 10/30 = tomorrow is the LAST morning; drop after.",
+      "close_2026_10_29": 195.46
+    },
+    {
+      "sym": "AMZN",
+      "row": "B-1172",
+      "zone_low": 226,
+      "zone_high": 231,
+      "legal_fill_line": 229.6,
+      "stop": 221,
+      "t1": 248,
+      "t2": 254.6,
+      "readiness": 55,
+      "atr": 8.6,
+      "decide_by": "2026-11-05",
+      "exit_by": null,
+      "note": "RUN THE MARKET AMZN (B-1172, logged 15:37 CT after the Q3 miss + AWS over-40 guide; added to this file by the close check). First-bar plan: entry on a first-30-minute hold inside 226-231 at the 9:02 check, 231 is the ceiling and is never raised, stop 221.00 (1.05 post-print ATR from 230; ATR 8.6 is the row's post-print estimate, 6.19 settled + a 40-point true range), T1 248.00 (2.0:1 from 230), T2 254.60. Size: 13 shares (the 3,009 account caps the 33-share band), risk 117. VOID if the first bar closes under 225.55 (gap through the B-319 floor) or above 231 (gap-up paper test only). Readiness 55 = ENTER-eligible. Closed 244.23; after hours 226.40 at 15:30 CT. Friday entry sleeps through the weekend with a stop that cannot catch a Monday gap - the row says so, Adam decides. MC-364 (<225.55 dead), MC-365 (>=248 T1), MC-366 (>=243.38 unfilled). ECI at 07:30 CT.",
+      "close_2026_10_29": 244.23
     }
   ],
-  "other_plans_2026_10_28": [
-    "VRT B-1130 (conditional, decide-by 11/04): trigger is a SETTLE over 245.31 then a first-30-min hold; close 243.10 = NO SIGNAL (day high was exactly 245.31, 19.4M shares = 3.4x avg). After hours 236.10 at 15:30 CT on the GOOGL print. MC-333 (> 245.31) and MC-325 (< 228.82) stay armed. The VRT accumulation zone 227 / floor 211.50 is 16 dollars under the close: not inside.",
-    "UNH B-1057 (decide-by 11/06): breakout close > 426.55 on >= 8.85M needed; close 407.25 on 3.88M = NO SIGNAL; day low 405.00 touched the MC-269 kill line 405.01 and closed over it, test intact.",
-    "GOOGL B-1096/B-1128: close 325.63 is 37 cents UNDER the 326 floor of the 336 zone; after hours 296.90 on the 2.12 vs 3.02 print. No entry plan. MC-299 (< 314.90) decides the re-look; MC-338 (> 314.90) was added tonight for a settle after the drop and was deliberately left out of tonight's check so it could not fire on the pre-print close.",
-    "ORCL B-332: close 144.40 is INSIDE the dead 139.50-149.90 accumulation zone (invalidated 10/01, fails 2:1); not re-armed, B-1131 says why. Hunter short PR-174 stopped (MC-317 fired).",
-    "ASPN B-561 re-arm band 5.40-5.54: close 5.505 INSIDE the band on 0.68x volume; the note says re-arm only on a close back OVER 5.54, so this is in range but not a re-arm and not a signal.",
-    "AIP B-288: close 21.42, three cents OVER the 21.39 accumulation zone top; was inside on 10/27. No target on the row, readiness 33 = watchlist only, not an ENTER.",
-    "KWEB B-1086 / FXI B-1087 / BABA B-1088 China shorts: KWEB 22.965 vs 22.93 (not through; 11.65M vs the 25.8M volume gate), FXI 32.47 vs 32.16, BABA 100.98 vs 99.46 - no short gate fired.",
-    "NVDA B-1089: 215.39 vs the 222.19 trigger, 210.18 kill intact. QQQ B-1103: 725.48, nowhere near 712.20.",
-    "HIMS zone 24.25: close 29.35, above. IBIT zone 44.80: close 46.125, above. AMZN zone 240: 254.65, above. MRVL zone 215.71: 251.61, above. SPCX zone 128: 145.22, above."
+  "other_plans_2026_10_29": [
+    "GOOGL B-1162 (conditional, decide-by 11/06): LIMIT BUY at or under 276.00 (top of the 272.11-273.95 base), stop 265.00, target 314.90, 3.54:1, about 10 shares. Close 283.75 (-12.66 pct) did not reach it; AH 282.29. Not a first-bar test - a resting limit Adam places; the 09:00 check only reports whether 276 printed. MC-358 (<265) and MC-359 (>=314.90) watch it. The 326-336 watchlist zone (B-1096) is 42 points above and is not in play.",
+    "UNH B-1057 (decide-by 11/06): breakout close > 426.55 on >= 8.85M needed; close 410.79 on 3.77M = NO SIGNAL; day low 404.31 went through the MC-269 kill line 405.01 intraday and settled over it, test intact.",
+    "MRVL B-1165 (decide-by 11/05): settle under 216.10 = short re-look; close 218.20 (-13.29 pct on the Lumentum deal), day low 214.56 touched it and settled over = NO SIGNAL. MRVL 215.71 watchlist zone: 218.20 is 2.49 above the top, not in range. MC-362 holds.",
+    "NOW B-1139/B-1160/B-1170: 109.65 settled under the 115.30 200-day; MC-343 fired; hunt-short re-look found no verified floor (receipt 28a9cfe2), no spread.",
+    "KWEB B-1086 / FXI B-1087 / BABA B-1088 China shorts: KWEB 22.81 broke 22.93 on 0.65x volume = gate 2 fails, no spread (B-1169, MC-363 at 22.54); FXI 32.69 vs 32.16 and BABA 99.515 vs 99.46 did not fire.",
+    "NVDA B-1089: 213.72 vs the 222.19 trigger, 210.18 kill intact. QQQ B-1103/1141/1158: 715.28, held 712.20 by 3.08. SPY 769.52 held 765.21 by 4.31 (MC-357 etc. hold).",
+    "DELL B-1097: decide-by 10/29 reached, 475.57 never closed over 507.93 and held 474 by 1.57 - plan drops tonight; MC-300/311 expire 10/30.",
+    "ORCL B-332: close 139.59 is INSIDE the dead 139.50-149.90 accumulation zone by 9 cents (invalidated 10/01, fails 2:1); not re-armed.",
+    "AIP B-288: close 20.58 INSIDE the <=21.39 accumulation zone (floor 17.40). No target on the row, readiness 33 = watchlist only, not an ENTER.",
+    "ASPN B-561 re-arm band 5.40-5.54: close 5.3875 is UNDER the band (floor 5.06 intact); re-arm only on a close back over 5.54 - not in range tonight.",
+    "VST B-294: close 140.925 settled UNDER the 141.50 watchlist floor; no zone was ever declared and no position exists - the lane is void on its floor until a fresh run. AVGO 345.05 under its 349.50 floor, no zone.",
+    "HIMS zone 24.25: 29.70, above. IBIT zone 44.80: 45.71, above (MC-286 45.11 held). SPCX zone 128: 143.82, above. ETN 393.63 under its 423 floor. IREN 26.265 under its 38.40 floor and through the dead B-946 26.45 trigger (decide-by 10/23 passed). CBRS 115.085 and SNDG 5.73 under their floors.",
+    "PAPER BOOK today: ANET exit-by +33.44 (0.10R), ETN exit-by +137.55 (0.41R), LITE stopped -296.10 (-1R), COHR stop-gap -300.00 (-1.01R); open CRWV (high 64.39 vs stop 64.58, held by 19 cents) and META."
   ],
-  "dropped_2026_10_28": [
-    "PWR B-539 (decide-by 10/02), BTC-USD B-911 (decide-by 10/22), EOG B-950, META B-967, APLD B-945 (decide-by 10/23): dead, tripwire still lists their levels",
-    "Below their floors, known, not plans tonight: ETN 393.06 vs 423, IREN 28.87 vs 38.40, CBRS 112.40 vs 158, SNDG 6.395 vs 6.78, GOOGL 325.63 vs 326"
+  "dropped_2026_10_29": [
+    "DELL B-1097 (decide-by 10/29): dead tonight. IREN B-946 (decide-by 10/23), PWR B-539 (10/02), BTC-USD B-911 (10/22), EOG B-950, META B-967, APLD B-945 (10/23): dead, tripwire still lists their levels",
+    "UBER B-1067 (stop line 65.80) and LW B-1039 (48.60) were NO TRADE plans that dropped on their decide-by; UBER 65.735 under 65.80 means nothing, no position",
+    "MU B-335 Oct 16 call spreads: expired 10/16, nothing to re-price"
   ]
 }

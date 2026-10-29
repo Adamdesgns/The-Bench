@@ -266,14 +266,23 @@
       "readiness": 60,
       "grade": null,
       "note": "auto: hunter READY short, receipt 83768624; hunter p_dir 44.64% p_reach 0%; entry = the after-hours bid",
-      "status": "OPEN",
-      "shares_open": 19,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-10-28",
-      "last_close": 186.85
+      "legs": [
+        {
+          "date": "2026-10-29",
+          "shares": 19,
+          "price": 184.25,
+          "why": "EXIT-BY"
+        }
+      ],
+      "realized": 33.44,
+      "r": 0.1,
+      "last_scored": "2026-10-29",
+      "last_close": 184.25,
+      "exit_reason": "EXIT-BY",
+      "exit_date": "2026-10-29"
     },
     {
       "id": "PB-009",
@@ -327,14 +336,23 @@
       "readiness": 60,
       "grade": null,
       "note": "auto: hunter READY short, receipt 83768624; hunter p_dir 29.51% p_reach 0%; entry = the after-hours bid",
-      "status": "OPEN",
-      "shares_open": 15,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-10-28",
-      "last_close": 393.055
+      "legs": [
+        {
+          "date": "2026-10-29",
+          "shares": 15,
+          "price": 393.63,
+          "why": "EXIT-BY"
+        }
+      ],
+      "realized": 137.55,
+      "r": 0.41,
+      "last_scored": "2026-10-29",
+      "last_close": 393.63,
+      "exit_reason": "EXIT-BY",
+      "exit_date": "2026-10-29"
     },
     {
       "id": "PB-011",
@@ -353,14 +371,23 @@
       "readiness": 60,
       "grade": null,
       "note": "auto: hunter READY short, receipt 83768624; hunter p_dir 39.06% p_reach 0%; entry = the after-hours bid",
-      "status": "OPEN",
-      "shares_open": 3,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-10-28",
-      "last_close": 913.25
+      "legs": [
+        {
+          "date": "2026-10-29",
+          "shares": 3,
+          "price": 973.7,
+          "why": "STOP"
+        }
+      ],
+      "realized": -296.1,
+      "r": -1,
+      "last_scored": "2026-10-29",
+      "last_close": 919.85,
+      "exit_reason": "STOPPED",
+      "exit_date": "2026-10-29"
     },
     {
       "id": "PB-012",
@@ -525,8 +552,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-28",
-      "last_close": 63.93
+      "last_scored": "2026-10-29",
+      "last_close": 60.72
     },
     {
       "id": "PB-017",
@@ -545,14 +572,23 @@
       "readiness": 90,
       "grade": null,
       "note": "auto: hunter READY short, receipt ae673494; hunter p_dir 43.08% p_reach 0%; entry = the after-hours bid",
-      "status": "OPEN",
-      "shares_open": 8,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-10-28",
-      "last_close": 239.63
+      "legs": [
+        {
+          "date": "2026-10-29",
+          "shares": 8,
+          "price": 244,
+          "why": "STOP-GAP"
+        }
+      ],
+      "realized": -300,
+      "r": -1.01,
+      "last_scored": "2026-10-29",
+      "last_close": 237.195,
+      "exit_reason": "STOPPED",
+      "exit_date": "2026-10-29"
     },
     {
       "id": "PB-018",
@@ -577,8 +613,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-28",
-      "last_close": 612.405
+      "last_scored": "2026-10-29",
+      "last_close": 624.545
     }
   ],
   "history": [
@@ -658,6 +694,13 @@
       "realized": -766.62,
       "unrealized": -472.53,
       "open": 6
+    },
+    {
+      "date": "2026-10-29",
+      "equity": 2136.89,
+      "realized": -1191.73,
+      "unrealized": -247.36,
+      "open": 2
     }
   ]
 }
