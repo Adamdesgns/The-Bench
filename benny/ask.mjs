@@ -98,11 +98,11 @@ export const DATA_RULES = `THE DATA, NOT THE CALL. These outrank everything abov
 1. Show what the data says and how often it has worked, with the sample size and grade when there is one: "this setup went up in 61 of 100 cases", "the data leans up", "dealers are short gamma here, so moves tend to run". A base rate, a signal or an upward lean is a count of the past, never a promise. Never write "buy", "sell", "load up", "it's going up" or "can't miss". The decision is always theirs.
 2. The stored runs, all in the data folder. Read them with Read or Grep. Never name these files or folders in an answer; call them "the gamma map", "the options hunter", "the backtests", "the book".
 - Gamma heat map: gex/<date>-<SYMBOL>.json, newest date wins. Give spot, net regime (positive or negative), king node, call wall, put wall, flip, and the asof time. It is an estimate that assumes dealers are long calls and short puts; say so.
-- Options hunter: hunts/options/<date>.candidates.json holds the setups (side, readiness, grade, p_dir = how often the shape moved the right way in 10 sessions, p_reach = how often it reached the target). <date>.ranked.json holds the ranked debit spreads (strikes, expiry, cost, max gain, EV, and market_p = the broker's own odds beside ours).
+- Options hunter: hunts/options/<date>.candidates.json holds the setups (side, readiness, grade, p_dir = how often the shape moved the right way in 10 sessions, p_reach = how often it reached the target). p_dir and p_reach are PERCENTS of n (the past cases), never counts: p_dir 55.43 with n 92 is "about 51 of 92 (55%)", not "55 of 92". <date>.ranked.json holds the ranked debit spreads (strikes, expiry, cost, max gain, EV, and market_p = the broker's own odds beside ours).
 - Short hunts: hunts/short/.
 - Backtests: quant-runs.json, one QR-### per run, graded A to F. Cite the QR id and the grade.
 - Market regime: regime.json. Catalysts: catalysts.json. Prediction hit rates by source: predictions.json. Patterns: patterns.json. Your paper book: benny-book.json.
-3. You can read these runs but never start one. If the ticker or setup has no saved run, say "that hasn't been run yet" and give what live prices and the daily chart show instead. Never invent odds, a backtest or a gamma level.
+3. You can read these runs but never start one. If the ticker or setup has no saved run, say "that hasn't been run yet" and give what live prices and the daily chart show instead. Never invent odds, a backtest or a gamma level. Never say there is no logged call on something you have not looked up: check archive.json, predictions.json, mind-changers.json and benny-book.json first, or say you haven't checked the book on it.
 4. When they asked for a run that is not saved, also put ONE request line as the very last line, and the code files it for your operator to run: [RUN-REQUEST kind=backtest symbol=GOOGL setup=move threshold=-2.5 window=1 horizon=8], or setup=breakout|breakdown lookback=20 horizon=10; [RUN-REQUEST kind=gex symbol=SPY] for a gamma map; [RUN-REQUEST kind=odds symbol=HIMS] for the options hunter's odds on one ticker; [RUN-REQUEST kind=rs symbol=MU] for strength against SPY and its sector. Never promise when it will be done; the code adds that line. Ranked spreads cannot be requested: they come from the evening hunt.`;
 
 // RUN REQUESTS (Adam, 2026-10-25: "they can request it and I can run it and he can relay it"). Benny's
@@ -310,6 +310,10 @@ export function recentExchanges(qa, name, now = new Date(), { limit = 3, hours =
 const NOT_TICKERS = new Set(["AI", "US", "USA", "ETF", "ETFS", "CEO", "IPO", "ATH", "USD", "ET", "CT", "PM", "AM", "OK", "FOMC",
   "CPI", "GDP", "FED", "SEC", "DM", "RSI", "ATR", "EV", "PNL", "YOY", "NFT", "DEFI", "TVL", "I", "A"]);
 const COIN_NAMES = { bitcoin: "BTC", btc: "BTC", ethereum: "ETH", ether: "ETH", eth: "ETH", solana: "SOL", sol: "SOL" };
+// 2026-10-29: "bullish for crypto or not?" named no coin, so no book facts went in and Benny said there was
+// no BTC call with PR-172 open. A crypto word now brings in every coin the book carries. Never "coin": COIN is Coinbase.
+const CRYPTO_WORDS = new Set(["crypto", "cryptos", "cryptocurrency", "cryptocurrencies", "coins", "altcoin", "altcoins"]);
+const COINS = [...new Set(Object.values(COIN_NAMES))];
 const keyOf = (t) => String(t || "").toUpperCase().replace(/^\$/, "").replace(/[.-]+$/, "").replace(/-USD$/, "");
 
 export function tickersIn(question, known) {
@@ -317,7 +321,8 @@ export function tickersIn(question, known) {
   for (const m of String(question).matchAll(/\$?[A-Za-z][A-Za-z.-]{0,9}/g)) {
     const word = m[0], k = keyOf(word);
     const coin = COIN_NAMES[k.toLowerCase()];
-    if (coin && known.has(coin)) out.add(coin);
+    if (CRYPTO_WORDS.has(k.toLowerCase())) COINS.filter((c) => known.has(c)).forEach((c) => out.add(c));
+    else if (coin && known.has(coin)) out.add(coin);
     else if ((word.startsWith("$") || word === word.toUpperCase()) && !NOT_TICKERS.has(k) && known.has(k)) out.add(k);
   }
   return [...out];

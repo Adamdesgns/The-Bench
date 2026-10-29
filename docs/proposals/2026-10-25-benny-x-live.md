@@ -261,6 +261,16 @@ Every step that adds code also gets the vault ritual: Daily bullets, a Dev Log l
 5. **Opus, even at 25–60 s to the first word?** Or Sonnet for the Space only, to roughly halve the wait?
 6. **Can you see "Create a Space" on x.com on this PC?** (Step 0.)
 
+### Adam's answers (2026-10-29)
+
+Adam: *"I will create a new acct. Yes Benny and Keoris share the voice. we'll get him ready for lives. similar to boardy. we'll figure that all out first we need to get him answering correctly."*
+
+- **Q1, account:** a **new X account** for Benny, not @adamdesgns. This reverses §1's "separate account not recommended", so that account needs X's **"Automated" label**, and its bio must say it's a bot and name who runs it, linked to Adam's account (X automated-account rules, §1).
+- **Q2, voice:** **shared.** Benny uses KEORIS's voice, `bm_daniel`.
+- **Lives, "similar to boardy":** the target is a live, conversational AI voice. The format gets worked out later.
+- **Q3–Q6:** not answered yet.
+- **Order of work:** **getting Benny's answers right comes first.** No Space build starts until that's done.
+
 ---
 
 *Sources checked 2026-10-25: X API Spaces docs, X help (automated account labels, hosting, Media

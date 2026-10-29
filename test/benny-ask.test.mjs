@@ -259,6 +259,23 @@ test("tickers: uppercase or $ words and coin names that the book carries; never 
   assert.deepEqual(tickersIn("is ZZZZ cheap", known), []);
 });
 
+// 2026-10-29: Grim asked "Is the FOMC meeting result today bullish for crypto or not?", no coin was named,
+// so no book facts were sent, and Benny said "I don't have a logged call on BTC" with PR-172 open.
+test("tickers: a crypto word brings in every coin the book carries, and only those", () => {
+  const known = new Set(["BTC", "ETH", "PWR"]);
+  assert.deepEqual(tickersIn("Is the FOMC meeting result today bullish for crypto or not?", known), ["BTC", "ETH"]);
+  assert.deepEqual(tickersIn("which altcoins look weak", known), ["BTC", "ETH"]);
+  assert.deepEqual(tickersIn("any coins on sale? and PWR", known), ["BTC", "ETH", "PWR"]);
+  assert.deepEqual(tickersIn("crypto news", new Set(["PWR"])), []);
+});
+
+// 2026-10-29: the ranked file says p_dir 55.43 with n 92; Benny wrote "up 55 of 92 times" (about 51 is right).
+test("data rules: hunter odds are percents of n, and nothing is called unlogged unless it was looked up", () => {
+  assert.ok(DATA_RULES.includes("PERCENTS of n"));
+  assert.ok(DATA_RULES.includes("about 51 of 92"));
+  assert.ok(DATA_RULES.includes("Never say there is no logged call on something you have not looked up"));
+});
+
 test("book facts: open predictions, rows, watchers and Benny's own trades; never sizing", () => {
   const [btc] = bookFacts(["BTC"], DATA);
   assert.deepEqual(btc.open_predictions.map((p) => p.id), ["PR-130"]);
