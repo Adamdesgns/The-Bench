@@ -3,22 +3,22 @@
   "session": "close",
   "basis": "official 10/23 regular-session last trades vs the 10/22 closes",
   "source": "Robinhood MCP get_equity_quotes (pulled Sat 10/24 22:25 CT)",
-  "note": "Run the market Sun 10/25 20:50 CT: overnight session flat (B-1056). Close quotes unchanged from 10/23. | 10/28 19:07 CT interactive overreaction run (B-1138 GOOGL, B-1139 NOW): GOOGL/NOW/SPY/QQQ after-hours marks vs the 10/28 official closes; other names untouched.",
+  "note": "Run the market Sun 10/25 20:50 CT: overnight session flat (B-1056). Close quotes unchanged from 10/23. | 10/28 19:07 CT interactive overreaction run (B-1138 GOOGL, B-1139 NOW): GOOGL/NOW/SPY/QQQ after-hours marks vs the 10/28 official closes; other names untouched. | 10/29 15:35 CT run the market AMZN (B-1172): AMZN/SPY/QQQ/GOOGL/NOW after-hours marks vs the 10/28 official closes.",
   "quotes": [
     {
       "ticker": "SPY",
-      "last": 769.58,
+      "last": 765.75,
       "prev_close": 772.31,
-      "change_pct": -0.35,
-      "asof": "2026-10-28T19:07:00-05:00",
+      "change_pct": -0.85,
+      "asof": "2026-10-29T15:35:00-05:00",
       "session": "after-hours"
     },
     {
       "ticker": "QQQ",
-      "last": 718.48,
+      "last": 707.53,
       "prev_close": 725.61,
-      "change_pct": -0.98,
-      "asof": "2026-10-28T19:07:00-05:00",
+      "change_pct": -2.49,
+      "asof": "2026-10-29T15:35:00-05:00",
       "session": "after-hours"
     },
     {
@@ -71,19 +71,19 @@
     },
     {
       "ticker": "GOOGL",
-      "last": 294.7,
+      "last": 282.14,
       "prev_close": 324.89,
-      "change_pct": -9.29,
-      "asof": "2026-10-28T19:07:00-05:00",
+      "change_pct": -13.16,
+      "asof": "2026-10-29T15:35:00-05:00",
       "session": "after-hours"
     },
     {
       "ticker": "AMZN",
-      "last": 248.045,
-      "prev_close": 250.38,
-      "change_pct": -0.93,
-      "asof": "2026-10-23T15:00:00-05:00",
-      "session": "close"
+      "last": 231.31,
+      "prev_close": 254.6,
+      "change_pct": -9.15,
+      "asof": "2026-10-29T15:35:00-05:00",
+      "session": "after-hours"
     },
     {
       "ticker": "MU",
@@ -135,10 +135,10 @@
     },
     {
       "ticker": "NOW",
-      "last": 124.4,
+      "last": 108.2,
       "prev_close": 150.13,
-      "change_pct": -17.14,
-      "asof": "2026-10-28T19:07:00-05:00",
+      "change_pct": -27.93,
+      "asof": "2026-10-29T15:35:00-05:00",
       "session": "after-hours"
     }
   ],
