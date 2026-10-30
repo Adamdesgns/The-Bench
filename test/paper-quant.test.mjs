@@ -8,7 +8,7 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
 
-import { replay, makeTwin, shapeOf } from "../scripts/paper-quant.mjs";
+import { replay, makeTwin, shapeOf, widenStop } from "../scripts/paper-quant.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CLI = resolve(HERE, "../scripts/paper-quant.mjs");
@@ -175,12 +175,13 @@ test("CLI: sync twins every share trade once, score offline, report the pair", (
   const s1 = run(["sync", "--paper", paper, "--db", db, "--earnings", '{"TEST":"2027-01-01"}', "--write"]);
   assert.match(s1, /ADDED\s+PQ-001/);
   assert.match(s1, /ADDED\s+PQS-001/);
+  assert.match(s1, /ADDED\s+PQW-001/);
   assert.doesNotMatch(s1, /OPT/);
   assert.match(run(["sync", "--paper", paper, "--db", db, "--write"]), /0 added/);
   const sc = run(["score", "--paper", paper, "--db", db, "--bars-file", barsFile, "--write"]);
   assert.match(sc, /PQ-001 TEST/);
   const q = JSON.parse(readFileSync(db, "utf8"));
-  assert.equal(q.twins.length, 2);
+  assert.equal(q.twins.length, 3);
   assert.equal(q.twins[0].status, "OPEN");
   assert.equal(q.twins[0].last_scored, DS[71]);
   const rep = run(["report", "--paper", paper, "--db", db]);
@@ -188,4 +189,47 @@ test("CLI: sync twins every share trade once, score offline, report the pair", (
   assert.match(rep, /fixed/i);
   assert.match(rep, /trail/);
   assert.match(rep, /shape/);
+  assert.match(rep, /wide/);
+});
+
+// ---- the wide twin: plumbing tested with a stand-in stop rule, so these pass whatever widenStop decides ----
+const standIn = () => 75;   // short entry 65.5, paper stop 70 -> wide stop 75
+
+test("makeTwin: the wide variant is the paper trade exactly, with its own id and lane", () => {
+  const pb = { id: "PB-003", sym: "ASTS", side: "short", lane: "hunter-short", source_row: "B-895", entry_date: "2026-10-14", entry: 41.8, shares: 58, stop: 47.75, t1: 30, t2: null, exit_by: "2026-10-28" };
+  const w = makeTwin(pb, { earnings: "2026-11-09", variant: "wide" });
+  assert.equal(w.id, "PQW-003");
+  assert.equal(w.lane, "quant-wide");
+  assert.equal(w.hard_exit, "2026-10-28");               // the paper trade's own exit date, no 20-session extension
+  assert.equal(w.stop0, 47.75);
+  assert.equal(w.t1, 30);
+});
+
+test("wide twin: a rally that stops the paper trade does not stop the wider stop; shares cut to the same dollar risk", () => {
+  const after = [67, 72, 66, 64];                          // the 72 day trades up to 73: through the 70 paper stop
+  const bars = series([...down, ...after], DS);
+  const twin = makeTwin({ id: "PB-001", sym: "TEST", side: "short", lane: "hunter-short", source_row: "B-1", entry_date: ENTRY_DATE, entry: 65.5, shares: 10, stop: 70, t1: 50, t2: null, exit_by: DS[73] }, { variant: "wide" });
+  const w = replay(twin, bars, spy, { widen: standIn });
+  assert.equal(w.stop, 75);
+  assert.equal(w.shares_wide, 4);                          // floor(10 x 4.5 / 9.5)
+  assert.ok(w.shares_wide * 9.5 <= 10 * 4.5, "never more dollar risk than the paper trade");
+  assert.equal(w.exit_reason, "EXIT-BY");
+  assert.equal(w.exit_date, DS[73]);
+  assert.ok(w.r > 0);
+});
+
+test("wide twin: a stop rule that comes back tighter than the paper stop is refused", () => {
+  const bars = series([...down, 64.5], DS);
+  const twin = makeTwin({ id: "PB-001", sym: "TEST", side: "short", lane: "hunter-short", source_row: "B-1", entry_date: ENTRY_DATE, entry: 65.5, shares: 10, stop: 70, t1: 50, t2: null, exit_by: DS[73] }, { variant: "wide" });
+  assert.throws(() => replay(twin, bars, spy, { widen: () => 68 }), /must be past the paper stop/);
+  assert.throws(() => replay(twin, bars, spy, { widen: () => 60 }), /must be past the paper stop/);
+});
+
+test("widenStop: the wider of 4/3 of the paper distance and 1.5 ATR, on the losing side", () => {
+  // Long, paper stop 6 below, ATR 2: 4/3 x 6 = 8 beats 1.5 x 2 = 3.
+  assert.equal(widenStop({ entry: 100, stop: 94, side: "long", atr: 2 }), 92);
+  // Long, paper stop 2 below, ATR 4: 1.5 x 4 = 6 beats 4/3 x 2.
+  assert.equal(widenStop({ entry: 100, stop: 98, side: "long", atr: 4 }), 94);
+  // Short mirrors it above the entry.
+  assert.equal(widenStop({ entry: 50, stop: 53, side: "short", atr: 1 }), 54);
 });
