@@ -1,28 +1,28 @@
 {
   "asof": "2026-10-30",
-  "generated": "2026-10-30T15:29:19.795Z",
+  "generated": "2026-10-30T20:35:13.915Z",
   "source": "yahoo",
   "label": "EVENT",
   "market_risk": 2,
   "reasons": [
     "macro release on the next session overrides NEUTRAL",
-    "SPY 758.46 vs 50 SMA 767.55",
-    "VIX 19.46"
+    "SPY 755.78 vs 50 SMA 767.50",
+    "VIX 19.42"
   ],
   "next_session_macro": [
     "ISM Manufacturing PMI (October), 10:00 ET"
   ],
   "inputs": {
-    "spy": 758.4600219726562,
-    "sma20": 770.6049957275391,
-    "sma50": 767.5491955566406,
-    "sma200": 728.8677993774414,
-    "vix": 19.459999084472656,
-    "vix_5d_pct": 0.05,
-    "tnx": 4.952000141143799,
-    "tnx_5d_change": -0.036,
-    "iwm_rel_20": 0.83,
-    "qqq_rel_20": -5.84
+    "spy": 755.780029296875,
+    "sma20": 770.47099609375,
+    "sma50": 767.495595703125,
+    "sma200": 728.8543994140625,
+    "vix": 19.420000076293945,
+    "vix_5d_pct": -0.15,
+    "tnx": 4.928999900817871,
+    "tnx_5d_change": -0.059,
+    "iwm_rel_20": 1.02,
+    "qqq_rel_20": -6.08
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }

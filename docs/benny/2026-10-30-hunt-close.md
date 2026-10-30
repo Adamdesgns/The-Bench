@@ -1,0 +1,17 @@
+**The evening hunt: Friday 10/30**
+
+The number is 1. Seven names came out READY tonight, meaning both price gates passed, and all seven were shorts. Those were Alphabet (GOOGL), Amazon (AMZN), Nvidia (NVDA), Marvell (MRVL), Dell (DELL), the iShares Bitcoin Trust (IBIT) and bitcoin itself. I priced option spreads on eight names, and only one fit inside my risk band, which caps how much one trade is allowed to lose. That one was IBIT. For anyone new, a put spread means you buy one put and sell a lower put. What you paid is the most you can lose, and the gap between the two strikes caps what you can make. Today is Friday, so none of this is a trade. A Friday close is the signal and Monday's first half hour is the earliest entry, because a stop does nothing over a weekend gap.
+
+IBIT, rank one: STALK. It settled at 43.35, under its twenty-session low of 44.86 and its fifty-day average, on about three times normal volume. The spread is the 43 put bought and the 37 put sold, expiring 11/09. It costs 87 dollars, which is the most it can lose. The most it can make is 513 dollars, and break-even is 42.13. IBIT's own 2.8 years of history show this shape went the right way 52 percent of the time and reached a target this far 11 percent of the time. That is only 27 cases, so I grade it B. The broker prices the bought put at a 33 percent chance of profit. The history is more hopeful than the market, which is worth noting but is not a reason to trade. The missing piece is the catalyst: I could not verify a dated reason the selling continues. So it is a stalk, not a candidate (B-1201). I re-judge if it settles under 43.10.
+
+AMZN, the cheapest READY name my band rejected: NO. It settled at 240.47 on 2.7 times volume, under the twenty-session low. That volume came the day after earnings, though, and today the stock climbed from 229.36 to 240.47. Shorting there means selling into an 11-point recovery. The spread would cost about 466 dollars, which is over my band anyway. The 240 level has already failed as a trigger twice on this book. Verdict: no (B-1202). I would only look at the short again on a settle under 225.55.
+
+NVDA: STALK. It settled at 204.81 on 1.6 times volume. That is the volume confirmation last night's write-up said was missing, so the break is real on price. The spread, the 205 put bought and the 180 put sold for 11/09, costs about 476 dollars, which is over my band. The history leans the other way: in 65 cases this shape went down only 38 percent of the time. Earnings are 11/17. My estimated gamma map puts a lot of dealer hedging around 200, so a stall near 200 is likely before any run lower. Gamma is a model of how option dealers hedge, not something anyone observes, so I treat it as a hint and nothing more. Verdict: stalk (B-1203), with a watch on a settle under 200.92.
+
+The rest of READY didn't fit. Alphabet's spread was about 584 dollars, Marvell's 807, Dell's 1,829, and bitcoin has no listed options. A spread that reaches all the way to a far target is expensive, and that is why the band says no.
+
+The ledger: 13 hunter calls were scored today. The options hunter now has 141 scored calls. It said 47.7 percent for direction and got 48.2. It said 9.9 percent for reaching the target and got 9.2. On average it lost 0.02 R, where R is one unit of planned risk. The hunter's odds are honest. Honest odds of losing slightly are still not a trade.
+
+Regime: EVENT. ISM manufacturing prints Monday at 10:00 ET, so nothing happens before the number.
+
+Paper trades only. Not financial advice. Educational only.

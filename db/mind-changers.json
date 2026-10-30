@@ -6544,6 +6544,22 @@
       "row": "B-1194",
       "expires": "2026-11-04",
       "status": "open"
+    },
+    {
+      "id": "MC-378",
+      "created": "2026-10-30",
+      "when": [
+        {
+          "ticker": "IBIT",
+          "op": "<",
+          "level": 43.1
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: IBIT settled under the B-491 43.10 floor; short re-look needs a dated catalyst and the 11/09 43/37 spread re-priced",
+      "source": "docs/reads/2026-10-30-hunt-close.md",
+      "row": "B-1201",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }
