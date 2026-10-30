@@ -6390,6 +6390,38 @@
       "row": "B-1187",
       "expires": "2026-11-03",
       "status": "open"
+    },
+    {
+      "id": "MC-371",
+      "created": "2026-10-30",
+      "when": [
+        {
+          "ticker": "REGN",
+          "op": ">=",
+          "level": 973.99
+        }
+      ],
+      "meaning": "T1 reached: sell half, the 2024-02-02 pivot paid",
+      "source": "docs/reads/2026-10-30-regn.md",
+      "row": "B-1188",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-372",
+      "created": "2026-10-30",
+      "when": [
+        {
+          "ticker": "REGN",
+          "op": "<",
+          "level": 895.4
+        }
+      ],
+      "meaning": "stop: the earnings reaction failed under the post-open low",
+      "source": "docs/reads/2026-10-30-regn.md",
+      "row": "B-1188",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
