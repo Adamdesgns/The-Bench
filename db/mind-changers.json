@@ -6326,6 +6326,70 @@
       "row": "B-1172",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-367",
+      "created": "2026-10-29",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 210.18
+        }
+      ],
+      "meaning": "B-1174 hunt-close STALK short trigger fired: NVDA settled under the 20-session low through the estimated 210 put wall - re-judge the short only on 1.5x volume and a verified floor (MC-295 is the long-side read of the same level)",
+      "source": "docs/reads/2026-10-29-hunt-close.md",
+      "row": "B-1174",
+      "expires": "2026-11-05",
+      "status": "open"
+    },
+    {
+      "id": "MC-368",
+      "created": "2026-10-30",
+      "when": [
+        {
+          "ticker": "AMD",
+          "op": ">",
+          "level": 566.42
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: AMD settled back over Thursday's 566.42 close after a -9.4 pct Intel-day open - the market separated the PC warning from AI silicon; long re-look with the 10/30 low as the stop",
+      "source": "docs/reads/2026-10-30-sotm.md",
+      "row": "B-1178",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-369",
+      "created": "2026-10-30",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 765
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: SPY settled back over the est 765 king node / put wall after a 760 open on the Intel guide - the floor held; the book's shorts lose their tailwind",
+      "source": "docs/reads/2026-10-30-sotm.md",
+      "row": "B-1179",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-370",
+      "created": "2026-10-30",
+      "when": [
+        {
+          "ticker": "AMD",
+          "op": ">",
+          "level": 566.42
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "snapshot-1011",
+      "row": "B-1187",
+      "expires": "2026-11-03",
+      "status": "open"
     }
   ]
 }
