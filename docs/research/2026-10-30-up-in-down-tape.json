@@ -1,0 +1,5423 @@
+{
+  "asof": "2026-10-30",
+  "params": {
+    "jumpPct": 10,
+    "spyPct": -1,
+    "spacing": 10,
+    "horizons": [
+      1,
+      5,
+      10,
+      20
+    ]
+  },
+  "coverage": {
+    "names": 428,
+    "first": "2017-10-09",
+    "last": "2026-10-09"
+  },
+  "downTape": {
+    "1": {
+      "raw": {
+        "n": 530,
+        "dates": 210,
+        "mean": 0.56,
+        "median": -0.55,
+        "down": 52.8,
+        "dayMean": -0.18,
+        "t": -0.32,
+        "tMonth": -0.49
+      },
+      "excess": {
+        "n": 530,
+        "dates": 210,
+        "mean": 0.17,
+        "median": -0.8,
+        "down": 55.8,
+        "dayMean": -0.29,
+        "t": -0.52,
+        "tMonth": -0.88
+      }
+    },
+    "5": {
+      "raw": {
+        "n": 530,
+        "dates": 210,
+        "mean": 2.2,
+        "median": 0,
+        "down": 49.6,
+        "dayMean": 0.52,
+        "t": 0.52,
+        "tMonth": 1.05
+      },
+      "excess": {
+        "n": 530,
+        "dates": 210,
+        "mean": 0.61,
+        "median": -1.43,
+        "down": 55.3,
+        "dayMean": -0.14,
+        "t": -0.16,
+        "tMonth": 0.23
+      }
+    },
+    "10": {
+      "raw": {
+        "n": 530,
+        "dates": 210,
+        "mean": 2.37,
+        "median": 0,
+        "down": 50,
+        "dayMean": 0.98,
+        "t": 0.76,
+        "tMonth": 0.87
+      },
+      "excess": {
+        "n": 530,
+        "dates": 210,
+        "mean": 0,
+        "median": -1.71,
+        "down": 55.1,
+        "dayMean": -0.21,
+        "t": -0.17,
+        "tMonth": -0.13
+      }
+    },
+    "20": {
+      "raw": {
+        "n": 530,
+        "dates": 210,
+        "mean": 7.69,
+        "median": 2,
+        "down": 46.4,
+        "dayMean": 3.2,
+        "t": 1.84,
+        "tMonth": 1.19
+      },
+      "excess": {
+        "n": 530,
+        "dates": 210,
+        "mean": 2.98,
+        "median": -1.44,
+        "down": 53.8,
+        "dayMean": 0.47,
+        "t": 0.29,
+        "tMonth": -0.28
+      }
+    }
+  },
+  "downTapeEarnings": {
+    "1": {
+      "raw": {
+        "n": 132,
+        "dates": 74,
+        "mean": 0.38,
+        "median": -0.55,
+        "down": 53.8,
+        "dayMean": 0.21,
+        "t": 0.35,
+        "tMonth": -0.06
+      },
+      "excess": {
+        "n": 132,
+        "dates": 74,
+        "mean": 0.43,
+        "median": -0.32,
+        "down": 56.8,
+        "dayMean": 0.27,
+        "t": 0.48,
+        "tMonth": -0.09
+      }
+    },
+    "5": {
+      "raw": {
+        "n": 132,
+        "dates": 74,
+        "mean": 2.88,
+        "median": 1.15,
+        "down": 45.5,
+        "dayMean": 1.74,
+        "t": 1.4,
+        "tMonth": 1.02
+      },
+      "excess": {
+        "n": 132,
+        "dates": 74,
+        "mean": 2.23,
+        "median": -0.33,
+        "down": 50.8,
+        "dayMean": 1.09,
+        "t": 1.05,
+        "tMonth": 0.6
+      }
+    },
+    "10": {
+      "raw": {
+        "n": 132,
+        "dates": 74,
+        "mean": 2.94,
+        "median": 2.27,
+        "down": 45.5,
+        "dayMean": 1.69,
+        "t": 1.07,
+        "tMonth": 0.56
+      },
+      "excess": {
+        "n": 132,
+        "dates": 74,
+        "mean": 1.78,
+        "median": 1.08,
+        "down": 49.2,
+        "dayMean": 0.33,
+        "t": 0.25,
+        "tMonth": -0.2
+      }
+    },
+    "20": {
+      "raw": {
+        "n": 132,
+        "dates": 74,
+        "mean": 8.15,
+        "median": 6.07,
+        "down": 36.4,
+        "dayMean": 5.67,
+        "t": 2.97,
+        "tMonth": 2.13
+      },
+      "excess": {
+        "n": 132,
+        "dates": 74,
+        "mean": 5,
+        "median": 2.11,
+        "down": 45.5,
+        "dayMean": 2.71,
+        "t": 1.63,
+        "tMonth": 1.31
+      }
+    }
+  },
+  "downTapeNoEarnings": {
+    "1": {
+      "raw": {
+        "n": 398,
+        "dates": 182,
+        "mean": 0.62,
+        "median": -0.54,
+        "down": 52.5,
+        "dayMean": 0.04,
+        "t": 0.05,
+        "tMonth": 0.05
+      },
+      "excess": {
+        "n": 398,
+        "dates": 182,
+        "mean": 0.08,
+        "median": -0.94,
+        "down": 55.5,
+        "dayMean": -0.11,
+        "t": -0.15,
+        "tMonth": -0.32
+      }
+    },
+    "5": {
+      "raw": {
+        "n": 398,
+        "dates": 182,
+        "mean": 1.97,
+        "median": -0.49,
+        "down": 51,
+        "dayMean": 0.43,
+        "t": 0.38,
+        "tMonth": 0.95
+      },
+      "excess": {
+        "n": 398,
+        "dates": 182,
+        "mean": 0.07,
+        "median": -2.1,
+        "down": 56.8,
+        "dayMean": -0.29,
+        "t": -0.27,
+        "tMonth": 0.01
+      }
+    },
+    "10": {
+      "raw": {
+        "n": 398,
+        "dates": 182,
+        "mean": 2.19,
+        "median": -0.84,
+        "down": 51.5,
+        "dayMean": 1.53,
+        "t": 1,
+        "tMonth": 1.29
+      },
+      "excess": {
+        "n": 398,
+        "dates": 182,
+        "mean": -0.6,
+        "median": -3.45,
+        "down": 57,
+        "dayMean": 0.24,
+        "t": 0.17,
+        "tMonth": 0.31
+      }
+    },
+    "20": {
+      "raw": {
+        "n": 398,
+        "dates": 182,
+        "mean": 7.54,
+        "median": 0.22,
+        "down": 49.7,
+        "dayMean": 3.19,
+        "t": 1.5,
+        "tMonth": 1.11
+      },
+      "excess": {
+        "n": 398,
+        "dates": 182,
+        "mean": 2.31,
+        "median": -3.99,
+        "down": 56.5,
+        "dayMean": 0.41,
+        "t": 0.2,
+        "tMonth": -0.14
+      }
+    }
+  },
+  "downTapeEx2020": {
+    "1": {
+      "raw": {
+        "n": 406,
+        "dates": 172,
+        "mean": -0.16,
+        "median": -0.65,
+        "down": 53.4,
+        "dayMean": -0.34,
+        "t": -0.62,
+        "tMonth": -0.71
+      },
+      "excess": {
+        "n": 406,
+        "dates": 172,
+        "mean": -0.37,
+        "median": -0.8,
+        "down": 56.2,
+        "dayMean": -0.42,
+        "t": -0.78,
+        "tMonth": -1.05
+      }
+    },
+    "5": {
+      "raw": {
+        "n": 406,
+        "dates": 172,
+        "mean": 1.2,
+        "median": -0.34,
+        "down": 50.7,
+        "dayMean": 0.85,
+        "t": 0.81,
+        "tMonth": 0.96
+      },
+      "excess": {
+        "n": 406,
+        "dates": 172,
+        "mean": 0.36,
+        "median": -1.19,
+        "down": 54.9,
+        "dayMean": 0.19,
+        "t": 0.19,
+        "tMonth": 0.32
+      }
+    },
+    "10": {
+      "raw": {
+        "n": 406,
+        "dates": 172,
+        "mean": 1.07,
+        "median": -0.58,
+        "down": 52,
+        "dayMean": 1.03,
+        "t": 0.73,
+        "tMonth": 0.73
+      },
+      "excess": {
+        "n": 406,
+        "dates": 172,
+        "mean": -0.52,
+        "median": -1.55,
+        "down": 54.2,
+        "dayMean": -0.09,
+        "t": -0.07,
+        "tMonth": -0.22
+      }
+    },
+    "20": {
+      "raw": {
+        "n": 406,
+        "dates": 172,
+        "mean": 4.63,
+        "median": 0.78,
+        "down": 48.3,
+        "dayMean": 2.2,
+        "t": 1.19,
+        "tMonth": 0.56
+      },
+      "excess": {
+        "n": 406,
+        "dates": 172,
+        "mean": 1.29,
+        "median": -2.6,
+        "down": 55.9,
+        "dayMean": -0.22,
+        "t": -0.12,
+        "tMonth": -0.96
+      }
+    }
+  },
+  "upTape": {
+    "1": {
+      "raw": {
+        "n": 5906,
+        "dates": 1128,
+        "mean": -0.24,
+        "median": -0.58,
+        "down": 54.1,
+        "dayMean": 0.2,
+        "t": 0.88,
+        "tMonth": 0.5
+      },
+      "excess": {
+        "n": 5906,
+        "dates": 1128,
+        "mean": 0.19,
+        "median": -0.36,
+        "down": 53.4,
+        "dayMean": 0.14,
+        "t": 0.65,
+        "tMonth": 0.46
+      }
+    },
+    "5": {
+      "raw": {
+        "n": 5900,
+        "dates": 1126,
+        "mean": 0.93,
+        "median": -0.81,
+        "down": 52.4,
+        "dayMean": 1.36,
+        "t": 3.04,
+        "tMonth": 1.59
+      },
+      "excess": {
+        "n": 5900,
+        "dates": 1126,
+        "mean": 0.89,
+        "median": -0.97,
+        "down": 54.2,
+        "dayMean": 1.08,
+        "t": 2.42,
+        "tMonth": 1.34
+      }
+    },
+    "10": {
+      "raw": {
+        "n": 5897,
+        "dates": 1125,
+        "mean": 1.79,
+        "median": -0.27,
+        "down": 50.7,
+        "dayMean": 1.61,
+        "t": 2.76,
+        "tMonth": 1.83
+      },
+      "excess": {
+        "n": 5897,
+        "dates": 1125,
+        "mean": 0.8,
+        "median": -1.25,
+        "down": 54.8,
+        "dayMean": 0.91,
+        "t": 1.6,
+        "tMonth": 0.87
+      }
+    },
+    "20": {
+      "raw": {
+        "n": 5887,
+        "dates": 1122,
+        "mean": 4.36,
+        "median": 0.17,
+        "down": 49.3,
+        "dayMean": 2.93,
+        "t": 3.96,
+        "tMonth": 1.99
+      },
+      "excess": {
+        "n": 5887,
+        "dates": 1122,
+        "mean": 1.7,
+        "median": -2.6,
+        "down": 56.5,
+        "dayMean": 1.41,
+        "t": 2.09,
+        "tMonth": 0.65
+      }
+    }
+  },
+  "any": {
+    "1": {
+      "raw": {
+        "n": 7421,
+        "dates": 1883,
+        "mean": -0.01,
+        "median": -0.5,
+        "down": 53.4,
+        "dayMean": 0.2,
+        "t": 1.21,
+        "tMonth": 0.36
+      },
+      "excess": {
+        "n": 7421,
+        "dates": 1883,
+        "mean": 0.26,
+        "median": -0.37,
+        "down": 53.3,
+        "dayMean": 0.14,
+        "t": 0.85,
+        "tMonth": 0.29
+      }
+    },
+    "5": {
+      "raw": {
+        "n": 7415,
+        "dates": 1880,
+        "mean": 0.99,
+        "median": -0.7,
+        "down": 52.1,
+        "dayMean": 1.16,
+        "t": 3.44,
+        "tMonth": 2.03
+      },
+      "excess": {
+        "n": 7415,
+        "dates": 1880,
+        "mean": 0.73,
+        "median": -1.03,
+        "down": 54.8,
+        "dayMean": 0.71,
+        "t": 2.11,
+        "tMonth": 1.27
+      }
+    },
+    "10": {
+      "raw": {
+        "n": 7407,
+        "dates": 1876,
+        "mean": 1.93,
+        "median": -0.33,
+        "down": 50.8,
+        "dayMean": 1.48,
+        "t": 3.45,
+        "tMonth": 2.23
+      },
+      "excess": {
+        "n": 7407,
+        "dates": 1876,
+        "mean": 0.88,
+        "median": -1.32,
+        "down": 54.7,
+        "dayMean": 0.65,
+        "t": 1.55,
+        "tMonth": 0.92
+      }
+    },
+    "20": {
+      "raw": {
+        "n": 7393,
+        "dates": 1869,
+        "mean": 4.43,
+        "median": 0.32,
+        "down": 49.1,
+        "dayMean": 3,
+        "t": 5.19,
+        "tMonth": 2.45
+      },
+      "excess": {
+        "n": 7393,
+        "dates": 1869,
+        "mean": 1.87,
+        "median": -2.34,
+        "down": 55.8,
+        "dayMean": 1.31,
+        "t": 2.42,
+        "tMonth": 0.91
+      }
+    }
+  },
+  "byYear": {
+    "2018": {
+      "n": 39,
+      "dates": 24,
+      "mean": -1.42,
+      "median": -4.08,
+      "down": 56.4,
+      "dayMean": 0.03,
+      "t": 0.01,
+      "tMonth": -0.14
+    },
+    "2019": {
+      "n": 20,
+      "dates": 11,
+      "mean": -1.73,
+      "median": -5.88,
+      "down": 60,
+      "dayMean": 3.47,
+      "t": 0.32,
+      "tMonth": 0.94
+    },
+    "2020": {
+      "n": 124,
+      "dates": 38,
+      "mean": 6.65,
+      "median": 2.78,
+      "down": 43.5,
+      "dayMean": 0.76,
+      "t": 0.24,
+      "tMonth": 0.5
+    },
+    "2021": {
+      "n": 49,
+      "dates": 16,
+      "mean": 1.93,
+      "median": 2.59,
+      "down": 42.9,
+      "dayMean": 1.99,
+      "t": 0.69,
+      "tMonth": 1.23
+    },
+    "2022": {
+      "n": 86,
+      "dates": 41,
+      "mean": 1.52,
+      "median": -0.42,
+      "down": 53.5,
+      "dayMean": -0.05,
+      "t": -0.02,
+      "tMonth": 0.07
+    },
+    "2023": {
+      "n": 48,
+      "dates": 25,
+      "mean": 1.39,
+      "median": -1.51,
+      "down": 58.3,
+      "dayMean": -0.6,
+      "t": -0.21,
+      "tMonth": 0.28
+    },
+    "2024": {
+      "n": 45,
+      "dates": 17,
+      "mean": -2.18,
+      "median": -1.94,
+      "down": 51.1,
+      "dayMean": 3,
+      "t": 0.43,
+      "tMonth": -0.1
+    },
+    "2025": {
+      "n": 76,
+      "dates": 23,
+      "mean": 0.95,
+      "median": 0,
+      "down": 50,
+      "dayMean": 2.35,
+      "t": 0.89,
+      "tMonth": -0.44
+    },
+    "2026": {
+      "n": 43,
+      "dates": 15,
+      "mean": 5.97,
+      "median": 2.27,
+      "down": 48.8,
+      "dayMean": 1.25,
+      "t": 0.41,
+      "tMonth": 0.11
+    }
+  },
+  "events": [
+    {
+      "sym": "ABM",
+      "date": "2018-12-19",
+      "jump": 13.7,
+      "spy": -1.5,
+      "earnings": true,
+      "fwd10": 4.58,
+      "fwd20": 17.55
+    },
+    {
+      "sym": "ACAD",
+      "date": "2022-06-03",
+      "jump": 10.4,
+      "spy": -1.64,
+      "earnings": false,
+      "fwd10": 8.99,
+      "fwd20": -14.69
+    },
+    {
+      "sym": "ACDC",
+      "date": "2026-03-12",
+      "jump": 18.8,
+      "spy": -1.52,
+      "earnings": true,
+      "fwd10": -3.59,
+      "fwd20": -15.52
+    },
+    {
+      "sym": "ACHC",
+      "date": "2020-10-30",
+      "jump": 23,
+      "spy": -1.04,
+      "earnings": true,
+      "fwd10": 17.22,
+      "fwd20": 19.07
+    },
+    {
+      "sym": "ACHC",
+      "date": "2024-08-01",
+      "jump": 14.2,
+      "spy": -1.42,
+      "earnings": true,
+      "fwd10": 0.05,
+      "fwd20": 9.12
+    },
+    {
+      "sym": "ACHC",
+      "date": "2026-01-20",
+      "jump": 21.9,
+      "spy": -2.04,
+      "earnings": false,
+      "fwd10": -3.93,
+      "fwd20": 18.89
+    },
+    {
+      "sym": "ACLS",
+      "date": "2020-03-23",
+      "jump": 10.1,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 27.1,
+      "fwd20": 34.51
+    },
+    {
+      "sym": "ADUS",
+      "date": "2020-03-18",
+      "jump": 35.5,
+      "spy": -5.06,
+      "earnings": true,
+      "fwd10": -0.43,
+      "fwd20": 14.82
+    },
+    {
+      "sym": "AGX",
+      "date": "2024-04-12",
+      "jump": 21.1,
+      "spy": -1.38,
+      "earnings": true,
+      "fwd10": 4.21,
+      "fwd20": 11.84
+    },
+    {
+      "sym": "AGX",
+      "date": "2024-09-06",
+      "jump": 26,
+      "spy": -1.68,
+      "earnings": true,
+      "fwd10": 6.58,
+      "fwd20": 20.36
+    },
+    {
+      "sym": "AGX",
+      "date": "2025-03-28",
+      "jump": 19.9,
+      "spy": -2.01,
+      "earnings": true,
+      "fwd10": 7.28,
+      "fwd20": 10.28
+    },
+    {
+      "sym": "AGX",
+      "date": "2026-03-27",
+      "jump": 37.9,
+      "spy": -1.71,
+      "earnings": true,
+      "fwd10": 5.62,
+      "fwd20": 16.73
+    },
+    {
+      "sym": "AGYS",
+      "date": "2022-05-18",
+      "jump": 10.2,
+      "spy": -4.03,
+      "earnings": true,
+      "fwd10": 6.31,
+      "fwd20": -7.68
+    },
+    {
+      "sym": "AGYS",
+      "date": "2022-12-15",
+      "jump": 13.9,
+      "spy": -2.45,
+      "earnings": false,
+      "fwd10": 12.41,
+      "fwd20": 13.58
+    },
+    {
+      "sym": "AHCO",
+      "date": "2020-03-20",
+      "jump": 19.7,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": 29.45,
+      "fwd20": 6.25
+    },
+    {
+      "sym": "AHCO",
+      "date": "2025-11-04",
+      "jump": 17.4,
+      "spy": -1.19,
+      "earnings": true,
+      "fwd10": -14.71,
+      "fwd20": -12.46
+    },
+    {
+      "sym": "AKBA",
+      "date": "2022-06-03",
+      "jump": 13.9,
+      "spy": -1.64,
+      "earnings": false,
+      "fwd10": -16.59,
+      "fwd20": -0.24
+    },
+    {
+      "sym": "AKBA",
+      "date": "2023-02-03",
+      "jump": 10.8,
+      "spy": -1.06,
+      "earnings": false,
+      "fwd10": -10.95,
+      "fwd20": -4.46
+    },
+    {
+      "sym": "AKBA",
+      "date": "2023-02-24",
+      "jump": 11.5,
+      "spy": -1.07,
+      "earnings": false,
+      "fwd10": -3.15,
+      "fwd20": -22.55
+    },
+    {
+      "sym": "ALGM",
+      "date": "2025-03-03",
+      "jump": 14.9,
+      "spy": -1.75,
+      "earnings": false,
+      "fwd10": 5.15,
+      "fwd20": -1.91
+    },
+    {
+      "sym": "ALLO",
+      "date": "2022-06-08",
+      "jump": 10.2,
+      "spy": -1.09,
+      "earnings": false,
+      "fwd10": 16.54,
+      "fwd20": 15.01
+    },
+    {
+      "sym": "ALTO",
+      "date": "2020-03-03",
+      "jump": 31,
+      "spy": -2.86,
+      "earnings": false,
+      "fwd10": -58.18,
+      "fwd20": -52.73
+    },
+    {
+      "sym": "ALTO",
+      "date": "2020-03-20",
+      "jump": 48,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": -21.62,
+      "fwd20": -27.03
+    },
+    {
+      "sym": "ALTO",
+      "date": "2020-04-03",
+      "jump": 20.8,
+      "spy": -1.45,
+      "earnings": false,
+      "fwd10": -6.9,
+      "fwd20": 10.34
+    },
+    {
+      "sym": "ALTO",
+      "date": "2020-07-23",
+      "jump": 13.1,
+      "spy": -1.19,
+      "earnings": false,
+      "fwd10": 147.32,
+      "fwd20": 336.61
+    },
+    {
+      "sym": "ALTO",
+      "date": "2020-09-18",
+      "jump": 16.4,
+      "spy": -1.15,
+      "earnings": false,
+      "fwd10": 5.21,
+      "fwd20": 42.96
+    },
+    {
+      "sym": "ALTO",
+      "date": "2025-11-06",
+      "jump": 22.4,
+      "spy": -1.07,
+      "earnings": true,
+      "fwd10": 52.11,
+      "fwd20": 76.76
+    },
+    {
+      "sym": "AMC",
+      "date": "2020-04-15",
+      "jump": 10.6,
+      "spy": -2.12,
+      "earnings": false,
+      "fwd10": 115.35,
+      "fwd20": 90.87
+    },
+    {
+      "sym": "AMC",
+      "date": "2020-10-19",
+      "jump": 16.4,
+      "spy": -1.52,
+      "earnings": false,
+      "fwd10": -39.27,
+      "fwd20": -12.15
+    },
+    {
+      "sym": "AMC",
+      "date": "2021-01-27",
+      "jump": 301.2,
+      "spy": -2.44,
+      "earnings": false,
+      "fwd10": -70.85,
+      "fwd20": -58.34
+    },
+    {
+      "sym": "AMC",
+      "date": "2021-12-17",
+      "jump": 19.1,
+      "spy": -1.06,
+      "earnings": false,
+      "fwd10": -8.93,
+      "fwd20": -35.3
+    },
+    {
+      "sym": "AMC",
+      "date": "2022-03-23",
+      "jump": 13.6,
+      "spy": -1.29,
+      "earnings": false,
+      "fwd10": -1.69,
+      "fwd20": -18.76
+    },
+    {
+      "sym": "AMC",
+      "date": "2023-02-21",
+      "jump": 16.4,
+      "spy": -2.01,
+      "earnings": false,
+      "fwd10": -1.48,
+      "fwd20": -27.7
+    },
+    {
+      "sym": "AMPH",
+      "date": "2022-03-11",
+      "jump": 12.6,
+      "spy": -1.27,
+      "earnings": true,
+      "fwd10": 6.24,
+      "fwd20": 20
+    },
+    {
+      "sym": "AMPY",
+      "date": "2020-04-03",
+      "jump": 10.5,
+      "spy": -1.45,
+      "earnings": false,
+      "fwd10": 15.87,
+      "fwd20": 114.29
+    },
+    {
+      "sym": "AMPY",
+      "date": "2022-04-14",
+      "jump": 10.4,
+      "spy": -1.25,
+      "earnings": false,
+      "fwd10": -3.47,
+      "fwd20": 0.87
+    },
+    {
+      "sym": "AMTX",
+      "date": "2018-12-21",
+      "jump": 18.6,
+      "spy": -2.05,
+      "earnings": false,
+      "fwd10": 37.25,
+      "fwd20": 88.24
+    },
+    {
+      "sym": "AMTX",
+      "date": "2020-03-20",
+      "jump": 69,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": -29.44,
+      "fwd20": -21.13
+    },
+    {
+      "sym": "AMTX",
+      "date": "2020-05-01",
+      "jump": 46.6,
+      "spy": -2.65,
+      "earnings": false,
+      "fwd10": -14.71,
+      "fwd20": -1.18
+    },
+    {
+      "sym": "AMTX",
+      "date": "2020-10-19",
+      "jump": 18.7,
+      "spy": -1.52,
+      "earnings": false,
+      "fwd10": -16.67,
+      "fwd20": -51.11
+    },
+    {
+      "sym": "AMTX",
+      "date": "2021-01-04",
+      "jump": 14.1,
+      "spy": -1.36,
+      "earnings": false,
+      "fwd10": 44.37,
+      "fwd20": 165.49
+    },
+    {
+      "sym": "AMTX",
+      "date": "2021-09-30",
+      "jump": 12,
+      "spy": -1.22,
+      "earnings": false,
+      "fwd10": 11.6,
+      "fwd20": 5.8
+    },
+    {
+      "sym": "AMTX",
+      "date": "2026-03-12",
+      "jump": 24.7,
+      "spy": -1.52,
+      "earnings": true,
+      "fwd10": 65.63,
+      "fwd20": 18.23
+    },
+    {
+      "sym": "ANAB",
+      "date": "2022-06-03",
+      "jump": 12,
+      "spy": -1.64,
+      "earnings": false,
+      "fwd10": 2.34,
+      "fwd20": 4.58
+    },
+    {
+      "sym": "ANAB",
+      "date": "2024-04-30",
+      "jump": 14.3,
+      "spy": -1.58,
+      "earnings": false,
+      "fwd10": 3.78,
+      "fwd20": -3.66
+    },
+    {
+      "sym": "ANNX",
+      "date": "2021-11-30",
+      "jump": 15.1,
+      "spy": -1.95,
+      "earnings": false,
+      "fwd10": -16.51,
+      "fwd20": -27.62
+    },
+    {
+      "sym": "ANNX",
+      "date": "2022-06-03",
+      "jump": 14.2,
+      "spy": -1.64,
+      "earnings": false,
+      "fwd10": -11.24,
+      "fwd20": 10.95
+    },
+    {
+      "sym": "ANNX",
+      "date": "2023-03-07",
+      "jump": 11.3,
+      "spy": -1.53,
+      "earnings": true,
+      "fwd10": -18.74,
+      "fwd20": -19.14
+    },
+    {
+      "sym": "ANNX",
+      "date": "2023-09-15",
+      "jump": 18.8,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": -6.72,
+      "fwd20": -35.57
+    },
+    {
+      "sym": "ANNX",
+      "date": "2025-04-21",
+      "jump": 15.1,
+      "spy": -2.38,
+      "earnings": false,
+      "fwd10": 7.74,
+      "fwd20": 24.4
+    },
+    {
+      "sym": "ARDX",
+      "date": "2021-11-30",
+      "jump": 32.3,
+      "spy": -1.95,
+      "earnings": false,
+      "fwd10": 8.77,
+      "fwd20": -10.53
+    },
+    {
+      "sym": "ARDX",
+      "date": "2022-09-02",
+      "jump": 11.2,
+      "spy": -1.05,
+      "earnings": false,
+      "fwd10": 22.02,
+      "fwd20": 22.94
+    },
+    {
+      "sym": "ARDX",
+      "date": "2022-12-22",
+      "jump": 11.5,
+      "spy": -1.43,
+      "earnings": false,
+      "fwd10": 16.74,
+      "fwd20": 39.48
+    },
+    {
+      "sym": "ARDX",
+      "date": "2023-10-18",
+      "jump": 13.3,
+      "spy": -1.33,
+      "earnings": false,
+      "fwd10": 0.77,
+      "fwd20": -1.02
+    },
+    {
+      "sym": "ARDX",
+      "date": "2024-08-02",
+      "jump": 10,
+      "spy": -1.86,
+      "earnings": true,
+      "fwd10": -3.31,
+      "fwd20": 2.15
+    },
+    {
+      "sym": "ARDX",
+      "date": "2026-01-20",
+      "jump": 15,
+      "spy": -2.04,
+      "earnings": false,
+      "fwd10": -0.26,
+      "fwd20": -13.4
+    },
+    {
+      "sym": "AREC",
+      "date": "2019-08-12",
+      "jump": 13.6,
+      "spy": -1.22,
+      "earnings": false,
+      "fwd10": -72.89,
+      "fwd20": -73.24
+    },
+    {
+      "sym": "AREC",
+      "date": "2020-04-03",
+      "jump": 10.2,
+      "spy": -1.45,
+      "earnings": false,
+      "fwd10": -16.81,
+      "fwd20": -22.69
+    },
+    {
+      "sym": "AREC",
+      "date": "2021-10-04",
+      "jump": 14.5,
+      "spy": -1.29,
+      "earnings": false,
+      "fwd10": 14.08,
+      "fwd20": 11.27
+    },
+    {
+      "sym": "AREC",
+      "date": "2022-03-31",
+      "jump": 11.7,
+      "spy": -1.54,
+      "earnings": false,
+      "fwd10": -9.34,
+      "fwd20": -29.57
+    },
+    {
+      "sym": "AREC",
+      "date": "2023-05-02",
+      "jump": 10.5,
+      "spy": -1.12,
+      "earnings": false,
+      "fwd10": 17.46,
+      "fwd20": 12.7
+    },
+    {
+      "sym": "AREC",
+      "date": "2023-09-21",
+      "jump": 10.8,
+      "spy": -1.65,
+      "earnings": false,
+      "fwd10": 19.55,
+      "fwd20": 13.53
+    },
+    {
+      "sym": "AREC",
+      "date": "2025-04-16",
+      "jump": 83.5,
+      "spy": -2.22,
+      "earnings": false,
+      "fwd10": -18.02,
+      "fwd20": -18.11
+    },
+    {
+      "sym": "AREC",
+      "date": "2025-06-13",
+      "jump": 11.7,
+      "spy": -1.12,
+      "earnings": false,
+      "fwd10": -5.05,
+      "fwd20": 60.55
+    },
+    {
+      "sym": "ARHS",
+      "date": "2025-01-10",
+      "jump": 15,
+      "spy": -1.53,
+      "earnings": false,
+      "fwd10": 14.06,
+      "fwd20": 18.2
+    },
+    {
+      "sym": "ASH",
+      "date": "2024-01-31",
+      "jump": 15.9,
+      "spy": -1.63,
+      "earnings": true,
+      "fwd10": -2.6,
+      "fwd20": 0.43
+    },
+    {
+      "sym": "ATEC",
+      "date": "2024-10-31",
+      "jump": 39.7,
+      "spy": -1.96,
+      "earnings": true,
+      "fwd10": 11.21,
+      "fwd20": 33.5
+    },
+    {
+      "sym": "ATEC",
+      "date": "2025-08-01",
+      "jump": 30.2,
+      "spy": -1.64,
+      "earnings": true,
+      "fwd10": 14.02,
+      "fwd20": 15.47
+    },
+    {
+      "sym": "ATEN",
+      "date": "2020-03-23",
+      "jump": 12,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 36.08,
+      "fwd20": 39.42
+    },
+    {
+      "sym": "ATEN",
+      "date": "2026-02-05",
+      "jump": 10.3,
+      "spy": -1.25,
+      "earnings": true,
+      "fwd10": 3.67,
+      "fwd20": 6.21
+    },
+    {
+      "sym": "ATEX",
+      "date": "2020-05-13",
+      "jump": 11,
+      "spy": -1.77,
+      "earnings": false,
+      "fwd10": -3.89,
+      "fwd20": -6.98
+    },
+    {
+      "sym": "ATEX",
+      "date": "2025-11-13",
+      "jump": 13.7,
+      "spy": -1.66,
+      "earnings": true,
+      "fwd10": -1.44,
+      "fwd20": 10.26
+    },
+    {
+      "sym": "ATOM",
+      "date": "2018-01-30",
+      "jump": 15.3,
+      "spy": -1.03,
+      "earnings": false,
+      "fwd10": 10.82,
+      "fwd20": 25.1
+    },
+    {
+      "sym": "ATOM",
+      "date": "2020-05-12",
+      "jump": 19.5,
+      "spy": -1.99,
+      "earnings": false,
+      "fwd10": 17.2,
+      "fwd20": 37.75
+    },
+    {
+      "sym": "ATOM",
+      "date": "2024-12-27",
+      "jump": 13.4,
+      "spy": -1.05,
+      "earnings": false,
+      "fwd10": -34.83,
+      "fwd20": -38.19
+    },
+    {
+      "sym": "BAND",
+      "date": "2022-11-02",
+      "jump": 41.6,
+      "spy": -2.51,
+      "earnings": true,
+      "fwd10": 13.49,
+      "fwd20": 30.42
+    },
+    {
+      "sym": "BBAI",
+      "date": "2022-04-05",
+      "jump": 18.3,
+      "spy": -1.26,
+      "earnings": false,
+      "fwd10": 12.86,
+      "fwd20": 2.22
+    },
+    {
+      "sym": "BBAI",
+      "date": "2022-05-18",
+      "jump": 21.2,
+      "spy": -4.03,
+      "earnings": false,
+      "fwd10": -40.93,
+      "fwd20": -56.68
+    },
+    {
+      "sym": "BBAI",
+      "date": "2022-09-29",
+      "jump": 30.3,
+      "spy": -2.09,
+      "earnings": false,
+      "fwd10": -12.9,
+      "fwd20": -9.68
+    },
+    {
+      "sym": "BBAI",
+      "date": "2023-01-30",
+      "jump": 64.5,
+      "spy": -1.25,
+      "earnings": false,
+      "fwd10": -1.51,
+      "fwd20": -26.13
+    },
+    {
+      "sym": "BBAI",
+      "date": "2024-12-30",
+      "jump": 14.3,
+      "spy": -1.14,
+      "earnings": false,
+      "fwd10": -29.52,
+      "fwd20": -14.35
+    },
+    {
+      "sym": "BFLY",
+      "date": "2024-08-02",
+      "jump": 11.9,
+      "spy": -1.86,
+      "earnings": true,
+      "fwd10": -15.49,
+      "fwd20": -3.54
+    },
+    {
+      "sym": "BJRI",
+      "date": "2020-03-23",
+      "jump": 16.8,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 44.57,
+      "fwd20": 72.44
+    },
+    {
+      "sym": "BTBT",
+      "date": "2020-03-31",
+      "jump": 31,
+      "spy": -1.49,
+      "earnings": false,
+      "fwd10": 180,
+      "fwd20": 187.27
+    },
+    {
+      "sym": "BTBT",
+      "date": "2020-04-15",
+      "jump": 41.3,
+      "spy": -2.12,
+      "earnings": false,
+      "fwd10": 2.6,
+      "fwd20": -22.08
+    },
+    {
+      "sym": "BTBT",
+      "date": "2021-01-04",
+      "jump": 33.6,
+      "spy": -1.36,
+      "earnings": false,
+      "fwd10": -43.76,
+      "fwd20": -36.66
+    },
+    {
+      "sym": "CAKE",
+      "date": "2020-03-18",
+      "jump": 11.4,
+      "spy": -5.06,
+      "earnings": false,
+      "fwd10": -24.6,
+      "fwd20": -15.11
+    },
+    {
+      "sym": "CAKE",
+      "date": "2026-07-29",
+      "jump": 13.6,
+      "spy": -1.54,
+      "earnings": true,
+      "fwd10": 16.28,
+      "fwd20": 14.36
+    },
+    {
+      "sym": "CARS",
+      "date": "2021-11-26",
+      "jump": 21.1,
+      "spy": -2.23,
+      "earnings": false,
+      "fwd10": 9.49,
+      "fwd20": 4.16
+    },
+    {
+      "sym": "CBZ",
+      "date": "2026-07-29",
+      "jump": 17.6,
+      "spy": -1.54,
+      "earnings": true,
+      "fwd10": -0.58,
+      "fwd20": -0.29
+    },
+    {
+      "sym": "CCCC",
+      "date": "2025-04-21",
+      "jump": 12,
+      "spy": -2.38,
+      "earnings": false,
+      "fwd10": 15.71,
+      "fwd20": 10
+    },
+    {
+      "sym": "CDXS",
+      "date": "2020-03-23",
+      "jump": 11,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 4.81,
+      "fwd20": 7.82
+    },
+    {
+      "sym": "CDXS",
+      "date": "2021-06-18",
+      "jump": 12.6,
+      "spy": -1.35,
+      "earnings": false,
+      "fwd10": -0.09,
+      "fwd20": -9.81
+    },
+    {
+      "sym": "CDXS",
+      "date": "2026-03-12",
+      "jump": 34.6,
+      "spy": -1.52,
+      "earnings": true,
+      "fwd10": -2.92,
+      "fwd20": 30.99
+    },
+    {
+      "sym": "CERS",
+      "date": "2024-08-02",
+      "jump": 15.2,
+      "spy": -1.86,
+      "earnings": true,
+      "fwd10": -4.26,
+      "fwd20": -3.83
+    },
+    {
+      "sym": "CGC",
+      "date": "2020-10-19",
+      "jump": 11.5,
+      "spy": -1.52,
+      "earnings": false,
+      "fwd10": 5.65,
+      "fwd20": 25.04
+    },
+    {
+      "sym": "CGC",
+      "date": "2022-10-06",
+      "jump": 22.1,
+      "spy": -1.03,
+      "earnings": false,
+      "fwd10": -36.8,
+      "fwd20": -8
+    },
+    {
+      "sym": "CGC",
+      "date": "2024-04-30",
+      "jump": 78.8,
+      "spy": -1.58,
+      "earnings": false,
+      "fwd10": -34.81,
+      "fwd20": -43.01
+    },
+    {
+      "sym": "CGC",
+      "date": "2025-04-16",
+      "jump": 16.8,
+      "spy": -2.22,
+      "earnings": false,
+      "fwd10": 19.49,
+      "fwd20": 13.56
+    },
+    {
+      "sym": "CGC",
+      "date": "2025-12-12",
+      "jump": 54,
+      "spy": -1.08,
+      "earnings": false,
+      "fwd10": -30.46,
+      "fwd20": -28.16
+    },
+    {
+      "sym": "CHEF",
+      "date": "2020-03-20",
+      "jump": 14.2,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": 52.71,
+      "fwd20": 115.52
+    },
+    {
+      "sym": "CLB",
+      "date": "2022-03-07",
+      "jump": 14.2,
+      "spy": -2.95,
+      "earnings": false,
+      "fwd10": -5.45,
+      "fwd20": 5.29
+    },
+    {
+      "sym": "CLNE",
+      "date": "2026-03-27",
+      "jump": 10.2,
+      "spy": -1.71,
+      "earnings": false,
+      "fwd10": -12.74,
+      "fwd20": -14.67
+    },
+    {
+      "sym": "CLOV",
+      "date": "2022-03-07",
+      "jump": 18.2,
+      "spy": -2.95,
+      "earnings": false,
+      "fwd10": 31.92,
+      "fwd20": 40.38
+    },
+    {
+      "sym": "CLOV",
+      "date": "2024-08-05",
+      "jump": 12.6,
+      "spy": -2.91,
+      "earnings": false,
+      "fwd10": 69.15,
+      "fwd20": 32.98
+    },
+    {
+      "sym": "CLOV",
+      "date": "2026-06-10",
+      "jump": 14,
+      "spy": -1.58,
+      "earnings": false,
+      "fwd10": 6.54,
+      "fwd20": -9.2
+    },
+    {
+      "sym": "CLW",
+      "date": "2020-03-20",
+      "jump": 18.2,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": -17.69,
+      "fwd20": -0.9
+    },
+    {
+      "sym": "CLW",
+      "date": "2020-09-18",
+      "jump": 11.3,
+      "spy": -1.15,
+      "earnings": false,
+      "fwd10": 4.1,
+      "fwd20": 9.47
+    },
+    {
+      "sym": "CLW",
+      "date": "2022-04-29",
+      "jump": 20.6,
+      "spy": -3.7,
+      "earnings": true,
+      "fwd10": -0.42,
+      "fwd20": 3.62
+    },
+    {
+      "sym": "CLW",
+      "date": "2023-08-02",
+      "jump": 16,
+      "spy": -1.39,
+      "earnings": true,
+      "fwd10": -4.89,
+      "fwd20": 2.51
+    },
+    {
+      "sym": "CLW",
+      "date": "2024-04-30",
+      "jump": 10.7,
+      "spy": -1.58,
+      "earnings": true,
+      "fwd10": 10.61,
+      "fwd20": 16.36
+    },
+    {
+      "sym": "CLW",
+      "date": "2026-07-29",
+      "jump": 23.4,
+      "spy": -1.54,
+      "earnings": true,
+      "fwd10": 2.27,
+      "fwd20": -1.2
+    },
+    {
+      "sym": "CMCO",
+      "date": "2025-10-30",
+      "jump": 15.3,
+      "spy": -1.1,
+      "earnings": true,
+      "fwd10": -10.84,
+      "fwd20": -4.82
+    },
+    {
+      "sym": "CMPX",
+      "date": "2022-04-05",
+      "jump": 16.2,
+      "spy": -1.26,
+      "earnings": false,
+      "fwd10": -15.59,
+      "fwd20": -22.04
+    },
+    {
+      "sym": "CMPX",
+      "date": "2022-05-11",
+      "jump": 12.2,
+      "spy": -1.59,
+      "earnings": false,
+      "fwd10": 64.13,
+      "fwd20": 36.96
+    },
+    {
+      "sym": "CMPX",
+      "date": "2022-11-02",
+      "jump": 10.5,
+      "spy": -2.51,
+      "earnings": false,
+      "fwd10": 19.05,
+      "fwd20": 21.69
+    },
+    {
+      "sym": "COLL",
+      "date": "2025-11-06",
+      "jump": 13.4,
+      "spy": -1.07,
+      "earnings": true,
+      "fwd10": 8.09,
+      "fwd20": 17.83
+    },
+    {
+      "sym": "CRNC",
+      "date": "2025-11-20",
+      "jump": 27.5,
+      "spy": -1.52,
+      "earnings": true,
+      "fwd10": 25.15,
+      "fwd20": 11.09
+    },
+    {
+      "sym": "CSTL",
+      "date": "2025-11-04",
+      "jump": 21.7,
+      "spy": -1.19,
+      "earnings": true,
+      "fwd10": 6.07,
+      "fwd20": 24.6
+    },
+    {
+      "sym": "CTMX",
+      "date": "2020-03-31",
+      "jump": 14.5,
+      "spy": -1.49,
+      "earnings": false,
+      "fwd10": 14.34,
+      "fwd20": 43.29
+    },
+    {
+      "sym": "CTMX",
+      "date": "2022-06-03",
+      "jump": 10.6,
+      "spy": -1.64,
+      "earnings": false,
+      "fwd10": -10.11,
+      "fwd20": 8.99
+    },
+    {
+      "sym": "CTMX",
+      "date": "2025-04-21",
+      "jump": 14.3,
+      "spy": -2.38,
+      "earnings": false,
+      "fwd10": 28.13,
+      "fwd20": 184
+    },
+    {
+      "sym": "CTSH",
+      "date": "2026-07-29",
+      "jump": 11.3,
+      "spy": -1.54,
+      "earnings": true,
+      "fwd10": 3.98,
+      "fwd20": 11.58
+    },
+    {
+      "sym": "CVGI",
+      "date": "2020-06-26",
+      "jump": 18.9,
+      "spy": -2.38,
+      "earnings": false,
+      "fwd10": -12.88,
+      "fwd20": -17.42
+    },
+    {
+      "sym": "CVGI",
+      "date": "2026-03-12",
+      "jump": 14.8,
+      "spy": -1.52,
+      "earnings": false,
+      "fwd10": 55.79,
+      "fwd20": 68.24
+    },
+    {
+      "sym": "DDOG",
+      "date": "2022-02-10",
+      "jump": 12.3,
+      "spy": -1.8,
+      "earnings": false,
+      "fwd10": -7.55,
+      "fwd20": -27.25
+    },
+    {
+      "sym": "DDOG",
+      "date": "2025-11-06",
+      "jump": 23.1,
+      "spy": -1.07,
+      "earnings": true,
+      "fwd10": -16.38,
+      "fwd20": -20.65
+    },
+    {
+      "sym": "DHX",
+      "date": "2018-05-29",
+      "jump": 21.6,
+      "spy": -1.15,
+      "earnings": false,
+      "fwd10": 20,
+      "fwd20": 8.89
+    },
+    {
+      "sym": "DHX",
+      "date": "2020-03-31",
+      "jump": 17.4,
+      "spy": -1.49,
+      "earnings": false,
+      "fwd10": 7.87,
+      "fwd20": 38.43
+    },
+    {
+      "sym": "DHX",
+      "date": "2022-05-05",
+      "jump": 15.8,
+      "spy": -3.55,
+      "earnings": true,
+      "fwd10": 7.98,
+      "fwd20": 17.59
+    },
+    {
+      "sym": "DHX",
+      "date": "2025-01-07",
+      "jump": 15.6,
+      "spy": -1.13,
+      "earnings": false,
+      "fwd10": 12.98,
+      "fwd20": 44.23
+    },
+    {
+      "sym": "DHX",
+      "date": "2026-02-05",
+      "jump": 15.7,
+      "spy": -1.25,
+      "earnings": true,
+      "fwd10": 30.21,
+      "fwd20": 39.58
+    },
+    {
+      "sym": "DYN",
+      "date": "2025-04-21",
+      "jump": 14.2,
+      "spy": -2.38,
+      "earnings": false,
+      "fwd10": 26.8,
+      "fwd20": 24.97
+    },
+    {
+      "sym": "EAT",
+      "date": "2020-03-23",
+      "jump": 14.1,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 14.31,
+      "fwd20": 40.49
+    },
+    {
+      "sym": "EGBN",
+      "date": "2023-10-26",
+      "jump": 13.3,
+      "spy": -1.2,
+      "earnings": true,
+      "fwd10": 7.04,
+      "fwd20": 18.36
+    },
+    {
+      "sym": "EGY",
+      "date": "2020-11-18",
+      "jump": 32.4,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": 11.11,
+      "fwd20": 20
+    },
+    {
+      "sym": "ELDN",
+      "date": "2019-01-03",
+      "jump": 14.5,
+      "spy": -2.39,
+      "earnings": false,
+      "fwd10": 13.16,
+      "fwd20": 118.42
+    },
+    {
+      "sym": "ELDN",
+      "date": "2019-01-22",
+      "jump": 20.1,
+      "spy": -1.35,
+      "earnings": false,
+      "fwd10": 53.85,
+      "fwd20": 67.31
+    },
+    {
+      "sym": "ELDN",
+      "date": "2020-03-23",
+      "jump": 12.1,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 10.51,
+      "fwd20": 84.71
+    },
+    {
+      "sym": "ELDN",
+      "date": "2020-04-20",
+      "jump": 20.5,
+      "spy": -1.76,
+      "earnings": false,
+      "fwd10": 39.74,
+      "fwd20": 120.52
+    },
+    {
+      "sym": "ELDN",
+      "date": "2020-05-13",
+      "jump": 29,
+      "spy": -1.77,
+      "earnings": false,
+      "fwd10": 47.19,
+      "fwd20": -41.91
+    },
+    {
+      "sym": "ELDN",
+      "date": "2020-10-28",
+      "jump": 11.8,
+      "spy": -3.42,
+      "earnings": false,
+      "fwd10": 10.63,
+      "fwd20": 39.57
+    },
+    {
+      "sym": "ELDN",
+      "date": "2022-06-10",
+      "jump": 13.4,
+      "spy": -2.9,
+      "earnings": false,
+      "fwd10": -30.79,
+      "fwd20": -20.79
+    },
+    {
+      "sym": "ELDN",
+      "date": "2023-03-17",
+      "jump": 11.5,
+      "spy": -1.17,
+      "earnings": false,
+      "fwd10": 5.83,
+      "fwd20": 11.21
+    },
+    {
+      "sym": "ELDN",
+      "date": "2023-08-24",
+      "jump": 13.7,
+      "spy": -1.39,
+      "earnings": false,
+      "fwd10": -19.28,
+      "fwd20": -27.11
+    },
+    {
+      "sym": "ELDN",
+      "date": "2024-10-31",
+      "jump": 11,
+      "spy": -1.96,
+      "earnings": false,
+      "fwd10": -11.18,
+      "fwd20": 0.22
+    },
+    {
+      "sym": "EPC",
+      "date": "2026-06-23",
+      "jump": 15.4,
+      "spy": -1.45,
+      "earnings": false,
+      "fwd10": -0.84,
+      "fwd20": 5.45
+    },
+    {
+      "sym": "EPSN",
+      "date": "2021-09-30",
+      "jump": 18.4,
+      "spy": -1.22,
+      "earnings": false,
+      "fwd10": -10.09,
+      "fwd20": -13.98
+    },
+    {
+      "sym": "ESOA",
+      "date": "2018-02-27",
+      "jump": 14.1,
+      "spy": -1.25,
+      "earnings": false,
+      "fwd10": 2.74,
+      "fwd20": 2.74
+    },
+    {
+      "sym": "ESOA",
+      "date": "2018-03-22",
+      "jump": 11.8,
+      "spy": -2.5,
+      "earnings": false,
+      "fwd10": -10.53,
+      "fwd20": 2.63
+    },
+    {
+      "sym": "ESOA",
+      "date": "2019-08-14",
+      "jump": 32,
+      "spy": -2.96,
+      "earnings": true,
+      "fwd10": -29.29,
+      "fwd20": -14.14
+    },
+    {
+      "sym": "ESOA",
+      "date": "2019-10-08",
+      "jump": 19.7,
+      "spy": -1.55,
+      "earnings": false,
+      "fwd10": -5.88,
+      "fwd20": 11.76
+    },
+    {
+      "sym": "ESOA",
+      "date": "2020-03-03",
+      "jump": 10,
+      "spy": -2.86,
+      "earnings": false,
+      "fwd10": -12.73,
+      "fwd20": -29.09
+    },
+    {
+      "sym": "ESOA",
+      "date": "2020-04-20",
+      "jump": 21.4,
+      "spy": -1.76,
+      "earnings": false,
+      "fwd10": 17.65,
+      "fwd20": -4.71
+    },
+    {
+      "sym": "ESOA",
+      "date": "2020-06-11",
+      "jump": 18.8,
+      "spy": -5.76,
+      "earnings": false,
+      "fwd10": -15.79,
+      "fwd20": -22.11
+    },
+    {
+      "sym": "ESOA",
+      "date": "2020-07-07",
+      "jump": 14.5,
+      "spy": -1.03,
+      "earnings": false,
+      "fwd10": -16.09,
+      "fwd20": -17.24
+    },
+    {
+      "sym": "ESOA",
+      "date": "2020-10-28",
+      "jump": 17.6,
+      "spy": -3.42,
+      "earnings": false,
+      "fwd10": -4,
+      "fwd20": -6
+    },
+    {
+      "sym": "ESOA",
+      "date": "2021-09-28",
+      "jump": 11.4,
+      "spy": -2.02,
+      "earnings": false,
+      "fwd10": -12.82,
+      "fwd20": -18.97
+    },
+    {
+      "sym": "ESOA",
+      "date": "2022-01-19",
+      "jump": 18,
+      "spy": -1.04,
+      "earnings": false,
+      "fwd10": -0.34,
+      "fwd20": -2.03
+    },
+    {
+      "sym": "ESOA",
+      "date": "2022-02-11",
+      "jump": 11.4,
+      "spy": -1.97,
+      "earnings": true,
+      "fwd10": -2.48,
+      "fwd20": -7.12
+    },
+    {
+      "sym": "ESOA",
+      "date": "2022-03-23",
+      "jump": 13.8,
+      "spy": -1.29,
+      "earnings": false,
+      "fwd10": -22.73,
+      "fwd20": -26.67
+    },
+    {
+      "sym": "ESOA",
+      "date": "2023-08-15",
+      "jump": 15.3,
+      "spy": -1.16,
+      "earnings": true,
+      "fwd10": 9.22,
+      "fwd20": 9.22
+    },
+    {
+      "sym": "EVER",
+      "date": "2022-11-03",
+      "jump": 10.3,
+      "spy": -1.03,
+      "earnings": false,
+      "fwd10": 59.62,
+      "fwd20": 68.64
+    },
+    {
+      "sym": "EVER",
+      "date": "2023-02-24",
+      "jump": 11.5,
+      "spy": -1.07,
+      "earnings": false,
+      "fwd10": -23.76,
+      "fwd20": -23.99
+    },
+    {
+      "sym": "EVER",
+      "date": "2025-01-27",
+      "jump": 18.9,
+      "spy": -1.41,
+      "earnings": false,
+      "fwd10": 3.02,
+      "fwd20": 22.64
+    },
+    {
+      "sym": "EYPT",
+      "date": "2018-04-24",
+      "jump": 20.6,
+      "spy": -1.35,
+      "earnings": false,
+      "fwd10": 17.09,
+      "fwd20": -0.5
+    },
+    {
+      "sym": "EYPT",
+      "date": "2021-01-04",
+      "jump": 36.9,
+      "spy": -1.36,
+      "earnings": true,
+      "fwd10": 19.87,
+      "fwd20": 46.28
+    },
+    {
+      "sym": "EYPT",
+      "date": "2026-02-23",
+      "jump": 11.4,
+      "spy": -1.02,
+      "earnings": false,
+      "fwd10": -8.2,
+      "fwd20": -24.84
+    },
+    {
+      "sym": "FANG",
+      "date": "2020-03-31",
+      "jump": 11.1,
+      "spy": -1.49,
+      "earnings": false,
+      "fwd10": 15.38,
+      "fwd20": 68.66
+    },
+    {
+      "sym": "FATE",
+      "date": "2021-12-17",
+      "jump": 13.8,
+      "spy": -1.06,
+      "earnings": false,
+      "fwd10": 2.59,
+      "fwd20": -30.87
+    },
+    {
+      "sym": "FATE",
+      "date": "2024-01-31",
+      "jump": 10.4,
+      "spy": -1.63,
+      "earnings": false,
+      "fwd10": 5.36,
+      "fwd20": 15.1
+    },
+    {
+      "sym": "FATE",
+      "date": "2025-03-06",
+      "jump": 14.3,
+      "spy": -1.78,
+      "earnings": true,
+      "fwd10": -9.62,
+      "fwd20": -34.62
+    },
+    {
+      "sym": "FATE",
+      "date": "2025-04-04",
+      "jump": 10.3,
+      "spy": -5.85,
+      "earnings": false,
+      "fwd10": 66.67,
+      "fwd20": 56
+    },
+    {
+      "sym": "FATE",
+      "date": "2025-04-21",
+      "jump": 12.6,
+      "spy": -2.38,
+      "earnings": false,
+      "fwd10": -6.4,
+      "fwd20": -2.4
+    },
+    {
+      "sym": "FIZZ",
+      "date": "2021-01-27",
+      "jump": 40.2,
+      "spy": -2.44,
+      "earnings": false,
+      "fwd10": -35.52,
+      "fwd20": -46.49
+    },
+    {
+      "sym": "FORM",
+      "date": "2025-10-30",
+      "jump": 24.2,
+      "spy": -1.1,
+      "earnings": true,
+      "fwd10": -14.4,
+      "fwd20": -7.14
+    },
+    {
+      "sym": "FORM",
+      "date": "2026-02-05",
+      "jump": 17.2,
+      "spy": -1.25,
+      "earnings": true,
+      "fwd10": 12.75,
+      "fwd20": 1.36
+    },
+    {
+      "sym": "FWRD",
+      "date": "2025-11-06",
+      "jump": 18.1,
+      "spy": -1.07,
+      "earnings": true,
+      "fwd10": -5.55,
+      "fwd20": 23.92
+    },
+    {
+      "sym": "FWRG",
+      "date": "2025-11-04",
+      "jump": 11,
+      "spy": -1.19,
+      "earnings": true,
+      "fwd10": -7.33,
+      "fwd20": 1.87
+    },
+    {
+      "sym": "GDOT",
+      "date": "2020-05-12",
+      "jump": 13.5,
+      "spy": -1.99,
+      "earnings": true,
+      "fwd10": 8.09,
+      "fwd20": 10.51
+    },
+    {
+      "sym": "GDYN",
+      "date": "2020-03-23",
+      "jump": 12.3,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 26.09,
+      "fwd20": 26.56
+    },
+    {
+      "sym": "GDYN",
+      "date": "2024-08-02",
+      "jump": 13,
+      "spy": -1.86,
+      "earnings": true,
+      "fwd10": -3.03,
+      "fwd20": 0.58
+    },
+    {
+      "sym": "GDYN",
+      "date": "2026-07-29",
+      "jump": 10.7,
+      "spy": -1.54,
+      "earnings": false,
+      "fwd10": 14.56,
+      "fwd20": 13.53
+    },
+    {
+      "sym": "GERN",
+      "date": "2018-03-19",
+      "jump": 28.8,
+      "spy": -1.35,
+      "earnings": true,
+      "fwd10": -5.76,
+      "fwd20": -8.06
+    },
+    {
+      "sym": "GERN",
+      "date": "2019-10-01",
+      "jump": 12.8,
+      "spy": -1.19,
+      "earnings": false,
+      "fwd10": 0,
+      "fwd20": 2
+    },
+    {
+      "sym": "GERN",
+      "date": "2021-06-18",
+      "jump": 29.8,
+      "spy": -1.35,
+      "earnings": false,
+      "fwd10": -20.22,
+      "fwd20": -30.6
+    },
+    {
+      "sym": "GEVO",
+      "date": "2018-02-08",
+      "jump": 14,
+      "spy": -3.75,
+      "earnings": false,
+      "fwd10": -4.08,
+      "fwd20": -4.08
+    },
+    {
+      "sym": "GEVO",
+      "date": "2018-06-25",
+      "jump": 18.4,
+      "spy": -1.36,
+      "earnings": false,
+      "fwd10": -57.31,
+      "fwd20": -60.42
+    },
+    {
+      "sym": "GEVO",
+      "date": "2020-03-16",
+      "jump": 23.2,
+      "spy": -10.94,
+      "earnings": false,
+      "fwd10": -12.87,
+      "fwd20": -12.87
+    },
+    {
+      "sym": "GEVO",
+      "date": "2020-04-03",
+      "jump": 12,
+      "spy": -1.45,
+      "earnings": false,
+      "fwd10": 14.29,
+      "fwd20": 39.29
+    },
+    {
+      "sym": "GEVO",
+      "date": "2020-05-12",
+      "jump": 13.2,
+      "spy": -1.99,
+      "earnings": false,
+      "fwd10": -1.67,
+      "fwd20": 9.17
+    },
+    {
+      "sym": "GEVO",
+      "date": "2026-03-06",
+      "jump": 13.2,
+      "spy": -1.31,
+      "earnings": true,
+      "fwd10": 6.07,
+      "fwd20": 1.4
+    },
+    {
+      "sym": "GOGO",
+      "date": "2020-03-20",
+      "jump": 21.6,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": -26.67,
+      "fwd20": -37.41
+    },
+    {
+      "sym": "GOGO",
+      "date": "2021-09-28",
+      "jump": 37.6,
+      "spy": -2.02,
+      "earnings": false,
+      "fwd10": -3.57,
+      "fwd20": -1.19
+    },
+    {
+      "sym": "GRBK",
+      "date": "2020-03-31",
+      "jump": 11.2,
+      "spy": -1.49,
+      "earnings": false,
+      "fwd10": -4.35,
+      "fwd20": 9.07
+    },
+    {
+      "sym": "GRC",
+      "date": "2018-10-26",
+      "jump": 13.1,
+      "spy": -1.76,
+      "earnings": true,
+      "fwd10": 3.84,
+      "fwd20": 0.42
+    },
+    {
+      "sym": "HCAT",
+      "date": "2022-11-09",
+      "jump": 23.3,
+      "spy": -2.06,
+      "earnings": true,
+      "fwd10": 25.06,
+      "fwd20": 37.09
+    },
+    {
+      "sym": "HCC",
+      "date": "2020-03-16",
+      "jump": 14.2,
+      "spy": -10.94,
+      "earnings": false,
+      "fwd10": -32.16,
+      "fwd20": -17.78
+    },
+    {
+      "sym": "HCC",
+      "date": "2025-11-06",
+      "jump": 23.1,
+      "spy": -1.07,
+      "earnings": true,
+      "fwd10": -10.03,
+      "fwd20": 0.48
+    },
+    {
+      "sym": "HCI",
+      "date": "2023-03-10",
+      "jump": 10.4,
+      "spy": -1.44,
+      "earnings": true,
+      "fwd10": -6.81,
+      "fwd20": -11.54
+    },
+    {
+      "sym": "HDSN",
+      "date": "2019-01-03",
+      "jump": 12.8,
+      "spy": -2.39,
+      "earnings": false,
+      "fwd10": -8.13,
+      "fwd20": -7.32
+    },
+    {
+      "sym": "HDSN",
+      "date": "2021-01-27",
+      "jump": 22.1,
+      "spy": -2.44,
+      "earnings": false,
+      "fwd10": 3.01,
+      "fwd20": -12.05
+    },
+    {
+      "sym": "HDSN",
+      "date": "2022-05-05",
+      "jump": 26.9,
+      "spy": -3.55,
+      "earnings": true,
+      "fwd10": 5.96,
+      "fwd20": 9.6
+    },
+    {
+      "sym": "HDSN",
+      "date": "2022-11-03",
+      "jump": 14.8,
+      "spy": -1.03,
+      "earnings": true,
+      "fwd10": 3.44,
+      "fwd20": 12.4
+    },
+    {
+      "sym": "HGV",
+      "date": "2020-03-20",
+      "jump": 16.1,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": -0.89,
+      "fwd20": 37.26
+    },
+    {
+      "sym": "HLIT",
+      "date": "2018-03-01",
+      "jump": 15.5,
+      "spy": -1.45,
+      "earnings": true,
+      "fwd10": 4.29,
+      "fwd20": 8.57
+    },
+    {
+      "sym": "HLIT",
+      "date": "2024-04-30",
+      "jump": 14.3,
+      "spy": -1.58,
+      "earnings": true,
+      "fwd10": 6.05,
+      "fwd20": 10.15
+    },
+    {
+      "sym": "HOPE",
+      "date": "2022-01-25",
+      "jump": 11.4,
+      "spy": -1.22,
+      "earnings": true,
+      "fwd10": -0.38,
+      "fwd20": -3.56
+    },
+    {
+      "sym": "HPK",
+      "date": "2022-04-22",
+      "jump": 11.7,
+      "spy": -2.74,
+      "earnings": false,
+      "fwd10": -22.51,
+      "fwd20": -31.62
+    },
+    {
+      "sym": "HPK",
+      "date": "2026-06-10",
+      "jump": 11.1,
+      "spy": -1.58,
+      "earnings": false,
+      "fwd10": -14.73,
+      "fwd20": -14.3
+    },
+    {
+      "sym": "HRTG",
+      "date": "2022-09-15",
+      "jump": 12.7,
+      "spy": -1.14,
+      "earnings": false,
+      "fwd10": -20.53,
+      "fwd20": -48.01
+    },
+    {
+      "sym": "HRTG",
+      "date": "2023-09-26",
+      "jump": 16.5,
+      "spy": -1.47,
+      "earnings": false,
+      "fwd10": -9.3,
+      "fwd20": -10.93
+    },
+    {
+      "sym": "HRTG",
+      "date": "2025-11-06",
+      "jump": 12.5,
+      "spy": -1.07,
+      "earnings": true,
+      "fwd10": -5.82,
+      "fwd20": -4.02
+    },
+    {
+      "sym": "HTZ",
+      "date": "2025-04-16",
+      "jump": 56.4,
+      "spy": -2.22,
+      "earnings": false,
+      "fwd10": 19.96,
+      "fwd20": 10.51
+    },
+    {
+      "sym": "HTZ",
+      "date": "2025-11-04",
+      "jump": 36.2,
+      "spy": -1.19,
+      "earnings": true,
+      "fwd10": -22.44,
+      "fwd20": -22.44
+    },
+    {
+      "sym": "HUMA",
+      "date": "2022-12-22",
+      "jump": 12.8,
+      "spy": -1.43,
+      "earnings": false,
+      "fwd10": -3.36,
+      "fwd20": 8.4
+    },
+    {
+      "sym": "HUMA",
+      "date": "2023-05-02",
+      "jump": 14.6,
+      "spy": -1.12,
+      "earnings": false,
+      "fwd10": 1.3,
+      "fwd20": -10.68
+    },
+    {
+      "sym": "HUMA",
+      "date": "2023-08-15",
+      "jump": 10.9,
+      "spy": -1.16,
+      "earnings": false,
+      "fwd10": -12.05,
+      "fwd20": -13.17
+    },
+    {
+      "sym": "HY",
+      "date": "2019-07-31",
+      "jump": 11.6,
+      "spy": -1.09,
+      "earnings": false,
+      "fwd10": -9.4,
+      "fwd20": -13.16
+    },
+    {
+      "sym": "HZO",
+      "date": "2020-10-28",
+      "jump": 12.3,
+      "spy": -3.42,
+      "earnings": true,
+      "fwd10": 1.88,
+      "fwd20": 11.21
+    },
+    {
+      "sym": "IDN",
+      "date": "2018-03-01",
+      "jump": 10.9,
+      "spy": -1.45,
+      "earnings": false,
+      "fwd10": -8.45,
+      "fwd20": -36.62
+    },
+    {
+      "sym": "IDN",
+      "date": "2018-06-25",
+      "jump": 13.3,
+      "spy": -1.36,
+      "earnings": false,
+      "fwd10": -5.86,
+      "fwd20": -3.6
+    },
+    {
+      "sym": "IDN",
+      "date": "2019-03-22",
+      "jump": 14.5,
+      "spy": -1.92,
+      "earnings": false,
+      "fwd10": 30.48,
+      "fwd20": 14.73
+    },
+    {
+      "sym": "IDN",
+      "date": "2020-04-15",
+      "jump": 10.6,
+      "spy": -2.12,
+      "earnings": false,
+      "fwd10": 45.67,
+      "fwd20": 44.73
+    },
+    {
+      "sym": "IDN",
+      "date": "2022-08-30",
+      "jump": 13.5,
+      "spy": -1.1,
+      "earnings": false,
+      "fwd10": -13.1,
+      "fwd20": -27.38
+    },
+    {
+      "sym": "IDN",
+      "date": "2023-03-22",
+      "jump": 12.2,
+      "spy": -1.7,
+      "earnings": true,
+      "fwd10": 1.3,
+      "fwd20": -2.17
+    },
+    {
+      "sym": "IDN",
+      "date": "2025-03-28",
+      "jump": 11.2,
+      "spy": -2.01,
+      "earnings": false,
+      "fwd10": -18.06,
+      "fwd20": -11.81
+    },
+    {
+      "sym": "IDN",
+      "date": "2025-11-13",
+      "jump": 37.9,
+      "spy": -1.66,
+      "earnings": true,
+      "fwd10": 2.43,
+      "fwd20": 7.61
+    },
+    {
+      "sym": "IDN",
+      "date": "2026-03-20",
+      "jump": 15.4,
+      "spy": -1.43,
+      "earnings": true,
+      "fwd10": 39.17,
+      "fwd20": 54.51
+    },
+    {
+      "sym": "IDT",
+      "date": "2018-10-10",
+      "jump": 40.1,
+      "spy": -3.17,
+      "earnings": true,
+      "fwd10": -3.24,
+      "fwd20": 6.07
+    },
+    {
+      "sym": "IDT",
+      "date": "2020-10-06",
+      "jump": 11.6,
+      "spy": -1.42,
+      "earnings": false,
+      "fwd10": -10.3,
+      "fwd20": -12.19
+    },
+    {
+      "sym": "IDT",
+      "date": "2022-12-06",
+      "jump": 11.6,
+      "spy": -1.44,
+      "earnings": true,
+      "fwd10": -7.03,
+      "fwd20": -8.6
+    },
+    {
+      "sym": "IDT",
+      "date": "2023-10-03",
+      "jump": 21.7,
+      "spy": -1.34,
+      "earnings": false,
+      "fwd10": 10.77,
+      "fwd20": 4.9
+    },
+    {
+      "sym": "IHRT",
+      "date": "2025-03-06",
+      "jump": 23.2,
+      "spy": -1.78,
+      "earnings": false,
+      "fwd10": -9.68,
+      "fwd20": -28.49
+    },
+    {
+      "sym": "IHRT",
+      "date": "2025-11-04",
+      "jump": 37.1,
+      "spy": -1.19,
+      "earnings": false,
+      "fwd10": 0,
+      "fwd20": -5.76
+    },
+    {
+      "sym": "INDI",
+      "date": "2021-09-30",
+      "jump": 12.9,
+      "spy": -1.22,
+      "earnings": false,
+      "fwd10": -8.04,
+      "fwd20": 4.79
+    },
+    {
+      "sym": "INO",
+      "date": "2020-01-27",
+      "jump": 25.5,
+      "spy": -1.6,
+      "earnings": false,
+      "fwd10": -34.59,
+      "fwd20": -29.7
+    },
+    {
+      "sym": "INO",
+      "date": "2020-03-03",
+      "jump": 69.7,
+      "spy": -2.86,
+      "earnings": false,
+      "fwd10": -1.48,
+      "fwd20": -0.13
+    },
+    {
+      "sym": "INO",
+      "date": "2020-03-20",
+      "jump": 11.2,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": 7.2,
+      "fwd20": 25.35
+    },
+    {
+      "sym": "INO",
+      "date": "2020-06-24",
+      "jump": 10.7,
+      "spy": -2.55,
+      "earnings": false,
+      "fwd10": -2.51,
+      "fwd20": 2.97
+    },
+    {
+      "sym": "INO",
+      "date": "2021-01-27",
+      "jump": 18.1,
+      "spy": -2.44,
+      "earnings": false,
+      "fwd10": 3.84,
+      "fwd20": -8.08
+    },
+    {
+      "sym": "INO",
+      "date": "2025-01-07",
+      "jump": 18.1,
+      "spy": -1.13,
+      "earnings": false,
+      "fwd10": 0.44,
+      "fwd20": -12.28
+    },
+    {
+      "sym": "INO",
+      "date": "2025-12-17",
+      "jump": 12.1,
+      "spy": -1.1,
+      "earnings": false,
+      "fwd10": -35,
+      "fwd20": -41.54
+    },
+    {
+      "sym": "IOVA",
+      "date": "2020-02-25",
+      "jump": 27.4,
+      "spy": -3.03,
+      "earnings": false,
+      "fwd10": 1.49,
+      "fwd20": 2.16
+    },
+    {
+      "sym": "IOVA",
+      "date": "2020-03-18",
+      "jump": 10.9,
+      "spy": -5.06,
+      "earnings": false,
+      "fwd10": 26.08,
+      "fwd20": 58.84
+    },
+    {
+      "sym": "IOVA",
+      "date": "2022-06-03",
+      "jump": 18.9,
+      "spy": -1.64,
+      "earnings": false,
+      "fwd10": 11.59,
+      "fwd20": 47.39
+    },
+    {
+      "sym": "IOVA",
+      "date": "2022-12-05",
+      "jump": 17.4,
+      "spy": -1.8,
+      "earnings": false,
+      "fwd10": -24.53,
+      "fwd20": -20.42
+    },
+    {
+      "sym": "IOVA",
+      "date": "2023-05-23",
+      "jump": 13.4,
+      "spy": -1.12,
+      "earnings": false,
+      "fwd10": -9.05,
+      "fwd20": -10.38
+    },
+    {
+      "sym": "IOVA",
+      "date": "2023-09-15",
+      "jump": 13.6,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": -13.66,
+      "fwd20": -31.12
+    },
+    {
+      "sym": "IOVA",
+      "date": "2025-11-06",
+      "jump": 27.6,
+      "spy": -1.07,
+      "earnings": true,
+      "fwd10": -5.63,
+      "fwd20": -4.76
+    },
+    {
+      "sym": "IOVA",
+      "date": "2025-12-17",
+      "jump": 12,
+      "spy": -1.1,
+      "earnings": false,
+      "fwd10": 0,
+      "fwd20": -6.35
+    },
+    {
+      "sym": "IOVA",
+      "date": "2026-03-06",
+      "jump": 12,
+      "spy": -1.31,
+      "earnings": false,
+      "fwd10": -28.07,
+      "fwd20": -35.67
+    },
+    {
+      "sym": "IRDM",
+      "date": "2026-02-12",
+      "jump": 21.3,
+      "spy": -1.54,
+      "earnings": true,
+      "fwd10": 6.97,
+      "fwd20": 11.03
+    },
+    {
+      "sym": "JBLU",
+      "date": "2024-02-13",
+      "jump": 21.6,
+      "spy": -1.38,
+      "earnings": false,
+      "fwd10": -13.01,
+      "fwd20": -5.15
+    },
+    {
+      "sym": "JBSS",
+      "date": "2025-10-30",
+      "jump": 15.3,
+      "spy": -1.1,
+      "earnings": true,
+      "fwd10": -1.06,
+      "fwd20": 5.91
+    },
+    {
+      "sym": "KIDS",
+      "date": "2018-12-07",
+      "jump": 10.3,
+      "spy": -2.32,
+      "earnings": false,
+      "fwd10": -11.6,
+      "fwd20": 2.18
+    },
+    {
+      "sym": "KLTR",
+      "date": "2026-03-20",
+      "jump": 12.8,
+      "spy": -1.43,
+      "earnings": false,
+      "fwd10": -9.76,
+      "fwd20": 1.63
+    },
+    {
+      "sym": "KLXE",
+      "date": "2020-11-18",
+      "jump": 10.7,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": 20.39,
+      "fwd20": 13.32
+    },
+    {
+      "sym": "KLXE",
+      "date": "2021-01-27",
+      "jump": 19.2,
+      "spy": -2.44,
+      "earnings": false,
+      "fwd10": 39.01,
+      "fwd20": 76.02
+    },
+    {
+      "sym": "KLXE",
+      "date": "2022-01-25",
+      "jump": 11.5,
+      "spy": -1.22,
+      "earnings": false,
+      "fwd10": -9.4,
+      "fwd20": 1.45
+    },
+    {
+      "sym": "KLXE",
+      "date": "2022-02-11",
+      "jump": 10.9,
+      "spy": -1.97,
+      "earnings": false,
+      "fwd10": 17.54,
+      "fwd20": 55.44
+    },
+    {
+      "sym": "KLXE",
+      "date": "2022-09-30",
+      "jump": 13.4,
+      "spy": -1.55,
+      "earnings": false,
+      "fwd10": 13.24,
+      "fwd20": 72.17
+    },
+    {
+      "sym": "KLXE",
+      "date": "2023-03-09",
+      "jump": 12.1,
+      "spy": -1.84,
+      "earnings": true,
+      "fwd10": -23.8,
+      "fwd20": -21.04
+    },
+    {
+      "sym": "KLXE",
+      "date": "2024-07-17",
+      "jump": 10.7,
+      "spy": -1.4,
+      "earnings": true,
+      "fwd10": 12.58,
+      "fwd20": 9.31
+    },
+    {
+      "sym": "KLXE",
+      "date": "2025-06-13",
+      "jump": 28.2,
+      "spy": -1.12,
+      "earnings": false,
+      "fwd10": -33.69,
+      "fwd20": -43.62
+    },
+    {
+      "sym": "KOPN",
+      "date": "2024-12-30",
+      "jump": 10.1,
+      "spy": -1.14,
+      "earnings": false,
+      "fwd10": -16.99,
+      "fwd20": 10.46
+    },
+    {
+      "sym": "KOS",
+      "date": "2020-03-20",
+      "jump": 15.1,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": 47.54,
+      "fwd20": 59.02
+    },
+    {
+      "sym": "KOS",
+      "date": "2022-01-25",
+      "jump": 11.8,
+      "spy": -1.22,
+      "earnings": false,
+      "fwd10": -6.75,
+      "fwd20": -10.76
+    },
+    {
+      "sym": "KOS",
+      "date": "2022-02-11",
+      "jump": 12.8,
+      "spy": -1.97,
+      "earnings": false,
+      "fwd10": 0,
+      "fwd20": 17.49
+    },
+    {
+      "sym": "KOS",
+      "date": "2026-03-12",
+      "jump": 13.4,
+      "spy": -1.52,
+      "earnings": false,
+      "fwd10": 25.88,
+      "fwd20": 12.72
+    },
+    {
+      "sym": "KOS",
+      "date": "2026-05-15",
+      "jump": 10.2,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": -9.91,
+      "fwd20": -21.36
+    },
+    {
+      "sym": "KTOS",
+      "date": "2023-02-24",
+      "jump": 13.2,
+      "spy": -1.07,
+      "earnings": true,
+      "fwd10": -0.69,
+      "fwd20": 2.39
+    },
+    {
+      "sym": "KVHI",
+      "date": "2026-03-12",
+      "jump": 10.5,
+      "spy": -1.52,
+      "earnings": false,
+      "fwd10": 18.26,
+      "fwd20": 20.94
+    },
+    {
+      "sym": "KYMR",
+      "date": "2022-08-19",
+      "jump": 10,
+      "spy": -1.34,
+      "earnings": false,
+      "fwd10": -14.22,
+      "fwd20": -21.25
+    },
+    {
+      "sym": "KYMR",
+      "date": "2023-10-03",
+      "jump": 14.3,
+      "spy": -1.34,
+      "earnings": false,
+      "fwd10": -22.57,
+      "fwd20": -24.76
+    },
+    {
+      "sym": "LCUT",
+      "date": "2020-06-26",
+      "jump": 15.1,
+      "spy": -2.38,
+      "earnings": false,
+      "fwd10": -9.15,
+      "fwd20": -1.23
+    },
+    {
+      "sym": "LCUT",
+      "date": "2026-03-12",
+      "jump": 15.2,
+      "spy": -1.52,
+      "earnings": true,
+      "fwd10": 34.48,
+      "fwd20": 116.09
+    },
+    {
+      "sym": "LDI",
+      "date": "2024-08-02",
+      "jump": 11.3,
+      "spy": -1.86,
+      "earnings": false,
+      "fwd10": 29.49,
+      "fwd20": 20.74
+    },
+    {
+      "sym": "LDI",
+      "date": "2025-04-04",
+      "jump": 16,
+      "spy": -5.85,
+      "earnings": false,
+      "fwd10": -24.14,
+      "fwd20": -25.52
+    },
+    {
+      "sym": "LFMD",
+      "date": "2018-02-05",
+      "jump": 12,
+      "spy": -4.18,
+      "earnings": false,
+      "fwd10": 0,
+      "fwd20": -3.57
+    },
+    {
+      "sym": "LFMD",
+      "date": "2018-03-27",
+      "jump": 12.5,
+      "spy": -1.7,
+      "earnings": false,
+      "fwd10": 14.81,
+      "fwd20": 14.81
+    },
+    {
+      "sym": "LFMD",
+      "date": "2018-10-26",
+      "jump": 10,
+      "spy": -1.76,
+      "earnings": false,
+      "fwd10": -4.55,
+      "fwd20": -13.64
+    },
+    {
+      "sym": "LFMD",
+      "date": "2018-12-20",
+      "jump": 11.8,
+      "spy": -1.63,
+      "earnings": false,
+      "fwd10": -10.53,
+      "fwd20": -21.05
+    },
+    {
+      "sym": "LFMD",
+      "date": "2019-08-14",
+      "jump": 23.1,
+      "spy": -2.96,
+      "earnings": false,
+      "fwd10": -18.75,
+      "fwd20": -6.25
+    },
+    {
+      "sym": "LFMD",
+      "date": "2020-03-16",
+      "jump": 16.7,
+      "spy": -10.94,
+      "earnings": false,
+      "fwd10": 71.43,
+      "fwd20": 121.43
+    },
+    {
+      "sym": "LFMD",
+      "date": "2020-04-01",
+      "jump": 19,
+      "spy": -4.5,
+      "earnings": false,
+      "fwd10": 20,
+      "fwd20": 8
+    },
+    {
+      "sym": "LFMD",
+      "date": "2020-11-18",
+      "jump": 15.9,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": 10.68,
+      "fwd20": 2.64
+    },
+    {
+      "sym": "LFMD",
+      "date": "2023-03-22",
+      "jump": 19.7,
+      "spy": -1.7,
+      "earnings": false,
+      "fwd10": 15.71,
+      "fwd20": 25.71
+    },
+    {
+      "sym": "LFMD",
+      "date": "2023-09-26",
+      "jump": 12.4,
+      "spy": -1.47,
+      "earnings": false,
+      "fwd10": 16.94,
+      "fwd20": 26.52
+    },
+    {
+      "sym": "LODE",
+      "date": "2018-10-11",
+      "jump": 20,
+      "spy": -2.2,
+      "earnings": false,
+      "fwd10": -4.17,
+      "fwd20": -20.83
+    },
+    {
+      "sym": "LODE",
+      "date": "2018-12-14",
+      "jump": 14.3,
+      "spy": -1.85,
+      "earnings": false,
+      "fwd10": -18.75,
+      "fwd20": -12.5
+    },
+    {
+      "sym": "LODE",
+      "date": "2019-01-03",
+      "jump": 23.1,
+      "spy": -2.39,
+      "earnings": false,
+      "fwd10": -12.5,
+      "fwd20": 12.5
+    },
+    {
+      "sym": "LODE",
+      "date": "2020-03-03",
+      "jump": 11.8,
+      "spy": -2.86,
+      "earnings": false,
+      "fwd10": -21.05,
+      "fwd20": -28.07
+    },
+    {
+      "sym": "LODE",
+      "date": "2020-03-27",
+      "jump": 16.7,
+      "spy": -2.98,
+      "earnings": false,
+      "fwd10": -6.12,
+      "fwd20": 8.16
+    },
+    {
+      "sym": "LODE",
+      "date": "2020-06-24",
+      "jump": 16.5,
+      "spy": -2.55,
+      "earnings": false,
+      "fwd10": -5.43,
+      "fwd20": -27.17
+    },
+    {
+      "sym": "LODE",
+      "date": "2021-01-29",
+      "jump": 11.5,
+      "spy": -2,
+      "earnings": false,
+      "fwd10": 56.62,
+      "fwd20": 288.24
+    },
+    {
+      "sym": "LODE",
+      "date": "2022-01-05",
+      "jump": 13.1,
+      "spy": -1.92,
+      "earnings": false,
+      "fwd10": 3.4,
+      "fwd20": -2.72
+    },
+    {
+      "sym": "LODE",
+      "date": "2023-01-05",
+      "jump": 11.8,
+      "spy": -1.14,
+      "earnings": false,
+      "fwd10": 47.37,
+      "fwd20": 10.53
+    },
+    {
+      "sym": "LODE",
+      "date": "2023-03-07",
+      "jump": 16.1,
+      "spy": -1.53,
+      "earnings": false,
+      "fwd10": -5.56,
+      "fwd20": -11.11
+    },
+    {
+      "sym": "LODE",
+      "date": "2024-12-27",
+      "jump": 23.2,
+      "spy": -1.05,
+      "earnings": false,
+      "fwd10": -57.97,
+      "fwd20": -47.83
+    },
+    {
+      "sym": "LODE",
+      "date": "2025-04-16",
+      "jump": 11.3,
+      "spy": -2.22,
+      "earnings": false,
+      "fwd10": 10.65,
+      "fwd20": 8.8
+    },
+    {
+      "sym": "LOVE",
+      "date": "2025-04-10",
+      "jump": 16.1,
+      "spy": -4.38,
+      "earnings": true,
+      "fwd10": 12.98,
+      "fwd20": 8.71
+    },
+    {
+      "sym": "LOVE",
+      "date": "2025-12-12",
+      "jump": 10.4,
+      "spy": -1.08,
+      "earnings": false,
+      "fwd10": 6.93,
+      "fwd20": 10.72
+    },
+    {
+      "sym": "LOVE",
+      "date": "2026-03-26",
+      "jump": 21.9,
+      "spy": -1.79,
+      "earnings": true,
+      "fwd10": 11.56,
+      "fwd20": 16.79
+    },
+    {
+      "sym": "LTRX",
+      "date": "2024-09-06",
+      "jump": 11.1,
+      "spy": -1.68,
+      "earnings": true,
+      "fwd10": 3.51,
+      "fwd20": 5.14
+    },
+    {
+      "sym": "LWAY",
+      "date": "2018-10-24",
+      "jump": 14.5,
+      "spy": -3.03,
+      "earnings": false,
+      "fwd10": 18.96,
+      "fwd20": 5.58
+    },
+    {
+      "sym": "LWAY",
+      "date": "2018-12-17",
+      "jump": 10.3,
+      "spy": -1.96,
+      "earnings": false,
+      "fwd10": -23.26,
+      "fwd20": 0.78
+    },
+    {
+      "sym": "LWAY",
+      "date": "2019-10-08",
+      "jump": 17.3,
+      "spy": -1.55,
+      "earnings": false,
+      "fwd10": -9.02,
+      "fwd20": -19.26
+    },
+    {
+      "sym": "LWAY",
+      "date": "2020-04-15",
+      "jump": 26.8,
+      "spy": -2.12,
+      "earnings": false,
+      "fwd10": 24.23,
+      "fwd20": 1.32
+    },
+    {
+      "sym": "LWAY",
+      "date": "2020-07-07",
+      "jump": 12.9,
+      "spy": -1.03,
+      "earnings": false,
+      "fwd10": 9.51,
+      "fwd20": 12.17
+    },
+    {
+      "sym": "LWAY",
+      "date": "2023-09-26",
+      "jump": 11.1,
+      "spy": -1.47,
+      "earnings": false,
+      "fwd10": 7,
+      "fwd20": 16.88
+    },
+    {
+      "sym": "LXRX",
+      "date": "2019-08-05",
+      "jump": 10.8,
+      "spy": -3.01,
+      "earnings": false,
+      "fwd10": 6.02,
+      "fwd20": -3.01
+    },
+    {
+      "sym": "LXRX",
+      "date": "2023-09-26",
+      "jump": 10.4,
+      "spy": -1.47,
+      "earnings": false,
+      "fwd10": -4.27,
+      "fwd20": 1.71
+    },
+    {
+      "sym": "LXRX",
+      "date": "2025-03-04",
+      "jump": 10.3,
+      "spy": -1.18,
+      "earnings": false,
+      "fwd10": 12.5,
+      "fwd20": 43.75
+    },
+    {
+      "sym": "LXRX",
+      "date": "2025-03-28",
+      "jump": 62.9,
+      "spy": -2.01,
+      "earnings": false,
+      "fwd10": -10.53,
+      "fwd20": 21.05
+    },
+    {
+      "sym": "LXRX",
+      "date": "2025-04-21",
+      "jump": 11.8,
+      "spy": -2.38,
+      "earnings": false,
+      "fwd10": 26.32,
+      "fwd20": -1.75
+    },
+    {
+      "sym": "LXU",
+      "date": "2018-02-27",
+      "jump": 11.3,
+      "spy": -1.25,
+      "earnings": true,
+      "fwd10": -9.69,
+      "fwd20": -23.27
+    },
+    {
+      "sym": "LXU",
+      "date": "2022-02-11",
+      "jump": 13.2,
+      "spy": -1.97,
+      "earnings": false,
+      "fwd10": 36.54,
+      "fwd20": 51.93
+    },
+    {
+      "sym": "LXU",
+      "date": "2024-04-30",
+      "jump": 13.1,
+      "spy": -1.58,
+      "earnings": true,
+      "fwd10": -1.94,
+      "fwd20": 3.87
+    },
+    {
+      "sym": "LXU",
+      "date": "2026-03-12",
+      "jump": 14.4,
+      "spy": -1.52,
+      "earnings": false,
+      "fwd10": 9.33,
+      "fwd20": -9.2
+    },
+    {
+      "sym": "LZB",
+      "date": "2026-06-17",
+      "jump": 14.8,
+      "spy": -1.25,
+      "earnings": true,
+      "fwd10": -0.82,
+      "fwd20": -0.92
+    },
+    {
+      "sym": "MATX",
+      "date": "2024-10-31",
+      "jump": 15.9,
+      "spy": -1.96,
+      "earnings": true,
+      "fwd10": 6.45,
+      "fwd20": -0.9
+    },
+    {
+      "sym": "MCK",
+      "date": "2026-02-05",
+      "jump": 16.5,
+      "spy": -1.25,
+      "earnings": true,
+      "fwd10": -1.08,
+      "fwd20": -3.94
+    },
+    {
+      "sym": "MCY",
+      "date": "2022-11-02",
+      "jump": 14.1,
+      "spy": -2.51,
+      "earnings": true,
+      "fwd10": 9.77,
+      "fwd20": 8.77
+    },
+    {
+      "sym": "MEC",
+      "date": "2022-11-02",
+      "jump": 11.7,
+      "spy": -2.51,
+      "earnings": true,
+      "fwd10": 36.06,
+      "fwd20": 69.44
+    },
+    {
+      "sym": "MEC",
+      "date": "2022-11-28",
+      "jump": 10.1,
+      "spy": -1.6,
+      "earnings": false,
+      "fwd10": 16.53,
+      "fwd20": 7.89
+    },
+    {
+      "sym": "METC",
+      "date": "2025-04-08",
+      "jump": 13.9,
+      "spy": -1.57,
+      "earnings": false,
+      "fwd10": 24.97,
+      "fwd20": 27.86
+    },
+    {
+      "sym": "METC",
+      "date": "2026-03-27",
+      "jump": 11.4,
+      "spy": -1.71,
+      "earnings": false,
+      "fwd10": -10.28,
+      "fwd20": -6.88
+    },
+    {
+      "sym": "MITK",
+      "date": "2018-10-10",
+      "jump": 16.7,
+      "spy": -3.17,
+      "earnings": false,
+      "fwd10": 8.27,
+      "fwd20": 19.64
+    },
+    {
+      "sym": "MP",
+      "date": "2025-04-16",
+      "jump": 10,
+      "spy": -2.22,
+      "earnings": false,
+      "fwd10": -11.75,
+      "fwd20": -22.7
+    },
+    {
+      "sym": "MPAA",
+      "date": "2018-12-14",
+      "jump": 10.4,
+      "spy": -1.85,
+      "earnings": false,
+      "fwd10": -10.63,
+      "fwd20": 6.34
+    },
+    {
+      "sym": "MTDR",
+      "date": "2020-03-20",
+      "jump": 11,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": 61.05,
+      "fwd20": 86.63
+    },
+    {
+      "sym": "MTRX",
+      "date": "2022-03-07",
+      "jump": 12.6,
+      "spy": -2.95,
+      "earnings": false,
+      "fwd10": 9.55,
+      "fwd20": 3.39
+    },
+    {
+      "sym": "MTRX",
+      "date": "2023-01-05",
+      "jump": 12.5,
+      "spy": -1.14,
+      "earnings": false,
+      "fwd10": 3.84,
+      "fwd20": 20.9
+    },
+    {
+      "sym": "MTW",
+      "date": "2023-02-21",
+      "jump": 13,
+      "spy": -2.01,
+      "earnings": true,
+      "fwd10": 20.16,
+      "fwd20": 9.49
+    },
+    {
+      "sym": "MUR",
+      "date": "2018-10-11",
+      "jump": 11.6,
+      "spy": -2.2,
+      "earnings": false,
+      "fwd10": -9.9,
+      "fwd20": -12.57
+    },
+    {
+      "sym": "MUR",
+      "date": "2021-01-27",
+      "jump": 10.1,
+      "spy": -2.44,
+      "earnings": false,
+      "fwd10": 3.64,
+      "fwd20": 20.01
+    },
+    {
+      "sym": "MUX",
+      "date": "2020-03-16",
+      "jump": 12.3,
+      "spy": -10.94,
+      "earnings": false,
+      "fwd10": -2.13,
+      "fwd20": 46.31
+    },
+    {
+      "sym": "MUX",
+      "date": "2022-07-26",
+      "jump": 13.2,
+      "spy": -1.18,
+      "earnings": false,
+      "fwd10": -5.15,
+      "fwd20": -17.62
+    },
+    {
+      "sym": "MVIS",
+      "date": "2018-12-19",
+      "jump": 19.2,
+      "spy": -1.5,
+      "earnings": false,
+      "fwd10": 27.42,
+      "fwd20": 29.03
+    },
+    {
+      "sym": "MVIS",
+      "date": "2019-08-14",
+      "jump": 15.8,
+      "spy": -2.96,
+      "earnings": false,
+      "fwd10": -13.64,
+      "fwd20": -6.06
+    },
+    {
+      "sym": "MVIS",
+      "date": "2020-03-03",
+      "jump": 23.3,
+      "spy": -2.86,
+      "earnings": false,
+      "fwd10": -54.05,
+      "fwd20": -54.05
+    },
+    {
+      "sym": "MVIS",
+      "date": "2020-04-01",
+      "jump": 17.6,
+      "spy": -4.5,
+      "earnings": false,
+      "fwd10": 25,
+      "fwd20": 75
+    },
+    {
+      "sym": "MVIS",
+      "date": "2020-05-01",
+      "jump": 25.7,
+      "spy": -2.65,
+      "earnings": false,
+      "fwd10": 90.91,
+      "fwd20": 118.18
+    },
+    {
+      "sym": "MVIS",
+      "date": "2020-05-19",
+      "jump": 12.2,
+      "spy": -1.03,
+      "earnings": false,
+      "fwd10": -1.98,
+      "fwd20": 19.8
+    },
+    {
+      "sym": "MVIS",
+      "date": "2020-09-21",
+      "jump": 16.4,
+      "spy": -1.11,
+      "earnings": false,
+      "fwd10": 0.97,
+      "fwd20": 17.96
+    },
+    {
+      "sym": "MVIS",
+      "date": "2024-12-18",
+      "jump": 12.3,
+      "spy": -2.98,
+      "earnings": false,
+      "fwd10": 64.84,
+      "fwd20": 76.92
+    },
+    {
+      "sym": "MVST",
+      "date": "2021-09-20",
+      "jump": 10,
+      "spy": -1.67,
+      "earnings": false,
+      "fwd10": -23.02,
+      "fwd20": -18.35
+    },
+    {
+      "sym": "MVST",
+      "date": "2022-03-07",
+      "jump": 15.1,
+      "spy": -2.95,
+      "earnings": false,
+      "fwd10": -8.01,
+      "fwd20": -19.76
+    },
+    {
+      "sym": "MVST",
+      "date": "2024-12-30",
+      "jump": 12.2,
+      "spy": -1.14,
+      "earnings": false,
+      "fwd10": -25.09,
+      "fwd20": -45.45
+    },
+    {
+      "sym": "MVST",
+      "date": "2025-04-21",
+      "jump": 14.2,
+      "spy": -2.38,
+      "earnings": false,
+      "fwd10": -5.26,
+      "fwd20": 71.77
+    },
+    {
+      "sym": "MVST",
+      "date": "2026-03-18",
+      "jump": 13.2,
+      "spy": -1.4,
+      "earnings": false,
+      "fwd10": -15.12,
+      "fwd20": 7.56
+    },
+    {
+      "sym": "MYE",
+      "date": "2025-03-06",
+      "jump": 28.1,
+      "spy": -1.78,
+      "earnings": true,
+      "fwd10": 1.41,
+      "fwd20": -13.41
+    },
+    {
+      "sym": "MYRG",
+      "date": "2020-03-05",
+      "jump": 17.7,
+      "spy": -3.32,
+      "earnings": true,
+      "fwd10": -36.94,
+      "fwd20": -28.35
+    },
+    {
+      "sym": "MYRG",
+      "date": "2024-10-31",
+      "jump": 13.6,
+      "spy": -1.96,
+      "earnings": true,
+      "fwd10": 14.76,
+      "fwd20": 20.53
+    },
+    {
+      "sym": "NATR",
+      "date": "2025-08-01",
+      "jump": 12.8,
+      "spy": -1.64,
+      "earnings": true,
+      "fwd10": 4.68,
+      "fwd20": 6.65
+    },
+    {
+      "sym": "NBR",
+      "date": "2020-07-23",
+      "jump": 13.3,
+      "spy": -1.19,
+      "earnings": false,
+      "fwd10": 20.95,
+      "fwd20": -16.42
+    },
+    {
+      "sym": "NBR",
+      "date": "2021-01-29",
+      "jump": 10.8,
+      "spy": -2,
+      "earnings": false,
+      "fwd10": 19.46,
+      "fwd20": 65.02
+    },
+    {
+      "sym": "NBR",
+      "date": "2024-07-24",
+      "jump": 10.4,
+      "spy": -2.27,
+      "earnings": true,
+      "fwd10": -13.39,
+      "fwd20": -13.26
+    },
+    {
+      "sym": "NKTX",
+      "date": "2025-03-06",
+      "jump": 15.2,
+      "spy": -1.78,
+      "earnings": false,
+      "fwd10": -20.63,
+      "fwd20": -9.79
+    },
+    {
+      "sym": "NRGV",
+      "date": "2022-04-05",
+      "jump": 18.9,
+      "spy": -1.26,
+      "earnings": false,
+      "fwd10": -34.94,
+      "fwd20": -37.38
+    },
+    {
+      "sym": "NRGV",
+      "date": "2023-01-18",
+      "jump": 34.8,
+      "spy": -1.58,
+      "earnings": false,
+      "fwd10": -4.38,
+      "fwd20": -20.42
+    },
+    {
+      "sym": "NRXP",
+      "date": "2021-07-19",
+      "jump": 45.3,
+      "spy": -1.48,
+      "earnings": false,
+      "fwd10": 30.86,
+      "fwd20": 15.11
+    },
+    {
+      "sym": "NRXP",
+      "date": "2021-08-18",
+      "jump": 11.8,
+      "spy": -1.09,
+      "earnings": false,
+      "fwd10": 14.78,
+      "fwd20": -24.68
+    },
+    {
+      "sym": "NRXP",
+      "date": "2021-11-26",
+      "jump": 50,
+      "spy": -2.23,
+      "earnings": false,
+      "fwd10": -12.74,
+      "fwd20": -30.07
+    },
+    {
+      "sym": "NRXP",
+      "date": "2023-05-02",
+      "jump": 13,
+      "spy": -1.12,
+      "earnings": false,
+      "fwd10": 0.16,
+      "fwd20": 8.53
+    },
+    {
+      "sym": "NRXP",
+      "date": "2023-08-24",
+      "jump": 19.7,
+      "spy": -1.39,
+      "earnings": false,
+      "fwd10": -26.47,
+      "fwd20": -24.71
+    },
+    {
+      "sym": "NRXP",
+      "date": "2023-09-15",
+      "jump": 10,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": -8.77,
+      "fwd20": -3.51
+    },
+    {
+      "sym": "NRXP",
+      "date": "2025-01-07",
+      "jump": 32.8,
+      "spy": -1.13,
+      "earnings": false,
+      "fwd10": -37.12,
+      "fwd20": -31.76
+    },
+    {
+      "sym": "OCGN",
+      "date": "2018-10-18",
+      "jump": 19,
+      "spy": -1.44,
+      "earnings": false,
+      "fwd10": -23.54,
+      "fwd20": -49.71
+    },
+    {
+      "sym": "OCGN",
+      "date": "2018-12-07",
+      "jump": 14.4,
+      "spy": -2.32,
+      "earnings": false,
+      "fwd10": -3.09,
+      "fwd20": -60.21
+    },
+    {
+      "sym": "OCGN",
+      "date": "2019-01-03",
+      "jump": 49.6,
+      "spy": -2.39,
+      "earnings": false,
+      "fwd10": -15.76,
+      "fwd20": -3.8
+    },
+    {
+      "sym": "OCGN",
+      "date": "2019-05-31",
+      "jump": 12.3,
+      "spy": -1.35,
+      "earnings": false,
+      "fwd10": 55.73,
+      "fwd20": -0.52
+    },
+    {
+      "sym": "OCGN",
+      "date": "2020-04-15",
+      "jump": 31.2,
+      "spy": -2.12,
+      "earnings": false,
+      "fwd10": -24.52,
+      "fwd20": -25.48
+    },
+    {
+      "sym": "OCGN",
+      "date": "2020-09-03",
+      "jump": 23.9,
+      "spy": -3.44,
+      "earnings": false,
+      "fwd10": -7.05,
+      "fwd20": -19.32
+    },
+    {
+      "sym": "OCGN",
+      "date": "2021-01-04",
+      "jump": 67.8,
+      "spy": -1.36,
+      "earnings": false,
+      "fwd10": -23.78,
+      "fwd20": 6.19
+    },
+    {
+      "sym": "OCGN",
+      "date": "2021-07-19",
+      "jump": 12.9,
+      "spy": -1.48,
+      "earnings": false,
+      "fwd10": -8.91,
+      "fwd20": -6.12
+    },
+    {
+      "sym": "OCGN",
+      "date": "2022-02-22",
+      "jump": 22.3,
+      "spy": -1.07,
+      "earnings": false,
+      "fwd10": -42.32,
+      "fwd20": -9.22
+    },
+    {
+      "sym": "OCGN",
+      "date": "2025-03-28",
+      "jump": 10.5,
+      "spy": -2.01,
+      "earnings": false,
+      "fwd10": -13.75,
+      "fwd20": -11.5
+    },
+    {
+      "sym": "OII",
+      "date": "2022-03-07",
+      "jump": 10.1,
+      "spy": -2.95,
+      "earnings": false,
+      "fwd10": -2.87,
+      "fwd20": -6.95
+    },
+    {
+      "sym": "OIS",
+      "date": "2022-03-07",
+      "jump": 20.9,
+      "spy": -2.95,
+      "earnings": false,
+      "fwd10": -5.63,
+      "fwd20": 2.11
+    },
+    {
+      "sym": "OLMA",
+      "date": "2022-03-01",
+      "jump": 15,
+      "spy": -1.52,
+      "earnings": true,
+      "fwd10": -27.7,
+      "fwd20": -15.61
+    },
+    {
+      "sym": "OLMA",
+      "date": "2022-06-03",
+      "jump": 16.3,
+      "spy": -1.64,
+      "earnings": false,
+      "fwd10": 7.44,
+      "fwd20": 33.33
+    },
+    {
+      "sym": "OLMA",
+      "date": "2022-12-22",
+      "jump": 13.7,
+      "spy": -1.43,
+      "earnings": false,
+      "fwd10": 20.93,
+      "fwd20": 92.64
+    },
+    {
+      "sym": "OLMA",
+      "date": "2025-11-20",
+      "jump": 13.3,
+      "spy": -1.52,
+      "earnings": false,
+      "fwd10": 23.63,
+      "fwd20": 26.9
+    },
+    {
+      "sym": "OOMA",
+      "date": "2020-03-06",
+      "jump": 10.9,
+      "spy": -1.65,
+      "earnings": true,
+      "fwd10": -42.99,
+      "fwd20": -27.52
+    },
+    {
+      "sym": "OPCH",
+      "date": "2020-03-20",
+      "jump": 11.1,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": 6.38,
+      "fwd20": 63.7
+    },
+    {
+      "sym": "OPEN",
+      "date": "2025-08-01",
+      "jump": 14.1,
+      "spy": -1.64,
+      "earnings": false,
+      "fwd10": 50.95,
+      "fwd20": 111.9
+    },
+    {
+      "sym": "OPK",
+      "date": "2018-11-12",
+      "jump": 20.7,
+      "spy": -1.87,
+      "earnings": true,
+      "fwd10": -12.6,
+      "fwd20": -10.46
+    },
+    {
+      "sym": "OPK",
+      "date": "2020-03-05",
+      "jump": 24.1,
+      "spy": -3.32,
+      "earnings": false,
+      "fwd10": -28.64,
+      "fwd20": -44.17
+    },
+    {
+      "sym": "OPK",
+      "date": "2020-04-20",
+      "jump": 16.5,
+      "spy": -1.76,
+      "earnings": false,
+      "fwd10": 19.19,
+      "fwd20": 39.9
+    },
+    {
+      "sym": "OPK",
+      "date": "2021-12-17",
+      "jump": 10.5,
+      "spy": -1.06,
+      "earnings": false,
+      "fwd10": 11.79,
+      "fwd20": 7.03
+    },
+    {
+      "sym": "OPRT",
+      "date": "2023-03-17",
+      "jump": 28.2,
+      "spy": -1.17,
+      "earnings": false,
+      "fwd10": 6.04,
+      "fwd20": 9.34
+    },
+    {
+      "sym": "ORIC",
+      "date": "2021-12-17",
+      "jump": 16.8,
+      "spy": -1.06,
+      "earnings": false,
+      "fwd10": 7.48,
+      "fwd20": -21.23
+    },
+    {
+      "sym": "ORIC",
+      "date": "2022-06-03",
+      "jump": 15.9,
+      "spy": -1.64,
+      "earnings": false,
+      "fwd10": -1.32,
+      "fwd20": 17.63
+    },
+    {
+      "sym": "ORIC",
+      "date": "2022-12-22",
+      "jump": 59.7,
+      "spy": -1.43,
+      "earnings": false,
+      "fwd10": 17.33,
+      "fwd20": 27.14
+    },
+    {
+      "sym": "ORIC",
+      "date": "2025-01-07",
+      "jump": 10.8,
+      "spy": -1.13,
+      "earnings": false,
+      "fwd10": 12.15,
+      "fwd20": 36.01
+    },
+    {
+      "sym": "ORN",
+      "date": "2020-03-27",
+      "jump": 10,
+      "spy": -2.98,
+      "earnings": false,
+      "fwd10": -11.98,
+      "fwd20": -12.81
+    },
+    {
+      "sym": "ORN",
+      "date": "2022-04-11",
+      "jump": 11.7,
+      "spy": -1.71,
+      "earnings": false,
+      "fwd10": -12.79,
+      "fwd20": -2.33
+    },
+    {
+      "sym": "ORN",
+      "date": "2024-10-31",
+      "jump": 12.7,
+      "spy": -1.96,
+      "earnings": true,
+      "fwd10": 27.17,
+      "fwd20": 42.72
+    },
+    {
+      "sym": "ORN",
+      "date": "2025-10-30",
+      "jump": 10.8,
+      "spy": -1.1,
+      "earnings": true,
+      "fwd10": -16.09,
+      "fwd20": -11.58
+    },
+    {
+      "sym": "OSS",
+      "date": "2022-04-11",
+      "jump": 12.8,
+      "spy": -1.71,
+      "earnings": false,
+      "fwd10": -0.43,
+      "fwd20": -7.69
+    },
+    {
+      "sym": "OSS",
+      "date": "2023-09-26",
+      "jump": 13.9,
+      "spy": -1.47,
+      "earnings": false,
+      "fwd10": 17.78,
+      "fwd20": 6.67
+    },
+    {
+      "sym": "OSS",
+      "date": "2025-06-13",
+      "jump": 12.3,
+      "spy": -1.12,
+      "earnings": false,
+      "fwd10": -7.55,
+      "fwd20": 45.83
+    },
+    {
+      "sym": "OSUR",
+      "date": "2020-10-19",
+      "jump": 15.4,
+      "spy": -1.52,
+      "earnings": false,
+      "fwd10": -6.59,
+      "fwd20": -18.51
+    },
+    {
+      "sym": "PACB",
+      "date": "2024-09-06",
+      "jump": 12.9,
+      "spy": -1.68,
+      "earnings": false,
+      "fwd10": 15.82,
+      "fwd20": 8.86
+    },
+    {
+      "sym": "PCRX",
+      "date": "2018-04-06",
+      "jump": 12.9,
+      "spy": -2.23,
+      "earnings": false,
+      "fwd10": 8.11,
+      "fwd20": 1.95
+    },
+    {
+      "sym": "PCRX",
+      "date": "2025-01-10",
+      "jump": 11.1,
+      "spy": -1.53,
+      "earnings": true,
+      "fwd10": 24.32,
+      "fwd20": 26.45
+    },
+    {
+      "sym": "PCRX",
+      "date": "2025-04-08",
+      "jump": 14.7,
+      "spy": -1.57,
+      "earnings": false,
+      "fwd10": -4.07,
+      "fwd20": -4.15
+    },
+    {
+      "sym": "PKOH",
+      "date": "2021-03-03",
+      "jump": 10.9,
+      "spy": -1.32,
+      "earnings": true,
+      "fwd10": -4.43,
+      "fwd20": -18.02
+    },
+    {
+      "sym": "PKOH",
+      "date": "2022-05-11",
+      "jump": 11.6,
+      "spy": -1.59,
+      "earnings": false,
+      "fwd10": 2.57,
+      "fwd20": 44.14
+    },
+    {
+      "sym": "PLNT",
+      "date": "2020-03-23",
+      "jump": 10.4,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 13.58,
+      "fwd20": 47.37
+    },
+    {
+      "sym": "PLNT",
+      "date": "2025-11-06",
+      "jump": 12.6,
+      "spy": -1.07,
+      "earnings": true,
+      "fwd10": 1.69,
+      "fwd20": 7.59
+    },
+    {
+      "sym": "PLUG",
+      "date": "2020-06-24",
+      "jump": 17.7,
+      "spy": -2.55,
+      "earnings": false,
+      "fwd10": 18.23,
+      "fwd20": 12.68
+    },
+    {
+      "sym": "PLUG",
+      "date": "2024-01-31",
+      "jump": 19.3,
+      "spy": -1.63,
+      "earnings": false,
+      "fwd10": -4.94,
+      "fwd20": -20.67
+    },
+    {
+      "sym": "PRLB",
+      "date": "2021-01-27",
+      "jump": 12.3,
+      "spy": -2.44,
+      "earnings": false,
+      "fwd10": -16.94,
+      "fwd20": -41.64
+    },
+    {
+      "sym": "PUMP",
+      "date": "2020-03-31",
+      "jump": 15.7,
+      "spy": -1.49,
+      "earnings": false,
+      "fwd10": 48.4,
+      "fwd20": 79.6
+    },
+    {
+      "sym": "QSI",
+      "date": "2022-03-01",
+      "jump": 13.5,
+      "spy": -1.52,
+      "earnings": true,
+      "fwd10": -18.22,
+      "fwd20": 11.02
+    },
+    {
+      "sym": "QSI",
+      "date": "2024-12-27",
+      "jump": 67.4,
+      "spy": -1.05,
+      "earnings": false,
+      "fwd10": -43.61,
+      "fwd20": -43.33
+    },
+    {
+      "sym": "REI",
+      "date": "2020-03-11",
+      "jump": 14.3,
+      "spy": -4.87,
+      "earnings": false,
+      "fwd10": -10,
+      "fwd20": -21.25
+    },
+    {
+      "sym": "REI",
+      "date": "2021-03-04",
+      "jump": 15.7,
+      "spy": -1.24,
+      "earnings": false,
+      "fwd10": 3.2,
+      "fwd20": -2
+    },
+    {
+      "sym": "REI",
+      "date": "2021-10-04",
+      "jump": 18.8,
+      "spy": -1.29,
+      "earnings": false,
+      "fwd10": 11.3,
+      "fwd20": 7.06
+    },
+    {
+      "sym": "REPX",
+      "date": "2018-03-19",
+      "jump": 15.3,
+      "spy": -1.35,
+      "earnings": false,
+      "fwd10": 0,
+      "fwd20": 13.24
+    },
+    {
+      "sym": "REPX",
+      "date": "2019-08-05",
+      "jump": 10.8,
+      "spy": -3.01,
+      "earnings": false,
+      "fwd10": -1.39,
+      "fwd20": -5.56
+    },
+    {
+      "sym": "REPX",
+      "date": "2020-04-03",
+      "jump": 20,
+      "spy": -1.45,
+      "earnings": false,
+      "fwd10": -11.11,
+      "fwd20": -3.7
+    },
+    {
+      "sym": "REPX",
+      "date": "2020-07-23",
+      "jump": 16.9,
+      "spy": -1.19,
+      "earnings": false,
+      "fwd10": 2.9,
+      "fwd20": 26.09
+    },
+    {
+      "sym": "REPX",
+      "date": "2022-02-22",
+      "jump": 18,
+      "spy": -1.07,
+      "earnings": false,
+      "fwd10": -1.85,
+      "fwd20": -8.3
+    },
+    {
+      "sym": "REPX",
+      "date": "2022-04-14",
+      "jump": 11.3,
+      "spy": -1.25,
+      "earnings": false,
+      "fwd10": -8.51,
+      "fwd20": -8.19
+    },
+    {
+      "sym": "RES",
+      "date": "2021-01-27",
+      "jump": 16.5,
+      "spy": -2.44,
+      "earnings": true,
+      "fwd10": 13.53,
+      "fwd20": 41.69
+    },
+    {
+      "sym": "RES",
+      "date": "2022-03-07",
+      "jump": 11.9,
+      "spy": -2.95,
+      "earnings": false,
+      "fwd10": -5.01,
+      "fwd20": 3.25
+    },
+    {
+      "sym": "RES",
+      "date": "2025-10-30",
+      "jump": 11.8,
+      "spy": -1.1,
+      "earnings": true,
+      "fwd10": -3.05,
+      "fwd20": -4.13
+    },
+    {
+      "sym": "RIGL",
+      "date": "2021-05-12",
+      "jump": 14.6,
+      "spy": -2.12,
+      "earnings": false,
+      "fwd10": 0,
+      "fwd20": 13.28
+    },
+    {
+      "sym": "RIGL",
+      "date": "2022-06-16",
+      "jump": 21,
+      "spy": -3.31,
+      "earnings": false,
+      "fwd10": 27.55,
+      "fwd20": 25.51
+    },
+    {
+      "sym": "RIGL",
+      "date": "2022-12-05",
+      "jump": 14.5,
+      "spy": -1.8,
+      "earnings": false,
+      "fwd10": 32.63,
+      "fwd20": 42.11
+    },
+    {
+      "sym": "ROOT",
+      "date": "2024-10-31",
+      "jump": 68.9,
+      "spy": -1.96,
+      "earnings": true,
+      "fwd10": 15.24,
+      "fwd20": 45.94
+    },
+    {
+      "sym": "ROOT",
+      "date": "2024-11-15",
+      "jump": 12.8,
+      "spy": -1.28,
+      "earnings": false,
+      "fwd10": 11.65,
+      "fwd20": -14.13
+    },
+    {
+      "sym": "ROOT",
+      "date": "2025-02-27",
+      "jump": 25.6,
+      "spy": -1.6,
+      "earnings": true,
+      "fwd10": 8.29,
+      "fwd20": 20.16
+    },
+    {
+      "sym": "RRGB",
+      "date": "2020-03-23",
+      "jump": 32.8,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 7.01,
+      "fwd20": 32.99
+    },
+    {
+      "sym": "RRGB",
+      "date": "2022-03-11",
+      "jump": 14.1,
+      "spy": -1.27,
+      "earnings": true,
+      "fwd10": 3.21,
+      "fwd20": -11.45
+    },
+    {
+      "sym": "RRGB",
+      "date": "2025-02-27",
+      "jump": 34.5,
+      "spy": -1.6,
+      "earnings": true,
+      "fwd10": -26.15,
+      "fwd20": -36.18
+    },
+    {
+      "sym": "SABR",
+      "date": "2020-03-23",
+      "jump": 10.3,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 51.51,
+      "fwd20": 52.6
+    },
+    {
+      "sym": "SATL",
+      "date": "2022-06-08",
+      "jump": 17.2,
+      "spy": -1.09,
+      "earnings": false,
+      "fwd10": -41.6,
+      "fwd20": -38.88
+    },
+    {
+      "sym": "SATL",
+      "date": "2026-05-15",
+      "jump": 13.9,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": -11.89,
+      "fwd20": -32.01
+    },
+    {
+      "sym": "SBH",
+      "date": "2019-07-31",
+      "jump": 11.3,
+      "spy": -1.09,
+      "earnings": true,
+      "fwd10": -6.4,
+      "fwd20": -7.35
+    },
+    {
+      "sym": "SD",
+      "date": "2020-04-21",
+      "jump": 69.4,
+      "spy": -3.04,
+      "earnings": false,
+      "fwd10": 7.1,
+      "fwd20": -21.31
+    },
+    {
+      "sym": "SD",
+      "date": "2021-01-04",
+      "jump": 10.6,
+      "spy": -1.36,
+      "earnings": false,
+      "fwd10": 48.98,
+      "fwd20": 33.53
+    },
+    {
+      "sym": "SD",
+      "date": "2021-05-12",
+      "jump": 10.4,
+      "spy": -2.12,
+      "earnings": true,
+      "fwd10": 6.73,
+      "fwd20": 28.98
+    },
+    {
+      "sym": "SES",
+      "date": "2022-03-07",
+      "jump": 29.1,
+      "spy": -2.95,
+      "earnings": false,
+      "fwd10": 31.34,
+      "fwd20": 52.99
+    },
+    {
+      "sym": "SES",
+      "date": "2023-10-25",
+      "jump": 12.6,
+      "spy": -1.44,
+      "earnings": false,
+      "fwd10": -10.76,
+      "fwd20": 3.14
+    },
+    {
+      "sym": "SES",
+      "date": "2024-04-15",
+      "jump": 15.4,
+      "spy": -1.25,
+      "earnings": false,
+      "fwd10": -21.51,
+      "fwd20": -20.93
+    },
+    {
+      "sym": "SES",
+      "date": "2024-04-30",
+      "jump": 17,
+      "spy": -1.58,
+      "earnings": false,
+      "fwd10": -12.03,
+      "fwd20": -17.72
+    },
+    {
+      "sym": "SES",
+      "date": "2024-12-27",
+      "jump": 68.3,
+      "spy": -1.05,
+      "earnings": false,
+      "fwd10": -65.69,
+      "fwd20": -55.65
+    },
+    {
+      "sym": "SHAK",
+      "date": "2021-01-27",
+      "jump": 13.9,
+      "spy": -2.44,
+      "earnings": false,
+      "fwd10": 3.38,
+      "fwd20": -4.86
+    },
+    {
+      "sym": "SHAK",
+      "date": "2024-08-01",
+      "jump": 16.9,
+      "spy": -1.42,
+      "earnings": true,
+      "fwd10": 6.91,
+      "fwd20": -0.97
+    },
+    {
+      "sym": "SHEN",
+      "date": "2023-10-25",
+      "jump": 10.5,
+      "spy": -1.44,
+      "earnings": false,
+      "fwd10": -3.29,
+      "fwd20": -6.02
+    },
+    {
+      "sym": "SIBN",
+      "date": "2020-03-23",
+      "jump": 14.5,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 13.41,
+      "fwd20": 40.53
+    },
+    {
+      "sym": "SIF",
+      "date": "2018-03-01",
+      "jump": 13,
+      "spy": -1.45,
+      "earnings": false,
+      "fwd10": -5.31,
+      "fwd20": -2.3
+    },
+    {
+      "sym": "SIF",
+      "date": "2020-05-13",
+      "jump": 88.2,
+      "spy": -1.77,
+      "earnings": true,
+      "fwd10": -7.73,
+      "fwd20": 2.66
+    },
+    {
+      "sym": "SIG",
+      "date": "2022-12-06",
+      "jump": 20.2,
+      "spy": -1.44,
+      "earnings": true,
+      "fwd10": -4.72,
+      "fwd20": -3.42
+    },
+    {
+      "sym": "SKYX",
+      "date": "2024-12-30",
+      "jump": 16.8,
+      "spy": -1.14,
+      "earnings": false,
+      "fwd10": 8.47,
+      "fwd20": 34.75
+    },
+    {
+      "sym": "SM",
+      "date": "2020-04-03",
+      "jump": 10.1,
+      "spy": -1.45,
+      "earnings": false,
+      "fwd10": 15.27,
+      "fwd20": 174.15
+    },
+    {
+      "sym": "SM",
+      "date": "2021-03-03",
+      "jump": 13,
+      "spy": -1.32,
+      "earnings": false,
+      "fwd10": 19.73,
+      "fwd20": 4.87
+    },
+    {
+      "sym": "SMP",
+      "date": "2018-10-26",
+      "jump": 14.7,
+      "spy": -1.76,
+      "earnings": true,
+      "fwd10": 7.94,
+      "fwd20": 6.63
+    },
+    {
+      "sym": "SND",
+      "date": "2020-03-20",
+      "jump": 30.5,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": -23.08,
+      "fwd20": -30.45
+    },
+    {
+      "sym": "SND",
+      "date": "2020-10-26",
+      "jump": 10.2,
+      "spy": -1.85,
+      "earnings": false,
+      "fwd10": 2.13,
+      "fwd20": 36.17
+    },
+    {
+      "sym": "SND",
+      "date": "2020-11-18",
+      "jump": 11.8,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": 13.53,
+      "fwd20": 18.82
+    },
+    {
+      "sym": "SND",
+      "date": "2021-01-04",
+      "jump": 12.2,
+      "spy": -1.36,
+      "earnings": false,
+      "fwd10": -1.55,
+      "fwd20": 0
+    },
+    {
+      "sym": "SNDX",
+      "date": "2020-01-31",
+      "jump": 40.8,
+      "spy": -1.82,
+      "earnings": false,
+      "fwd10": 2.03,
+      "fwd20": 4.48
+    },
+    {
+      "sym": "SNDX",
+      "date": "2021-05-12",
+      "jump": 11.7,
+      "spy": -2.12,
+      "earnings": true,
+      "fwd10": 1.9,
+      "fwd20": 6.03
+    },
+    {
+      "sym": "SNDX",
+      "date": "2025-11-04",
+      "jump": 11.6,
+      "spy": -1.19,
+      "earnings": true,
+      "fwd10": 11.34,
+      "fwd20": 28.4
+    },
+    {
+      "sym": "SPCE",
+      "date": "2020-03-23",
+      "jump": 15.5,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 10.25,
+      "fwd20": 30.07
+    },
+    {
+      "sym": "SPCE",
+      "date": "2021-01-27",
+      "jump": 10.2,
+      "spy": -2.44,
+      "earnings": false,
+      "fwd10": 13.03,
+      "fwd20": -8.87
+    },
+    {
+      "sym": "SPCE",
+      "date": "2021-09-30",
+      "jump": 12.1,
+      "spy": -1.22,
+      "earnings": false,
+      "fwd10": -4.9,
+      "fwd20": -26.64
+    },
+    {
+      "sym": "STX",
+      "date": "2021-01-27",
+      "jump": 10.6,
+      "spy": -2.44,
+      "earnings": false,
+      "fwd10": -1.02,
+      "fwd20": 1.58
+    },
+    {
+      "sym": "SXC",
+      "date": "2020-03-23",
+      "jump": 10.4,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 11.11,
+      "fwd20": -19.66
+    },
+    {
+      "sym": "SXC",
+      "date": "2020-09-18",
+      "jump": 10.8,
+      "spy": -1.15,
+      "earnings": false,
+      "fwd10": -12.75,
+      "fwd20": -6
+    },
+    {
+      "sym": "SXC",
+      "date": "2024-10-31",
+      "jump": 19.6,
+      "spy": -1.96,
+      "earnings": true,
+      "fwd10": 20.36,
+      "fwd20": 22.02
+    },
+    {
+      "sym": "TDUP",
+      "date": "2022-12-16",
+      "jump": 13.7,
+      "spy": -1.18,
+      "earnings": false,
+      "fwd10": -40.7,
+      "fwd20": -13.57
+    },
+    {
+      "sym": "TDUP",
+      "date": "2023-03-07",
+      "jump": 51.2,
+      "spy": -1.53,
+      "earnings": true,
+      "fwd10": -0.41,
+      "fwd20": -0.82
+    },
+    {
+      "sym": "TH",
+      "date": "2020-11-18",
+      "jump": 20.4,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": -7.02,
+      "fwd20": 5.26
+    },
+    {
+      "sym": "TH",
+      "date": "2022-03-07",
+      "jump": 22.3,
+      "spy": -2.95,
+      "earnings": false,
+      "fwd10": 46.58,
+      "fwd20": 48.86
+    },
+    {
+      "sym": "TH",
+      "date": "2022-07-11",
+      "jump": 19.2,
+      "spy": -1.14,
+      "earnings": false,
+      "fwd10": 54.58,
+      "fwd20": 54.24
+    },
+    {
+      "sym": "TH",
+      "date": "2022-11-09",
+      "jump": 10.8,
+      "spy": -2.06,
+      "earnings": true,
+      "fwd10": 18.44,
+      "fwd20": 25.76
+    },
+    {
+      "sym": "TLRY",
+      "date": "2020-03-27",
+      "jump": 15.2,
+      "spy": -2.98,
+      "earnings": false,
+      "fwd10": -27.8,
+      "fwd20": -7.69
+    },
+    {
+      "sym": "TLRY",
+      "date": "2020-10-19",
+      "jump": 16.5,
+      "spy": -1.52,
+      "earnings": false,
+      "fwd10": 2.78,
+      "fwd20": 12.96
+    },
+    {
+      "sym": "TLRY",
+      "date": "2022-10-06",
+      "jump": 30.9,
+      "spy": -1.03,
+      "earnings": false,
+      "fwd10": -15.9,
+      "fwd20": -2.05
+    },
+    {
+      "sym": "TLRY",
+      "date": "2024-04-30",
+      "jump": 39.5,
+      "spy": -1.58,
+      "earnings": false,
+      "fwd10": -15.38,
+      "fwd20": -26.72
+    },
+    {
+      "sym": "TLRY",
+      "date": "2025-12-12",
+      "jump": 44.1,
+      "spy": -1.08,
+      "earnings": false,
+      "fwd10": -23.79,
+      "fwd20": -22.72
+    },
+    {
+      "sym": "TLYS",
+      "date": "2026-03-12",
+      "jump": 47.2,
+      "spy": -1.52,
+      "earnings": true,
+      "fwd10": 75,
+      "fwd20": 110.42
+    },
+    {
+      "sym": "TNXP",
+      "date": "2018-10-18",
+      "jump": 18.3,
+      "spy": -1.44,
+      "earnings": false,
+      "fwd10": -4.23,
+      "fwd20": -28.17
+    },
+    {
+      "sym": "TNXP",
+      "date": "2019-10-02",
+      "jump": 13.2,
+      "spy": -1.77,
+      "earnings": false,
+      "fwd10": 6.98,
+      "fwd20": -18.6
+    },
+    {
+      "sym": "TNXP",
+      "date": "2020-02-27",
+      "jump": 92.2,
+      "spy": -4.49,
+      "earnings": false,
+      "fwd10": -56.07,
+      "fwd20": -58.38
+    },
+    {
+      "sym": "TNXP",
+      "date": "2020-03-20",
+      "jump": 70.2,
+      "spy": -4.31,
+      "earnings": false,
+      "fwd10": -28.87,
+      "fwd20": -19.59
+    },
+    {
+      "sym": "TNXP",
+      "date": "2020-07-23",
+      "jump": 16.2,
+      "spy": -1.19,
+      "earnings": false,
+      "fwd10": -20.53,
+      "fwd20": -38.41
+    },
+    {
+      "sym": "TNXP",
+      "date": "2023-01-05",
+      "jump": 20,
+      "spy": -1.14,
+      "earnings": false,
+      "fwd10": 105,
+      "fwd20": 105
+    },
+    {
+      "sym": "TNXP",
+      "date": "2025-03-06",
+      "jump": 33.5,
+      "spy": -1.78,
+      "earnings": false,
+      "fwd10": 24.33,
+      "fwd20": 19.55
+    },
+    {
+      "sym": "TNXP",
+      "date": "2025-04-08",
+      "jump": 11.3,
+      "spy": -1.57,
+      "earnings": false,
+      "fwd10": -14.13,
+      "fwd20": -3.43
+    },
+    {
+      "sym": "TNXP",
+      "date": "2026-05-15",
+      "jump": 11.7,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": -21.92,
+      "fwd20": -26.81
+    },
+    {
+      "sym": "TRN",
+      "date": "2024-08-01",
+      "jump": 10.4,
+      "spy": -1.42,
+      "earnings": true,
+      "fwd10": -11.78,
+      "fwd20": -9.95
+    },
+    {
+      "sym": "TROX",
+      "date": "2018-03-01",
+      "jump": 11.4,
+      "spy": -1.45,
+      "earnings": true,
+      "fwd10": -5.58,
+      "fwd20": -9.22
+    },
+    {
+      "sym": "TSLA",
+      "date": "2020-11-18",
+      "jump": 10.2,
+      "spy": -1.2,
+      "earnings": false,
+      "fwd10": 21.93,
+      "fwd20": 34.78
+    },
+    {
+      "sym": "TWI",
+      "date": "2020-02-27",
+      "jump": 14.6,
+      "spy": -4.49,
+      "earnings": false,
+      "fwd10": -15.79,
+      "fwd20": -14.04
+    },
+    {
+      "sym": "TWI",
+      "date": "2020-03-12",
+      "jump": 11,
+      "spy": -9.57,
+      "earnings": false,
+      "fwd10": 2.08,
+      "fwd20": -24.26
+    },
+    {
+      "sym": "TWI",
+      "date": "2022-12-16",
+      "jump": 16.6,
+      "spy": -1.18,
+      "earnings": false,
+      "fwd10": -3.31,
+      "fwd20": 6.68
+    },
+    {
+      "sym": "UEC",
+      "date": "2020-04-20",
+      "jump": 13.3,
+      "spy": -1.76,
+      "earnings": false,
+      "fwd10": 19.15,
+      "fwd20": 15.96
+    },
+    {
+      "sym": "UEC",
+      "date": "2022-03-07",
+      "jump": 18.7,
+      "spy": -2.95,
+      "earnings": false,
+      "fwd10": 10.04,
+      "fwd20": 2.4
+    },
+    {
+      "sym": "UFI",
+      "date": "2020-03-23",
+      "jump": 10.5,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 0.11,
+      "fwd20": 5.9
+    },
+    {
+      "sym": "UFI",
+      "date": "2020-05-01",
+      "jump": 11.5,
+      "spy": -2.65,
+      "earnings": true,
+      "fwd10": 5.03,
+      "fwd20": 15.77
+    },
+    {
+      "sym": "UFI",
+      "date": "2021-01-29",
+      "jump": 11.2,
+      "spy": -2,
+      "earnings": false,
+      "fwd10": 2.46,
+      "fwd20": 5.85
+    },
+    {
+      "sym": "UFI",
+      "date": "2023-04-25",
+      "jump": 17.6,
+      "spy": -1.59,
+      "earnings": true,
+      "fwd10": -5.84,
+      "fwd20": -9.11
+    },
+    {
+      "sym": "UFI",
+      "date": "2025-05-21",
+      "jump": 11,
+      "spy": -1.69,
+      "earnings": false,
+      "fwd10": -3.51,
+      "fwd20": -7.8
+    },
+    {
+      "sym": "URG",
+      "date": "2020-03-03",
+      "jump": 10.9,
+      "spy": -2.86,
+      "earnings": false,
+      "fwd10": -33.33,
+      "fwd20": -23.53
+    },
+    {
+      "sym": "UVE",
+      "date": "2023-02-24",
+      "jump": 20.3,
+      "spy": -1.07,
+      "earnings": true,
+      "fwd10": 26.99,
+      "fwd20": 22.37
+    },
+    {
+      "sym": "VGZ",
+      "date": "2025-04-21",
+      "jump": 12.8,
+      "spy": -2.38,
+      "earnings": false,
+      "fwd10": 10.23,
+      "fwd20": 19.32
+    },
+    {
+      "sym": "VNDA",
+      "date": "2026-02-23",
+      "jump": 41.5,
+      "spy": -1.02,
+      "earnings": false,
+      "fwd10": 6.5,
+      "fwd20": -14.11
+    },
+    {
+      "sym": "VSEC",
+      "date": "2019-07-31",
+      "jump": 11.4,
+      "spy": -1.09,
+      "earnings": true,
+      "fwd10": 2.3,
+      "fwd20": 8.18
+    },
+    {
+      "sym": "VSEC",
+      "date": "2023-05-02",
+      "jump": 24,
+      "spy": -1.12,
+      "earnings": true,
+      "fwd10": -12.53,
+      "fwd20": -11.51
+    },
+    {
+      "sym": "VSEC",
+      "date": "2025-02-27",
+      "jump": 16.7,
+      "spy": -1.6,
+      "earnings": true,
+      "fwd10": -4.41,
+      "fwd20": 4.17
+    },
+    {
+      "sym": "VUZI",
+      "date": "2020-03-31",
+      "jump": 12.8,
+      "spy": -1.49,
+      "earnings": false,
+      "fwd10": 29.27,
+      "fwd20": 26.02
+    },
+    {
+      "sym": "VUZI",
+      "date": "2020-09-03",
+      "jump": 17.5,
+      "spy": -3.44,
+      "earnings": false,
+      "fwd10": -0.42,
+      "fwd20": -6.72
+    },
+    {
+      "sym": "VUZI",
+      "date": "2024-04-04",
+      "jump": 12.9,
+      "spy": -1.22,
+      "earnings": false,
+      "fwd10": -10,
+      "fwd20": -2.86
+    },
+    {
+      "sym": "WDC",
+      "date": "2020-03-23",
+      "jump": 10.7,
+      "spy": -2.56,
+      "earnings": false,
+      "fwd10": 27.66,
+      "fwd20": 11.51
+    },
+    {
+      "sym": "WFRD",
+      "date": "2023-02-08",
+      "jump": 12.6,
+      "spy": -1.09,
+      "earnings": true,
+      "fwd10": -2.99,
+      "fwd20": -2.59
+    },
+    {
+      "sym": "WGO",
+      "date": "2018-12-19",
+      "jump": 13.6,
+      "spy": -1.5,
+      "earnings": true,
+      "fwd10": 11.29,
+      "fwd20": 35.63
+    },
+    {
+      "sym": "WOOF",
+      "date": "2026-03-12",
+      "jump": 34.6,
+      "spy": -1.52,
+      "earnings": true,
+      "fwd10": -14.86,
+      "fwd20": -13.62
+    },
+    {
+      "sym": "WTI",
+      "date": "2021-03-04",
+      "jump": 10.8,
+      "spy": -1.24,
+      "earnings": true,
+      "fwd10": -3.43,
+      "fwd20": 0.26
+    },
+    {
+      "sym": "WTI",
+      "date": "2025-06-13",
+      "jump": 10.8,
+      "spy": -1.12,
+      "earnings": false,
+      "fwd10": -23.26,
+      "fwd20": -20.47
+    },
+    {
+      "sym": "WTI",
+      "date": "2026-03-06",
+      "jump": 11.7,
+      "spy": -1.31,
+      "earnings": false,
+      "fwd10": -0.94,
+      "fwd20": 9.28
+    },
+    {
+      "sym": "WTI",
+      "date": "2026-06-10",
+      "jump": 11.5,
+      "spy": -1.58,
+      "earnings": false,
+      "fwd10": -25.47,
+      "fwd20": -21.26
+    },
+    {
+      "sym": "WTI",
+      "date": "2026-07-29",
+      "jump": 11,
+      "spy": -1.54,
+      "earnings": false,
+      "fwd10": 4.25,
+      "fwd20": 1.4
+    }
+  ]
+}

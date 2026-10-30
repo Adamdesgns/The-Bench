@@ -34,3 +34,7 @@ There's no window where running into the print reliably works. Every holding per
 - **Non-earnings dated events (data readouts, FDA dates, medical meetings, launches) are a different animal and are not covered by this study.** MRNA (B-828) broke out on 9/17, about 5 weeks before its 10/24 data. That's one instance, not a base rate. The test for these would use the 8-K history of announced events and is the next study.
 
 A base rate is a count of the past, never a buy signal (v28).
+
+## Correction 2026-10-30 (Claude)
+
+EDGAR's acceptanceDateTime is UTC, not US Eastern as the method above says, so evening filings were dated to the wrong reaction session. Fixed in `earnings-runup.mjs` (`nyTime`) and re-run: `2026-10-30-earnings-runup-rerun.json`, 12,403 events. **The conclusion stands** (no reliable run-up at any window; best t 1.33, was 1.28). The reaction-day move is 6.7% absolute, not 5.5%, because more reactions now land on the right session. Details: `2026-10-30-up-in-down-tape.md`.

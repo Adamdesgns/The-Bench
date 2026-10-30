@@ -16,8 +16,8 @@
 //
 // METHOD (event study, all free primary sources)
 //   - Event dates: SEC 8-K filings carrying Item 2.02 (Results of Operations).
-//     acceptanceDateTime gives the time (EDGAR stamps it in US Eastern despite the
-//     trailing Z). At or after 16:00 ET the reaction day is the NEXT session; before
+//     acceptanceDateTime gives the time, in UTC (the first version read it as US Eastern;
+//     fixed 2026-10-30, see nyTime). At or after 16:00 ET the reaction day is the NEXT session; before
 //     16:00 it is the filing day. Events within 40 sessions after a kept event are
 //     dropped (pre-announcements, amendments), so each quarter counts once.
 //   - Prices: Yahoo daily OHLCV, split- and dividend-adjusted closes.
@@ -68,7 +68,18 @@ async function getJson(url, ua) {
 
 // ---------- pure parts (exported for tests) ----------
 
-// EDGAR submissions JSON -> [{date, hour}] for 8-K Item 2.02, oldest first.
+// acceptanceDateTime is UTC (corrected 2026-10-30: filings peak at 20-21Z = 4-5pm New York and
+// none land 08-09Z = 4-5am New York, when EDGAR is shut). Convert to the New York date and hour.
+// filingDate is not used: an evening filing carries the NEXT business day's filingDate.
+const NY = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+export function nyTime(stamp) {
+  const t = new Date(String(stamp ?? ""));
+  if (Number.isNaN(t.getTime())) return null;
+  const p = Object.fromEntries(NY.formatToParts(t).map((x) => [x.type, x.value]));
+  return { date: `${p.year}-${p.month}-${p.day}`, hour: Number(p.hour) + Number(p.minute) / 60 };
+}
+
+// EDGAR submissions JSON -> [{date, hour}] for 8-K Item 2.02, oldest first (New York time).
 export function earningsFilings(subs) {
   const r = subs?.filings?.recent;
   if (!r?.form) return [];
@@ -76,9 +87,8 @@ export function earningsFilings(subs) {
   for (let i = 0; i < r.form.length; i++) {
     if (r.form[i] !== "8-K") continue;
     if (!String(r.items?.[i] ?? "").split(",").map((s) => s.trim()).includes("2.02")) continue;
-    const t = String(r.acceptanceDateTime?.[i] ?? "");
-    const hour = t.length >= 16 ? Number(t.slice(11, 13)) + Number(t.slice(14, 16)) / 60 : 12;
-    out.push({ date: r.filingDate[i], hour });
+    const ny = nyTime(r.acceptanceDateTime?.[i]);
+    out.push(ny ?? { date: r.filingDate[i], hour: 12 });
   }
   return out.sort((a, b) => a.date.localeCompare(b.date));
 }
