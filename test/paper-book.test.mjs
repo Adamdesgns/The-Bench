@@ -7,7 +7,7 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
 
-import { step, summarize } from "../scripts/paper-book.mjs";
+import { step, summarize, openTrade } from "../scripts/paper-book.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CLI = resolve(HERE, "../scripts/paper-book.mjs");
@@ -287,4 +287,27 @@ test("CLI standings: prints the mark time, the book line, one ranked line per ca
 test("CLI standings: before the book is opened it says so", () => {
   const db = join(mkdtempSync(join(tmpdir(), "pb-")), "book.json");
   assert.match(run(["standings", "--db", db]), /not opened yet/);
+});
+
+test("an after-close entry (after-hours bid) ignores the whole entry-day bar; the next session scores it", () => {
+  const ah = { ...base, entry_after_close: true };
+  const day0 = step(ah, { open: 99, high: 111, low: 94, close: 101 }, "2026-10-14");   // stop AND target, both before the entry
+  assert.equal(day0.status, "OPEN");
+  assert.equal(day0.legs.length, 0);
+  assert.equal(day0.last_scored, "2026-10-14");
+  assert.equal(day0.last_close, 100);                     // marked at the entry, not the pre-entry close
+  const day1 = step(day0, { open: 100, high: 101, low: 94, close: 96 }, "2026-10-15");
+  assert.equal(day1.exit_reason, "STOPPED");
+});
+
+test("openTrade marks an after-close entry only when asked", () => {
+  const book = { trades: [] };
+  const f = { sym: "x", row: "B-1", side: "short", lane: "hunter-short", entryDate: "2026-10-14", entry: 10, shares: 5, stop: 11, t1: 8, t2: null, stopAfterT1: null, exitBy: "2026-10-28" };
+  assert.equal(openTrade(book, { ...f, entryAfterClose: true }).trade.entry_after_close, true);
+  assert.equal("entry_after_close" in openTrade(book, f).trade, false);
+});
+
+test("openTrade refuses an after-close entry that would exit the same day", () => {
+  const f = { sym: "x", row: "B-1", side: "short", lane: "hunter-short", entryDate: "2026-10-14", entry: 10, shares: 5, stop: 11, t1: 8, t2: null, stopAfterT1: null, exitBy: "2026-10-14", entryAfterClose: true };
+  assert.match(openTrade({ trades: [] }, f).refused, /after-close/);
 });

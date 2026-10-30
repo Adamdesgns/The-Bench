@@ -107,7 +107,8 @@
       "last_scored": "2026-10-28",
       "last_close": 42.305,
       "exit_reason": "EXIT-BY",
-      "exit_date": "2026-10-28"
+      "exit_date": "2026-10-28",
+      "entry_after_close": true
     },
     {
       "id": "PB-004",
@@ -142,7 +143,8 @@
       "last_scored": "2026-10-28",
       "last_close": 13.44,
       "exit_reason": "STOPPED",
-      "exit_date": "2026-10-28"
+      "exit_date": "2026-10-28",
+      "entry_after_close": true
     },
     {
       "id": "PB-005",
@@ -177,7 +179,8 @@
       "last_scored": "2026-10-28",
       "last_close": 82.26,
       "exit_reason": "EXIT-BY",
-      "exit_date": "2026-10-28"
+      "exit_date": "2026-10-28",
+      "entry_after_close": true
     },
     {
       "id": "PB-006",
@@ -212,7 +215,8 @@
       "last_scored": "2026-10-28",
       "last_close": 28.87,
       "exit_reason": "EXIT-BY",
-      "exit_date": "2026-10-28"
+      "exit_date": "2026-10-28",
+      "entry_after_close": true
     },
     {
       "id": "PB-007",
@@ -247,7 +251,8 @@
       "last_scored": "2026-10-28",
       "last_close": 20.41,
       "exit_reason": "EXIT-BY",
-      "exit_date": "2026-10-28"
+      "exit_date": "2026-10-28",
+      "entry_after_close": true
     },
     {
       "id": "PB-008",
@@ -282,7 +287,8 @@
       "last_scored": "2026-10-29",
       "last_close": 184.25,
       "exit_reason": "EXIT-BY",
-      "exit_date": "2026-10-29"
+      "exit_date": "2026-10-29",
+      "entry_after_close": true
     },
     {
       "id": "PB-009",
@@ -317,7 +323,8 @@
       "last_scored": "2026-10-27",
       "last_close": 208.7199,
       "exit_reason": "EXIT-BY",
-      "exit_date": "2026-10-27"
+      "exit_date": "2026-10-27",
+      "entry_after_close": true
     },
     {
       "id": "PB-010",
@@ -352,7 +359,8 @@
       "last_scored": "2026-10-29",
       "last_close": 393.63,
       "exit_reason": "EXIT-BY",
-      "exit_date": "2026-10-29"
+      "exit_date": "2026-10-29",
+      "entry_after_close": true
     },
     {
       "id": "PB-011",
@@ -387,7 +395,8 @@
       "last_scored": "2026-10-29",
       "last_close": 919.85,
       "exit_reason": "STOPPED",
-      "exit_date": "2026-10-29"
+      "exit_date": "2026-10-29",
+      "entry_after_close": true
     },
     {
       "id": "PB-012",
@@ -422,7 +431,8 @@
       "last_scored": "2026-10-28",
       "last_close": 6.395,
       "exit_reason": "EXIT-BY",
-      "exit_date": "2026-10-28"
+      "exit_date": "2026-10-28",
+      "entry_after_close": true
     },
     {
       "id": "PB-013",
@@ -457,7 +467,8 @@
       "last_scored": "2026-10-28",
       "last_close": 607.53,
       "exit_reason": "EXIT-BY",
-      "exit_date": "2026-10-28"
+      "exit_date": "2026-10-28",
+      "entry_after_close": true
     },
     {
       "id": "PB-014",
@@ -492,7 +503,8 @@
       "last_scored": "2026-10-28",
       "last_close": 414,
       "exit_reason": "STOPPED",
-      "exit_date": "2026-10-28"
+      "exit_date": "2026-10-28",
+      "entry_after_close": true
     },
     {
       "id": "PB-015",
@@ -527,7 +539,8 @@
       "last_scored": "2026-10-27",
       "last_close": 895.52,
       "exit_reason": "EXIT-BY",
-      "exit_date": "2026-10-27"
+      "exit_date": "2026-10-27",
+      "entry_after_close": true
     },
     {
       "id": "PB-016",
@@ -553,7 +566,8 @@
       "realized": 0,
       "r": null,
       "last_scored": "2026-10-29",
-      "last_close": 60.72
+      "last_close": 60.72,
+      "entry_after_close": true
     },
     {
       "id": "PB-017",
@@ -588,7 +602,8 @@
       "last_scored": "2026-10-29",
       "last_close": 237.195,
       "exit_reason": "STOPPED",
-      "exit_date": "2026-10-29"
+      "exit_date": "2026-10-29",
+      "entry_after_close": true
     },
     {
       "id": "PB-018",
@@ -614,7 +629,62 @@
       "realized": 0,
       "r": null,
       "last_scored": "2026-10-29",
-      "last_close": 624.545
+      "last_close": 624.545,
+      "entry_after_close": true
+    },
+    {
+      "id": "PB-019",
+      "sym": "AMZN",
+      "side": "short",
+      "lane": "hunter-short",
+      "source_row": "hunt:ebcb2d94",
+      "entry_date": "2026-10-29",
+      "entry": 231.1,
+      "shares": 12,
+      "stop": 255.36,
+      "t1": 220.5,
+      "t2": null,
+      "stop_after_t1": null,
+      "exit_by": "2026-11-12",
+      "readiness": 60,
+      "grade": null,
+      "note": "auto: hunter READY short, receipt ebcb2d94; hunter p_dir 48.61% p_reach 5.56%; entry = the after-hours bid",
+      "status": "OPEN",
+      "shares_open": 12,
+      "t1_done": false,
+      "legs": [],
+      "realized": 0,
+      "r": null,
+      "last_scored": null,
+      "last_close": null,
+      "entry_after_close": true
+    },
+    {
+      "id": "PB-020",
+      "sym": "MRVL",
+      "side": "short",
+      "lane": "hunter-short",
+      "source_row": "B-1173",
+      "entry_date": "2026-10-29",
+      "entry": 213.31,
+      "shares": 7,
+      "stop": 253.66,
+      "t1": 146.85,
+      "t2": null,
+      "stop_after_t1": null,
+      "exit_by": "2026-11-12",
+      "readiness": 60,
+      "grade": null,
+      "note": "auto: hunter READY short, receipt ebcb2d94; hunter p_dir 44.62% p_reach 1.54%; entry = the after-hours bid",
+      "status": "OPEN",
+      "shares_open": 7,
+      "t1_done": false,
+      "legs": [],
+      "realized": 0,
+      "r": null,
+      "last_scored": null,
+      "last_close": null,
+      "entry_after_close": true
     }
   ],
   "history": [

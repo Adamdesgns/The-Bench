@@ -4,12 +4,14 @@
 //   node scripts/paper-book.mjs init --balance 3575.98 [--date 2026-10-14]
 //   node scripts/paper-book.mjs add --sym MU --row B-876 --entry 938.50 --shares 6 --stop 884 \
 //        --t1 1029 --t2 1054.17 --exit-by 2026-10-20 [--side long|short] [--lane entry-check] \
-//        [--date D] [--stop-after-t1 X] [--readiness N] [--grade B-] [--note "..."]
+//        [--date D] [--stop-after-t1 X] [--readiness N] [--grade B-] [--note "..."] [--after-close]
+//        --after-close: the entry was made after that day's close, so that day's bar never scores it
 //   node scripts/paper-book.mjs hunt-add --candidates db/hunts/options/<date>.candidates.json --bids '{"ASTS":41.80}' \
 //        [--rows '{"ASTS":"B-895"}'] [--earnings '{"ASTS":"2026-11-09"}'] [--skip SYM,..] [--band N] [--date D]
 //        every READY short in the hunt receipt -> lane hunter-short, short at the after-hours bid, the hunter's
 //        stop and target, shares = floor(band / (stop - bid)), out after the hunter's horizon (10 sessions) or
 //        the session before earnings, whichever is first. --skip = names the desk took live. No row = receipt id.
+//        These are after-close entries (entry_after_close): scoring starts the next session.
 //   node scripts/paper-book.mjs score --bars '{"MU":{"open":..,"high":..,"low":..,"close":..}}' [--date D] [--write]
 //   node scripts/paper-book.mjs close --id PB-001 --price P [--date D] [--why MANUAL]
 //   node scripts/paper-book.mjs report [--json]
@@ -68,6 +70,10 @@ function finish(out, why, date) {
 // Advance one OPEN paper trade by one daily bar {open, high, low, close}. Returns the updated trade.
 export function step(t, bar, date) {
   if (t.status !== "OPEN" || (t.last_scored && date <= t.last_scored) || date < t.entry_date) return t;
+  // An entry made after the close (the hunter-short after-hours bid) did not exist during that day's session:
+  // the day's high and low happened before it, so they can neither stop it nor fill a target (2026-10-30).
+  // Marked at the entry price, not that close: the close came first (AMZN 10/29: 243.7 close, 231.10 short).
+  if (t.entry_after_close && date === t.entry_date) return { ...t, last_scored: date, last_close: t.entry };
   const out = { ...t, last_scored: date, last_close: bar.close };
   const d = dirOf(t);
   const firstDay = date === t.entry_date;
@@ -182,13 +188,14 @@ export function openTrade(book, f) {
   if (!(d * (f.entry - f.stop) > 0)) return { refused: `the stop ${f.stop} is on the wrong side of the ${side} entry ${f.entry}` };
   for (const x of [f.t1, f.t2]) if (x != null && !(d * (x - f.entry) > 0)) return { refused: `the target ${x} is on the wrong side of the ${side} entry ${f.entry}` };
   if (f.exitBy < f.entryDate) return { refused: `the exit date ${f.exitBy} is before the entry date ${f.entryDate}` };
+  if (f.entryAfterClose && f.exitBy <= f.entryDate) return { refused: `an after-close entry on ${f.entryDate} cannot exit by that same day's close` };
   // One open paper position per name and side: a plan that re-fires under a new row must not double the position.
   const held = book.trades.find((t) => t.status === "OPEN" && t.sym === sym && t.side === side);
   if (held) return { refused: `${sym} ${side} is already open in the paper book as ${held.id} (${held.source_row}); a re-fire does not add to it` };
   return { trade: {
     id: `PB-${String(book.trades.length + 1).padStart(3, "0")}`, sym, side, lane: f.lane, source_row: f.row,
     entry_date: f.entryDate, entry: f.entry, shares: f.shares, stop: f.stop, t1: f.t1, t2: f.t2, stop_after_t1: f.stopAfterT1, exit_by: f.exitBy,
-    readiness: f.readiness, grade: f.grade, note: f.note,
+    readiness: f.readiness, grade: f.grade, note: f.note, ...(f.entryAfterClose ? { entry_after_close: true } : {}),
     status: "OPEN", shares_open: f.shares, t1_done: false, legs: [], realized: 0, r: null, last_scored: null, last_close: null,
   } };
 }
@@ -229,6 +236,7 @@ function main() {
       entryDate: val("--date") || nyDate(), entry: num("--entry"), shares: num("--shares"), stop: num("--stop"),
       t1: num("--t1") ?? null, t2: num("--t2") ?? null, stopAfterT1: num("--stop-after-t1") ?? null, exitBy: val("--exit-by"),
       readiness: num("--readiness") ?? null, grade: val("--grade") ?? null, note: val("--note") ?? null,
+      entryAfterClose: has("--after-close"),
     });
     if (o.refused) refuse(o.refused);
     book.trades.push(o.trade); save(DB, book);
@@ -261,7 +269,7 @@ function main() {
       if (exitBy <= date) { lines.push(`  SKIP     ${sym} - earnings ${earnings[sym]} come before a session it could be held`); continue; }
       const ev = x.evidence || {};
       const o = openTrade(book, {
-        sym, row: rows[sym] || `hunt:${c.id}`, side: "short", lane: "hunter-short", entryDate: date, entry: bid, shares,
+        sym, row: rows[sym] || `hunt:${c.id}`, side: "short", lane: "hunter-short", entryDate: date, entryAfterClose: true, entry: bid, shares,
         stop: g.stop, t1: g.target ?? null, t2: null, stopAfterT1: null, exitBy, readiness: x.readiness ?? null, grade: null,
         note: `auto: hunter READY short, receipt ${c.id}; hunter p_dir ${ev.p_dir ?? "-"}% p_reach ${ev.p_reach ?? "-"}%; entry = the after-hours bid`,
       });

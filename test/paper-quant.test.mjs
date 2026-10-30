@@ -8,7 +8,7 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
 
-import { replay, makeTwin, shapeOf, widenStop } from "../scripts/paper-quant.mjs";
+import { replay, makeTwin, shapeOf, widenStop, nearTarget, compare } from "../scripts/paper-quant.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CLI = resolve(HERE, "../scripts/paper-quant.mjs");
@@ -176,12 +176,13 @@ test("CLI: sync twins every share trade once, score offline, report the pair", (
   assert.match(s1, /ADDED\s+PQ-001/);
   assert.match(s1, /ADDED\s+PQS-001/);
   assert.match(s1, /ADDED\s+PQW-001/);
+  assert.match(s1, /ADDED\s+PQN-001/);
   assert.doesNotMatch(s1, /OPT/);
   assert.match(run(["sync", "--paper", paper, "--db", db, "--write"]), /0 added/);
   const sc = run(["score", "--paper", paper, "--db", db, "--bars-file", barsFile, "--write"]);
   assert.match(sc, /PQ-001 TEST/);
   const q = JSON.parse(readFileSync(db, "utf8"));
-  assert.equal(q.twins.length, 3);
+  assert.equal(q.twins.length, 4);
   assert.equal(q.twins[0].status, "OPEN");
   assert.equal(q.twins[0].last_scored, DS[71]);
   const rep = run(["report", "--paper", paper, "--db", db]);
@@ -190,6 +191,10 @@ test("CLI: sync twins every share trade once, score offline, report the pair", (
   assert.match(rep, /trail/);
   assert.match(rep, /shape/);
   assert.match(rep, /wide/);
+  assert.match(rep, /near/);
+  assert.ok(rep.includes("CLOSED PAIRS (trail)"), "the summary lines print");
+  assert.ok(rep.includes("CLOSED PAIRS (near) entered from 2026-10-31"));
+  assert.doesNotMatch(rep, /is not defined/);
 });
 
 // ---- the wide twin: plumbing tested with a stand-in stop rule, so these pass whatever widenStop decides ----
@@ -232,4 +237,77 @@ test("widenStop: the wider of 4/3 of the paper distance and 1.5 ATR, on the losi
   assert.equal(widenStop({ entry: 100, stop: 98, side: "long", atr: 4 }), 94);
   // Short mirrors it above the entry.
   assert.equal(widenStop({ entry: 50, stop: 53, side: "short", atr: 1 }), 54);
+});
+
+// ---- the near twin and after-close entries (2026-10-30) ----
+const pbShort = (over = {}) => ({ id: "PB-001", sym: "TEST", side: "short", lane: "hunter-short", source_row: "B-1", entry_date: ENTRY_DATE, entry: 65.5, shares: 10, stop: 70, t1: 50, t2: null, exit_by: DS[73], ...over });
+
+test("makeTwin: the near variant is the paper trade with a 1R target, all out", () => {
+  const n = makeTwin(pbShort({ entry_after_close: true }), { variant: "near" });
+  assert.equal(n.id, "PQN-001");
+  assert.equal(n.lane, "quant-near");
+  assert.equal(n.t1, 61);                                  // 65.5 - 1 x 4.5
+  assert.equal(n.t2, null);
+  assert.equal(n.stop0, 70);
+  assert.equal(n.hard_exit, DS[73]);
+  assert.equal(n.entry_after_close, true);
+  assert.equal(nearTarget({ entry: 100, stop: 95, side: "long" }), 105);
+  assert.equal(nearTarget({ entry: 100, stop: 95, side: "long", t1: 103 }), 103);        // paper T1 already inside 1R: kept
+  assert.equal(nearTarget({ entry: 231.1, stop: 255.36, side: "short", t1: 220.5 }), 220.5);
+  assert.equal(nearTarget({ entry: 100, stop: 95, side: "long", t1: 120 }), 105);
+});
+
+test("near twin: sells everything at 1R where the paper trade's far target is never reached", () => {
+  const bars = series([...down, 64, 62, 63, 64], DS);    // the 62 day trades down to 61
+  const n = replay(makeTwin(pbShort(), { variant: "near" }), bars, spy);
+  assert.equal(n.exit_reason, "TARGET");
+  assert.equal(n.exit_date, DS[71]);
+  assert.equal(n.r, 1);
+  assert.equal(n.realized, 45);
+});
+
+test("after-close entry: the entry day's high cannot stop a twin; the next session can", () => {
+  const bars = series([...down, 64.5, 64], DS);
+  bars[69] = { ...bars[69], high: 71 };                   // through the 70 stop, but before the after-hours entry
+  for (const variant of ["trail", "shape", "near"]) {
+    const plain = replay(makeTwin(pbShort(), { variant, earnings: "2027-01-01" }), bars, spy);
+    assert.equal(plain.exit_date, ENTRY_DATE, variant + ": an entry made during the session is stopped that day");
+    const after = replay(makeTwin(pbShort({ entry_after_close: true }), { variant, earnings: "2027-01-01" }), bars, spy);
+    assert.equal(after.status, "OPEN", variant + ": an after-close entry is not");
+  }
+});
+
+test("after-close entry: a gap through the stop on the next session exits at the open; the entry day is marked at the entry", () => {
+  const bars = series([...down, 72, 73], DS);
+  bars[70] = { ...bars[70], open: 72 };                   // the session after the entry opens through the 70 stop
+  for (const variant of ["trail", "shape"]) {
+    const t = replay(makeTwin(pbShort({ entry_after_close: true }), { variant, earnings: "2027-01-01" }), bars, spy);
+    assert.equal(t.exit_reason, "STOP-GAP", variant);
+    assert.equal(t.exit_price, 72, variant);
+    assert.equal(t.exit_date, DS[70], variant);
+  }
+  const marked = replay(makeTwin(pbShort({ entry_after_close: true }), { variant: "trail", earnings: "2027-01-01" }), bars.slice(0, 70), spy);
+  assert.equal(marked.last_close, 65.5);
+});
+
+test("after-close entry: the wide twin skips the entry day too", () => {
+  const bars = series([...down, 64.5], DS);
+  bars[69] = { ...bars[69], high: 80 };                   // through any wide stop, before the entry
+  const w = replay(makeTwin(pbShort({ entry_after_close: true }), { variant: "wide" }), bars, spy, { widen: standIn });
+  assert.equal(w.status, "OPEN");
+});
+
+test("compare: wide and near count only pairs entered from the forward date; earlier ones are in-sample", () => {
+  const paper = { trades: [
+    { id: "PB-001", status: "CLOSED", r: -1, realized: -10 },
+    { id: "PB-002", status: "CLOSED", r: 1, realized: 10 },
+  ] };
+  const quant = { twins: [
+    { id: "PQN-001", of: "PB-001", variant: "near", entry_date: "2026-10-14", status: "CLOSED", r: 1, realized: 10 },
+    { id: "PQN-002", of: "PB-002", variant: "near", entry_date: "2026-11-02", status: "CLOSED", r: 1, realized: 10 },
+  ] };
+  const c = compare(quant, paper, "near");
+  assert.equal(c.closed_pairs, 1);
+  assert.equal(c.in_sample, 1);
+  assert.equal(compare({ twins: quant.twins.map((q) => ({ ...q, variant: "trail" })) }, paper, "trail").closed_pairs, 2);
 });
