@@ -87,6 +87,9 @@ export function shapeOf(bars, spy, side) {
 
 // Build the twin of one paper trade. `earnings` = the next report date (YYYY-MM-DD) or null if unknown.
 export const VARIANTS = ["trail", "shape", "wide", "near"];
+// RETIRED variants get no new twins; the ones already open finish and keep their record.
+// shape: retired 2026-10-30 by Adam ("Retire it") after its 10-pair review (docs/research/2026-10-30-lane-reviews.md).
+export const RETIRED = { shape: "2026-10-30" };
 const variantOf = (q) => q.variant || "trail";
 // wide and near are the paper trade itself with one thing changed, scored by paper-book.mjs's own step().
 const paperLike = (q) => ["wide", "near"].includes(variantOf(q));
@@ -290,6 +293,7 @@ async function main() {
     try { given = Object.fromEntries(Object.entries(JSON.parse(val("--earnings") || "{}")).map(([k, v]) => [k.toUpperCase(), v])); }
     catch { console.log('REFUSED - --earnings must be JSON like \'{"ASTS":"2026-11-09"}\''); process.exit(1); }
     const only = val("--variant");
+    if (only && RETIRED[only]) { console.log(`REFUSED - the ${only} twin was retired on ${RETIRED[only]}; it gets no new twins`); process.exit(1); }
     if (only && !VARIANTS.includes(only)) { console.log(`REFUSED - --variant must be one of ${VARIANTS.join(", ")}`); process.exit(1); }
     const have = new Set(quant.twins.map((q) => `${q.of}:${variantOf(q)}`));
     const lines = [];
@@ -299,7 +303,7 @@ async function main() {
       // (the wide twin keeps the paper exit date and never reads earnings, so it is never the sibling)
       const sibling = quant.twins.find((q) => q.of === pb.id && !paperLike(q));
       const earnings = given[pb.sym] ?? (sibling ? sibling.earnings : earningsFromBoard(pb.sym, pb.entry_date));
-      for (const variant of only ? [only] : VARIANTS) {
+      for (const variant of only ? [only] : VARIANTS.filter((v) => !RETIRED[v])) {
         if (have.has(`${pb.id}:${variant}`)) continue;
         const q = makeTwin(pb, { earnings, variant });
         quant.twins.push(q);
@@ -364,7 +368,7 @@ async function main() {
       console.log(`  ${q.sym} ${q.side} ${variantOf(q)} twin: ${rStr(openR(q))}, stop ${q.stop ?? q.stop0}${paperLike(q) ? "" : `, shape ${q.shape?.holds ? "holds" : q.shape_seen ? "broke" : "never held"}`}, out by ${q.hard_exit}`);
     for (const c of cs) {
       if (c.in_sample) console.log(`  IN-SAMPLE (${c.variant}) ${c.in_sample} pairs entered before ${c.forward_from}: the rule was fitted on these, not evidence, not counted below`);
-      console.log(`  CLOSED PAIRS (${c.variant})${c.forward_from ? ` entered from ${c.forward_from}` : ""} ${c.closed_pairs}: fixed ${rStr(c.fixed.sum_r)} (${c.fixed.wins} won, ${money(c.fixed.usd)}) vs ${c.variant} ${rStr(c.quant.sum_r)} (${c.quant.wins} won, ${money(c.quant.usd)})${c.quant.avg_giveback_r != null ? `, gave back ${c.quant.avg_giveback_r}R a trade on average` : ""}${c.closed_pairs >= 10 && c.closed_pairs % 10 === 0 ? ` - REVIEW DUE (${c.closed_pairs} closed pairs: Adam picks the exit rule)` : ""}`);
+      console.log(`  CLOSED PAIRS (${c.variant}${RETIRED[c.variant] ? `, retired ${RETIRED[c.variant]}` : ""})${c.forward_from ? ` entered from ${c.forward_from}` : ""} ${c.closed_pairs}: fixed ${rStr(c.fixed.sum_r)} (${c.fixed.wins} won, ${money(c.fixed.usd)}) vs ${c.variant} ${rStr(c.quant.sum_r)} (${c.quant.wins} won, ${money(c.quant.usd)})${c.quant.avg_giveback_r != null ? `, gave back ${c.quant.avg_giveback_r}R a trade on average` : ""}${!RETIRED[c.variant] && c.closed_pairs >= 10 && c.closed_pairs % 10 === 0 ? ` - REVIEW DUE (${c.closed_pairs} closed pairs: Adam picks the exit rule)` : ""}`);
     }
     return;
   }

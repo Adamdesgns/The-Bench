@@ -174,7 +174,7 @@ test("CLI: sync twins every share trade once, score offline, report the pair", (
   writeFileSync(barsFile, JSON.stringify({ SPY: spy.slice(0, 72), TEST: series([...down, 64.5, 63.5], DS) }));
   const s1 = run(["sync", "--paper", paper, "--db", db, "--earnings", '{"TEST":"2027-01-01"}', "--write"]);
   assert.match(s1, /ADDED\s+PQ-001/);
-  assert.match(s1, /ADDED\s+PQS-001/);
+  assert.doesNotMatch(s1, /PQS-001/);                     // the shape twin is retired: no new ones
   assert.match(s1, /ADDED\s+PQW-001/);
   assert.match(s1, /ADDED\s+PQN-001/);
   assert.doesNotMatch(s1, /OPT/);
@@ -182,14 +182,15 @@ test("CLI: sync twins every share trade once, score offline, report the pair", (
   const sc = run(["score", "--paper", paper, "--db", db, "--bars-file", barsFile, "--write"]);
   assert.match(sc, /PQ-001 TEST/);
   const q = JSON.parse(readFileSync(db, "utf8"));
-  assert.equal(q.twins.length, 4);
+  assert.equal(q.twins.length, 3);
   assert.equal(q.twins[0].status, "OPEN");
   assert.equal(q.twins[0].last_scored, DS[71]);
   const rep = run(["report", "--paper", paper, "--db", db]);
   assert.match(rep, /PB-001/);
   assert.match(rep, /fixed/i);
   assert.match(rep, /trail/);
-  assert.match(rep, /shape/);
+  assert.match(rep, /shape, retired 2026-10-30/);
+  assert.match(run(["sync", "--paper", paper, "--db", db, "--variant", "shape"]), /REFUSED - the shape twin was retired/);
   assert.match(rep, /wide/);
   assert.match(rep, /near/);
   assert.ok(rep.includes("CLOSED PAIRS (trail)"), "the summary lines print");
