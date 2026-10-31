@@ -6592,6 +6592,22 @@
       "row": "B-1204",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-381",
+      "created": "2026-10-31",
+      "when": [
+        {
+          "ticker": "ETN",
+          "op": ">",
+          "level": 393.72
+        }
+      ],
+      "meaning": "B-1205: ETN settled back over Thursday's 393.72 close after the 11/03 print - the Intel-day drop was fully bought on information; long re-look on its own tape with the print-day low as the stop",
+      "source": "docs/reads/2026-10-31-weekend-run.md",
+      "row": "B-1205",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }
