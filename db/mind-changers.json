@@ -6560,6 +6560,38 @@
       "row": "B-1201",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-379",
+      "created": "2026-10-31",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 750.36
+        }
+      ],
+      "meaning": "week-recap: a settle under Friday's low says the Intel-day drop was a start, not a flush - re-judge the index pass",
+      "source": "docs/reads/2026-10-31-week-recap.md",
+      "row": "B-1204",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-380",
+      "created": "2026-10-31",
+      "when": [
+        {
+          "ticker": "QQQ",
+          "op": ">",
+          "level": 712.2
+        }
+      ],
+      "meaning": "week-recap: a settle back over the 10/26 close says Friday was a one-day flush - re-judge the index pass",
+      "source": "docs/reads/2026-10-31-week-recap.md",
+      "row": "B-1204",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }

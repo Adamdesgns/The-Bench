@@ -6,6 +6,82 @@
 
 ---
 
+## Week of 2026-10-25 -> 2026-10-31
+
+No real position opened or closed; the margin account has been cash only since the GOOGL stop on
+10/22. No framework version shipped; still v35 (2026-10-02). Week: SPY 759.97 -> 755.72 (-0.56 pct,
+Friday alone -1.77), QQQ 704.40 -> 690.49 (-1.97), SMH 527.20 -> 522.49 (-0.89, Friday -6.98),
+IWM 275.75 -> 279.33 (+1.30). Fed held 10/28; GOOGL -12.7 pct and NOW -27 pct on 10/29; Intel's PC
+warning took AMD and DELL -10.8 pct on 10/30.
+
+### THE ALGORITHM - how he trades
+
+- No new framework version.
+- **Shape twin RETIRED (10/30, `031bebb`; Adam: "Retire it").** 10 closed pairs: fixed -3.52R vs
+  shape -6.66R, 1.35R a trade given back. The whole gap was MRNA, a +2.17R target ridden back to
+  -1R. Built 10/21, dead in nine days on its own record. No new PQS twins; the open ones finish.
+- **Expectancy first (10/30, `99f716f`):** `lane-expectancy.mjs` prints win rate, average win,
+  average loss and R per trade for every lane, with and without the stop on the daily path.
+  Finding: book lanes run about 0R, 62 pct of triggered conditionals touch the stop (median 3
+  sessions in), longs average +0.64R on winners. A lane review starts there, never from a win rate.
+- **Wide-stop twin PQW (10/30, `99f716f`):** the paper trade with the stop at the wider of 4/3 the
+  paper distance and 1.5 ATR, shares cut to the same dollar risk. Backfill on 14 closed pairs: fixed
+  -0.82R vs wide -0.38R, in-sample, proves nothing. Counts only from 2026-10-31. The 1.0 ATR floor is
+  unchanged; a v36 stop rule is Adam's call.
+- **Near twin PQN (10/30, `225791d`):** everything out at the nearer of 1R and the first target.
+  From the hunter-short review: 14 closed, -3.77R, 0 targets filled, 8 of 14 reached 1R first.
+  Counts only from 2026-10-31. Lane rule unchanged.
+- **After-close entries (10/30, `225791d`)** skip the entry-day bar in the paper book and every
+  twin; the fill happened after that session.
+- **Call context (10/30, `4c55d8f`):** `call-context.mjs`, one record per book row, right, wrong
+  and flat alike: market, Fear & Greed, chart shape, earnings distance, headlines, social (live
+  only). Nightly capture in plan-check-close. A pattern there is a hypothesis, never a rule.
+- **Studies, no rule changed (10/30, `b4094ee`):** up 10 pct in a down market is not a short (530
+  cases 2017-2026: a coin flip with a losing mean; earnings-reaction jumps leaned up, 20-session
+  median +6.1 pct), from Adam's REGN pass B-1190. `earnings-runup` re-run after EDGAR times were
+  found to be UTC: unchanged, no run-up into a print.
+
+### WHAT THE BOOK CONTRADICTED
+
+- **The shape twin (above).** The 10/21 "quant system, not a guess" rule lost to the fixed exit
+  across 10 closed pairs and was retired by the same operator who asked for it.
+- **"The chips have no buyer" (B-1045, 10/23 close):** QQQ settled 712.12 over the 709.30 test on
+  10/26, silicon 5 of 5 up, SMH +2.7 (B-1075). Contradicted in two sessions. Then SMH -6.98 pct on
+  10/30.
+- **Hunter short on AMZN against the desk's own long plan.** PB-019 / Benny PB-006 short at 231.10
+  after hours 10/29 (hunt ebcb2d94); the desk's buy zone was 226-231 (B-1172, Adam "Yes" B-1176).
+  AMZN 240.47 on 10/30. The desk's direction was right and unfilled (first bar 239.195 over the 231
+  ceiling, B-1182, gap-up paper PG-004); the hunter's short is open at -0.39R.
+- **Fourteen hunter shorts closed 10/27-10/29 for -1,151.80 (4 stopped at -1R, 10 timed out, 0
+  targets), and every one of the fourteen tickers fell on 10/30** (SNDG -27.2 pct, AAOI -12.8, COHR
+  -11.3, IREN -8.7, LITE -8.6, ANET -8.3, APLD -8.2, WULF -8.1, AMAT -7.5, ETN -6.1, VRT -5.4,
+  ASTS -4.8, GEV -3.4, PWR -2.2). LITE closed 840.73,
+  under the 875 short that was stopped at -296.10 the day before. The 10-session time stop and the
+  1-ATR stops closed the lane in the three sessions before the day it was built for.
+- **Opening read 10/30 (B-1178):** "AMD green by the close while DELL stays down would separate
+  the stories." Both closed -10.8 pct.
+- **30-day receipt B-674 (GOOGL, 10/01, 8 sh avg 336.25, declared 93 pct concentration):** 279.91
+  on 10/30, -17.28 pct vs SPY -1.08. WRONG. The 326 stop paid -82.24 on 10/22 instead of -450.72.
+  Expensive passes in the same cohort: ACN +21.5 (B-667), NKE +20.28 (B-671).
+
+### WHAT HE COVERS / HOW HE WRITES
+
+- **Benny on Discord (10/27, `2559aaf`):** writes tweets in CMS style when asked, no longer refuses
+  market news that names Anthropic, the repo or branches, keeps refused drafts privately, logs and
+  checks off-topic replies.
+- **Benny's own paper book, first closes:** PWR -13.58 (exit before the print), AMAT -77 and COHR
+  -75 stopped; 0 of 3. Equity 9,845.62, -1.54 pct vs SPY -1.0 over 10/16-10/30.
+
+### STILL OPEN
+
+- Ticket generator still sizes to the band, not to what the account can fund. Fifth week.
+- Correlated-shorts rule (10/19 lesson) still unwritten. On 10/30 four open hunter shorts (CRWV,
+  META, AMZN, MRVL) moved with SMH -7 pct and nothing says how many may be on at once.
+- Wide and near twins: zero forward pairs. Nothing to ask Adam until 10 close.
+- v36 stop rule waits on forward pairs or a Vans Thesis backtest.
+
+---
+
 ## Week of 2026-10-18 -> 2026-10-24
 
 One real position closed: GOOGL B-776 stopped 10/22 at 326 (both 4-share GTC stops filled
