@@ -1,0 +1,13 @@
+# WEEKEND CRYPTO - 2026-10-31 22:40 CT (Robinhood live marks; stocks are Friday settles)
+
+This adds to the 16:15 weekend run and does not redo it. Since that run, only crypto has moved. The Robinhood connector is back, so two things were checked against official numbers first.
+
+Friday's settles match. On Robinhood, AMZN 240.47, SPY 755.70, QQQ 690.53, SMH 522.83, ETN 369.76 (Yahoo had 369.97), ASPN 5.04, MRVL 196.40, NVDA 204.81. That leaves every level in the 16:15 run as it was. ETN's MC-381 line of 393.72 is Thursday's official close to the cent. Both of your accounts hold no shares and have no open orders, so nothing is sitting over the weekend without a stop.
+
+BTC, the job B-1198 left open. Friday's break under the 20-day low said a full re-judge was owed, not a ticket. Live mark 77,664.85, up 0.8 percent on the 77,062 midnight open. The spread is wide (76,930 bid / 78,400 ask, 1.9 percent there and back). The answer is no trade, either side (B-1207). Short: BTC is under the 50-day (81,900.56) and trailing SPY over 20 sessions (minus 4.28), so the laggard gate passes. The breakdown gate does not. Friday set a new 20-day low at 76,189.88, BTC is 1.9 percent over it, and weekend volume is 0.41 times normal against a 1.5 bar. What kills it is a price shelf at 76,624, 1.3 percent under price: against a one-ATR stop at 79,597 it pays 0.52 to 1. The deeper target (66,804) is 5.55 ATR away, and the shelf blocks the way to it. Robinhood crypto cannot be shorted, so any short would be paper anyway. Long: no. It is under the 50-day, trailing SPY, and the 20-day is falling. The ISM print Monday caps readiness at 60 regardless.
+
+The two lines that change it. A settled daily bar under 76,189.88 on 1.5 times volume passes the breakdown gate, and a paper short gets a re-look if a floor below the 76,624 shelf pays 2 to 1 (MC-382). A settle back over the 50-day at 81,900.56 means the breakdown failed and the short idea is dead (MC-383). Both expire Friday 11/06, with payrolls. The 76,600 trigger that expired twice (B-800, B-911) is not re-armed. MC-278 (IBIT under 42.43) expires today without firing: IBIT settled 43.35.
+
+ETH 2,265.90 (up 1.3 percent on the day) and SOL 95.41 (down 0.1 percent): no rows open, nothing to judge. SOL's old B-270 lines (110.04 break, 95.75 to 96.50 hold) died in September. SOL is sitting at the bottom of that old hold band again. That is a coincidence of price, not a plan.
+
+Monday is unchanged from the 16:15 run: ISM at 9:00 CT, AMZN B-1172 checked at 9:02 (needs about a 4 percent gap down to fill), MC-375 expires. Rows this pass: B-1207 BTC. Watches: MC-382, MC-383.

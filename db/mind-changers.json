@@ -6608,6 +6608,38 @@
       "row": "B-1205",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-382",
+      "created": "2026-10-31",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": "<",
+          "level": 76189.88
+        }
+      ],
+      "meaning": "B-1207: BTC settled under the new 20-day low - G1 re-look for a paper short, needs 1.5x volume and a floor that pays 2:1 below the 76,624 shelf",
+      "source": "docs/reads/2026-10-31-weekend-crypto.md",
+      "row": "B-1207",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-383",
+      "created": "2026-10-31",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": ">",
+          "level": 81900.56
+        }
+      ],
+      "meaning": "B-1207 wrong: BTC settled back over the 50-day - the breakdown failed, short thesis dead, long re-look only with the MC-303 20-day-high break",
+      "source": "docs/reads/2026-10-31-weekend-crypto.md",
+      "row": "B-1207",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }
