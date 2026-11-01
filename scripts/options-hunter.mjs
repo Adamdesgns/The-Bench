@@ -5,6 +5,7 @@
 //     node scripts/options-hunter.mjs --hunt [--symbols A,B | --universe board|watchlist|all] [--account N] [--write] [--json]
 //     node scripts/options-hunter.mjs --hunt --bars-file f.json          offline: {SYM:[{date,open,high,low,close,volume}], SPY:[...]}
 //     -> prints candidates; --write saves db/hunts/options/YYYY-MM-DD.candidates.json
+//        (that name is the routine's, --routine; any other run writes beside it - see receipt-guard.mjs)
 //
 //   RANK (after the routine has pulled option marks through the Robinhood MCP):
 //     node scripts/options-hunter.mjs --ev-file marks.json --candidates db/hunts/options/YYYY-MM-DD.candidates.json [--band 303] [--top 3] [--write]
@@ -36,6 +37,7 @@ import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { settledCloses } from "../server/yahooClose.js";
+import { writeReceipt, divertedNote } from "./receipt-guard.mjs";
 import { sma, atr14, pct, verifiedFloor, screenSymbol as screenShort, DEFAULTS as SHORT_DEFAULTS, rsVs, tradesWeekends, applyMarks, whyNotShort } from "./hunt-short.mjs";
 import { detectEvents, independentCount, forwardReturns, summarize, gradeEvidence, barsSpanYears } from "../server/evidence.js";
 
@@ -287,7 +289,11 @@ async function main() {
     const ranked = evRank(cand.candidates, marks, { band, top, horizon: cand.opts?.horizon ?? DEFAULTS.horizon });
     const receipt = { kind: "options-hunter-rank", asof: cand.asof, candidates_receipt: cand.id, band: band === Infinity ? null : band, generated: new Date().toISOString(), long_screen_tested: LONG_SCREEN_TESTED, ...ranked };
     receipt.id = createHash("sha1").update(JSON.stringify(ranked)).digest("hex").slice(0, 8);
-    if (has("--write")) { if (!existsSync(dir)) mkdirSync(dir, { recursive: true }); const p = resolve(dir, `${cand.asof}.ranked.json`); writeFileSync(p, JSON.stringify(receipt, null, 2) + "\n"); receipt.wrote = p; }
+    if (has("--write")) {
+      if (has("--routine")) receipt.routine = true;
+      const w = writeReceipt(resolve(dir, `${cand.asof}.ranked.json`), receipt, { routine: has("--routine"), overwrite: has("--overwrite") });
+      receipt.wrote = w.wrote; receipt.diverted = w.diverted; receipt.refused = w.refused; if (w.refused) process.exitCode = 3;
+    }
     if (has("--json")) { console.log(JSON.stringify(receipt, null, 2)); return; }
     console.log(`OPTIONS HUNTER - RANK  ·  as of ${cand.asof}  ·  receipt ${receipt.id}  ·  band ${band === Infinity ? "none" : band}`);
     console.log(`  EV = p_reach x max gain - (1 - p_dir) x cost, per contract; EV/day = EV / sessions to expiry. p from the name's own history, graded. Nothing here is a ticket.`);
@@ -297,7 +303,7 @@ async function main() {
     for (const r of ranked.top) console.log(`  ${r.sym.padEnd(6)} ${r.side.padEnd(5)} ${r.expiry ?? ""} ${r.long_strike}/${r.short_strike}  cost ${r.cost}  max gain ${r.max_gain} (${r.payoff_ratio}x)  break-even ${r.break_even}  p_dir ${r.p_dir}% p_reach ${r.p_reach}% grade ${r.grade} n=${r.n}  market p ${r.market_p ?? "-"}%  gap ${r.disagreement ?? "-"}  EV ${r.ev}  EV/day ${r.ev_per_day}  stop ${r.stop} target ${r.target}${tagged(r)}`);
     if (ranked.rest.length) { console.log(`\nREST (${ranked.rest.length})`); for (const r of ranked.rest) console.log(`  ${r.sym.padEnd(6)} ${r.side.padEnd(5)} cost ${r.cost} EV/day ${r.ev_per_day} grade ${r.grade}${tagged(r)}`); }
     if (ranked.rejected.length) console.log(`\nrejected: ${ranked.rejected.map((x) => `${x.sym} ${x.side} (${x.why})`).join("; ")}`);
-    if (receipt.wrote) console.log(`\nwrote ${receipt.wrote}`);
+    if (receipt.wrote) console.log(`\nwrote ${receipt.wrote}${divertedNote(receipt.diverted, receipt.refused)}`);
     return;
   }
 
@@ -319,7 +325,11 @@ async function main() {
   const { candidates: cands, skipped, notListed } = candidates(series, { ...opts, macroInside2: macro });
   const receipt = { kind: "options-hunter-candidates", asof, source, universe, generated: new Date().toISOString(), macro_inside_2_sessions: macro, band: band === Infinity ? null : band, opts, marks, scanned: Object.keys(series).length - 1, long_screen_tested: LONG_SCREEN_TESTED, candidates: cands, skipped, not_listed: notListed };
   receipt.id = createHash("sha1").update(JSON.stringify({ asof, cands })).digest("hex").slice(0, 8);
-  if (has("--write")) { if (!existsSync(dir)) mkdirSync(dir, { recursive: true }); const p = resolve(dir, `${asof}.candidates.json`); writeFileSync(p, JSON.stringify(receipt, null, 2) + "\n"); receipt.wrote = p; }
+  if (has("--write")) {
+    if (has("--routine")) receipt.routine = true;
+    const w = writeReceipt(resolve(dir, `${asof}.candidates.json`), receipt, { routine: has("--routine"), overwrite: has("--overwrite") });
+    receipt.wrote = w.wrote; receipt.diverted = w.diverted; receipt.refused = w.refused; if (w.refused) process.exitCode = 3;
+  }
   if (has("--json")) { console.log(JSON.stringify(receipt, null, 2)); return; }
   console.log(`OPTIONS HUNTER - HUNT  ·  as of ${asof} (${source})  ·  scanned ${receipt.scanned}  ·  receipt ${receipt.id}  ·  macro inside 2 sessions: ${macro ? "YES - readiness capped " + DEFAULTS.macroCap : "no"}`);
   console.log(`  long: breakout of the prior 20-session high on >= ${opts.volMin}x volume, leader vs SPY · short: HUNT SHORT gates · target = nearest verified pivot · base rate at ${opts.horizon} sessions from the name's own history`);
@@ -346,7 +356,7 @@ async function main() {
     } else console.log(`\nscreened, not listed: ${new Set(notListed.map((r) => r.sym)).size} name(s) (name them with --symbols to see why)`);
   }
   if (skipped.length) console.log(`\nskipped: ${skipped.map((s) => `${s.sym} (${s.problem})`).join(", ")}`);
-  if (receipt.wrote) console.log(`\nwrote ${receipt.wrote}`);
+  if (receipt.wrote) console.log(`\nwrote ${receipt.wrote}${divertedNote(receipt.diverted, receipt.refused)}`);
   console.log(`\nRule: every name here still runs the full v29 framework, verifies its catalyst, and gets a row. Nothing here is a ticket.`);
 }
 

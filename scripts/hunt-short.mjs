@@ -3,7 +3,8 @@
 //   node scripts/hunt-short.mjs                                  board + watchlist universe, print
 //   node scripts/hunt-short.mjs --symbols GRAB,HPE,CEG,ORCL      a named list
 //   node scripts/hunt-short.mjs --universe board|watchlist|all   (default all)
-//   node scripts/hunt-short.mjs --write                          also write db/hunts/short/YYYY-MM-DD.json (the receipt)
+//   node scripts/hunt-short.mjs --write                          also write db/hunts/short/YYYY-MM-DD.json (the receipt; that name is the
+//                                                                routine's (--routine), any other run writes beside it - see receipt-guard.mjs)
 //   node scripts/hunt-short.mjs --json                           machine-readable
 //   node scripts/hunt-short.mjs --bars-file f.json               offline: {SYM:[{date,open,high,low,close,volume}], SPY:[...]}
 //   node scripts/hunt-short.mjs --account 3030 [--band 303]      band for the put-spread max loss (default 10 pct of --account)
@@ -43,6 +44,7 @@ import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { settledCloses } from "../server/yahooClose.js";
+import { writeReceipt, divertedNote } from "./receipt-guard.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..");
@@ -286,7 +288,9 @@ async function main() {
 
   if (has("--write")) {
     const dir = resolve(ROOT, "db/hunts/short"); if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-    const p = resolve(dir, `${asof}.json`); writeFileSync(p, JSON.stringify(receipt, null, 2) + "\n"); receipt.wrote = p;
+    if (has("--routine")) receipt.routine = true;
+    const w = writeReceipt(resolve(dir, `${asof}.json`), receipt, { routine: has("--routine"), overwrite: has("--overwrite") });
+    receipt.wrote = w.wrote; receipt.diverted = w.diverted; receipt.refused = w.refused; if (w.refused) process.exitCode = 3;
   }
   if (has("--json")) { console.log(JSON.stringify(receipt, null, 2)); return; }
 
@@ -310,7 +314,7 @@ async function main() {
     } else console.log(`\nscreened, not listed: ${ranked.NOT_LISTED.length} (name them with --symbols to see why)`);
   }
   if (ranked.skipped.length) console.log(`\nskipped: ${ranked.skipped.map((s) => `${s.sym} (${s.problem})`).join(", ")}`);
-  if (receipt.wrote) console.log(`\nwrote ${receipt.wrote}`);
+  if (receipt.wrote) console.log(`\nwrote ${receipt.wrote}${divertedNote(receipt.diverted, receipt.refused)}`);
   console.log(`\nRule: every READY name still runs the full v29 framework, prices its spread at the open, and gets a row via log-call.mjs. Nothing here is a ticket.`);
 }
 
