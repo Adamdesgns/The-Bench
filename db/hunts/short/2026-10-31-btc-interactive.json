@@ -1,0 +1,66 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-10-30",
+  "source": "yahoo",
+  "generated": "2026-11-01T04:11:03.431Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": null,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [],
+  "READY": [],
+  "STALK": [
+    {
+      "sym": "BTC-USD",
+      "ok": true,
+      "date": "2026-11-01",
+      "close": 77592.02,
+      "sma50": 81899.5,
+      "sma20": 81005.71,
+      "atr": 1952.32,
+      "low20": 76189.88,
+      "volume": 10933520384,
+      "vol30": 27337257953,
+      "volRatio": 0.4,
+      "rs20": -4.34,
+      "rs5": -1.76,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 66803.65,
+        "date": "2024-11-04",
+        "atr_away": 5.53
+      },
+      "first_shelf": {
+        "level": 76624.25,
+        "date": "2025-03-11",
+        "rr": 0.5
+      },
+      "floor2": {
+        "level": 76624.25,
+        "date": "2025-03-11"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 77592.02,
+        "stop": 79544.35,
+        "stop_atr": 1,
+        "target": 66803.65,
+        "rr": 5.53
+      },
+      "readiness": 60,
+      "list": "STALK"
+    }
+  ],
+  "DISCOVERY": [],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [],
+  "skipped": [],
+  "id": "0ffdba7b"
+}
