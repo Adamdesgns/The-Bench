@@ -6912,6 +6912,22 @@
       "row": "B-1220",
       "expires": "2026-11-12",
       "status": "open"
+    },
+    {
+      "id": "MC-401",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 755.72
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1221: SPY settled under Friday's 755.72 close, the Monday gap failed in negative gamma; index short re-look, 750 put wall is the next node",
+      "source": "docs/reads/2026-11-02-midday.md",
+      "row": "B-1221",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }
