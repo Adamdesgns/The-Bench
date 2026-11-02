@@ -6880,6 +6880,38 @@
       "row": "B-1216",
       "expires": "2026-11-03",
       "status": "open"
+    },
+    {
+      "id": "MC-399",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">",
+          "level": 191.89
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1219: MRVL back over today's 191.89 open means the Lumentum dilution got bought; easy part of the B-1173 short is done, review the stop",
+      "source": "docs/reads/2026-11-02-snapshot-1012.md",
+      "row": "B-1219",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-400",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": ">",
+          "level": 255.36
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1220: AMZN over the 10/28 pre-earnings high closes the earnings gap and stops the 231.10 paper short; re-judge as a long",
+      "source": "docs/reads/2026-11-02-snapshot-1012.md",
+      "row": "B-1220",
+      "expires": "2026-11-12",
+      "status": "open"
     }
   ]
 }
