@@ -6848,6 +6848,38 @@
       "row": "B-1215",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-397",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "BABA",
+          "op": ">",
+          "level": 107.45
+        }
+      ],
+      "meaning": "back over the 20 SMA: B-1088 short idea dead; a long would need its own plan",
+      "source": "docs/reads/2026-11-02-trip-BABA.md",
+      "row": "B-1216",
+      "expires": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-398",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "BABA",
+          "op": "<",
+          "level": 99.46
+        }
+      ],
+      "meaning": "short gate re-test: needs an official close under 99.46 on >=1.5x volume, then re-judge B-1088",
+      "source": "docs/reads/2026-11-02-trip-BABA.md",
+      "row": "B-1216",
+      "expires": "2026-11-03",
+      "status": "open"
     }
   ]
 }
