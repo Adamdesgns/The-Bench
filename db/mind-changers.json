@@ -6816,6 +6816,38 @@
       "row": "B-1213",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-395",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 766.95
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-11-02-sotm.md",
+      "row": "B-1214",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-396",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "DELL",
+          "op": ">",
+          "level": 424.3
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-11-02-sotm.md",
+      "row": "B-1215",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }
