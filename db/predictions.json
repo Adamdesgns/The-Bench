@@ -5567,18 +5567,22 @@
       "receipt": "6b8de026",
       "claim": "short WULF 12.06 -> 8.6 (stop 13.14) in 10 sessions, STALK",
       "id": "PR-154",
-      "status": "open",
-      "score": null,
-      "logged": "2026-10-19T20:38:41.246Z",
-      "progress": {
-        "status": "open",
-        "sessions_done": 9,
+      "status": "scored",
+      "score": {
+        "status": "scored",
+        "sessions_done": 10,
+        "horizon_date": "2026-11-02",
+        "horizon_close": 10.9399995803833,
+        "dir": true,
+        "reach": false,
         "path": {
           "outcome": "stop",
           "date": "2026-10-28",
           "close": 13.420000076293945
-        }
-      }
+        },
+        "r_path": -1
+      },
+      "logged": "2026-10-19T20:38:41.246Z"
     },
     {
       "source": "options-hunter",
@@ -5604,7 +5608,7 @@
       "logged": "2026-10-20T20:38:30.828Z",
       "progress": {
         "status": "open",
-        "sessions_done": 8,
+        "sessions_done": 9,
         "path": null
       }
     },
@@ -5632,7 +5636,7 @@
       "logged": "2026-10-20T20:38:30.828Z",
       "progress": {
         "status": "open",
-        "sessions_done": 8,
+        "sessions_done": 9,
         "path": null
       }
     },
@@ -5660,7 +5664,7 @@
       "logged": "2026-10-20T20:38:30.828Z",
       "progress": {
         "status": "open",
-        "sessions_done": 8,
+        "sessions_done": 9,
         "path": null
       }
     },
@@ -5688,7 +5692,7 @@
       "logged": "2026-10-20T20:38:30.828Z",
       "progress": {
         "status": "open",
-        "sessions_done": 8,
+        "sessions_done": 9,
         "path": null
       }
     },
@@ -5716,7 +5720,7 @@
       "logged": "2026-10-20T20:38:30.828Z",
       "progress": {
         "status": "open",
-        "sessions_done": 8,
+        "sessions_done": 9,
         "path": null
       }
     },
@@ -5744,7 +5748,7 @@
       "logged": "2026-10-20T20:38:30.828Z",
       "progress": {
         "status": "open",
-        "sessions_done": 8,
+        "sessions_done": 9,
         "path": null
       }
     },
@@ -5772,7 +5776,7 @@
       "logged": "2026-10-21T20:37:53.624Z",
       "progress": {
         "status": "open",
-        "sessions_done": 7,
+        "sessions_done": 8,
         "path": null
       }
     },
@@ -5800,8 +5804,12 @@
       "logged": "2026-10-21T20:37:53.624Z",
       "progress": {
         "status": "open",
-        "sessions_done": 7,
-        "path": null
+        "sessions_done": 8,
+        "path": {
+          "outcome": "stop",
+          "date": "2026-11-02",
+          "close": 25.239999771118164
+        }
       }
     },
     {
@@ -5828,7 +5836,7 @@
       "logged": "2026-10-22T20:37:08.235Z",
       "progress": {
         "status": "open",
-        "sessions_done": 6,
+        "sessions_done": 7,
         "path": {
           "outcome": "target",
           "date": "2026-10-30",
@@ -5860,7 +5868,7 @@
       "logged": "2026-10-22T20:37:08.235Z",
       "progress": {
         "status": "open",
-        "sessions_done": 6,
+        "sessions_done": 7,
         "path": {
           "outcome": "stop",
           "date": "2026-10-28",
@@ -5892,7 +5900,7 @@
       "logged": "2026-10-22T20:37:08.235Z",
       "progress": {
         "status": "open",
-        "sessions_done": 6,
+        "sessions_done": 7,
         "path": {
           "outcome": "stop",
           "date": "2026-10-30",
@@ -5924,7 +5932,7 @@
       "logged": "2026-10-22T20:39:15.173Z",
       "progress": {
         "status": "open",
-        "sessions_done": 6,
+        "sessions_done": 7,
         "path": null
       }
     },
@@ -5952,7 +5960,7 @@
       "logged": "2026-10-22T20:39:15.173Z",
       "progress": {
         "status": "open",
-        "sessions_done": 6,
+        "sessions_done": 7,
         "path": {
           "outcome": "stop",
           "date": "2026-10-28",
@@ -5981,7 +5989,7 @@
       "logged": "2026-10-23T12:44:56.969Z",
       "progress": {
         "status": "open",
-        "sessions_done": 6,
+        "sessions_done": 7,
         "path": null
       }
     },
@@ -6042,7 +6050,7 @@
       "logged": "2026-10-26T20:36:47.917Z",
       "progress": {
         "status": "open",
-        "sessions_done": 4,
+        "sessions_done": 5,
         "path": null
       }
     },
@@ -6070,7 +6078,7 @@
       "logged": "2026-10-26T20:36:47.917Z",
       "progress": {
         "status": "open",
-        "sessions_done": 4,
+        "sessions_done": 5,
         "path": null
       }
     },
@@ -6095,7 +6103,7 @@
       "logged": "2026-10-27T17:05:40.567Z",
       "progress": {
         "status": "open",
-        "sessions_done": 3,
+        "sessions_done": 6,
         "path": null
       }
     },
@@ -6123,8 +6131,12 @@
       "logged": "2026-10-27T20:37:45.569Z",
       "progress": {
         "status": "open",
-        "sessions_done": 3,
-        "path": null
+        "sessions_done": 4,
+        "path": {
+          "outcome": "stop",
+          "date": "2026-11-02",
+          "close": 47.5
+        }
       }
     },
     {
@@ -6151,7 +6163,7 @@
       "logged": "2026-10-27T20:37:45.569Z",
       "progress": {
         "status": "open",
-        "sessions_done": 3,
+        "sessions_done": 4,
         "path": {
           "outcome": "stop",
           "date": "2026-10-28",
@@ -6183,7 +6195,7 @@
       "logged": "2026-10-27T20:37:45.569Z",
       "progress": {
         "status": "open",
-        "sessions_done": 3,
+        "sessions_done": 4,
         "path": null
       }
     },
@@ -6211,7 +6223,7 @@
       "logged": "2026-10-29T20:39:02.021Z",
       "progress": {
         "status": "open",
-        "sessions_done": 1,
+        "sessions_done": 2,
         "path": {
           "outcome": "stop",
           "date": "2026-10-30",
@@ -6243,7 +6255,7 @@
       "logged": "2026-10-29T20:39:02.021Z",
       "progress": {
         "status": "open",
-        "sessions_done": 1,
+        "sessions_done": 2,
         "path": null
       }
     },
@@ -6271,7 +6283,7 @@
       "logged": "2026-10-29T20:39:02.021Z",
       "progress": {
         "status": "open",
-        "sessions_done": 1,
+        "sessions_done": 2,
         "path": null
       }
     },
@@ -6299,7 +6311,7 @@
       "logged": "2026-10-29T20:39:02.021Z",
       "progress": {
         "status": "open",
-        "sessions_done": 1,
+        "sessions_done": 2,
         "path": null
       }
     },
@@ -6327,7 +6339,7 @@
       "logged": "2026-10-29T20:39:02.021Z",
       "progress": {
         "status": "open",
-        "sessions_done": 1,
+        "sessions_done": 2,
         "path": null
       }
     },
@@ -6352,7 +6364,7 @@
       "logged": "2026-10-30T15:33:06.437Z",
       "progress": {
         "status": "open",
-        "sessions_done": 0,
+        "sessions_done": 1,
         "path": null
       }
     },
@@ -6380,7 +6392,7 @@
       "logged": "2026-10-30T20:37:51.227Z",
       "progress": {
         "status": "open",
-        "sessions_done": 0,
+        "sessions_done": 1,
         "path": null
       }
     },
@@ -6408,7 +6420,7 @@
       "logged": "2026-10-30T20:37:51.227Z",
       "progress": {
         "status": "open",
-        "sessions_done": 0,
+        "sessions_done": 1,
         "path": null
       }
     },
@@ -6436,7 +6448,7 @@
       "logged": "2026-10-30T20:37:51.227Z",
       "progress": {
         "status": "open",
-        "sessions_done": 0,
+        "sessions_done": 1,
         "path": null
       }
     },
@@ -6464,7 +6476,7 @@
       "logged": "2026-10-30T20:37:51.227Z",
       "progress": {
         "status": "open",
-        "sessions_done": 0,
+        "sessions_done": 1,
         "path": null
       }
     },
@@ -6490,6 +6502,426 @@
       "status": "open",
       "score": null,
       "logged": "2026-10-30T20:37:51.227Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 1,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "MRVL",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 171.41,
+      "target": 87.36,
+      "stop": 207.61,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 45.45,
+      "p_reach": 0,
+      "grade": "A",
+      "n": 66,
+      "list": "READY",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short MRVL 171.41 -> 87.36 (stop 207.61) in 10 sessions, READY",
+      "id": "PR-187",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "LITE",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 684.4,
+      "target": 215.35,
+      "stop": 887.6,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 38.46,
+      "p_reach": 0,
+      "grade": "A",
+      "n": 65,
+      "list": "READY",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short LITE 684.4 -> 215.35 (stop 887.6) in 10 sessions, READY",
+      "id": "PR-188",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "GOOGL",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 278.99,
+      "target": 238.61,
+      "stop": 289.91,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 41.27,
+      "p_reach": 0,
+      "grade": "A",
+      "n": 63,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short GOOGL 278.99 -> 238.61 (stop 289.91) in 10 sessions, STALK",
+      "id": "PR-189",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "MU",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 833.59,
+      "target": 652.21,
+      "stop": 906.54,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 41.27,
+      "p_reach": 1.59,
+      "grade": "A",
+      "n": 63,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short MU 833.59 -> 652.21 (stop 906.54) in 10 sessions, STALK",
+      "id": "PR-190",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "AVGO",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 322.23,
+      "target": 295.3,
+      "stop": 335.25,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 23.64,
+      "p_reach": 1.82,
+      "grade": "A",
+      "n": 55,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short AVGO 322.23 -> 295.3 (stop 335.25) in 10 sessions, STALK",
+      "id": "PR-191",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "VST",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 134.61,
+      "target": 114.5,
+      "stop": 141.87,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 27.08,
+      "p_reach": 0,
+      "grade": "A",
+      "n": 48,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short VST 134.61 -> 114.5 (stop 141.87) in 10 sessions, STALK",
+      "id": "PR-192",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "NI",
+      "side": "long",
+      "made": "2026-11-02",
+      "price": 44.86,
+      "target": 47.05,
+      "stop": 44.04,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 55.91,
+      "p_reach": 5.38,
+      "grade": "A",
+      "n": 93,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "long NI 44.86 -> 47.05 (stop 44.04) in 10 sessions, STALK",
+      "id": "PR-193",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "AMAT",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 374.53,
+      "target": 311.07,
+      "stop": 405.2,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 41.94,
+      "p_reach": 0,
+      "grade": "A",
+      "n": 62,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short AMAT 374.53 -> 311.07 (stop 405.2) in 10 sessions, STALK",
+      "id": "PR-194",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "GPRO",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 0.96,
+      "target": 0.78,
+      "stop": 1.02,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 64.55,
+      "p_reach": 5.45,
+      "grade": "A",
+      "n": 110,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short GPRO 0.96 -> 0.78 (stop 1.02) in 10 sessions, STALK",
+      "id": "PR-195",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "COHR",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 199.95,
+      "target": 130.42,
+      "stop": 222.62,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 44.62,
+      "p_reach": 0,
+      "grade": "A",
+      "n": 65,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short COHR 199.95 -> 130.42 (stop 222.62) in 10 sessions, STALK",
+      "id": "PR-196",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "AVAV",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 123.08,
+      "target": 102.25,
+      "stop": 133.1,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 43.66,
+      "p_reach": 4.23,
+      "grade": "A",
+      "n": 71,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short AVAV 123.08 -> 102.25 (stop 133.1) in 10 sessions, STALK",
+      "id": "PR-197",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "AAOI",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 62.5,
+      "target": 37.02,
+      "stop": 74.25,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 52.56,
+      "p_reach": 0,
+      "grade": "A",
+      "n": 78,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short AAOI 62.5 -> 37.02 (stop 74.25) in 10 sessions, STALK",
+      "id": "PR-198",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "CORZ",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 12.51,
+      "target": 9.13,
+      "stop": 13.69,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 45.71,
+      "p_reach": 2.86,
+      "grade": "B",
+      "n": 35,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short CORZ 12.51 -> 9.13 (stop 13.69) in 10 sessions, STALK",
+      "id": "PR-199",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "APLD",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 16.22,
+      "target": 9.79,
+      "stop": 18.44,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 38.81,
+      "p_reach": 0,
+      "grade": "B",
+      "n": 67,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short APLD 16.22 -> 9.79 (stop 18.44) in 10 sessions, STALK",
+      "id": "PR-200",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
+      "progress": {
+        "status": "open",
+        "sessions_done": 0,
+        "path": null
+      }
+    },
+    {
+      "source": "options-hunter",
+      "ticker": "SPCX",
+      "side": "short",
+      "made": "2026-11-02",
+      "price": 136.37,
+      "target": 104.83,
+      "stop": 144.29,
+      "sessions": 10,
+      "horizon_est": "2026-11-16",
+      "p_dir": 40,
+      "p_reach": 0,
+      "grade": "D",
+      "n": 5,
+      "list": "STALK",
+      "readiness": 60,
+      "receipt": "c326eec8",
+      "claim": "short SPCX 136.37 -> 104.83 (stop 144.29) in 10 sessions, STALK",
+      "id": "PR-201",
+      "status": "open",
+      "score": null,
+      "logged": "2026-11-02T21:38:49.345Z",
       "progress": {
         "status": "open",
         "sessions_done": 0,

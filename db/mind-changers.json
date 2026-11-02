@@ -7157,6 +7157,22 @@
       "row": "B-1233",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-414",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "LITE",
+          "op": "<",
+          "level": 680.43
+        }
+      ],
+      "meaning": "7/7 shelf under the deal-day low breaks - re-judge the hunter short (PB-022, PR-188) with a verified floor",
+      "source": "docs/reads/2026-11-02-hunt-close.md",
+      "row": "B-1238",
+      "expires": "2026-11-16",
+      "status": "open"
     }
   ]
 }

@@ -1,28 +1,28 @@
 {
-  "asof": "2026-10-30",
-  "generated": "2026-10-31T21:04:35.860Z",
+  "asof": "2026-11-02",
+  "generated": "2026-11-02T21:35:52.387Z",
   "source": "yahoo",
   "label": "EVENT",
   "market_risk": 2,
   "reasons": [
     "macro release on the next session overrides NEUTRAL",
-    "SPY 755.72 vs 50 SMA 767.49",
-    "VIX 19.42"
+    "SPY 752.10 vs 50 SMA 767.22",
+    "VIX 21.15"
   ],
   "next_session_macro": [
-    "ISM Manufacturing PMI (October), 10:00 ET"
+    "JOLTS — Job Openings and Labor Turnover Survey, 10:00 ET"
   ],
   "inputs": {
-    "spy": 755.719970703125,
-    "sma20": 770.4679931640625,
-    "sma50": 767.49439453125,
-    "sma200": 728.8540991210938,
-    "vix": 19.420000076293945,
-    "vix_5d_pct": -0.15,
-    "tnx": 4.928999900817871,
-    "tnx_5d_change": -0.059,
-    "iwm_rel_20": 1.03,
-    "qqq_rel_20": -6.07
+    "spy": 752.0999755859375,
+    "sma20": 769.3314910888672,
+    "sma50": 767.2219946289063,
+    "sma200": 729.1533990478515,
+    "vix": 21.149999618530273,
+    "vix_5d_pct": 15.01,
+    "tnx": 4.894000053405762,
+    "tnx_5d_change": -0.092,
+    "iwm_rel_20": 1.44,
+    "qqq_rel_20": -7
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }
