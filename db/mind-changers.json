@@ -6640,6 +6640,182 @@
       "row": "B-1207",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-384",
+      "created": "2026-11-01",
+      "when": [
+        {
+          "ticker": "GILD",
+          "op": ">",
+          "level": 175.65
+        }
+      ],
+      "meaning": "GILD breaks the 52-week high before the AASLD slot: re-look as a breakout question, not a run-up (B-1209)",
+      "source": "docs/reads/2026-11-01-weekly-catalyst.md",
+      "row": "B-1209",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-385",
+      "created": "2026-11-01",
+      "when": [
+        {
+          "ticker": "GILD",
+          "op": "<",
+          "level": 160
+        }
+      ],
+      "meaning": "GILD leader read is over (B-1209)",
+      "source": "docs/reads/2026-11-01-weekly-catalyst.md",
+      "row": "B-1209",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-386",
+      "created": "2026-11-01",
+      "when": [
+        {
+          "ticker": "CAPR",
+          "op": ">",
+          "level": 8.8
+        }
+      ],
+      "meaning": "CAPR run-up into the 11/22 PDUFA has started; valid only after the 11/13 print, hard exit 11/20 close (B-1210)",
+      "source": "docs/reads/2026-11-01-weekly-catalyst.md",
+      "row": "B-1210",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-387",
+      "created": "2026-11-01",
+      "when": [
+        {
+          "ticker": "CAPR",
+          "op": "<",
+          "level": 5.67
+        }
+      ],
+      "meaning": "CAPR breaks the 20-session low into its PDUFA; no plan (B-1210)",
+      "source": "docs/reads/2026-11-01-weekly-catalyst.md",
+      "row": "B-1210",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-388",
+      "created": "2026-11-01",
+      "when": [
+        {
+          "ticker": "VNDA",
+          "op": ">",
+          "level": 4.64
+        }
+      ],
+      "meaning": "VNDA off its 52-week low and over the 20-session high: re-look a run-up into the 12/12 Quimilza PDUFA, hard exit 12/11 close (B-1211)",
+      "source": "docs/reads/2026-11-01-weekly-catalyst.md",
+      "row": "B-1211",
+      "expires": "2026-12-04",
+      "status": "open"
+    },
+    {
+      "id": "MC-389",
+      "created": "2026-11-01",
+      "when": [
+        {
+          "ticker": "VNDA",
+          "op": "<",
+          "level": 3.5
+        }
+      ],
+      "meaning": "VNDA keeps making new lows into the PDUFA; no plan (B-1211)",
+      "source": "docs/reads/2026-11-01-weekly-catalyst.md",
+      "row": "B-1211",
+      "expires": "2026-12-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-390",
+      "created": "2026-11-01",
+      "when": [
+        {
+          "ticker": "RARE",
+          "op": ">",
+          "level": 17.63
+        }
+      ],
+      "meaning": "RARE over the 20-session high after the 11/03 print, inside the open UX701 readout window (B-1212)",
+      "source": "docs/reads/2026-11-01-weekly-catalyst.md",
+      "row": "B-1212",
+      "expires": "2026-12-31",
+      "status": "open"
+    },
+    {
+      "id": "MC-391",
+      "created": "2026-11-01",
+      "when": [
+        {
+          "ticker": "RARE",
+          "op": "<",
+          "level": 14.08
+        }
+      ],
+      "meaning": "RARE breaks the 20-session low; emerging read is over (B-1212)",
+      "source": "docs/reads/2026-11-01-weekly-catalyst.md",
+      "row": "B-1212",
+      "expires": "2026-12-31",
+      "status": "open"
+    },
+    {
+      "id": "MC-392",
+      "created": "2026-11-01",
+      "when": [
+        {
+          "ticker": "VRTX",
+          "op": ">",
+          "level": 560.25
+        }
+      ],
+      "meaning": "VRTX over the 9/03 pivot AFTER its 11/02 print: re-look the run-up into the 11/30 povetacicept PDUFA, hard exit 11/27 close. Re-arms MC-267, which fired 10/29 before the print (B-1055)",
+      "source": "docs/reads/2026-11-01-weekly-catalyst.md",
+      "row": "B-1055",
+      "expires": "2026-11-25",
+      "status": "open"
+    },
+    {
+      "id": "MC-393",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": ">=",
+          "level": 254.6
+        }
+      ],
+      "meaning": "B-1213: AMZN settled back over the 50-day and the 10/28 pre-print close - re-judge as a breakout to 265.34, rerun both rs windows",
+      "source": "B-1213",
+      "row": "B-1213",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-394",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": "<",
+          "level": 241.24
+        }
+      ],
+      "meaning": "B-1213: AMZN settled under the 10/29 low - the post-print bounce failed; short-lane re-look (PB-019 paper short benefits)",
+      "source": "B-1213",
+      "row": "B-1213",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
