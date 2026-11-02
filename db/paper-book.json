@@ -565,8 +565,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-30",
-      "last_close": 54.94,
+      "last_scored": "2026-11-02",
+      "last_close": 50.16,
       "entry_after_close": true
     },
     {
@@ -628,8 +628,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-30",
-      "last_close": 614.98,
+      "last_scored": "2026-11-02",
+      "last_close": 606.54,
       "entry_after_close": true
     },
     {
@@ -655,8 +655,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-30",
-      "last_close": 240.47,
+      "last_scored": "2026-11-02",
+      "last_close": 245.8,
       "entry_after_close": true
     },
     {
@@ -682,8 +682,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-10-30",
-      "last_close": 196.4,
+      "last_scored": "2026-11-02",
+      "last_close": 171.35,
       "entry_after_close": true
     },
     {
@@ -704,13 +704,20 @@
       "grade": "B+",
       "note": "interactive run 10:33 CT, entry at the 917.21 ask, intraday (not after close); Friday entry holds the weekend",
       "status": "OPEN",
-      "shares_open": 13,
-      "t1_done": false,
-      "legs": [],
-      "realized": 0,
+      "shares_open": 6,
+      "t1_done": true,
+      "legs": [
+        {
+          "date": "2026-11-02",
+          "shares": 7,
+          "price": 973.99,
+          "why": "T1"
+        }
+      ],
+      "realized": 397.46,
       "r": null,
-      "last_scored": "2026-10-30",
-      "last_close": 928.61
+      "last_scored": "2026-11-02",
+      "last_close": 961.43
     }
   ],
   "history": [
@@ -803,6 +810,13 @@
       "equity": 2592.76,
       "realized": -1191.73,
       "unrealized": 208.51,
+      "open": 5
+    },
+    {
+      "date": "2026-11-02",
+      "equity": 3474.09,
+      "realized": -794.27,
+      "unrealized": 692.38,
       "open": 5
     }
   ]
