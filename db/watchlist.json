@@ -686,18 +686,19 @@
   },
   {
     "sym": "BTC-USD",
-    "status": "CONDITIONAL-PAPER",
-    "note": "**B-911 (2026-10-15, full suite + hunters, supersedes B-800): PAPER until Adam confirms a Robinhood BTC sell-stop rests and triggers on weekends.** SIGNAL = a SETTLED Yahoo UTC-day bar (settles 7 PM CT; weekend bars count) from the 10/16 bar through the 10/22 bar with low <= 76,600, low > 73,775.57, close >= max(76,228, 73,725 + ATR(14) incl that bar); void if ATR > 3,009.61. BUY at the ask <= 77,324, market-maker routing only, no resting buys (crypto limits rest 90 days). STOP GTC sell-stop 73,028 (bid trigger, ~73,725 mark); confirm it filled (5% collar). T1 87,146.35 (half, by hand), T2 88,466.95. HARD EXIT 12:45 PM CT 10/28 before the Fed. Band 0.0818 BTC; funded 0.009083 BTC = 9 risk. A weekday close check of the live mark is NOT the signal: read the settled UTC bar. Watchers MC-108, MC-168..MC-176.",
+    "status": "WATCH",
+    "note": "**2026-11-02 13:51 CT trip-judge (B-1226): ZONE RETIRED - buy_zone 76600 set to null. It was the B-911 signal level; that window closed on the 10/22 bar (hard exit 10/28) and the trigger expired twice (B-800, B-911). The free feed tripped it on a 76,577 low; live RH mark 76,691.55, laggard vs SPY on both rs windows, NO. Floor 73725 and target 87146.35 stay for history. Re-arm only by a fresh run. Live re-looks are B-1207: settle under 76,189.88 on 1.5x volume (paper short, MC-382) or over 85,594.55 (long, MC-303).** **B-911 (2026-10-15, full suite + hunters, supersedes B-800): PAPER until Adam confirms a Robinhood BTC sell-stop rests and triggers on weekends.** SIGNAL = a SETTLED Yahoo UTC-day bar (settles 7 PM CT; weekend bars count) from the 10/16 bar through the 10/22 bar with low <= 76,600, low > 73,775.57, close >= max(76,228, 73,725 + ATR(14) incl that bar); void if ATR > 3,009.61. BUY at the ask <= 77,324, market-maker routing only, no resting buys (crypto limits rest 90 days). STOP GTC sell-stop 73,028 (bid trigger, ~73,725 mark); confirm it filled (5% collar). T1 87,146.35 (half, by hand), T2 88,466.95. HARD EXIT 12:45 PM CT 10/28 before the Fed. Band 0.0818 BTC; funded 0.009083 BTC = 9 risk. A weekday close check of the live mark is NOT the signal: read the settled UTC bar. Watchers MC-108, MC-168..MC-176.",
     "thesis_flag": null,
-    "buy_zone": 76600,
+    "buy_zone": null,
     "floor": 73725,
     "rr_target": 87146.35,
     "zone_why": "zone 76,228-76,600 = top of the 75.9-76.9K shelf (24+ touches); stop 50 under the 4/20/26 pivot 73,775.57, 1.14 ATR under the zone bottom; 2.095:1 at the worst fill after the 1.9% spread",
     "size_plan": "band 351.23 = 0.0818 BTC (more than the account); funded 0.009083 BTC with 702.30 crypto BP, 39.02 at risk",
-    "row": "B-911",
+    "row": "B-1226",
     "hunt": "STALK short (hunt-short b776e4e5, options-hunter 95e7fa1c)",
     "lane": "support-bounce",
     "decide_by": "2026-10-22",
-    "exit_by": "2026-10-28"
+    "exit_by": "2026-10-28",
+    "retired_zone": 76600
   }
 ]
