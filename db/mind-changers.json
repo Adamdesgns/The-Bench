@@ -6928,6 +6928,22 @@
       "row": "B-1221",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-402",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "VRT",
+          "op": "<",
+          "level": 226.86
+        }
+      ],
+      "meaning": "VRT settled under the 10/30 post-earnings low: the gap-fill lane toward the 208.56 pre-print close is open, the 227 watchlist zone is dead for good; re-judge the pass",
+      "source": "docs/reads/2026-11-02-trip-VRT.md",
+      "row": "B-1223",
+      "expires": "2026-11-09",
+      "status": "open"
     }
   ]
 }
