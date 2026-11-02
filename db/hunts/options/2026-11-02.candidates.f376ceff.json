@@ -1,0 +1,142 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-11-02",
+  "source": "yahoo",
+  "universe": "named",
+  "generated": "2026-11-02T19:55:59.149Z",
+  "macro_inside_2_sessions": true,
+  "band": 350.807,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "marks": [],
+  "scanned": 1,
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "candidates": [
+    {
+      "side": "short",
+      "sym": "BTC-USD",
+      "ok": true,
+      "date": "2026-11-02",
+      "close": 76750.33,
+      "sma50": 81914.16,
+      "sma20": 80504.91,
+      "atr": 1952.68,
+      "low20": 76189.88,
+      "volume": 22197565440,
+      "vol30": 25525655919,
+      "volRatio": 0.87,
+      "rs20": -4.55,
+      "rs5": -3.19,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 66803.65,
+        "date": "2024-11-04",
+        "atr_away": 5.09
+      },
+      "first_shelf": {
+        "level": 76624.25,
+        "date": "2025-03-11",
+        "rr": 0.06
+      },
+      "floor2": {
+        "level": 76624.25,
+        "date": "2025-03-11"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 76750.33,
+        "stop": 78703.01,
+        "stop_atr": 1,
+        "target": 66803.65,
+        "rr": 5.09
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 105,
+        "independent": 60,
+        "pending": 2,
+        "span_years": 5,
+        "grade": "A",
+        "why": "60 independent event(s) over 5y (107 raw) — large sample across multiple regimes",
+        "p_dir": 45.71,
+        "p_reach": 5.71,
+        "avg_pct": 0.25,
+        "median_pct": 0.33,
+        "target_pct": -12.96
+      },
+      "spread_request": null
+    }
+  ],
+  "skipped": [],
+  "not_listed": [
+    {
+      "sym": "BTC-USD",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-02",
+      "close": 76750.33,
+      "sma50": 81914.16,
+      "atr": 1952.68,
+      "high20": 84840.05,
+      "volRatio": 0.87,
+      "rs20": -4.55,
+      "rs5": -3.19,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 81346.95,
+        "date": "2026-08-28"
+      },
+      "first_shelf": {
+        "level": 79488.17,
+        "date": "2026-04-27",
+        "rr": 1.4
+      },
+      "too_far": null,
+      "target2": {
+        "level": 79488.17,
+        "date": "2026-04-27",
+        "rr": 1.4
+      },
+      "geometry": {
+        "entry": 76750.33,
+        "stop": 74797.65,
+        "stop_atr": 1,
+        "target": 81346.95,
+        "rr": 2.35
+      },
+      "readiness": 60,
+      "list": null
+    }
+  ],
+  "id": "f376ceff"
+}

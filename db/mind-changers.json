@@ -6976,6 +6976,38 @@
       "row": "B-1225",
       "expires": "2026-11-06",
       "status": "open"
+    },
+    {
+      "id": "MC-405",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": "<",
+          "level": 66803.65
+        }
+      ],
+      "meaning": "B-1227 hunter target hit: the options-hunter STALK short (f376ceff) reached the 11/4/2024 floor - score the 5.7 pct reach call as a HIT",
+      "source": "docs/reads/2026-11-02-btc-hunters.md",
+      "row": "B-1227",
+      "expires": "2026-11-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-406",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": ">",
+          "level": 78703.01
+        }
+      ],
+      "meaning": "B-1227 hunter stop: the STALK short (f376ceff) would be stopped at 1 ATR - the down leg failed from support",
+      "source": "docs/reads/2026-11-02-btc-hunters.md",
+      "row": "B-1227",
+      "expires": "2026-11-16",
+      "status": "open"
     }
   ]
 }
