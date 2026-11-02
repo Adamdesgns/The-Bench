@@ -6944,6 +6944,38 @@
       "row": "B-1223",
       "expires": "2026-11-09",
       "status": "open"
+    },
+    {
+      "id": "MC-403",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": "<",
+          "level": 162.9
+        }
+      ],
+      "meaning": "B-1224: MRVL settled under the 7/29 low 162.90, the last floor over the B-1173 target; next shelf 157.96 (5/12 low) then the 146.85 target - re-judge, the target half-sell is in play",
+      "source": "docs/reads/2026-11-02-snapshot-1312.md",
+      "row": "B-1224",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-404",
+      "created": "2026-11-02",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 22.19
+        }
+      ],
+      "meaning": "B-1225: IREN settled under the 22.19 52-week low on a below-pace day; hunt-short re-look only after the 11/05 pm print, needs 1.5x volume and a verified floor at 2:1",
+      "source": "docs/reads/2026-11-02-snapshot-1312.md",
+      "row": "B-1225",
+      "expires": "2026-11-06",
+      "status": "open"
     }
   ]
 }
