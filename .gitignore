@@ -63,3 +63,8 @@ db/market-watch-state.json
 benny/HALT
 benny/STOP
 benny/listener.log
+
+# trip-judge (2026-11-02): the run lock and the run log stay local
+db/trip-judge.lock
+logs/
+db/trip-judge-state.json
