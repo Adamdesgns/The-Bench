@@ -289,6 +289,40 @@ test("CLI standings: before the book is opened it says so", () => {
   assert.match(run(["standings", "--db", db]), /not opened yet/);
 });
 
+// THE P-001 RECORD (Adam, 2026-11-02: "Give me a post only on those. I want an update on those every morning."):
+// only the paper trades entered on or after the record's first day, open and closed, with the count toward 60.
+const recBook = () => {
+  const b = standBook();
+  b.trades[0].entry_date = "2026-10-27";   // LNG: in the record
+  b.trades[1].entry_date = "2026-10-29";   // SHT: in the record
+  b.trades[2].entry_date = "2026-10-22";   // BAD: carried in, not counted
+  b.trades[3].entry_date = "2026-10-28";   // OLD: in the record, closed
+  return b;
+};
+
+test("record: counts only trades entered on or after the first day, open and closed", async () => {
+  const { record } = await import("../scripts/paper-book.mjs");
+  const r = record(recBook(), { LNG: 103, SHT: 45 }, { since: "2026-10-27", need: 60 });
+  assert.equal(r.counted, 3);
+  assert.equal(r.need, 60);
+  assert.deepEqual(r.rows.map((x) => x.sym), ["SHT", "LNG"]);
+  assert.deepEqual(r.closed.map((x) => x.sym), ["OLD"]);
+  assert.equal(r.open_usd, 130);        // SHT +100, LNG +30; BAD is not in the record
+  assert.equal(r.realized, -30);
+  assert.equal(r.closed_r, -1.5);
+});
+
+test("CLI record: prints the count toward the floor, each open trade and each closed one", () => {
+  const db = join(mkdtempSync(join(tmpdir(), "pb-")), "book.json");
+  writeFileSync(db, JSON.stringify(recBook()));
+  const out = run(["record", "--prices", '{"LNG":103,"SHT":45}', "--asof", "pre-market 05:40 CT", "--db", db]);
+  assert.match(out, /P-001 RECORD.*pre-market 05:40 CT/);
+  assert.match(out, /3 of 60 counted entries \(2 open, 1 closed\)/);
+  assert.match(out, /1\. SHT short \+10\.00% \+100\.00/);
+  assert.match(out, /OLD long -30\.00 \(-1\.5R, STOPPED 2026-10-15\) \[B-3\]/);
+  assert.doesNotMatch(out, /BAD/);
+});
+
 test("an after-close entry (after-hours bid) ignores the whole entry-day bar; the next session scores it", () => {
   const ah = { ...base, entry_after_close: true };
   const day0 = step(ah, { open: 99, high: 111, low: 94, close: 101 }, "2026-10-14");   // stop AND target, both before the entry
