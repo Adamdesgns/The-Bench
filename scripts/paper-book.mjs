@@ -171,7 +171,7 @@ export function standings(book, prices = {}) {
   }
   rows.sort((a, b) => (b.pct ?? -Infinity) - (a.pct ?? -Infinity));
   const closed = (book.trades || []).filter((t) => t.status !== "OPEN")
-    .map((t) => ({ id: t.id, sym: t.sym, side: t.side, realized: t.realized, r: t.r, exit_reason: t.exit_reason, exit_date: t.exit_date, source_row: t.source_row }));
+    .map((t) => ({ id: t.id, sym: t.sym, side: t.side, lane: t.lane, realized: t.realized, r: t.r, exit_reason: t.exit_reason, exit_date: t.exit_date, source_row: t.source_row }));
   const equity = r2(s.start_balance + s.deposits + s.realized + openUsd);
   return { rows, closed, options: (book.trades || []).filter((t) => t.kind === "option" && t.status === "OPEN").length,
     start_balance: s.start_balance, realized: s.realized, open_usd: r2(openUsd), equity,
@@ -215,10 +215,57 @@ export function openTrade(book, f) {
   } };
 }
 
+// PLAIN LANE NAMES (Adam, 2026-11-03: "Desk entry check? Idk what that is. Dated catalyst never heard of it.").
+// Display only: the stored lane value is part of Vans Thesis P-001's terms fingerprint and never changes.
+export const LANE_NAMES = {
+  "entry-check": "desk buy",          // the 9:00 check bought a plan the desk wrote
+  "hunter-short": "scanner short",    // the evening scanner's READY short, taken on paper
+  "dated-catalyst": "event run-up",   // in before a known non-earnings date, out by the close before it
+};
+const laneName = (l) => LANE_NAMES[l] || l || "unlabelled";
+
+// THE PHONE PUSH (Adam, 2026-11-03: "I must see these trades too."): every new paper trade and every sell on the
+// live book (first target, second target, stop, exit date, manual close) goes to his phone. Sent by this script,
+// after the book is saved, so no routine can skip it and a failed push never blocks a write. Never changes a trade.
+export const PUSH_TOPIC = "https://ntfy.sh/bench-adam-7x3"; // the standing phone channel (ntfy-read.mjs TOPIC)
+const SELL_WHY = { T1: "first target hit", T2: "second target hit", STOP: "stopped out", "STOP-GAP": "opened through the stop",
+  "EXIT-BY": "exit date reached", MANUAL: "closed by hand" };
+export function paperEvents(before = [], after = []) {
+  const was = new Map(before.map((t) => [t.id, t]));
+  const out = [];
+  for (const t of after) {
+    if (t.kind === "option") continue; // Benny's options are not in this book's pushes
+    const p = was.get(t.id);
+    const verb = t.side === "short" ? "SHORT" : "BUY";
+    if (!p) {
+      out.push({ title: `PAPER ${verb} ${t.sym}`, body: `${verb} ${t.shares} ${t.sym} at ${t.entry}. Stop ${t.stop}, target ${t.t1 ?? "none"}${t.t2 != null ? ` then ${t.t2}` : ""}, out by the ${t.exit_by} close. Risk $${riskOf(t).toFixed(2)}. Lane: ${laneName(t.lane)}. Row ${t.source_row} (${t.id}). Paper only, not a real order.` });
+    }
+    for (const l of t.legs.slice(p ? p.legs.length : 0)) {
+      const act = t.side === "short" ? "Covered" : "Sold";
+      const end = t.status === "OPEN" ? `${t.shares_open} sh still open, P/L so far ${money(t.realized)}.` : `Trade closed: ${money(t.realized)} (${t.r}R).`;
+      out.push({ title: `PAPER ${SELL_WHY[l.why] ? SELL_WHY[l.why].toUpperCase() : l.why} ${t.sym}`, body: `${SELL_WHY[l.why] || l.why}: ${act.toLowerCase()} ${l.shares} ${t.sym} at ${l.price} (entry ${t.entry}). ${end} Lane: ${laneName(t.lane)}. Row ${t.source_row} (${t.id}). Paper only.` });
+    }
+  }
+  return out;
+}
+async function push(events) {
+  // In order, so a buy reaches the phone before its sell. The first network failure skips the rest, so a down
+  // ntfy costs one 10-second wait, not one per event.
+  for (const [i, e] of events.entries()) {
+    try {
+      const r = await fetch(PUSH_TOPIC, { method: "POST", body: e.body, headers: { Title: e.title }, signal: AbortSignal.timeout(10000) });
+      console.error(r.ok ? `pushed: ${e.title}` : `push failed (${e.title}): HTTP ${r.status}`);
+    } catch (err) {
+      console.error(`push failed (${e.title}): ${err.message}; ${events.length - i - 1} more not sent`);
+      return;
+    }
+  }
+}
+
 const describe = (t) => `${t.id} ${t.side.toUpperCase()} ${t.shares} ${t.sym} at ${t.entry}, stop ${t.stop} (risk ${riskOf(t).toFixed(2)}), targets ${t.t1 ?? "none"}/${t.t2 ?? "none"}, out by the ${t.exit_by} close [${t.source_row}, ${t.lane}]. No money at risk.`;
 
 function load(p) { return existsSync(p) ? JSON.parse(readFileSync(p, "utf8")) : { account: null, trades: [], history: [] }; }
-function save(p, d) { writeFileSync(p, JSON.stringify(d, null, 2) + "\n"); }
+function saveFile(p, d) { writeFileSync(p, JSON.stringify(d, null, 2) + "\n"); }
 const money = (x) => `${x < 0 ? "-" : "+"}${Math.abs(x).toFixed(2)}`;
 const refuse = (msg) => { console.log(`REFUSED - ${msg}`); process.exit(1); };
 
@@ -231,6 +278,10 @@ function main() {
   const DB = resolve(val("--db") || resolve(ROOT, "db/paper-book.json"));
   const book = load(DB);
   book.history ||= [];
+  // Only the live book pushes: Benny's book and test files (--db elsewhere) never do, and --no-push silences a run.
+  const before = JSON.parse(JSON.stringify(book.trades || []));
+  const pushes = DB === resolve(ROOT, "db/paper-book.json") && !has("--no-push") && !process.env.BENCH_NO_PUSH;
+  const save = (p, d) => { saveFile(p, d); if (pushes) push(paperEvents(before, d.trades || [])); };
 
   if (cmd === "init") {
     if (book.account) refuse(`the paper book already opened on ${book.account.start_date} with ${book.account.start_balance}`);
@@ -354,13 +405,13 @@ function main() {
     if (book.refill) console.log(book.refill.active ? `  REFILL ON: ${r2(book.refill.target - s.equity)} left to ${book.refill.target}, ${book.refill.amount} a week` : `  REFILL off (equity above ${book.refill.trigger})`);
     console.log(`  ${s.closed} closed (${s.wins} won, ${s.losses} lost${s.closed ? `, avg ${s.avg_r}R, total ${s.sum_r}R` : ""}), ${s.open} open; realized ${money(s.realized)}, open profit ${money(s.unrealized)}`);
     for (const t of book.trades.filter((x) => x.status === "OPEN" && x.kind !== "option"))
-      console.log(`  OPEN ${t.id} ${t.sym.padEnd(5)} ${t.shares_open}/${t.shares} sh at ${t.entry}, stop ${t.t1_done && t.stop_after_t1 != null ? t.stop_after_t1 : t.stop}, last ${t.last_close ?? "unscored"}, out by ${t.exit_by} [${t.source_row}, ${t.lane}]`);
+      console.log(`  OPEN ${t.id} ${t.sym.padEnd(5)} ${t.shares_open}/${t.shares} sh at ${t.entry}, stop ${t.t1_done && t.stop_after_t1 != null ? t.stop_after_t1 : t.stop}, last ${t.last_close ?? "unscored"}, out by ${t.exit_by} | ${laneName(t.lane)} [${t.source_row}]`);
     const opts = book.trades.filter((x) => x.kind === "option" && x.status === "OPEN");
     for (const t of opts)
       console.log(`  OPTION ${t.id} ${t.sym} ${t.structure} ${t.short_strike == null ? t.long_strike : `${t.long_strike}/${t.short_strike}`} ${t.expiry} x${t.contracts} at ${t.entry_debit}, value ${t.last_value ?? "unscored"}, target ${t.target ?? "none"}, out by ${t.exit_by} [${t.source_row}, ${t.lane}]`);
     if (opts.length) { const risk = r2(opts.reduce((a, t) => a + t.cost, 0)); console.log(`  OPTIONS OPEN RISK ${risk} (${r2(risk / s.equity * 100)}% of equity)`); }
     for (const [lane, l] of Object.entries(s.by_lane))
-      console.log(`  LANE ${lane}: ${l.closed} closed (${l.wins} won, total ${l.sum_r}R), ${l.open} open, realized ${money(l.realized)}${l.closed && l.closed % 10 === 0 ? ` - REVIEW DUE (${l.closed} closed: keep or change the rule behind this lane)` : ""}`);
+      console.log(`  LANE ${laneName(lane)}: ${l.closed} closed (${l.wins} won, total ${l.sum_r}R), ${l.open} open, realized ${money(l.realized)}${l.closed && l.closed % 10 === 0 ? ` - REVIEW DUE (${l.closed} closed: keep or change the rule behind this lane)` : ""}`);
     const v = vsSpy(book);
     if (v) console.log(`  VS S&P ${v.from} to ${v.to}: book ${v.book_pct}% vs SPY ${v.spy_pct}% (${v.gap_pts >= 0 ? "ahead" : "behind"} by ${Math.abs(v.gap_pts)} pts); the 15%/yr goal pace is ${v.pace_pct}% by now`);
     return;
@@ -372,12 +423,12 @@ function main() {
     try { prices = val("--prices") ? JSON.parse(val("--prices")) : {}; } catch { refuse("--prices must be JSON like '{\"ASTS\":41.69}'"); }
     const pctStr = (x) => `${x < 0 ? "-" : "+"}${Math.abs(x).toFixed(2)}%`;
     const printRows = (rows) => rows.forEach((r, i) => {
-      const tail = `out ${r.exit_by} [${r.source_row}]`;
+      const tail = `out ${r.exit_by} | ${laneName(r.lane)} [${r.source_row}]`;
       if (r.price == null) { console.log(` ${i + 1}. ${r.sym} ${r.side} unscored (no quote, no close yet) | ${tail}`); return; }
       const tgt = r.target == null ? "no target" : `target ${r.target} (${r.to_target_pct.toFixed(1)}% away)`;
       console.log(` ${i + 1}. ${r.sym} ${r.side} ${pctStr(r.pct)} ${money(r.usd)} (${r.r >= 0 ? "+" : ""}${r.r}R) | ${r.entry} -> ${r.price}${r.quoted ? "" : " (last close)"} | stop ${r.stop} (${r.to_stop_pct.toFixed(1)}% away), ${tgt} | ${tail}`);
     });
-    const printClosed = (closed) => { for (const c of closed) console.log(`Closed: ${c.sym} ${c.side} ${money(c.realized)} (${c.r}R, ${c.exit_reason} ${c.exit_date}) [${c.source_row}]`); };
+    const printClosed = (closed) => { for (const c of closed) console.log(`Closed: ${c.sym} ${c.side} ${money(c.realized)} (${c.r}R, ${c.exit_reason} ${c.exit_date}) | ${laneName(c.lane)} [${c.source_row}]`); };
     if (cmd === "record") {
       const r = record(book, prices);
       console.log(`P-001 RECORD - the paper trades Vans Thesis counts, entered ${r.since} or later (marks: ${val("--asof") || "the quotes given"}; "last close" where no quote)`);

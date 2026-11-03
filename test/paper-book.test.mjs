@@ -1,13 +1,13 @@
 // paper-book.test.mjs — the paper account takes every desk ticket and scores it like real money. Offline only.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
 
-import { step, summarize, openTrade } from "../scripts/paper-book.mjs";
+import { step, summarize, openTrade, paperEvents, LANE_NAMES } from "../scripts/paper-book.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CLI = resolve(HERE, "../scripts/paper-book.mjs");
@@ -281,7 +281,7 @@ test("CLI standings: prints the mark time, the book line, one ranked line per ca
   assert.match(out, /1\. SHT short \+10\.00% \+100\.00/);
   assert.match(out, /3\. BAD short -5\.00% -50\.00.*\(last close\)/);
   assert.match(out, /stop 55 \(22\.2% away\), target 40 \(11\.1% away\)/);
-  assert.match(out, /OLD long -30\.00 \(-1\.5R, STOPPED 2026-10-15\) \[B-3\]/);
+  assert.match(out, /OLD long -30\.00 \(-1\.5R, STOPPED 2026-10-15\) \| desk buy \[B-3\]/);
 });
 
 test("CLI standings: before the book is opened it says so", () => {
@@ -319,7 +319,7 @@ test("CLI record: prints the count toward the floor, each open trade and each cl
   assert.match(out, /P-001 RECORD.*pre-market 05:40 CT/);
   assert.match(out, /3 of 60 counted entries \(2 open, 1 closed\)/);
   assert.match(out, /1\. SHT short \+10\.00% \+100\.00/);
-  assert.match(out, /OLD long -30\.00 \(-1\.5R, STOPPED 2026-10-15\) \[B-3\]/);
+  assert.match(out, /OLD long -30\.00 \(-1\.5R, STOPPED 2026-10-15\) \| desk buy \[B-3\]/);
   assert.doesNotMatch(out, /BAD/);
 });
 
@@ -344,4 +344,40 @@ test("openTrade marks an after-close entry only when asked", () => {
 test("openTrade refuses an after-close entry that would exit the same day", () => {
   const f = { sym: "x", row: "B-1", side: "short", lane: "hunter-short", entryDate: "2026-10-14", entry: 10, shares: 5, stop: 11, t1: 8, t2: null, stopAfterT1: null, exitBy: "2026-10-14", entryAfterClose: true };
   assert.match(openTrade({ trades: [] }, f).refused, /after-close/);
+});
+
+// The phone push (Adam, 2026-11-03: "I must see these trades too.").
+test("paperEvents: a new trade pushes once, in plain words, with its lane name", () => {
+  const book = { account: { start_date: "2026-10-14", start_balance: 1000 }, trades: [], history: [] };
+  const o = openTrade(book, { sym: "mrna", row: "B-854", side: "long", lane: "dated-catalyst", entryDate: "2026-10-13", entry: 212.79, shares: 10, stop: 195.9, t1: 249.42, t2: null, stopAfterT1: null, exitBy: "2026-10-23" });
+  const ev = paperEvents([], [o.trade]);
+  assert.equal(ev.length, 1);
+  assert.equal(ev[0].title, "PAPER BUY MRNA");
+  assert.match(ev[0].body, /BUY 10 MRNA at 212\.79\. Stop 195\.9, target 249\.42, out by the 2026-10-23 close\. Risk \$168\.90\. Lane: event run-up\. Row B-854/);
+  assert.match(ev[0].body, /Paper only, not a real order\./);
+  assert.equal(paperEvents([o.trade], [o.trade]).length, 0); // nothing new, nothing pushed
+});
+
+test("paperEvents: every new sell pushes, and the close says the result", () => {
+  const book = { account: { start_date: "2026-10-14", start_balance: 1000 }, trades: [], history: [] };
+  const t = openTrade(book, { sym: "X", row: "hunt:abc", side: "short", lane: "hunter-short", entryDate: "2026-10-14", entry: 50, shares: 4, stop: 55, t1: 45, t2: 40, stopAfterT1: null, exitBy: "2026-10-28" }).trade;
+  const half = step(t, { open: 49, high: 50, low: 44.5, close: 46 }, "2026-10-15");
+  let ev = paperEvents([t], [half]);
+  assert.equal(ev.length, 1);
+  assert.equal(ev[0].title, "PAPER FIRST TARGET HIT X");
+  assert.match(ev[0].body, /covered 2 X at 45 \(entry 50\)\. 2 sh still open, P\/L so far \+10\.00\. Lane: scanner short/);
+  const done = step(half, { open: 46, high: 56, low: 45.5, close: 55.5 }, "2026-10-16");
+  ev = paperEvents([half], [done]);
+  assert.equal(ev[0].title, "PAPER STOPPED OUT X");
+  assert.match(ev[0].body, /Trade closed: \+0\.00 \(0R\)/);
+  assert.deepEqual(Object.keys(LANE_NAMES).sort(), ["dated-catalyst", "entry-check", "hunter-short"]);
+});
+
+test("CLI: a test file (--db elsewhere) never pushes", () => {
+  const dir = mkdtempSync(join(tmpdir(), "pb-push-"));
+  const db = join(dir, "book.json");
+  run(["init", "--balance", "1000", "--date", "2026-10-14", "--db", db]);
+  const r = spawnSync(process.execPath, [CLI, "add", "--sym", "X", "--row", "B-1", "--entry", "10", "--shares", "1", "--stop", "9", "--date", "2026-10-14", "--exit-by", "2026-10-30", "--db", db], { encoding: "utf8" });
+  assert.match(r.stdout, /PAPER PB-001/);
+  assert.doesNotMatch(r.stderr, /push/);
 });

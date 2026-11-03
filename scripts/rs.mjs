@@ -31,7 +31,7 @@ const val = (f) => {
 export const HORIZONS = [1, 5, 20, 60];
 
 // A small default map so "--sector" is optional for the names this book runs.
-const SECTOR_HINT = {
+export const SECTOR_HINT = {
   COHR: "SOXX", LITE: "SOXX", AAOI: "SOXX", CIEN: "IGV", MRVL: "SOXX", AVGO: "SOXX", NVDA: "SOXX", AMD: "SOXX", MU: "SOXX", INTC: "SOXX", KLIC: "SOXX", AMAT: "SOXX", LRCX: "SOXX", ASML: "SOXX", TSM: "SOXX", SNDK: "SOXX", WDC: "SOXX", STX: "SOXX",
   GOOGL: "XLC", META: "XLC", MSFT: "XLK", AMZN: "XLY", AAPL: "XLK", ORCL: "XLK", PATH: "IGV", HPE: "XLK", HPQ: "XLK", DELL: "XLK", SMCI: "XLK",
   TLN: "XLU", CEG: "XLU", VST: "XLU", FRVO: "XLU", GEV: "XLI",
