@@ -7248,6 +7248,22 @@
       "row": "B-1247",
       "expires": "2026-11-05",
       "status": "open"
+    },
+    {
+      "id": "MC-419",
+      "created": "2026-11-03",
+      "when": [
+        {
+          "ticker": "IBIT",
+          "op": "<",
+          "level": 43.02
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (hunt-short G1 breakdown under 20-session low)",
+      "source": "hunt-close 2026-11-03",
+      "row": "B-1250",
+      "expires": "2026-11-10",
+      "status": "open"
     }
   ]
 }

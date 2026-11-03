@@ -1,0 +1,322 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-11-03",
+  "candidates_receipt": "db3fd618",
+  "band": 350.81,
+  "generated": "2026-11-03T21:38:10.675Z",
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "top": [
+    {
+      "sym": "IBIT",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "B",
+      "n": 27,
+      "p_dir": 51.85,
+      "p_reach": 11.11,
+      "market_p": 34.9,
+      "disagreement": 16.95,
+      "expiry": "2026-11-13",
+      "days": 8,
+      "long_strike": 44,
+      "short_strike": 38,
+      "cost": 106.5,
+      "max_gain": 493.5,
+      "payoff_ratio": 4.63,
+      "break_even": 42.94,
+      "ev": 3.55,
+      "ev_per_day": 0.44,
+      "stop": 45.22,
+      "target": 38.17,
+      "rr_shares": 5.03
+    },
+    {
+      "sym": "NKE",
+      "side": "long",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 55,
+      "p_dir": 38.18,
+      "p_reach": 12.73,
+      "market_p": 33.73,
+      "disagreement": 4.45,
+      "expiry": "2026-11-13",
+      "days": 8,
+      "long_strike": 38.5,
+      "short_strike": 41.5,
+      "cost": 79,
+      "max_gain": 221,
+      "payoff_ratio": 2.8,
+      "break_even": 39.29,
+      "ev": -20.7,
+      "ev_per_day": -2.59,
+      "stop": 37.4,
+      "target": 41.34,
+      "rr_shares": 2.64
+    },
+    {
+      "sym": "AAP",
+      "side": "long",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 65,
+      "p_dir": 46.15,
+      "p_reach": 13.85,
+      "market_p": 32.24,
+      "disagreement": 13.91,
+      "expiry": "2026-11-13",
+      "days": 8,
+      "long_strike": 47.5,
+      "short_strike": 52,
+      "cost": 167.5,
+      "max_gain": 282.5,
+      "payoff_ratio": 1.69,
+      "break_even": 49.17,
+      "ev": -51.07,
+      "ev_per_day": -6.38,
+      "stop": 45.48,
+      "target": 52.03,
+      "rr_shares": 2.13
+    }
+  ],
+  "rest": [],
+  "rejected": [
+    {
+      "sym": "MSFT",
+      "side": "long",
+      "why": "max loss 1066.5 > band 350.81"
+    },
+    {
+      "sym": "GOOGL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "NVDA",
+      "side": "short",
+      "why": "max loss 506.5 > band 350.81"
+    },
+    {
+      "sym": "AMD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MU",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AVGO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRVL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "DELL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ANET",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "VST",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "IREN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "APP",
+      "side": "short",
+      "why": "max loss 1720 > band 350.81"
+    },
+    {
+      "sym": "NI",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMAT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "HIMS",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "VICI",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "PENG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRNA",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "GPRO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "HPE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SST",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "COHR",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AVAV",
+      "side": "short",
+      "why": "max loss 512.5 > band 350.81"
+    },
+    {
+      "sym": "AIP",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KEEL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ORCL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AAOI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "LITE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ASPN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KRKNF",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "UNH",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "APLD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CRWV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SPCX",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "RAM",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SMCI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GRAB",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "DIS",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "SNDG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CBRS",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "XOM",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "QCOM",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMBA",
+      "side": "short",
+      "why": "no marks"
+    }
+  ],
+  "id": "df12ddf0",
+  "routine": true
+}

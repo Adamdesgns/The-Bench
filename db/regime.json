@@ -1,28 +1,25 @@
 {
-  "asof": "2026-11-02",
-  "generated": "2026-11-02T21:35:52.387Z",
+  "asof": "2026-11-03",
+  "generated": "2026-11-03T21:35:47.590Z",
   "source": "yahoo",
-  "label": "EVENT",
-  "market_risk": 2,
+  "label": "NEUTRAL",
+  "market_risk": 3,
   "reasons": [
-    "macro release on the next session overrides NEUTRAL",
-    "SPY 752.10 vs 50 SMA 767.22",
-    "VIX 21.15"
+    "SPY 754.35 vs 50 SMA 767.04",
+    "VIX 20.83"
   ],
-  "next_session_macro": [
-    "JOLTS — Job Openings and Labor Turnover Survey, 10:00 ET"
-  ],
+  "next_session_macro": [],
   "inputs": {
-    "spy": 752.0999755859375,
-    "sma20": 769.3314910888672,
-    "sma50": 767.2219946289063,
-    "sma200": 729.1533990478515,
-    "vix": 21.149999618530273,
-    "vix_5d_pct": 15.01,
-    "tnx": 4.894000053405762,
-    "tnx_5d_change": -0.092,
-    "iwm_rel_20": 1.44,
-    "qqq_rel_20": -7
+    "spy": 754.3499755859375,
+    "sma20": 768.0944885253906,
+    "sma50": 767.0395947265625,
+    "sma200": 729.4668490600586,
+    "vix": 20.829999923706055,
+    "vix_5d_pct": 18.89,
+    "tnx": 4.952000141143799,
+    "tnx_5d_change": -0.041,
+    "iwm_rel_20": 2.62,
+    "qqq_rel_20": -6.62
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }
