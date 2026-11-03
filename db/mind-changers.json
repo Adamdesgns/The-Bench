@@ -6376,7 +6376,9 @@
       "source": "docs/reads/2026-10-29-amzn.md",
       "row": "B-1172",
       "expires": "2026-11-13",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-11-03",
+      "fired_detail": "AMZN 250.74 >= 248 yes"
     },
     {
       "id": "MC-366",
@@ -6476,7 +6478,9 @@
       "source": "docs/reads/2026-10-30-regn.md",
       "row": "B-1188",
       "expires": "2026-11-13",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-11-03",
+      "fired_detail": "REGN 974.28 >= 973.99 yes"
     },
     {
       "id": "MC-372",
@@ -6540,7 +6544,8 @@
       "source": "powerhour-2026-10-30",
       "row": "B-1192",
       "expires": "2026-11-02",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-11-03"
     },
     {
       "id": "MC-376",
@@ -7124,7 +7129,9 @@
       "source": "docs/reads/2026-11-02-close.md",
       "row": "B-1231",
       "expires": "2026-11-06",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-11-03",
+      "fired_detail": "VRT 235.99 > 232.5 yes"
     },
     {
       "id": "MC-412",
@@ -7172,6 +7179,74 @@
       "source": "docs/reads/2026-11-02-hunt-close.md",
       "row": "B-1238",
       "expires": "2026-11-16",
+      "status": "fired",
+      "fired_on": "2026-11-03",
+      "fired_detail": "LITE 680 < 680.43 yes"
+    },
+    {
+      "id": "MC-415",
+      "created": "2026-11-03",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 760
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-11-03-sotm.md",
+      "row": "B-1239",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-416",
+      "created": "2026-11-03",
+      "when": [
+        {
+          "ticker": "PWR",
+          "op": ">",
+          "level": 630
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: PWR settled back over 630, B-1151/B-1163 re-arm for the next 09:00 check; legal fill 635.01-645.33 on the ATR floor",
+      "source": "fastmover-2026-11-03-0850",
+      "row": "B-1240",
+      "expires": "2026-11-05",
+      "status": "fired",
+      "fired_on": "2026-11-03",
+      "fired_detail": "PWR 656.98 > 630 yes"
+    },
+    {
+      "id": "MC-417",
+      "created": "2026-11-03",
+      "when": [
+        {
+          "ticker": "TLN",
+          "op": ">",
+          "level": 365.74
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "snapshot-1010 2026-11-03",
+      "row": "B-1242",
+      "expires": "2026-11-04",
+      "status": "open"
+    },
+    {
+      "id": "MC-418",
+      "created": "2026-11-03",
+      "when": [
+        {
+          "ticker": "PWR",
+          "op": "<",
+          "level": 630
+        }
+      ],
+      "meaning": "B-1247 re-arm undone: PWR settled back under the 630 band floor - the 11/04 or 11/05 entry check has no signal",
+      "source": "docs/reads/2026-11-03-close.md",
+      "row": "B-1247",
+      "expires": "2026-11-05",
       "status": "open"
     }
   ]
