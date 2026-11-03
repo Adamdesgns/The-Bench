@@ -1,0 +1,220 @@
+{
+  "asof": "2026-11-03T08:29:49.781Z",
+  "events": [
+    {
+      "series": "KXFEDDECISION",
+      "event": "KXFEDDECISION-26DEC",
+      "title": "Fed decision in Dec 2026?",
+      "closes": "2026-12-09T18:59:00Z",
+      "shape": "pick",
+      "outcomes": [
+        {
+          "label": "Hike 25bps",
+          "pct": 73,
+          "chg": 2,
+          "thin": false
+        },
+        {
+          "label": "Fed maintains rate",
+          "pct": 27,
+          "chg": -2,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "KXCPI",
+      "event": "KXCPI-26OCT",
+      "title": "CPI in October",
+      "closes": "2026-11-10T13:29:00Z",
+      "shape": "ladder",
+      "middle": {
+        "kind": "at",
+        "value": 0.3,
+        "exact": 49
+      },
+      "unit": "%",
+      "rungs": [
+        {
+          "strike": 0.2,
+          "label": "Above 0.2%",
+          "pct": 65,
+          "chg": 7,
+          "thin": false
+        },
+        {
+          "strike": 0.3,
+          "label": "Above 0.3%",
+          "pct": 16,
+          "chg": -4,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "KXCPICORE",
+      "event": "KXCPICORE-26OCT",
+      "title": "Core CPI in October",
+      "closes": "2026-11-10T13:25:00Z",
+      "shape": "ladder",
+      "middle": {
+        "kind": "at",
+        "value": 0.2,
+        "exact": 40
+      },
+      "unit": "%",
+      "rungs": [
+        {
+          "strike": 0.1,
+          "label": "Above 0.1%",
+          "pct": 85,
+          "chg": 4,
+          "thin": false
+        },
+        {
+          "strike": 0.2,
+          "label": "Above 0.2%",
+          "pct": 45,
+          "chg": -1,
+          "thin": false
+        },
+        {
+          "strike": 0.3,
+          "label": "Above 0.3%",
+          "pct": 11,
+          "chg": -2,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "KXPAYROLLS",
+      "event": "KXPAYROLLS-26OCT",
+      "title": "Jobs numbers in October 2026?",
+      "closes": "2026-11-06T13:29:00Z",
+      "shape": "ladder",
+      "middle": {
+        "kind": "at",
+        "value": 63636.36363636364
+      },
+      "unit": "",
+      "rungs": [
+        {
+          "strike": 50000,
+          "label": "Above 50,000",
+          "pct": 56,
+          "chg": -3,
+          "thin": false
+        },
+        {
+          "strike": 60000,
+          "label": "Above 60,000",
+          "pct": 54,
+          "chg": 4,
+          "thin": false
+        },
+        {
+          "strike": 70000,
+          "label": "Above 70,000",
+          "pct": 43,
+          "chg": -4,
+          "thin": false
+        },
+        {
+          "strike": 80000,
+          "label": "Above 80,000",
+          "pct": 38,
+          "chg": 3,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "KXU3",
+      "event": "KXU3-26OCT",
+      "title": "Unemployment in October",
+      "closes": "2026-11-06T13:29:00Z",
+      "shape": "ladder",
+      "middle": {
+        "kind": "at",
+        "value": 4.2,
+        "exact": 37
+      },
+      "unit": "%",
+      "rungs": [
+        {
+          "strike": 4.1,
+          "label": "Above 4.1%",
+          "pct": 63,
+          "chg": 3,
+          "thin": false
+        },
+        {
+          "strike": 4.2,
+          "label": "Above 4.2%",
+          "pct": 26,
+          "chg": -1,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "KXRECSSNBER",
+      "event": "KXRECSSNBER-26",
+      "title": "Recession this year?",
+      "closes": "2027-01-31T13:25:00Z",
+      "shape": "yesno",
+      "outcomes": [
+        {
+          "label": "yes",
+          "pct": 3,
+          "chg": 0,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "CONTROLH",
+      "event": "CONTROLH-2026",
+      "title": "Who will control the House?",
+      "closes": "2027-02-01T15:00:00Z",
+      "shape": "pick",
+      "outcomes": [
+        {
+          "label": "Democratic Party",
+          "pct": 94,
+          "chg": 0,
+          "thin": false
+        },
+        {
+          "label": "Republican Party",
+          "pct": 6,
+          "chg": 0,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "CONTROLS",
+      "event": "CONTROLS-2026",
+      "title": "Who will control the Senate?",
+      "closes": "2027-02-01T15:00:00Z",
+      "shape": "pick",
+      "outcomes": [
+        {
+          "label": "Democratic Party",
+          "pct": 76,
+          "chg": 3,
+          "thin": false
+        },
+        {
+          "label": "Republican Party",
+          "pct": 25,
+          "chg": -3,
+          "thin": false
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
