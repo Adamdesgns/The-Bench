@@ -1,7 +1,21 @@
 {
   "date": "2026-11-03",
   "signals": [
-    {"sym":"PWR","row":"B-1247","plan_rows":"B-1151 / B-1163","zone_low":635.57,"zone_high":645.33,"stop":606.89,"target":722.21,"close":656.98,"signal_low":629.3,"atr":28.68,"readiness":60,"decide_by":"2026-11-05","note":"re-arm: settled 656.98 over 630 after a 629.30 low touched the band, 0.88x volume. Close is 11.65 over the 645.33 ceiling - a first bar over 645.33 is NO TRADE, never raise it. Legal fill line 635.57 = stop + 1.0 ATR (ATR hand-updated 28.12 -> 28.68, TR 35.96)."}
+    {
+      "sym": "PWR",
+      "row": "B-1247",
+      "plan_rows": "B-1151 / B-1163",
+      "zone_low": 635.57,
+      "zone_high": 645.33,
+      "stop": 606.89,
+      "target": 722.21,
+      "close": 656.98,
+      "signal_low": 629.3,
+      "atr": 28.68,
+      "readiness": 60,
+      "decide_by": "2026-11-05",
+      "note": "re-arm: settled 656.98 over 630 after a 629.30 low touched the band, 0.88x volume. Close is 11.65 over the 645.33 ceiling - a first bar over 645.33 is NO TRADE, never raise it. Legal fill line 635.57 = stop + 1.0 ATR (ATR hand-updated 28.12 -> 28.68, TR 35.96)."
+    }
   ],
   "none": false,
   "close_source": "last regular-session print at 20:59:59Z (2:59:59 CT); the official close field had not rolled at ~15:30 CT - the 11/04 9:00 check re-pulls before acting",
@@ -13,20 +27,98 @@
     "VRTX B-1055 - decide-by 11/03 reached, 560.25 never settled after the print (531.03, -4.0 pct); MC-392 still watches to 11/25"
   ],
   "no_signal": [
-    {"sym":"GOOGL","row":"B-1162","close":279.92,"why":"276 limit not reached (day low 277.20); stop 265 / target 314.90, decide-by 11/06"},
-    {"sym":"VRT","row":"B-1171","close":235.99,"why":"245.31 trigger not settled (high 239.71); decide-by 11/04. MC-411 fired (B-1244): gap-fill short lane shut"},
-    {"sym":"AMZN","row":"B-1213 / B-1243","close":250.74,"why":"254.60 breakout not settled (high 252.45, 0.88x volume); MC-393/MC-413 holding"},
-    {"sym":"NVDA","row":"B-1089 / B-1194","close":206.56,"why":"222.19 reclaim not settled; MC-377 <200.92 holding"},
-    {"sym":"MRVL","row":"B-1165","close":171.92,"why":"216.10 trigger not settled; paper short PB-020 open"},
-    {"sym":"GILD","row":"B-1209","close":167.5,"why":"175.65 not settled; decide-by 11/06"},
-    {"sym":"CAPR","row":"B-1210","close":8.24,"why":"8.80 not settled (+13.8 pct on 1.51x); valid only after the 11/13 print"}
+    {
+      "sym": "GOOGL",
+      "row": "B-1162",
+      "close": 279.92,
+      "why": "276 limit not reached (day low 277.20); stop 265 / target 314.90, decide-by 11/06"
+    },
+    {
+      "sym": "VRT",
+      "row": "B-1171",
+      "close": 235.99,
+      "why": "245.31 trigger not settled (high 239.71); decide-by 11/04. MC-411 fired (B-1244): gap-fill short lane shut"
+    },
+    {
+      "sym": "AMZN",
+      "row": "B-1213 / B-1243",
+      "close": 250.74,
+      "why": "254.60 breakout not settled (high 252.45, 0.88x volume); MC-393/MC-413 holding"
+    },
+    {
+      "sym": "NVDA",
+      "row": "B-1089 / B-1194",
+      "close": 206.56,
+      "why": "222.19 reclaim not settled; MC-377 <200.92 holding"
+    },
+    {
+      "sym": "MRVL",
+      "row": "B-1165",
+      "close": 171.92,
+      "why": "216.10 trigger not settled; paper short PB-020 open"
+    },
+    {
+      "sym": "GILD",
+      "row": "B-1209",
+      "close": 167.5,
+      "why": "175.65 not settled; decide-by 11/06"
+    },
+    {
+      "sym": "CAPR",
+      "row": "B-1210",
+      "close": 8.24,
+      "why": "8.80 not settled (+13.8 pct on 1.51x); valid only after the 11/13 print"
+    }
   ],
   "in_buy_range": [
-    {"sym":"AIP","row":"B-288","close":18.66,"zone":"17.40-21.39","note":"watchlist only, readiness 33, no target declared - not a ticket"},
-    {"sym":"IBIT","row":"B-491","close":44.035,"zone":"43.10-44.80","note":"BTC downtrend ladder level, watch only; MC-378 <43.10 holding"}
+    {
+      "sym": "AIP",
+      "row": "B-288",
+      "close": 18.66,
+      "zone": "17.40-21.39",
+      "note": "watchlist only, readiness 33, no target declared - not a ticket"
+    },
+    {
+      "sym": "IBIT",
+      "row": "B-491",
+      "close": 44.035,
+      "zone": "43.10-44.80",
+      "note": "BTC downtrend ladder level, watch only; MC-378 <43.10 holding"
+    }
   ],
   "armed_not_signaled": [
-    {"sym":"AMZN","row":"B-1172","zone_low":226,"zone_high":231,"legal_fill_line":230.16,"stop":221,"t1":248,"t2":254.6,"readiness":55,"atr":9.16,"decide_by":"2026-11-05","exit_by":null,"note":"First-bar plan: entry on a first-30-minute hold inside 226-231, 231 never raised, stop 221, T1 248, T2 254.60, 13 shares. VOID if the first bar closes under 225.55 or above 231. Refused 10/30 (B-1182), 11/02 (B-1218), 11/03 (B-1241). 11/03 settle 250.74 (+2.1 pct) on 0.88x; T1 248 settled without a fill (MC-365 fired, B-1248). ATR hand-updated 9.34 -> 9.16 (TR 6.82), legal fill now at or over 230.16. Dropped after 11/05.","close_2026_11_03":250.74}
+    {
+      "sym": "AMZN",
+      "row": "B-1172",
+      "zone_low": 226,
+      "zone_high": 231,
+      "legal_fill_line": 230.16,
+      "stop": 221,
+      "t1": 248,
+      "t2": 254.6,
+      "readiness": 55,
+      "atr": 9.16,
+      "decide_by": "2026-11-05",
+      "exit_by": null,
+      "note": "First-bar plan: entry on a first-30-minute hold inside 226-231, 231 never raised, stop 221, T1 248, T2 254.60, 13 shares. VOID if the first bar closes under 225.55 or above 231. Refused 10/30 (B-1182), 11/02 (B-1218), 11/03 (B-1241). 11/03 settle 250.74 (+2.1 pct) on 0.88x; T1 248 settled without a fill (MC-365 fired, B-1248). ATR hand-updated 9.34 -> 9.16 (TR 6.82), legal fill now at or over 230.16. Dropped after 11/05.",
+      "close_2026_11_03": 250.74
+    },
+    {
+      "sym": "ANET",
+      "row": "B-1253",
+      "zone_low": 191.27,
+      "zone_high": 194.14,
+      "legal_fill_line": 191.27,
+      "stop": 182.5,
+      "t1": 200.68,
+      "t2": 217.41,
+      "readiness": 55,
+      "atr": 8.77,
+      "decide_by": "2026-11-05",
+      "exit_by": null,
+      "note": "Added 11/03 after the close by an interactive v35 run (Adam: Yes). Guide Rule reaction entry after the Q3 print (Q4 guide midpoint about 10% over the street). First-bar plan: entry on a first-30-minute close inside 191.27-194.14, 194.14 never raised, stop 182.50, T1 200.68 (trim half), T2 217.41. Size from the 10 percent band. VOID if the first bar closes under 191.27 or above 194.14. Pre-news line 171.80 (11/03 high). After hours 192.50 at 17:13 ET.",
+      "close_2026_11_03": 169.91
+    }
   ],
   "mu_b335": "expired - the 10/16 spreads are gone, nothing to price",
   "mind_changers_fired": "MC-365 AMZN (B-1248), MC-371 REGN (B-1249), MC-411 VRT (B-1244), MC-414 LITE (B-1245), MC-416 PWR (B-1246, re-arm B-1247). New MC-418 PWR<630.",

@@ -7264,6 +7264,38 @@
       "row": "B-1250",
       "expires": "2026-11-10",
       "status": "open"
+    },
+    {
+      "id": "MC-420",
+      "created": "2026-11-03",
+      "when": [
+        {
+          "ticker": "ANET",
+          "op": ">=",
+          "level": 217.41
+        }
+      ],
+      "meaning": "B-1253 T2 (52-week high) reached on a close - score the guide-rule reaction",
+      "source": "site/reviews/2026-11-03-anet.md",
+      "row": "B-1253",
+      "expires": "2026-11-17",
+      "status": "open"
+    },
+    {
+      "id": "MC-421",
+      "created": "2026-11-03",
+      "when": [
+        {
+          "ticker": "ANET",
+          "op": "<",
+          "level": 182.5
+        }
+      ],
+      "meaning": "B-1253 stop: closed under the 10/29 base, the guide gap failed",
+      "source": "site/reviews/2026-11-03-anet.md",
+      "row": "B-1253",
+      "expires": "2026-11-17",
+      "status": "open"
     }
   ]
 }
