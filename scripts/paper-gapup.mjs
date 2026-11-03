@@ -69,6 +69,12 @@ export function summarize(trades) {
 function load(p) { return existsSync(p) ? JSON.parse(readFileSync(p, "utf8")) : { trades: [] }; }
 function save(p, d) { writeFileSync(p, JSON.stringify(d, null, 2) + "\n"); }
 
+// OFF: switched off 2026-11-03 by Adam ("Turn the paper trader off ... We just need the calls for
+// vans thesis"). Vans Thesis P-001 counts db/paper-book.json only, never this file, so the live
+// file takes no new trades and no more scores; open ones stay as they stood that day. report still
+// reads it; --db pointing at any other (offline test) file still runs everything.
+export const OFF = "2026-11-03";
+
 function main() {
   const argv = process.argv.slice(2);
   const cmd = argv[0];
@@ -77,6 +83,10 @@ function main() {
   const num = (f) => (val(f) === undefined ? undefined : Number(val(f)));
   const DB = resolve(val("--db") || resolve(ROOT, "db/paper-gapup.json"));
   const data = load(DB);
+  if (OFF && (cmd === "add" || cmd === "score") && DB === resolve(ROOT, "db/paper-gapup.json")) {
+    console.log(`REFUSED - the gap-up paper test was switched off on ${OFF} (Adam); nothing added or scored. report still reads it.`);
+    process.exit(1);
+  }
 
   if (cmd === "add") {
     const need = ["--sym", "--signal-row", "--signal-date", "--signal-low", "--zone-high", "--entry", "--atr"];

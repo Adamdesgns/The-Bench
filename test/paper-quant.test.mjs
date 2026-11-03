@@ -8,7 +8,7 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
 
-import { replay, makeTwin, shapeOf, widenStop, nearTarget, compare } from "../scripts/paper-quant.mjs";
+import { replay, makeTwin, shapeOf, widenStop, nearTarget, compare, OFF } from "../scripts/paper-quant.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CLI = resolve(HERE, "../scripts/paper-quant.mjs");
@@ -311,4 +311,21 @@ test("compare: wide and near count only pairs entered from the forward date; ear
   assert.equal(c.closed_pairs, 1);
   assert.equal(c.in_sample, 1);
   assert.equal(compare({ twins: quant.twins.map((q) => ({ ...q, variant: "trail" })) }, paper, "trail").closed_pairs, 2);
+});
+
+test("switched off 2026-11-03: the live twin file takes no sync or score, report still reads", () => {
+  if (!OFF) return; // never run the live-file commands once the switch is cleared
+  const before = readFileSync(resolve(HERE, "../db/paper-quant.json"), "utf8");
+  assert.match(run(["sync", "--write"]), /REFUSED - the quant twins were switched off on 2026-11-03/);
+  assert.match(run(["score", "--write"]), /REFUSED - the quant twins were switched off/);
+  assert.equal(readFileSync(resolve(HERE, "../db/paper-quant.json"), "utf8"), before);
+  assert.doesNotMatch(run(["report"]), /REFUSED/);
+});
+
+test("switched off: --db pointing at the live file is refused too", () => {
+  if (!OFF) return;
+  const live = resolve(HERE, "../db/paper-quant.json");
+  const before = readFileSync(live, "utf8");
+  assert.match(run(["score", "--write", "--db", live]), /REFUSED - the quant twins were switched off/);
+  assert.equal(readFileSync(live, "utf8"), before);
 });

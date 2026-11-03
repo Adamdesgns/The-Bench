@@ -7,7 +7,7 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
 
-import { stopFor, step, summarize } from "../scripts/paper-gapup.mjs";
+import { stopFor, step, summarize, OFF } from "../scripts/paper-gapup.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CLI = resolve(HERE, "../scripts/paper-gapup.mjs");
@@ -60,4 +60,22 @@ test("CLI: refuses a non-gap-up entry and a duplicate, then scores a real one", 
   assert.match(run(["score", "--bars", '{"TEST":{"high":110.2,"low":99,"close":109}}', "--date", "2026-09-17", "--write", "--db", db]), /TARGET\s+PG-001 TEST exit 110 = 2R/);
   assert.equal(JSON.parse(readFileSync(db, "utf8")).trades[0].status, "TARGET");
   assert.match(run(["report", "--db", db]), /1\/10 closed.*\n.*\n.*avg 2R/);
+});
+
+test("switched off 2026-11-03: the live file takes no add or score, report still reads", () => {
+  if (!OFF) return; // never run the live-file commands once the switch is cleared
+  const live = resolve(HERE, "../db/paper-gapup.json");
+  const before = readFileSync(live, "utf8");
+  assert.match(run(["add", "--sym", "TEST", "--entry", "100"]), /REFUSED - the gap-up paper test was switched off on 2026-11-03/);
+  assert.match(run(["score", "--bars", "{}", "--write"]), /REFUSED - the gap-up paper test was switched off/);
+  assert.equal(readFileSync(live, "utf8"), before);
+  assert.doesNotMatch(run(["report"]), /REFUSED/);
+});
+
+test("switched off: --db pointing at the live file is refused too", () => {
+  if (!OFF) return;
+  const live = resolve(HERE, "../db/paper-gapup.json");
+  const before = readFileSync(live, "utf8");
+  assert.match(run(["score", "--bars", "{}", "--write", "--db", live]), /REFUSED - the gap-up paper test was switched off/);
+  assert.equal(readFileSync(live, "utf8"), before);
 });

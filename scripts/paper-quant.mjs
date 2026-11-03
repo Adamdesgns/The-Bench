@@ -90,6 +90,11 @@ export const VARIANTS = ["trail", "shape", "wide", "near"];
 // RETIRED variants get no new twins; the ones already open finish and keep their record.
 // shape: retired 2026-10-30 by Adam ("Retire it") after its 10-pair review (docs/research/2026-10-30-lane-reviews.md).
 export const RETIRED = { shape: "2026-10-30" };
+// OFF: every twin was switched off 2026-11-03 by Adam ("Turn the paper trader off ... We just need
+// the calls for vans thesis"). Vans Thesis P-001 counts db/paper-book.json only, never these twins,
+// so the live twin file takes no new twins and no more scores. Open twins stay as they stood that
+// day. report still reads it; --db pointing at any other (offline test) file still runs everything.
+export const OFF = "2026-11-03";
 const variantOf = (q) => q.variant || "trail";
 // wide and near are the paper trade itself with one thing changed, scored by paper-book.mjs's own step().
 const paperLike = (q) => ["wide", "near"].includes(variantOf(q));
@@ -287,6 +292,10 @@ async function main() {
   const DB = resolve(val("--db") || resolve(ROOT, "db/paper-quant.json"));
   const paper = load(PAPER, { trades: [] });
   const quant = load(DB, { lane: "quant-exit", twins: [] });
+  if (OFF && (cmd === "sync" || cmd === "score") && DB === resolve(ROOT, "db/paper-quant.json")) {
+    console.log(`REFUSED - the quant twins were switched off on ${OFF} (Adam); nothing synced or scored. report still reads them.`);
+    process.exit(1);
+  }
 
   if (cmd === "sync") {
     let given = {};
