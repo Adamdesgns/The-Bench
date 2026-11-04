@@ -280,7 +280,10 @@ function main() {
   book.history ||= [];
   // Only the live book pushes: Benny's book and test files (--db elsewhere) never do, and --no-push silences a run.
   const before = JSON.parse(JSON.stringify(book.trades || []));
-  const pushes = DB === resolve(ROOT, "db/paper-book.json") && !has("--no-push") && !process.env.BENCH_NO_PUSH;
+  // PHONE OFF (Adam, 2026-11-04: "I NEVER WANT TO know about the paper trades unless I ask."): the book keeps
+  // every trade exactly as before (Vans Thesis P-001 unchanged), it just never pushes. PAPER_PUSH stays false.
+  const PAPER_PUSH = false;
+  const pushes = PAPER_PUSH && DB === resolve(ROOT, "db/paper-book.json") && !has("--no-push") && !process.env.BENCH_NO_PUSH;
   const save = (p, d) => { saveFile(p, d); if (pushes) push(paperEvents(before, d.trades || [])); };
 
   if (cmd === "init") {

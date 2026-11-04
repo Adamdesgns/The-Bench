@@ -102,5 +102,10 @@ export function judgePrompt(trip, today) {
     `TRIP JUDGE ${today}. Follow prompts/trip-judge-v1.md in C:\\Users\\steam\\Projects\\apps\\the-bench exactly.`,
     `The level: ${trip.ticker} ${trip.kind} ${trip.dir === "below" ? "<=" : ">="} ${trip.price} from ${trip.src}.`,
     `The free feed saw a session ${side} of ${trip.touched}, last ${trip.last}, prior close ${trip.prev}. Unverified until you pull Robinhood.`,
+    ...(trip.pump ? [
+      `THIS IS A PUMP-WATCH CALL, not a book level: follow the PUMP WATCH section of prompts/trip-judge-v1.md.`,
+      `Adam put ${trip.ticker} on pump watch today. Catalyst: ${trip.pump.catalyst}.`,
+      `The 5-minute read says ${trip.pump.read}: ${trip.pump.why}. Opening range ${trip.pump.or_low}-${trip.pump.or_high}, VWAP ${trip.pump.vwap}, session ${trip.pump.session_low}-${trip.pump.session_high}, gap ${trip.pump.gap_pct}%, volume pace ${trip.pump.pace}x.`,
+    ] : []),
   ].join("\n");
 }

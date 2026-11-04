@@ -39,21 +39,19 @@ test("a clean post in live mode goes to the channel webhook and is logged SENT",
   assert.equal(s.log()[0].outcome, "SENT");
 });
 
-test("dry mode sends to the phone titled BENNY DRY RUN, never to Discord", async () => {
+test("dry mode sends nothing: never Discord, and never the phone since 2026-11-04 (plans and plays only)", async () => {
   const s = setup({ mode: "dry" });
   const r = await s.post("a.md", CLEAN);
   assert.equal(r.outcome, "DRY");
-  assert.ok(s.calls.every((c) => c.url.startsWith("https://ntfy.sh/")));
-  assert.match(s.calls[0].opts.headers.Title, /^BENNY DRY RUN - lesson/);
+  assert.equal(s.calls.length, 0);
 });
 
-test("a missing sign-off is refused, Adam is pinged, and the refusal is logged", async () => {
+test("a missing sign-off is refused and logged, with no phone ping since 2026-11-04", async () => {
   const s = setup();
   const r = await s.post("a.md", "No sign-off here.");
   assert.equal(r.outcome, "REFUSED");
   assert.match(r.reasons.join(" "), /sign-off/);
-  assert.equal(s.calls.length, 1);
-  assert.match(s.calls[0].url, /ntfy\.sh/);
+  assert.equal(s.calls.length, 0);
   assert.equal(s.log()[0].outcome, "REFUSED");
 });
 

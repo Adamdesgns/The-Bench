@@ -186,7 +186,10 @@ console.log(`\nLOGGED ${row.id} -> ${rows.length} rows in the book.`);
 // mrna" / "I must see these trades too."). The dated-catalyst run-up lane writes its plans as conditionals marked
 // DATED-CATALYST PAPER and never sends a buy ticket, so MRNA's B-828 reached him only as "watch" lines. Now the plan
 // itself is pushed the moment it is logged. --no-push silences it. A failed push never undoes the row.
-if (row.call_type === "conditional" && /DATED-CATALYST/i.test(row.final_call || "") && /PAPER/i.test(row.final_call || "") && !has("--no-push") && !process.env.BENCH_NO_PUSH) {
+// PHONE OFF 2026-11-04 (Adam: "I NEVER WANT TO know about the paper trades unless I ask."): paper plans are no
+// longer pushed. The row is still logged. PAPER_PLAN_PUSH stays false.
+const PAPER_PLAN_PUSH = false;
+if (PAPER_PLAN_PUSH && row.call_type === "conditional" && /DATED-CATALYST/i.test(row.final_call || "") && /PAPER/i.test(row.final_call || "") && !has("--no-push") && !process.env.BENCH_NO_PUSH) {
   const body = `New paper plan (event run-up: in before a known date, out by the close before it). ${row.ticker} trigger ${row.trigger}`
     + `${row.invalidation != null ? `, invalid ${row.invalidation}` : ""}${row.decide_by ? `, decide by ${row.decide_by}` : ""}. Row ${row.id}. `
     + `Paper only: no buy ticket will come; the paper book fills it when the trigger holds.\n\n${String(row.final_call).slice(0, 700)}`;

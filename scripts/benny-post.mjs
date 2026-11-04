@@ -30,7 +30,12 @@ export function splitForDiscord(text) {
   return parts.length === 1 ? parts : parts.map((p, i) => `(${i + 1}/${parts.length}) ${p}`);
 }
 
+// PHONE OFF for Benny (Adam, 2026-11-04: "From now on nothing comes to my phone except our plans and plays.").
+// Benny's dry runs, refusals and failures are printed here and land in the run log, never on the phone.
+export const BENNY_PHONE = false;
+
 export async function ntfyPing(fetchImpl, title, body) {
+  if (!BENNY_PHONE) { console.error(`[benny] phone off: ${title}`); return; }
   const res = await fetchImpl(TOPIC, {
     method: "POST",
     headers: { Title: title.replace(/[^\x20-\x7E]/g, "").trim() || "BENNY", Priority: "urgent", Markdown: "yes" },

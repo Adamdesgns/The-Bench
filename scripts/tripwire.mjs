@@ -112,7 +112,9 @@ console.log(`\nTHIS IS NOT A SIGNAL. Free-feed price, possibly delayed. Run a fu
 // ---- 5. push + remember, so it fires once per level per day -------------------
 if (!has("--dry")) {
   const msg = tripped.map((t) => `${t.ticker} ${t.kind} ${t.dir === "below" ? "<=" : ">="} ${t.price} (touched ${t.touched})`).join(" | ");
-  try {
+  // PHONE OFF 2026-11-04 (Adam: "nothing comes to my phone except our plans and plays"): a raw, unjudged touch is
+  // not a play. The Trip Judge judges buy-side crosses and texts BUY / WAIT / NO; the state below is still recorded.
+  if (false) try {
     await fetch(NTFY, {
       method: "POST",
       headers: { Title: "THE BENCH - level touched", Priority: "urgent" },

@@ -34,6 +34,8 @@ import { loadTargets } from "./position-target.mjs";
 import { deriveLevels, fetchQuotes, checkLevels } from "../server/tripwire.js";
 import { inWindow, ct } from "../server/marketWatch.js";
 import * as TJ from "../server/tripJudge.js";
+import * as PUMP from "../server/pumpWatch.js";
+import * as PW from "./pump-watch.mjs";
 
 const NTFY = "https://ntfy.sh/bench-adam-7x3";
 const STATE = resolve(ROOT, "db/trip-judge-state.json");
@@ -42,9 +44,9 @@ const LOG = resolve(ROOT, "logs/trip-judge.log");
 
 const readJson = (p, fallback) => (existsSync(p) ? JSON.parse(readFileSync(p, "utf8")) : fallback);
 const log = (line) => { try { mkdirSync(dirname(LOG), { recursive: true }); appendFileSync(LOG,`${new Date().toISOString()} ${line}\n`); } catch {} console.log(line); };
-const ping = async (title, body) => {
-  try { await fetch(NTFY, { method: "POST", headers: { Title: title, Priority: "urgent" }, body }); } catch (e) { log(`push failed: ${e.message}`); }
-};
+// 2026-11-04 (Adam: "nothing comes to my phone except our plans and plays"): pings go through ntfy-read's
+// play slot like every other card. NTFY stays exported-by-name for the history; nothing posts to it directly.
+const ping = async (title, body) => sendCard("play", title, body);
 
 // The CLI's own exe, run with no shell, so the timeout kills the Claude run itself and not a cmd.exe
 // wrapped around it (review finding 3). The npm `claude.cmd` shim points at the same file.
@@ -76,7 +78,7 @@ async function main(argv = process.argv.slice(2)) {
   if (!has("--force") && (!inWindow() || ct().hhmm < TJ.FIRST_TICK)) return 0;
 
   const lock = readJson(LOCK, null);
-  if (TJ.lockIsLive(lock)) { console.log(`another tick is judging (${lock.ticker}, since ${lock.at})`); return 3; }
+  if (TJ.lockIsLive(lock)) { console.log(`another tick is judging (${lock.ticker}, since ${lock.at})`); await pumpTick(today, has("--dry"), { canJudge: false }); return 3; }
 
   const wl = readJson(resolve(ROOT, "db/watchlist.json"), []);
   const arch = readJson(resolve(ROOT, "db/archive.json"), []);
@@ -84,7 +86,7 @@ async function main(argv = process.argv.slice(2)) {
   const { watching } = deriveLevels({ rows, watchlist: wl, targets: loadTargets(), today });
   const buy = watching.filter((l) => (l.kind === "TRIGGER" || l.kind === "BUY ZONE") && TJ.stillLive(l, rows, wl));
   const { quotes, failed } = await fetchQuotes([...new Set(buy.map((l) => l.ticker))]);
-  if (buy.length && !Object.keys(quotes).length) { log(`FETCH FAILURE: ${failed.join(", ")}`); return 2; }
+  if (buy.length && !Object.keys(quotes).length) { log(`FETCH FAILURE: ${failed.join(", ")}`); await pumpTick(today, has("--dry")); return 2; }
 
   // checkLevels de-dupes against the tripwire's own fired list; the judge keeps its own, so pass an empty one.
   const crosses = TJ.freshBuyCrosses(checkLevels(buy, quotes, { fired: [] }, today), quotes)
@@ -95,6 +97,7 @@ async function main(argv = process.argv.slice(2)) {
     console.log(`TRIP JUDGE --dry ${today}: ${buy.length} buy-side level(s), ${crosses.length} fresh cross(es)`);
     for (const t of pick) console.log(`  WOULD JUDGE ${t.ticker} ${t.kind} ${t.dir === "below" ? "<=" : ">="} ${t.price} [${t.src}] touched ${t.touched}, prev ${t.prev}`);
     for (const t of skipped) console.log(`  OVER CAP ${t.ticker} ${t.kind} ${t.price} [${t.src}]`);
+    await pumpTick(today, true);
     return 0;
   }
   let current = state;
@@ -106,7 +109,7 @@ async function main(argv = process.argv.slice(2)) {
   }
   for (const trip of pick) {
     writeFileSync(LOCK, JSON.stringify({ ticker: trip.ticker, at: new Date().toISOString(), pid: process.pid }));
-    await ping(`THE BENCH - ${trip.ticker} level crossed, judging now`, `${trip.ticker} ${trip.kind} ${trip.dir === "below" ? "<=" : ">="} ${trip.price} [${trip.src}], touched ${trip.touched}. Claude is pulling Robinhood now; the BUY or NO follows in a few minutes.`);
+    // The "judging now" heads-up was a status ping; removed 2026-11-04. The BUY / WAIT / NO card is the play.
     // Record before running, so a crash or timeout never re-judges the same level all day.
     current = TJ.recordJudged(current, trip, today, "started");
     writeFileSync(STATE, JSON.stringify(current, null, 2) + "\n");
@@ -116,9 +119,67 @@ async function main(argv = process.argv.slice(2)) {
     writeFileSync(STATE, JSON.stringify(current, null, 2) + "\n");
     if (!r.ok) await ping(`THE BENCH - ${trip.ticker} judge FAILED`, `The judge run for ${trip.ticker} ${trip.kind} ${trip.price} did not finish (${r.detail}). Nothing was decided. Ask Claude to run ${trip.ticker}.`);
   }
+  await pumpTick(today, has("--dry"));
   if (existsSync(LOCK)) rmSync(LOCK);
   if (!pick.length) console.log(`nothing to judge (${buy.length} buy-side levels, ${crosses.length} fresh crosses)`);
   return 0;
+}
+
+// PUMP WATCH (Adam, 2026-11-04: "If I say watch a ticker like amazon for the pump ... set a 5 min check until
+// lunch time and find out which direction it's likely heading."). Each tick reads every live watch; the first
+// UP or DOWN of the day starts the same judge with a PUMP trip; the first tick past lunch sends the wrap-up.
+// Review fixes 2026-11-04: every save reloads the registry first (a judge can block for 20 minutes while a
+// routine adds a watch), reads still run when another tick holds the lock (canJudge false: no call is
+// recorded, the next tick makes it), pump judges have their own daily cap, and a failed read after lunch
+// still sends the wrap-up.
+async function pumpTick(today, dry = false, { canJudge = true } = {}) {
+  const hhmm = ct().hhmm;
+  const live = PW.loadWatches().watches.filter((w) => w.date === today && !w.ended);
+  for (const w of live) {
+    let read = null;
+    try { read = await PW.readNow(w.ticker); } catch (e) { log(`pump-watch ${w.ticker}: read failed (${e.message})`); }
+    const fresh = PW.loadWatches().watches.find((x) => x.ticker === w.ticker && x.date === today);
+    if (!fresh || fresh.ended) continue; // removed or ended by someone else meanwhile
+    if (!read) {
+      if (!dry && hhmm > (fresh.until || PUMP.DEFAULT_UNTIL)) {
+        PW.updateWatch(w.ticker, today, (x) => ({ ...x, ended: true }));
+        sendCard("pump", `${w.ticker} pump watch - lunch wrap`, PUMP.endCard(fresh, null));
+      }
+      continue;
+    }
+    const { act } = PUMP.nextAction(fresh, read, today, hhmm);
+    const last_read = { at_ct: hhmm, read: read.read, last: read.last, why: read.why };
+    if (dry) { console.log(`PUMP ${w.ticker} ${hhmm} ${read.read} ${read.last} (${read.why}) -> ${act}`); continue; }
+    if (act === "end") {
+      const done = PW.updateWatch(w.ticker, today, (x) => ({ ...x, last_read, ended: true }));
+      sendCard("pump", `${w.ticker} pump watch - lunch wrap`, PUMP.endCard(done, read));
+      continue;
+    }
+    const callsToday = PW.loadWatches().watches.filter((x) => x.date === today).reduce((n, x) => n + (x.calls || []).length, 0);
+    if (act === "call" && canJudge && callsToday < PUMP.MAX_PUMP_JUDGES_PER_DAY) {
+      // Record before judging, so a crash never re-calls the same direction.
+      const rec = PW.updateWatch(w.ticker, today, (x) => ({ ...x, last_read, calls: [...(x.calls || []), { read: read.read, at_ct: hhmm, last: read.last }] }));
+      writeFileSync(LOCK, JSON.stringify({ ticker: w.ticker, at: new Date().toISOString(), pid: process.pid }));
+      const r = judge(PUMP.judgeTrip(rec, read), today);
+      log(`PUMP ${w.ticker} ${read.read} at ${read.last} -> ${r.ok ? "done" : "FAILED"}: ${r.detail}`);
+      if (!r.ok) sendCard("pump", `${w.ticker} pump call - judge FAILED`, `${w.ticker} turned ${read.read} at ${read.last} (${read.why}), but the judge run did not finish (${r.detail}). Nothing decided. Ask Claude to run ${w.ticker}.`);
+      continue;
+    }
+    if (act === "call" && canJudge) {
+      PW.updateWatch(w.ticker, today, (x) => ({ ...x, last_read, calls: [...(x.calls || []), { read: read.read, at_ct: hhmm, last: read.last, capped: true }] }));
+      sendCard("pump", `${w.ticker} turned ${read.read} - not judged (cap)`, `${w.ticker} turned ${read.read} at ${read.last}: ${read.why}. Pump-judge cap of ${PUMP.MAX_PUMP_JUDGES_PER_DAY} a day reached, so no BUY/NO was run. Ask Claude to run ${w.ticker}.`);
+      continue;
+    }
+    PW.updateWatch(w.ticker, today, (x) => ({ ...x, last_read }));
+  }
+}
+
+// Every card from this tick goes through ntfy-read.mjs, the one phone door (plans and plays only).
+// "Sent" is logged only when ntfy-read printed a send, never on a refusal or an all-paper strip.
+function sendCard(slot, title, text) {
+  const r = spawnSync(process.execPath, [resolve(ROOT, "scripts/ntfy-read.mjs"), "--slot", slot, "--title", title, "--text", text], { cwd: ROOT, encoding: "utf8", timeout: 60000 });
+  const sent = r.status === 0 && /\[ntfy\] sent/.test(r.stdout || "");
+  log(`card "${title}": ${sent ? "sent" : `NOT SENT (exit ${r.status}) ${`${r.stdout || ""}${r.stderr || ""}`.trim().slice(0, 200)}`}`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
