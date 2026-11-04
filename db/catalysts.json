@@ -782,13 +782,13 @@
     "logged": "2026-08-19"
   },
   {
-    "date": "2026-12-31",
+    "date": "2026-09-23",
     "type": "other",
     "ticker": "ZYME",
     "confidence": "window",
     "window_end": "2026-12-31",
     "what": "Theravance Biopharma acquisition expected to CLOSE. Company guides \"2H 2026\" with NO specific date — the 2026-12-31 stamp here is the OUTER BOUND of that guidance, not a forecast, and the close could land any time from now. Adds commercial cash flow and diversifies ZYME off a single-asset story.",
-    "label": "ZYME — Theravance Biopharma acquisition close, guided 2H 2026 (no date; 12-31 is the outer bound, not a forecast). Second catalyst stacked behind the 8/25 PDUFA and not previously on the board.",
+    "label": "ZYME - Theravance Biopharma acquisition CLOSED 2026-09-23 (company release); updated 2026 guide 9/28: revenue 278-292M, adj EBITDA 114-128M. Was carried here as a 12-31 outer bound (corrected B-1258).",
     "source": "Zymeworks 8-K 0001937653-26-000046 filed 2026-08-06: \"Acquisition of Theravance Biopharma, Inc. expected to close in 2H 2026\". https://www.sec.gov/Archives/edgar/data/1937653/000193765326000046/ex991q22026_earningsxrelea.htm",
     "action": "Not a trade. Recorded because a second, undated corporate catalyst sitting behind a binary FDA date changes what a post-PDUFA position is actually exposed to.",
     "logged": "2026-08-19"
@@ -1709,5 +1709,14 @@
     "what": "Seladelpar (Livdelzi) IDEAL Phase 3 alkaline-phosphatase normalization data, late-breaking oral at AASLD The Liver Meeting (Abstract 5007); decides whether seladelpar can claim full ALP normalization in primary biliary cholangitis",
     "source": "https://www.gilead.com/news/news-details/2026/gilead-to-present-new-data-on-treatment-response-and-long-term-management-of-rare-liver-diseases-at-the-liver-meeting-2026",
     "logged": "2026-11-01"
+  },
+  {
+    "date": "2026-11-09",
+    "label": "ZYME Q3 earnings, after close (broker verified=true). EPS est 2.23 includes the 250M Jazz approval milestone; the guide is the news (B-1258).",
+    "type": "earnings",
+    "ticker": "ZYME",
+    "confidence": "verified",
+    "what": "ZYME Q3 earnings, after close. Post-print Guide Rule run that night; entry only on the 11/10 first 30-minute bar.",
+    "logged": "2026-11-04"
   }
 ]

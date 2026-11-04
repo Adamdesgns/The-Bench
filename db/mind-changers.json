@@ -7376,6 +7376,38 @@
       "row": "B-1256",
       "expires": "2026-11-18",
       "status": "open"
+    },
+    {
+      "id": "MC-427",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "ZYME",
+          "op": ">",
+          "level": 31.34
+        }
+      ],
+      "meaning": "B-1258: closed at a new 52-week high before the 11/9 print. Still no entry (Pre-Catalyst Deadline); note it for the post-print Guide Rule run",
+      "source": "site/reviews/2026-11-04-zyme.md",
+      "row": "B-1258",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-428",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "ZYME",
+          "op": "<",
+          "level": 28.26
+        }
+      ],
+      "meaning": "B-1258: closed under the 10/30 low, the run-in into the print failed. Post-print long needs a fresh base",
+      "source": "site/reviews/2026-11-04-zyme.md",
+      "row": "B-1258",
+      "expires": "2026-11-10",
+      "status": "open"
     }
   ]
 }
