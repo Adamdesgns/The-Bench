@@ -7408,6 +7408,102 @@
       "row": "B-1258",
       "expires": "2026-11-10",
       "status": "open"
+    },
+    {
+      "id": "MC-429",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "GEV",
+          "op": ">",
+          "level": 853.94
+        }
+      ],
+      "meaning": "passed GEV short re-look trigger: settled back over the 11/4 open, power flush done - re-judge",
+      "source": "docs/reads/2026-11-04-snapshot-1010.md",
+      "row": "B-1265",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-430",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "GEV",
+          "op": "<",
+          "level": 809.3
+        }
+      ],
+      "meaning": "passed GEV short re-look trigger: closed under the 11/4 day low, power flush extends - re-judge",
+      "source": "docs/reads/2026-11-04-snapshot-1010.md",
+      "row": "B-1265",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-431",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "VRT",
+          "op": ">",
+          "level": 225
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: VRT reclaimed its 225.00 pre-market print after the 11/04 power-layer selloff",
+      "source": "docs/reads/2026-11-04-midday.md",
+      "row": "B-1267",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-432",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": ">",
+          "level": 271.49
+        }
+      ],
+      "meaning": "settle over today's high: breakout plan B-1268 live for the 11/05 first-bar test",
+      "source": "docs/reads/2026-11-04-trip-AMZN.md",
+      "row": "B-1268",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-433",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": "<",
+          "level": 263.8
+        }
+      ],
+      "meaning": "settle under today's low/stop: election gap failing, plan dead",
+      "source": "docs/reads/2026-11-04-trip-AMZN.md",
+      "row": "B-1268",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-434",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": ">=",
+          "level": 287.2
+        }
+      ],
+      "meaning": "target pivot (Aug ATH) reached",
+      "source": "docs/reads/2026-11-04-trip-AMZN.md",
+      "row": "B-1268",
+      "expires": "2026-11-20",
+      "status": "open"
     }
   ]
 }
