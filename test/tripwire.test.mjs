@@ -42,6 +42,12 @@ test("deriveLevels: a trigger under the review price is a pullback entry (dir be
   assert.equal(pull.watching[0].dir, "below");
 });
 
+test("deriveLevels: a short plan's invalidation above the review price is a STOP that trips on a rise (B-1255)", () => {
+  const short = [{ id: "B-1255", ticker: "SPCX", date: TODAY, call_type: "conditional", review_price: 132.28, trigger: 130.17, invalidation: 138 }];
+  const keys = deriveLevels({ rows: short, watchlist: [], today: TODAY }).watching.map(levelKey).sort();
+  assert.deepEqual(keys, ["SPCX|STOP|138|above", "SPCX|TRIGGER|130.17|below"]);
+});
+
 test("checkLevels: compares against the session RANGE, fires once per level per day", () => {
   const { watching } = deriveLevels({ rows, watchlist, targets, today: TODAY });
   const quotes = {

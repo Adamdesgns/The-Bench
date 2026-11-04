@@ -1,0 +1,152 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-11-04",
+  "source": "yahoo",
+  "universe": "named",
+  "generated": "2026-11-04T14:32:29.516Z",
+  "macro_inside_2_sessions": true,
+  "band": 351.87800000000004,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "marks": [],
+  "scanned": 1,
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "candidates": [
+    {
+      "side": "short",
+      "sym": "SPCX",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 134.92,
+      "sma50": 149.62,
+      "sma20": 148.46,
+      "atr": 7.75,
+      "low20": 134.5,
+      "volume": 22611304,
+      "vol30": 95713743,
+      "volRatio": 0.24,
+      "rs20": -17.8,
+      "rs5": -6.03,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 104.83,
+        "date": "2026-08-03",
+        "atr_away": 3.88
+      },
+      "first_shelf": {
+        "level": 130.39,
+        "date": "2026-08-20",
+        "rr": 0.58
+      },
+      "floor2": {
+        "level": 130.38999938964844,
+        "date": "2026-08-20"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 134.92,
+        "stop": 142.74,
+        "stop_atr": 1.01,
+        "target": 104.83,
+        "rr": 3.85
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 5,
+        "independent": 3,
+        "pending": 2,
+        "span_years": 0.4,
+        "grade": "D",
+        "why": "3 independent event(s) over 0.4y (7 raw) — sample too small to mean anything",
+        "p_dir": 40,
+        "p_reach": 0,
+        "avg_pct": 10.8,
+        "median_pct": 15.68,
+        "target_pct": -22.3
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 134.92,
+        "short_strike_near": 104.83,
+        "stop": 142.74,
+        "decide_by_sessions": 5
+      }
+    }
+  ],
+  "skipped": [],
+  "not_listed": [
+    {
+      "sym": "SPCX",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 134.92,
+      "sma50": 149.62,
+      "atr": 7.75,
+      "high20": 171.31,
+      "volRatio": 0.24,
+      "rs20": -17.8,
+      "rs5": -6.03,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 155,
+        "date": "2026-09-08"
+      },
+      "first_shelf": {
+        "level": 149.8,
+        "date": "2026-08-17",
+        "rr": 1.92
+      },
+      "too_far": null,
+      "target2": {
+        "level": 149.8,
+        "date": "2026-08-17",
+        "rr": 1.92
+      },
+      "geometry": {
+        "entry": 134.92,
+        "stop": 127.17,
+        "stop_atr": 1,
+        "target": 155,
+        "rr": 2.59
+      },
+      "readiness": 50,
+      "list": null
+    }
+  ],
+  "id": "981f0c29"
+}

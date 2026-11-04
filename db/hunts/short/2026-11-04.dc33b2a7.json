@@ -1,0 +1,66 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-11-04",
+  "source": "yahoo",
+  "generated": "2026-11-04T14:32:29.034Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": 351.87800000000004,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [],
+  "READY": [],
+  "STALK": [
+    {
+      "sym": "SPCX",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 134.93,
+      "sma50": 149.62,
+      "sma20": 148.46,
+      "atr": 7.75,
+      "low20": 134.5,
+      "volume": 22606627,
+      "vol30": 95713743,
+      "volRatio": 0.24,
+      "rs20": -17.8,
+      "rs5": -6.02,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 104.83,
+        "date": "2026-08-03",
+        "atr_away": 3.88
+      },
+      "first_shelf": {
+        "level": 130.39,
+        "date": "2026-08-20",
+        "rr": 0.58
+      },
+      "floor2": {
+        "level": 130.38999938964844,
+        "date": "2026-08-20"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 134.93,
+        "stop": 142.74,
+        "stop_atr": 1.01,
+        "target": 104.83,
+        "rr": 3.85
+      },
+      "readiness": 60,
+      "list": "STALK"
+    }
+  ],
+  "DISCOVERY": [],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [],
+  "skipped": [],
+  "id": "dc33b2a7"
+}

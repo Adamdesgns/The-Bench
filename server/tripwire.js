@@ -47,7 +47,12 @@ export function deriveLevels({ rows, watchlist, targets = [], today = nyDate(), 
       add({ ticker, kind: "TRIGGER", price: Number(r.trigger), dir, src: r.id });
     }
     if (r.invalidation) {
-      add({ ticker, kind: r.call_type === "long" ? "STOP" : "FLOOR", price: Number(r.invalidation), dir: "below", src: r.id });
+      // An invalidation ABOVE the review price is a short plan's stop: it trips on
+      // a rise, not a fall. Before 2026-11-04 every invalidation was read as a floor
+      // below, so B-1255 (SPCX short, stop 138 over a 132 price) tripped on arrival.
+      const short = r.review_price && Number(r.invalidation) > r.review_price;
+      const kind = short ? "STOP" : r.call_type === "long" ? "STOP" : "FLOOR";
+      add({ ticker, kind, price: Number(r.invalidation), dir: short ? "above" : "below", src: r.id });
     }
   }
   // Watchlist zones and floors, for names carrying a declared accumulation zone.
