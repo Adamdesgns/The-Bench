@@ -7360,6 +7360,22 @@
       "row": "B-1255",
       "expires": "2026-11-20",
       "status": "open"
+    },
+    {
+      "id": "MC-426",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "PWR",
+          "op": "<",
+          "level": 527.07
+        }
+      ],
+      "meaning": "the 10/23 verified floor under the 11/04 gap-down is broken: no 2:1 short floor left inside 6 ATR, short re-look needs a new verified low",
+      "source": "docs/reads/2026-11-04-trip-PWR.md",
+      "row": "B-1256",
+      "expires": "2026-11-18",
+      "status": "open"
     }
   ]
 }
