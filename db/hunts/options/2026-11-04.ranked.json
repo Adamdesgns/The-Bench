@@ -1,0 +1,347 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-11-04",
+  "candidates_receipt": "bf28b0cd",
+  "band": 350.8,
+  "generated": "2026-11-04T21:37:45.361Z",
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "top": [
+    {
+      "sym": "VICI",
+      "side": "long",
+      "list": "READY",
+      "readiness": 60,
+      "grade": "A",
+      "n": 69,
+      "p_dir": 42.03,
+      "p_reach": 0,
+      "market_p": 38.45,
+      "disagreement": 3.58,
+      "expiry": "2026-11-20",
+      "days": 12,
+      "long_strike": 25,
+      "short_strike": 27.5,
+      "cost": 57.5,
+      "max_gain": 192.5,
+      "payoff_ratio": 3.35,
+      "break_even": 25.57,
+      "ev": -33.33,
+      "ev_per_day": -2.78,
+      "stop": 24.42,
+      "target": 27.15,
+      "rr_shares": 2.28
+    },
+    {
+      "sym": "AAP",
+      "side": "long",
+      "list": "READY",
+      "readiness": 60,
+      "grade": "A",
+      "n": 66,
+      "p_dir": 46.97,
+      "p_reach": 6.06,
+      "market_p": 31.88,
+      "disagreement": 15.09,
+      "expiry": "2026-11-13",
+      "days": 7,
+      "long_strike": 51,
+      "short_strike": 59,
+      "cost": 155,
+      "max_gain": 645,
+      "payoff_ratio": 4.16,
+      "break_even": 52.55,
+      "ev": -43.11,
+      "ev_per_day": -6.16,
+      "stop": 46.89,
+      "target": 59.28,
+      "rr_shares": 2.21
+    }
+  ],
+  "rest": [],
+  "rejected": [
+    {
+      "sym": "MRVL",
+      "side": "short",
+      "why": "max loss 826 > band 350.8"
+    },
+    {
+      "sym": "DELL",
+      "side": "short",
+      "why": "max loss 1902.5 > band 350.8"
+    },
+    {
+      "sym": "LITE",
+      "side": "short",
+      "why": "max loss 3135 > band 350.8"
+    },
+    {
+      "sym": "CEG",
+      "side": "short",
+      "why": "max loss 905 > band 350.8"
+    },
+    {
+      "sym": "GOOGL",
+      "side": "short",
+      "why": "max loss 593.5 > band 350.8"
+    },
+    {
+      "sym": "NVDA",
+      "side": "short",
+      "why": "max loss 459 > band 350.8"
+    },
+    {
+      "sym": "AMD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AVGO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ANET",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "VRT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "PWR",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "IREN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "WULF",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "NI",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMAT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "HIMS",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "NKE",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "PENG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRNA",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "GPRO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "HPE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SST",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "COHR",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AIP",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KEEL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ORCL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AAOI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ASPN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KRKNF",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "UNH",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "CORZ",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "APLD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "IBIT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GEV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CRWV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SPCX",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "RARE",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "VST",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SMCI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ETN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SNDG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AVAV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MU",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "DIS",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "MSFT",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "RAM",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMZN",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "GRAB",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "QCOM",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ZYME",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "CBRS",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "OXY",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMBA",
+      "side": "short",
+      "why": "no marks"
+    }
+  ],
+  "id": "53bd9244",
+  "routine": true
+}
