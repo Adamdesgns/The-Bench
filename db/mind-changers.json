@@ -7296,6 +7296,70 @@
       "row": "B-1253",
       "expires": "2026-11-17",
       "status": "open"
+    },
+    {
+      "id": "MC-422",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 766.46
+        }
+      ],
+      "meaning": "election gap holds: settled over the estimated gamma flip, bid wider than two chip prints - re-judge the power-layer discount",
+      "source": "docs/reads/2026-11-04-premarket.md",
+      "row": "B-1254",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-423",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 754.35
+        }
+      ],
+      "meaning": "election gap failed: settled under the 11/3 close, the same test Monday's bounce failed",
+      "source": "docs/reads/2026-11-04-premarket.md",
+      "row": "B-1254",
+      "expires": "2026-11-06",
+      "status": "open"
+    },
+    {
+      "id": "MC-424",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "SPCX",
+          "op": "<",
+          "level": 130.17
+        }
+      ],
+      "meaning": "B-1255 short trigger: the 130.17-130.39 shelf lost on a close. Next session first 30-min bar must close 129.13-130.01 to short; stop 138.00, T1 122.12, T2 111.40",
+      "source": "site/reviews/2026-11-04-spcx.md",
+      "row": "B-1255",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-425",
+      "created": "2026-11-04",
+      "when": [
+        {
+          "ticker": "SPCX",
+          "op": ">",
+          "level": 137.5
+        }
+      ],
+      "meaning": "B-1255 void: gap repaired above the 137.50 pre-news line. Short plan dies; long re-look (market leg back to a split, accumulation zone re-derived from the 130 shelf)",
+      "source": "site/reviews/2026-11-04-spcx.md",
+      "row": "B-1255",
+      "expires": "2026-11-20",
+      "status": "open"
     }
   ]
 }

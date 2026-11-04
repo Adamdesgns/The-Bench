@@ -636,13 +636,13 @@
     "logged": "2026-08-19"
   },
   {
-    "date": "2026-11-17",
-    "label": "SPCX Q3 earnings, after close (tentative)",
+    "date": "2027-02-17",
+    "label": "SPCX Q4 earnings, after close (tentative, broker verified=false)",
     "type": "earnings",
     "ticker": "SPCX",
     "confidence": "expected",
-    "what": "SPCX Q3 earnings, after close (tentative)",
-    "backfilled": "2026-08-19"
+    "what": "SPCX Q4 earnings, after close (tentative). Replaces a stale 2026-11-17 Q3 row: Q3 already reported 2026-10-20 pm, EPS 0.35 vs 0.16 (corrected B-1255).",
+    "logged": "2026-11-04"
   },
   {
     "date": "2026-11-27",
@@ -1678,5 +1678,36 @@
     "what": "PDUFA for the Libervant ages 6-11 label expansion.",
     "source": "https://www.sec.gov/Archives/edgar/data/1710340/000143774926032600/ex_1025429.htm",
     "logged": "2026-10-28"
+  },
+  {
+    "date": "2027-03-03",
+    "type": "pdufa",
+    "confidence": "confirmed",
+    "label": "EXEL PDUFA target action date for zanzalintinib plus atezolizumab (previously treated metastatic colorectal cancer, STELLAR-303), extended three months from 2026-12-03 after Exelixis submitted updated safety and efficacy data to an FDA information request. Company 8-K filed 2026-10-29. Binary: never hold through.",
+    "ticker": "EXEL",
+    "what": "PDUFA target action date for zanzalintinib plus atezolizumab (previously treated metastatic colorectal cancer, STELLAR-303), extended three months from 2026-12-03 after Exelixis submitted updated safety and efficacy data to an FDA information request. Company 8-K filed 2026-10-29. Binary: never hold through.",
+    "source": "https://www.sec.gov/Archives/edgar/data/939767/000093976726000114/exel20260930exhibit991.htm",
+    "logged": "2026-11-01"
+  },
+  {
+    "date": "2026-11-02",
+    "type": "readout",
+    "confidence": "window",
+    "label": "RARE UX701 (Wilson disease AAV9 gene therapy) data from the fourth cohort of the dose-finding stage of the pivotal Cyprus2+ study, which sets the dose for the pivotal stage. Company says fourth quarter 2026; the row starts at the first session left in that quarter, not at 10/01, so the watch can see it. — WINDOW 2026-11-02 to 2026-12-31",
+    "ticker": "RARE",
+    "what": "UX701 (Wilson disease AAV9 gene therapy) data from the fourth cohort of the dose-finding stage of the pivotal Cyprus2+ study, which sets the dose for the pivotal stage. Company says fourth quarter 2026; the row starts at the first session left in that quarter, not at 10/01, so the watch can see it.",
+    "window_end": "2026-12-31",
+    "source": "https://www.sec.gov/Archives/edgar/data/1515673/000119312526332802/rare-ex99_1.htm",
+    "logged": "2026-11-01"
+  },
+  {
+    "date": "2026-11-08",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "GILD Seladelpar (Livdelzi) IDEAL Phase 3 alkaline-phosphatase normalization data, late-breaking oral at AASLD The Liver Meeting (Abstract 5007); decides whether seladelpar can claim full ALP normalization in primary biliary cholangitis",
+    "ticker": "GILD",
+    "what": "Seladelpar (Livdelzi) IDEAL Phase 3 alkaline-phosphatase normalization data, late-breaking oral at AASLD The Liver Meeting (Abstract 5007); decides whether seladelpar can claim full ALP normalization in primary biliary cholangitis",
+    "source": "https://www.gilead.com/news/news-details/2026/gilead-to-present-new-data-on-treatment-response-and-long-term-management-of-rare-liver-diseases-at-the-liver-meeting-2026",
+    "logged": "2026-11-01"
   }
 ]
