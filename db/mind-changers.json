@@ -7625,6 +7625,54 @@
       "row": "B-1289",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-440",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "ARM",
+          "op": ">=",
+          "level": 180
+        }
+      ],
+      "meaning": "bounce reached the 180 re-look short level under the 191.80 gap line: check for a failed bounce, short plan B-1290",
+      "source": "docs/reads/2026-11-05-trip-ARM.md",
+      "row": "B-1290",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-441",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "ARM",
+          "op": ">",
+          "level": 191.8
+        }
+      ],
+      "meaning": "gap filled: the earnings breakdown failed, B-1290 short plan void",
+      "source": "docs/reads/2026-11-05-trip-ARM.md",
+      "row": "B-1290",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-442",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "ARM",
+          "op": "<",
+          "level": 160.85
+        }
+      ],
+      "meaning": "reached the 2025-10-22 shelf without a bounce: move gone without us, B-1290 void",
+      "source": "docs/reads/2026-11-05-trip-ARM.md",
+      "row": "B-1290",
+      "expires": "2026-11-12",
+      "status": "open"
     }
   ]
 }
