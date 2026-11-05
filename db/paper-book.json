@@ -559,15 +559,24 @@
       "readiness": 93,
       "grade": null,
       "note": "auto: hunter READY short, receipt ae673494; hunter p_dir 34.78% p_reach 0%; entry = the after-hours bid",
-      "status": "OPEN",
-      "shares_open": 34,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-11-04",
-      "last_close": 48.39,
-      "entry_after_close": true
+      "legs": [
+        {
+          "date": "2026-11-05",
+          "shares": 34,
+          "price": 43.66,
+          "why": "EXIT-BY"
+        }
+      ],
+      "realized": 384.88,
+      "r": 1.18,
+      "last_scored": "2026-11-05",
+      "last_close": 43.66,
+      "entry_after_close": true,
+      "exit_reason": "EXIT-BY",
+      "exit_date": "2026-11-05"
     },
     {
       "id": "PB-017",
@@ -628,8 +637,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-11-04",
-      "last_close": 629.67,
+      "last_scored": "2026-11-05",
+      "last_close": 605.67,
       "entry_after_close": true
     },
     {
@@ -685,15 +694,24 @@
       "readiness": 60,
       "grade": null,
       "note": "auto: hunter READY short, receipt ebcb2d94; hunter p_dir 44.62% p_reach 1.54%; entry = the after-hours bid",
-      "status": "OPEN",
-      "shares_open": 7,
-      "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-11-04",
-      "last_close": 159.91,
-      "entry_after_close": true
+      "status": "CLOSED",
+      "shares_open": 0,
+      "t1_done": true,
+      "legs": [
+        {
+          "date": "2026-11-05",
+          "shares": 7,
+          "price": 146.85,
+          "why": "T1"
+        }
+      ],
+      "realized": 465.22,
+      "r": 1.65,
+      "last_scored": "2026-11-05",
+      "last_close": 133.32,
+      "entry_after_close": true,
+      "exit_reason": "TARGET",
+      "exit_date": "2026-11-05"
     },
     {
       "id": "PB-021",
@@ -725,8 +743,8 @@
       ],
       "realized": 397.46,
       "r": null,
-      "last_scored": "2026-11-04",
-      "last_close": 930.7
+      "last_scored": "2026-11-05",
+      "last_close": 902.21
     },
     {
       "id": "PB-022",
@@ -752,8 +770,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-11-04",
-      "last_close": 626.83
+      "last_scored": "2026-11-05",
+      "last_close": 509.84
     },
     {
       "id": "PB-023",
@@ -779,8 +797,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": null,
-      "last_close": null
+      "last_scored": "2026-11-05",
+      "last_close": 316.91
     },
     {
       "id": "PB-024",
@@ -806,8 +824,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": null,
-      "last_close": null
+      "last_scored": "2026-11-05",
+      "last_close": 239.63
     }
   ],
   "history": [
@@ -921,6 +939,13 @@
       "equity": 3010.3,
       "realized": -1200.71,
       "unrealized": 635.03,
+      "open": 5
+    },
+    {
+      "date": "2026-11-05",
+      "equity": 3976.21,
+      "realized": -350.61,
+      "unrealized": 750.84,
       "open": 5
     }
   ]
