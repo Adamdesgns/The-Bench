@@ -7577,6 +7577,22 @@
       "row": "B-1286",
       "expires": "2026-11-12",
       "status": "open"
+    },
+    {
+      "id": "MC-437",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "HIMS",
+          "op": "<",
+          "level": 24
+        }
+      ],
+      "meaning": "closes under the B-287 zone bottom before the 11/9 print: the 24 shelf is gone, re-look the floor after earnings",
+      "source": "docs/reads/2026-11-05-trip-HIMS.md",
+      "row": "B-1288",
+      "expires": "2026-11-10",
+      "status": "open"
     }
   ]
 }
