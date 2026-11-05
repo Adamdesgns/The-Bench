@@ -6,14 +6,65 @@
       "until": "12:00",
       "why": "Democratic sweep / election open: buyers layer gapped +5.6%, 4.7x volume pace; desk missed the run 229->270 (B-1266)",
       "added_at": "2026-11-04T16:52:17.810Z",
-      "calls": [],
-      "ended": false,
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "11:40",
+          "last": 268.83
+        }
+      ],
+      "ended": true,
       "last_read": {
-        "at_ct": "11:00",
-        "read": "UNCLEAR",
-        "last": 268.17,
-        "why": "inside the opening range"
+        "at_ct": "12:05",
+        "read": "UP",
+        "last": 269.68,
+        "why": "a 5.62% gap holding: over the 268.67 VWAP and the top half of the 263.85-270.76 opening range on 3.4x volume pace"
       }
+    },
+    {
+      "ticker": "APP",
+      "date": "2026-11-05",
+      "until": "12:00",
+      "why": "Q3 beat after the close 11/4: revenue 2.18B +55%, EPS 4.30 vs ~4.07 (AppLovin 8-K, XTB); +18.5% pre-market",
+      "added_at": "2026-11-05T11:36:47.368Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "QCOM",
+      "date": "2026-11-05",
+      "until": "12:00",
+      "why": "Q4 FY26 print 11/4: handset revenue -26% y/y, guide midpoint below, capex 2.49B vs 1.86B (XTB, Benzinga); -8.6% pre-market",
+      "added_at": "2026-11-05T11:36:47.465Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "ARM",
+      "date": "2026-11-05",
+      "until": "12:00",
+      "why": "Q2 FY27 print 11/4: royalties 670M vs 712M expected, guide barely over (XTB); -4.2% pre-market",
+      "added_at": "2026-11-05T11:36:47.544Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "MRVL",
+      "date": "2026-11-05",
+      "until": "12:00",
+      "why": "Asia chip rout overnight (Kospi -4.8%, SK Hynix -9%) plus QCOM/ARM read-through and data-centre rule worries (XTB, CoinCentral); -3.2% pre-market",
+      "added_at": "2026-11-05T11:36:47.611Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "AMAT",
+      "date": "2026-11-05",
+      "until": "12:00",
+      "why": "Chip-equipment rout in Tokyo overnight (Advantest -11.7%, Tokyo Electron ~-10%, Lasertec -11.8%) (XTB); -3.1% pre-market",
+      "added_at": "2026-11-05T11:36:47.680Z",
+      "calls": [],
+      "ended": false
     }
   ]
 }

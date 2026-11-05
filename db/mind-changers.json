@@ -7545,6 +7545,22 @@
       "row": "B-1268",
       "expires": "2026-11-20",
       "status": "open"
+    },
+    {
+      "id": "MC-435",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 768.95
+        }
+      ],
+      "meaning": "SPY settles over the est gamma flip - rotation absorbs the chip selloff, dealers lean against moves",
+      "source": "2026-11-05 premarket read",
+      "row": null,
+      "expires": "2026-11-05",
+      "status": "open"
     }
   ]
 }
