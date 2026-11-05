@@ -7705,6 +7705,22 @@
       "row": "B-1291",
       "expires": "2026-11-12",
       "status": "open"
+    },
+    {
+      "id": "MC-445",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "AMAT",
+          "op": "<",
+          "level": 320.69
+        }
+      ],
+      "meaning": "daily close under the 3/30 shelf opens the 255.96 pivot; re-judge the short after the 11/12 print",
+      "source": "docs/reads/2026-11-05-trip-AMAT.md",
+      "row": "B-1292",
+      "expires": "2026-11-20",
+      "status": "open"
     }
   ]
 }
