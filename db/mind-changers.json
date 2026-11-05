@@ -7593,6 +7593,38 @@
       "row": "B-1288",
       "expires": "2026-11-10",
       "status": "open"
+    },
+    {
+      "id": "MC-438",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "APP",
+          "op": ">",
+          "level": 377.71
+        }
+      ],
+      "meaning": "closes over the first overhead pivot (7/31 low): room opens to 399/417.8, re-plan a hold over 377.71",
+      "source": "docs/reads/2026-11-05-trip-APP.md",
+      "row": "B-1289",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-439",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "APP",
+          "op": "<",
+          "level": 338.88
+        }
+      ],
+      "meaning": "closes under the 11/5 opening-range low: the earnings gap is failing, no long",
+      "source": "docs/reads/2026-11-05-trip-APP.md",
+      "row": "B-1289",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
