@@ -7673,6 +7673,38 @@
       "row": "B-1290",
       "expires": "2026-11-12",
       "status": "open"
+    },
+    {
+      "id": "MC-443",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">=",
+          "level": 148.5
+        }
+      ],
+      "meaning": "bounce reached the 148.50 re-look short level under the 152.15 OR high: check for a failed bounce, short plan B-1291",
+      "source": "docs/reads/2026-11-05-trip-MRVL.md",
+      "row": "B-1291",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-444",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">",
+          "level": 159.8
+        }
+      ],
+      "meaning": "gap filled: the chip-rout breakdown failed, B-1291 short plan void",
+      "source": "docs/reads/2026-11-05-trip-MRVL.md",
+      "row": "B-1291",
+      "expires": "2026-11-12",
+      "status": "open"
     }
   ]
 }
