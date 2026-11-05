@@ -1,25 +1,28 @@
 {
-  "asof": "2026-11-04",
-  "generated": "2026-11-04T21:35:20.900Z",
+  "asof": "2026-11-05",
+  "generated": "2026-11-05T21:35:36.384Z",
   "source": "yahoo",
-  "label": "NEUTRAL",
-  "market_risk": 3,
+  "label": "EVENT",
+  "market_risk": 2,
   "reasons": [
-    "SPY 766.81 vs 50 SMA 767.06",
-    "VIX 16.61"
+    "macro release on the next session overrides RISK-OFF",
+    "SPY 733.00 < 50 SMA 766.40",
+    "VIX 28.18 (+63.8% / 5 sessions)"
   ],
-  "next_session_macro": [],
+  "next_session_macro": [
+    "EMPLOYMENT SITUATION (non-farm payrolls) — Employment Situation, 08:30 ET"
+  ],
   "inputs": {
-    "spy": 766.8099975585938,
-    "sma20": 767.5739898681641,
-    "sma50": 767.0575952148438,
-    "sma200": 729.9129989624023,
-    "vix": 16.610000610351562,
-    "vix_5d_pct": -1.77,
-    "tnx": 4.894000053405762,
-    "tnx_5d_change": -0.151,
-    "iwm_rel_20": 3.62,
-    "qqq_rel_20": -7.34
+    "spy": 733,
+    "sma20": 765.527490234375,
+    "sma50": 766.3959948730469,
+    "sma200": 730.150998840332,
+    "vix": 28.18000030517578,
+    "vix_5d_pct": 63.84,
+    "tnx": 4.836999893188477,
+    "tnx_5d_change": -0.152,
+    "iwm_rel_20": 2.91,
+    "qqq_rel_20": -8.16
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }
