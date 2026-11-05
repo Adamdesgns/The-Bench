@@ -7561,6 +7561,22 @@
       "row": null,
       "expires": "2026-11-05",
       "status": "open"
+    },
+    {
+      "id": "MC-436",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "IBIT",
+          "op": "<",
+          "level": 44.8
+        }
+      ],
+      "meaning": "B-491 BTC downtrend line lost on a settle - short re-look through hunt-short gates, not a long",
+      "source": "docs/reads/2026-11-05-trip-IBIT.md",
+      "row": "B-1286",
+      "expires": "2026-11-12",
+      "status": "open"
     }
   ]
 }
