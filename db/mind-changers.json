@@ -7721,6 +7721,70 @@
       "row": "B-1292",
       "expires": "2026-11-20",
       "status": "open"
+    },
+    {
+      "id": "MC-446",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": ">",
+          "level": 752.77
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (memory flush reversed to the open)",
+      "source": "docs/reads/2026-11-05-snapshot-1010.md",
+      "row": "B-1295",
+      "expires": "2026-11-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-447",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 482
+        }
+      ],
+      "meaning": "chip flush done - settled back over the 482 open",
+      "source": "docs/reads/2026-11-05-snapshot-1010.md",
+      "row": "B-1295",
+      "expires": "2026-11-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-448",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": "<",
+          "level": 448.16
+        }
+      ],
+      "meaning": "flush not done - settled under today's 448.16 low",
+      "source": "docs/reads/2026-11-05-snapshot-1010.md",
+      "row": "B-1295",
+      "expires": "2026-11-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-449",
+      "created": "2026-11-05",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": "<",
+          "level": 729.91
+        }
+      ],
+      "meaning": "SPY settled under its 200-day: a bad week became a broken trend - no index long plans until a reclaim",
+      "source": "docs/reads/2026-11-05-run-1130.md",
+      "row": "B-1296",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
