@@ -8150,6 +8150,38 @@
       "row": "B-1325",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-471",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 472.9
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: SMH settled over its 11/06 open 472.90, the gap-day sellers were absorbed (silicon was 0 of 5 over the open at 11:33 CT)",
+      "source": "docs/reads/2026-11-06-midday.md",
+      "row": "B-1326",
+      "expires": "2026-11-09",
+      "status": "open"
+    },
+    {
+      "id": "MC-472",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": "<",
+          "level": 457.57
+        }
+      ],
+      "meaning": "SMH settled under the 11/06 morning low 457.57: the gap-day bounce was sold all session, 447.73 (MC-450) is next",
+      "source": "docs/reads/2026-11-06-midday.md",
+      "row": "B-1326",
+      "expires": "2026-11-09",
+      "status": "open"
     }
   ]
 }

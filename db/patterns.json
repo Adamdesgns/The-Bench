@@ -1685,5 +1685,23 @@
         "row_ref": "B-1316"
       }
     ]
+  },
+  {
+    "id": "P-072",
+    "claim": "The session after SMH closes down 10 pct or more and the AI-infrastructure board gaps up, the layer that gapped most is sold from its open and the layer that gapped least is bought: by midday the buyers layer has a far higher share of names above their own open than the silicon layer",
+    "test": "At about 11:30 CT on that session, count the board names trading above their regular-session open in the buyers layer and in the silicon layer. Holds if the buyers share above the open beats the silicon share by 50 percentage points or more; fails otherwise. Needs all 9 names priced.",
+    "first_seen": "2026-11-06",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-11-06",
+        "ticker": "BOARD",
+        "detail": "SMH -11.2 pct on 11/05, gapped up 25.17 on 11/06 (open 472.90). At 11:33 CT: buyers 4 of 4 above their open (MSFT +8.97, META +10.04, AMZN +1.95, GOOGL +1.70), silicon 0 of 5 (AVGO -17.98, MU -17.17, MRVL -7.18, NVDA -3.54, AMD -3.52). 100 vs 0, a 100-point spread. Box 0 of 3, power 4 of 7 (generators VST CEG TLN plus PWR above, equipment VRT ETN GEV below), crypto bridge 2 of 4. SMH 462.27, 10.63 under its open.",
+        "holds": true,
+        "row_ref": "B-1326"
+      }
+    ]
   }
 ]
