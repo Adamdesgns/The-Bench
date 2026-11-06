@@ -1657,5 +1657,15 @@
         "row_ref": "B-1219"
       }
     ]
+  },
+  {
+    "id": "P-070",
+    "claim": "After QQQ closes down 6%+ in one session, buyers show up after the next open: the next session closes above its own open more often than not, whatever the gap",
+    "test": "Holds if QQQ's next regular session closes above its opening print; fails if it closes at or below the open. Base rate to beat: 52% of all QQQ sessions close above the open; history after -6% days was 20 of 29 (69%), clustered in 2000-01 and 2008.",
+    "first_seen": "2026-11-05",
+    "status": "proposed",
+    "why": "Forced selling lands at the crash close and the next open; once it clears, dip buyers step in. Bad exceptions were inside running bear markets. Source: docs/research/2026-11-05-us-open-after-crash.md",
+    "logged_by": "research 2026-11-05 (KOSPI breaker + QQQ -6.49% on 11/5)",
+    "instances": []
   }
 ]
