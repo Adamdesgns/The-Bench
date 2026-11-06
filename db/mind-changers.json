@@ -8118,6 +8118,38 @@
       "row": "B-1324",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-469",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": ">",
+          "level": 128.07
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1325: VST settled over the 11/04 selloff-day high after its Q3 report; next pivot 134.21, re-run the 2:1 with a 1.0 ATR stop",
+      "source": "docs/reads/2026-11-06-snapshot-1015.md",
+      "row": "B-1325",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-470",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "VST",
+          "op": "<",
+          "level": 118.9
+        }
+      ],
+      "meaning": "VST settled under the 11/06 report-day low 118.90: the earnings bounce failed, B-1325 pass stands and the 110.89 low is back in play",
+      "source": "docs/reads/2026-11-06-snapshot-1015.md",
+      "row": "B-1325",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
