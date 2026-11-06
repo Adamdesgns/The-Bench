@@ -8182,6 +8182,38 @@
       "row": "B-1326",
       "expires": "2026-11-09",
       "status": "open"
+    },
+    {
+      "id": "MC-473",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "WULF",
+          "op": ">",
+          "level": 11.35
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1327: WULF settled over the 11/05 high, the whole rout day taken back after the Q3 report; next sellers 12.58, 12.97, 13.44, and 2:1 from 11.35 with a 1.27 ATR stop needs 13.89",
+      "source": "docs/reads/2026-11-06-snapshot-1315.md",
+      "row": "B-1327",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-474",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "WULF",
+          "op": "<",
+          "level": 10
+        }
+      ],
+      "meaning": "B-1327: WULF settled under the 11/06 report-day low 10.00 - the earnings bounce failed; 9.51 (the 11/05 52-week low) is next",
+      "source": "docs/reads/2026-11-06-snapshot-1315.md",
+      "row": "B-1327",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
