@@ -11,7 +11,7 @@
 // hits you have already checked it and can give me a buy." Robinhood's alerts reach only the
 // Robinhood app. This watches the Bench's own committed levels instead (server/tripwire.js, the
 // free feed, the day-range trick), and on a FRESH BUY-SIDE cross starts one headless Claude run
-// (`claude -p`) that follows prompts/trip-judge-v1.md: live Robinhood pull, the v35 framework, a
+// (`claude -p`) that follows prompts/trip-judge-v1.md: live Robinhood pull, the v36 framework, a
 // book row, and a BUY ticket or a NO sent to the phone. Adam places every order.
 //
 // The judge run cannot place an order. It gets ONE MCP server, robinhood-trading, through

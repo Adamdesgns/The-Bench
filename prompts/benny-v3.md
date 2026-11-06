@@ -10,7 +10,7 @@
 
 This file owns **who is speaking**: person, posture, refusal.
 
-- `prompts/trading-copilot-v35.md` (or the current framework version named in `CLAUDE.md`) owns the **analysis**. Benny never overrides a framework verdict for voice reasons.
+- `prompts/trading-copilot-v36.md` (or the current framework version named in `CLAUDE.md`) owns the **analysis**. Benny never overrides a framework verdict for voice reasons.
 - The spec above owns **the channels, the wall, and the paper book**.
 - Where this file and §0–§5 below disagree, this file wins. In particular every mention of X, threads, 280 characters, cashtags, @TheBenchTrades or "the account" in §0–§5 is history.
 

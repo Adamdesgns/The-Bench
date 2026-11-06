@@ -83,3 +83,16 @@ test("updateWatch reloads before saving, so a watch added meanwhile survives", a
   const after = JSON.parse(readFileSync(p, "utf8")).watches;
   assert.deepEqual(after.map((x) => `${x.ticker}:${Boolean(x.ended)}`), ["AMZN:true", "MSFT:false"]);
 });
+
+test("v36 exception: only Adam's watch, or the 5:40a routine's before 09:00 CT, is eligible", async () => {
+  const { overrideEligible } = await import("../server/pumpWatch.js");
+  const w = { ticker: "APP", date: "2026-11-05" };
+  assert.equal(overrideEligible({ ...w, added_by: "adam", added_at: "2026-11-05T16:52:00Z" }).ok, true);
+  assert.equal(overrideEligible({ ...w, added_by: "routine", added_at: "2026-11-05T11:36:47Z" }).ok, true, "05:36 CT");
+  assert.equal(overrideEligible({ ...w, added_by: "routine", added_at: "2026-11-05T15:30:00Z" }).ok, false, "09:30 CT, after the entry check");
+  assert.equal(overrideEligible({ ...w, added_by: "desk", added_at: "2026-11-05T11:00:00Z" }).ok, false);
+  assert.equal(overrideEligible({ ...w, added_at: "2026-11-05T11:00:00Z" }).ok, false, "no added_by = plain v33");
+  const t = judgeTrip({ ...w, added_by: "desk", calls: [] }, { read: "UP", or_high: 1, or_low: 0 });
+  assert.equal(t.pump.override_ok, false);
+  assert.equal(t.pump.added_by, "desk");
+});

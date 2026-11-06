@@ -3,7 +3,7 @@
 // check until lunch; scripts/trip-judge.mjs runs the check on its own 5-minute tick (Windows task
 // "Bench Trip Judge", weekdays 08:30 CT on) and starts the judge on the first UP or DOWN call.
 //
-//   node scripts/pump-watch.mjs add AMZN --why "election sweep, buyers gapping up" [--until 12:00] [--date YYYY-MM-DD]
+//   node scripts/pump-watch.mjs add AMZN --why "election sweep, buyers gapping up" --by adam|routine|desk [--until 12:00] [--date YYYY-MM-DD]
 //   node scripts/pump-watch.mjs list
 //   node scripts/pump-watch.mjs remove AMZN
 //   node scripts/pump-watch.mjs read AMZN        one read now, printed, nothing saved or sent
@@ -17,7 +17,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ROOT } from "../server/config.js";
 import { nyDate } from "../server/nyDate.js";
-import { readDirection, DEFAULT_UNTIL } from "../server/pumpWatch.js";
+import { readDirection, DEFAULT_UNTIL, WATCH_BY } from "../server/pumpWatch.js";
 
 export const REGISTRY = resolve(ROOT, "db/pump-watch.json");
 export const loadWatches = (p = REGISTRY) => (existsSync(p) ? JSON.parse(readFileSync(p, "utf8")) : { watches: [] });
@@ -72,10 +72,14 @@ async function main(argv = process.argv.slice(2)) {
     const until = val("--until") || DEFAULT_UNTIL;
     if (!/^\d{2}:\d{2}$/.test(until)) throw new Error("--until is HH:MM, Central time");
     const why = val("--why") || "";
+    // Who asked for it decides the v36 exception (server/pumpWatch.js overrideEligible). "adam" only when Adam named
+    // the ticker himself; the 5:40a routine passes "routine"; anything else is "desk" and gets plain v33.
+    const by = (val("--by") || "desk").toLowerCase();
+    if (!WATCH_BY.includes(by)) throw new Error(`--by is one of ${WATCH_BY.join(" | ")}`);
     reg.watches = reg.watches.filter((w) => !(w.ticker === sym && w.date === date));
-    reg.watches.push({ ticker: sym, date, until, why, added_at: new Date().toISOString(), calls: [], ended: false });
+    reg.watches.push({ ticker: sym, date, until, why, added_by: by, added_at: new Date().toISOString(), calls: [], ended: false });
     saveWatches(reg);
-    console.log(`PUMP WATCH ${sym} ${date} until ${until} CT${why ? ` - ${why}` : ""}. The 5-minute tick reads it from 10:00 ET (after the first 30 minutes).`);
+    console.log(`PUMP WATCH ${sym} ${date} until ${until} CT, added by ${by}${why ? ` - ${why}` : ""}. The 5-minute tick reads it from 10:00 ET (after the first 30 minutes).`);
     console.log(`Now run the hunters on it: node scripts/hunt-short.mjs --symbols ${sym} --write  and  node scripts/options-hunter.mjs --hunt --symbols ${sym} --account <N> --write`);
     return 0;
   }

@@ -11,7 +11,7 @@
 //   DOWN     last trade below the opening-range low AND below session VWAP, volume pace >= MIN_PACE.
 //   UNCLEAR  anything else: inside the range, or on the wrong side of VWAP, or on thin volume.
 // A first UP or DOWN of the day (or a flip from one to the other) is a CALL: the tick starts the judge,
-// which checks it on live Robinhood data and the v35 framework and texts BUY / WAIT / NO.
+// which checks it on live Robinhood data and the v36 framework and texts BUY / WAIT / NO.
 // Volume pace = today's volume so far / (20-day average x the share of the session gone by).
 
 export const MIN_PACE = 1.5;
@@ -74,12 +74,36 @@ export function nextAction(w, read, today, hhmm) {
   return { act: "call" };
 }
 
+// v36 THE PUMP-WATCH EXCEPTION (Adam, 2026-11-04: "Yes, override it"): a pump call may be judged live past a
+// 9:02 NO TRADE on a different, older plan, but only when the watch is Adam's order: he added it (by "adam"),
+// or the 5:40a catalyst search added it before 09:00 CT (by "routine"), i.e. before any entry check spoke.
+// A watch the desk adds itself, or anything added after 09:00 by a routine, gets the plain v33 rule, so the
+// exception can never be used to re-plan a refused name (review finding 1, 2026-11-05).
+export const WATCH_BY = ["adam", "routine", "desk"];
+const ctClock = (iso) => {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  const p = Object.fromEntries(new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(d).map((x) => [x.type, x.value]));
+  return { date: `${p.year}-${p.month}-${p.day}`, hhmm: `${p.hour}:${p.minute}` };
+};
+export function overrideEligible(w) {
+  if (!w) return { ok: false, why: "no watch" };
+  if (w.added_by === "adam") return { ok: true, why: "Adam added this watch" };
+  if (w.added_by === "routine") {
+    const c = ctClock(w.added_at);
+    if (c && (c.date < w.date || (c.date === w.date && c.hhmm < "09:00"))) return { ok: true, why: `the 5:40a catalyst search added it at ${c.hhmm} CT, before the entry check` };
+    return { ok: false, why: `a routine added it at ${c ? c.hhmm : "an unknown time"} CT, after the entry check` };
+  }
+  return { ok: false, why: w.added_by === "desk" ? "the desk added this watch itself" : "nobody recorded who added this watch" };
+}
+
 export function judgeTrip(w, read) {
   const up = read.read === "UP";
+  const ov = overrideEligible(w);
   return {
     ticker: w.ticker, kind: "PUMP", dir: up ? "above" : "below", price: up ? read.or_high : read.or_low,
     touched: read.last, last: read.last, prev: read.prev, src: `pump-watch ${w.date}`, key: `${w.ticker}|PUMP|${read.read}`,
-    pump: { read: read.read, why: read.why, catalyst: w.why || "none given", vwap: read.vwap, or_high: read.or_high, or_low: read.or_low, pace: read.pace, gap_pct: read.gap_pct, session_high: read.session_high, session_low: read.session_low },
+    pump: { read: read.read, why: read.why, catalyst: w.why || "none given", added_by: w.added_by || "unknown", override_ok: ov.ok, override_why: ov.why, vwap: read.vwap, or_high: read.or_high, or_low: read.or_low, pace: read.pace, gap_pct: read.gap_pct, session_high: read.session_high, session_low: read.session_low },
   };
 }
 

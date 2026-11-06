@@ -104,7 +104,10 @@ export function judgePrompt(trip, today) {
     `The free feed saw a session ${side} of ${trip.touched}, last ${trip.last}, prior close ${trip.prev}. Unverified until you pull Robinhood.`,
     ...(trip.pump ? [
       `THIS IS A PUMP-WATCH CALL, not a book level: follow the PUMP WATCH section of prompts/trip-judge-v1.md.`,
-      `Adam put ${trip.ticker} on pump watch today. Catalyst: ${trip.pump.catalyst}.`,
+      `${trip.ticker} is on pump watch today (added by ${trip.pump.added_by ?? "unknown"}). Catalyst: ${trip.pump.catalyst}.`,
+      trip.pump.override_ok
+        ? `v36 PUMP-WATCH EXCEPTION: ELIGIBLE (${trip.pump.override_why}). A 9:02 NO TRADE on a different, older plan does not decide this call; apply the same-plan test in PUMP WATCH.`
+        : `v36 PUMP-WATCH EXCEPTION: NOT ELIGIBLE (${trip.pump.override_why ?? "no record of who added it"}). Any decision dated today on ${trip.ticker} stands (v33).`,
       `The 5-minute read says ${trip.pump.read}: ${trip.pump.why}. Opening range ${trip.pump.or_low}-${trip.pump.or_high}, VWAP ${trip.pump.vwap}, session ${trip.pump.session_low}-${trip.pump.session_high}, gap ${trip.pump.gap_pct}%, volume pace ${trip.pump.pace}x.`,
     ] : []),
   ].join("\n");
