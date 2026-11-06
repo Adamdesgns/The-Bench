@@ -7862,6 +7862,70 @@
       "row": "B-1318",
       "expires": "2026-11-12",
       "status": "open"
+    },
+    {
+      "id": "MC-453",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<=",
+          "level": 19.02
+        }
+      ],
+      "meaning": "IREN closed back in the 18.03-19.02 gap-fill zone: run the B-1319 hold test on the next first 30-minute bar (rs still owed)",
+      "source": "docs/reads/2026-11-06-trip-IREN.md",
+      "row": "B-1319",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-454",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">",
+          "level": 24.67
+        }
+      ],
+      "meaning": "IREN closed over the 11/03 swing high 24.67: B-1319 pullback plan is void, the move went without us; next pivot 28.88",
+      "source": "docs/reads/2026-11-06-trip-IREN.md",
+      "row": "B-1319",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-455",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 17.155
+        }
+      ],
+      "meaning": "IREN closed under the 11/05 print-day low 17.155: B-1319 is void, the gap failed",
+      "source": "docs/reads/2026-11-06-trip-IREN.md",
+      "row": "B-1319",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-456",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">",
+          "level": 22.46
+        }
+      ],
+      "meaning": "IREN closed over the 11/06 opening-range high 22.46: the UP read confirmed on a close; re-look B-1319 (2:1 still fails to 24.67)",
+      "source": "docs/reads/2026-11-06-trip-IREN.md",
+      "row": "B-1319",
+      "expires": "2026-11-10",
+      "status": "open"
     }
   ]
 }
