@@ -1,0 +1,73 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-11-06",
+  "source": "yahoo",
+  "generated": "2026-11-06T15:40:25.663Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": 350.807,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [
+    {
+      "sym": "BTC-USD",
+      "mark": 75450.91,
+      "was": 75486.71875,
+      "date": "2026-11-06"
+    }
+  ],
+  "READY": [],
+  "STALK": [
+    {
+      "sym": "BTC-USD",
+      "ok": true,
+      "date": "2026-11-06",
+      "close": 75450.91,
+      "sma50": 81968.96,
+      "sma20": 79629.08,
+      "atr": 2296.47,
+      "low20": 75114.29,
+      "volume": 43214229504,
+      "vol30": 27264653981,
+      "volRatio": 1.58,
+      "rs20": -4.06,
+      "rs5": -1.31,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 64559.9,
+        "date": "2024-04-03",
+        "atr_away": 4.74
+      },
+      "first_shelf": {
+        "level": 74958.57,
+        "date": "2026-04-29",
+        "rr": 0.09
+      },
+      "floor2": {
+        "level": 74958.5703125,
+        "date": "2026-04-29"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 75450.91,
+        "stop": 80833.62,
+        "stop_atr": 2.34,
+        "target": 64559.9,
+        "rr": 2.02
+      },
+      "readiness": 60,
+      "list": "STALK"
+    }
+  ],
+  "DISCOVERY": [],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [],
+  "skipped": [],
+  "id": "04da4fa8"
+}

@@ -8086,6 +8086,38 @@
       "row": "B-1321",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-467",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": "<",
+          "level": 75114.29
+        }
+      ],
+      "meaning": "BTC closed under its 20-bar low - G1 now passes with G2 already passing; short hunter re-look (needs 1.5x volume and a floor that pays 2:1 past the 74,958.57 shelf)",
+      "source": "db/hunts/short/2026-11-06.04da4fa8.json",
+      "row": "B-1324",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-468",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": ">",
+          "level": 81968.96
+        }
+      ],
+      "meaning": "BTC closed back over its 50-day - the breakdown failed, short thesis dead; long re-look only on a 20-bar-high break at 84,840.05",
+      "source": "db/hunts/short/2026-11-06.04da4fa8.json",
+      "row": "B-1324",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
