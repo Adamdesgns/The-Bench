@@ -8022,6 +8022,70 @@
       "row": "B-1320",
       "expires": "2026-11-20",
       "status": "open"
+    },
+    {
+      "id": "MC-463",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": ">",
+          "level": 761.81
+        }
+      ],
+      "meaning": "closed over the 11/05 rout-day high: the whole drop day is retaken, B-1321 long re-judge is due next morning (first 30-min hold over 761.81, 1.0 ATR stop, 2:1 to the next verified pivot, Capital Competition re-read)",
+      "source": "docs/reads/2026-11-06-trip-MU.md",
+      "row": "B-1321",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-464",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": ">",
+          "level": 724.8
+        }
+      ],
+      "meaning": "closed over the 11/06 opening-range high: the bounce held a full session, heading to 752.69-761.81; still no buy under B-1321 (0.64:1), watch the next first 30-min bar",
+      "source": "docs/reads/2026-11-06-trip-MU.md",
+      "row": "B-1321",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-465",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": "<",
+          "level": 688.67
+        }
+      ],
+      "meaning": "closed under the 11/06 opening-range low: the gap-hold failed and the bounce is over, direction back DOWN (B-1321)",
+      "source": "docs/reads/2026-11-06-trip-MU.md",
+      "row": "B-1321",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-466",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MU",
+          "op": "<",
+          "level": 650
+        }
+      ],
+      "meaning": "closed under the 11/05 low 650.00 and the 652.21 shelf: the rout low broke, hunt-short next verified floor is 363.90; re-run the short side (B-1321)",
+      "source": "docs/reads/2026-11-06-trip-MU.md",
+      "row": "B-1321",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
