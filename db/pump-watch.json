@@ -27,8 +27,20 @@
       "until": "12:00",
       "why": "Q3 beat after the close 11/4: revenue 2.18B +55%, EPS 4.30 vs ~4.07 (AppLovin 8-K, XTB); +18.5% pre-market",
       "added_at": "2026-11-05T11:36:47.368Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:01",
+          "last": 358.96
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UNCLEAR",
+        "last": 344.85,
+        "why": "inside the opening range"
+      }
     },
     {
       "ticker": "QCOM",
@@ -36,8 +48,21 @@
       "until": "12:00",
       "why": "Q4 FY26 print 11/4: handset revenue -26% y/y, guide midpoint below, capex 2.49B vs 1.86B (XTB, Benzinga); -8.6% pre-market",
       "added_at": "2026-11-05T11:36:47.465Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "DOWN",
+          "at_ct": "09:40",
+          "last": 153.11,
+          "capped": true
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UNCLEAR",
+        "last": 153.86,
+        "why": "inside the opening range"
+      }
     },
     {
       "ticker": "ARM",
@@ -45,8 +70,20 @@
       "until": "12:00",
       "why": "Q2 FY27 print 11/4: royalties 670M vs 712M expected, guide barely over (XTB); -4.2% pre-market",
       "added_at": "2026-11-05T11:36:47.544Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "DOWN",
+          "at_ct": "09:01",
+          "last": 169.49
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "DOWN",
+        "last": 168.17,
+        "why": "under the 169.14 opening-range low and the 170.35 VWAP on 3.29x volume pace"
+      }
     },
     {
       "ticker": "MRVL",
@@ -54,8 +91,20 @@
       "until": "12:00",
       "why": "Asia chip rout overnight (Kospi -4.8%, SK Hynix -9%) plus QCOM/ARM read-through and data-centre rule worries (XTB, CoinCentral); -3.2% pre-market",
       "added_at": "2026-11-05T11:36:47.611Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "DOWN",
+          "at_ct": "09:01",
+          "last": 144.75
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "DOWN",
+        "last": 136.79,
+        "why": "under the 142.56 opening-range low and the 142.63 VWAP on 2.65x volume pace"
+      }
     },
     {
       "ticker": "AMAT",
@@ -63,6 +112,68 @@
       "until": "12:00",
       "why": "Chip-equipment rout in Tokyo overnight (Advantest -11.7%, Tokyo Electron ~-10%, Lasertec -11.8%) (XTB); -3.1% pre-market",
       "added_at": "2026-11-05T11:36:47.680Z",
+      "calls": [
+        {
+          "read": "DOWN",
+          "at_ct": "09:01",
+          "last": 341.5
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "DOWN",
+        "last": 325.46,
+        "why": "under the 340.4 opening-range low and the 334.89 VWAP on 1.97x volume pace"
+      }
+    },
+    {
+      "ticker": "IREN",
+      "date": "2026-11-06",
+      "until": "12:00",
+      "why": "Q1 FY27 print 11/5 pm: revenue 228M, AI cloud revenue about tripled to 200M, EPS -0.66 vs -0.63 est; +16.0% pre-market (Robinhood, Seeking Alpha)",
+      "added_by": "routine",
+      "added_at": "2026-11-06T11:37:45.243Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "WULF",
+      "date": "2026-11-06",
+      "until": "12:00",
+      "why": "Q3 print before the open today, est -0.32, call 8:00 ET; +6.5% pre-market with the chip bounce (Robinhood calendar)",
+      "added_by": "routine",
+      "added_at": "2026-11-06T11:37:45.327Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "MRVL",
+      "date": "2026-11-06",
+      "until": "12:00",
+      "why": "chip bounce after the 11/5 -16.6% rout on data-centre rule fears; +8.7% pre-market; payrolls 8:30 ET (Reuters)",
+      "added_by": "routine",
+      "added_at": "2026-11-06T11:37:45.430Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "MU",
+      "date": "2026-11-06",
+      "until": "12:00",
+      "why": "chip bounce after the 11/5 -17.2% rout on data-centre rule fears; +8.5% pre-market; payrolls 8:30 ET (Reuters)",
+      "added_by": "routine",
+      "added_at": "2026-11-06T11:37:45.505Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "DELL",
+      "date": "2026-11-06",
+      "until": "12:00",
+      "why": "AI-server bounce after the 11/5 -14.9% rout on data-centre rule fears; +8.4% pre-market; payrolls 8:30 ET (Reuters)",
+      "added_by": "routine",
+      "added_at": "2026-11-06T11:37:45.621Z",
       "calls": [],
       "ended": false
     }

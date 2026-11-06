@@ -7814,6 +7814,22 @@
       "row": "B-1296",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-450",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": "<",
+          "level": 447.73
+        }
+      ],
+      "meaning": "bounce failed - the payrolls-day gap up was fully given back under Thursday's close; the chip flush is not done",
+      "source": "docs/reads/2026-11-06-premarket.md",
+      "row": "B-1315",
+      "expires": "2026-11-09",
+      "status": "open"
     }
   ]
 }
