@@ -2600,7 +2600,8 @@
       "source": "site/reviews/2026-10-13-ai-crash-bounce.md",
       "row": "B-857",
       "expires": "2026-11-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-11-06"
     },
     {
       "id": "MC-149",
@@ -4385,7 +4386,8 @@
       "source": "hunt-close-2026-10-22",
       "row": "B-1029",
       "expires": "2026-11-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-11-06"
     },
     {
       "id": "MC-250",
@@ -4401,7 +4403,8 @@
       "source": "hunt-close-2026-10-22",
       "row": "B-1029",
       "expires": "2026-11-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-11-06"
     },
     {
       "id": "MC-251",
@@ -4417,7 +4420,8 @@
       "source": "hunt-close-2026-10-22",
       "row": "B-1030",
       "expires": "2026-11-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-11-06"
     },
     {
       "id": "MC-252",
@@ -4433,7 +4437,8 @@
       "source": "hunt-close-2026-10-22",
       "row": "B-1030",
       "expires": "2026-11-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-11-06"
     },
     {
       "id": "MC-253",
@@ -4620,7 +4625,8 @@
       "source": "docs/reads/2026-10-25-weekly-catalyst.md",
       "row": "B-1051",
       "expires": "2026-11-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-11-06"
     },
     {
       "id": "MC-264",
@@ -4636,7 +4642,8 @@
       "source": "docs/reads/2026-10-25-weekly-catalyst.md",
       "row": "B-1052",
       "expires": "2026-11-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-11-06"
     },
     {
       "id": "MC-265",
@@ -5986,7 +5993,8 @@
       "source": "docs/reads/2026-10-28-overreaction.md",
       "row": "B-1139",
       "expires": "2026-11-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-11-06"
     },
     {
       "id": "MC-343",
@@ -6682,7 +6690,9 @@
       "source": "docs/reads/2026-10-31-weekend-crypto.md",
       "row": "B-1207",
       "expires": "2026-11-06",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-11-06",
+      "fired_detail": "BTC-USD 75816.84 < 76189.88 yes"
     },
     {
       "id": "MC-383",
@@ -7313,7 +7323,9 @@
       "source": "hunt-close 2026-11-03",
       "row": "B-1250",
       "expires": "2026-11-10",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-11-06",
+      "fired_detail": "IBIT 42.87 < 43.02 yes"
     },
     {
       "id": "MC-420",
@@ -7583,7 +7595,8 @@
       "source": "2026-11-05 premarket read",
       "row": null,
       "expires": "2026-11-05",
-      "status": "open"
+      "status": "expired",
+      "expired_on": "2026-11-06"
     },
     {
       "id": "MC-436",
@@ -7633,7 +7646,9 @@
       "source": "docs/reads/2026-11-05-trip-APP.md",
       "row": "B-1289",
       "expires": "2026-11-13",
-      "status": "open"
+      "status": "fired",
+      "fired_on": "2026-11-06",
+      "fired_detail": "APP 391.25 > 377.71 yes"
     },
     {
       "id": "MC-439",
@@ -8228,6 +8243,54 @@
       "meaning": "passed plan trigger fired - re-judge B-1328: AVGO settled under its 11/06 intraday low 289.77, a 52-week closing low made while the chip ETF bounced; run the short gates (hunt-short) before anything else",
       "source": "docs/reads/2026-11-06-powerhour.md",
       "row": "B-1328",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-476",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "APP",
+          "op": ">",
+          "level": 399.05
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1331: APP closed over the 399.05 pivot the 11/06 high (398.00) stalled under; next pivots 417.80 and 426.90, re-run 2:1 with a 1.0 ATR stop (about 21.78) and the rs.mjs Capital Competition read",
+      "source": "docs/reads/2026-11-06-close.md",
+      "row": "B-1331",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-477",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "APP",
+          "op": "<",
+          "level": 377.71
+        }
+      ],
+      "meaning": "B-1331 dead: APP closed back under the 7/31 pivot 377.71, the breakout over it failed; no pullback long, 338.88 (MC-439) is next",
+      "source": "docs/reads/2026-11-06-close.md",
+      "row": "B-1331",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-478",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "IBIT",
+          "op": "<",
+          "level": 42.27
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1332: IBIT settled under the 11/06 low 42.27 after breaking the 43.02 20-session low on 1.04x volume; run hunt-short gates (needs 1.5x volume) before anything else",
+      "source": "docs/reads/2026-11-06-close.md",
+      "row": "B-1332",
       "expires": "2026-11-13",
       "status": "open"
     }

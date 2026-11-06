@@ -1666,7 +1666,15 @@
     "status": "proposed",
     "why": "Forced selling lands at the crash close and the next open; once it clears, dip buyers step in. Bad exceptions were inside running bear markets. Source: docs/research/2026-11-05-us-open-after-crash.md",
     "logged_by": "research 2026-11-05 (KOSPI breaker + QQQ -6.49% on 11/5)",
-    "instances": []
+    "instances": [
+      {
+        "date": "2026-11-06",
+        "ticker": "QQQ",
+        "detail": "QQQ closed 647.05 on 11/05 (-6 pct or worse, the trigger day). On 11/06 it opened 658.37 and its last regular trade was 656.18, 2.19 under the open, so the session closed below its opening print. High 664.52, low 654.00. First live instance and it fails: the gap up was sold. Official close not published at the 15:14 CT pull.",
+        "holds": false,
+        "row_ref": "B-1329"
+      }
+    ]
   },
   {
     "id": "P-071",
