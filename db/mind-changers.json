@@ -8293,6 +8293,38 @@
       "row": "B-1332",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-479",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "SMCI",
+          "op": "<",
+          "level": 25.81
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1334: SMCI closed at or under its 20-session low 25.81, the breakdown gate the 11/06 hunt found false; re-run the short with volume (1.5x), the catalyst gate and a fresh spread price",
+      "source": "docs/reads/2026-11-06-hunt-close.md",
+      "row": "B-1334",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-480",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "SMCI",
+          "op": ">",
+          "level": 31.32
+        }
+      ],
+      "meaning": "B-1334 short stalk dead: SMCI closed over the hunter stop 31.32 (1.0 ATR above the 11/06 close), the post-earnings bounce is holding; no short",
+      "source": "docs/reads/2026-11-06-hunt-close.md",
+      "row": "B-1334",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
