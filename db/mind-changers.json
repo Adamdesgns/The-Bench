@@ -7830,6 +7830,38 @@
       "row": "B-1315",
       "expires": "2026-11-09",
       "status": "open"
+    },
+    {
+      "id": "MC-451",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "ARM",
+          "op": ">=",
+          "level": 180
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1290/B-1317: the 193.40 stop is inside 1.0 ATR (14.13 simple, 16.37 Wilder); legal stop 194.13 or 196.37, and on Wilder 2:1 needs a fill at 182.24 or higher",
+      "source": "docs/reads/2026-11-06-fastmover-0850.md",
+      "row": "B-1317",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-452",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">=",
+          "level": 148.5
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1291/B-1318: fixed stop 166.80 is inside 1.0 ATR (19.13 simple, 18.34 Wilder); stop = fill + 1.0 ATR, and on simple 2:1 needs a fill at 149.81 or higher",
+      "source": "docs/reads/2026-11-06-fastmover-0850.md",
+      "row": "B-1318",
+      "expires": "2026-11-12",
+      "status": "open"
     }
   ]
 }
