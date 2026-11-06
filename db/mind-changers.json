@@ -8214,6 +8214,22 @@
       "row": "B-1327",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-475",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "AVGO",
+          "op": "<",
+          "level": 289.77
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge B-1328: AVGO settled under its 11/06 intraday low 289.77, a 52-week closing low made while the chip ETF bounced; run the short gates (hunt-short) before anything else",
+      "source": "docs/reads/2026-11-06-powerhour.md",
+      "row": "B-1328",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
