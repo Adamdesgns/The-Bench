@@ -22024,5 +22024,70 @@
     "note": "Adam: chances GOOGL crashes; held 8 sh, stop 326, exit 10/28",
     "engine": "bench-native",
     "created_at": "2026-10-16T18:33:39.095Z"
+  },
+  {
+    "id": "QR-045",
+    "date": "2026-11-05",
+    "ticker": "SMH",
+    "benchmark": "SPY",
+    "setup": {
+      "kind": "move",
+      "windowDays": 1,
+      "thresholdPct": -8
+    },
+    "horizon_bars": 5,
+    "range": "5y",
+    "source": "yahoo",
+    "bars_span": {
+      "first": "2021-11-08",
+      "last": "2026-11-04",
+      "years": 5,
+      "bars": 1253
+    },
+    "events": 3,
+    "independent": 3,
+    "pending": 0,
+    "stats": {
+      "n": 3,
+      "win_rate": 100,
+      "avg_pct": 3.47,
+      "median_pct": 1.26,
+      "best_pct": 8.82,
+      "worst_pct": 0.33,
+      "avg_alpha": 4.12,
+      "alpha_win_rate": 100
+    },
+    "instances": [
+      {
+        "date": "2025-01-27",
+        "entry": 235.80999755859375,
+        "exit_date": "2025-02-03",
+        "exit": 238.77999877929688,
+        "pct": 1.26,
+        "alpha": 1.53
+      },
+      {
+        "date": "2025-04-03",
+        "entry": 195.57000732421875,
+        "exit_date": "2025-04-10",
+        "exit": 196.2100067138672,
+        "pct": 0.33,
+        "alpha": 2.59
+      },
+      {
+        "date": "2026-06-05",
+        "entry": 569.6900024414062,
+        "exit_date": "2026-06-12",
+        "exit": 619.9600219726562,
+        "pct": 8.82,
+        "alpha": 8.25
+      }
+    ],
+    "grade": "D",
+    "grade_why": "3 independent event(s) over 5y (3 raw) — sample too small to mean anything",
+    "row_ref": null,
+    "note": null,
+    "engine": "bench-native",
+    "created_at": "2026-11-06T01:18:58.345Z"
   }
 ]
