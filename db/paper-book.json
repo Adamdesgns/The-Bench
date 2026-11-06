@@ -637,8 +637,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-11-05",
-      "last_close": 605.67,
+      "last_scored": "2026-11-06",
+      "last_close": 610.12,
       "entry_after_close": true
     },
     {
@@ -730,8 +730,8 @@
       "readiness": 60,
       "grade": "B+",
       "note": "interactive run 10:33 CT, entry at the 917.21 ask, intraday (not after close); Friday entry holds the weekend",
-      "status": "OPEN",
-      "shares_open": 6,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": true,
       "legs": [
         {
@@ -739,12 +739,20 @@
           "shares": 7,
           "price": 973.99,
           "why": "T1"
+        },
+        {
+          "date": "2026-11-06",
+          "shares": 6,
+          "price": 887.22,
+          "why": "STOP-GAP"
         }
       ],
-      "realized": 397.46,
-      "r": null,
-      "last_scored": "2026-11-05",
-      "last_close": 902.21
+      "realized": 217.52,
+      "r": 0.77,
+      "last_scored": "2026-11-06",
+      "last_close": 904.125,
+      "exit_reason": "STOPPED",
+      "exit_date": "2026-11-06"
     },
     {
       "id": "PB-022",
@@ -770,8 +778,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-11-05",
-      "last_close": 509.84
+      "last_scored": "2026-11-06",
+      "last_close": 538.45
     },
     {
       "id": "PB-023",
@@ -797,8 +805,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-11-05",
-      "last_close": 316.91
+      "last_scored": "2026-11-06",
+      "last_close": 328.58
     },
     {
       "id": "PB-024",
@@ -818,14 +826,23 @@
       "grade": null,
       "note": "auto: hunter READY short, receipt bf28b0cd; hunter p_dir 32.2% p_reach 1.69%; entry = the after-hours bid",
       "entry_after_close": true,
-      "status": "OPEN",
-      "shares_open": 16,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-11-05",
-      "last_close": 239.63
+      "legs": [
+        {
+          "date": "2026-11-06",
+          "shares": 16,
+          "price": 249.765,
+          "why": "EXIT-BY"
+        }
+      ],
+      "realized": -44.24,
+      "r": -0.13,
+      "last_scored": "2026-11-06",
+      "last_close": 249.765,
+      "exit_reason": "EXIT-BY",
+      "exit_date": "2026-11-06"
     },
     {
       "id": "PB-025",
@@ -845,14 +862,23 @@
       "grade": null,
       "note": "auto: hunter READY short, receipt 39f9ff2c; hunter p_dir 57.53% p_reach 2.74%; entry = the after-hours bid",
       "entry_after_close": true,
-      "status": "OPEN",
-      "shares_open": 70,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": null,
-      "last_close": null
+      "legs": [
+        {
+          "date": "2026-11-06",
+          "shares": 70,
+          "price": 25.995,
+          "why": "EXIT-BY"
+        }
+      ],
+      "realized": -160.65,
+      "r": -0.46,
+      "last_scored": "2026-11-06",
+      "last_close": 25.995,
+      "exit_reason": "EXIT-BY",
+      "exit_date": "2026-11-06"
     },
     {
       "id": "PB-026",
@@ -878,8 +904,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": null,
-      "last_close": null
+      "last_scored": "2026-11-06",
+      "last_close": 44.76
     },
     {
       "id": "PB-027",
@@ -905,8 +931,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": null,
-      "last_close": null
+      "last_scored": "2026-11-06",
+      "last_close": 192.83
     },
     {
       "id": "PB-028",
@@ -932,8 +958,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": null,
-      "last_close": null
+      "last_scored": "2026-11-06",
+      "last_close": 11.74
     },
     {
       "id": "PB-029",
@@ -959,8 +985,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": null,
-      "last_close": null
+      "last_scored": "2026-11-06",
+      "last_close": 774.17
     }
   ],
   "history": [
@@ -1082,6 +1108,13 @@
       "realized": -350.61,
       "unrealized": 750.84,
       "open": 5
+    },
+    {
+      "date": "2026-11-06",
+      "equity": 3067.25,
+      "realized": -735.44,
+      "unrealized": 226.71,
+      "open": 7
     }
   ]
 }

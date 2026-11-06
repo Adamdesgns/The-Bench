@@ -1,44 +1,32 @@
 {
-  "date": "2026-11-05",
+  "date": "2026-11-06",
   "signals": [],
   "none": true,
-  "close_source": "last regular-session print at 20:59:59Z (2:59:59 CT); the official close field had not rolled at ~15:30 CT (still dated 11/04) - the 11/06 9:00 check re-pulls before acting",
-  "armed_not_signaled": [
-    {
-      "sym": "SPCX",
-      "row": "B-1255",
-      "side": "short",
-      "zone_low": 129.13,
-      "zone_high": 130.01,
-      "legal_fill_line": 129.54,
-      "stop": 138.0,
-      "t1": 122.12,
-      "t2": 111.4,
-      "readiness": null,
-      "atr": 8.46,
-      "signal_low": 120.4,
-      "decide_by": "2026-11-06",
-      "exit_by": null,
-      "note": "B-1255 short, armed by MC-424 (B-1301): 11/05 settled 123.40 under the 130.17 shelf on 168.1M = 1.62x the 30-day. One test only: the 11/06 first 30-min bar must close 129.13-130.01; stop 138.00 the same minute. ATR(14) simple from settled bars + today's H/L/C = 8.46, so a fill above 129.54 puts the stop inside 1.0 ATR (ATR Floor): legal fills 129.13-129.54. Close is 5.73 under the band and T1 122.12 is 1.28 under the close - expected verdict NO TRADE (the move happened without an entry). Payrolls 8:30 ET before the bar. Margin account only (cash account cannot short). Entry check is final."
-    }
-  ],
+  "close_source": "last regular-session print at 20:59:59Z (2:59:59 CT); the official close field had not rolled at 15:33 CT (still dated 11/05) - Monday's 9:00 check re-pulls before acting. Two names sit on a line where the official close can change the read: WULF 11.35 on its 11.35 trigger (MC-473) and MU 689.425, 0.76 over 688.67 (MC-465).",
+  "friday": "Friday close: nothing is bought today. Any entry is Monday's first 30-minute bar.",
+  "armed_not_signaled": [],
   "dropped": [
-    "AMZN B-1268 / B-1172 - both ended 11/05 (entry check NO TRADE B-1293/B-1294; settled 260.51 under the 263.80 stop, MC-433 B-1305)",
-    "MRVL B-1165 - decide-by 11/05 reached; settled 133.32 (216.10 breakdown test long past)",
-    "NVDA B-1089 - dead on its own rule, settled 181.59 under the 210.18 kill line (B-1302)"
+    "SPCX B-1255 short - decide-by 11/06 reached; the 9:02 entry check was NO TRADE (B-1322: first bar closed 131.27, outside 129.13-130.01); settled 134.20, back over the 130.17 shelf, 3.31 under the 137.50 void line (MC-425 still open to 11/20)",
+    "GOOGL B-1162 - the 276 limit expired unfilled on its 11/06 decide-by (B-1330); day low 284.59; no order resting",
+    "UNH B-1057 - decide-by 11/06 reached; settled 394.12, under the 413.47 floor, 426.55 trigger never touched",
+    "GILD B-1209 - decide-by 11/06 reached; settled 166.87 (high 169.06), no close over 175.65"
   ],
   "no_signal": [
-    {"sym": "GOOGL", "row": "B-1162", "close": 282.60, "why": "276 limit not reached (day low 277.945); stop 265 / target 314.90; decide-by 11/06 (tomorrow is the last day)"},
-    {"sym": "UNH", "row": "B-1057", "close": 395.51, "why": "VOIDED in effect: settled under the 413.47 floor (426.55 trigger 31 points away); decide-by 11/06"},
-    {"sym": "GILD", "row": "B-1209", "close": 167.58, "why": "tagged 176.58 intraday over the 175.65 high but settled 167.58 - no close over it (MC-384 holding); decide-by 11/06"},
-    {"sym": "SPCX", "row": "B-1255", "close": 123.40, "why": "short trigger live for the 11/06 first-bar test (armed_not_signaled above)"},
-    {"sym": "ARM", "row": "B-1290", "close": 166.63, "why": "180 re-look short level not reached (high 175.83); 160.85 shelf holding (low 163.13); decide-by 11/12"},
-    {"sym": "MRVL", "row": "B-1291", "close": 133.32, "why": "day high 152.15 came at the open, before the plan was written; settled 15 under the 148.50 re-look level - the move went without an entry; void over 159.80; decide-by 11/12"},
-    {"sym": "HIMS", "row": "B-1288", "close": 24.06, "why": "inside the watchlist 24.25 zone but B-1288 is NO into the Mon 11/9 print; MC-437 (<24.00) held by 0.06"},
-    {"sym": "ZYME", "row": "B-1258", "close": 28.74, "why": "pass into the 11/9 print; MC-428 (<28.26) held (low 28.72)"},
-    {"sym": "CAPR", "row": "B-1210", "close": 8.62, "why": "plan valid only after the 11/13 print"}
+    {"sym": "ARM", "row": "B-1317", "close": 174.62, "why": "180 short re-look level not reached (high 177.62, low 169.61); legal entry is 182.24 or higher on the Wilder ATR; decide-by 11/12"},
+    {"sym": "MRVL", "row": "B-1320", "close": 141.19, "why": "high 146.32, under the 148.50 / 149.81 short re-look levels; held the 140.15 opening-range low and the 132.54 prior low (low 135.34); volume 33.2M = 1.15x the 30-day; decide-by 11/12"},
+    {"sym": "IREN", "row": "B-1319", "close": 21.64, "why": "pullback zone 18.03-19.02 not revisited (low 20.18); no close over the 22.46 opening-range high (high 22.46); volume 112.0M = 1.84x; decide-by 11/10"},
+    {"sym": "MU", "row": "B-1321", "close": 689.425, "why": "72.39 under the 761.81 re-judge line (high 724.80); 0.76 over the 688.67 opening-range low, so MC-465 held on the last print only; decide-by 11/13"},
+    {"sym": "VST", "row": "B-1325", "close": 124.765, "why": "3.31 under the 128.07 re-judge line (high 125.80); held the 118.90 report-day low; volume 12.35M = 1.55x; decide-by 11/13"},
+    {"sym": "SMH", "row": "B-1326", "close": 463.73, "why": "between the 457.57 morning low and the 472.90 open; neither watcher fired (MC-471, MC-472); decide-by 11/09"},
+    {"sym": "WULF", "row": "B-1327", "close": 11.35, "why": "last regular trade exactly ON the 11.35 line, not over it (high 11.41); the official close decides MC-473; a pass with a re-judge trigger, not an entry plan; volume 105.7M = 2.23x; decide-by 11/13"},
+    {"sym": "AVGO", "row": "B-1328", "close": 293.23, "why": "day low 289.767 made the line; no close under 289.77 (MC-475 holding); decide-by 11/13"},
+    {"sym": "APP", "row": "B-1331", "close": 391.25, "why": "between the 377.71 pivot and the 399.05 pivot (high 398.00); neither MC-476 nor MC-477 fired"},
+    {"sym": "IBIT", "row": "B-1332", "close": 42.87, "why": "day low 42.27 made the line; no close under it (MC-478 holding); under the watchlist 43.10 floor, so the 44.80 zone is not a buy range"},
+    {"sym": "HIMS", "row": "B-1288", "close": 25.995, "why": "above the watchlist 24.25 zone all day (low 24.415); B-1288 is NO into the Mon 11/9 print after the close; MC-437 (<24.00) holding"},
+    {"sym": "ZYME", "row": "B-1258", "close": 29.655, "why": "pass into the 11/9 print; neither MC-427 (>31.34) nor MC-428 (<28.26) fired"},
+    {"sym": "CAPR", "row": "B-1210", "close": 9.01, "why": "plan valid only after the 11/13 print"},
+    {"sym": "AIP", "row": "B-288", "close": 17.795, "why": "numerically back inside the old 17.40-21.39 band, but the 17.40 floor broke on the 11/05 close (15.93) and today's low was 15.63: VOIDED until a fresh run; zone is 60 days old with no target"}
   ],
-  "in_buy_range": [
-    {"sym": "HIMS", "row": "B-287", "close": 24.06, "zone": "<=24.25 (floor 21.30)", "note": "watchlist momentum-lane zone; B-1288 says NO - earnings Mon 11/9 after the close, fails capital competition on both windows"}
-  ]
+  "in_buy_range": [],
+  "phone": "nothing sent: no signal, nothing in a live buy range, no fired watch, both accounts flat (11/04 standing order)"
 }
