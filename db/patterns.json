@@ -1667,5 +1667,23 @@
     "why": "Forced selling lands at the crash close and the next open; once it clears, dip buyers step in. Bad exceptions were inside running bear markets. Source: docs/research/2026-11-05-us-open-after-crash.md",
     "logged_by": "research 2026-11-05 (KOSPI breaker + QQQ -6.49% on 11/5)",
     "instances": []
+  },
+  {
+    "id": "P-071",
+    "claim": "The session after SMH closes down 10 pct or more, the AI-infrastructure board opens with a bounce that ranks by the prior day loss: the names that fell most are up most, so the bounce is selling being undone and the names that break the ranking carry the news",
+    "test": "At about 08:45 CT rank the board names by the prior session percent loss and by the gain from that close. Holds if the Spearman rank correlation is 0.6 or higher; fails below 0.6. Needs 15+ board names priced.",
+    "first_seen": "2026-11-06",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-11-06",
+        "ticker": "BOARD",
+        "detail": "SMH -11.2 pct on 11/05 (504.27 to 447.73). At 08:47 CT on 11/06, 23 board names: Spearman 0.89 between the 11/05 loss and the gain from that close; 22 of 23 green. MU -17.5 then +9.6, AMD -17.3 then +13.0, AMZN -2.2 then +0.6. Rank breakers: IREN +22.4 (own report), VST +6.6 (report day), MSFT -1.0 (fell again), WULF +4.0 after a beat. Payrolls +165K at 07:30 CT moved SMH 470.85 to 471.43 in 20 minutes.",
+        "holds": true,
+        "row_ref": "B-1316"
+      }
+    ]
   }
 ]
