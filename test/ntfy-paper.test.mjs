@@ -54,3 +54,12 @@ test("--asked sends what Adam asked for, paper included, unstripped", async () =
 test("a plan or play card that is all paper is NOT sent and says so (exit 4 from the CLI)", async () => {
   assert.equal((await quiet(() => main(["--slot", "play", "--text", "Paper book: META 630 is 17 from its stop.", "--dry-run"]))).r, -4);
 });
+
+test("xpost is a standing ask (Adam, 2026-11-06): sent with its image, paper lines kept", async () => {
+  const text = "Vans Thesis paper trades this morning, 12 of 60 in, down $311 open.";
+  const { r, out } = await quiet(() => main(["--slot", "xpost", "--image", "docs/share/2026-11-06-p001-card.png", "--text", text, "--dry-run"]));
+  assert.equal(r, 1);
+  assert.ok(out.some((l) => /would send image/.test(l)));
+  assert.ok(out.includes(text)); // the post line went out whole, paper words and all
+  assert.equal((await quiet(() => main(["--slot", "p001", "--text", text, "--dry-run"]))).r, 0); // the plain p001 slot is still refused
+});

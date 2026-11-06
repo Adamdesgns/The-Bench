@@ -44,9 +44,10 @@ function parseArgs(argv) {
     else if (a === '--priority') out.priority = argv[++i];
     else if (a === '--text') out.text = argv[++i];
     else if (a === '--asked') out.asked = true;
+    else if (a === '--image') out.image = argv[++i];
     else throw new Error(`unknown argument: ${a}`);
   }
-  if (!out.slot) throw new Error('--slot is required (plan, play, trip or pump; anything else is written to disk and not sent unless --asked)');
+  if (!out.slot) throw new Error('--slot is required (plan, play, trip, pump or xpost; anything else is written to disk and not sent unless --asked)');
   if (!out.file && !out.text) throw new Error('--file <path> or --text "<body>" is required');
   return out;
 }
@@ -102,6 +103,12 @@ export const PAPER_SLOTS = /^(p001|paper|vans)/i;
 // order to place or cancel). Every other slot (market reads, snapshots, recaps, calendars, hunt lists, drafts)
 // is still written to disk by its routine and is NOT sent. `--asked` sends anything Adam asked for in so many words.
 export const PHONE_SLOTS = /^(plan|play|trip|pump)$/i; // trip = the Trip Judge BUY/WAIT/NO; pump = a pump-watch call
+
+// STANDING ASKS: a slot Adam asked for in so many words, every morning, so it goes like --asked (no refusal, no
+// paper strip) without anyone passing --asked by hand. Adam, 2026-11-06, about the P-001 card: "Add it to the
+// routine and give me an X post with it now and every morning." xpost = the 5:40a P-001 card image (--image) plus
+// the X post draft in his voice. Never posted by anything on this machine; he posts it himself if he wants it.
+export const ASKED_SLOTS = /^xpost$/i;
 const PAPER_LINE = /\bpaper\b|\bPB-\d{3}\b|\bP-001\b|vans thesis|scanner short|\[hunt:[0-9a-f]+\]|\| (desk buy|event run-up)\b|\bPQ[SWN]?-\d{3}\b|\b(wide|near|shape|quant) twins?\b|^\s*best % first/i;
 
 // A real ticket line is never dropped, only scrubbed. The desk copies every real ticket into the paper book
@@ -134,8 +141,17 @@ async function send(title, body, priority, fetchImpl = fetch) {
   if (!res.ok) throw new Error(`ntfy HTTP ${res.status}`);
 }
 
+// An image goes as an ntfy attachment (PUT with a Filename header), sent before the text so the phone shows
+// the picture first. ntfy.sh keeps attachments for a few hours, so the file on disk stays the record.
+async function sendImage(title, path, priority, fetchImpl = fetch) {
+  const name = path.split(/[\\/]/).pop();
+  const res = await fetchImpl(TOPIC, { method: 'PUT', headers: { Title: title, Priority: priority, Filename: name }, body: readFileSync(resolve(path)) });
+  if (!res.ok) throw new Error(`ntfy image HTTP ${res.status}`);
+}
+
 export async function main(argv = process.argv.slice(2)) {
   const args = parseArgs(argv);
+  if (ASKED_SLOTS.test(args.slot)) args.asked = true;
   // --asked: Adam asked for this read in so many words, paper trades included ("unless I ask"): no refusal, no strip.
   if (!args.asked && PAPER_SLOTS.test(args.slot)) {
     console.log(`[ntfy-read] slot "${args.slot}" is a paper-trade card; paper trades are not sent to the phone (Adam, 2026-11-04). Nothing sent.`);
@@ -156,6 +172,10 @@ export async function main(argv = process.argv.slice(2)) {
   const baseTitle = asciiOnly(args.title ?? `THE BENCH - ${args.slot} read ${today}`);
   const parts = splitBody(body);
 
+  if (args.image) {
+    if (args.dryRun) console.log(`[dry-run] would send image "${args.image}" titled "${baseTitle}"`);
+    else { await sendImage(baseTitle, args.image, args.priority); console.log(`[ntfy] sent image "${args.image}"`); }
+  }
   for (let i = 0; i < parts.length; i++) {
     const title = parts.length > 1 ? `${baseTitle} (${i + 1}/${parts.length})` : baseTitle;
     if (args.dryRun) {
