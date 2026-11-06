@@ -7926,6 +7926,102 @@
       "row": "B-1319",
       "expires": "2026-11-10",
       "status": "open"
+    },
+    {
+      "id": "MC-457",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">=",
+          "level": 149.81
+        }
+      ],
+      "meaning": "bounce closed at or over 149.81, the legal short re-look fill on the 19.13 ATR: re-judge the B-1320/B-1318 short (stop = fill + 1.0 ATR recomputed, target 111.55, check 132.54 as the nearer floor)",
+      "source": "docs/reads/2026-11-06-trip-MRVL.md",
+      "row": "B-1320",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-458",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">",
+          "level": 152.15
+        }
+      ],
+      "meaning": "closed over the 11/05 high and the top of the short zone: the bounce is stronger than a fade, do not short it; re-judge B-1320",
+      "source": "docs/reads/2026-11-06-trip-MRVL.md",
+      "row": "B-1320",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-459",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": ">=",
+          "level": 146.32
+        }
+      ],
+      "meaning": "closed at or over the 11/06 opening-range high 146.32 (the pump entry the trip judge refused at 0.30:1): re-look Monday first 30-min bar, long still owes 2:1 and the rs laggard gate",
+      "source": "docs/reads/2026-11-06-trip-MRVL.md",
+      "row": "B-1320",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-460",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": "<",
+          "level": 140.15
+        }
+      ],
+      "meaning": "closed under the 11/06 opening-range low: the gap-hold failed and the bounce is over, direction back DOWN; B-1320 short zone likely not reached",
+      "source": "docs/reads/2026-11-06-trip-MRVL.md",
+      "row": "B-1320",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-461",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": "<",
+          "level": 132.54
+        }
+      ],
+      "meaning": "closed under the 11/05 low: the one-day bounce low broke, 111.55 is the next verified floor again (B-1320 honest flag resolved in favor of the short)",
+      "source": "docs/reads/2026-11-06-trip-MRVL.md",
+      "row": "B-1320",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-462",
+      "created": "2026-11-06",
+      "when": [
+        {
+          "ticker": "MRVL",
+          "op": "<=",
+          "level": 111.55
+        }
+      ],
+      "meaning": "B-1320/B-1318/B-1291 short target floor 111.55 reached on a close: if short, cover; if not, the record says the short paid without us",
+      "source": "docs/reads/2026-11-06-trip-MRVL.md",
+      "row": "B-1320",
+      "expires": "2026-11-20",
+      "status": "open"
     }
   ]
 }
