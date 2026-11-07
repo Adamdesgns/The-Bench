@@ -2,6 +2,8 @@
 // p001-card.mjs - the Vans Thesis P-001 card as an image (Adam, 2026-11-06: "Add it to the routine and give me an
 // X post with it now and every morning"). Same numbers as `paper-book.mjs record`, drawn as the dark card first
 // made by hand on 2026-11-05 (docs/share/2026-11-05-p001-card.html). Writes nothing but the card files.
+// NO DOLLARS (Adam, 2026-11-06: "stop mentioning the money that doesn't exist"): there is no paper account, only a
+// list of trades, so the card shows won/lost, % and R. Never put a dollar figure back on it.
 //
 //   node scripts/p001-card.mjs --prices '{"LITE":560.75,...}' --asof "6:41 a.m. CT" [--spy-pct 0.4] [--date YYYY-MM-DD] [--no-png]
 //
@@ -19,7 +21,6 @@ const MAX_CLOSED_ROWS = 3; // the newest closed trades get a row; the rest are o
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const minus = (s) => s.replace(/^-/, "\u2212");
-const usd = (x) => minus(`${x < 0 ? "-" : "+"}$${Math.abs(Math.round(x)).toLocaleString("en-US")}`);
 const pctS = (x) => minus(`${x < 0 ? "-" : "+"}${Math.abs(x).toFixed(1)}%`);
 const rS = (x) => minus(`${x < 0 ? "-" : "+"}${Math.abs(x).toFixed(2)}R`);
 const px = (x) => (x == null ? "?" : Number(x).toFixed(2));
@@ -51,20 +52,25 @@ export function cardHtml(rec, book, { today, asof, spyPct } = {}) {
     const n = rowNote(r, byId[r.id], today);
     const note = n.text ? `<span class="note${n.warn ? " warn" : ""}">${esc(n.text)}</span>` : "";
     const head = `<td><span class="sym">${esc(r.sym)}</span><span class="side">${esc(r.side)}</span>${note}</td>`;
-    if (r.price == null) { lines.push(`<tr>${head}<td class="px">no mark yet</td><td class="r"></td><td class="r"></td><td class="r"></td></tr>`); continue; }
-    lines.push(`<tr>${head}<td class="px"><b>${px(r.entry)}</b> \u2192 <b>${px(r.price)}</b></td><td class="r ${tone(r.pct)}">${pctS(r.pct)}</td><td class="r ${tone(r.usd)}">${usd(r.usd)}</td><td class="r ${tone(r.r)}">${rS(r.r)}</td></tr>`);
+    if (r.price == null) { lines.push(`<tr>${head}<td class="px">no mark yet</td><td class="r"></td><td class="r"></td></tr>`); continue; }
+    lines.push(`<tr>${head}<td class="px"><b>${px(r.entry)}</b> \u2192 <b>${px(r.price)}</b></td><td class="r ${tone(r.pct)}">${pctS(r.pct)}</td><td class="r ${tone(r.r)}">${rS(r.r)}</td></tr>`);
   }
   const closed = [...rec.closed].sort((a, b) => String(b.exit_date).localeCompare(String(a.exit_date)));
   for (const c of closed.slice(0, MAX_CLOSED_ROWS)) {
-    const why = c.exit_reason === "TARGET" ? `target hit ${shortDate(c.exit_date)}` : c.exit_reason === "STOPPED" ? `stopped ${shortDate(c.exit_date)}` : `closed ${shortDate(c.exit_date)}`;
-    lines.push(`<tr class="closed"><td><span class="sym">${esc(c.sym)}</span><span class="side">${esc(c.side)}</span><span class="note${c.exit_reason === "STOPPED" ? " warn" : ""}">${why}</span></td><td class="px">closed</td><td class="r"></td><td class="r ${tone(c.realized)}">${usd(c.realized)}</td><td class="r ${tone(c.r ?? 0)}">${c.r == null ? "" : rS(c.r)}</td></tr>`);
+    // A stop that closes a winner (the rest after a target, on the raised stop) is not a loss: say so, and no red.
+    const won = (c.realized || 0) > 0;
+    const why = c.exit_reason === "TARGET" ? `target hit ${shortDate(c.exit_date)}` : c.exit_reason === "STOPPED" ? `stopped${won ? " in profit" : ""} ${shortDate(c.exit_date)}` : `closed ${shortDate(c.exit_date)}`;
+    lines.push(`<tr class="closed"><td><span class="sym">${esc(c.sym)}</span><span class="side">${esc(c.side)}</span><span class="note${c.exit_reason === "STOPPED" && !won ? " warn" : ""}">${why}</span></td><td class="px">closed</td><td class="r"></td><td class="r ${tone(c.r ?? 0)}">${c.r == null ? "" : rS(c.r)}</td></tr>`);
   }
   const rest = closed.slice(MAX_CLOSED_ROWS);
   if (rest.length) {
-    const sum = rest.reduce((a, c) => a + (c.realized || 0), 0);
-    lines.push(`<tr class="closed"><td colspan="3"><span class="note">${rest.length} more closed trades</span></td><td class="r ${tone(sum)}">${usd(sum)}</td><td class="r"></td></tr>`);
+    const sum = rest.reduce((a, c) => a + (c.r || 0), 0);
+    lines.push(`<tr class="closed"><td colspan="3"><span class="note">${rest.length} more closed trades</span></td><td class="r ${tone(sum)}">${rS(sum)}</td></tr>`);
   }
-  const height = 740 + lines.length * 82; // header + stats + footer, then about 82px a row (notes make a row taller)
+  const won = rec.won;
+  // header + stats + footer, then about 100px a row. A row with a note measures ~98px; 82 let the footer run over
+  // the last rows once there were 10 (found on the 2026-11-06 test render).
+  const height = 740 + lines.length * 100;
   return { height, html: `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><title>P-001 card ${today}</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=block" rel="stylesheet">
@@ -107,12 +113,13 @@ export function cardHtml(rec, book, { today, asof, spyPct } = {}) {
   <h1>Every call on the record,<br>before the outcome.</h1>
   <div class="sub">${esc(sub)}</div>
   <div class="stats">
-    <div class="stat"><div class="lbl">Open P&amp;L</div><div class="val ${rec.open_usd < 0 ? "loss" : ""}">${usd(rec.open_usd)}</div></div>
-    <div class="stat"><div class="lbl">Realized (banked)</div><div class="val ${rec.realized < 0 ? "loss" : ""}">${usd(rec.realized)}</div></div>
+    <div class="stat"><div class="lbl">Won – lost</div><div class="val">${won} – ${rec.closed.length - won}</div></div>
+    <div class="stat"><div class="lbl">Closed R</div><div class="val ${rec.closed_r < 0 ? "loss" : ""}">${rS(rec.closed_r)}</div></div>
+    <div class="stat"><div class="lbl">Open R</div><div class="val ${rec.open_r < 0 ? "loss" : ""}">${rS(rec.open_r)}</div></div>
     <div class="stat"><div class="lbl">Counted trades</div><div class="val">${rec.counted} of ${rec.need}</div></div>
   </div>
   <table>
-    <tr><th>Call</th><th>Entry \u2192 now</th><th class="r">Move</th><th class="r">P&amp;L</th><th class="r">R</th></tr>
+    <tr><th>Call</th><th>Entry \u2192 now</th><th class="r">Move</th><th class="r">R</th></tr>
     ${lines.join("\n    ")}
   </table>
   <div class="foot">
@@ -151,7 +158,7 @@ function main(argv = process.argv.slice(2)) {
   writeFileSync(htmlPath, html);
   if (!argv.includes("--no-png")) render(htmlPath, pngPath, height);
   console.log(JSON.stringify({ png: argv.includes("--no-png") ? null : pngPath, html: htmlPath, counted: rec.counted, need: rec.need,
-    open: rec.rows.length, closed: rec.closed.length, open_usd: rec.open_usd, realized: rec.realized,
+    open: rec.rows.length, closed: rec.closed.length, won: rec.won, closed_r: rec.closed_r, open_r: rec.open_r,
     unquoted: rec.rows.filter((r) => !r.quoted).map((r) => r.sym) }));
 }
 

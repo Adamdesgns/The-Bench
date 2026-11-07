@@ -22,6 +22,31 @@ test("card counts only P-001 trades and shows the record's totals", () => {
   assert.match(html, /stopped Nov 4/);
 });
 
+test("no dollars anywhere on the card (Adam, 2026-11-06): won-lost and R instead", () => {
+  const rec = record(book, { AAA: 90, BBB: 198, CCC: 11 });
+  const { html } = cardHtml(rec, book, { today: "2026-11-06" });
+  assert.ok(!html.includes("$"), "a dollar sign is on the card");
+  assert.ok(!/P&amp;L|Realized/.test(html));
+  assert.match(html, /Won – lost<\/div><div class="val">0 – 1</); // DDD stopped at -1R
+  assert.match(html, /Closed R<\/div><div class="val loss">−1\.00R/);
+});
+
+test("open R is trade R: a half banked at target counts (review 2026-11-06)", () => {
+  const rec = record(book, { AAA: 90, BBB: 198, CCC: 11 });
+  // AAA +100 on 100 risk = +1.0; BBB banked 100, rest 5 sh at -2 = 90 on 100 risk = +0.9 (its per-share r is -0.2); CCC -10 on 20 = -0.5
+  assert.equal(rec.open_r, 1.4);
+  assert.equal(rec.won, 0);
+});
+
+test("a stop that closes a winner says 'in profit' and is not red", () => {
+  const b = { ...book, trades: [...book.trades, { id: "PB-006", sym: "EEE", side: "long", lane: "entry-check", entry_date: "2026-11-02", status: "CLOSED", realized: 80, r: 0.8, exit_reason: "STOPPED", exit_date: "2026-11-05", source_row: "B-3" }] };
+  const rec = record(b, {});
+  assert.equal(rec.won, 1);
+  const { html } = cardHtml(rec, b, { today: "2026-11-06" });
+  assert.match(html, /<span class="note">stopped in profit Nov 5</);
+  assert.match(html, /<span class="note warn">stopped Nov 4</); // DDD, a real loss, stays red
+});
+
 test("notes: exit today, half sold, through the stop", () => {
   const rec = record(book, { AAA: 90, BBB: 198, CCC: 11 });
   const byId = Object.fromEntries(book.trades.map((t) => [t.id, t]));

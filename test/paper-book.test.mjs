@@ -317,9 +317,11 @@ test("CLI record: prints the count toward the floor, each open trade and each cl
   writeFileSync(db, JSON.stringify(recBook()));
   const out = run(["record", "--prices", '{"LNG":103,"SHT":45}', "--asof", "pre-market 05:40 CT", "--db", db]);
   assert.match(out, /P-001 RECORD.*pre-market 05:40 CT/);
-  assert.match(out, /3 of 60 counted entries \(2 open, 1 closed\)/);
-  assert.match(out, /1\. SHT short \+10\.00% \+100\.00/);
-  assert.match(out, /OLD long -30\.00 \(-1\.5R, STOPPED 2026-10-15\) \| desk buy \[B-3\]/);
+  assert.match(out, /3 of 60 counted entries \(2 open, 1 closed: 0 won, 1 lost, -1\.5R\)\. Open \+[\d.]+R\./);
+  // No dollars on the P-001 record (Adam, 2026-11-06: "stop mentioning the money that doesn't exist"): % and R only.
+  assert.match(out, /1\. SHT short \+10\.00% \(\+[\d.]+R\) \|/);
+  assert.match(out, /OLD long \(-1\.5R, STOPPED 2026-10-15\) \| desk buy \[B-3\]/);
+  assert.doesNotMatch(out, /\$|100\.00|-30\.00|realized/i);
   assert.doesNotMatch(out, /BAD/);
 });
 

@@ -186,8 +186,14 @@ export const P001 = { since: "2026-10-27", need: 60 };
 export function record(book, prices = {}, { since = P001.since, need = P001.need } = {}) {
   const inRecord = (book.trades || []).filter((t) => t.entry_date >= since);
   const s = standings({ ...book, trades: inRecord }, prices);
+  // Display only (no dollars on P-001, Adam 2026-11-06). open_r is TRADE R, the same basis as a closed trade's r
+  // (realized / risk on the full size), so a half already banked at target counts; a row's own r is per share.
+  // won counts realized > 0, the same test summarize() uses for the report.
+  const byId = new Map(inRecord.map((t) => [t.id, t]));
+  const tradeR = (row) => { const t = byId.get(row.id); const risk = t && t.kind !== "option" ? riskOf(t) : 0; return row.price != null && risk > 0 ? row.usd / risk : 0; };
   return { since, need, counted: inRecord.length, rows: s.rows, closed: s.closed, open_usd: s.open_usd,
-    realized: r2(s.closed.reduce((a, t) => a + (t.realized || 0), 0)), closed_r: r2(s.closed.reduce((a, t) => a + (t.r || 0), 0)) };
+    realized: r2(s.closed.reduce((a, t) => a + (t.realized || 0), 0)), closed_r: r2(s.closed.reduce((a, t) => a + (t.r || 0), 0)),
+    open_r: r2(s.rows.reduce((a, row) => a + tradeR(row), 0)), won: s.closed.filter((t) => (t.realized || 0) > 0).length };
 }
 
 const prevWeekday = (iso) => {
@@ -425,20 +431,21 @@ function main() {
     let prices = {};
     try { prices = val("--prices") ? JSON.parse(val("--prices")) : {}; } catch { refuse("--prices must be JSON like '{\"ASTS\":41.69}'"); }
     const pctStr = (x) => `${x < 0 ? "-" : "+"}${Math.abs(x).toFixed(2)}%`;
-    const printRows = (rows) => rows.forEach((r, i) => {
+    // P-001 shows no dollars (Adam, 2026-11-06: "stop mentioning the money that doesn't exist"): % and R only.
+    const printRows = (rows, usd = true) => rows.forEach((r, i) => {
       const tail = `out ${r.exit_by} | ${laneName(r.lane)} [${r.source_row}]`;
       if (r.price == null) { console.log(` ${i + 1}. ${r.sym} ${r.side} unscored (no quote, no close yet) | ${tail}`); return; }
       const tgt = r.target == null ? "no target" : `target ${r.target} (${r.to_target_pct.toFixed(1)}% away)`;
-      console.log(` ${i + 1}. ${r.sym} ${r.side} ${pctStr(r.pct)} ${money(r.usd)} (${r.r >= 0 ? "+" : ""}${r.r}R) | ${r.entry} -> ${r.price}${r.quoted ? "" : " (last close)"} | stop ${r.stop} (${r.to_stop_pct.toFixed(1)}% away), ${tgt} | ${tail}`);
+      console.log(` ${i + 1}. ${r.sym} ${r.side} ${pctStr(r.pct)}${usd ? ` ${money(r.usd)}` : ""} (${r.r >= 0 ? "+" : ""}${r.r}R) | ${r.entry} -> ${r.price}${r.quoted ? "" : " (last close)"} | stop ${r.stop} (${r.to_stop_pct.toFixed(1)}% away), ${tgt} | ${tail}`);
     });
-    const printClosed = (closed) => { for (const c of closed) console.log(`Closed: ${c.sym} ${c.side} ${money(c.realized)} (${c.r}R, ${c.exit_reason} ${c.exit_date}) | ${laneName(c.lane)} [${c.source_row}]`); };
+    const printClosed = (closed, usd = true) => { for (const c of closed) console.log(`Closed: ${c.sym} ${c.side}${usd ? ` ${money(c.realized)}` : ""} (${c.r}R, ${c.exit_reason} ${c.exit_date}) | ${laneName(c.lane)} [${c.source_row}]`); };
     if (cmd === "record") {
       const r = record(book, prices);
       console.log(`P-001 RECORD - the paper trades Vans Thesis counts, entered ${r.since} or later (marks: ${val("--asof") || "the quotes given"}; "last close" where no quote)`);
-      console.log(`${r.counted} of ${r.need} counted entries (${r.rows.length} open, ${r.closed.length} closed). Open ${money(r.open_usd)}, realized ${money(r.realized)}${r.closed.length ? ` (${r.closed_r}R)` : ""}.`);
+      console.log(`${r.counted} of ${r.need} counted entries (${r.rows.length} open, ${r.closed.length} closed${r.closed.length ? `: ${r.won} won, ${r.closed.length - r.won} lost, ${r.closed_r >= 0 ? "+" : ""}${r.closed_r}R` : ""}). Open ${r.open_r >= 0 ? "+" : ""}${r.open_r}R.`);
       if (r.rows.length) console.log("Best % first. On a short, + means the stock fell.");
-      printRows(r.rows);
-      printClosed(r.closed);
+      printRows(r.rows, false);
+      printClosed(r.closed, false);
       return;
     }
     const s = standings(book, prices);
