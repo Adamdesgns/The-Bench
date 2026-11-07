@@ -6,6 +6,40 @@
 
 ---
 
+## Week of 2026-11-01 -> 2026-11-07
+
+No real position opened or closed; both accounts flat all week (Friday close-check). Week: SPY
+755.72 -> 735.44 (-2.68 pct), QQQ 690.49 -> 656.18 (-4.97), SMH 522.49 -> 463.73 (-11.25; 11/05
+alone -11.6 official). Election week; Wednesday SPY +1.6 on MSFT/AMZN/GOOGL with 17 of 23 board
+names red; Thursday all 23 red; Friday got back 28 pct of Thursday's SMH drop.
+
+### THE ALGORITHM - how he trades
+
+- **v36 shipped (11/05, `5d9ff3c`; Adam 11/04: "Yes, override it").** A pump-watch call that is
+  Adam's order (`--by adam`, or the 5:40a catalyst search before 09:00 CT) is its own plan; a 9:02
+  NO TRADE on a different, older plan for that ticker no longer decides it. Same plan still stands,
+  the refused plan is never re-planned, desk-added watches get plain v33. Earned by AMZN 11/04
+  (B-1264, B-1266, B-1268): the only live long was a 226-231 pullback zone written after a raised
+  guide; the desk passed at every step from 229 to 266. Cost: AMZN +7.9 pct on the week with no plan
+  that could fill. All 14 bench-* routines, trip-judge-v1 and benny-v3 repointed v35 -> v36.
+- **Pump watch + morning catalyst search (11/04, `ee3ab13`).** "Watch X" puts a name on a 5-minute
+  read until lunch; the 5:40a routine searches catalysts first and puts up to five movers on watch.
+- **P-070 failed its first live test (11/06):** QQQ closed 2.19 under its open the session after
+  a 6 pct drop. Pattern stays proposed.
+
+### HOW HE WRITES / WHAT REACHES ADAM
+
+- **The phone gets plans and plays only (11/04; Adam: "nothing comes to my phone except our plans
+  and plays").** Reads, recaps and paper trades stay on disk; `ntfy-read.mjs` refuses every other
+  slot. One exception from 11/06: the morning P-001 card + X draft (`xpost` slot).
+
+### STILL OPEN
+
+- The ticket generator still sizes to the band, not the account (sixth week).
+- The correlated-shorts rule is still unwritten.
+
+---
+
 ## Week of 2026-10-25 -> 2026-10-31
 
 No real position opened or closed; the margin account has been cash only since the GOOGL stop on
