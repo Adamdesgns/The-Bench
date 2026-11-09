@@ -9039,6 +9039,54 @@
       "row": "B-1375",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-522",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "UBER",
+          "op": ">",
+          "level": 72.5
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-11-09-hunt-close.md",
+      "row": "B-1383",
+      "expires": "2026-11-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-523",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "GRAB",
+          "op": ">",
+          "level": 3.56
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-11-09-hunt-close.md",
+      "row": "B-1384",
+      "expires": "2026-11-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-524",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "GPRO",
+          "op": "<",
+          "level": 0.85
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-11-09-hunt-close.md",
+      "row": "B-1385",
+      "expires": "2026-11-16",
+      "status": "open"
     }
   ]
 }

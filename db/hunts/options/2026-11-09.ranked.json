@@ -1,0 +1,358 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-11-09",
+  "candidates_receipt": "b8ec5eea",
+  "band": 231.88,
+  "generated": "2026-11-09T21:37:32.479Z",
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "top": [
+    {
+      "sym": "UBER",
+      "side": "long",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 80,
+      "p_dir": 55,
+      "p_reach": 16.25,
+      "market_p": 34.52,
+      "disagreement": 20.48,
+      "expiry": "2026-11-20",
+      "days": 9,
+      "long_strike": 71,
+      "short_strike": 77.5,
+      "cost": 168,
+      "max_gain": 482,
+      "payoff_ratio": 2.87,
+      "break_even": 72.68,
+      "ev": 2.73,
+      "ev_per_day": 0.3,
+      "stop": 67.99,
+      "target": 77.58,
+      "rr_shares": 2.02
+    },
+    {
+      "sym": "GPRO",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 111,
+      "p_dir": 64.86,
+      "p_reach": 12.61,
+      "market_p": 48.73,
+      "disagreement": 16.13,
+      "expiry": "2026-11-20",
+      "days": 9,
+      "long_strike": 1,
+      "short_strike": 0.5,
+      "cost": 10,
+      "max_gain": 40,
+      "payoff_ratio": 4,
+      "break_even": 0.9,
+      "ev": 1.53,
+      "ev_per_day": 0.17,
+      "stop": 0.94,
+      "target": 0.75,
+      "rr_shares": 2.32
+    },
+    {
+      "sym": "GRAB",
+      "side": "long",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 54,
+      "p_dir": 48.15,
+      "p_reach": 14.81,
+      "market_p": 29.4,
+      "disagreement": 18.75,
+      "expiry": "2026-11-20",
+      "days": 9,
+      "long_strike": 3.5,
+      "short_strike": 4,
+      "cost": 9.5,
+      "max_gain": 40.5,
+      "payoff_ratio": 4.26,
+      "break_even": 3.6,
+      "ev": 1.07,
+      "ev_per_day": 0.12,
+      "stop": 3.29,
+      "target": 3.78,
+      "rr_shares": 2.19
+    }
+  ],
+  "rest": [
+    {
+      "sym": "IBIT",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "B",
+      "n": 28,
+      "p_dir": 53.57,
+      "p_reach": 14.29,
+      "market_p": 36.51,
+      "disagreement": 17.06,
+      "expiry": "2026-11-20",
+      "days": 9,
+      "long_strike": 42.5,
+      "short_strike": 38,
+      "cost": 104.5,
+      "max_gain": 345.5,
+      "payoff_ratio": 3.31,
+      "break_even": 41.45,
+      "ev": 0.85,
+      "ev_per_day": 0.09,
+      "stop": 43.62,
+      "target": 38.17,
+      "rr_shares": 3.19
+    },
+    {
+      "sym": "IREN",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 78,
+      "p_dir": 55.13,
+      "p_reach": 5.13,
+      "market_p": 38.44,
+      "disagreement": 16.69,
+      "expiry": "2026-11-20",
+      "days": 9,
+      "long_strike": 21.5,
+      "short_strike": 15,
+      "cost": 175.5,
+      "max_gain": 474.5,
+      "payoff_ratio": 2.7,
+      "break_even": 19.75,
+      "ev": -54.4,
+      "ev_per_day": -6.04,
+      "stop": 24.25,
+      "target": 14.72,
+      "rr_shares": 2.36
+    },
+    {
+      "sym": "HIMS",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 74,
+      "p_dir": 58.11,
+      "p_reach": 4.05,
+      "market_p": 38.03,
+      "disagreement": 20.08,
+      "expiry": "2026-11-20",
+      "days": 9,
+      "long_strike": 23,
+      "short_strike": 16,
+      "cost": 189,
+      "max_gain": 511,
+      "payoff_ratio": 2.7,
+      "break_even": 21.11,
+      "ev": -58.48,
+      "ev_per_day": -6.5,
+      "stop": 26.24,
+      "target": 16.05,
+      "rr_shares": 2.09
+    }
+  ],
+  "rejected": [
+    {
+      "sym": "AVGO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRVL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SMCI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "DELL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "VRT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "PWR",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "VST",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "NI",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMAT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "DIS",
+      "side": "long",
+      "why": "max loss 383.5 > band 231.88"
+    },
+    {
+      "sym": "NKE",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "VICI",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "PENG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRNA",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "HPE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AAOI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "LITE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KRKNF",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "XOM",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "BTC-USD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GEV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CRWV",
+      "side": "short",
+      "why": "max loss 463.5 > band 231.88"
+    },
+    {
+      "sym": "RARE",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "ASPN",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "NVDA",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MU",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SNDG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "APP",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "RAM",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ETN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ZYME",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMZN",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "OXY",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MSFT",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMBA",
+      "side": "short",
+      "why": "no marks"
+    }
+  ],
+  "id": "c9e25d4e",
+  "routine": true
+}
