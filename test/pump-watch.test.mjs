@@ -1,7 +1,7 @@
 // pump-watch.test.mjs - the 5-minute direction read behind "watch AMZN for the pump" (2026-11-04). Offline only.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readDirection, nextAction, judgeTrip, endCard, isActive, trimToDayVolume } from "../server/pumpWatch.js";
+import { readDirection, nextAction, judgeTrip, endCard, isActive, trimToDayVolume, normalShare, NORMAL_DAY_SHARE } from "../server/pumpWatch.js";
 
 const START = 1_793_802_600; // 09:30 ET
 const END = START + 390 * 60;
@@ -17,12 +17,12 @@ test("FORMING before the first 30 minutes close", () => {
 });
 
 test("UP on a break over the opening-range high and VWAP with heavy volume; UNCLEAR inside the range", () => {
-  const now = (START + 40 * 60) * 1000; // 40 min in: 10.3% of the session
-  const up = readDirection({ ...base, bars: [...OR, bar(30, 268.5, 272, 268.4, 271.8, 3e6)], avgVol: 40e6, dayVolume: 9e6, now });
+  const now = (START + 40 * 60) * 1000; // 40 min in: a normal day has done 20.06% of its volume, so 16M is 1.99x
+  const up = readDirection({ ...base, bars: [...OR, bar(30, 268.5, 272, 268.4, 271.8, 3e6)], avgVol: 40e6, dayVolume: 16e6, now });
   assert.equal(up.read, "UP", up.why);
   assert.equal(up.or_high, 270.76);
   // no gap (prior close 264.50), so the gap-and-hold rule cannot fire: inside the range is UNCLEAR
-  const inside = readDirection({ ...base, prevClose: 264.5, bars: [...OR, bar(30, 268.5, 269, 268, 268.3, 3e6)], avgVol: 40e6, dayVolume: 9e6, now });
+  const inside = readDirection({ ...base, prevClose: 264.5, bars: [...OR, bar(30, 268.5, 269, 268, 268.3, 3e6)], avgVol: 40e6, dayVolume: 16e6, now });
   assert.equal(inside.read, "UNCLEAR");
   assert.match(inside.why, /inside the opening range/);
 });
@@ -31,8 +31,8 @@ test("a break on thin volume is UNCLEAR; DOWN mirrors UP", () => {
   const now = (START + 40 * 60) * 1000;
   const thin = readDirection({ ...base, bars: [...OR, bar(30, 268.5, 272, 268.4, 271.8, 3e6)], avgVol: 400e6, dayVolume: 9e6, now });
   assert.equal(thin.read, "UNCLEAR");
-  assert.match(thin.why, /volume pace 0\.22x is under 1\.5x/);
-  const down = readDirection({ ...base, bars: [...OR, bar(30, 266, 266, 261, 261.5, 4e6)], avgVol: 40e6, dayVolume: 10e6, now });
+  assert.match(thin.why, /volume pace 0\.11x is under 1\.5x/);
+  const down = readDirection({ ...base, bars: [...OR, bar(30, 266, 266, 261, 261.5, 4e6)], avgVol: 40e6, dayVolume: 16e6, now });
   assert.equal(down.read, "DOWN", down.why);
 });
 
@@ -63,18 +63,18 @@ test("judgeTrip carries the read and the catalyst; endCard says what was called"
 
 test("gap-and-hold: a 3%+ gap still over VWAP in the top half of its range on heavy volume reads UP; under VWAP it does not", () => {
   const now = (START + 40 * 60) * 1000;
-  const hold = readDirection({ ...base, bars: [...OR, bar(30, 268.5, 270.2, 268.4, 270.0, 3e6)], avgVol: 40e6, dayVolume: 9e6, now });
+  const hold = readDirection({ ...base, bars: [...OR, bar(30, 268.5, 270.2, 268.4, 270.0, 3e6)], avgVol: 40e6, dayVolume: 16e6, now });
   assert.equal(hold.read, "UP", hold.why);
   assert.match(hold.why, /gap holding/);
-  const fade = readDirection({ ...base, bars: [...OR, bar(30, 268, 268.2, 264.5, 264.6, 6e6)], avgVol: 40e6, dayVolume: 12e6, now });
+  const fade = readDirection({ ...base, bars: [...OR, bar(30, 268, 268.2, 264.5, 264.6, 6e6)], avgVol: 40e6, dayVolume: 16e6, now });
   assert.equal(fade.read, "UNCLEAR", fade.why);
 });
 
 // THE 11/09 BUG (B-1362). Yahoo's 5-minute series carries junk rows: AMZN had 20.21M shares in one bar against a
 // 0.47M median, and read 2.65x pace at 11:30 CT when it really ran 1.1x. These tapes have that shape.
 const M = 0.47e6;
-const NOW = (START + 95 * 60) * 1000; // 19 bars in: 24.4% of the session
-const AVG = 30.55e6; // 8.93M traded by NOW is 1.2x pace against this average
+const NOW = (START + 95 * 60) * 1000; // 19 bars in: a normal day has done 33.35% of its volume
+const AVG = 30.55e6; // 8.93M traded by NOW is 0.88x pace against this average (the old even clock called it 1.2x)
 // an opening range of 250-252, then a slide to 247.4 that breaks the range and sits under VWAP
 const sliding = () => Array.from({ length: 19 }, (_, i) => {
   const c = i < 6 ? 251 : 250 - (i - 5) * 0.2;
@@ -85,14 +85,14 @@ const read11 = (bars, dayVolume, extra = {}) => readDirection({ ...base, prevClo
 
 test("a junk 5-minute bar cannot make the pace: the day's real volume does", () => {
   const r = read11(withJunk(), 8.93e6);
-  assert.equal(r.pace, 1.2);
+  assert.equal(r.pace, 0.88);
   assert.equal(r.read, "UNCLEAR", r.why);
-  assert.match(r.why, /volume pace 1\.2x is under 1\.5x/);
+  assert.match(r.why, /volume pace 0\.88x is under 1\.5x/);
 });
 
 test("real heavy volume still makes the call on the same junk tape", () => {
-  const r = read11(withJunk(), 14e6);
-  assert.equal(r.pace, 1.88);
+  const r = read11(withJunk(), 20e6);
+  assert.equal(r.pace, 1.96);
   assert.equal(r.read, "DOWN", r.why);
 });
 
@@ -179,8 +179,52 @@ test("fetchTape reads the day's volume from Yahoo's own day total, and readNow p
   assert.equal((await fetchTape("AMZN", fake({ regularMarketVolume: 40e6, regularMarketTime: START - 3600 }))).dayVolume, null, "the last regular trade is before today's open, so that total is yesterday's");
   assert.equal((await fetchTape("AMZN", fake({ regularMarketVolume: 40e6, regularMarketTime: undefined }))).dayVolume, null, "no time on the total means it cannot be shown to be today's");
   const r = await readNow("AMZN", fake({ regularMarketVolume: 8.93e6 }), NOW);
-  assert.equal(r.pace, 1.2);
+  assert.equal(r.pace, 0.88);
   assert.equal(r.read, "UNCLEAR", r.why);
+});
+
+// THE PACE CLOCK (2026-11-09). Volume does not come in evenly: by 09:00 CT a normal day has done 17% of its volume in
+// 7.7% of the session, so the old even clock read a perfectly average morning at 2.2x and the 1.5x bar meant nothing.
+test("normalShare: the share of a normal day's volume normally done by a minute of the session", () => {
+  for (const bad of [0, -5, NaN, undefined, null]) assert.equal(normalShare(bad), 0, `minutes ${bad}`);
+  assert.equal(normalShare(30), NORMAL_DAY_SHARE[6]);
+  assert.equal(normalShare(150), NORMAL_DAY_SHARE[30]);
+  const mid = normalShare(32.5);
+  assert.ok(Math.abs(mid - (NORMAL_DAY_SHARE[6] + NORMAL_DAY_SHARE[7]) / 2) < 1e-12, `halfway between two marks is the midpoint, got ${mid}`);
+  assert.equal(normalShare(390), 1);
+  assert.equal(normalShare(500), 1);
+  const late = normalShare(387.5); // between the last two marks (385 and 390): still a number, never undefined
+  assert.ok(late > NORMAL_DAY_SHARE[77] && late < 1, `last five minutes read ${late}`);
+});
+
+test("the normal-day table: one point per 5 minutes, never falling, the close auction left for the last step", () => {
+  assert.equal(NORMAL_DAY_SHARE.length, 79);
+  assert.equal(NORMAL_DAY_SHARE[0], 0);
+  NORMAL_DAY_SHARE.forEach((v, i) => { if (i) assert.ok(v >= NORMAL_DAY_SHARE[i - 1], `point ${i} falls`); });
+  assert.ok(NORMAL_DAY_SHARE[78] < 1);
+  assert.equal(NORMAL_DAY_SHARE[6], 0.1718); // 09:00 CT
+  assert.equal(NORMAL_DAY_SHARE[42], 0.5194); // 12:00 CT
+});
+
+test("an average morning is not heavy: the break that read 2.1x on the even clock reads 1x and is UNCLEAR", () => {
+  const now = (START + 35 * 60) * 1000;
+  const r = readDirection({ ...base, bars: [...OR, bar(30, 268.5, 272, 268.4, 271.8, 3e6)], avgVol: 40e6, dayVolume: 40e6 * NORMAL_DAY_SHARE[7], now });
+  assert.equal(r.pace, 1);
+  assert.equal(r.read, "UNCLEAR", r.why);
+  assert.match(r.why, /volume pace 1x is under 1\.5x/);
+});
+
+test("a day running exactly average reads 1x at every mark from the first read to past lunch", () => {
+  for (let k = 6; k <= 42; k++) {
+    const r = readDirection({ ...base, bars: OR, avgVol: AVG, dayVolume: AVG * NORMAL_DAY_SHARE[k], now: (START + k * 5 * 60) * 1000 });
+    assert.equal(r.pace, 1, `minute ${k * 5}`);
+  }
+});
+
+test("a half day is read at the same clock minute as a full one", () => {
+  const args = { ...base, bars: OR, avgVol: 40e6, dayVolume: 16e6, now: (START + 40 * 60) * 1000 };
+  assert.equal(readDirection({ ...args, regEnd: START + 210 * 60 }).pace, readDirection(args).pace);
+  assert.equal(readDirection(args).pace, 1.99);
 });
 
 test("updateWatch reloads before saving, so a watch added meanwhile survives", async () => {

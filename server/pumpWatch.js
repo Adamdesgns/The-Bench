@@ -12,7 +12,9 @@
 //   UNCLEAR  anything else: inside the range, or on the wrong side of VWAP, or on thin volume.
 // A first UP or DOWN of the day (or a flip from one to the other) is a CALL: the tick starts the judge,
 // which checks it on live Robinhood data and the v36 framework and texts BUY / WAIT / NO.
-// Volume pace = today's volume so far / (20-day average x the share of the session gone by).
+// Volume pace = today's volume so far / (20-day average x the share of a normal day's volume normally done by now).
+// Not the share of the clock: volume comes in heavy at the open, so on an even clock an average morning read 2.2x at
+// 09:00 CT and the 1.5x bar meant nothing before about 11:00 CT (docs/research/2026-11-09-pump-pace-clock.md).
 // "Today's volume" is the feed's own day total, never the sum of the 5-minute bars: those carry junk rows (B-1362,
 // GOOGL 11/09: 13.44M in one bar against a 0.34M median, called DOWN on 2.75x when it really ran about 1.3x). No day total, no pace.
 
@@ -24,6 +26,30 @@ export const MAX_PUMP_JUDGES_PER_DAY = 4; // cost cap across all watches (review
 export const GAP_PCT = 3; // a gap this size that HOLDS is the move itself (review finding 6d: AMZN 11/04 made its run on the gap)
 
 const r2 = (x) => (x == null || !Number.isFinite(x) ? null : Math.round(x * 100) / 100);
+
+// The share of a normal day's official volume done by each 5-minute mark after the 09:30 ET open (point k = minute 5k).
+// Median of 1,593 full name-days: 27 names, 59 sessions, 2026-08-17 to 2026-11-06. Rebuild and compare with
+// `node scripts/volume-curve.mjs` (it prints, it never rewrites this). The last point is about 0.85, not 1: the
+// closing auction is in the official day total but not in the 5-minute bars, and it lands at minute 390.
+export const NORMAL_DAY_SHARE = [
+  0.0000, 0.0727, 0.0975, 0.1184, 0.1379, 0.1557, 0.1718, 0.1878, 0.2006, 0.2146,
+  0.2278, 0.2407, 0.2535, 0.2654, 0.2770, 0.2890, 0.3006, 0.3116, 0.3225, 0.3335,
+  0.3432, 0.3550, 0.3640, 0.3750, 0.3834, 0.3936, 0.4016, 0.4107, 0.4189, 0.4266,
+  0.4343, 0.4421, 0.4502, 0.4566, 0.4642, 0.4709, 0.4785, 0.4857, 0.4921, 0.4986,
+  0.5057, 0.5112, 0.5194, 0.5267, 0.5330, 0.5391, 0.5452, 0.5522, 0.5593, 0.5661,
+  0.5724, 0.5793, 0.5848, 0.5905, 0.5966, 0.6038, 0.6103, 0.6162, 0.6229, 0.6283,
+  0.6349, 0.6408, 0.6486, 0.6549, 0.6628, 0.6717, 0.6804, 0.6890, 0.6960, 0.7058,
+  0.7159, 0.7246, 0.7329, 0.7436, 0.7561, 0.7671, 0.7820, 0.8043, 0.8511,
+];
+
+// minutes after the open -> that share, in a straight line between marks. A half day is read at the same clock minute.
+export function normalShare(minutes) {
+  if (!Number.isFinite(minutes) || minutes <= 0) return 0;
+  if (minutes >= 390) return 1;
+  const i = Math.floor(minutes / 5);
+  const next = NORMAL_DAY_SHARE[i + 1] ?? 1;
+  return NORMAL_DAY_SHARE[i] + (next - NORMAL_DAY_SHARE[i]) * (minutes / 5 - i);
+}
 
 // The bars may only claim the volume that really traded: whatever they add up to over the day's total comes off the
 // biggest bars first, so junk rows lose their weight and an honest day is left alone. Measured 11/09 against
@@ -63,8 +89,8 @@ export function readDirection({ bars, prevClose, avgVol, dayVolume, regStart, re
   let pv = 0, vol = 0;
   clean.forEach((b, i) => { pv += ((b.h + b.l + b.c) / 3) * weights[i]; vol += weights[i]; });
   const vwap = vol ? pv / vol : null;
-  const elapsed = Math.min(1, Math.max(0, (Math.min(nowS, regEnd) - regStart) / (regEnd - regStart)));
-  const pace = day != null && avgVol && elapsed > 0 ? day / (avgVol * elapsed) : null;
+  const share = normalShare((Math.min(nowS, regEnd) - regStart) / 60);
+  const pace = day != null && avgVol && share > 0 ? day / (avgVol * share) : null;
   const last = clean.at(-1).c;
   const out = { ...base, gap_pct, or_high: r2(or_high), or_low: r2(or_low), vwap: r2(vwap), pace: r2(pace), session_high: r2(Math.max(...clean.map((b) => b.h))), session_low: r2(Math.min(...clean.map((b) => b.l))) };
 
