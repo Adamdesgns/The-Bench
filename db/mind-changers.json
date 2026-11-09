@@ -8501,6 +8501,54 @@
       "row": "B-1344",
       "expires": "2026-11-12",
       "status": "open"
+    },
+    {
+      "id": "MC-492",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "AMD",
+          "op": ">",
+          "level": 489.65
+        }
+      ],
+      "meaning": "pump watch B-1346: close over the opening-range high, move still on toward 514.61-520.40, still no buy",
+      "source": "docs/reads/2026-11-09-trip-AMD.md",
+      "row": "B-1346",
+      "expires": "2026-11-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-493",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "AMD",
+          "op": ">",
+          "level": 520.4
+        }
+      ],
+      "meaning": "pump watch B-1346: daily close over the 10/30 high, re-judge the long on the next first 30-min hold",
+      "source": "docs/reads/2026-11-09-trip-AMD.md",
+      "row": "B-1346",
+      "expires": "2026-11-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-494",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "AMD",
+          "op": "<",
+          "level": 468.21
+        }
+      ],
+      "meaning": "pump watch B-1346: close under the opening-range low, the gap-hold is over and the plan is dead",
+      "source": "docs/reads/2026-11-09-trip-AMD.md",
+      "row": "B-1346",
+      "expires": "2026-11-16",
+      "status": "open"
     }
   ]
 }
