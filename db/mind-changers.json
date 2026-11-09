@@ -8869,6 +8869,38 @@
       "row": "B-1365",
       "expires": "2026-11-16",
       "status": "open"
+    },
+    {
+      "id": "MC-515",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 765.35
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: SPY settled over its 50-day (765.35 on the 11/09 stamp), the relief day became a repair; index long re-look",
+      "source": "docs/reads/2026-11-09-powerhour.md",
+      "row": "B-1367",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-516",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "AMD",
+          "op": "<=",
+          "level": 489.65
+        }
+      ],
+      "meaning": "pullback into the 488.78-489.65 gap top / opening-range high: re-judge the B-1368 pullback long (hold of the zone on a first 30-min bar, 1.0 ATR stop, 579.18 must still pay 2:1)",
+      "source": "site/reviews/2026-11-09-amd.md",
+      "row": "B-1368",
+      "expires": "2026-11-16",
+      "status": "open"
     }
   ]
 }
