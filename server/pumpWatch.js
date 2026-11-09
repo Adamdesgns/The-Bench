@@ -13,6 +13,8 @@
 // A first UP or DOWN of the day (or a flip from one to the other) is a CALL: the tick starts the judge,
 // which checks it on live Robinhood data and the v36 framework and texts BUY / WAIT / NO.
 // Volume pace = today's volume so far / (20-day average x the share of the session gone by).
+// "Today's volume" is the feed's own day total, never the sum of the 5-minute bars: those carry junk rows (B-1362,
+// GOOGL 11/09: 13.44M in one bar against a 0.34M median, called DOWN on 2.75x when it really ran about 1.3x). No day total, no pace.
 
 export const MIN_PACE = 1.5;
 export const OPENING_RANGE_MIN = 30;
@@ -23,8 +25,27 @@ export const GAP_PCT = 3; // a gap this size that HOLDS is the move itself (revi
 
 const r2 = (x) => (x == null || !Number.isFinite(x) ? null : Math.round(x * 100) / 100);
 
+// The bars may only claim the volume that really traded: whatever they add up to over the day's total comes off the
+// biggest bars first, so junk rows lose their weight and an honest day is left alone. Measured 11/09 against
+// Robinhood's clean bars on AMZN, GOOGL and NVDA, VWAP missed by 0.08% of price this way, 0.31% on the raw bars and
+// 0.22% capping at 10x the median. No fixed multiple can sort them: an honest opening bar reaches 29x the median,
+// as big as a junk row. So the opening bar goes last: it is honestly the biggest bar most days, and none of the 19
+// junk days measured had its worst row there.
+export function trimToDayVolume(vols, dayVolume) {
+  const out = [...vols];
+  let excess = out.reduce((a, v) => a + v, 0) - dayVolume;
+  for (const i of out.map((_, j) => j).slice(1).sort((a, b) => out[b] - out[a]).concat(0)) {
+    if (excess <= 0) break;
+    const cut = Math.min(out[i], excess);
+    out[i] -= cut;
+    excess -= cut;
+  }
+  return out;
+}
+
 // bars: [{ t (unix seconds), o, h, l, c, v }] for the regular session only, oldest first.
-export function readDirection({ bars, prevClose, avgVol, regStart, regEnd, now }) {
+// dayVolume: the session's real volume so far, from the feed's day total.
+export function readDirection({ bars, prevClose, avgVol, dayVolume, regStart, regEnd, now }) {
   const clean = (bars || []).filter((b) => b && b.c != null && b.h != null && b.l != null && b.t >= regStart && b.t < regEnd);
   const nowS = Math.floor((now ?? Date.now()) / 1000);
   const base = { prev: r2(prevClose), last: clean.length ? r2(clean.at(-1).c) : null };
@@ -36,11 +57,14 @@ export function readDirection({ bars, prevClose, avgVol, regStart, regEnd, now }
 
   const or_high = Math.max(...orBars.map((b) => b.h));
   const or_low = Math.min(...orBars.map((b) => b.l));
+  const day = Number.isFinite(dayVolume) && dayVolume > 0 ? dayVolume : null;
+  const vols = clean.map((b) => (Number.isFinite(b.v) && b.v > 0 ? b.v : 0));
+  const weights = day == null ? vols.map(() => 0) : trimToDayVolume(vols, day); // no day total: no bar can be trusted, so no VWAP
   let pv = 0, vol = 0;
-  for (const b of clean) { const v = b.v || 0; pv += ((b.h + b.l + b.c) / 3) * v; vol += v; }
+  clean.forEach((b, i) => { pv += ((b.h + b.l + b.c) / 3) * weights[i]; vol += weights[i]; });
   const vwap = vol ? pv / vol : null;
   const elapsed = Math.min(1, Math.max(0, (Math.min(nowS, regEnd) - regStart) / (regEnd - regStart)));
-  const pace = avgVol && elapsed > 0 ? vol / (avgVol * elapsed) : null;
+  const pace = day != null && avgVol && elapsed > 0 ? day / (avgVol * elapsed) : null;
   const last = clean.at(-1).c;
   const out = { ...base, gap_pct, or_high: r2(or_high), or_low: r2(or_low), vwap: r2(vwap), pace: r2(pace), session_high: r2(Math.max(...clean.map((b) => b.h))), session_low: r2(Math.min(...clean.map((b) => b.l))) };
 
@@ -53,7 +77,8 @@ export function readDirection({ bars, prevClose, avgVol, regStart, regEnd, now }
   if (gap_pct != null && gap_pct >= GAP_PCT && vwap != null && last > vwap && last >= mid && heavy) return { ...out, read: "UP", why: `a ${gap_pct}% gap holding: over the ${r2(vwap)} VWAP and the top half of the ${r2(or_low)}-${r2(or_high)} opening range on ${r2(pace)}x volume pace` };
   if (gap_pct != null && gap_pct <= -GAP_PCT && vwap != null && last < vwap && last <= mid && heavy) return { ...out, read: "DOWN", why: `a ${gap_pct}% gap holding down: under the ${r2(vwap)} VWAP and the bottom half of the ${r2(or_low)}-${r2(or_high)} opening range on ${r2(pace)}x volume pace` };
   const why = last >= or_low && last <= or_high ? "inside the opening range"
-    : !heavy ? `volume pace ${r2(pace) ?? "unknown"}x is under ${MIN_PACE}x`
+    : pace == null ? "volume pace unknown, so no call"
+    : !heavy ? `volume pace ${r2(pace)}x is under ${MIN_PACE}x`
     : "on the wrong side of VWAP for its break";
   return { ...out, read: "UNCLEAR", why };
 }

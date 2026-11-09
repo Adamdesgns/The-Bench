@@ -43,6 +43,11 @@ export async function fetchTape(sym, fetchFn = globalThis.fetch) {
   const q = r.indicators.quote[0];
   const bars = (r.timestamp || []).map((t, i) => ({ t, o: q.open[i], h: q.high[i], l: q.low[i], c: q.close[i], v: q.volume[i] }));
   const reg = r.meta.currentTradingPeriod.regular;
+  // The day's volume is Yahoo's own day total, which matched Robinhood's to the share. Never the sum of the
+  // 5-minute bars, which carry junk rows (B-1362). It counts only if its last regular trade is inside today's session:
+  // anything else may be yesterday's total, and a whole day's volume on a morning clock would read as a huge pace.
+  const today = Number.isFinite(r.meta.regularMarketTime) && r.meta.regularMarketTime >= reg.start;
+  const dayVolume = today ? r.meta.regularMarketVolume ?? null : null;
   let avgVol = null;
   try {
     const daily = await fetchFn(`https://query1.finance.yahoo.com/v8/finance/chart/${enc}?interval=1d&range=2mo`, UA);
@@ -53,7 +58,7 @@ export async function fetchTape(sym, fetchFn = globalThis.fetch) {
       if (past.length) avgVol = past.reduce((a, b) => a + b, 0) / past.length;
     }
   } catch {}
-  return { bars, prevClose: r.meta.chartPreviousClose ?? r.meta.previousClose, avgVol, regStart: reg.start, regEnd: reg.end };
+  return { bars, prevClose: r.meta.chartPreviousClose ?? r.meta.previousClose, avgVol, dayVolume, regStart: reg.start, regEnd: reg.end };
 }
 
 export async function readNow(sym, fetchFn, now = Date.now()) {
