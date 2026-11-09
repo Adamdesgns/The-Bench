@@ -8821,6 +8821,54 @@
       "row": "B-1360",
       "expires": "2026-11-20",
       "status": "open"
+    },
+    {
+      "id": "MC-512",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 164.27
+        }
+      ],
+      "meaning": "NVDA settled under the 52-week low, the first real floor: re-judge the short and the HODL, earnings 11/17 pm",
+      "source": "site/reviews/2026-11-09-nvda.md",
+      "row": "B-1365",
+      "expires": "2026-11-17",
+      "status": "open"
+    },
+    {
+      "id": "MC-513",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">=",
+          "level": 194.9
+        }
+      ],
+      "meaning": "hunt-short 4460398a stop hit: score the hunter call a stop-out (desk passed, B-1365)",
+      "source": "site/reviews/2026-11-09-nvda.md",
+      "row": "B-1365",
+      "expires": "2026-11-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-514",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 140.85
+        }
+      ],
+      "meaning": "hunt-short 4460398a target hit: score the hunter call a hit and re-judge the B-1365 pass",
+      "source": "site/reviews/2026-11-09-nvda.md",
+      "row": "B-1365",
+      "expires": "2026-11-16",
+      "status": "open"
     }
   ]
 }
