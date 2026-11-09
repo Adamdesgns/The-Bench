@@ -73,3 +73,19 @@ Recompute ATR at the bar. Earnings 2027-02-04 (tentative) are outside the hold. 
 **MRVL (B-1353).** The second 30-minute bar closed 153.89, over 152.15. B-1320 voids on a 30-minute close over 152.15, so the short re-look is void. This supersedes B-1348.
 
 **ARM (B-1354).** B-1347's ticket is one price. With ARM at 186.73 a sell-short limit at 183.69 would fill near 186.7, and the 199.30 stop would then be 0.81 ATR away, which breaks the ATR Floor. The valid fill band is 182.70 to 183.69. Not voided: the void is a close over 191.80. No new ticket written.
+
+## GOOGL delta, about 10:15 CT: the TPU news (B-1357, corrected by B-1359)
+
+**The news is real and it is Google's own.** Bloomberg and Quartz, 08:40 ET, before the open: TPU 8tx and TPU 8i Max. Reworked versions of existing silicon, both shipping next year. The Bloomberg Intelligence projection of TPU sales going from about 12B to over 135B by 2028 is an analyst forecast and does not qualify under the lane.
+
+**Company Catalyst Lane, every condition clears.** +3.03% on 284.78. About 2.7x the 30-day average at full-session pace, from the 5-minute bars. First 30-minute bar closed 293.91 over the 290.49 pre-news line (the 11/06 high). Stop 282.50, 1.01 ATR, under 283.14 and 282.57. Target 319.52 pays 2.24 to 1. Ceiling 294.84. Lane open through 11/10.
+
+**The one gate refusing: Capital Competition.** Trails SPY by 13.43 (20) and 12.01 (60), and QQQ by 7.76 and 7.98. That is a lost market leg, a No Trade, and the lane says every gate still applies. The 20-session window carries the 10/29 gap until about 11/27. On the day GOOGL is up less than QQQ (+3.03 against +3.35).
+
+**Hunters.** hunt-short f7308065: not READY (not at the 20-bar low, not lagging on 5 sessions). options-hunter cd7ae9f9: long not READY (under the 50-day, not at the 20-bar high, trails SPY, readiness 49); short not READY.
+
+**Verdict.** NO TRADE. Readiness 60, the CPI cap. Grades carried from B-1352. MC-507 and MC-508 stand.
+
+## AMZN 240 miss review (B-1358)
+
+Full numbers in `docs/research/2026-11-09-amzn-240-miss.md`. The 240 plan expired 10/22 with a low of 244.30 while it was alive. On 10/30 the only live zone was 226-231; the first 5-minute bar traded inside it at 229.36, the first 30-minute bar closed 239.195 over the ceiling, and nothing on the book could fill there. That corrects "never traded" in B-1266 and B-1248. B-1351 repeats the pullback-only shape B-1266 warned about.

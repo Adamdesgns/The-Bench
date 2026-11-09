@@ -1,0 +1,66 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-11-09",
+  "source": "yahoo",
+  "generated": "2026-11-09T16:01:55.348Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": 300.8,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [],
+  "READY": [],
+  "STALK": [],
+  "DISCOVERY": [],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [
+    {
+      "sym": "GOOGL",
+      "ok": true,
+      "date": "2026-11-09",
+      "close": 293.24,
+      "sma50": 331.86,
+      "sma20": 314.47,
+      "atr": 11.66,
+      "low20": 276.92,
+      "volume": 12807042,
+      "vol30": 33987760,
+      "volRatio": 0.38,
+      "rs20": -13.43,
+      "rs5": 5.2,
+      "gates": {
+        "breakdown": false,
+        "laggard": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 238.61,
+        "date": "2025-10-01",
+        "atr_away": 4.68
+      },
+      "first_shelf": {
+        "level": 276.92,
+        "date": "2026-10-30",
+        "rr": 1.4
+      },
+      "floor2": {
+        "level": 276.9200134277344,
+        "date": "2026-10-30"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 293.24,
+        "stop": 304.9,
+        "stop_atr": 1,
+        "target": 238.61,
+        "rr": 4.68
+      },
+      "readiness": 60,
+      "list": null
+    }
+  ],
+  "skipped": [],
+  "id": "f7308065"
+}
