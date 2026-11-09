@@ -8629,6 +8629,70 @@
       "row": "B-1349",
       "expires": "2026-11-17",
       "status": "open"
+    },
+    {
+      "id": "MC-500",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<=",
+          "level": 18.78
+        }
+      ],
+      "meaning": "IREN settled inside the B-1350 re-look ceiling; check the 11/10 first 30-minute hold test and whether RS turned",
+      "source": "docs/reads/2026-11-09-trip-IREN.md",
+      "row": "B-1350",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-501",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 17.155
+        }
+      ],
+      "meaning": "B-1350 void: settled under the print-day low",
+      "source": "docs/reads/2026-11-09-trip-IREN.md",
+      "row": "B-1350",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-502",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 15.84
+        }
+      ],
+      "meaning": "B-1350 stop level breached on a close",
+      "source": "docs/reads/2026-11-09-trip-IREN.md",
+      "row": "B-1350",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-503",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">",
+          "level": 24.665
+        }
+      ],
+      "meaning": "B-1350 target and void: settled over the 11/03 swing high, move gone without us",
+      "source": "docs/reads/2026-11-09-trip-IREN.md",
+      "row": "B-1350",
+      "expires": "2026-11-10",
+      "status": "open"
     }
   ]
 }
