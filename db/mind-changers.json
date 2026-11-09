@@ -8789,6 +8789,38 @@
       "row": "B-1356",
       "expires": "2026-11-20",
       "status": "open"
+    },
+    {
+      "id": "MC-510",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "ASTS",
+          "op": ">",
+          "level": 44.85
+        }
+      ],
+      "meaning": "Settled back over the price of the last desk look (B-914); the swing case re-opens only after the print and with rs.mjs no longer trailing on both windows",
+      "source": "site/reviews/2026-11-09-asts.md",
+      "row": "B-1360",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-511",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "ASTS",
+          "op": "<",
+          "level": 27.58
+        }
+      ],
+      "meaning": "Settled under the 11/06 low, the 52-week low: no floor left on the chart and the stack watch is under its lowest structure",
+      "source": "site/reviews/2026-11-09-asts.md",
+      "row": "B-1360",
+      "expires": "2026-11-20",
+      "status": "open"
     }
   ]
 }

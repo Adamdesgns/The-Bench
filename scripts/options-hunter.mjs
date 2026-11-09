@@ -324,7 +324,8 @@ async function main() {
   const macro = macroInside2(asof);
   const { candidates: cands, skipped, notListed } = candidates(series, { ...opts, macroInside2: macro });
   const receipt = { kind: "options-hunter-candidates", asof, source, universe, generated: new Date().toISOString(), macro_inside_2_sessions: macro, band: band === Infinity ? null : band, opts, marks, scanned: Object.keys(series).length - 1, long_screen_tested: LONG_SCREEN_TESTED, candidates: cands, skipped, not_listed: notListed };
-  receipt.id = createHash("sha1").update(JSON.stringify({ asof, cands })).digest("hex").slice(0, 8);
+  // The scanned names are in the hash: two runs that both come back empty must not share an id, or the second overwrites the first's receipt (GOOGL/ASTS 2026-11-09).
+  receipt.id = createHash("sha1").update(JSON.stringify({ asof, cands, scanned: Object.keys(series).sort() })).digest("hex").slice(0, 8);
   if (has("--write")) {
     if (has("--routine")) receipt.routine = true;
     const w = writeReceipt(resolve(dir, `${asof}.candidates.json`), receipt, { routine: has("--routine"), overwrite: has("--overwrite") });

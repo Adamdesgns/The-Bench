@@ -86,6 +86,8 @@ Recompute ATR at the bar. Earnings 2027-02-04 (tentative) are outside the hold. 
 
 **Verdict.** NO TRADE. Readiness 60, the CPI cap. Grades carried from B-1352. MC-507 and MC-508 stand.
 
+**Corrected about 11:15 CT (B-1362): the 2.7x above is wrong.** It came from summing Yahoo's 5-minute bars, which carry junk rows (single bars of 13.44M and 12.17M against a 0.34M median). Robinhood's volume was 16.03M at about 11:00 CT, about 1.2x the 30-day pace, so the lane's 2x volume condition fails and "every condition clears" is withdrawn. Volume and Capital Competition both refuse. Verdict unchanged.
+
 ## AMZN 240 miss review (B-1358)
 
 Full numbers in `docs/research/2026-11-09-amzn-240-miss.md`. The 240 plan expired 10/22 with a low of 244.30 while it was alive. On 10/30 the only live zone was 226-231; the first 5-minute bar traded inside it at 229.36, the first 30-minute bar closed 239.195 over the ceiling, and nothing on the book could fill there. That corrects "never traded" in B-1266 and B-1248. B-1351 repeats the pullback-only shape B-1266 warned about.
