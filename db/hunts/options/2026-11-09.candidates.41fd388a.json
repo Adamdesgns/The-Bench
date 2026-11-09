@@ -1,0 +1,114 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-11-09",
+  "source": "yahoo",
+  "universe": "named",
+  "generated": "2026-11-09T23:50:41.399Z",
+  "macro_inside_2_sessions": true,
+  "band": 250.80700000000002,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "marks": [],
+  "scanned": 1,
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "candidates": [
+    {
+      "side": "short",
+      "sym": "NVDA",
+      "ok": true,
+      "date": "2026-11-09",
+      "close": 178.67,
+      "sma50": 219.04,
+      "sma20": 209.16,
+      "atr": 8.79,
+      "low20": 181.46,
+      "volume": 456756830,
+      "vol30": 115560227,
+      "volRatio": 3.95,
+      "rs20": -17.79,
+      "rs5": -11.65,
+      "gates": {
+        "breakdown": true,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": null,
+      "first_shelf": {
+        "level": 177.61,
+        "date": "2026-01-20",
+        "rr": 0.07
+      },
+      "floor2": null,
+      "too_far": null,
+      "geometry": {
+        "entry": 178.67,
+        "stop": 194.9,
+        "stop_atr": 1.85,
+        "target": null,
+        "rr": 0.07
+      },
+      "readiness": 51,
+      "list": "DISCOVERY",
+      "evidence": null,
+      "spread_request": null
+    }
+  ],
+  "skipped": [],
+  "not_listed": [
+    {
+      "sym": "NVDA",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-09",
+      "close": 178.67,
+      "sma50": 219.04,
+      "atr": 8.79,
+      "high20": 228.86,
+      "volRatio": 3.95,
+      "rs20": -17.79,
+      "rs5": -11.65,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": null,
+      "first_shelf": {
+        "level": 180.28,
+        "date": "2025-09-11",
+        "rr": 0.18
+      },
+      "too_far": null,
+      "target2": null,
+      "geometry": {
+        "entry": 178.67,
+        "stop": 169.88,
+        "stop_atr": 1,
+        "target": null,
+        "rr": 0.18
+      },
+      "readiness": 27,
+      "list": null
+    }
+  ],
+  "id": "41fd388a"
+}

@@ -134,8 +134,20 @@
       "why": "Q1 FY27 print 11/5 pm: revenue 228M, AI cloud revenue about tripled to 200M, EPS -0.66 vs -0.63 est; +16.0% pre-market (Robinhood, Seeking Alpha)",
       "added_by": "routine",
       "added_at": "2026-11-06T11:37:45.243Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:00",
+          "last": 21.56
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UNCLEAR",
+        "last": 20.85,
+        "why": "inside the opening range"
+      }
     },
     {
       "ticker": "WULF",
@@ -144,8 +156,21 @@
       "why": "Q3 print before the open today, est -0.32, call 8:00 ET; +6.5% pre-market with the chip bounce (Robinhood calendar)",
       "added_by": "routine",
       "added_at": "2026-11-06T11:37:45.327Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "11:10",
+          "last": 10.65,
+          "capped": true
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UP",
+        "last": 10.65,
+        "why": "a 10.57% gap holding: over the 10.46 VWAP and the top half of the 10.09-11.15 opening range on 2.52x volume pace"
+      }
     },
     {
       "ticker": "MRVL",
@@ -154,8 +179,25 @@
       "why": "chip bounce after the 11/5 -16.6% rout on data-centre rule fears; +8.7% pre-market; payrolls 8:30 ET (Reuters)",
       "added_by": "routine",
       "added_at": "2026-11-06T11:37:45.430Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:00",
+          "last": 143.71
+        },
+        {
+          "read": "DOWN",
+          "at_ct": "09:20",
+          "last": 140.09
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "DOWN",
+        "last": 135.9,
+        "why": "under the 140.15 opening-range low and the 140.9 VWAP on 1.55x volume pace"
+      }
     },
     {
       "ticker": "MU",
@@ -164,8 +206,26 @@
       "why": "chip bounce after the 11/5 -17.2% rout on data-centre rule fears; +8.5% pre-market; payrolls 8:30 ET (Reuters)",
       "added_by": "routine",
       "added_at": "2026-11-06T11:37:45.505Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:10",
+          "last": 709.14
+        },
+        {
+          "read": "DOWN",
+          "at_ct": "09:35",
+          "last": 679.32,
+          "capped": true
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "DOWN",
+        "last": 681.68,
+        "why": "under the 688.67 opening-range low and the 698.21 VWAP on 1.88x volume pace"
+      }
     },
     {
       "ticker": "DELL",
@@ -174,6 +234,212 @@
       "why": "AI-server bounce after the 11/5 -14.9% rout on data-centre rule fears; +8.4% pre-market; payrolls 8:30 ET (Reuters)",
       "added_by": "routine",
       "added_at": "2026-11-06T11:37:45.621Z",
+      "calls": [
+        {
+          "read": "DOWN",
+          "at_ct": "09:25",
+          "last": 336.49,
+          "capped": true
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UNCLEAR",
+        "last": 326.61,
+        "why": "volume pace 1.4x is under 1.5x"
+      }
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-11-09",
+      "until": "12:00",
+      "why": "Board opened independent probe into CEO Huang after reports he was targeted by a Chinese intelligence effort; Huang admitted an affair; House briefing request 11/18 (CNBC 11/8-11/9, board statement GlobeNewswire 11/8)",
+      "added_by": "routine",
+      "added_at": "2026-11-09T11:38:21.307Z",
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:15",
+          "last": 178.96
+        },
+        {
+          "read": "DOWN",
+          "at_ct": "10:35",
+          "last": 174.92,
+          "capped": true
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UNCLEAR",
+        "last": 176.77,
+        "why": "inside the opening range"
+      }
+    },
+    {
+      "ticker": "IREN",
+      "date": "2026-11-09",
+      "until": "12:00",
+      "why": "JPMorgan cut target to 55 from 65 on capex reduction and delays (TipRanks/Investing.com 11/9), giving back part of Friday's +20% earnings gap",
+      "added_by": "routine",
+      "added_at": "2026-11-09T11:38:21.389Z",
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:20",
+          "last": 21.64
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UP",
+        "last": 21.8,
+        "why": "over the 21.59 opening-range high and the 21.43 VWAP on 1.5x volume pace"
+      }
+    },
+    {
+      "ticker": "CRWV",
+      "date": "2026-11-09",
+      "until": "12:00",
+      "why": "Earnings 11/10 pm; shares down as CEO pushes for Texas AI data-center clarity after Democratic sweep (Barron's headline 11/9, body not read)",
+      "added_by": "routine",
+      "added_at": "2026-11-09T11:38:21.483Z",
+      "calls": [],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UNCLEAR",
+        "last": 49.03,
+        "why": "inside the opening range"
+      }
+    },
+    {
+      "ticker": "AMD",
+      "date": "2026-11-09",
+      "until": "12:00",
+      "why": "Bid while NVDA sells on the Huang probe; Barron's 11/9 says about more than the probe, body not read",
+      "added_by": "routine",
+      "added_at": "2026-11-09T11:38:21.562Z",
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:00",
+          "last": 486.55
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UP",
+        "last": 503.29,
+        "why": "over the 489.65 opening-range high and the 489.22 VWAP on 1.92x volume pace"
+      }
+    },
+    {
+      "ticker": "AMZN",
+      "date": "2026-11-09",
+      "until": "12:00",
+      "why": "Adam order 11/09 09:50 CT: do not miss a run-up. No verified company news; rallying with the buyer layer, first 30-min high 275.31",
+      "added_by": "adam",
+      "added_at": "2026-11-09T15:50:02.383Z",
+      "calls": [
+        {
+          "read": "DOWN",
+          "at_ct": "09:55",
+          "last": 268.88
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UNCLEAR",
+        "last": 268.3,
+        "why": "volume pace 1.03x is under 1.5x"
+      }
+    },
+    {
+      "ticker": "GOOGL",
+      "date": "2026-11-09",
+      "until": "12:00",
+      "why": "Adam order 11/09 09:50 CT: do not miss a run-up. Bounce to the top of the post-print range, first 30-min high 296.33, ceiling 296.49",
+      "added_by": "adam",
+      "added_at": "2026-11-09T15:50:02.438Z",
+      "calls": [
+        {
+          "read": "DOWN",
+          "at_ct": "10:15",
+          "last": 291.58,
+          "capped": true
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UNCLEAR",
+        "last": 290.67,
+        "why": "volume pace 0.9x is under 1.5x"
+      }
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-11-10",
+      "until": "12:00",
+      "why": "Adam order 11/09 evening: do not miss the pump. Board probe of CEO Huang (personal conduct, not the business), NVDA -4.3 pct while chips +5 to +13; reply to House due 11/11, earnings 11/17 pm, briefing 11/18. Gap-fill line 186.64, B-1386",
+      "added_by": "adam",
+      "added_at": "2026-11-09T23:50:37.768Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-11-11",
+      "until": "12:00",
+      "why": "Adam order 11/09 evening: do not miss the pump. Board probe of CEO Huang (personal conduct, not the business), NVDA -4.3 pct while chips +5 to +13; reply to House due 11/11, earnings 11/17 pm, briefing 11/18. Gap-fill line 186.64, B-1386",
+      "added_by": "adam",
+      "added_at": "2026-11-09T23:50:37.857Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-11-12",
+      "until": "12:00",
+      "why": "Adam order 11/09 evening: do not miss the pump. Board probe of CEO Huang (personal conduct, not the business), NVDA -4.3 pct while chips +5 to +13; reply to House due 11/11, earnings 11/17 pm, briefing 11/18. Gap-fill line 186.64, B-1386",
+      "added_by": "adam",
+      "added_at": "2026-11-09T23:50:37.954Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-11-13",
+      "until": "12:00",
+      "why": "Adam order 11/09 evening: do not miss the pump. Board probe of CEO Huang (personal conduct, not the business), NVDA -4.3 pct while chips +5 to +13; reply to House due 11/11, earnings 11/17 pm, briefing 11/18. Gap-fill line 186.64, B-1386",
+      "added_by": "adam",
+      "added_at": "2026-11-09T23:50:38.115Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-11-16",
+      "until": "12:00",
+      "why": "Adam order 11/09 evening: do not miss the pump. Board probe of CEO Huang (personal conduct, not the business), NVDA -4.3 pct while chips +5 to +13; reply to House due 11/11, earnings 11/17 pm, briefing 11/18. Gap-fill line 186.64, B-1386",
+      "added_by": "adam",
+      "added_at": "2026-11-09T23:50:38.195Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-11-17",
+      "until": "12:00",
+      "why": "Adam order 11/09 evening: do not miss the pump. Board probe of CEO Huang (personal conduct, not the business), NVDA -4.3 pct while chips +5 to +13; reply to House due 11/11, earnings 11/17 pm, briefing 11/18. Gap-fill line 186.64, B-1386",
+      "added_by": "adam",
+      "added_at": "2026-11-09T23:50:38.274Z",
       "calls": [],
       "ended": false
     }
