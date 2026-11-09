@@ -55,4 +55,6 @@ Three fresh reviewers checked the code, the curve and the tests: no defects, and
 
 **More limits.** Half days are read at the same clock minute, unscaled, and no half day has been measured (next: Friday 2026-11-27). The 5-minute bars add up to about 85% of the official day; the rest is the closing auction, so the curve jumps to 100% at the close. The curve is pooled across names, not per name. The replay is rebuilt from trimmed bars, so each figure is close, not exact. Past calls in `db/pump-watch.json` are the record and were not rewritten.
 
-**Not changed, Adam's call:** `scripts/crowd.mjs` has its own even-clock volume pace feeding the FOMO score, and the framework's Company Catalyst Lane (v36) asks for 2x volume "at full-session pace".
+**The crowd log, fixed later the same day (Adam: "Yes, fix it"):** `scripts/crowd.mjs` had its own even-clock volume pace feeding the FOMO score. It now divides by the same curve (its average is still the prior 30 daily bars). New records carry `pace_clock: "normal-day"`. Records without that tag used the even clock, so their morning pace and FOMO volume input read high; they are the record and were not rewritten. A `report` that ranks by FOMO score mixes the two clocks. Half days carry the same limit as pump watch: during a half-day session the pace reads high, because the curve is for a full day.
+
+**Not changed, Adam's call:** the framework's Company Catalyst Lane (v36) asks for 2x volume "at full-session pace".

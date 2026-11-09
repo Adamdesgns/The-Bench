@@ -23,6 +23,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseRss } from "./call-context.mjs";
 import { atr14, settledBars } from "./stack.mjs";
+import { normalShare } from "../server/pumpWatch.js";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const round = (n, d = 2) => Math.round((n + Number.EPSILON) * 10 ** d) / 10 ** d;
@@ -110,7 +111,12 @@ export function trendingRank(json, sym) {
   return i >= 0 ? i + 1 : null;
 }
 
-export const volumePace = ({ today, avg, elapsed }) => (Number.isFinite(today) && avg && elapsed ? round(today / (avg * elapsed)) : null);
+// Pace against a normal day: today's volume over (average day x the share of a day's volume normally done
+// by this minute, NORMAL_DAY_SHARE in server/pumpWatch.js). An even clock read an average day as 2.2x at 09:00 CT.
+export const volumePace = ({ today, avg, minutes }) => {
+  const share = normalShare(minutes);
+  return Number.isFinite(today) && avg && share ? round(today / (avg * share)) : null;
+};
 
 export function sampleQuotes(bodies, { max = 5, len = 140 } = {}) {
   const hasReason = (b) => Object.values(BUCKETS).some((re) => re.test(b));
@@ -229,11 +235,12 @@ async function livePrice(sym) {
   const c = r.json.chart?.result?.[0];
   if (!c) return { error: "failed: empty chart" };
   const reg = c.meta.currentTradingPeriod.regular, now = Date.now() / 1000;
-  const elapsed = clamp01((Math.min(now, reg.end) - reg.start) / (reg.end - reg.start));
+  // minutes since the open; a finished session (a half day included) reads as a whole day
+  const minutes = now >= reg.end ? 390 : Math.max(0, (now - reg.start) / 60);
   // regularMarketVolume, never the sum of the 5-minute bars: those carry junk rows (GOOGL 11/09: a 13.4M bar against a 0.34M median).
   // It matched Robinhood's own volume to the share on six names (B-1362).
   const session = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(c.meta.regularMarketTime * 1000));
-  return { price: c.meta.regularMarketPrice, prev_close: c.meta.chartPreviousClose, today_volume: c.meta.regularMarketVolume, elapsed, session };
+  return { price: c.meta.regularMarketPrice, prev_close: c.meta.chartPreviousClose, today_volume: c.meta.regularMarketVolume, minutes, session };
 }
 
 async function dailyBars(sym, range = "3mo") {
@@ -299,7 +306,7 @@ function buildRecord(sym, raw, ctx, { source, note }) {
   const vols = prior.slice(-30).map((b) => b.v).filter(Boolean);
   const avg = vols.length ? vols.reduce((p, q) => p + q, 0) / vols.length : null;
   const dayMove = finite(raw.price) && finite(raw.prev_close);
-  const pace = finite(raw.price) ? volumePace({ today: raw.today_volume, avg, elapsed: raw.elapsed }) : null;
+  const pace = finite(raw.price) ? volumePace({ today: raw.today_volume, avg, minutes: raw.minutes }) : null;
   const moveAtr = atr && dayMove ? round((raw.price - raw.prev_close) / atr) : null;
   const ape = ctx.ape ? apeRow(ctx.ape, sym) : null;
   const rank = trendingRank(ctx.trending, sym);
@@ -314,7 +321,7 @@ function buildRecord(sym, raw, ctx, { source, note }) {
     sym, date: ctx.date, session, time: new Date().toISOString(), source, note: note ?? null,
     price: raw.price ?? null, prev_close: raw.prev_close ?? null, pct_today, spy_price: ctx.spy?.price ?? null, spy_pct_today,
     vs_spy_today: pct_today != null && spy_pct_today != null ? round(pct_today - spy_pct_today) : null,
-    atr, move_atr: moveAtr, volume_pace: pace,
+    atr, move_atr: moveAtr, volume_pace: pace, pace_clock: "normal-day",
     stocktwits: st ? { ...stCounts, trending_rank: rank } : null, ape, fomo,
     why: { ...why, main: dominantWhy(why.counts, why.n) }, samples: sampleQuotes(bodies ?? []),
     news: { count: headlines.length, headlines }, sources: { ...raw.status, ...ctx.status, ...(feed.ok ? {} : { news: "failed: bad feed" }) },

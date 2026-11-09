@@ -165,9 +165,13 @@ test("the trending rank is the position on the list, or null off it", () => {
 });
 
 test("volume pace compares today with the share of a normal day that has passed", () => {
-  assert.equal(volumePace({ today: 1000, avg: 2000, elapsed: 0.25 }), 2);
-  assert.equal(volumePace({ today: 1000, avg: 0, elapsed: 0.25 }), null);
-  assert.equal(volumePace({ today: 1000, avg: 2000, elapsed: 0 }), null);
+  // 30 minutes in, a normal day has done 17.18% of its volume (NORMAL_DAY_SHARE), not the 7.7% an even clock assumes
+  assert.equal(volumePace({ today: 343.6, avg: 2000, minutes: 30 }), 1);
+  assert.equal(volumePace({ today: 1000, avg: 2000, minutes: 30 }), 2.91);
+  assert.equal(volumePace({ today: 1000, avg: 2000, minutes: 390 }), 0.5); // the day is done: plain today / average
+  assert.equal(volumePace({ today: 1000, avg: 0, minutes: 30 }), null);
+  assert.equal(volumePace({ today: 1000, avg: 2000, minutes: 0 }), null);
+  assert.equal(volumePace({ today: 1000, avg: 2000 }), null);
 });
 
 test("the sample quotes put a reason first, drop links and stay short", () => {
@@ -289,7 +293,7 @@ test("capture writes one record with the note, the score and the reasons", () =>
   const daily = [...Array.from({ length: 30 }, (_, i) => ({ d: day(i), o: 30, h: 31, l: 29, c: 30, v: 1000 })), { d: "2026-11-09", o: 30, h: 90, l: 20, c: 36, v: 999999 }]; // the capture day itself must not count
   const messages = Array.from({ length: 20 }, (_, i) => ({ id: i, body: i % 2 ? "earnings tonight" : "yolo", created_at: new Date(Date.UTC(2026, 10, 9, 16, i)).toISOString(), entities: { sentiment: { basic: "Bullish" } } }));
   writeFileSync(sources, JSON.stringify({
-    ASTS: { price: 36, prev_close: 30, today_volume: 2000, elapsed: 0.5, daily, stocktwits: { symbol: { watchlist_count: 5 }, messages }, rss: "<rss><item><title>ASTS jumps</title></item></rss>" },
+    ASTS: { price: 36, prev_close: 30, today_volume: 2000, minutes: 195, daily, stocktwits: { symbol: { watchlist_count: 5 }, messages }, rss: "<rss><item><title>ASTS jumps</title></item></rss>" },
     SPY: { price: 505, prev_close: 500 },
     trending: { symbols: [{ symbol: "ASTS" }] },
     ape: [{ ticker: "ASTS", rank: 3, mentions: "30", mentions_24h_ago: "10", upvotes: "9", rank_24h_ago: "8" }],
@@ -304,7 +308,8 @@ test("capture writes one record with the note, the score and the reasons", () =>
   assert.equal(rec.price, 36);
   assert.equal(rec.pct_today, 20);
   assert.equal(rec.spy_pct_today, 1);
-  assert.equal(rec.volume_pace, 4); // 2,000 traded by mid-session against a 1,000 average
+  assert.equal(rec.volume_pace, 4.01); // 2,000 traded by minute 195 against a 1,000 average; a normal day has done 49.86% by then
+  assert.equal(rec.pace_clock, "normal-day"); // records before 2026-11-09's fix have no tag and used an even clock
   assert.equal(rec.atr, 2);
   assert.equal(rec.session, "2026-11-09");
   assert.equal(rec.fomo.inputs.trending, 100);
@@ -320,7 +325,7 @@ const run2 = (src, ...args) => {
   const r = spawnSync(process.execPath, ["scripts/crowd.mjs", "capture", ...args, "--write", "--db", db, "--sources-file", sources], { encoding: "utf8" });
   return { r, captures: () => JSON.parse(readFileSync(db, "utf8")).captures };
 };
-const okName = { price: 36, prev_close: 30, today_volume: 2000, elapsed: 0.5, daily: [], stocktwits: null, rss: "" };
+const okName = { price: 36, prev_close: 30, today_volume: 2000, minutes: 195, daily: [], stocktwits: null, rss: "" };
 
 test("an empty ApeWisdom list is a failed source, not zero mentions", () => {
   const { captures } = run2({ ASTS: okName, SPY: { price: 505, prev_close: 500 }, trending: { symbols: [{ symbol: "X" }] }, ape: [], now: { date: "2026-11-09" } }, "--symbols", "ASTS");
@@ -357,7 +362,7 @@ test("a missing previous close leaves the day's change blank", () => {
 test("a dry run prints the read and writes nothing", () => {
   const dir = mkdtempSync(join(tmpdir(), "crowd-"));
   const db = join(dir, "log.json"), sources = join(dir, "src.json");
-  writeFileSync(sources, JSON.stringify({ ZZZ: { price: 10, prev_close: 10, today_volume: 1, elapsed: 1, daily: [], stocktwits: null, rss: "" }, SPY: { price: 500, prev_close: 500 }, trending: null, ape: null, now: { date: "2026-11-09" } }));
+  writeFileSync(sources, JSON.stringify({ ZZZ: { price: 10, prev_close: 10, today_volume: 1, minutes: 390, daily: [], stocktwits: null, rss: "" }, SPY: { price: 500, prev_close: 500 }, trending: null, ape: null, now: { date: "2026-11-09" } }));
   const r = spawnSync(process.execPath, ["scripts/crowd.mjs", "capture", "--symbols", "ZZZ", "--db", db, "--sources-file", sources], { encoding: "utf8" });
   assert.equal(r.status, 0, r.stderr);
   assert.match(r.stdout, /ZZZ/);
