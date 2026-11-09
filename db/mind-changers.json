@@ -8325,6 +8325,182 @@
       "row": "B-1334",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-481",
+      "created": "2026-11-08",
+      "when": [
+        {
+          "ticker": "ALLO",
+          "op": ">",
+          "level": 1.38
+        }
+      ],
+      "meaning": "ALLO back over its 10/29 high after the RESOLUTION data: re-look",
+      "source": "docs/reads/2026-11-08-weekly-catalyst.md",
+      "row": "B-1338",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-482",
+      "created": "2026-11-08",
+      "when": [
+        {
+          "ticker": "ALLO",
+          "op": "<",
+          "level": 0.98
+        }
+      ],
+      "meaning": "ALLO under its 52-week low: pass stands, plan dead",
+      "source": "docs/reads/2026-11-08-weekly-catalyst.md",
+      "row": "B-1338",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-483",
+      "created": "2026-11-08",
+      "when": [
+        {
+          "ticker": "VYGR",
+          "op": ">",
+          "level": 2.29
+        }
+      ],
+      "meaning": "VYGR over its 10/20 high inside the Q4 data window: re-look, no hold through the data",
+      "source": "docs/reads/2026-11-08-weekly-catalyst.md",
+      "row": "B-1339",
+      "expires": "2026-12-31",
+      "status": "open"
+    },
+    {
+      "id": "MC-484",
+      "created": "2026-11-08",
+      "when": [
+        {
+          "ticker": "VYGR",
+          "op": "<",
+          "level": 1.675
+        }
+      ],
+      "meaning": "VYGR under its 52-week low: pass stands, plan dead",
+      "source": "docs/reads/2026-11-08-weekly-catalyst.md",
+      "row": "B-1339",
+      "expires": "2026-12-31",
+      "status": "open"
+    },
+    {
+      "id": "MC-485",
+      "created": "2026-11-08",
+      "when": [
+        {
+          "ticker": "RIGL",
+          "op": ">",
+          "level": 45.71
+        }
+      ],
+      "meaning": "RIGL takes back the 11/05 close: re-look a run-up into ASH, hard exit 12/11 close",
+      "source": "docs/reads/2026-11-08-weekly-catalyst.md",
+      "row": "B-1340",
+      "expires": "2026-12-04",
+      "status": "open"
+    },
+    {
+      "id": "MC-486",
+      "created": "2026-11-08",
+      "when": [
+        {
+          "ticker": "RIGL",
+          "op": "<",
+          "level": 37.6
+        }
+      ],
+      "meaning": "RIGL under the 11/06 low: pass stands, plan dead",
+      "source": "docs/reads/2026-11-08-weekly-catalyst.md",
+      "row": "B-1340",
+      "expires": "2026-12-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-487",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 186.64
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: NVDA settled back over the 11/06 close, the probe gap was bought",
+      "source": "docs/reads/2026-11-09-premarket.md",
+      "row": "B-1342",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-488",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 179.18
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge: NVDA settled under the 179.18 shelf, next verified pivot 164.58, earnings 11/17 pm",
+      "source": "docs/reads/2026-11-09-premarket.md",
+      "row": "B-1342",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-489",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 170.24
+        }
+      ],
+      "meaning": "NVDA settled under its 11/09 first-5-minute low: the probe selling was not finished at the open, re-judge the short (hunter target 164.58, earnings 11/17 pm)",
+      "source": "docs/reads/2026-11-09-sotm.md",
+      "row": "B-1343",
+      "expires": "2026-11-17",
+      "status": "open"
+    },
+    {
+      "id": "MC-490",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "ARM",
+          "op": ">=",
+          "level": 180.72
+        }
+      ],
+      "meaning": "close at or over the 2:1 line for the B-1344 short test: re-judge whether the bounce failed",
+      "source": "docs/reads/2026-11-09-trip-ARM.md",
+      "row": "B-1344",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-491",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "ARM",
+          "op": "<=",
+          "level": 149.5
+        }
+      ],
+      "meaning": "B-1344 short target, the 2024-06-25 low, reached",
+      "source": "docs/reads/2026-11-09-trip-ARM.md",
+      "row": "B-1344",
+      "expires": "2026-11-12",
+      "status": "open"
     }
   ]
 }
