@@ -1,0 +1,110 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-11-09",
+  "source": "yahoo",
+  "generated": "2026-11-09T20:39:33.960Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": 250.80700000000002,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [],
+  "READY": [],
+  "STALK": [],
+  "DISCOVERY": [],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [
+    {
+      "sym": "GOOGL",
+      "ok": true,
+      "date": "2026-11-09",
+      "close": 289.35,
+      "sma50": 331.78,
+      "sma20": 314.27,
+      "atr": 11.66,
+      "low20": 276.92,
+      "volume": 26104969,
+      "vol30": 33987760,
+      "volRatio": 0.77,
+      "rs20": -14.94,
+      "rs5": 3.39,
+      "gates": {
+        "breakdown": false,
+        "laggard": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 238.61,
+        "date": "2025-10-01",
+        "atr_away": 4.35
+      },
+      "first_shelf": {
+        "level": 276.92,
+        "date": "2026-10-30",
+        "rr": 1.07
+      },
+      "floor2": {
+        "level": 276.9200134277344,
+        "date": "2026-10-30"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 289.35,
+        "stop": 301.01,
+        "stop_atr": 1,
+        "target": 238.61,
+        "rr": 4.35
+      },
+      "readiness": 60,
+      "list": null
+    },
+    {
+      "sym": "GGLL",
+      "ok": true,
+      "date": "2026-11-09",
+      "close": 67.72,
+      "sma50": 92.81,
+      "sma20": 82.24,
+      "atr": 5.9,
+      "low20": 62.13,
+      "volume": 1884313,
+      "vol30": 2222567,
+      "volRatio": 0.85,
+      "rs20": -31.94,
+      "rs5": 6.88,
+      "gates": {
+        "breakdown": false,
+        "laggard": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 45.75,
+        "date": "2025-01-28",
+        "atr_away": 3.72
+      },
+      "first_shelf": {
+        "level": 60.85,
+        "date": "2025-10-01",
+        "rr": 1.16
+      },
+      "floor2": {
+        "level": 60.85200119018555,
+        "date": "2025-10-01"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 67.72,
+        "stop": 73.62,
+        "stop_atr": 1,
+        "target": 45.75,
+        "rr": 3.72
+      },
+      "readiness": 60,
+      "list": null
+    }
+  ],
+  "skipped": [],
+  "id": "6b40f58a"
+}

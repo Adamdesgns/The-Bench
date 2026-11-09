@@ -8901,6 +8901,38 @@
       "row": "B-1368",
       "expires": "2026-11-16",
       "status": "open"
+    },
+    {
+      "id": "MC-517",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": ">",
+          "level": 296.49
+        }
+      ],
+      "meaning": "B-1370 GGLL plan trigger leg 1: settled over the range top. Check volume against 54.8M and rs.mjs on both windows; all three clear means first 30-min hold next session, ceiling 298.16",
+      "source": "B-1370",
+      "row": "B-1370",
+      "expires": "2026-12-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-518",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": "<",
+          "level": 276.92
+        }
+      ],
+      "meaning": "B-1370 GGLL plan is void: settled under the post-print low",
+      "source": "B-1370",
+      "row": "B-1370",
+      "expires": "2026-12-11",
+      "status": "open"
     }
   ]
 }
