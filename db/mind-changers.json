@@ -8773,6 +8773,22 @@
       "row": "B-1352",
       "expires": "2026-11-20",
       "status": "open"
+    },
+    {
+      "id": "MC-509",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": ">",
+          "level": 275.31
+        }
+      ],
+      "meaning": "settled over the 11/09 morning high: the DOWN read was wrong; a breakout from here still pays only about 1:1 to 287.20, so re-judge, do not chase",
+      "source": "docs/reads/2026-11-09-trip-AMZN.md",
+      "row": "B-1356",
+      "expires": "2026-11-20",
+      "status": "open"
     }
   ]
 }
