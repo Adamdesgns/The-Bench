@@ -8549,6 +8549,86 @@
       "row": "B-1346",
       "expires": "2026-11-16",
       "status": "open"
+    },
+    {
+      "id": "MC-495",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "ARM",
+          "op": ">=",
+          "level": 199.3
+        }
+      ],
+      "meaning": "B-1347 short stop level: if short, the stop should have filled; if not, the short would have stopped out",
+      "source": "docs/reads/2026-11-09-fastmover-0850.md",
+      "row": "B-1347",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-496",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 186.64
+        }
+      ],
+      "meaning": "gap filled, probe dismissed; B-1349 next-session plan live if the first 30-min bar closes over it and rs clears",
+      "source": "docs/reads/2026-11-09-trip-NVDA.md",
+      "row": "B-1349",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-497",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 178.85
+        }
+      ],
+      "meaning": "under the opening-range high; B-1349 plan invalidated",
+      "source": "docs/reads/2026-11-09-trip-NVDA.md",
+      "row": "B-1349",
+      "expires": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "id": "MC-498",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">=",
+          "level": 196.25
+        }
+      ],
+      "meaning": "11/5 high, the 2:1 pivot refused at the 178.88 break; B-1349 re-look",
+      "source": "docs/reads/2026-11-09-trip-NVDA.md",
+      "row": "B-1349",
+      "expires": "2026-11-17",
+      "status": "open"
+    },
+    {
+      "id": "MC-499",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">=",
+          "level": 209.98
+        }
+      ],
+      "meaning": "11/2 pivot, B-1349 plan target",
+      "source": "docs/reads/2026-11-09-trip-NVDA.md",
+      "row": "B-1349",
+      "expires": "2026-11-17",
+      "status": "open"
     }
   ]
 }
