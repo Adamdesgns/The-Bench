@@ -8693,6 +8693,86 @@
       "row": "B-1350",
       "expires": "2026-11-10",
       "status": "open"
+    },
+    {
+      "id": "MC-504",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": "<=",
+          "level": 263.75
+        }
+      ],
+      "meaning": "settled at or under the conditional ceiling: check the next first 30-min bar against 261.90 to 263.75",
+      "source": "site/reviews/2026-11-09-amzn-googl.md",
+      "row": "B-1351",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-505",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": "<",
+          "level": 252.27
+        }
+      ],
+      "meaning": "settled under the 11/05 low: the pullback plan is void and the 11/04 gap has failed",
+      "source": "site/reviews/2026-11-09-amzn-googl.md",
+      "row": "B-1351",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-506",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "AMZN",
+          "op": ">=",
+          "level": 287.2
+        }
+      ],
+      "meaning": "target pivot, the August all-time high: score the conditional and re-judge above it",
+      "source": "site/reviews/2026-11-09-amzn-googl.md",
+      "row": "B-1351",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-507",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": ">",
+          "level": 296.49
+        }
+      ],
+      "meaning": "settled over the post-print ceiling: re-look needs 1.5x volume and rs.mjs no longer trailing on both windows",
+      "source": "site/reviews/2026-11-09-amzn-googl.md",
+      "row": "B-1352",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-508",
+      "created": "2026-11-09",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": "<",
+          "level": 276.92
+        }
+      ],
+      "meaning": "settled under the post-print low: short re-look, 272.11 and 270.70 are the next floors",
+      "source": "site/reviews/2026-11-09-amzn-googl.md",
+      "row": "B-1352",
+      "expires": "2026-11-20",
+      "status": "open"
     }
   ]
 }
