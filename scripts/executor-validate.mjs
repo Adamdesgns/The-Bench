@@ -5,6 +5,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { firstSession, nyDate } from '../executor/lib/calendar.mjs';
 
 export const HARD_TEST_CEILING_USD = 5.0;          // per-order notional, v1. Change only by reviewed commit.
 export const MAX_FUNDED_TEST_BALANCE_USD = 10.0;   // operator checklist assumption; buying-power check still runs live.
@@ -15,6 +16,38 @@ export const SCHEMA_VERSION = 'bench-execution-handoff-v1';
 export const EXECUTOR_VERSION = 'bench-executor-v1';
 export const FRAMEWORK_VERSION = 'v26';
 export const AUTOMATIC_RETRY_ALLOWED = false;      // there is no automatic retry path in v1.
+
+// Real-order mode (bench-executor-v2). The per-order limit is ADAM'S number:
+// $200, set 2026-11-09 from his own words, "it's 200 idgaf if it goes to 0"
+// (the whole trading account ending 7724 may go into one order). Zero would
+// refuse every real order. Change only by reviewed commit; no flag, env var or
+// handoff field can raise it. Real orders still stay locked until clean,
+// committed test-zero and test-one receipts exist (testGate in real-order.mjs).
+export const REAL_ORDER_CEILING_USD = 200;
+export const REAL_SCHEMA_VERSION = 'bench-execution-handoff-v2';
+export const REAL_EXECUTOR_VERSION = 'bench-executor-v2';
+export const REAL_MIN_FRAMEWORK = 36;
+export const TICKET_MAX_LIFE_HOURS = 30;            // night-before approval, never a standing one.
+export const REAL_MAX_DRIFT_PCT = 2;                // widest drift bound a real ticket may carry, % of its limit.
+// Leveraged and inverse funds the desk has met or that are common. A PARTIAL
+// list: a ticker missing from it is not proof a fund is plain.
+export const LEVERAGED_OR_INVERSE_TICKERS = new Set([
+  'TQQQ', 'SQQQ', 'QLD', 'QID', 'UPRO', 'SPXU', 'SPXL', 'SPXS', 'SSO', 'SDS', 'SH', 'PSQ',
+  'SOXL', 'SOXS', 'TECL', 'TECS', 'FAS', 'FAZ', 'TNA', 'TZA', 'URTY', 'SRTY', 'LABU', 'LABD',
+  'NUGT', 'DUST', 'JNUG', 'JDST', 'UVXY', 'SVXY', 'UVIX', 'SVIX', 'VXX', 'TMF', 'TMV', 'TBT',
+  'YINN', 'YANG', 'FNGU', 'FNGD', 'BULZ', 'BERZ', 'UCO', 'SCO', 'BOIL', 'KOLD', 'ERX', 'ERY',
+  'DPST', 'DRN', 'DRV', 'CURE', 'NVDL', 'NVDU', 'NVDD', 'NVDS', 'NVDX', 'TSLL', 'TSLQ', 'TSLZ',
+  'TSLR', 'TSLT', 'CONL', 'MSTU', 'MSTX', 'MSTZ', 'AMZU', 'AMDL', 'AAPU', 'GGLL', 'METU', 'MSFU',
+  'MUU', 'MUD', 'PLTU', 'AVL', 'BITX', 'BITU', 'SBIT', 'BITI', 'ETHU', 'ETHT', 'DXD', 'DDM', 'UDOW', 'SDOW',
+]);
+
+const V1_PROFILE = {
+  schema: SCHEMA_VERSION,
+  executor: EXECUTOR_VERSION,
+  frameworkOk: (v) => v === FRAMEWORK_VERSION,
+  frameworkLabel: FRAMEWORK_VERSION,
+  ceiling: HARD_TEST_CEILING_USD,
+};
 
 export const RECEIPT_STATES = [
   'RECEIVED', 'PREFLIGHT_REFUSED', 'REVIEWED', 'CONFIRMED', 'PLACEMENT_ATTEMPTED',
@@ -66,7 +99,7 @@ export function computedNotional(h) {
 
 const DRIFT_RE = /^\$?\d+(\.\d+)?\s*%?$/;
 
-export function validateHandoff(h, { now = new Date(), receiptsDir = null, clockSkewMs = 5 * 60 * 1000 } = {}) {
+export function validateHandoff(h, { now = new Date(), receiptsDir = null, clockSkewMs = 5 * 60 * 1000, profile = V1_PROFILE } = {}) {
   const refusals = [];
   const add = (code, message) => refusals.push({ code, message });
 
@@ -83,12 +116,12 @@ export function validateHandoff(h, { now = new Date(), receiptsDir = null, clock
     }
   }
 
-  if (h.schema_version !== undefined && h.schema_version !== SCHEMA_VERSION) {
-    add('R15_SCHEMA_VERSION_UNKNOWN', `schema_version must be ${SCHEMA_VERSION}`);
+  if (h.schema_version !== undefined && h.schema_version !== profile.schema) {
+    add('R15_SCHEMA_VERSION_UNKNOWN', `schema_version must be ${profile.schema}`);
   }
-  if ((h.executor_version !== undefined && h.executor_version !== EXECUTOR_VERSION) ||
-      (h.framework_version !== undefined && h.framework_version !== FRAMEWORK_VERSION)) {
-    add('R20_VERSION_MISMATCH', `executor_version must be ${EXECUTOR_VERSION} and framework_version ${FRAMEWORK_VERSION}`);
+  if ((h.executor_version !== undefined && h.executor_version !== profile.executor) ||
+      (h.framework_version !== undefined && !profile.frameworkOk(h.framework_version))) {
+    add('R20_VERSION_MISMATCH', `executor_version must be ${profile.executor} and framework_version ${profile.frameworkLabel}`);
   }
 
   // row_id — a real archived row, never Pending.
@@ -169,11 +202,11 @@ export function validateHandoff(h, { now = new Date(), receiptsDir = null, clock
 
   // Ceilings + risk arithmetic. The plan cannot raise the executor's hardcoded limit.
   if (h.executor_absolute_ceiling !== undefined) {
-    if (!isPos(h.executor_absolute_ceiling) || h.executor_absolute_ceiling > HARD_TEST_CEILING_USD) {
-      add('R06_NOTIONAL_ABOVE_HARD_CEILING', `executor_absolute_ceiling must be ≤ hardcoded $${HARD_TEST_CEILING_USD.toFixed(2)}`);
+    if (!isPos(h.executor_absolute_ceiling) || h.executor_absolute_ceiling > profile.ceiling) {
+      add('R06_NOTIONAL_ABOVE_HARD_CEILING', `executor_absolute_ceiling must be ≤ hardcoded $${profile.ceiling.toFixed(2)}`);
     }
   }
-  const ceiling = Math.min(HARD_TEST_CEILING_USD, isPos(h.executor_absolute_ceiling) ? h.executor_absolute_ceiling : HARD_TEST_CEILING_USD);
+  const ceiling = Math.min(profile.ceiling, isPos(h.executor_absolute_ceiling) ? h.executor_absolute_ceiling : profile.ceiling);
   const notional = computedNotional(h);
   if (isNum(notional)) {
     if (notional > ceiling) add('R06_NOTIONAL_ABOVE_HARD_CEILING', `computed notional $${notional.toFixed(2)} exceeds effective ceiling $${ceiling.toFixed(2)}`);
@@ -191,6 +224,78 @@ export function validateHandoff(h, { now = new Date(), receiptsDir = null, clock
     if (dup.duplicate) add('R03_DUPLICATE_PLAN_ID', `plan_id already has a receipt (${dup.reason})`);
   }
 
+  return { ok: refusals.length === 0, refusals };
+}
+
+// The hour and minute a moment reads on the New York clock, and its date.
+function nyClock(ms) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York', hour12: false,
+    hour: '2-digit', minute: '2-digit',
+  }).formatToParts(new Date(ms));
+  const get = (t) => parseInt(parts.find((p) => p.type === t)?.value, 10);
+  return (get('hour') % 24) * 60 + get('minute');
+}
+
+// bench-execution-handoff-v2: a real order, approved ahead of time from the
+// phone. Everything v1 refuses still refuses; v2 is narrower on top of that.
+// `ceilingUsd` exists for the offline tests only. No command passes it.
+export function validateRealHandoff(h, { now = new Date(), receiptsDir = null, ceilingUsd = REAL_ORDER_CEILING_USD } = {}) {
+  const profile = {
+    schema: REAL_SCHEMA_VERSION,
+    executor: REAL_EXECUTOR_VERSION,
+    frameworkOk: (v) => { const m = String(v).match(/^v(\d+)$/); return Boolean(m) && Number(m[1]) >= REAL_MIN_FRAMEWORK; },
+    frameworkLabel: `v${REAL_MIN_FRAMEWORK} or later`,
+    ceiling: ceilingUsd,
+  };
+  const base = validateHandoff(h, { now, receiptsDir, profile });
+  if (!h || typeof h !== 'object' || Array.isArray(h)) return base;
+  const refusals = [...base.refusals];
+  const add = (code, message) => refusals.push({ code, message });
+
+  if (!(ceilingUsd > 0)) add('R24_REAL_ORDERS_LOCKED', 'REAL_ORDER_CEILING_USD is 0: Adam has not set a per-order limit');
+  if (h.action !== 'BUY') add('R21_REAL_BUY_ONLY', 'real-order mode only buys; selling stays manual');
+  if (h.quantity_mode !== 'shares' || !Number.isInteger(h.quantity_value)) {
+    add('R22_REAL_WHOLE_SHARES', 'real-order mode takes quantity_mode: shares with a whole number');
+  }
+  if (h.exit_owner !== 'MANUAL') add('R14_MISSING_EXIT_OWNER', 'real-order mode places no stop, so exit_owner must be MANUAL');
+  if (LEVERAGED_OR_INVERSE_TICKERS.has(String(h.ticker).toUpperCase())) {
+    add('R12_FORBIDDEN_STRUCTURE_OR_FLAG', `${h.ticker} is a leveraged or inverse fund; real-order mode does not buy those`);
+  }
+
+  const w = h.place_when;
+  const conditional = w && (w.type === 'LAST_AT_OR_BELOW' || w.type === 'LAST_AT_OR_ABOVE');
+  if (!w || typeof w !== 'object' || !(w.type === 'NOW' || conditional) || (conditional && !isPos(w.price))) {
+    add('R23_PLACE_WHEN_INVALID', 'place_when must be {type: NOW} or {type: LAST_AT_OR_BELOW | LAST_AT_OR_ABOVE, price}');
+  }
+
+  // A drift bound wider than REAL_MAX_DRIFT_PCT of the limit would let a buy
+  // limit sit far above the market and still pass.
+  if (isPos(h.limit_price) && h.maximum_price_drift !== undefined) {
+    const d = h.maximum_price_drift;
+    const s = String(d).trim();
+    const usd = typeof d === 'number' ? d : s.endsWith('%') ? (parseFloat(s) / 100) * h.limit_price : parseFloat(s.replace(/^\$/, ''));
+    const cap = (h.limit_price * REAL_MAX_DRIFT_PCT) / 100;
+    if (!(usd > 0) || usd > cap + 1e-9) {
+      add('R18_DRIFT_UNBOUNDED', `maximum_price_drift must be at most ${REAL_MAX_DRIFT_PCT}% of the limit ($${cap.toFixed(2)} here)`);
+    }
+  }
+
+  // The ticket lives inside the first trading session after it was written:
+  // its expiry is that session's date, no later than that session's close.
+  const created = Date.parse(h.created_at);
+  const expires = Date.parse(h.expires_at);
+  if (!Number.isNaN(created) && !Number.isNaN(expires)) {
+    if (expires - created > TICKET_MAX_LIFE_HOURS * 3600 * 1000) {
+      add('R04_STALE_PLAN', `a ticket may live at most ${TICKET_MAX_LIFE_HOURS} hours`);
+    }
+    const session = firstSession(new Date(created));
+    if (!session) {
+      add('R04_STALE_PLAN', 'no known trading session after the ticket was written (the calendar in executor/lib/calendar.mjs ran out)');
+    } else if (nyDate(new Date(expires)) !== session.date || nyClock(expires) > session.close) {
+      add('R04_STALE_PLAN', `expires_at must be on the ticket's first trading day (${session.date}) and no later than its close`);
+    }
+  }
   return { ok: refusals.length === 0, refusals };
 }
 

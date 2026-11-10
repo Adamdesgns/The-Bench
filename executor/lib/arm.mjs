@@ -16,7 +16,7 @@ export function stateOf(msg, nowMs = Date.now()) {
 }
 
 export async function readSwitch(fetchImpl = fetch) {
-  const res = await fetchImpl(`${ARM_TOPIC}/json?poll=1&since=12h`);
+  const res = await fetchImpl(`${ARM_TOPIC}/json?poll=1&since=12h`, { signal: AbortSignal.timeout(20000) });
   if (!res.ok) throw new Error(`arm topic read failed: HTTP ${res.status} — fail closed, treat as NOT armed`);
   const text = await res.text();
   const msgs = text.trim().split('\n').filter(Boolean)
@@ -31,6 +31,7 @@ export async function halt(reason, fetchImpl = fetch) {
     method: 'POST',
     headers: { Title: 'BENCH EXECUTOR - DISARMED', Priority: 'high' },
     body: reason ? `HALT ${reason}` : 'HALT',
+    signal: AbortSignal.timeout(20000),
   });
   if (!res.ok) throw new Error(`HALT publish failed: HTTP ${res.status}`);
 }
