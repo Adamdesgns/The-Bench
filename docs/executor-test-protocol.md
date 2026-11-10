@@ -109,4 +109,43 @@ Adam's approval of every order is enforced in code, not convention.
 - The §Authorizations rule now reads on the program: the typed line goes to
   the program's own prompt, in a terminal, bound to the commit SHA it prints.
 
+---
+
+## 2026-11-09 — REAL ORDERS, PRE-APPROVED FROM THE PHONE
+
+**Status: built and tested offline only. The live path has never run.** Contract: `prompts/bench-executor-v2.md`. Adam, 2026-11-09: approval from the phone, no second tap in the Robinhood app ("No", "Just my approval"), and "I want to pre approve and forget about it".
+
+**What changed from the 2026-08-26 design:** that design enforced Adam's approval by requiring typed lines at a real keyboard. Real-order mode replaces the keyboard, for real orders only, with a one-time code Adam holds on his phone. The typed tests below are unchanged and still have to pass first. Those tests must leave committed receipts, or real orders stay locked in code.
+
+**What is tested offline:** every refusal and the one valid path, in `test/executor-real-order.test.mjs`, with a fake broker and a fake phone.
+
+**What is NOT proven until real runs happen:**
+- The real shapes of Robinhood's quote time, `order_checks` and place responses. The code refuses whatever it does not recognise, so a wrong guess blocks orders rather than sending a bad one. The terminal tests capture real responses in `executor-tests/raw/`; check those against the code before the first real order.
+- That the Windows task starts and runs hidden on this PC.
+
+### Adam's checklist, in order
+
+Each step is yours because it touches money, your broker login or the running PC.
+
+1. **Merge the pull request** into the checkout at `Projects\apps\the-bench`. The watcher only runs from there.
+2. **Tell Claude the most one real order may cost.** That number goes into the code in a reviewed commit.
+3. **Shrink the trading account for the tests.** Move money out of the account ending 7724 until no more than $10 can be spent. It holds about $200 today, and the tests refuse above $10.
+4. **Keep Robinhood's "human must approve trades" setting OFF** for now. The tests do not understand approvals.
+5. **At your own terminal, on a weekend or after hours, optionally run the queued test.** It places and cancels an order that cannot fill, and it captures real broker responses at almost no risk. It does not unlock anything.
+6. **At your own terminal, during market hours, run test zero.** It places an unfillable order and cancels it. You type the two lines it asks for.
+7. **At your own terminal, during market hours, run test one.** A real order of $5 or less. You pick the stock.
+8. **Have Claude commit the receipts**, and check the captured responses against the code.
+9. **Put the money back** in the account, whatever you are willing to trade with.
+10. **Make your codes, at your own terminal and not in a Claude window:** `node executor/executor.mjs codes --new`. Save them on your phone. They are shown once.
+11. **Register the watcher, at your own terminal:** run `scripts\register-executor-watcher.ps1`.
+12. **First real order:** keep it small. When the ticket text arrives, send the ARM line with your next unused code.
+
+Stop anything not yet placed by sending `HALT` from your phone. Cancel an order already at Robinhood in the Robinhood app. Selling is always yours.
+
+### Blockers for this mode
+
+- `REAL_ORDER_CEILING_USD` is $0 until Adam names a number.
+- No clean, committed test-zero and test-one receipts exist yet.
+- With no Robinhood tap, the one-time codes are the only proof of approval. They do not stop software that can rewrite the program or its stored hashes on this PC.
+
 *Proof, not hype.*

@@ -29,7 +29,37 @@ node executor/executor.mjs status
 node executor/executor.mjs login
 node executor/executor.mjs test-zero --handoff <file> --live
 node executor/executor.mjs test-one  --handoff <file> --live
+node executor/executor.mjs codes --new
+node executor/executor.mjs place --handoff <file> --live
+node executor/executor.mjs watch --once --live
 ```
+
+## Real-order mode (added 2026-11-09, UNTESTED)
+
+Contract: `prompts/bench-executor-v2.md`. Adam's own steps: the checklist in
+`docs/executor-test-protocol.md`, section 2026-11-09.
+
+1. After a BUY call has a book row, the desk runs `scripts/executor-ticket.mjs`.
+   It writes `~/.bench-executor/tickets/B-###.json` and texts Adam the order and
+   the line to send back. It never arms.
+2. Adam sends `ARM B-### <ticket code> <one-time code>` from his phone, ahead
+   of time if he likes. It covers that one ticket.
+3. The Windows task runs `watch --once --live` every minute. When the ticket's
+   condition comes true, the program runs every guard and places it once.
+4. Each step goes to his phone and to a receipt. The program follows the order
+   until it fills or dies. It never cancels and never sells.
+
+**To stop it:** send `HALT` from the phone, which stops every approved ticket
+not yet placed. An order already at Robinhood has to be cancelled in the app.
+To stop the watcher entirely, disable the Windows task "Bench Executor Watcher".
+
+**What it locks on:** `REAL_ORDER_CEILING_USD` at 0, missing clean committed
+test receipts, three wrong codes, or executor files that differ from the commit.
+
+**The honest limit:** the one-time codes stop a stray or tricked AI session from
+approving an order. They do not stop software that rewrites this program or its
+stored hashes on this PC. With no Robinhood tap, the per-order limit is the main
+cap on any mistake.
 
 `test-one` is sequenced behind `test-zero` in code: it refuses until a receipt
 shows a CLEAN test-zero run — cancellation verified AND nothing filled. A
@@ -70,3 +100,5 @@ blocker — no endpoint guessing.
 `$5.00` notional per order (`HARD_TEST_CEILING_USD`) · `$10.00` funded
 ring-fence (`MAX_FUNDED_TEST_BALANCE_USD`) · LIMIT + DAY + regular hours ·
 whole shares · one placement per plan_id, ever, enforced by the receipts dir.
+Those two dollar limits govern the tests. Real orders use
+`REAL_ORDER_CEILING_USD`, Adam's number, which is $0 until he names it.

@@ -39,16 +39,21 @@ export function normalizeState(payload) {
 // unused, they are unreachable through the binding.
 export const READ_CAPABILITIES = ['accounts', 'portfolio', 'quotes', 'positions', 'orders'];
 
+// Real-order mode reads, reviews and places. It never cancels, so cancel is
+// not in its binding at all.
+export const REAL_ORDER_CAPABILITIES = [...READ_CAPABILITIES, 'review', 'place'];
+
 export class Broker {
   constructor(mcp) {
     this.mcp = mcp;
     this.binding = null;
   }
 
-  bind(tools, { readOnly = false } = {}) {
+  bind(tools, { readOnly = false, capabilities = null } = {}) {
     const names = new Set(tools.map((t) => t.name));
-    const wanted = readOnly
-      ? Object.fromEntries(Object.entries(REQUIRED_CAPABILITIES).filter(([cap]) => READ_CAPABILITIES.includes(cap)))
+    const only = readOnly ? READ_CAPABILITIES : capabilities;
+    const wanted = only
+      ? Object.fromEntries(Object.entries(REQUIRED_CAPABILITIES).filter(([cap]) => only.includes(cap)))
       : REQUIRED_CAPABILITIES;
     const binding = {};
     const missing = [];
