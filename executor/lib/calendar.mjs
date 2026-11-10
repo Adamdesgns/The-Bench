@@ -52,6 +52,24 @@ export function closeMinutes(now) {
   return null;
 }
 
+// The first trading session still open at or after `from`: its New York date
+// and its close in minutes. Null when the calendar runs out first. A ticket
+// lives inside this one session, so it can never carry over to a second day.
+export function firstSession(from) {
+  for (let i = 0; i < 10; i++) {
+    const probe = new Date(from.getTime() + i * 86400000);
+    const kind = dayKind(probe);
+    if (kind === 'unknown') return null;
+    if (kind === 'closed') continue;
+    const close = closeMinutes(probe);
+    if (i === 0 && nyParts(probe).minutes >= close) continue;
+    return { date: nyDate(probe), close };
+  }
+  return null;
+}
+
+export const nyMinutes = (now) => nyParts(now).minutes;
+
 // Orders go in from 09:30 until 15 minutes before the close.
 export function realSessionOpen(now = new Date()) {
   const close = closeMinutes(now);

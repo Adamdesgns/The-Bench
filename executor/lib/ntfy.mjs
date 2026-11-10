@@ -10,6 +10,7 @@ export async function alert(line, { title = 'BENCH EXECUTOR', priority = 'urgent
       method: 'POST',
       headers: { Title: title, Priority: priority },
       body: line,
+      signal: AbortSignal.timeout(15000), // an alert never holds a tick past its limit
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return true;

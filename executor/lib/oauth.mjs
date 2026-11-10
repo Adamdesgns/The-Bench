@@ -34,7 +34,9 @@ export function saveStore(store) {
 }
 
 async function fetchJson(url, init) {
-  const res = await fetch(url, init);
+  // One signal covers the request and the body read, so a stalled server
+  // cannot hold a watcher tick open.
+  const res = await fetch(url, { ...init, signal: init?.signal ?? AbortSignal.timeout(30000) });
   if (!res.ok) throw new Error(`${init?.method ?? 'GET'} ${url} → HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`);
   return res.json();
 }

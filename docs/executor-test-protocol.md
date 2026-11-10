@@ -128,6 +128,45 @@ Adam's approval of every order is enforced in code, not convention.
 - **The blockers:** a refused ARM left its code usable on the open channel, and `place` and the watcher could act on the same approval at once.
 - **The rest:** holidays, the lock not holding earlier approvals, a silent broker outage, a code echoed in an alert, exit codes, leveraged tickers, and a crash-prone `status`.
 
+**Reviewed again 2026-11-09 (PR #53, 20 findings).** A second, independent review found 20 issues. Every one checked out against the code, and none was wrong. Code fixed 18 of them:
+- **The tick lock** now holds a token. A tick only releases its own lock. A stale lock is moved aside before it is taken over, so only one process can win. Every live command is killed after 4 minutes, well before a lock counts as stale (10 minutes). Every network call has a timeout. The state file carries a revision number, so a tick that outlived its lock cannot write old state back over a newer HALT.
+- **A missed HALT.** The phone channel only reaches back 12 hours. If the last good read is more than 11 hours old (the PC slept, the task stopped), every approval made before the gap is cancelled, and the phone is told.
+- **The test gate** now needs three things. The receipts must be committed. The program version that made them must be in this checkout's history. Robinhood itself must show test zero as cancelled with nothing filled and test one as filled. A receipt file alone proves nothing.
+- **The ticket check** is the full SHA-256 of the ticket's contents. A ticket swapped after approval is refused.
+- **A fresh approval waits about 90 seconds** before it can place. That leaves time to send HALT.
+- **The quote's age** comes from the last-trade time only, and is checked before the buy condition. A stale or missing time means WAITING, never a decision.
+- **The watcher runs one pinned executor version.** `node executor/executor.mjs pin`, at your terminal, records a fingerprint of the executor files as you approved them. The book routines commit many times a day; those commits do not touch the pin. Any change to an executor file does, and approved tickets then wait (they are not used up) until you pin again.
+- **New codes or lifting the lock** now needs one of your current codes once codes exist, and both send a text to your phone.
+- **Drift is capped at 2% of the limit.** The ticket text shows it. A ticket's expiry must fall inside its first trading session, by that day's close, half days included.
+- **Approving again:** after a HALT or a cancellation (a phone gap, a missing or changed ticket), a new ARM with your next code approves the same ticket again. A ticket that reached an attempt can never be approved again.
+- **The quote** is judged at the moment it was read, both before the attempt and in the final checks, and the account and test-order checks happen before it is read, so slow broker calls cannot turn a fresh quote into a refusal.
+- **Following an order:** an order it cannot read is reported once. After its trading day it is no longer followed.
+- **The Windows task** calls node and cmd by full path. The launcher scripts are under the same provenance check as the program.
+- **Tests** were added for each of these, including forged receipts committed in a real git repo, a HALT older than the window, two ticks at once, `codes --new` without a keyboard, and a crash right after the place call. That last one now ends in `placed_unknown` with one alert and no second send.
+
+**A fresh reviewer then checked those fixes** and found 7 more. The most serious: the first pin was tied to the whole checkout's commit, which the book routines move about 20 times a day, so real orders would have refused almost every morning. Fixed: the pin is now a fingerprint of the executor files, and an unpinned version waits instead of using up the approval. Also fixed: "send a new ARM" did not work after a HALT or a gap; slow account calls could age a fresh quote into a refusal; a refused `codes` left the lock file behind; a stale-lock takeover could take a fresh lock; the test orders were not tied to their receipts' stock. The seventh (no proof possible once every code is spent) and two small leftovers are listed under the open risk below. Its check of those fixes found two more, both fixed: the test orders are now checked at Robinhood once per approval rather than every minute a ticket waits, and an order is refused if more than 60 seconds pass between reading the quote and sending it.
+
+### OPEN RISK, ACCEPTED BY ADAM 2026-11-09 — software on this PC can approve its own order
+
+**Adam's decision, 2026-11-09, in his words: "No, accept risk".** He was asked whether to turn Robinhood's in-app approval tap back on for real orders, given this finding. He was told the damage is capped by the $200 per-order limit and the cash kept in the small account, and that nothing on the PC can prove an approval came from his phone. So there is no Robinhood tap requirement. Do not raise it with him again; it reopens only if he raises it.
+
+**What the accepted risk allows:** a process on this PC can approve tickets through this program without Adam, up to the $200 per-order limit on each ticket, with no limit on how many tickets. A process that skips this program and uses the stored Robinhood token directly is not bound by the $200 limit at all. Its only cap is the cash in the account.
+
+**What caps it:** the cash kept in the trading account ending 7724 (the real ceiling for everything), the $200 per-order limit for anything routed through this program, and the texts to his phone, which give him a chance to send HALT.
+
+**Stated plainly, because it is the real limit of this design.** Anything that runs as you on this PC (malware, a hijacked script, or an AI tool with shell access that goes wrong) can:
+- write an approval straight into `~/.bench-executor/real-order-state.json`, or replace the stored code hashes with its own, so the phone is never involved;
+- read the Robinhood login token in `~/.bench-executor/oauth.json` and call Robinhood directly, skipping this program and every check in it;
+- forge the raw broker captures in `executor-tests/raw/`, which are not committed (that is why the gate now asks Robinhood about the test orders rather than trusting files).
+
+The one-time codes prove an approval came from your phone **only against someone who cannot run code on this PC.** The fix that holds against a local attacker is Robinhood's own "approve trades in the app" tap, which a process on this PC cannot press. You decided against that tap on 2026-11-09 and accepted this risk. What actually limits the damage is:
+1. **The cash in the trading account (ending 7724).** Nothing on this PC can spend more than is there. **This is the real ceiling.** Keep only what you are willing to lose in it.
+2. **The per-order limit, $200** (`REAL_ORDER_CEILING_USD`). It binds this program, not a process that calls Robinhood with the stolen token.
+3. **The test gate.** Same: it binds this program only.
+4. **The texts to your phone.** New codes, a lifted lock, a pin, every approval, start and fill all send one. A text you did not cause is your signal to send HALT and check the PC. Once every code is spent, `codes --new` cannot ask for one, so that text is the only guard on new codes.
+
+**Smaller known limits (LOW, left as they are):** the state file save is a read-compare-rename, not one atomic step, so two processes saving in the same instant could both pass the revision check. The tick lock is what keeps two processes from working at once, and the check is a second line. The broker check of the test orders matches them to their receipts by order id and stock; it does not match quantity or time.
+
 ### Adam's checklist, in order
 
 Each step is yours because it touches money, your broker login or the running PC.
@@ -139,17 +178,19 @@ Each step is yours because it touches money, your broker login or the running PC
 5. **At your own terminal, on a weekend or after hours, optionally run the queued test.** It places and cancels an order that cannot fill, and it captures real broker responses at almost no risk. It does not unlock anything.
 6. **At your own terminal, during market hours, run test zero.** It places an unfillable order and cancels it. You type the two lines it asks for.
 7. **At your own terminal, during market hours, run test one.** A real order of $5 or less. You pick the stock.
-8. **Have Claude commit the receipts**, and check the captured responses against the code.
-9. **Put the money back** in the account, whatever you are willing to trade with.
-10. **Make your codes, at your own terminal and not in a Claude window:** `node executor/executor.mjs codes --new`. Save them on your phone. They are shown once.
-11. **Register the watcher, at your own terminal:** run `scripts\register-executor-watcher.ps1`.
-12. **First real order:** keep it small. When the ticket text arrives, send the ARM line with your next unused code.
+8. **Have Claude commit the receipts**, and check the captured responses against the code. The gate also asks Robinhood for both test orders by their ids before every real order, so the orders must still be visible in your order history.
+9. **Put the money back** in the account, but only what you are willing to lose. See the open risk above: the cash in that account is the real limit.
+10. **Pin the executor version, at your own terminal:** `node executor/executor.mjs pin`. It shows the last commit that changed the executor files and asks you to type its first 7 characters. Do it again only after a change to the executor itself; book and routine commits do not need it. Until then approved tickets wait.
+11. **Make your codes, at your own terminal and not in a Claude window:** `node executor/executor.mjs codes --new`. The first time it just makes them. After that it asks for one of your current codes first. Save them on your phone; they are shown once.
+12. **Register the watcher, at your own terminal:** run `scripts\register-executor-watcher.ps1`. It finds node once and stores its full path in the task. Run it again if you reinstall node.
+13. **First real order:** keep it small. When the ticket text arrives, send the ARM line with your next unused code. It places no sooner than about 2 minutes later, and only if the last trade is within the ticket's drift of the limit.
 
-Stop anything not yet placed by sending `HALT` from your phone. Cancel an order already at Robinhood in the Robinhood app. Selling is always yours.
+Stop anything not yet placed by sending `HALT` from your phone. Cancel an order already at Robinhood in the Robinhood app. Selling is always yours. If the PC was off or asleep for more than 11 hours, every approval from before is cancelled; send a new ARM with your next code to approve it again. The same works after a HALT.
 
 ### Blockers for this mode
 
 - No clean, committed test-zero and test-one receipts exist yet.
-- With no Robinhood tap, the one-time codes are the only proof of approval. They do not stop software that can rewrite the program or its stored hashes on this PC.
+- No executor version has been pinned.
+- **Accepted by Adam 2026-11-09 ("No, accept risk"), not a blocker:** with no Robinhood tap, the one-time codes are the only proof of approval, and they do not hold against software running on this PC. See the accepted risk above.
 
 *Proof, not hype.*

@@ -24,13 +24,17 @@ ARM B-### <ticket code> <one-time code>
 
 The arm channel has no login and its name is in the repo, so an `ARM` line alone proves nothing. Each line carries a one-time code Adam alone holds.
 
-- `codes --new` runs only at a real keyboard, shows the codes once, and stores only salted hashes outside the repo.
+- `codes --new` runs only at a real keyboard, shows the codes once, and stores only salted hashes outside the repo. Once codes exist, replacing them or `codes --unlock` needs one current code, and both send a text to the phone.
+- An approval waits `MIN_APPROVAL_AGE_SEC` (90 seconds) after it is read before it can place, so a HALT sent right after has time to land.
+- The approval records the full SHA-256 digest of the ticket. A ticket changed after approval, in any field, is refused.
+- The phone channel only reaches back 12 hours. If the last good read is more than `PHONE_GAP_LIMIT_SEC` (11 hours) old, every approval made before the gap is cancelled, because a HALT could have aged out unread.
+- A HALTed or cancelled approval (never attempted) can be approved again by a new ARM with a fresh code. An approval that reached an attempt never can.
 - Each code works once, and is spent the moment it appears in any message, before anything else is checked. A refused ARM (a typo, a locked gate, an expired ticket) therefore never leaves a working code readable on the open channel. Messages are handled oldest first, so a copy posted after Adam's message finds the code already used.
 - `WRONG_CODES_BEFORE_LOCK` wrong or reused codes lock real orders until `codes --unlock` at the keyboard. The lock also holds tickets approved before it.
 - `place`, `watch` and `codes` share one lock in `~/.bench-executor/` and read the state fresh under it, so two of them can never act on the same approval.
 - The ticket code ties the approval to the exact order. Changing any term voids it.
 
-**What this does not stop:** software that can rewrite the program or the stored hashes on this PC, or someone holding Adam's unlocked phone. With no tap, the per-order limit is the main cap on damage.
+**OPEN RISK — what this does not stop:** software running as Adam on this PC, or someone holding his unlocked phone. Local software can write an approval into `~/.bench-executor/real-order-state.json`, replace the code hashes, or take the Robinhood token from `~/.bench-executor/oauth.json` and call Robinhood without this program. The only fix that holds is Robinhood's own in-app approval tap. Adam declined it and accepted this risk on 2026-11-09 ("No, accept risk"). The per-order limit and the test gate bind this program only. **The real limit on damage is the cash kept in the trading account.** Details: `docs/executor-test-protocol.md`, "OPEN RISK".
 
 ## 3. THE CONTRACT — `bench-execution-handoff-v2`
 
@@ -44,7 +48,8 @@ action: BUY                          # selling stays manual
 quantity_mode: shares                # whole shares only
 exit_owner: MANUAL                   # no stop is placed; the whole position is at risk
 planned_dollar_risk: <shares × limit>
-expires_at: <at most 16:00 New York on its day, at most 30 hours after created_at>
+expires_at: <on the date of the first trading session after created_at, no later than that session's close (13:00 on half days)>
+maximum_price_drift: <at most REAL_MAX_DRIFT_PCT (2%) of the limit, as $ or %; shown in the ticket text>
 place_when:                          # new, required
   type: NOW | LAST_AT_OR_BELOW | LAST_AT_OR_ABOVE
   price: <required unless NOW>
@@ -60,9 +65,11 @@ place_when:                          # new, required
 2. `HALT` stops every approval made before it. It does not cancel an order already at Robinhood.
 3. An ARM becomes an approval only if real orders are unlocked, the ticket exists, its code matches, the ARM is newer than the ticket, the ticket passes its contract, and the one-time code is good.
 4. Until the condition is true: no receipt, nothing spent, checked again next tick.
-5. When it is true, the approval is spent first. Then the attempt: contract, book row, test gate, committed bytes, account, buying power, fresh quote (`QUOTE_MAX_AGE_SEC`), drift, position and open-order conflicts, broker review with no alerts, then **place exactly once.**
-6. Any refusal ends the ticket. Any unclear result after placing reads `UNKNOWN_REQUIRES_RECONCILIATION`, tells Adam to check the app, and is never retried.
-7. A working order is followed until it fills or dies, and each change is texted. The program never cancels and never sells.
+5. Before the quote is read, and without spending anything: the approval must be 90 seconds old, the market open, the executor files must be the version Adam pinned (`executor pin`, typed at the keyboard; a fingerprint of the executor files, so book commits do not affect it), and Robinhood must show the two test orders (test zero cancelled unfilled, test one filled, each for the stock its receipt names; checked once per approval). An unpinned version, or test orders that cannot be read, means WAITING; test orders that do not match end the ticket.
+6. The quote's age is read from its last-trade time only, at the moment it was read, before the condition is judged. A quote with no last-trade time, or older than `QUOTE_MAX_AGE_SEC`, means WAITING.
+7. When the condition is true, the approval is spent first. Then the attempt: contract, book row, test gate (committed receipts from a version in this checkout's history), the pin again, committed bytes, account, buying power, the same quote's age at its read time, drift, position and open-order conflicts, broker review with no alerts, no more than `QUOTE_TO_PLACE_MAX_SEC` (60 s) since the quote was read, then **place exactly once.**
+8. Any refusal ends the ticket. Any unclear result after placing reads `UNKNOWN_REQUIRES_RECONCILIATION`, tells Adam to check the app, and is never retried.
+9. A working order is followed through its trading day, and each change is texted. An order it cannot read is reported once. A tick that stopped right after calling place is reported as unknown and never sent again. The program never cancels and never sells.
 
 ## 6. WHEN ORDERS MAY GO IN
 

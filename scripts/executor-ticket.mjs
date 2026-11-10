@@ -95,7 +95,8 @@ export function ticketText(h) {
   return [
     `REAL ORDER TICKET ${h.row_id}`,
     `Buy ${h.quantity_value} ${h.ticker}, limit $${h.limit_price}, about $${(h.quantity_value * h.limit_price).toFixed(2)}.`,
-    `Places ${when}. Good until ${h.expires_at}.`,
+    `Places ${when}, at the earliest about 2 minutes after you approve. Good until ${h.expires_at}.`,
+    `Will not buy if the last trade is more than ${h.maximum_price_drift} away from the limit.`,
     `Your stop level is $${h.invalidation_price}. The program will NOT place it or sell for you.`,
     '',
     'To approve, send this on your arm channel with your next unused code:',
