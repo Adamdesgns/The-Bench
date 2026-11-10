@@ -54,7 +54,7 @@ export function nextCloseIso(now = new Date()) {
   throw new Error('could not find the next close');
 }
 
-export function buildTicket({ row, ticker, shares, limit, stop, drift, when = 'now', expires, now = new Date() }) {
+export function buildTicket({ row, ticker, shares, limit, stop, drift, when = 'now', expires, lane = 'base_swing', now = new Date() }) {
   const created = now.toISOString();
   const notional = shares * limit;
   return {
@@ -69,7 +69,7 @@ export function buildTicket({ row, ticker, shares, limit, stop, drift, when = 'n
     asset_class: 'equity',
     ticker,
     action: 'BUY',
-    lane: 'base_swing',
+    lane, // 'accumulation' for stack-lane adds (scripts/stack-ticket.mjs)
     structure: 'long_shares',
     quantity_mode: 'shares',
     quantity_value: shares,
@@ -97,7 +97,9 @@ export function ticketText(h) {
     `Buy ${h.quantity_value} ${h.ticker}, limit $${h.limit_price}, about $${(h.quantity_value * h.limit_price).toFixed(2)}.`,
     `Places ${when}, at the earliest about 2 minutes after you approve. Good until ${h.expires_at}.`,
     `Will not buy if the last trade is more than ${h.maximum_price_drift} away from the limit.`,
-    `Your stop level is $${h.invalidation_price}. The program will NOT place it or sell for you.`,
+    h.lane === 'accumulation'
+      ? `Stack add, no stop. The next add level down is $${h.invalidation_price}; nothing is ever sold for you.`
+      : `Your stop level is $${h.invalidation_price}. The program will NOT place it or sell for you.`,
     '',
     'To approve, send this on your arm channel with your next unused code:',
     armLine(h),

@@ -1,8 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { planStackTickets, nextLevel, planText } from '../scripts/stack-ticket.mjs';
-import { buildTicket } from '../scripts/executor-ticket.mjs';
+import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
+import { planStackTickets, nextLevel, planText, checkNearPct, usableLevels, readLiveTickets } from '../scripts/stack-ticket.mjs';
+import { buildTicket, ticketText } from '../scripts/executor-ticket.mjs';
 import { validateRealHandoff } from '../scripts/executor-validate.mjs';
 
 const lv = (...ps) => ps.map((price) => ({ price, kind: 'pivot low', date: '2025-01-01' }));
@@ -76,7 +80,8 @@ test('a planned ticket passes the real-order contract the executor enforces', ()
   const plan = planStackTickets({ db, names: ['SPCX'], prices: { SPCX: 134 }, cash: 200 });
   const s = byName(plan).SPCX;
   const now = new Date('2026-11-10T15:00:00Z'); // Tuesday, mid-session
-  const h = buildTicket({ row: s.row, ticker: s.sym, shares: s.shares, limit: s.limit, stop: s.stop, drift: s.drift, when: s.when, now });
+  const h = buildTicket({ row: s.row, ticker: s.sym, shares: s.shares, limit: s.limit, stop: s.stop, drift: s.drift, when: s.when, lane: s.lane, now });
+  assert.equal(h.lane, 'accumulation');
   const check = validateRealHandoff(h, { now });
   // No receipts dir offline, so the test-order gate is not consulted: the ticket's own terms must pass clean.
   assert.deepEqual(check.refusals, []);
@@ -87,4 +92,76 @@ test('planText prints one line per name and the cash left', () => {
   assert.match(t, /SPCX\s+TICKET\s+buy 1 at 130\.39/);
   assert.match(t, /NVDA\s+FAR/);
   assert.match(t, /cash left after tickets: \$69\.61/);
+});
+
+test('a bad or oversized near-pct is refused, never a silent open gate', () => {
+  for (const bad of [NaN, 0, -1, 50, Infinity]) {
+    assert.throws(() => checkNearPct(bad), /near-pct/);
+    assert.throws(() => planStackTickets({ db, names: ['SPCX'], prices: { SPCX: 134 }, cash: 200, nearPct: bad }), /near-pct/);
+  }
+  assert.equal(checkNearPct(10), 10);
+});
+
+test('duplicate levels collapse at cents, so the stop is the next distinct level down', () => {
+  const dup = { names: { X: { sym: 'X', row: 'B-1', levels: lv(100, 100.004, 90, 100) } } };
+  assert.deepEqual(usableLevels(dup.names.X), [100, 90]);
+  const x = byName(planStackTickets({ db: dup, names: ['X'], prices: { X: 103 }, cash: 200 })).X;
+  assert.equal(x.status, 'TICKET');
+  assert.equal(x.stop, 90);
+});
+
+test('a level a recorded buy already used is skipped for the next one down', () => {
+  const used = { names: { SPCX: { ...db.names.SPCX, buys: [{ shares: 1, price: 130.5, date: '2026-11-12' }] } } };
+  assert.deepEqual(nextLevel(used.names.SPCX, 134), { level: 107.01, lower: null });
+});
+
+test("Adam's per-add dollars cap the share: over it is OVER_TRANCHE, not a bigger buy", () => {
+  const sized = { names: { SPCX: { ...db.names.SPCX, tranche_dollars: 66 } } };
+  const s = byName(planStackTickets({ db: sized, names: ['SPCX'], prices: { SPCX: 134 }, cash: 200 })).SPCX;
+  assert.equal(s.status, 'OVER_TRANCHE');
+  assert.match(s.note, /over your \$66 per add/);
+});
+
+test('live tickets hold their cash, and a name with its own live ticket is not ticketed again', () => {
+  const plan = planStackTickets({
+    db, names: ['SPCX', 'NVDA'], prices: { SPCX: 134, NVDA: 155 }, cash: 200,
+    liveTickets: { 'B-1397': { ticker: 'SPCX', notional: 130.39 } },
+  });
+  const m = byName(plan);
+  assert.equal(m.SPCX.status, 'LIVE_TICKET');
+  assert.equal(m.NVDA.status, 'NO_CASH'); // 200 - 130.39 = 69.61 left
+  assert.equal(plan.held, 130.39);
+});
+
+test('an executor refusal keeps the cash for the next name', () => {
+  const plan = planStackTickets({
+    db, names: ['SPCX', 'NVDA'], prices: { SPCX: 132, NVDA: 155 }, cash: 300,
+    validate: (args) => (args.row === 'B-1397' ? [{ code: 'R99', message: 'test' }] : []),
+  });
+  const m = byName(plan);
+  assert.equal(m.SPCX.status, 'REFUSED');
+  assert.equal(m.NVDA.status, 'TICKET');
+  assert.equal(plan.cashLeft, 148.51);
+});
+
+test('under-$1 levels are refused instead of producing a $0.00 drift', () => {
+  const cheap = { names: { P: { sym: 'P', row: 'B-2', levels: lv(0.8, 0.6) } } };
+  assert.equal(byName(planStackTickets({ db: cheap, names: ['P'], prices: { P: 0.82 }, cash: 200 })).P.status, 'NO_FIT');
+});
+
+test('readLiveTickets counts unexpired tickets and treats an unreadable one as the full limit', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'stack-ticket-'));
+  mkdirSync(join(dir, 'tickets'));
+  const now = new Date('2026-11-10T15:00:00Z');
+  writeFileSync(join(dir, 'tickets', 'B-10.json'), JSON.stringify({ ticker: 'A', quantity_value: 2, limit_price: 50, expires_at: '2026-11-10T21:00:00Z' }));
+  writeFileSync(join(dir, 'tickets', 'B-11.json'), JSON.stringify({ ticker: 'B', quantity_value: 1, limit_price: 9, expires_at: '2026-11-09T21:00:00Z' }));
+  writeFileSync(join(dir, 'tickets', 'B-12.json'), '{not json');
+  assert.deepEqual(readLiveTickets(dir, now), { 'B-10': { ticker: 'A', notional: 100 }, 'B-12': { ticker: '?', notional: 200 } });
+});
+
+test('the phone text for a stack add says there is no stop', () => {
+  const now = new Date('2026-11-10T15:00:00Z');
+  const t = ticketText(buildTicket({ row: 'B-1397', ticker: 'SPCX', shares: 1, limit: 130.39, stop: 107.01, drift: '$1.30', when: 'below:130.39', lane: 'accumulation', now }));
+  assert.match(t, /Stack add, no stop/);
+  assert.doesNotMatch(t, /Your stop level/);
 });
