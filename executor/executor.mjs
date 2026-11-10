@@ -55,11 +55,11 @@ const ENDPOINT = process.env.BENCH_EXECUTOR_ENDPOINT ?? 'https://agent.robinhood
 // bytes are not the committed bytes, and live modes refuse (§ provenance).
 const PROVENANCE_PATHS = [
   'executor', 'scripts/executor-validate.mjs', 'test/executor-contract.test.mjs',
-  'prompts/bench-executor-v1.md', 'docs/executor-test-protocol.md',
+  'prompts/bench-executor-v1.md', 'prompts/bench-executor-v2.md', 'docs/executor-test-protocol.md',
 ];
 
 // Raw broker order states that mean "still working".
-const OPEN_RAW = new Set(['new', 'queued', 'confirmed', 'unconfirmed', 'partially_filled', 'pending', 'open']);
+export const OPEN_RAW = new Set(['new', 'queued', 'confirmed', 'unconfirmed', 'partially_filled', 'pending', 'open']);
 
 // Typed early exit for the live flow: carries the process exit code through
 // catch/finally instead of bypassing them the way process.exit would.
@@ -84,7 +84,7 @@ export function confirmLine(planId, reviewRef, notional) {
 // LIMIT orders are whole-share only on this broker (fractional = market-only,
 // per the tool schema). notional mode floors to whole shares; shares mode
 // must already be a whole number.
-export function computeOrderShares(handoff) {
+export function computeOrderShares(handoff, hardCeiling = HARD_TEST_CEILING_USD) {
   const limit = handoff.limit_price;
   let shares;
   if (handoff.quantity_mode === 'shares') {
@@ -99,7 +99,7 @@ export function computeOrderShares(handoff) {
     throw new PreflightError(`REFUSED — computed share count ${shares} < 1 (notional $${handoff.quantity_value} at limit $${limit})`);
   }
   const notional = shares * limit;
-  const ceiling = Math.min(HARD_TEST_CEILING_USD, handoff.executor_absolute_ceiling ?? HARD_TEST_CEILING_USD);
+  const ceiling = Math.min(hardCeiling, handoff.executor_absolute_ceiling ?? hardCeiling);
   if (notional > ceiling) {
     throw new PreflightError(`REFUSED — order notional $${notional.toFixed(2)} exceeds effective ceiling $${ceiling.toFixed(2)}`);
   }
@@ -258,12 +258,12 @@ function provenance() {
 
 // ---------- live flow -------------------------------------------------------
 
-async function connectBroker() {
+async function connectBroker({ capabilities = null } = {}) {
   const mcp = new McpClient(ENDPOINT, { getToken: getAccessToken });
   await mcp.initialize({ name: 'bench-executor', version: 'v1-program' });
   const tools = await mcp.listTools();
   const broker = new Broker(mcp);
-  const binding = broker.bind(tools);
+  const binding = broker.bind(tools, { capabilities });
   return { broker, binding };
 }
 
@@ -809,12 +809,113 @@ async function runProbe(handoffPath) {
   process.exit(0);
 }
 
+// ---------- real-order mode (bench-executor-v2) ------------------------------
+// Loaded only when asked for, so the typed test path never touches this code.
+
+const isCommittedFile = (path) => {
+  try {
+    if (!git(['ls-files', '--', path])) return false;
+    return !git(['status', '--porcelain', '--', path]);
+  } catch { return false; }
+};
+
+function committedShaOrThrow() {
+  const dirty = git(['status', '--porcelain', '--', ...PROVENANCE_PATHS]);
+  if (dirty) throw new Error('the executor files differ from the committed bytes');
+  return git(['rev-parse', '--short', 'HEAD']);
+}
+
+async function realOrderDeps() {
+  const { testGate, readArmMessages, hasOpenRealOrders } = await import('./lib/real-order.mjs');
+  const { ApprovalStore } = await import('./lib/approvals.mjs');
+  const { STATE_DIR, loadTicket } = await import('./lib/ticket.mjs');
+  const { REAL_ORDER_CAPABILITIES } = await import('./lib/broker.mjs');
+  const { REAL_ORDER_CEILING_USD } = await import('../scripts/executor-validate.mjs');
+  const book = JSON.parse(readFileSync(join(ROOT, 'db', 'archive.json'), 'utf8'));
+  const d = {
+    store: new ApprovalStore(STATE_DIR),
+    stateDir: STATE_DIR,
+    receiptsDir: RECEIPTS_DIR,
+    rawDir: RAW_DIR,
+    ceilingUsd: REAL_ORDER_CEILING_USD,
+    now: () => new Date(),
+    alert: (line) => alert(line, { title: 'BENCH REAL ORDER' }),
+    log: (line) => console.error(`[real-order] ${line}`),
+    loadTicket: (row) => loadTicket(row, STATE_DIR),
+    bookRow: (row) => book.find((r) => r.id === row) ?? null,
+    gate: () => testGate(RECEIPTS_DIR, isCommittedFile, REAL_ORDER_CEILING_USD),
+    commit: committedShaOrThrow,
+    readMessages: () => readArmMessages(),
+    hasOpenOrders: () => hasOpenRealOrders(RECEIPTS_DIR),
+    broker: null,
+    connect: async () => {
+      if (!d.broker) ({ broker: d.broker } = await connectBroker({ capabilities: REAL_ORDER_CAPABILITIES }));
+    },
+  };
+  return d;
+}
+
+async function runRealOrderCommand(cmd, rest, flag, val) {
+  const { insideAiSession, runTick, ingestMessages, attemptTicket } = await import('./lib/real-order.mjs');
+  const aiVar = insideAiSession();
+  if (aiVar) {
+    console.error(`REFUSED — ${cmd} will not run inside an AI session (${aiVar} is set). Real orders start only from the Windows task or Adam's own terminal.`);
+    process.exit(1);
+  }
+
+  if (cmd === 'codes') {
+    requireTTY('codes');
+    const { ApprovalStore } = await import('./lib/approvals.mjs');
+    const store = new ApprovalStore();
+    if (flag('--unlock')) { store.unlock(); console.log('Real orders unlocked.'); process.exit(0); }
+    if (!flag('--new')) { console.error('usage: executor codes --new | --unlock'); process.exit(2); }
+    const codes = store.newCodes();
+    console.log('\nYour one-time codes. They are shown this once. Save them on your phone, then clear this window.\n');
+    for (const c of codes) console.log(`  ${c}`);
+    console.log('\nThese replace any earlier codes.');
+    process.exit(0);
+  }
+
+  if (!flag('--live')) {
+    console.error(`REFUSED — ${cmd} can place a real order. Re-run with --live to mean it.`);
+    process.exit(1);
+  }
+  const d = await realOrderDeps();
+
+  if (cmd === 'watch') {
+    if (!flag('--once')) { console.error('usage: executor watch --once --live'); process.exit(2); }
+    const out = await runTick(d);
+    if (out.skipped || out.results?.length) console.log(JSON.stringify(out));
+    process.exit(0);
+  }
+
+  // place: same gates as a tick, for one named ticket file.
+  const handoffPath = val('--handoff');
+  if (!handoffPath) { console.error('usage: executor place --handoff <file.json> --live'); process.exit(2); }
+  const handoff = JSON.parse(readFileSync(resolve(handoffPath), 'utf8'));
+  await ingestMessages(await d.readMessages(), d);
+  const approval = d.store.approvalFor(handoff.plan_id);
+  if (!approval || approval.status !== 'active') {
+    console.error(`REFUSED — no live phone approval for ${handoff.row_id}. Send the ARM line from your phone first.`);
+    process.exit(1);
+  }
+  await d.connect();
+  const out = await attemptTicket(handoff, approval, d);
+  console.log(JSON.stringify(out));
+  process.exit(['UNKNOWN'].includes(out.status) ? 2 : 0);
+}
+
 // ---------- commands --------------------------------------------------------
 
 async function main() {
   const [cmd, ...rest] = process.argv.slice(2);
   const flag = (f) => rest.includes(f);
   const val = (f) => { const i = rest.indexOf(f); return i >= 0 ? rest[i + 1] : undefined; };
+
+  if (cmd === 'place' || cmd === 'watch' || cmd === 'codes') {
+    await runRealOrderCommand(cmd, rest, flag, val);
+    return;
+  }
 
   if (cmd === 'validate') {
     const file = rest.find((a) => !a.startsWith('--'));
@@ -843,6 +944,12 @@ async function main() {
     console.log(`token: ${process.env.BENCH_EXECUTOR_TOKEN ? 'env override' : loadStore()?.tokens?.access_token ? 'on file' : 'NONE — run login'}`);
     const receipts = existsSync(RECEIPTS_DIR) ? readdirSync(RECEIPTS_DIR).filter((f) => f.endsWith('.json')) : [];
     console.log(`receipts: ${receipts.length} on disk; test zero ${hasCompletedTestZero() ? 'COMPLETE (clean)' : 'not yet clean'}`);
+    const { testGate } = await import('./lib/real-order.mjs');
+    const { ApprovalStore } = await import('./lib/approvals.mjs');
+    const { REAL_ORDER_CEILING_USD } = await import('../scripts/executor-validate.mjs');
+    const gate = testGate(RECEIPTS_DIR, isCommittedFile, REAL_ORDER_CEILING_USD);
+    const store = new ApprovalStore();
+    console.log(`real orders: ${gate.ok ? 'UNLOCKED' : 'LOCKED'} (${gate.why}); limit $${REAL_ORDER_CEILING_USD.toFixed(2)} per order; ${store.codesLeft()} codes left${store.locked ? '; WRONG-CODE LOCK ON' : ''}; ${store.byStatus('active').length} approved and waiting`);
     process.exit(0);
   }
 
@@ -867,7 +974,10 @@ async function main() {
     return;
   }
 
-  console.error(`usage: node executor/executor.mjs <validate|preflight|status|login|test-zero|test-one> …
+  console.error(`usage: node executor/executor.mjs <validate|preflight|status|login|test-zero|test-one|place|watch|codes> …
+  codes --new | --unlock             make one-time phone codes, or lift the wrong-code lock (TTY only)
+  place --handoff F --live           one approved real order (needs a live phone approval)
+  watch --once --live                one watcher tick (the Windows task runs this)
   validate <handoff.json>            offline contract + order-math + risk check
   preflight <handoff.json>           READ-ONLY live probe: connect, bind, account, buying power,
                                      quote, conflicts — order tools not even bound. No arm needed.

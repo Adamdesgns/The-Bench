@@ -1,6 +1,6 @@
 # Executor real orders with phone approval: design
 
-**Status: DRAFT, nothing built yet.** Adam answered "No" to requiring the Robinhood tap (relayed 2026-11-09 from the session that started this one). The remaining decisions below are his.
+**Status: built and tested offline only. The live path has never run.** Adam answered "No" to requiring the Robinhood tap (relayed 2026-11-09 from the session that started this one) and approved pre-approval with "Yes, build that". The per-order limit is still his to name, and the code stays at $0 until he does.
 
 ## What Adam gets
 
@@ -43,7 +43,8 @@ One approval covers one specific ticket: ticker, side, maximum dollars, limit pr
 - **Ticket code:** six characters computed from the row, plan, ticker, action, shares, limit and account. Editing the order after the text went out stops the code matching, so the program refuses.
 - **Handoff writer** `scripts/executor-ticket.mjs`: writes the file and sends the text. It never arms.
 - **Code setup** `scripts/executor-codes.mjs`: terminal only, refuses without a real keyboard and inside an AI session.
-- **Approval tools** added as a separate binding used only by real-order mode, to read and report the state.
+- **Real-order binding:** reads, review and place only. Cancel is not in it, and the approval tools are not needed now that the tap is not required.
+- **Watcher** `watch --once`, run each minute by a Windows task that Adam registers himself.
 - **Offline tests** with fake broker responses for every refusal and the one valid path.
 
 ## Refusals, all with no retry
@@ -60,9 +61,9 @@ One approval covers one specific ticket: ticker, side, maximum dollars, limit pr
 ## Decisions for Adam, one at a time
 
 1. ~~Require the Robinhood tap on every real order?~~ **Adam: No.**
-2. How the ARM proves it came from Adam. **Recommended: one-time codes.**
-3. The most one real order may cost, in dollars. His number.
-4. How the program starts with no terminal open. **Recommended:** a small watcher that checks for an ARM once a minute during market hours, registered as a Windows task by Adam, with no AI in the loop. A `HALT` from the phone or switching off the task stops it.
+2. How the ARM proves it came from Adam. **Built: one-time codes.** He has not objected; the login channel remains an option.
+3. The most one real order may cost, in dollars. **Open, his number.**
+4. How the program starts with no terminal open. **Built:** a watcher that checks once a minute, all day so night-before approvals are caught, registered as a Windows task by Adam with no AI in the loop. A `HALT` from the phone or switching off the task stops it.
 
 ## Honest limits
 
