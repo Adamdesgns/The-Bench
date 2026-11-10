@@ -27,9 +27,10 @@
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
+import { homedir } from 'node:os';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, createHash } from 'node:crypto';
 import readline from 'node:readline/promises';
 
 import {
@@ -56,6 +57,7 @@ const ENDPOINT = process.env.BENCH_EXECUTOR_ENDPOINT ?? 'https://agent.robinhood
 const PROVENANCE_PATHS = [
   'executor', 'scripts/executor-validate.mjs', 'test/executor-contract.test.mjs',
   'prompts/bench-executor-v1.md', 'prompts/bench-executor-v2.md', 'docs/executor-test-protocol.md',
+  'scripts/executor-ticket.mjs', 'scripts/executor-watcher-hidden.vbs', 'scripts/register-executor-watcher.ps1',
 ];
 
 // Raw broker order states that mean "still working".
@@ -812,21 +814,37 @@ async function runProbe(handoffPath) {
 // ---------- real-order mode (bench-executor-v2) ------------------------------
 // Loaded only when asked for, so the typed test path never touches this code.
 
-const isCommittedFile = (path) => {
-  try {
-    if (!git(['ls-files', '--', path])) return false;
-    return !git(['status', '--porcelain', '--', path]);
-  } catch { return false; }
-};
+// The commit Adam reviewed and pinned at his own terminal (`executor pin`). The
+// watcher runs only that commit, so a commit made by anyone else in this busy
+// checkout (a raised ceiling, changed code) refuses until he pins it.
+const PIN_FILE = () => join(homedir(), '.bench-executor', 'pinned-commit.json');
+function readPin() {
+  try { return JSON.parse(readFileSync(PIN_FILE(), 'utf8')); } catch { return null; }
+}
+
+// The pin covers what the executor files contain, not the checkout's commit:
+// the book routines commit many times a day, and none of those commits should
+// lock real orders. Any change to an executor file changes this fingerprint.
+export function executorFingerprint() {
+  const tree = git(['ls-tree', '-r', 'HEAD', '--', ...PROVENANCE_PATHS]);
+  return createHash('sha256').update(tree).digest('hex');
+}
+// The last commit that changed an executor file: the one Adam reviews.
+const executorCommit = () => git(['log', '-1', '--format=%H%x09%s', 'HEAD', '--', ...PROVENANCE_PATHS]).split('\t');
 
 function committedShaOrThrow() {
   const dirty = git(['status', '--porcelain', '--', ...PROVENANCE_PATHS]);
   if (dirty) throw new Error('the executor files differ from the committed bytes');
+  const pin = readPin();
+  if (!pin?.files_digest) throw new Error('no reviewed executor version is pinned; run "node executor/executor.mjs pin" at your terminal');
+  if (pin.files_digest !== executorFingerprint()) {
+    throw new Error(`the executor files changed since the pinned ${String(pin.sha).slice(0, 7)}; review the change, then pin again at your terminal`);
+  }
   return git(['rev-parse', '--short', 'HEAD']);
 }
 
 async function realOrderDeps() {
-  const { testGate, readArmMessages, hasOpenRealOrders } = await import('./lib/real-order.mjs');
+  const { testGate, readArmMessages, hasOpenRealOrders, makeGitChecks } = await import('./lib/real-order.mjs');
   const { ApprovalStore } = await import('./lib/approvals.mjs');
   const { STATE_DIR, loadTicket } = await import('./lib/ticket.mjs');
   const { REAL_ORDER_CAPABILITIES } = await import('./lib/broker.mjs');
@@ -844,7 +862,7 @@ async function realOrderDeps() {
     log: (line) => console.error(`[real-order] ${line}`),
     loadTicket: (row) => loadTicket(row, STATE_DIR),
     bookRow: (row) => book.find((r) => r.id === row) ?? null,
-    gate: () => testGate(RECEIPTS_DIR, isCommittedFile, REAL_ORDER_CEILING_USD),
+    gate: () => testGate(RECEIPTS_DIR, makeGitChecks(ROOT), REAL_ORDER_CEILING_USD),
     commit: committedShaOrThrow,
     readMessages: () => readArmMessages(),
     hasOpenOrders: () => hasOpenRealOrders(RECEIPTS_DIR),
@@ -857,34 +875,81 @@ async function realOrderDeps() {
 }
 
 async function runRealOrderCommand(cmd, rest, flag, val) {
-  const { insideAiSession, runTick, takeTickLock } = await import('./lib/real-order.mjs');
+  const {
+    insideAiSession, runTick, takeTickLock, releaseTickLock, TICK_HARD_LIMIT_MS,
+  } = await import('./lib/real-order.mjs');
   const aiVar = insideAiSession();
   if (aiVar) {
     console.error(`REFUSED — ${cmd} will not run inside an AI session (${aiVar} is set). Real orders start only from the Windows task or Adam's own terminal.`);
     process.exit(1);
   }
+  const phone = (line) => alert(line, { title: 'BENCH REAL ORDER' });
 
   if (cmd === 'codes') {
     requireTTY('codes');
     if (!flag('--new') && !flag('--unlock')) { console.error('usage: executor codes --new | --unlock'); process.exit(2); }
     const { ApprovalStore } = await import('./lib/approvals.mjs');
     const { STATE_DIR } = await import('./lib/ticket.mjs');
-    const { mkdirSync, unlinkSync } = await import('node:fs');
+    const { mkdirSync } = await import('node:fs');
     mkdirSync(STATE_DIR, { recursive: true });
+    // Once codes exist, only someone holding one may replace them or lift the
+    // lock. Asked before the lock is taken, so a slow typist never holds it.
+    let proof = null;
+    if (new ApprovalStore(STATE_DIR).codesLeft() > 0) {
+      const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+      proof = (await rl.question('Type one of your unused codes to prove this is you (it gets spent): ')).trim().toUpperCase();
+      rl.close();
+    }
     const lock = takeTickLock(STATE_DIR, Date.now());
     if (!lock.held) { console.error('The watcher is busy this second. Run it again.'); process.exit(1); }
     let codes = null;
+    let refusedAs = null;
     try {
       const store = new ApprovalStore(STATE_DIR); // read fresh, under the lock
-      if (flag('--unlock')) store.unlock();
+      const used = proof === null ? 'ok' : store.useCode(proof);
+      if (used !== 'ok') refusedAs = used;
+      else if (flag('--unlock')) store.unlock();
       else codes = store.newCodes();
     } finally {
-      unlinkSync(lock.path);
+      // Released before any exit: process.exit would skip a finally.
+      releaseTickLock(lock);
     }
-    if (!codes) { console.log('Real orders unlocked.'); process.exit(0); }
+    if (refusedAs) {
+      await phone(`REAL ORDERS: someone at the terminal tried to ${flag('--unlock') ? 'lift the lock' : 'make new codes'} with a code that was ${refusedAs}. Nothing changed. If this was not you, send HALT and check the PC.`);
+      console.error(`REFUSED — that code is ${refusedAs}. Nothing changed.`);
+      process.exit(1);
+    }
+    const at = new Date().toISOString();
+    if (!codes) {
+      await phone(`REAL ORDERS: the wrong-code lock was lifted at the terminal (${at}). If this was not you, send HALT and check the PC.`);
+      console.log('Real orders unlocked.');
+      process.exit(0);
+    }
+    await phone(`REAL ORDERS: NEW one-time codes were made at the terminal (${at}). Every older code is dead. If this was not you, send HALT and check the PC.`);
     console.log('\nYour one-time codes. They are shown this once. Save them on your phone, then clear this window.\n');
     for (const c of codes) console.log(`  ${c}`);
     console.log('\nThese replace any earlier codes.');
+    process.exit(0);
+  }
+
+  if (cmd === 'pin') {
+    requireTTY('pin');
+    provenance();
+    const [head, subject] = executorCommit();
+    const filesDigest = executorFingerprint();
+    const { REAL_ORDER_CEILING_USD } = await import('../scripts/executor-validate.mjs');
+    console.log(`\nThe executor files were last changed by ${head}\n  "${subject}"\n  per-order limit in these files: $${REAL_ORDER_CEILING_USD.toFixed(2)}\n`);
+    console.log('Pin only a version you have reviewed. Book and routine commits do not undo a pin;');
+    console.log('any change to an executor file does, and real orders then wait until you pin again.');
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    const typed = (await rl.question(`Type the first 7 characters of the commit (${head.slice(0, 7)}) to pin it: `)).trim();
+    rl.close();
+    if (typed !== head.slice(0, 7)) { console.error('REFUSED — that does not match. Nothing pinned.'); process.exit(1); }
+    const { mkdirSync, writeFileSync: write } = await import('node:fs');
+    mkdirSync(dirname(PIN_FILE()), { recursive: true });
+    write(PIN_FILE(), JSON.stringify({ sha: head, subject, files_digest: filesDigest, ceiling_usd: REAL_ORDER_CEILING_USD, pinned_at: new Date().toISOString() }, null, 2));
+    await phone(`REAL ORDERS: the watcher was pinned to ${head.slice(0, 7)} ("${subject.slice(0, 60)}"), limit $${REAL_ORDER_CEILING_USD.toFixed(2)}. If this was not you, send HALT and check the PC.`);
+    console.log(`Pinned ${head.slice(0, 7)}.`);
     process.exit(0);
   }
 
@@ -892,6 +957,11 @@ async function runRealOrderCommand(cmd, rest, flag, val) {
     console.error(`REFUSED — ${cmd} can place a real order. Re-run with --live to mean it.`);
     process.exit(1);
   }
+  // A tick that hangs is killed long before another tick may take its lock.
+  setTimeout(() => {
+    console.error('REAL ORDERS: this tick ran past its hard limit and is stopping.');
+    process.exit(3);
+  }, TICK_HARD_LIMIT_MS).unref();
   const d = await realOrderDeps();
 
   if (cmd === 'watch') {
@@ -929,7 +999,7 @@ async function main() {
   const flag = (f) => rest.includes(f);
   const val = (f) => { const i = rest.indexOf(f); return i >= 0 ? rest[i + 1] : undefined; };
 
-  if (cmd === 'place' || cmd === 'watch' || cmd === 'codes') {
+  if (cmd === 'place' || cmd === 'watch' || cmd === 'codes' || cmd === 'pin') {
     await runRealOrderCommand(cmd, rest, flag, val);
     return;
   }
@@ -961,10 +1031,13 @@ async function main() {
     console.log(`token: ${process.env.BENCH_EXECUTOR_TOKEN ? 'env override' : loadStore()?.tokens?.access_token ? 'on file' : 'NONE — run login'}`);
     const receipts = existsSync(RECEIPTS_DIR) ? readdirSync(RECEIPTS_DIR).filter((f) => f.endsWith('.json')) : [];
     console.log(`receipts: ${receipts.length} on disk; test zero ${hasCompletedTestZero() ? 'COMPLETE (clean)' : 'not yet clean'}`);
-    const { testGate } = await import('./lib/real-order.mjs');
+    const { testGate, makeGitChecks } = await import('./lib/real-order.mjs');
     const { ApprovalStore } = await import('./lib/approvals.mjs');
     const { REAL_ORDER_CEILING_USD } = await import('../scripts/executor-validate.mjs');
-    const gate = testGate(RECEIPTS_DIR, isCommittedFile, REAL_ORDER_CEILING_USD);
+    const gate = testGate(RECEIPTS_DIR, makeGitChecks(ROOT), REAL_ORDER_CEILING_USD);
+    const pin = readPin();
+    const pinOk = pin?.files_digest && pin.files_digest === executorFingerprint();
+    console.log(`pinned executor version: ${pin?.files_digest ? `${String(pin.sha).slice(0, 7)}${pinOk ? ' (the executor files match it)' : ' — the executor files changed since, so real orders wait until you pin again'}` : 'NONE — real orders wait until you run pin'}`);
     const { STATE_DIR } = await import('./lib/ticket.mjs');
     let codesLine = 'no codes made yet';
     if (existsSync(join(STATE_DIR, 'real-order-state.json'))) {
@@ -975,7 +1048,7 @@ async function main() {
         codesLine = `STATE FILE UNREADABLE (${err.message}) — real orders will refuse`;
       }
     }
-    console.log(`real orders: ${gate.ok ? 'UNLOCKED' : 'LOCKED'} (${gate.why}); limit $${REAL_ORDER_CEILING_USD.toFixed(2)} per order; ${codesLine}`);
+    console.log(`real orders: ${gate.ok ? 'receipts in place (Robinhood is asked to confirm the test orders before any order)' : 'LOCKED'} (${gate.why}); limit $${REAL_ORDER_CEILING_USD.toFixed(2)} per order; ${codesLine}`);
     process.exit(0);
   }
 
@@ -1001,7 +1074,9 @@ async function main() {
   }
 
   console.error(`usage: node executor/executor.mjs <validate|preflight|status|login|test-zero|test-one|place|watch|codes> …
-  codes --new | --unlock             make one-time phone codes, or lift the wrong-code lock (TTY only)
+  codes --new | --unlock             make one-time phone codes, or lift the wrong-code lock (TTY only;
+                                     needs one unused code typed in once codes exist)
+  pin                                pin the reviewed HEAD commit the watcher may run (TTY only)
   place --handoff F --live           one approved real order (needs a live phone approval)
   watch --once --live                one watcher tick (the Windows task runs this)
   validate <handoff.json>            offline contract + order-math + risk check

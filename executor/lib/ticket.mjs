@@ -27,7 +27,15 @@ export function ticketCode(h) {
   return out;
 }
 
-export const armLine = (h, code = '<your next code>') => `ARM ${h.row_id} ${ticketCode(h)} ${code}`;
+// The full SHA-256 of the whole ticket, keys sorted, so the same ticket always
+// gives the same digest. The approval stores this and the attempt compares it:
+// six letters (30 bits) could be ground to collide, 256 bits cannot.
+const canonical = (v) => (Array.isArray(v) ? `[${v.map(canonical).join(',')}]`
+  : v && typeof v === 'object' ? `{${Object.keys(v).sort().filter((k) => v[k] !== undefined).map((k) => `${JSON.stringify(k)}:${canonical(v[k])}`).join(',')}}`
+    : JSON.stringify(v ?? null));
+export const ticketDigest = (h) => createHash('sha256').update(canonical(h)).digest('hex');
+
+export const armLine =(h, code = '<your next code>') => `ARM ${h.row_id} ${ticketCode(h)} ${code}`;
 
 export function conditionMet(when, last) {
   if (when?.type === 'NOW') return true;

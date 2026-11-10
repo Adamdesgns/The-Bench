@@ -71,3 +71,17 @@ One approval covers one specific ticket: ticker, side, maximum dollars, limit pr
 - Anyone holding Adam's unlocked phone has the codes.
 - With no tap, the per-order dollar limit is the main cap on damage from any mistake.
 - Everything here is tested offline only until Adam's terminal tests leave receipts.
+
+## Addendum, after the PR #53 review (2026-11-09)
+
+An independent review found 20 issues. All were real. The code now also:
+
+- **Waits for HALT.** An approval waits about 90 seconds before it can place. Every approval made before a phone-read gap of more than 11 hours is cancelled, because the channel only reaches back 12 hours.
+- **Checks the ticket and the quote.** The ticket check is a full SHA-256 digest of its contents. The quote's age comes from the last-trade time only, and a stale or missing time means waiting. Drift is capped at 2% of the limit. A ticket must expire inside its first trading session.
+- **Checks the test gate at Robinhood.** It asks Robinhood for both test orders by id, on top of the committed receipts. The receipts must come from a program version in this checkout's history.
+- **Runs only a pinned executor version.** The watcher places only while the executor files match the version Adam pinned at his keyboard (`executor pin`). The pin is a fingerprint of those files, so the book routines' commits do not affect it, and an unpinned version waits rather than spending the approval. It calls node and cmd by full path.
+- **Lets a cancelled ticket be approved again.** After a HALT or a phone-gap cancellation, a new ARM with a fresh code approves the same ticket again. An approval that reached an attempt never can.
+- **Keeps one tick at a time.** The tick lock holds a token, every live command is killed after 4 minutes, every network call has a timeout, and the state file has a revision check.
+- **Guards the codes.** Once codes exist, new codes or unlocking needs a current code, and both text the phone.
+
+**Open risk, not fixable on this PC:** software running as Adam can write an approval, replace the code hashes, or use the stored Robinhood token directly. The per-order limit and the test gate bind this program only. The cash kept in the account is the real limit. Adam declined the Robinhood tap that would close it and accepted the risk on 2026-11-09 ("No, accept risk"). Full text in `docs/executor-test-protocol.md`.

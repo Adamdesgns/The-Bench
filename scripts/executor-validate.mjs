@@ -5,6 +5,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { firstSession, nyDate } from '../executor/lib/calendar.mjs';
 
 export const HARD_TEST_CEILING_USD = 5.0;          // per-order notional, v1. Change only by reviewed commit.
 export const MAX_FUNDED_TEST_BALANCE_USD = 10.0;   // operator checklist assumption; buying-power check still runs live.
@@ -27,6 +28,7 @@ export const REAL_SCHEMA_VERSION = 'bench-execution-handoff-v2';
 export const REAL_EXECUTOR_VERSION = 'bench-executor-v2';
 export const REAL_MIN_FRAMEWORK = 36;
 export const TICKET_MAX_LIFE_HOURS = 30;            // night-before approval, never a standing one.
+export const REAL_MAX_DRIFT_PCT = 2;                // widest drift bound a real ticket may carry, % of its limit.
 // Leveraged and inverse funds the desk has met or that are common. A PARTIAL
 // list: a ticker missing from it is not proof a fund is plain.
 export const LEVERAGED_OR_INVERSE_TICKERS = new Set([
@@ -267,13 +269,32 @@ export function validateRealHandoff(h, { now = new Date(), receiptsDir = null, c
     add('R23_PLACE_WHEN_INVALID', 'place_when must be {type: NOW} or {type: LAST_AT_OR_BELOW | LAST_AT_OR_ABOVE, price}');
   }
 
+  // A drift bound wider than REAL_MAX_DRIFT_PCT of the limit would let a buy
+  // limit sit far above the market and still pass.
+  if (isPos(h.limit_price) && h.maximum_price_drift !== undefined) {
+    const d = h.maximum_price_drift;
+    const s = String(d).trim();
+    const usd = typeof d === 'number' ? d : s.endsWith('%') ? (parseFloat(s) / 100) * h.limit_price : parseFloat(s.replace(/^\$/, ''));
+    const cap = (h.limit_price * REAL_MAX_DRIFT_PCT) / 100;
+    if (!(usd > 0) || usd > cap + 1e-9) {
+      add('R18_DRIFT_UNBOUNDED', `maximum_price_drift must be at most ${REAL_MAX_DRIFT_PCT}% of the limit ($${cap.toFixed(2)} here)`);
+    }
+  }
+
+  // The ticket lives inside the first trading session after it was written:
+  // its expiry is that session's date, no later than that session's close.
   const created = Date.parse(h.created_at);
   const expires = Date.parse(h.expires_at);
   if (!Number.isNaN(created) && !Number.isNaN(expires)) {
     if (expires - created > TICKET_MAX_LIFE_HOURS * 3600 * 1000) {
       add('R04_STALE_PLAN', `a ticket may live at most ${TICKET_MAX_LIFE_HOURS} hours`);
     }
-    if (nyClock(expires) > 16 * 60) add('R04_STALE_PLAN', 'expires_at must be no later than 16:00 New York time on its day');
+    const session = firstSession(new Date(created));
+    if (!session) {
+      add('R04_STALE_PLAN', 'no known trading session after the ticket was written (the calendar in executor/lib/calendar.mjs ran out)');
+    } else if (nyDate(new Date(expires)) !== session.date || nyClock(expires) > session.close) {
+      add('R04_STALE_PLAN', `expires_at must be on the ticket's first trading day (${session.date}) and no later than its close`);
+    }
   }
   return { ok: refusals.length === 0, refusals };
 }

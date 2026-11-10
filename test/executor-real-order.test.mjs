@@ -5,19 +5,21 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, readFileSync, readdirSync, writeFileSync, mkdirSync, utimesSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { execFileSync, spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-import { validateRealHandoff, validateHandoff, REAL_ORDER_CEILING_USD, HARD_TEST_CEILING_USD } from '../scripts/executor-validate.mjs';
+import { validateRealHandoff, validateHandoff, REAL_ORDER_CEILING_USD, HARD_TEST_CEILING_USD, REAL_MAX_DRIFT_PCT } from '../scripts/executor-validate.mjs';
 import { buildTicket, writeTicket, ticketText, parseWhen, nextCloseIso } from '../scripts/executor-ticket.mjs';
-import { ticketCode, armLine, conditionMet, ticketPath, loadTicket } from '../executor/lib/ticket.mjs';
-import { ApprovalStore, WRONG_CODES_BEFORE_LOCK } from '../executor/lib/approvals.mjs';
+import { ticketCode, ticketDigest, armLine, conditionMet, ticketPath, loadTicket } from '../executor/lib/ticket.mjs';
+import { ApprovalStore, StateChangedError, WRONG_CODES_BEFORE_LOCK } from '../executor/lib/approvals.mjs';
 import { Broker, REQUIRED_CAPABILITIES, REAL_ORDER_CAPABILITIES } from '../executor/lib/broker.mjs';
 import {
-  attemptTicket, ingestMessages, runTick, followOpenOrders, testGate, takeTickLock, insideAiSession,
-  quoteAgeSec, QUOTE_MAX_AGE_SEC, MODE,
+  attemptTicket, ingestMessages, runTick, followOpenOrders, testGate, takeTickLock, releaseTickLock, insideAiSession,
+  quoteAgeSec, makeGitChecks, QUOTE_MAX_AGE_SEC, QUOTE_TO_PLACE_MAX_SEC, MODE, MIN_APPROVAL_AGE_SEC, PHONE_GAP_LIMIT_SEC, TICK_HARD_LIMIT_MS, TICK_LOCK_STALE_MIN,
 } from '../executor/lib/real-order.mjs';
 import { computeOrderShares } from '../executor/executor.mjs';
 import { Receipt } from '../executor/lib/receipts.mjs';
-import { realSessionOpen, dayKind } from '../executor/lib/calendar.mjs';
+import { realSessionOpen, dayKind, firstSession } from '../executor/lib/calendar.mjs';
 
 const CEILING = 200;
 const NOW = new Date('2026-11-10T15:00:00Z'); // Tuesday, 10:00 in New York
@@ -26,24 +28,31 @@ const tmp = () => mkdtempSync(join(tmpdir(), 'bench-real-'));
 
 function ticket(over = {}, args = {}) {
   const h = buildTicket({
-    row: 'B-500', ticker: 'TEST', shares: 2, limit: 50, stop: 45, drift: '$2',
+    row: 'B-500', ticker: 'TEST', shares: 2, limit: 50, stop: 45, drift: '$1',
     when: 'now', expires: '2026-11-10T21:00:00.000Z', now: new Date(NOW.getTime() - 3600000), ...args,
   });
   return { ...h, ...over };
 }
 
 const FRESH = '2026-11-10T14:59:50Z';
+// The two test orders as Robinhood would show them: test zero cancelled with
+// nothing filled, test one filled. Answered whatever else a test overrides.
+const TEST_ORDERS = {
+  tz1: { results: [{ id: 'tz1', state: 'cancelled', cumulative_quantity: '0' }] },
+  to1: { results: [{ id: 'to1', state: 'filled', cumulative_quantity: '1' }] },
+};
+const PROOF = { zero: { order_id: 'tz1' }, one: { order_id: 'to1' } };
 const okResponses = () => ({
   accounts: { accounts: [{ account_number: 'X1117724', agentic_allowed: true }] },
   portfolio: { buying_power: '150.00' },
-  quotes: { results: [{ symbol: 'TEST', last_trade_price: '50.10', updated_at: FRESH }] },
+  quotes: { results: [{ symbol: 'TEST', last_trade_price: '50.10', venue_last_trade_time: FRESH }] },
   positions: { results: [] },
   orders: { results: [] },
   review: { order_checks: [], review_id: 'rev-1' },
   place: { order: { id: 'ord-1', state: 'queued', symbol: 'TEST', quantity: '2', limit_price: '50' } },
 });
 
-function world({ responses = {}, tickets = null, book = { 'B-500': { id: 'B-500', ticker: 'TEST' } }, messages = [], gate = { ok: true, why: 'ok' }, commit = () => 'abc1234', codes = 4 } = {}) {
+function world({ responses = {}, tickets = null, book = { 'B-500': { id: 'B-500', ticker: 'TEST' } }, messages = [], gate = { ok: true, why: 'ok', proof: PROOF }, commit = () => 'abc1234', codes = 4, testOrders = TEST_ORDERS } = {}) {
   const root = tmp();
   const stateDir = join(root, 'state');
   const receiptsDir = join(root, 'receipts');
@@ -58,6 +67,11 @@ function world({ responses = {}, tickets = null, book = { 'B-500': { id: 'B-500'
   const broker = {
     call: async (cap, args) => {
       calls.push({ cap, args });
+      if (cap === 'orders' && args?.order_id && testOrders[args.order_id]) {
+        const t = testOrders[args.order_id];
+        if (t instanceof Error) throw t;
+        return t;
+      }
       const r = res[cap];
       if (r instanceof Error) throw r;
       return typeof r === 'function' ? r(args) : r;
@@ -80,12 +94,19 @@ function world({ responses = {}, tickets = null, book = { 'B-500': { id: 'B-500'
   return { d, store, alerts, calls, h, plainCodes, receiptsDir };
 }
 
-function approve(w, h = w.h) {
-  assert.equal(w.store.useCode(w.plainCodes[0]), 'ok');
-  return w.store.addApproval({ plan_id: h.plan_id, row_id: h.row_id, ticket_code: ticketCode(h), message_id: 'm1', approved_at: NOW_SEC - 60 });
+// An approval as ingest makes it, accepted two minutes ago, with the phone read
+// a minute ago.
+function approve(w, h = w.h, { code = w.plainCodes[0], ingestedAt = NOW_SEC - 120 } = {}) {
+  assert.equal(w.store.useCode(code), 'ok');
+  w.store.flag('last_ingest_at', NOW_SEC - 60);
+  return w.store.addApproval({
+    plan_id: h.plan_id, row_id: h.row_id, ticket_code: ticketCode(h), ticket_digest: ticketDigest(h),
+    message_id: 'm1', approved_at: NOW_SEC - 180, ingested_at: ingestedAt,
+  });
 }
 
 const places = (w) => w.calls.filter((c) => c.cap === 'place');
+const at = (ms) => () => new Date(ms);
 const receiptOf = (w) => JSON.parse(readFileSync(join(w.receiptsDir, readdirSync(w.receiptsDir)[0]), 'utf8'));
 const statusOf = (w, h = w.h) => w.store.approvalFor(h.plan_id).status;
 const msg = (id, message, time = NOW_SEC - 60) => ({ id, event: 'message', time, message });
@@ -114,15 +135,20 @@ test('valid path: an approved ticket is placed exactly once, with the exact orde
   assert.ok(w.calls.findIndex((c) => c.cap === 'review') < w.calls.findIndex((c) => c.cap === 'place'), 'review before place');
 });
 
-test('valid path: a full tick from phone message to order, and the next tick does nothing', async () => {
+test('valid path: phone message, a wait for HALT, one order, and the next tick does nothing', async () => {
   const h = ticket();
   const w = world({ tickets: { 'B-500': h } });
   w.d.readMessages = async () => [msg('m1', armLine(h, w.plainCodes[0]))];
   const first = await runTick(w.d);
-  assert.equal(first.results[0].status, 'PENDING');
-  assert.equal(places(w).length, 1);
+  assert.equal(first.results[0].status, 'WAITING', 'not in the tick that approved it');
+  assert.equal(first.results[0].detail, 'just approved');
+  assert.equal(places(w).length, 0);
+  w.d.now = at(NOW.getTime() + 95000);
   const second = await runTick(w.d);
-  assert.deepEqual(second.results, []);
+  assert.equal(second.results[0].status, 'PENDING');
+  assert.equal(places(w).length, 1);
+  const third = await runTick(w.d);
+  assert.deepEqual(third.results, []);
   assert.equal(places(w).length, 1, 'one approval, one placement');
   assert.ok(!w.alerts.join('\n').includes(w.plainCodes[0]), 'a code is never echoed to the phone');
   assert.ok(!JSON.stringify(receiptOf(w)).includes(w.plainCodes[0]), 'a code is never in a receipt');
@@ -140,7 +166,7 @@ test('condition not met: waits, spends nothing, writes no receipt; fires when me
   assert.ok(!existsSync(w.receiptsDir));
   assert.equal(statusOf(w, h), 'active');
   w.d.broker.call = (orig => async (cap, args) => (cap === 'quotes'
-    ? { results: [{ last_trade_price: '48.90', updated_at: FRESH }] } : orig(cap, args)))(w.d.broker.call);
+    ? { results: [{ last_trade_price: '49.00', venue_last_trade_time: FRESH }] } : orig(cap, args)))(w.d.broker.call);
   assert.equal((await attemptTicket(h, a, w.d)).status, 'PENDING');
 });
 
@@ -152,6 +178,71 @@ test('market closed: waits without calling the broker', async () => {
   assert.equal(w.calls.length, 0);
 });
 
+// A quote the condition cannot be judged on means "look again next tick":
+// nothing is spent, no receipt is written.
+const stale = '2026-11-10T14:50:00Z';
+const unusableQuotes = [
+  ['an old last trade', { results: [{ last_trade_price: '50.10', venue_last_trade_time: stale }] }],
+  ['no last-trade time', { results: [{ last_trade_price: '50.10' }] }],
+  ['only a general update time', { results: [{ last_trade_price: '50.10', updated_at: FRESH }] }],
+  ['a last trade from the future', { results: [{ last_trade_price: '50.10', venue_last_trade_time: '2026-11-10T15:05:00Z' }] }],
+];
+for (const [name, quotes] of unusableQuotes) {
+  test(`quote not usable (${name}): waits, spends nothing, then fires on a fresh one`, async () => {
+    const w = world({ responses: { quotes } });
+    const a = approve(w);
+    assert.equal((await attemptTicket(w.h, a, w.d)).status, 'WAITING');
+    assert.equal(places(w).length, 0);
+    assert.ok(!existsSync(w.receiptsDir));
+    assert.equal(statusOf(w), 'active');
+    w.d.broker.call = (orig => async (cap, args) => (cap === 'quotes' ? okResponses().quotes : orig(cap, args)))(w.d.broker.call);
+    assert.equal((await attemptTicket(w.h, w.store.approvalFor(w.h.plan_id), w.d)).status, 'PENDING');
+  });
+}
+
+test('an old quote never fires a condition: a stale price under the trigger waits', async () => {
+  const h = ticket({ place_when: { type: 'LAST_AT_OR_BELOW', price: 49 } });
+  const w = world({ tickets: { 'B-500': h }, responses: { quotes: { results: [{ last_trade_price: '48.00', venue_last_trade_time: stale }] } } });
+  w.h = h;
+  const a = approve(w, h);
+  assert.equal((await attemptTicket(h, a, w.d)).detail, 'quote not usable');
+  assert.equal(places(w).length, 0);
+});
+
+test('just approved: waits at least MIN_APPROVAL_AGE_SEC so a HALT can land', async () => {
+  const w = world();
+  const a = approve(w, w.h, { ingestedAt: NOW_SEC - 30 });
+  const out = await attemptTicket(w.h, a, w.d);
+  assert.equal(out.status, 'WAITING');
+  assert.equal(out.detail, 'just approved');
+  assert.equal(w.calls.length, 0);
+  assert.ok(MIN_APPROVAL_AGE_SEC >= 60, 'at least one full watcher tick');
+  w.d.now = at(NOW.getTime() + (MIN_APPROVAL_AGE_SEC - 30) * 1000);
+  assert.equal((await attemptTicket(w.h, w.store.approvalFor(w.h.plan_id), w.d)).status, 'PENDING');
+});
+
+test('an approval record this program did not make (no digest or time) is voided', async () => {
+  for (const drop of ['ticket_digest', 'ingested_at']) {
+    const w = world();
+    const a = approve(w);
+    w.store.note(w.h.plan_id, drop, undefined);
+    assert.equal((await attemptTicket(w.h, w.store.approvalFor(w.h.plan_id), w.d)).status, 'void', drop);
+    assert.equal(places(w).length, 0);
+    assert.ok(a);
+  }
+});
+
+test('a ticket swapped after approval is caught by the full digest even when the short code matches', async () => {
+  const w = world();
+  const a = approve(w);
+  // A forged ticket ground to the same six letters still has a different digest.
+  const swapped = { ...w.h, invalidation_price: 1 };
+  w.store.note(w.h.plan_id, 'ticket_code', ticketCode(swapped));
+  assert.equal((await attemptTicket(swapped, w.store.approvalFor(w.h.plan_id), w.d)).status, 'void');
+  assert.equal(places(w).length, 0);
+  assert.ok(a);
+});
+
 test('unreadable quote while waiting: warns once, stays waiting, never places', async () => {
   const w = world({ responses: { quotes: new Error('timeout') } });
   const a = approve(w);
@@ -159,7 +250,7 @@ test('unreadable quote while waiting: warns once, stays waiting, never places', 
   await attemptTicket(w.h, w.store.approvalFor(w.h.plan_id), w.d);
   assert.equal(statusOf(w), 'active');
   assert.equal(places(w).length, 0);
-  assert.equal(w.alerts.filter((l) => l.includes('cannot read a quote')).length, 1);
+  assert.equal(w.alerts.filter((l) => l.includes('cannot use the quote')).length, 1);
 });
 
 // ---- refusals before the attempt --------------------------------------------
@@ -202,26 +293,59 @@ test('duplicate plan_id: an existing receipt refuses', async () => {
   assert.equal(places(w).length, 0);
 });
 
-test('executor files differ from the commit: refused, approval spent, nothing placed', async () => {
-  const w = world({ commit: () => { throw new Error('the executor files differ from the committed bytes'); } });
+test('executor version not pinned or changed: the ticket waits, unspent, and is told once', async () => {
+  let pinned = false;
+  const w = world({ commit: () => { if (!pinned) throw new Error('the executor files changed since the pinned abc1234'); return 'abc1234'; } });
   const a = approve(w);
-  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'refused');
+  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'WAITING');
+  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'WAITING');
+  assert.equal(statusOf(w), 'active', 'the approval is not spent');
+  assert.equal(w.alerts.filter((l) => l.includes('HELD') && l.includes('pinned')).length, 1);
   assert.equal(places(w).length, 0);
   assert.ok(!existsSync(w.receiptsDir));
+  assert.ok(!w.calls.some((c) => c.cap === 'quotes'), 'nothing is read from the broker first');
+  pinned = true; // Adam pins at his terminal
+  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'PENDING');
+  assert.equal(places(w).length, 1);
 });
 
 // ---- preflight refusals: one attempt, spent, receipt written ----------------
 
-const stale = '2026-11-10T14:50:00Z';
+// The account and the test orders are checked at Robinhood before the attempt
+// is spent: a mismatch ends the ticket, with no receipt and no order.
+const testOrderRefusals = [
+  ['account does not match', { responses: { accounts: { accounts: [{ account_number: 'X1110000', agentic_allowed: true }] } } }],
+  ['two agent-tradable accounts', { responses: { accounts: { accounts: [{ account_number: 'X1117724', agentic_allowed: true }, { account_number: 'Y7724', agentic_allowed: true }] } } }],
+  ['test-zero order not at Robinhood (a forged receipt)', { testOrders: { ...TEST_ORDERS, tz1: { results: [] } } }],
+  ['test-one order not at Robinhood (a forged receipt)', { testOrders: { ...TEST_ORDERS, to1: { results: [{ id: 'other', state: 'filled' }] } } }],
+  ['test-zero order filled', { testOrders: { ...TEST_ORDERS, tz1: { results: [{ id: 'tz1', state: 'cancelled', cumulative_quantity: '1' }] } } }],
+  ['test-one order never filled', { testOrders: { ...TEST_ORDERS, to1: { results: [{ id: 'to1', state: 'cancelled', cumulative_quantity: '0' }] } } }],
+];
+for (const [name, opts] of testOrderRefusals) {
+  test(`checked at Robinhood before the attempt: ${name}`, async () => {
+    const w = world(opts);
+    const a = approve(w);
+    assert.equal((await attemptTicket(w.h, a, w.d)).status, 'refused');
+    assert.equal(places(w).length, 0);
+    assert.ok(!existsSync(w.receiptsDir), 'no receipt: the attempt never started');
+    assert.equal(statusOf(w), 'refused');
+  });
+}
+
+test('test orders unreadable at Robinhood: waits and warns once, never places', async () => {
+  const w = world({ testOrders: { ...TEST_ORDERS, tz1: new Error('timeout') } });
+  const a = approve(w);
+  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'WAITING');
+  await attemptTicket(w.h, w.store.approvalFor(w.h.plan_id), w.d);
+  assert.equal(statusOf(w), 'active');
+  assert.equal(places(w).length, 0);
+  assert.equal(w.alerts.filter((l) => l.includes('cannot check the test orders')).length, 1);
+});
+
 const preflightRefusals = [
-  ['account does not match', { accounts: { accounts: [{ account_number: 'X1110000', agentic_allowed: true }] } }],
-  ['two agent-tradable accounts', { accounts: { accounts: [{ account_number: 'X1117724', agentic_allowed: true }, { account_number: 'Y7724', agentic_allowed: true }] } }],
   ['buying power too low', { portfolio: { buying_power: '99.99' } }],
   ['buying power missing', { portfolio: { nothing: 1 } }],
-  ['stale quote', { quotes: { results: [{ last_trade_price: '50.10', updated_at: stale }] } }],
-  ['quote with no time', { quotes: { results: [{ last_trade_price: '50.10' }] } }],
-  ['quote from the future', { quotes: { results: [{ last_trade_price: '50.10', updated_at: '2026-11-10T15:05:00Z' }] } }],
-  ['price drifted', { quotes: { results: [{ last_trade_price: '52.50', updated_at: FRESH }] } }],
+  ['price drifted', { quotes: { results: [{ last_trade_price: '52.50', venue_last_trade_time: FRESH }] } }],
   ['existing position', { positions: { results: [{ symbol: 'TEST', quantity: '1' }] } }],
   ['unparseable positions', { positions: { _unparsed: '<html>' } }],
   ['open order already there', { orders: { results: [{ id: 'z', state: 'queued', symbol: 'TEST' }] } }],
@@ -264,7 +388,7 @@ test('place times out and reconciling also fails: still UNKNOWN, no retry', asyn
   const orig = w.d.broker.call;
   let n = 0;
   w.d.broker.call = async (cap, args) => {
-    if (cap === 'orders' && ++n > 1) { w.calls.push({ cap, args }); throw new Error('down'); }
+    if (cap === 'orders' && !args?.order_id && ++n > 1) { w.calls.push({ cap, args }); throw new Error('down'); }
     return orig(cap, args);
   };
   assert.equal((await attemptTicket(w.h, a, w.d)).status, 'UNKNOWN');
@@ -301,6 +425,7 @@ test('filled later: the watcher reads it and texts Adam; a read only', async () 
   const w = world();
   const a = approve(w);
   await attemptTicket(w.h, a, w.d);
+  w.d.now = () => new Date(); // the receipt's times are the wall clock; same trading day
   const orig = w.d.broker.call;
   w.d.broker.call = async (cap, args) => (cap === 'orders'
     ? { results: [{ id: 'ord-1', state: 'filled', cumulative_quantity: '2' }] } : orig(cap, args));
@@ -505,7 +630,7 @@ test('place --handoff works only its own ticket', async () => {
   const h1 = w.d.loadTicket('B-500');
   approve(w, h1);
   assert.equal(w.store.useCode(w.plainCodes[1]), 'ok');
-  w.store.addApproval({ plan_id: h2.plan_id, row_id: 'B-501', ticket_code: ticketCode(h2), message_id: 'm2', approved_at: NOW_SEC - 60 });
+  w.store.addApproval({ plan_id: h2.plan_id, row_id: 'B-501', ticket_code: ticketCode(h2), ticket_digest: ticketDigest(h2), message_id: 'm2', approved_at: NOW_SEC - 60, ingested_at: NOW_SEC - 120 });
   const out = await runTick(w.d, { onlyPlan: h1.plan_id });
   assert.equal(out.results.length, 1);
   assert.equal(out.results[0].row, 'B-500');
@@ -571,7 +696,7 @@ test('a state file that cannot be read stops everything', () => {
 
 test('gate: real orders stay locked until clean, committed test-zero and test-one receipts', () => {
   const dir = tmp();
-  const yes = () => true;
+  const yes = { isCommitted: () => true, isAncestor: () => true };
   const write = (name, body) => writeFileSync(join(dir, name), JSON.stringify(body));
   assert.equal(testGate(dir, yes, CEILING).ok, false);
   write('a.json', { mode: 'test-zero', state: 'CANCELED', final_filled_quantity: 0, broker_order_id: 'o1' });
@@ -580,12 +705,13 @@ test('gate: real orders stay locked until clean, committed test-zero and test-on
   assert.equal(testGate(dir, yes, CEILING).ok, false);
   write('c.json', { mode: 'test-one', state: 'FILLED', broker_order_id: 'o3' });
   assert.equal(testGate(dir, yes, CEILING).ok, true);
-  assert.equal(testGate(dir, () => false, CEILING).ok, false, 'uncommitted receipts do not count');
+  assert.equal(testGate(dir, { isCommitted: () => false, isAncestor: () => true }, CEILING).ok, false, 'uncommitted receipts do not count');
+  assert.equal(testGate(dir, { isCommitted: () => true, isAncestor: () => false }, CEILING).ok, false, 'receipts from a commit HEAD does not descend from do not count');
   assert.equal(testGate(dir, yes, 0).ok, false, 'no limit set stays locked');
 });
 
 test('gate: a test-zero that filled or has no order id does not count', () => {
-  const yes = () => true;
+  const yes = { isCommitted: () => true, isAncestor: () => true };
   const check = (zero) => {
     const dir = tmp();
     writeFileSync(join(dir, 'a.json'), JSON.stringify(zero));
@@ -599,7 +725,7 @@ test('gate: a test-zero that filled or has no order id does not count', () => {
 test('gate: an unreadable receipt keeps it locked', () => {
   const dir = tmp();
   writeFileSync(join(dir, 'a.json'), 'nope');
-  assert.match(testGate(dir, () => true, CEILING).why, /unreadable/);
+  assert.match(testGate(dir, { isCommitted: () => true, isAncestor: () => true }, CEILING).why, /unreadable/);
 });
 
 // ---- the v2 contract --------------------------------------------------------
@@ -692,8 +818,8 @@ test('calendar: holidays and weekends are closed, early closes end at 12:45, unk
 });
 
 test('a ticket on a holiday waits instead of firing', async () => {
-  const day = new Date('2026-11-26T15:00:00Z');
-  const h = ticket({}, { now: new Date(day.getTime() - 3600000), expires: '2026-11-26T21:00:00.000Z' });
+  const day = new Date('2026-11-26T15:00:00Z'); // Thanksgiving; the ticket's first session is the half day after
+  const h = ticket({}, { now: new Date(day.getTime() - 7200000), expires: '2026-11-27T18:00:00.000Z' });
   const w = world({ tickets: { 'B-500': h } });
   w.h = h;
   w.d.now = () => day;
@@ -719,7 +845,7 @@ test('writer: parses conditions and finds the next close on the New York clock',
 });
 
 const book = [{ id: 'B-500', ticker: 'TEST' }];
-const writerArgs = { row: 'B-500', shares: 2, limit: 50, stop: 45, drift: '$2', expires: '2026-11-10T21:00:00.000Z' };
+const writerArgs = { row: 'B-500', shares: 2, limit: 50, stop: 45, drift: '$1', expires: '2026-11-10T21:00:00.000Z' };
 
 test('writer: writes the file and a text with the exact ARM line; the ticket passes its contract', () => {
   const dir = tmp();
@@ -774,7 +900,335 @@ test('source: the ticket writer cannot arm, and no command can raise the ceiling
 });
 
 test('quote age: reads a time or says it cannot', () => {
-  assert.equal(quoteAgeSec({ a: [{ updated_at: FRESH }] }, NOW.getTime()), 10);
+  assert.equal(quoteAgeSec({ a: [{ venue_last_trade_time: FRESH }] }, NOW.getTime()), 10);
   assert.equal(quoteAgeSec({ a: 1 }, NOW.getTime()), null);
+  assert.equal(quoteAgeSec({ a: [{ updated_at: FRESH }] }, NOW.getTime()), null, 'a general update time is not a trade');
+  assert.equal(quoteAgeSec({ a: [{ updated_at: '2026-11-10T14:59:59Z', last_trade_time: stale }] }, NOW.getTime()), 600, 'the trade time wins');
   assert.ok(QUOTE_MAX_AGE_SEC > 0);
+});
+
+// ---- review fixes 2026-11-09: what the threat model leans on -----------------
+
+test('phone gap: a HALT that aged out unread cannot be missed; approvals before the gap are cancelled', async () => {
+  const w = world();
+  approve(w);
+  w.store.flag('last_ingest_at', NOW_SEC - PHONE_GAP_LIMIT_SEC - 60); // the PC slept
+  const out = await runTick(w.d);
+  assert.equal(statusOf(w), 'void');
+  assert.equal(places(w).length, 0);
+  assert.deepEqual(out.results, []);
+  assert.ok(w.alerts.some((l) => l.includes('could have been missed') && l.includes('B-500')));
+  assert.equal(w.store.state.last_ingest_at, NOW_SEC, 'the read that just worked is recorded');
+});
+
+test('phone gap: approvals with no record of any read are cancelled too', async () => {
+  const w = world();
+  approve(w);
+  w.store.flag('last_ingest_at', undefined);
+  await runTick(w.d);
+  assert.equal(statusOf(w), 'void');
+  assert.equal(places(w).length, 0);
+});
+
+test('phone gap: an ARM read after the gap still counts', async () => {
+  const w = world();
+  w.store.flag('last_ingest_at', NOW_SEC - PHONE_GAP_LIMIT_SEC - 60);
+  w.d.readMessages = async () => [msg('m1', armLine(w.h, w.plainCodes[0]))];
+  await runTick(w.d);
+  assert.equal(statusOf(w), 'active', 'nothing was approved before the gap, so nothing is cancelled');
+});
+
+test('two ticks at once on one state folder: exactly one order', async () => {
+  const w = world();
+  approve(w);
+  w.d.openStore = () => new ApprovalStore(w.d.stateDir);
+  let release;
+  const gate = new Promise((r) => { release = r; });
+  const slow = w.d.connect;
+  w.d.connect = async () => { await gate; return slow(); };
+  const first = runTick(w.d);
+  const second = await runTick({ ...w.d });
+  assert.equal(second.skipped, 'another tick is running');
+  release();
+  await first;
+  assert.equal(places(w).length, 1);
+});
+
+test('a hung tick that wakes after another tick ran cannot write its old state back', () => {
+  const w = world();
+  approve(w);
+  const hung = new ApprovalStore(w.d.stateDir); // read before it hung
+  const other = new ApprovalStore(w.d.stateDir);
+  other.haltBefore(NOW_SEC); // another tick halts it meanwhile
+  assert.throws(() => hung.setStatus(w.h.plan_id, 'attempting'), StateChangedError);
+  assert.equal(new ApprovalStore(w.d.stateDir).approvalFor(w.h.plan_id).status, 'halted', 'the HALT stands');
+  assert.throws(() => hung.flag('locked', false), StateChangedError, 'and it cannot lift a lock either');
+});
+
+test('lock: a tick releases only its own lock; a stale one is taken over once', () => {
+  const dir = tmp();
+  const nowMs = Date.now();
+  const first = takeTickLock(dir, nowMs);
+  assert.equal(first.held, true);
+  const old = new Date(nowMs - (TICK_LOCK_STALE_MIN + 1) * 60000);
+  utimesSync(first.path, old, old);
+  const second = takeTickLock(dir, nowMs);
+  assert.equal(second.held, true);
+  assert.equal(second.stale, true);
+  assert.equal(takeTickLock(dir, nowMs).held, false, 'a third cannot take it while the second holds it');
+  assert.equal(releaseTickLock(first), false, 'the hung first tick cannot delete the lock the second holds');
+  assert.ok(existsSync(second.path));
+  assert.equal(releaseTickLock(second), true);
+  assert.ok(!existsSync(second.path));
+  assert.ok(TICK_HARD_LIMIT_MS < TICK_LOCK_STALE_MIN * 60000, 'a tick is killed long before its lock counts as stale');
+});
+
+test('crash right after the place call: told once, never sent again', async () => {
+  const w = world();
+  approve(w);
+  // What a process killed mid-call leaves behind: approval spent, receipt at PLACEMENT_ATTEMPTED.
+  w.store.setStatus(w.h.plan_id, 'placed', 'placement attempted');
+  const r = new Receipt(w.receiptsDir, w.h, { mode: MODE, commit: 'abc1234', exclusive: true });
+  r.transition('PLACEMENT_ATTEMPTED', 'calling place exactly once');
+  await runTick(w.d);
+  assert.equal(statusOf(w), 'placed_unknown');
+  const told = () => w.alerts.filter((l) => l.includes('stopped right after sending')).length;
+  assert.equal(told(), 1);
+  await runTick(w.d);
+  assert.equal(told(), 1, 'once');
+  assert.equal(places(w).length, 0);
+});
+
+test('a finished placement is not mistaken for a crash', async () => {
+  const w = world();
+  const a = approve(w);
+  await attemptTicket(w.h, a, w.d);
+  await runTick(w.d);
+  assert.equal(statusOf(w), 'placed');
+  assert.ok(!w.alerts.some((l) => l.includes('stopped right after sending')));
+});
+
+test('follower: an order it cannot read is reported once; after its day it stops', async () => {
+  const w = world();
+  const a = approve(w);
+  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'PENDING');
+  // Receipts are stamped with the wall clock; put the placement on the test's day.
+  const path = join(w.receiptsDir, readdirSync(w.receiptsDir)[0]);
+  const rec = JSON.parse(readFileSync(path, 'utf8'));
+  for (const t of rec.transitions) t.at = NOW.toISOString();
+  writeFileSync(path, JSON.stringify(rec));
+  const orig = w.d.broker.call;
+  w.d.broker.call = async (cap, args) => (cap === 'orders' ? { results: [{ id: 'ord-1', state: 'zzz_new_state' }] } : orig(cap, args));
+  await followOpenOrders(w.d);
+  await followOpenOrders(w.d);
+  assert.equal(w.alerts.filter((l) => l.includes('cannot read the order')).length, 1);
+  w.d.now = () => new Date(NOW.getTime() + 2 * 86400000);
+  await followOpenOrders(w.d);
+  assert.ok(w.alerts.some((l) => l.includes('stopped following')));
+  assert.equal(receiptOf(w).follow_stopped, true);
+  const n = w.alerts.length;
+  await followOpenOrders(w.d);
+  assert.equal(w.alerts.length, n, 'a stopped order is not read again');
+});
+
+const EXE = fileURLToPath(new URL('../executor/executor.mjs', import.meta.url));
+const AI_VARS = ['CLAUDECODE', 'CLAUDE_CODE_ENTRYPOINT', 'CLAUDE_CODE_SSE_PORT', 'CODEX_SANDBOX', 'CODEX_SANDBOX_NETWORK_DISABLED', 'CODEX_THREAD_ID', 'CODEX_CI'];
+
+test('codes --new, codes --unlock and pin with no keyboard refuse and write nothing (throwaway home folder)', () => {
+  const home = tmp();
+  const env = { ...process.env, USERPROFILE: home, HOME: home };
+  for (const k of Object.keys(env)) if (AI_VARS.includes(k) || /^(CLAUDE|CODEX)/.test(k)) delete env[k];
+  for (const args of [['codes', '--new'], ['codes', '--unlock'], ['pin']]) {
+    const r = spawnSync(process.execPath, [EXE, ...args], { env, input: '', encoding: 'utf8', timeout: 30000 });
+    assert.equal(r.status, 1, `${args.join(' ')}: ${r.stderr}`);
+    assert.match(r.stderr, /interactive-only/);
+  }
+  assert.ok(!existsSync(join(home, '.bench-executor', 'real-order-state.json')), 'no codes were made');
+  assert.ok(!existsSync(join(home, '.bench-executor', 'pinned-commit.json')), 'nothing was pinned');
+});
+
+test('codes --new inside an AI session refuses before anything else', () => {
+  const home = tmp();
+  const r = spawnSync(process.execPath, [EXE, 'codes', '--new'], { env: { ...process.env, USERPROFILE: home, HOME: home, CLAUDECODE: '1' }, input: '', encoding: 'utf8', timeout: 30000 });
+  assert.equal(r.status, 1);
+  assert.match(r.stderr, /AI session/);
+});
+
+test('gate with a real git repo: forged receipts count only when committed from an ancestor, and Robinhood still has to confirm them', async () => {
+  const repo = tmp();
+  const g = (...a) => execFileSync('git', ['-c', 'user.email=t@t', '-c', 'user.name=t', '-c', 'commit.gpgsign=false', ...a], { cwd: repo, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  g('init', '-q');
+  g('commit', '-q', '--allow-empty', '-m', 'base');
+  const base = g('rev-parse', '--short', 'HEAD');
+  const dir = join(repo, 'receipts');
+  mkdirSync(dir);
+  const write = (name, body) => writeFileSync(join(dir, name), JSON.stringify(body));
+  write('z.json', { mode: 'test-zero', state: 'CANCELED', final_filled_quantity: 0, broker_order_id: 'fake-z', executor_commit: base });
+  write('o.json', { mode: 'test-one', state: 'FILLED', broker_order_id: 'fake-o', executor_commit: base });
+  const checks = makeGitChecks(repo);
+  assert.equal(testGate(dir, checks, CEILING).ok, false, 'not committed yet');
+  g('add', '.');
+  g('commit', '-q', '-m', 'forged receipts');
+  const gate = testGate(dir, checks, CEILING);
+  assert.equal(gate.ok, true, `a committed forgery passes the file half of the gate: ${gate.why}`);
+  const w = world({ gate, testOrders: {} });
+  const a = approve(w);
+  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'refused', 'and Robinhood does not have the orders');
+  assert.equal(places(w).length, 0);
+  write('z.json', { mode: 'test-zero', state: 'CANCELED', final_filled_quantity: 0, broker_order_id: 'fake-z', executor_commit: 'deadbee' });
+  g('commit', '-q', '-am', 'made-up commit');
+  assert.equal(testGate(dir, checks, CEILING).ok, false, 'a receipt naming a commit HEAD does not descend from does not count');
+  assert.equal(checks.isAncestor('not-a-sha'), false);
+});
+
+test('v2 contract: drift is capped at REAL_MAX_DRIFT_PCT of the limit', () => {
+  assert.equal(REAL_MAX_DRIFT_PCT, 2);
+  assert.deepEqual(validateRealHandoff(ticket({ maximum_price_drift: '$1' }), opts).refusals, []);
+  assert.deepEqual(validateRealHandoff(ticket({ maximum_price_drift: '2%' }), opts).refusals, []);
+  for (const wide of ['$1.01', '3%', '$1000']) {
+    assert.ok(codes(validateRealHandoff(ticket({ maximum_price_drift: wide }), opts)).includes('R18_DRIFT_UNBOUNDED'), wide);
+  }
+});
+
+test('v2 contract: a ticket lives inside its first trading session, by date and by that day close', () => {
+  // Written Monday night: the first session is Tuesday.
+  const mon = new Date('2026-11-10T01:00:00Z');
+  const good = ticket({}, { now: mon, expires: '2026-11-10T21:00:00.000Z' });
+  assert.deepEqual(validateRealHandoff(good, { now: mon, ceilingUsd: CEILING }).refusals, []);
+  // Written Tuesday morning, expiring Wednesday morning: under a day, but a second session.
+  const tue = new Date('2026-11-10T14:00:00Z');
+  const twoDays = ticket({}, { now: tue, expires: '2026-11-11T13:00:00.000Z' });
+  assert.ok(codes(validateRealHandoff(twoDays, { now: tue, ceilingUsd: CEILING })).includes('R04_STALE_PLAN'));
+  // The day after Thanksgiving closes at 13:00 New York.
+  const fri = new Date('2026-11-27T14:00:00Z');
+  const pastHalfDay = ticket({}, { now: fri, expires: '2026-11-27T19:00:00.000Z' });
+  assert.ok(codes(validateRealHandoff(pastHalfDay, { now: fri, ceilingUsd: CEILING })).includes('R04_STALE_PLAN'));
+  assert.deepEqual(firstSession(new Date('2026-11-25T22:00:00Z')), { date: '2026-11-27', close: 13 * 60 });
+});
+
+test('ticket text shows the drift bound and the wait after approval', () => {
+  const text = ticketText(ticket());
+  assert.ok(text.includes('more than $1 away from the limit'), text);
+  assert.ok(text.includes('about 2 minutes after you approve'), text);
+});
+
+test('digest: the same ticket always gives the same digest, any change gives another', () => {
+  const h = ticket();
+  assert.equal(ticketDigest(h), ticketDigest(JSON.parse(JSON.stringify(h))));
+  assert.equal(ticketDigest(h), ticketDigest(Object.fromEntries(Object.entries(h).reverse())), 'key order does not matter');
+  for (const over of [{ invalidation_price: 44 }, { lane: 'x' }, { concentrated: true }]) assert.notEqual(ticketDigest(ticket(over)), ticketDigest(h));
+  assert.match(ticketDigest(h), /^[0-9a-f]{64}$/);
+});
+
+test('source: the watcher runs a pinned commit, by full paths, and its scripts are under provenance', () => {
+  const read = (p) => readFileSync(new URL(p, import.meta.url), 'utf8');
+  const exec = read('../executor/executor.mjs');
+  assert.ok(/pin\.files_digest !== executorFingerprint\(\)/.test(exec), 'refuses when the executor files are not the pinned version');
+  assert.ok(/ls-tree', '-r', 'HEAD', '--', \.\.\.PROVENANCE_PATHS/.test(exec), 'the pin covers the executor files, not every book commit');
+  for (const p of ['scripts/executor-watcher-hidden.vbs', 'scripts/register-executor-watcher.ps1', 'scripts/executor-ticket.mjs']) {
+    assert.ok(exec.includes(`'${p}'`), `${p} is under provenance`);
+  }
+  assert.ok(/process\.exit\(3\)[\s\S]{0,60}TICK_HARD_LIMIT_MS\)\.unref\(\)/.test(exec), 'every live tick has a hard limit');
+  const vbs = read('../scripts/executor-watcher-hidden.vbs');
+  assert.ok(vbs.includes('WScript.Arguments(0)') && vbs.includes('System32\\cmd.exe') && vbs.includes('NoDefaultCurrentDirectoryInExePath'));
+  assert.ok(!/cmd \/c node/.test(vbs), 'never a bare node');
+  const ps = read('../scripts/register-executor-watcher.ps1');
+  assert.ok(ps.includes('Get-Command node') && ps.includes('`"$node`"'));
+  const codesBlock = exec.slice(exec.indexOf("if (cmd === 'codes')"), exec.indexOf("if (cmd === 'pin')"));
+  assert.ok(codesBlock.includes('codesLeft() > 0') && codesBlock.includes('useCode('), 'new codes need an old one once codes exist');
+  assert.ok((codesBlock.match(/await phone\(/g) ?? []).length >= 3, 'a refusal, new codes and an unlock all reach the phone');
+});
+
+// ---- second review of the fixes, 2026-11-09 -----------------------------------
+
+test('a void or halted approval can be approved again with a fresh code', async () => {
+  for (const cancel of [
+    (w) => w.store.setStatus(w.h.plan_id, 'void', 'phone messages may have been missed'),
+    (w) => w.store.haltBefore(NOW_SEC),
+  ]) {
+    const w = world();
+    approve(w);
+    cancel(w);
+    await ingest(w, msg('m2', armLine(w.h, w.plainCodes[1])));
+    assert.equal(statusOf(w), 'active');
+    assert.ok(w.alerts.some((l) => l.includes('APPROVED')));
+    assert.equal(w.store.state.replaced.length, 1, 'the cancelled record is kept');
+    assert.equal(w.store.approvalFor(w.h.plan_id).ingested_at, NOW_SEC, 'the new approval waits its own 90 seconds');
+  }
+});
+
+test('an approval that reached an attempt can never be approved again', async () => {
+  for (const status of ['attempting', 'placed', 'placed_unknown', 'refused', 'interrupted', 'expired']) {
+    const w = world();
+    approve(w);
+    w.store.setStatus(w.h.plan_id, status);
+    await ingest(w, msg('m2', armLine(w.h, w.plainCodes[1])));
+    assert.equal(statusOf(w), status, status);
+    assert.ok(w.alerts.some((l) => l.includes('already approved and tried once')), status);
+    assert.throws(() => w.store.addApproval({ plan_id: w.h.plan_id, row_id: 'B-500' }), /already approved/);
+  }
+});
+
+test('the account and test-order calls cannot age the quote into a refusal', async () => {
+  const w = world({ responses: { quotes: { results: [{ symbol: 'TEST', last_trade_price: '50.10', venue_last_trade_time: '2026-11-10T14:58:55Z' }] } } });
+  const a = approve(w);
+  // The clock moves 10 seconds on every broker call and every pin check (git can
+  // be slow). Five steps come before the quote is read (pin, accounts, two test
+  // orders, the quote), so it is 115 s old when read. The pin is checked again
+  // between the read and preflight, so a preflight that read the clock again
+  // would see 125 s and refuse a ticket that was judged on a fresh quote.
+  let t = NOW.getTime();
+  w.d.now = () => new Date(t);
+  const call = w.d.broker.call;
+  w.d.broker.call = async (cap, args) => { t += 10000; return call(cap, args); };
+  const commit = w.d.commit;
+  w.d.commit = () => { t += 10000; return commit(); };
+  const r = await attemptTicket(w.h, a, w.d);
+  assert.equal(r.status, 'PENDING');
+  assert.equal(places(w).length, 1);
+  const order = w.calls.map((c) => c.cap);
+  assert.ok(order.indexOf('quotes') > order.findIndex((c, i) => c === 'orders' && w.calls[i].args?.order_id), 'test orders are checked before the quote');
+});
+
+test('a test order for a different stock than its receipt refuses', async () => {
+  const proof = { zero: { order_id: 'tz1', symbol: 'TEST' }, one: { order_id: 'to1', symbol: 'TEST' } };
+  const orders = { ...TEST_ORDERS, to1: { results: [{ id: 'to1', symbol: 'OTHER', state: 'filled', cumulative_quantity: '1' }] } };
+  const w = world({ gate: { ok: true, why: 'ok', proof }, testOrders: orders });
+  const a = approve(w);
+  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'refused');
+  assert.ok(w.alerts.some((l) => l.includes('is for OTHER')));
+  assert.equal(places(w).length, 0);
+  // The same stock, or a reply with no symbol, passes.
+  const ok = world({ gate: { ok: true, why: 'ok', proof }, testOrders: { ...TEST_ORDERS, to1: { results: [{ id: 'to1', symbol: 'test', state: 'filled', cumulative_quantity: '1' }] } } });
+  assert.equal((await attemptTicket(ok.h, approve(ok), ok.d)).status, 'PENDING');
+});
+
+test('codes: a refused code releases the lock before it exits', () => {
+  const exec = readFileSync(new URL('../executor/executor.mjs', import.meta.url), 'utf8');
+  const block = exec.slice(exec.indexOf("if (cmd === 'codes')"), exec.indexOf("if (cmd === 'pin')"));
+  const tryBlock = block.slice(block.indexOf('try {'), block.indexOf('} finally {'));
+  assert.ok(!tryBlock.includes('process.exit'), 'nothing exits while the lock is held');
+  assert.ok(block.indexOf('releaseTickLock(lock)') < block.indexOf('if (refusedAs)'));
+});
+
+test('the test orders are checked at Robinhood once per approval, not every minute a ticket waits', async () => {
+  const w = world({ tickets: { 'B-500': ticket({ place_when: { type: 'LAST_AT_OR_BELOW', price: 49 } }) } });
+  w.h = w.d.loadTicket('B-500');
+  const a = approve(w);
+  for (let i = 0; i < 5; i += 1) assert.equal((await attemptTicket(w.h, a, w.d)).status, 'WAITING');
+  const lookups = w.calls.filter((c) => c.cap === 'orders' && c.args?.order_id);
+  assert.equal(lookups.length, 2, 'test zero and test one, read once');
+  assert.equal(w.calls.filter((c) => c.cap === 'quotes').length, 5, 'the quote is still read every tick');
+});
+
+test('too long between the quote and the order: refused before place', async () => {
+  const w = world();
+  const a = approve(w);
+  let t = NOW.getTime();
+  w.d.now = () => new Date(t);
+  const call = w.d.broker.call;
+  w.d.broker.call = async (cap, args) => { if (cap === 'review') t += (QUOTE_TO_PLACE_MAX_SEC + 5) * 1000; return call(cap, args); };
+  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'refused');
+  assert.equal(places(w).length, 0);
+  assert.ok(w.alerts.some((l) => l.includes('passed between the quote and the order')));
 });

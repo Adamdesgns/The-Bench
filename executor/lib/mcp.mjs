@@ -34,6 +34,7 @@ export class McpClient {
     const ctl = new AbortController();
     const timer = setTimeout(() => ctl.abort(), timeoutMs ?? this.timeoutMs);
     let res;
+    let text;
     try {
       res = await fetch(this.endpoint, {
         method: 'POST',
@@ -41,6 +42,9 @@ export class McpClient {
         signal: ctl.signal,
         body: JSON.stringify({ jsonrpc: '2.0', id, method, params }),
       });
+      // The body read stays under the same timer: a server that sends headers
+      // and then stalls is a timeout, not a hang.
+      text = await res.text();
     } catch (err) {
       const e = new Error(`transport failure calling ${method}: ${err.message}`);
       e.transport = ctl.signal.aborted ? 'timeout' : 'error';
@@ -50,7 +54,6 @@ export class McpClient {
     }
     const sid = res.headers.get('mcp-session-id');
     if (sid) this.sessionId = sid;
-    const text = await res.text();
     if (!res.ok) {
       const e = new Error(`HTTP ${res.status} from ${method}: ${text.slice(0, 400)}`);
       e.transport = 'http';
@@ -78,6 +81,7 @@ export class McpClient {
         method: 'POST',
         headers: await this.headers(),
         body: JSON.stringify({ jsonrpc: '2.0', method, params }),
+        signal: AbortSignal.timeout(this.timeoutMs),
       });
     } catch {
       /* notifications are best-effort */
