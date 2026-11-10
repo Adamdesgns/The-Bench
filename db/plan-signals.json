@@ -1,15 +1,15 @@
 {
-  "date": "2026-11-09",
+  "date": "2026-11-10",
   "signals": [],
   "none": true,
-  "close_source": "last regular-session print at 20:59:59Z (2:59:59 CT), pulled 15:30 CT; the official close field had not rolled (still dated 11/06). The 9:00 check re-pulls before acting. No name sits on a line where a cent changes the read except IBIT 42.305, 0.035 over the 42.27 watcher (MC-478).",
-  "accounts": "both accounts flat at 15:38 CT, no equity order created 11/09 on the margin account; the ARM short ticket (B-1347) was not placed",
+  "close_source": "last regular-session print at 20:59:59Z (2:59:59 CT), pulled ~15:30 CT; the official close field had not rolled (still dated 11/09). The 9:00 check re-pulls before acting.",
+  "accounts": "both accounts flat at 15:35 CT. Only order today: ANT buy LIMIT 24 @93.60 GTC, cancelled. The B-1395 NVDA pump-watch short was never placed.",
   "armed_not_signaled": [
     {
       "sym": "AMZN",
       "side": "long",
       "row": "B-1351",
-      "zone_low": 262.66,
+      "zone_low": 262.78,
       "zone_high": 263.75,
       "stop": 252.10,
       "t1": 287.20,
@@ -17,9 +17,9 @@
       "readiness": 59,
       "decide_by": "2026-11-20",
       "exit_by": null,
-      "atr": 10.56,
-      "close": 267.00,
-      "note": "first 30-min bar on or after 11/10 must CLOSE inside the zone. Plan zone is 261.90-263.75; zone_low here is stop 252.10 + 1.0 ATR (simple ATR14 10.56 from the 14 settled daily bars through 11/06 plus the 11/09 high 275.31 / low 266.92 / last print 267.00), so a bar close under 262.66 has no legal stop. Void on a settle under 252.27 (MC-505). The row names no exit date; the morning check sets one before any paper add. CPI 08:30 ET 11/10 lands before the bar."
+      "atr": 10.68,
+      "close": 270.90,
+      "note": "first 30-min bar must CLOSE inside the zone. Plan zone 261.90-263.75; zone_low = stop 252.10 + 1.0 ATR (simple ATR14 10.68 from the 14 settled bars through 11/09 plus today's H 272.88 / L 266.14 / last 270.90). 11/10 first bar closed 271.18, NO TRADE (B-1393). Void on a settle under 252.27 (MC-505). Row names no exit date; the morning check sets one before any paper add. PPI Fri 11/13 and NVDA print 11/17 inside the hold."
     },
     {
       "sym": "ARM",
@@ -27,33 +27,31 @@
       "row": "B-1344",
       "zone_low": 180.72,
       "zone_high": 191.80,
-      "stop": "fill + 15.60",
+      "stop": "fill + 15.30",
       "t1": 149.50,
       "t2": null,
       "readiness": 30,
       "decide_by": "2026-11-12",
       "exit_by": null,
-      "atr": 15.60,
-      "close": 186.31,
-      "note": "SHORT test: a fresh first 30-min bar closing inside 180.72-191.80. Stop is 1.0 ATR over the fill (Wilder: the settled 11/06 figure 15.61 rolled with the 11/09 true range 15.47 = 15.60). Void on a close over 191.80 or under 160.85. The 11/09 ticket (B-1347, 183.69) went stale at 09:35 and was never placed (B-1354, B-1373); do not reuse its numbers. Readiness 30 per B-1373. Short shares, loss unbounded through a gap; CPI 08:30 ET 11/10."
+      "atr": 15.30,
+      "close": 181.42,
+      "note": "SHORT test: a fresh first 30-min bar closing inside 180.72-191.80. ATR: Wilder 15.65 (B-1394) rolled with today's TR 10.74 = 15.30 (simple 14.66; wider used). Readiness 30 = watchlist only, as B-1394 ruled at 11/10: a held bar is not an ENTER unless readiness is re-scored to 50+. Void on a close over 191.80 (MC-441) or under 160.85 (MC-442). Short shares, loss unbounded through a gap."
     }
   ],
   "dropped": [
-    "NVDA B-1349 - long plan invalidated on the close: 178.57, 0.61 under the 179.18 shelf (B-1378)",
-    "SMH B-1326 - decide-by 11/09 reached; closed 487.37, replaced by B-1371 (MC-519 497.33 / MC-520 462.88)",
-    "NOW B-1139 (decide-by 11/04), BABA B-1088 (11/03), QQQ B-1103 (10/29), KWEB B-1086, FXI B-1087 - decide-bys passed; tripwire still lists the levels, the plans are dead",
-    "MRVL B-1320 short re-look - void since 09:35 (B-1353), closed 154.62 over 152.15 (B-1372)"
+    "IREN B-1350 - decide-by 11/10 reached; closed 19.72, never settled inside the 18.03-18.78 ceiling (low 19.03). Dead.",
+    "HIMS watchlist zone (24.25, floor 21.30) - closed 19.15 under the floor on 4.78x volume after the print; zone void (B-1392).",
+    "IBIT watchlist zone (44.80, floor 43.10) - closed 41.685 under the floor; MC-478 fired (B-1405).",
+    "NVDA B-1395 pump-watch short - DAY order window 168.80-170.12, never placed; MC-489 fired (B-1404)."
   ],
   "no_signal": [
-    {"sym": "GOOGL", "row": "B-1370", "close": 288.14, "why": "8.35 under the 296.49 trigger (high 296.33, a fourth test that failed by 0.16); volume 36.1M = 0.99x the 30-day, needs about 54.8M; decide-by 12/11"},
-    {"sym": "AMD", "row": "B-1346", "close": 509.02, "why": "11.38 under the 520.40 re-judge line (high 515.18); volume 50.8M = 1.92x; MC-516 pullback line 489.65 not reached; decide-by 11/16"},
-    {"sym": "MU", "row": "B-1321", "close": 733.69, "why": "28.12 under the 761.81 re-judge line (high 744.74); volume 31.7M = 1.05x; decide-by 11/13"},
-    {"sym": "IREN", "row": "B-1350", "close": 21.3875, "why": "2.61 over the 18.78 re-look ceiling (low 20.05); volume 83.7M = 1.31x; decide-by 11/10, last day tomorrow"},
-    {"sym": "HIMS", "row": "B-287", "close": 22.935, "why": "INSIDE the watchlist zone (floor 21.30, top 24.25) but not a signal: -11.8 pct on 47.5M shares = 4.54x the 30-day, the wrong volume for a pullback, with the report due tonight (after-hours 22.46 at 15:30 CT); B-1380 already called the 24 shelf gone"},
-    {"sym": "AIP", "row": "B-288", "close": 19.19, "why": "INSIDE the watchlist zone (17.40-21.39) but the grade is 63 days old (PENG guard) and the zone has no target; volume 778K = 1.20x; needs a fresh run before any plan"},
-    {"sym": "CRM", "row": "B-1183", "close": 214.895, "why": "0.015 under the 214.91 level tripwire carries as a STOP; that row is a 10/30 entry-check NO TRADE on a plan that dropped the same day, there is no position, nothing to act on"}
+    {"sym": "GOOGL", "row": "B-1370", "close": 287.38, "why": "9.11 under the 296.49 trigger (high 292.02); volume 28.1M = 0.72x the 30-day, needs about 54.8M; decide-by 12/11"},
+    {"sym": "AMD", "row": "B-1346", "close": 515.49, "why": "traded 539.25 but closed 4.91 under the 520.40 re-judge line; volume 46.8M = 1.63x; decide-by 11/16"},
+    {"sym": "MU", "row": "B-1321", "close": 724.855, "why": "36.96 under 761.81 (high 745.64); volume 27.5M = 0.90x; decide-by 11/13"},
+    {"sym": "AIP", "row": "B-288", "close": 19.11, "why": "INSIDE the watchlist zone (17.40-21.39) but the grade is 64 days old (PENG guard) and the zone has no target; volume 0.75x; needs a fresh run"},
+    {"sym": "ASPN", "row": "B-561", "close": 5.705, "why": "over the dead 5.40-5.54 band; no live plan"}
   ],
-  "mind_changers": "1 fired of 92: MC-467 BTC-USD 74,879.78 under 75,114.29 on a 15:40 CT live mark (the daily bar closes 18:00 CT). 0 fired on the 32 equity tickers at the last regular print; the 15:13 closing-bell check had already taken 19.",
-  "bull_watch": "BULL MODE OFF: SMH 487.37 is 6.7 pct under its 200-day. Leaders SMH, XLE, XBI (XLE and XBI swapped #2/#3). No transitions.",
-  "tomorrow": "9:00 CT entry check: AMZN first bar against 262.66-263.75 (long), ARM first bar against 180.72-191.80 (short). CPI 7:30 CT."
+  "mind_changers": "5 fired at the last regular print: MC-489 NVDA <170.24 (B-1404), MC-478 IBIT <42.27 (B-1405), MC-427 ZYME >31.34 (B-1406), MC-482 ALLO <0.98 (B-1407), MC-524 GPRO <0.85 (B-1408). All re-looks, no ticket.",
+  "bull_watch": "BULL MODE OFF: SMH 483.75 is 7.4 pct under its 200-day. Leaders SMH, XLE, XBI. No transitions.",
+  "tomorrow": "9:00 CT entry check: AMZN first bar against 262.78-263.75 (long), ARM first bar against 180.72-191.80 (short, readiness 30). Veterans Day: stocks trade, bond market closed."
 }

@@ -631,15 +631,24 @@
       "readiness": 60,
       "grade": null,
       "note": "auto: hunter READY short, receipt d71bcece; hunter p_dir 41.54% p_reach 9.23%; entry = the after-hours bid",
-      "status": "OPEN",
-      "shares_open": 11,
+      "status": "CLOSED",
+      "shares_open": 0,
       "t1_done": false,
-      "legs": [],
-      "realized": 0,
-      "r": null,
-      "last_scored": "2026-11-09",
-      "last_close": 641.41,
-      "entry_after_close": true
+      "legs": [
+        {
+          "date": "2026-11-10",
+          "shares": 11,
+          "price": 641.66,
+          "why": "EXIT-BY"
+        }
+      ],
+      "realized": -240.46,
+      "r": -0.78,
+      "last_scored": "2026-11-10",
+      "last_close": 641.66,
+      "entry_after_close": true,
+      "exit_reason": "EXIT-BY",
+      "exit_date": "2026-11-10"
     },
     {
       "id": "PB-019",
@@ -778,8 +787,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-11-09",
-      "last_close": 596.21
+      "last_scored": "2026-11-10",
+      "last_close": 585.485
     },
     {
       "id": "PB-023",
@@ -805,8 +814,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-11-09",
-      "last_close": 346.05
+      "last_scored": "2026-11-10",
+      "last_close": 334.315
     },
     {
       "id": "PB-024",
@@ -904,8 +913,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-11-09",
-      "last_close": 47.535
+      "last_scored": "2026-11-10",
+      "last_close": 47.965
     },
     {
       "id": "PB-027",
@@ -967,8 +976,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-11-09",
-      "last_close": 12.72
+      "last_scored": "2026-11-10",
+      "last_close": 13.145
     },
     {
       "id": "PB-029",
@@ -994,8 +1003,8 @@
       "legs": [],
       "realized": 0,
       "r": null,
-      "last_scored": "2026-11-09",
-      "last_close": 829.075
+      "last_scored": "2026-11-10",
+      "last_close": 796.82
     }
   ],
   "history": [
@@ -1131,6 +1140,13 @@
       "realized": -1064.03,
       "unrealized": -506.27,
       "open": 6
+    },
+    {
+      "date": "2026-11-10",
+      "equity": 2109.08,
+      "realized": -1304.49,
+      "unrealized": -162.41,
+      "open": 5
     }
   ]
 }
