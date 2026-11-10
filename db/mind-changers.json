@@ -9087,6 +9087,54 @@
       "row": "B-1385",
       "expires": "2026-11-16",
       "status": "open"
+    },
+    {
+      "id": "MC-525",
+      "created": "2026-11-10",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 758.41
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "sotm 2026-11-10",
+      "row": "B-1391",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-526",
+      "created": "2026-11-10",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 177.7
+        }
+      ],
+      "meaning": "short stop hit, thesis wrong",
+      "source": "docs/reads/2026-11-10-trip-NVDA.md",
+      "row": "B-1395",
+      "expires": "2026-11-17",
+      "status": "open"
+    },
+    {
+      "id": "MC-527",
+      "created": "2026-11-10",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 140.85
+        }
+      ],
+      "meaning": "short target reached, cover",
+      "source": "docs/reads/2026-11-10-trip-NVDA.md",
+      "row": "B-1395",
+      "expires": "2026-11-17",
+      "status": "open"
     }
   ]
 }
