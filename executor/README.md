@@ -55,6 +55,10 @@ To stop the watcher entirely, disable the Windows task "Bench Executor Watcher".
 
 **What it locks on:** `REAL_ORDER_CEILING_USD` at 0, missing clean committed
 test receipts, three wrong codes, or executor files that differ from the commit.
+It also waits on weekends, holidays and after 12:45 on early-close days, from
+the hand-written list in `lib/calendar.mjs` (check it against nyse.com).
+A one-time code is spent the moment it appears in any message, even a
+refused one.
 
 **The honest limit:** the one-time codes stop a stray or tricked AI session from
 approving an order. They do not stop software that rewrites this program or its

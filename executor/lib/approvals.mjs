@@ -55,8 +55,8 @@ export class ApprovalStore {
   codesLeft() { return this.state.codes.filter((c) => !c.used).length; }
 
   // Burns the code on success, written to disk before the caller acts on it.
-  // Anything but 'ok' counts toward the lock.
-  useCode(code) {
+  // Anything but 'ok' counts toward the lock unless `count` is false.
+  useCode(code, { count = true } = {}) {
     const m = String(code).match(/^(\d{2})-(.+)$/);
     const entry = m ? this.state.codes.find((c) => c.index === Number(m[1])) : null;
     let result = 'wrong';
@@ -68,6 +68,7 @@ export class ApprovalStore {
       this.save();
       return 'ok';
     }
+    if (!count) return result;
     this.state.wrong_codes += 1;
     if (this.state.wrong_codes >= WRONG_CODES_BEFORE_LOCK) this.state.locked = true;
     this.save();
@@ -75,6 +76,11 @@ export class ApprovalStore {
   }
 
   get locked() { return this.state.locked; }
+
+  flag(key, value) {
+    this.state[key] = value;
+    this.save();
+  }
 
   unlock() {
     this.state.locked = false;

@@ -15,9 +15,10 @@ import { join } from 'node:path';
 
 import { validateRealHandoff, REAL_ORDER_CEILING_USD } from '../../scripts/executor-validate.mjs';
 import {
-  computeOrderShares, reconcileRisk, parseDriftBound, regularSessionOpen, identifyOrder,
+  computeOrderShares, reconcileRisk, parseDriftBound, identifyOrder,
   matchesOrderDetails, filledQuantityOf, PreflightError, OPEN_RAW,
 } from '../executor.mjs';
+import { realSessionOpen } from './calendar.mjs';
 import {
   normalizeState, findNumberByKey, collectAccounts, collectOrders, collectPositions,
   assertParsed, orderIdOf, refIdOf,
@@ -30,6 +31,7 @@ export const MODE = 'real-order';
 export const QUOTE_MAX_AGE_SEC = 120;
 export const TICK_LOCK_STALE_MIN = 10;
 export const ARM_RE = /^ARM (B-\d+) ([A-Z2-9]{6}) (\d{2}-[A-Z2-9]{8})$/;
+const CODE_TOKEN = /(?:^|\s)(\d{2}-[A-Z2-9]{8})(?=\s|$)/;
 const AI_SESSION_ENV = ['CLAUDECODE', 'CLAUDE_CODE_ENTRYPOINT', 'CODEX_SANDBOX', 'CODEX_SANDBOX_NETWORK_DISABLED', 'CODEX_THREAD_ID', 'CODEX_CI'];
 const FOLLOWED_STATES = new Set(['PENDING', 'PARTIALLY_FILLED']);
 
@@ -78,9 +80,11 @@ export async function readArmMessages(fetchImpl = fetch) {
     .sort((a, b) => a.time - b.time);
 }
 
-// Turns new phone messages into approvals, oldest first, so a copy of a code
-// posted after Adam's own message finds that code already used. Each message
-// is handled once. The message text is never logged or echoed: it can hold a code.
+// Turns new phone messages into approvals, oldest first. Each message is
+// handled once. A code is spent the moment it shows up in ANY message, before
+// anything else is checked: once posted on the open channel it is public, so a
+// refused ARM must never leave a working code behind for someone else to use.
+// The message text is never logged or echoed: it can hold a code.
 export async function ingestMessages(messages, d) {
   for (const m of messages) {
     if (d.store.hasSeen(m.id)) continue;
@@ -91,14 +95,24 @@ export async function ingestMessages(messages, d) {
       for (const a of d.store.haltBefore(m.time)) await d.alert(`REAL ${a.row_id} STOPPED by HALT. It will not be placed.`);
       continue;
     }
-    if (!text.startsWith('ARM ')) continue;
+    const token = text.match(CODE_TOKEN)?.[1] ?? null;
+    if (!text.startsWith('ARM ') && !token) continue;
 
-    const row = text.split(' ')[1] ?? '?';
-    const refuse = (why) => d.alert(`REAL ${row} ARM REFUSED: ${why}`);
-    if (d.store.locked) { await refuse('real orders are locked after wrong codes. Unlock at the terminal.'); continue; }
+    const second = text.split(' ')[1] ?? '';
+    const row = /^B-\d+$/.test(second) ? second : '?';
+    const wasLocked = d.store.locked;
+    const used = token ? d.store.useCode(token, { count: !wasLocked }) : 'none';
+    const spent = used === 'ok' ? ' That code is now spent; use your next one.' : '';
+    const refuse = (why) => d.alert(`REAL ${row} ARM REFUSED: ${why}${spent}`);
+
+    if (wasLocked) { await refuse('real orders are locked after wrong codes. Unlock at the terminal.'); continue; }
     const parsed = text.match(ARM_RE);
-    if (!parsed) { await refuse('the line needs the ticket code and a one-time code.'); continue; }
-    const [, rowId, code, oneTime] = parsed;
+    if (!parsed || parsed[3] !== token) { await refuse('the line must be ARM, the row, the ticket code and one one-time code.'); continue; }
+    const [, rowId, code] = parsed;
+    if (used !== 'ok') {
+      await refuse(`that one-time code is ${used}.${d.store.locked ? ' REAL ORDERS ARE NOW LOCKED. Unlock at the terminal.' : ''}`);
+      continue;
+    }
 
     const gate = d.gate();
     if (!gate.ok) { await refuse(`real orders are not unlocked (${gate.why}).`); continue; }
@@ -112,11 +126,6 @@ export async function ingestMessages(messages, d) {
     const contract = validateRealHandoff(handoff, { now: d.now(), receiptsDir: d.receiptsDir, ceilingUsd: d.ceilingUsd });
     if (!contract.ok) { await refuse(`ticket fails its contract (${contract.refusals.map((r) => r.code).join(', ')}).`); continue; }
 
-    const used = d.store.useCode(oneTime);
-    if (used !== 'ok') {
-      await refuse(`that one-time code is ${used}.${d.store.locked ? ' REAL ORDERS ARE NOW LOCKED. Unlock at the terminal.' : ''}`);
-      continue;
-    }
     d.store.addApproval({
       plan_id: handoff.plan_id, row_id: rowId, ticket_code: code, message_id: m.id, approved_at: m.time,
     });
@@ -254,8 +263,18 @@ export async function attemptTicket(h, approval, d) {
     return end('refused', `${tag} ${err.message}. Nothing was placed.`);
   }
 
+  // Wrong codes lock even tickets approved before the lock: they wait, unspent,
+  // until Adam unlocks at the terminal or the ticket expires.
+  if (d.store.locked) {
+    if (!approval.lock_warned) {
+      d.store.note(h.plan_id, 'lock_warned', true);
+      await d.alert(`${tag} HELD: real orders are locked after wrong codes. It will not place until you unlock at the terminal.`);
+    }
+    return { status: 'WAITING', detail: 'locked' };
+  }
+
   // Until the ticket fires, an unreadable quote just means "look again next tick".
-  if (!regularSessionOpen(now)) return { status: 'WAITING', detail: 'market closed' };
+  if (!realSessionOpen(now)) return { status: 'WAITING', detail: 'market closed' };
   let quotes = null;
   let quoteTrouble = null;
   try {
@@ -285,7 +304,7 @@ export async function attemptTicket(h, approval, d) {
 
   let receipt;
   try {
-    receipt = new Receipt(d.receiptsDir, h, { mode: MODE, commit });
+    receipt = new Receipt(d.receiptsDir, h, { mode: MODE, commit, exclusive: true });
   } catch (err) {
     return end('refused', `${tag} REFUSED: ${String(err.message).slice(0, 160)}. Nothing was placed.`);
   }
@@ -356,7 +375,10 @@ export async function attemptTicket(h, approval, d) {
     const state = normalizeState(hit.order);
     if (state === 'FILLED') receipt.set('final_filled_quantity', filledQuantityOf(hit.order) ?? shares);
     receipt.transition(state, `order ${orderId} after placement (identified by ${hit.how})`);
-    await d.alert(`${tag} ${state}: buy ${shares} ${h.ticker} at limit $${h.limit_price}. ${state === 'FILLED' ? 'The exit is yours.' : 'Filled or not, I will text the result.'}`);
+    const next = state === 'FILLED' ? 'The exit is yours.'
+      : FOLLOWED_STATES.has(state) ? 'I will text when it fills or dies.'
+        : 'CHECK THE ROBINHOOD APP.';
+    await d.alert(`${tag} ${state}: buy ${shares} ${h.ticker} at limit $${h.limit_price}. ${next}`);
     return { status: state, detail: `order ${orderId}` };
   } catch (err) {
     if (!placed) {
@@ -422,10 +444,15 @@ export function takeTickLock(dir, nowMs) {
 
 // Reads the phone, then works every approved ticket. If the phone's messages
 // cannot be read this tick, nothing is placed: a HALT could be sitting there.
-export async function runTick(d) {
+// The lock lives in the shared state folder, so a watcher tick, a hand-run
+// `place` and `codes` from any checkout all queue behind one another, and the
+// state is read fresh only once the lock is held. `onlyPlan` limits the tick
+// to one ticket (the `place` command).
+export async function runTick(d, { onlyPlan = null } = {}) {
   const lock = takeTickLock(d.stateDir, d.now().getTime());
   if (!lock.held) return { skipped: 'another tick is running' };
   try {
+    d.store = d.openStore();
     if (lock.stale) await d.alert('REAL ORDERS: cleared a stale watcher lock. Check the Robinhood app if an order was in progress.');
     let messages;
     try {
@@ -441,11 +468,12 @@ export async function runTick(d) {
       await d.alert(`REAL ${a.row_id} INTERRUPTED mid-attempt. It will not be retried. CHECK THE ROBINHOOD APP.`);
     }
 
-    const active = d.store.byStatus('active');
+    // Tickets that are gone or past their time are settled without the broker,
+    // so a broker outage can never hide an expiry.
     const results = [];
-    if (active.length || d.hasOpenOrders()) await d.connect();
-    await followOpenOrders(d);
-    for (const a of active) {
+    const ready = [];
+    for (const a of d.store.byStatus('active')) {
+      if (onlyPlan && a.plan_id !== onlyPlan) continue;
       let h;
       try {
         h = d.loadTicket(a.row_id);
@@ -456,8 +484,29 @@ export async function runTick(d) {
         d.store.setStatus(a.plan_id, 'void', 'ticket missing or replaced');
         await d.alert(`REAL ${a.row_id} REFUSED: the ticket is missing or was replaced. Nothing was placed.`);
         results.push({ row: a.row_id, status: 'void' });
-        continue;
+      } else if (Date.parse(h.expires_at) <= d.now().getTime()) {
+        d.store.setStatus(a.plan_id, 'expired', 'expired before it fired');
+        await d.alert(`REAL ${a.row_id} EXPIRED: the condition never came true. Nothing was placed.`);
+        results.push({ row: a.row_id, status: 'expired' });
+      } else {
+        ready.push({ a, h });
       }
+    }
+
+    if (!ready.length && !d.hasOpenOrders()) return { results };
+    try {
+      await d.connect();
+      if (d.store.state.broker_warned) d.store.flag('broker_warned', false);
+    } catch (err) {
+      d.log(`broker unreachable: ${err.message}`);
+      if (!d.store.state.broker_warned) {
+        d.store.flag('broker_warned', true);
+        await d.alert(`REAL ORDERS: cannot reach Robinhood (${String(err.message).slice(0, 120)}). Approved tickets are waiting; working orders are not being followed.`);
+      }
+      return { results, skipped: 'broker unreachable' };
+    }
+    if (!onlyPlan) await followOpenOrders(d);
+    for (const { a, h } of ready) {
       const r = await attemptTicket(h, a, d);
       results.push({ row: a.row_id, ...r });
     }

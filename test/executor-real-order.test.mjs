@@ -16,6 +16,8 @@ import {
   quoteAgeSec, QUOTE_MAX_AGE_SEC, MODE,
 } from '../executor/lib/real-order.mjs';
 import { computeOrderShares } from '../executor/executor.mjs';
+import { Receipt } from '../executor/lib/receipts.mjs';
+import { realSessionOpen, dayKind } from '../executor/lib/calendar.mjs';
 
 const CEILING = 200;
 const NOW = new Date('2026-11-10T15:00:00Z'); // Tuesday, 10:00 in New York
@@ -62,7 +64,7 @@ function world({ responses = {}, tickets = null, book = { 'B-500': { id: 'B-500'
     },
   };
   const d = {
-    store, stateDir, receiptsDir, rawDir, ceilingUsd: CEILING,
+    store, openStore: () => store, stateDir, receiptsDir, rawDir, ceilingUsd: CEILING,
     now: () => NOW,
     alert: async (l) => { alerts.push(l); return true; },
     log: () => {},
@@ -328,28 +330,50 @@ test('lower case and extra spaces from a phone still read', async () => {
   assert.equal(statusOf(w), 'active');
 });
 
+// A code that appeared on the open channel is spent even when the ARM is refused.
 const armRefusals = [
-  ['old switch format, no codes', () => 'ARM B-500 window 4h - one placement only'],
-  ['bare ARM', () => 'ARM B-500'],
-  ['no one-time code', (w) => `ARM B-500 ${ticketCode(w.h)}`],
-  ['wrong ticket code', (w) => `ARM B-500 ZZZZZZ ${w.plainCodes[0]}`],
-  ['row with no ticket', (w) => `ARM B-999 ${ticketCode(w.h)} ${w.plainCodes[0]}`],
+  ['old switch format, no codes', () => 'ARM B-500 window 4h - one placement only', 4],
+  ['bare ARM', () => 'ARM B-500', 4],
+  ['no one-time code', (w) => `ARM B-500 ${ticketCode(w.h)}`, 4],
+  ['no ticket code', (w) => `ARM B-500 ${w.plainCodes[0]}`, 3],
+  ['wrong ticket code', (w) => `ARM B-500 ZZZZZZ ${w.plainCodes[0]}`, 3],
+  ['row with no ticket', (w) => `ARM B-999 ${ticketCode(w.h)} ${w.plainCodes[0]}`, 3],
+  ['two codes', (w) => `ARM B-500 ${ticketCode(w.h)} ${w.plainCodes[0]} ${w.plainCodes[1]}`, 3],
 ];
-for (const [name, line] of armRefusals) {
-  test(`ARM refused and no code burned: ${name}`, async () => {
+for (const [name, line, left] of armRefusals) {
+  test(`ARM refused: ${name}`, async () => {
     const w = world();
     await ingest(w, msg('m1', line(w)));
     assert.equal(w.store.approvalFor(w.h.plan_id), null);
-    assert.equal(w.store.codesLeft(), 4);
+    assert.equal(w.store.codesLeft(), left);
     assert.ok(w.alerts.some((l) => l.includes('ARM REFUSED')));
+    assert.ok(!w.alerts.join('\n').includes(w.plainCodes[0].slice(3)), 'the code is never echoed');
   });
 }
+
+test('a refused ARM leaves no working code behind for anyone reading the channel', async () => {
+  const w = world();
+  await ingest(w, msg('typo', `ARM B-500 ZZZZZZ ${w.plainCodes[0]}`, NOW_SEC - 90));
+  assert.ok(w.alerts[0].includes('now spent'));
+  await ingest(w, msg('copy', armLine(w.h, w.plainCodes[0]), NOW_SEC - 60));
+  assert.equal(w.store.approvalFor(w.h.plan_id), null);
+  assert.ok(w.alerts.some((l) => l.includes('one-time code is used')));
+});
+
+test('a code sent on its own, or with the row forgotten, is spent and never echoed', async () => {
+  const w = world();
+  await ingest(w, msg('a', w.plainCodes[0]), msg('b', `ARM ${w.plainCodes[1]}`));
+  assert.equal(w.store.codesLeft(), 2);
+  assert.ok(w.alerts.every((l) => l.startsWith('REAL ? ARM REFUSED')));
+  assert.ok(!w.alerts.join('\n').includes(w.plainCodes[0].slice(3)));
+  assert.ok(!w.alerts.join('\n').includes(w.plainCodes[1].slice(3)));
+});
 
 test('ARM older than the ticket refuses: an old approval cannot cover a new order', async () => {
   const w = world();
   await ingest(w, msg('m1', armLine(w.h, w.plainCodes[0]), Date.parse(w.h.created_at) / 1000 - 10));
   assert.equal(w.store.approvalFor(w.h.plan_id), null);
-  assert.equal(w.store.codesLeft(), 4);
+  assert.equal(w.store.codesLeft(), 3);
 });
 
 test('ARM on an expired ticket refuses', async () => {
@@ -359,11 +383,11 @@ test('ARM on an expired ticket refuses', async () => {
   assert.equal(w.store.approvalFor(w.h.plan_id), null);
 });
 
-test('real orders locked by the test gate: ARM refused, code kept', async () => {
+test('real orders locked by the test gate: ARM refused, code spent', async () => {
   const w = world({ gate: { ok: false, why: 'no clean, committed test-zero receipt' } });
   await ingest(w, msg('m1', armLine(w.h, w.plainCodes[0])));
   assert.equal(w.store.approvalFor(w.h.plan_id), null);
-  assert.equal(w.store.codesLeft(), 4);
+  assert.equal(w.store.codesLeft(), 3);
   assert.ok(w.alerts[0].includes('not unlocked'));
 });
 
@@ -388,7 +412,8 @@ test('a message is handled once: replays do nothing', async () => {
 test('the same ticket cannot be approved twice', async () => {
   const w = world();
   await ingest(w, msg('m1', armLine(w.h, w.plainCodes[0])), msg('m2', armLine(w.h, w.plainCodes[1])));
-  assert.equal(w.store.codesLeft(), 3);
+  assert.equal(w.store.byStatus('active').length, 1);
+  assert.equal(w.store.codesLeft(), 2, 'the second code was posted, so it is spent too');
 });
 
 test('wrong codes lock real orders; a right code then fails until unlocked at the terminal', async () => {
@@ -399,9 +424,21 @@ test('wrong codes lock real orders; a right code then fails until unlocked at th
   assert.ok(w.alerts.some((l) => l.includes('NOW LOCKED')));
   await ingest(w, msg('good', armLine(w.h, w.plainCodes[1])));
   assert.equal(w.store.approvalFor(w.h.plan_id), null);
+  assert.equal(w.store.codesLeft(), 3, 'a good code posted while locked is spent, not left exposed');
   w.store.unlock();
-  await ingest(w, msg('good2', armLine(w.h, w.plainCodes[1])));
+  await ingest(w, msg('good2', armLine(w.h, w.plainCodes[2])));
   assert.equal(statusOf(w), 'active');
+});
+
+test('the wrong-code lock also holds tickets approved before it', async () => {
+  const w = world();
+  const a = approve(w);
+  w.store.flag('locked', true);
+  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'WAITING');
+  assert.equal((await attemptTicket(w.h, w.store.approvalFor(w.h.plan_id), w.d)).status, 'WAITING');
+  assert.equal(w.calls.length, 0);
+  assert.equal(statusOf(w), 'active');
+  assert.equal(w.alerts.filter((l) => l.includes('HELD')).length, 1);
 });
 
 test('alerts never carry a wrong code either', async () => {
@@ -446,6 +483,59 @@ test('a ticket missing or replaced after approval voids it', async () => {
   const out = await runTick(w.d);
   assert.equal(out.results[0].status, 'void');
   assert.equal(places(w).length, 0);
+});
+
+test('broker unreachable: Adam is told once, nothing placed, and expiry still fires', async () => {
+  const w = world();
+  approve(w);
+  w.d.connect = async () => { throw new Error('token expired'); };
+  assert.equal((await runTick(w.d)).skipped, 'broker unreachable');
+  await runTick(w.d);
+  assert.equal(w.alerts.filter((l) => l.includes('cannot reach Robinhood')).length, 1);
+  assert.equal(statusOf(w), 'active');
+  w.d.now = () => new Date('2026-11-10T21:00:01Z');
+  const out = await runTick(w.d);
+  assert.equal(out.results[0].status, 'expired');
+  assert.equal(places(w).length, 0);
+});
+
+test('place --handoff works only its own ticket', async () => {
+  const h2 = ticket({ row_id: 'B-501', plan_id: 'B-501:x' });
+  const w = world({ tickets: { 'B-500': ticket(), 'B-501': h2 } });
+  const h1 = w.d.loadTicket('B-500');
+  approve(w, h1);
+  assert.equal(w.store.useCode(w.plainCodes[1]), 'ok');
+  w.store.addApproval({ plan_id: h2.plan_id, row_id: 'B-501', ticket_code: ticketCode(h2), message_id: 'm2', approved_at: NOW_SEC - 60 });
+  const out = await runTick(w.d, { onlyPlan: h1.plan_id });
+  assert.equal(out.results.length, 1);
+  assert.equal(out.results[0].row, 'B-500');
+  assert.equal(w.store.approvalFor(h2.plan_id).status, 'active');
+});
+
+test('the tick reads the state fresh under its lock: another process\'s HALT is seen', async () => {
+  const w = world();
+  approve(w);
+  const stale = w.store; // what this process loaded earlier
+  new ApprovalStore(w.d.stateDir).haltBefore(NOW_SEC); // another process halts it
+  w.d.openStore = () => new ApprovalStore(w.d.stateDir);
+  const out = await runTick(w.d);
+  assert.deepEqual(out.results, []);
+  assert.equal(places(w).length, 0);
+  assert.equal(stale.approvalFor(w.h.plan_id).status, 'active', 'the old copy was not used');
+});
+
+test('a receipt claimed by one process cannot be claimed by another', () => {
+  const dir = tmp();
+  const h = ticket();
+  new Receipt(dir, h, { mode: MODE, commit: 'a', exclusive: true });
+  assert.throws(() => new Receipt(dir, h, { mode: MODE, commit: 'a', exclusive: true }));
+});
+
+test('a rejected order tells Adam to check the app', async () => {
+  const w = world({ responses: { place: { order: { id: 'o9', state: 'rejected', symbol: 'TEST', quantity: '2', limit_price: '50' } } } });
+  const a = approve(w);
+  assert.equal((await attemptTicket(w.h, a, w.d)).status, 'REJECTED');
+  assert.ok(w.alerts.some((l) => l.includes('REJECTED') && l.includes('CHECK THE ROBINHOOD APP')));
 });
 
 test('crash mid-attempt: never retried, Adam is told', async () => {
@@ -586,7 +676,36 @@ test('conditions: at-or-below, at-or-above, now, and unreadable', () => {
   assert.equal(conditionMet({ type: 'BOGUS' }, 50), false);
 });
 
+test('calendar: holidays and weekends are closed, early closes end at 12:45, unknown years are closed', () => {
+  assert.equal(realSessionOpen(new Date('2026-11-26T15:00:00Z')), false); // Thanksgiving
+  assert.equal(realSessionOpen(new Date('2026-11-27T16:00:00Z')), true);  // half day, 11:00
+  assert.equal(realSessionOpen(new Date('2026-11-27T17:50:00Z')), false); // half day, 12:50
+  assert.equal(realSessionOpen(new Date('2026-11-10T20:45:00Z')), true);  // 15:45
+  assert.equal(realSessionOpen(new Date('2026-11-10T14:29:00Z')), false); // 09:29
+  assert.equal(realSessionOpen(new Date('2026-11-14T15:00:00Z')), false); // Saturday
+  assert.equal(dayKind(new Date('2028-01-04T15:00:00Z')), 'unknown');
+  assert.equal(realSessionOpen(new Date('2028-01-04T15:00:00Z')), false);
+});
+
+test('a ticket on a holiday waits instead of firing', async () => {
+  const day = new Date('2026-11-26T15:00:00Z');
+  const h = ticket({}, { now: new Date(day.getTime() - 3600000), expires: '2026-11-26T21:00:00.000Z' });
+  const w = world({ tickets: { 'B-500': h } });
+  w.h = h;
+  w.d.now = () => day;
+  const a = approve(w, h);
+  assert.equal((await attemptTicket(h, a, w.d)).status, 'WAITING');
+  assert.equal(w.calls.length, 0);
+});
+
+test('v2 contract refuses leveraged and inverse funds', () => {
+  const r = validateRealHandoff(ticket({ ticker: 'TQQQ' }), opts);
+  assert.ok(codes(r).includes('R12_FORBIDDEN_STRUCTURE_OR_FLAG'));
+  assert.ok(codes(validateRealHandoff(ticket({ ticker: 'muu' }), opts)).includes('R12_FORBIDDEN_STRUCTURE_OR_FLAG'));
+});
+
 test('writer: parses conditions and finds the next close on the New York clock', () => {
+  assert.equal(nextCloseIso(new Date('2026-11-25T22:00:00Z')), '2026-11-27T18:00:00.000Z');          // skips Thanksgiving, half day
   assert.deepEqual(parseWhen('below:180.5'), { type: 'LAST_AT_OR_BELOW', price: 180.5 });
   assert.throws(() => parseWhen('soon'));
   assert.equal(nextCloseIso(new Date('2026-11-10T15:00:00Z')), '2026-11-10T21:00:00.000Z');          // Tue winter

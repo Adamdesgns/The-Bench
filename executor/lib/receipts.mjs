@@ -13,6 +13,9 @@ export class Receipt {
     if (existsSync(this.path)) {
       throw new Error(`receipt already exists for ${handoff.plan_id} — a second attempt under the same plan_id is refused`);
     }
+    // Real-order mode claims the file atomically, so two processes can never
+    // both pass the check above. The typed test path does not ask for this.
+    if (meta.exclusive) writeFileSync(this.path, '{}', { flag: 'wx' });
     this.data = {
       plan_id: handoff.plan_id,
       row_id: handoff.row_id,
