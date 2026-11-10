@@ -53,7 +53,7 @@ Contract: `prompts/bench-executor-v2.md`. Adam's own steps: the checklist in
 not yet placed. An order already at Robinhood has to be cancelled in the app.
 To stop the watcher entirely, disable the Windows task "Bench Executor Watcher".
 
-**What it locks on:** `REAL_ORDER_CEILING_USD` at 0, missing clean committed
+**What it locks on:** `REAL_ORDER_CEILING_USD` set to 0, missing clean committed
 test receipts, three wrong codes, or executor files that differ from the commit.
 It also waits on weekends, holidays and after 12:45 on early-close days, from
 the hand-written list in `lib/calendar.mjs` (check it against nyse.com).
@@ -105,4 +105,5 @@ blocker — no endpoint guessing.
 ring-fence (`MAX_FUNDED_TEST_BALANCE_USD`) · LIMIT + DAY + regular hours ·
 whole shares · one placement per plan_id, ever, enforced by the receipts dir.
 Those two dollar limits govern the tests. Real orders use
-`REAL_ORDER_CEILING_USD`, Adam's number, which is $0 until he names it.
+`REAL_ORDER_CEILING_USD`, Adam's number: $200 (2026-11-09, "it's 200 idgaf if
+it goes to 0").

@@ -611,6 +611,10 @@ test('v2 contract: a good ticket passes', () => {
   assert.deepEqual(validateRealHandoff(ticket(), opts).refusals, []);
 });
 
+test('v2 contract: a zero limit refuses with its own code, R24', () => {
+  assert.ok(codes(validateRealHandoff(ticket(), { now: NOW, ceilingUsd: 0 })).includes('R24_REAL_ORDERS_LOCKED'));
+});
+
 test('v2 contract: the constant in code is the ceiling when nothing overrides it', () => {
   const shares = Math.floor(REAL_ORDER_CEILING_USD / 50) + 1;
   const h = ticket({ executor_absolute_ceiling: REAL_ORDER_CEILING_USD + 50 }, { shares });
@@ -733,7 +737,8 @@ test('writer refuses: not in the book, over the limit, or a live ticket already 
   const dir = tmp();
   assert.throws(() => writeTicket({ ...writerArgs, row: 'B-999' }, { book, dir, ceilingUsd: CEILING, now: NOW }), /not in the book/);
   assert.throws(() => writeTicket({ ...writerArgs, shares: 5 }, { book, dir, ceilingUsd: CEILING, now: NOW }), /ticket refused/);
-  assert.throws(() => writeTicket(writerArgs, { book, dir, now: NOW }), /ticket refused/, 'the zero or real constant applies by default');
+  const overConstant = Math.floor(REAL_ORDER_CEILING_USD / writerArgs.limit) + 1;
+  assert.throws(() => writeTicket({ ...writerArgs, shares: overConstant }, { book, dir, now: NOW }), /ticket refused/, 'the constant in code applies by default');
   writeTicket(writerArgs, { book, dir, ceilingUsd: CEILING, now: NOW });
   assert.throws(() => writeTicket(writerArgs, { book, dir, ceilingUsd: CEILING, now: NOW }), /live ticket/);
 });
