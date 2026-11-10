@@ -1,6 +1,6 @@
 # Executor real orders with phone approval: design
 
-**Status: built and tested offline only. The live path has never run.** Adam answered "No" to requiring the Robinhood tap (relayed 2026-11-09 from the session that started this one) and approved pre-approval with "Yes, build that". The per-order limit is still his to name, and the code stays at $0 until he does.
+**Status: built and tested offline only. The live path has never run.** Adam answered "No" to requiring the Robinhood tap (relayed 2026-11-09 from the session that started this one) and approved pre-approval with "Yes, build that". The per-order limit is his number: $200, from "it's 200 idgaf if it goes to 0" (set in code 2026-11-09).
 
 ## What Adam gets
 

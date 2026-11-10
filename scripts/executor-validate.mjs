@@ -16,10 +16,13 @@ export const EXECUTOR_VERSION = 'bench-executor-v1';
 export const FRAMEWORK_VERSION = 'v26';
 export const AUTOMATIC_RETRY_ALLOWED = false;      // there is no automatic retry path in v1.
 
-// Real-order mode (bench-executor-v2). The per-order limit is ADAM'S number.
-// Zero refuses every real order, which is the state until he names it.
-// Change only by reviewed commit; no flag, env var or handoff field can raise it.
-export const REAL_ORDER_CEILING_USD = 0;
+// Real-order mode (bench-executor-v2). The per-order limit is ADAM'S number:
+// $200, set 2026-11-09 from his own words, "it's 200 idgaf if it goes to 0"
+// (the whole trading account ending 7724 may go into one order). Zero would
+// refuse every real order. Change only by reviewed commit; no flag, env var or
+// handoff field can raise it. Real orders still stay locked until clean,
+// committed test-zero and test-one receipts exist (testGate in real-order.mjs).
+export const REAL_ORDER_CEILING_USD = 200;
 export const REAL_SCHEMA_VERSION = 'bench-execution-handoff-v2';
 export const REAL_EXECUTOR_VERSION = 'bench-executor-v2';
 export const REAL_MIN_FRAMEWORK = 36;

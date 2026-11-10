@@ -2,7 +2,7 @@
 
 ```text
 STATUS: UNTESTED
-LIVE EXECUTION: LOCKED until REAL_ORDER_CEILING_USD is set and clean, committed test-zero and test-one receipts exist
+LIVE EXECUTION: LOCKED until clean, committed test-zero and test-one receipts exist (REAL_ORDER_CEILING_USD set to $200 by Adam, 2026-11-09)
 ALLOWED MODE: OFFLINE TESTS ONLY
 ```
 
@@ -52,7 +52,7 @@ place_when:                          # new, required
 
 ## 4. CEILINGS — CHANGE ONLY BY REVIEWED COMMIT
 
-`REAL_ORDER_CEILING_USD` in `scripts/executor-validate.mjs` is Adam's number. At zero every real order refuses. No flag, environment variable or ticket field can raise it. Effective ceiling = min(that constant, the ticket's `executor_absolute_ceiling`, live buying power). The v1 $5 and $10 test limits are unchanged and still govern the tests.
+`REAL_ORDER_CEILING_USD` in `scripts/executor-validate.mjs` is Adam's number: $200, set 2026-11-09 ("it's 200 idgaf if it goes to 0"). At zero every real order refuses. It is a limit **per order**, not per day: several approved tickets can each place up to it, held back only by the account's buying power. That is fine while the account ending 7724 holds about $200; funding it higher raises the day's total exposure without any code change. No flag, environment variable or ticket field can raise it. Effective ceiling = min(that constant, the ticket's `executor_absolute_ceiling`, live buying power). The v1 $5 and $10 test limits are unchanged and still govern the tests.
 
 ## 5. ORDER OF EVENTS
 

@@ -133,7 +133,7 @@ Adam's approval of every order is enforced in code, not convention.
 Each step is yours because it touches money, your broker login or the running PC.
 
 1. **Merge the pull request** into the checkout at `Projects\apps\the-bench`. The watcher only runs from there.
-2. **Tell Claude the most one real order may cost.** That number goes into the code in a reviewed commit.
+2. **The most one real order may cost: $200.** Done 2026-11-09, from your words "it's 200 idgaf if it goes to 0". It is `REAL_ORDER_CEILING_USD` in the code, and changes only by a reviewed commit.
 3. **Shrink the trading account for the tests.** Move money out of the account ending 7724 until no more than $10 can be spent. It holds about $200 today, and the tests refuse above $10.
 4. **Keep Robinhood's "human must approve trades" setting OFF** for now. The tests do not understand approvals.
 5. **At your own terminal, on a weekend or after hours, optionally run the queued test.** It places and cancels an order that cannot fill, and it captures real broker responses at almost no risk. It does not unlock anything.
@@ -149,7 +149,6 @@ Stop anything not yet placed by sending `HALT` from your phone. Cancel an order 
 
 ### Blockers for this mode
 
-- `REAL_ORDER_CEILING_USD` is $0 until Adam names a number.
 - No clean, committed test-zero and test-one receipts exist yet.
 - With no Robinhood tap, the one-time codes are the only proof of approval. They do not stop software that can rewrite the program or its stored hashes on this PC.
 
