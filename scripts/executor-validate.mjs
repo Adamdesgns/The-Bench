@@ -24,6 +24,17 @@ export const REAL_SCHEMA_VERSION = 'bench-execution-handoff-v2';
 export const REAL_EXECUTOR_VERSION = 'bench-executor-v2';
 export const REAL_MIN_FRAMEWORK = 36;
 export const TICKET_MAX_LIFE_HOURS = 30;            // night-before approval, never a standing one.
+// Leveraged and inverse funds the desk has met or that are common. A PARTIAL
+// list: a ticker missing from it is not proof a fund is plain.
+export const LEVERAGED_OR_INVERSE_TICKERS = new Set([
+  'TQQQ', 'SQQQ', 'QLD', 'QID', 'UPRO', 'SPXU', 'SPXL', 'SPXS', 'SSO', 'SDS', 'SH', 'PSQ',
+  'SOXL', 'SOXS', 'TECL', 'TECS', 'FAS', 'FAZ', 'TNA', 'TZA', 'URTY', 'SRTY', 'LABU', 'LABD',
+  'NUGT', 'DUST', 'JNUG', 'JDST', 'UVXY', 'SVXY', 'UVIX', 'SVIX', 'VXX', 'TMF', 'TMV', 'TBT',
+  'YINN', 'YANG', 'FNGU', 'FNGD', 'BULZ', 'BERZ', 'UCO', 'SCO', 'BOIL', 'KOLD', 'ERX', 'ERY',
+  'DPST', 'DRN', 'DRV', 'CURE', 'NVDL', 'NVDU', 'NVDD', 'NVDS', 'NVDX', 'TSLL', 'TSLQ', 'TSLZ',
+  'TSLR', 'TSLT', 'CONL', 'MSTU', 'MSTX', 'MSTZ', 'AMZU', 'AMDL', 'AAPU', 'GGLL', 'METU', 'MSFU',
+  'MUU', 'MUD', 'PLTU', 'AVL', 'BITX', 'BITU', 'SBIT', 'BITI', 'ETHU', 'ETHT', 'DXD', 'DDM', 'UDOW', 'SDOW',
+]);
 
 const V1_PROFILE = {
   schema: SCHEMA_VERSION,
@@ -243,6 +254,9 @@ export function validateRealHandoff(h, { now = new Date(), receiptsDir = null, c
     add('R22_REAL_WHOLE_SHARES', 'real-order mode takes quantity_mode: shares with a whole number');
   }
   if (h.exit_owner !== 'MANUAL') add('R14_MISSING_EXIT_OWNER', 'real-order mode places no stop, so exit_owner must be MANUAL');
+  if (LEVERAGED_OR_INVERSE_TICKERS.has(String(h.ticker).toUpperCase())) {
+    add('R12_FORBIDDEN_STRUCTURE_OR_FLAG', `${h.ticker} is a leveraged or inverse fund; real-order mode does not buy those`);
+  }
 
   const w = h.place_when;
   const conditional = w && (w.type === 'LAST_AT_OR_BELOW' || w.type === 'LAST_AT_OR_ABOVE');

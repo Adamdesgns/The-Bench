@@ -122,6 +122,11 @@ Adam's approval of every order is enforced in code, not convention.
 **What is NOT proven until real runs happen:**
 - The real shapes of Robinhood's quote time, `order_checks` and place responses. The code refuses whatever it does not recognise, so a wrong guess blocks orders rather than sending a bad one. The terminal tests capture real responses in `executor-tests/raw/`; check those against the code before the first real order.
 - That the Windows task starts and runs hidden on this PC.
+- The NYSE holiday list in `executor/lib/calendar.mjs`, written by hand and to be checked against nyse.com. After 2027 every day reads as closed until it is extended.
+
+**Reviewed 2026-11-09** by a fresh reviewer agent working only from the code. Its two blockers and seven other findings were all fixed before the pull request:
+- **The blockers:** a refused ARM left its code usable on the open channel, and `place` and the watcher could act on the same approval at once.
+- **The rest:** holidays, the lock not holding earlier approvals, a silent broker outage, a code echoed in an alert, exit codes, leveraged tickers, and a crash-prone `status`.
 
 ### Adam's checklist, in order
 

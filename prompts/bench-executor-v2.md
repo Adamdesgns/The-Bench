@@ -25,8 +25,9 @@ ARM B-### <ticket code> <one-time code>
 The arm channel has no login and its name is in the repo, so an `ARM` line alone proves nothing. Each line carries a one-time code Adam alone holds.
 
 - `codes --new` runs only at a real keyboard, shows the codes once, and stores only salted hashes outside the repo.
-- Each code works once. Messages are handled oldest first, so a copy of a code posted after Adam's message finds it already used.
-- `WRONG_CODES_BEFORE_LOCK` wrong or reused codes lock real orders until `codes --unlock` at the keyboard.
+- Each code works once, and is spent the moment it appears in any message, before anything else is checked. A refused ARM (a typo, a locked gate, an expired ticket) therefore never leaves a working code readable on the open channel. Messages are handled oldest first, so a copy posted after Adam's message finds the code already used.
+- `WRONG_CODES_BEFORE_LOCK` wrong or reused codes lock real orders until `codes --unlock` at the keyboard. The lock also holds tickets approved before it.
+- `place`, `watch` and `codes` share one lock in `~/.bench-executor/` and read the state fresh under it, so two of them can never act on the same approval.
 - The ticket code ties the approval to the exact order. Changing any term voids it.
 
 **What this does not stop:** software that can rewrite the program or the stored hashes on this PC, or someone holding Adam's unlocked phone. With no tap, the per-order limit is the main cap on damage.
@@ -63,8 +64,16 @@ place_when:                          # new, required
 6. Any refusal ends the ticket. Any unclear result after placing reads `UNKNOWN_REQUIRES_RECONCILIATION`, tells Adam to check the app, and is never retried.
 7. A working order is followed until it fills or dies, and each change is texted. The program never cancels and never sells.
 
-## 6. NOT IN v2
+## 6. WHEN ORDERS MAY GO IN
 
-Selling · stops · options · crypto · shorting · leveraged products · market orders · GTC · extended hours · blanket approvals · retries.
+09:30 New York until 15 minutes before the close, from the hand-written NYSE list in `executor/lib/calendar.mjs`. Holidays wait, and early-close days end at 12:45. Every day after `CALENDAR_KNOWN_THROUGH` reads as closed. The list must be checked against nyse.com, and extended before it runs out. Where an early close was uncertain, the day is listed as a half day on purpose.
+
+## 7. KNOWN OVERLAP WITH THE TEST SWITCH
+
+The typed tests read the same arm channel, so `executor-arm.mjs --status` shows a real-order ARM as "ARMED" for that row. That changes nothing: a test still needs Adam's typed lines. A test's own HALT after placing stops every real approval not yet placed. That is the safe direction.
+
+## 8. NOT IN v2
+
+Selling · stops · options · crypto · shorting · leveraged products (refused from `LEVERAGED_OR_INVERSE_TICKERS`, a partial list, so a fund missing from it is not proof it is plain) · market orders · GTC · extended hours · blanket approvals · retries.
 
 *Proof, not hype.*

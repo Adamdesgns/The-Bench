@@ -833,7 +833,8 @@ async function realOrderDeps() {
   const { REAL_ORDER_CEILING_USD } = await import('../scripts/executor-validate.mjs');
   const book = JSON.parse(readFileSync(join(ROOT, 'db', 'archive.json'), 'utf8'));
   const d = {
-    store: new ApprovalStore(STATE_DIR),
+    store: null, // opened by runTick only after it holds the lock
+    openStore: () => new ApprovalStore(STATE_DIR),
     stateDir: STATE_DIR,
     receiptsDir: RECEIPTS_DIR,
     rawDir: RAW_DIR,
@@ -856,7 +857,7 @@ async function realOrderDeps() {
 }
 
 async function runRealOrderCommand(cmd, rest, flag, val) {
-  const { insideAiSession, runTick, ingestMessages, attemptTicket } = await import('./lib/real-order.mjs');
+  const { insideAiSession, runTick, takeTickLock } = await import('./lib/real-order.mjs');
   const aiVar = insideAiSession();
   if (aiVar) {
     console.error(`REFUSED — ${cmd} will not run inside an AI session (${aiVar} is set). Real orders start only from the Windows task or Adam's own terminal.`);
@@ -865,11 +866,22 @@ async function runRealOrderCommand(cmd, rest, flag, val) {
 
   if (cmd === 'codes') {
     requireTTY('codes');
+    if (!flag('--new') && !flag('--unlock')) { console.error('usage: executor codes --new | --unlock'); process.exit(2); }
     const { ApprovalStore } = await import('./lib/approvals.mjs');
-    const store = new ApprovalStore();
-    if (flag('--unlock')) { store.unlock(); console.log('Real orders unlocked.'); process.exit(0); }
-    if (!flag('--new')) { console.error('usage: executor codes --new | --unlock'); process.exit(2); }
-    const codes = store.newCodes();
+    const { STATE_DIR } = await import('./lib/ticket.mjs');
+    const { mkdirSync, unlinkSync } = await import('node:fs');
+    mkdirSync(STATE_DIR, { recursive: true });
+    const lock = takeTickLock(STATE_DIR, Date.now());
+    if (!lock.held) { console.error('The watcher is busy this second. Run it again.'); process.exit(1); }
+    let codes = null;
+    try {
+      const store = new ApprovalStore(STATE_DIR); // read fresh, under the lock
+      if (flag('--unlock')) store.unlock();
+      else codes = store.newCodes();
+    } finally {
+      unlinkSync(lock.path);
+    }
+    if (!codes) { console.log('Real orders unlocked.'); process.exit(0); }
     console.log('\nYour one-time codes. They are shown this once. Save them on your phone, then clear this window.\n');
     for (const c of codes) console.log(`  ${c}`);
     console.log('\nThese replace any earlier codes.');
@@ -889,20 +901,25 @@ async function runRealOrderCommand(cmd, rest, flag, val) {
     process.exit(0);
   }
 
-  // place: same gates as a tick, for one named ticket file.
+  // place: a tick limited to one ticket, under the same lock as the watcher.
+  // The file given must be the ticket on record, byte for byte in meaning.
   const handoffPath = val('--handoff');
   if (!handoffPath) { console.error('usage: executor place --handoff <file.json> --live'); process.exit(2); }
   const handoff = JSON.parse(readFileSync(resolve(handoffPath), 'utf8'));
-  await ingestMessages(await d.readMessages(), d);
-  const approval = d.store.approvalFor(handoff.plan_id);
-  if (!approval || approval.status !== 'active') {
-    console.error(`REFUSED — no live phone approval for ${handoff.row_id}. Send the ARM line from your phone first.`);
+  let onRecord = null;
+  try { onRecord = d.loadTicket(handoff.row_id); } catch { onRecord = null; }
+  if (!onRecord || JSON.stringify(onRecord) !== JSON.stringify(handoff)) {
+    console.error(`REFUSED — ${handoffPath} is not the ticket on record for ${handoff.row_id}.`);
     process.exit(1);
   }
-  await d.connect();
-  const out = await attemptTicket(handoff, approval, d);
+  const out = await runTick(d, { onlyPlan: handoff.plan_id });
   console.log(JSON.stringify(out));
-  process.exit(['UNKNOWN'].includes(out.status) ? 2 : 0);
+  const status = out.results?.[0]?.status;
+  if (!status) {
+    console.error(`No live phone approval for ${handoff.row_id} was worked${out.skipped ? ` (${out.skipped})` : ''}.`);
+    process.exit(1);
+  }
+  process.exit(['PENDING', 'PARTIALLY_FILLED', 'FILLED', 'WAITING'].includes(status) ? 0 : status === 'AWAITING_TAP' ? 0 : 2);
 }
 
 // ---------- commands --------------------------------------------------------
@@ -948,8 +965,17 @@ async function main() {
     const { ApprovalStore } = await import('./lib/approvals.mjs');
     const { REAL_ORDER_CEILING_USD } = await import('../scripts/executor-validate.mjs');
     const gate = testGate(RECEIPTS_DIR, isCommittedFile, REAL_ORDER_CEILING_USD);
-    const store = new ApprovalStore();
-    console.log(`real orders: ${gate.ok ? 'UNLOCKED' : 'LOCKED'} (${gate.why}); limit $${REAL_ORDER_CEILING_USD.toFixed(2)} per order; ${store.codesLeft()} codes left${store.locked ? '; WRONG-CODE LOCK ON' : ''}; ${store.byStatus('active').length} approved and waiting`);
+    const { STATE_DIR } = await import('./lib/ticket.mjs');
+    let codesLine = 'no codes made yet';
+    if (existsSync(join(STATE_DIR, 'real-order-state.json'))) {
+      try {
+        const store = new ApprovalStore(STATE_DIR);
+        codesLine = `${store.codesLeft()} codes left${store.locked ? '; WRONG-CODE LOCK ON' : ''}; ${store.byStatus('active').length} approved and waiting`;
+      } catch (err) {
+        codesLine = `STATE FILE UNREADABLE (${err.message}) — real orders will refuse`;
+      }
+    }
+    console.log(`real orders: ${gate.ok ? 'UNLOCKED' : 'LOCKED'} (${gate.why}); limit $${REAL_ORDER_CEILING_USD.toFixed(2)} per order; ${codesLine}`);
     process.exit(0);
   }
 

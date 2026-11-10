@@ -18,6 +18,7 @@ import {
   validateRealHandoff, REAL_ORDER_CEILING_USD, REAL_SCHEMA_VERSION, REAL_EXECUTOR_VERSION,
 } from './executor-validate.mjs';
 import { STATE_DIR, armLine, ticketPath } from '../executor/lib/ticket.mjs';
+import { closeMinutes } from '../executor/lib/calendar.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const FRAMEWORK = 'v36';
@@ -30,8 +31,8 @@ export function parseWhen(text = 'now') {
   return { type: m[1] === 'below' ? 'LAST_AT_OR_BELOW' : 'LAST_AT_OR_ABOVE', price: Number(m[2]) };
 }
 
-// The next 16:00 New York time at or after `now`, on a weekday. Holidays are not
-// known here; a ticket for a holiday simply never fires and expires.
+// The next close at or after `now`: 16:00 New York, or 13:00 on an early-close
+// day, skipping weekends and the holidays in executor/lib/calendar.mjs.
 export function nextCloseIso(now = new Date()) {
   const fmt = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/New_York', hour12: false, weekday: 'short',
@@ -41,11 +42,13 @@ export function nextCloseIso(now = new Date()) {
   for (let days = 0; days < 8; days++) {
     const probe = new Date(now.getTime() + days * 86400000);
     const p = read(probe);
-    if (p.weekday === 'Sat' || p.weekday === 'Sun') continue;
-    // Find the UTC instant that reads 16:00:00 on that New York date.
-    const guess = new Date(Date.UTC(+p.year, +p.month - 1, +p.day, 20, 0, 0));
+    const closeAt = closeMinutes(probe);
+    if (closeAt === null) continue;
+    const closeHour = closeAt / 60;
+    // Find the UTC instant that reads the close hour on that New York date.
+    const guess = new Date(Date.UTC(+p.year, +p.month - 1, +p.day, closeHour + 4, 0, 0));
     const g = read(guess);
-    const close = new Date(guess.getTime() - ((+g.hour % 24) - 16) * 3600000);
+    const close = new Date(guess.getTime() - ((+g.hour % 24) - closeHour) * 3600000);
     if (close.getTime() > now.getTime()) return close.toISOString();
   }
   throw new Error('could not find the next close');
