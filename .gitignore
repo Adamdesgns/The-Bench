@@ -68,3 +68,7 @@ benny/listener.log
 db/trip-judge.lock
 logs/
 db/trip-judge-state.json
+
+# Desktop ticker feed, rewritten every minute (scripts/ticker-feed.mjs)
+db/ticker-feed.json
+db/ticker-feed.json.tmp-*
