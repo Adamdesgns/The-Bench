@@ -9260,6 +9260,38 @@
       "row": "B-1413",
       "expires": "2026-11-25",
       "status": "open"
+    },
+    {
+      "id": "MC-535",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "COHR",
+          "op": ">",
+          "level": 246.9
+        }
+      ],
+      "meaning": "pump-watch re-look: cleared both near pivots (243.64, 246.90); re-judge B-1414, needs rs off the both-windows laggard list",
+      "source": "docs/reads/2026-11-11-trip-COHR.md",
+      "row": "B-1414",
+      "expires": "2026-11-12",
+      "status": "open"
+    },
+    {
+      "id": "MC-536",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "COHR",
+          "op": "<",
+          "level": 223.4
+        }
+      ],
+      "meaning": "pump failed: under the 11/11 opening-range low, the gap is being given back; B-1414 next-session plan is dead",
+      "source": "docs/reads/2026-11-11-trip-COHR.md",
+      "row": "B-1414",
+      "expires": "2026-11-12",
+      "status": "open"
     }
   ]
 }
