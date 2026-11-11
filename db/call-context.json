@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T21:32:21.913Z",
+ "generated": "2026-11-11T21:34:11.907Z",
  "method": "see the header of scripts/call-context.mjs; market and sentiment as of the prior session close; social live only",
  "records": {
   "B-961": {
@@ -244574,6 +244574,3401 @@
       "mentions_24h_ago": 1498,
       "upvotes": 4644,
       "rank_24h_ago": 1
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1404": {
+   "id": "B-1404",
+   "ticker": "NVDA",
+   "date": "2026-11-10",
+   "review_time": null,
+   "review_price": 168.79,
+   "call_type": "pass",
+   "origin": "delta",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "MIND-CHANGER MC-489 FIRED 2026-11-10: NVDA settled under 170.24 (its 11/09 first-5-minute low) -> re-judge the short. The desk's own test came true; this row is the mandatory re-look. Last regular print 168.79 (-5.53 pct) on 421.6M = 3.14x the 30-day, low 166.04. The B-1395 pump-",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:32:54.403Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-09",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-09",
+     "spy": {
+      "ret_1d": 2.37,
+      "ret_5d": 0.08,
+      "ret_20d": -3.27,
+      "vs_sma50": -1.65,
+      "vs_sma200": 3.01
+     },
+     "qqq": {
+      "ret_1d": 3.54,
+      "ret_5d": -0.26,
+      "ret_20d": -8.94,
+      "vs_sma50": -5.68,
+      "vs_sma200": -0.27
+     },
+     "iwm": {
+      "ret_1d": 3.23,
+      "ret_5d": 1.21,
+      "ret_20d": 1.66,
+      "vs_sma50": 0.24,
+      "vs_sma200": 1.23
+     },
+     "smh": {
+      "ret_1d": 5.05,
+      "ret_5d": -4.11,
+      "ret_20d": -17.53,
+      "vs_sma50": -13.63,
+      "vs_sma200": -6.66
+     },
+     "vix": 19.92,
+     "vix_5d": -5.82,
+     "vix_term": 0.96
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 31.51,
+      "rating": "fear",
+      "asof": "2026-11-09"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-09",
+     "close": 178.67,
+     "ret_1d": -4.27,
+     "ret_5d": -11.58,
+     "ret_20d": -21.05,
+     "ret_60d": -20.65,
+     "vs_sma50": -18.43,
+     "vs_sma200": -12.69,
+     "from_52w_high": -26.59,
+     "atr_pct": 4.92,
+     "vol_ratio": 3.93,
+     "rs_5": -11.66,
+     "rs_20": -17.78,
+     "rs_60": -17.6
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": -5.47,
+     "ticker_open_gap": -2.63,
+     "spy_ret": -0.37
+    },
+    "calendar": {
+     "weekday": "Tue",
+     "last_earnings": "2026-08-27",
+     "sessions_since_earnings": 52,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "NVDA stock",
+     "window": "2026-11-07..2026-11-10",
+     "count": 96,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "Nvidia sells off for second day in fallout from Jensen Huang’s affair with alleged spy - CNBC",
+       "source": "CNBC",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Nvidia Bloodbath Over by November’s End? Crypto Bettors Weigh NVDA Stock’s Next Move as Jensen Huang Controversy Brews - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "NVIDIA Shares Rise 1% After Hours After Sharp Sell-Off and Leadership Probe - NVIDIA (NASDAQ:NVDA) - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Nvidia Stock Hit With Price-Target Cuts Amid Spy Scandal - Investor's Business Daily",
+       "source": "Investor's Business Daily",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Nvidia stock falls after investigation into CEO, bucking market rally - CNN",
+       "source": "CNN",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "What to Watch in Nvidia Earnings: Spy Scandal, Data Center Concerns Take Center Stage - Morningstar",
+       "source": "Morningstar",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Nvidia stock falls 4% as scrutiny turns to Jensen Huang’s affair with alleged Chinese spy - CNBC",
+       "source": "CNBC",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Jim Cramer: Wall Street is focusing too much on what could go wrong instead of right - CNBC",
+       "source": "CNBC",
+       "published": "2026-11-10"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 679665,
+      "messages": 30,
+      "bullish": 6,
+      "bearish": 5,
+      "msgs_per_hour": 169.28
+     },
+     "apewisdom": {
+      "rank": 1,
+      "mentions": 804,
+      "mentions_24h_ago": 1212,
+      "upvotes": 5543,
+      "rank_24h_ago": 1
+     }
+    },
+    "social_lag_days": 1,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1405": {
+   "id": "B-1405",
+   "ticker": "IBIT",
+   "date": "2026-11-10",
+   "review_time": null,
+   "review_price": 41.685,
+   "call_type": "pass",
+   "origin": "delta",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "MIND-CHANGER MC-478 FIRED 2026-11-10: IBIT settled under the 11/06 low 42.27 -> run the hunt-short gates before anything else (B-1332). The desk's own test came true; this row is the mandatory re-look. Last regular print 41.685 (-1.50 pct), volume 39.1M = 0.96x the 30-day, so the",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:26.928Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-09",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-09",
+     "spy": {
+      "ret_1d": 2.37,
+      "ret_5d": 0.08,
+      "ret_20d": -3.27,
+      "vs_sma50": -1.65,
+      "vs_sma200": 3.01
+     },
+     "qqq": {
+      "ret_1d": 3.54,
+      "ret_5d": -0.26,
+      "ret_20d": -8.94,
+      "vs_sma50": -5.68,
+      "vs_sma200": -0.27
+     },
+     "iwm": {
+      "ret_1d": 3.23,
+      "ret_5d": 1.21,
+      "ret_20d": 1.66,
+      "vs_sma50": 0.24,
+      "vs_sma200": 1.23
+     },
+     "smh": {
+      "ret_1d": 5.05,
+      "ret_5d": -4.11,
+      "ret_20d": -17.53,
+      "vs_sma50": -13.63,
+      "vs_sma200": -6.66
+     },
+     "vix": 19.92,
+     "vix_5d": -5.82,
+     "vix_term": 0.96
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 31.51,
+      "rating": "fear",
+      "asof": "2026-11-09"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-09",
+     "close": 42.32,
+     "ret_1d": -1.31,
+     "ret_5d": -2.38,
+     "ret_20d": -9.69,
+     "ret_60d": 18.78,
+     "vs_sma50": -7.55,
+     "vs_sma200": 2.64,
+     "from_52w_high": -29.89,
+     "atr_pct": 3.07,
+     "vol_ratio": 0.76,
+     "rs_5": -2.46,
+     "rs_20": -6.42,
+     "rs_60": 21.83
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": -1.51,
+     "ticker_open_gap": -1.52,
+     "spy_ret": -0.37
+    },
+    "calendar": {
+     "weekday": "Tue",
+     "last_earnings": null,
+     "sessions_since_earnings": null,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "IBIT stock",
+     "window": "2026-11-07..2026-11-10",
+     "count": 26,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "iShares Bitcoin Trust ETF (IBIT) stock price, news, quote and history - Yahoo Finance UK",
+       "source": "Yahoo Finance UK",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "iShares Bitcoin Trust (IBIT) Stock Price | Quotes & News - Moomoo",
+       "source": "Moomoo",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "iShares Bitcoin ETF (IBIT.NE) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+       "source": "Yahoo! Finance Canada",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "IBIT 261106 50.50C (IBIT261106C50500) Stock Options Chain | Quotes & News - Moomoo",
+       "source": "Moomoo",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Daily Bitcoin ETF withdrawals ease again as Tuesday's exit drops to $95 million - Cryptonews.net",
+       "source": "Cryptonews.net",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "BlackRock Attributes Bitcoin Whale Shift to ETFs to Hack Concerns - ForkLog",
+       "source": "ForkLog",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "iShares Bitcoin ETF (IBIT.AX) stock price, news, quote and history - Yahoo Finance Australia",
+       "source": "Yahoo Finance Australia",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "IBIT 261106 36.00C (IBIT261106C36000) Stock Options Chain | Quotes & News - Moomoo",
+       "source": "Moomoo",
+       "published": "2026-11-08"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 20524,
+      "messages": 30,
+      "bullish": 8,
+      "bearish": 1,
+      "msgs_per_hour": 0.99
+     },
+     "apewisdom": {
+      "rank": null,
+      "note": "not in the top Reddit list"
+     }
+    },
+    "social_lag_days": 1,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1406": {
+   "id": "B-1406",
+   "ticker": "ZYME",
+   "date": "2026-11-10",
+   "review_time": null,
+   "review_price": 31.44,
+   "call_type": "pass",
+   "origin": "delta",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "MIND-CHANGER MC-427 FIRED 2026-11-10: ZYME closed over 31.34, a new 52-week high -> note it for the post-print Guide Rule run (B-1258). The desk's own test came true; this row is the mandatory re-look. Last regular print 31.44 (+2.05 pct); the 11/09 print is out, so the next step",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:29.754Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-09",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-09",
+     "spy": {
+      "ret_1d": 2.37,
+      "ret_5d": 0.08,
+      "ret_20d": -3.27,
+      "vs_sma50": -1.65,
+      "vs_sma200": 3.01
+     },
+     "qqq": {
+      "ret_1d": 3.54,
+      "ret_5d": -0.26,
+      "ret_20d": -8.94,
+      "vs_sma50": -5.68,
+      "vs_sma200": -0.27
+     },
+     "iwm": {
+      "ret_1d": 3.23,
+      "ret_5d": 1.21,
+      "ret_20d": 1.66,
+      "vs_sma50": 0.24,
+      "vs_sma200": 1.23
+     },
+     "smh": {
+      "ret_1d": 5.05,
+      "ret_5d": -4.11,
+      "ret_20d": -17.53,
+      "vs_sma50": -13.63,
+      "vs_sma200": -6.66
+     },
+     "vix": 19.92,
+     "vix_5d": -5.82,
+     "vix_term": 0.96
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 31.51,
+      "rating": "fear",
+      "asof": "2026-11-09"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-09",
+     "close": 30.81,
+     "ret_1d": 3.98,
+     "ret_5d": 6.28,
+     "ret_20d": 21.63,
+     "ret_60d": 22.65,
+     "vs_sma50": 12.22,
+     "vs_sma200": 21.25,
+     "from_52w_high": -2.16,
+     "atr_pct": 4.05,
+     "vol_ratio": 0.81,
+     "rs_5": 6.2,
+     "rs_20": 24.9,
+     "rs_60": 25.7
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 2.11,
+     "ticker_open_gap": 1.1,
+     "spy_ret": -0.37
+    },
+    "calendar": {
+     "weekday": "Tue",
+     "last_earnings": "2026-08-07",
+     "sessions_since_earnings": 66,
+     "next_earnings": "2026-11-10",
+     "sessions_to_earnings": 0,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": [
+      {
+       "date": "2026-11-09",
+       "hour": 16.65,
+       "items": "9.01",
+       "same_day": false
+      },
+      {
+       "date": "2026-11-09",
+       "hour": 16.13,
+       "items": "2.02,7.01,9.01",
+       "same_day": false
+      }
+     ]
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "ZYME stock",
+     "window": "2026-11-07..2026-11-10",
+     "count": 14,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "Zymeworks Inc. (ZYME) stock price, news, quote and history - Yahoo Finance UK",
+       "source": "Yahoo Finance UK",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Zymeworks Inc. (ZYME) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+       "source": "Yahoo! Finance Canada",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Zymeworks Inc. Stock 12‑Month Price Target Raised to $41.93, Implies 36% Upside - TradingView",
+       "source": "TradingView",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Learn Why The Bull Case For Zymeworks Stock Could Change Following Raised 2026 Guidance - Simply Wall St",
+       "source": "Simply Wall St",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "ZYME SWOT Analysis: Key Insights from 10-Q Filing - GuruFocus",
+       "source": "GuruFocus",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "HC Wainwright Forecasts Strong Price Appreciation for Zymeworks (NASDAQ:ZYME) Stock - MarketBeat",
+       "source": "MarketBeat",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "A cancer drug's U.S. approval brought Zymeworks a $250 million payment - Stock Titan",
+       "source": "Stock Titan",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Zymeworks Inc. Stock 12‑Month Price Target Raised to $42.29, Implies 37% Upside - TradingView",
+       "source": "TradingView",
+       "published": "2026-11-10"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 2637,
+      "messages": 30,
+      "bullish": 5,
+      "bearish": 2,
+      "msgs_per_hour": 0.07
+     },
+     "apewisdom": {
+      "rank": null,
+      "note": "not in the top Reddit list"
+     }
+    },
+    "social_lag_days": 1,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1407": {
+   "id": "B-1407",
+   "ticker": "ALLO",
+   "date": "2026-11-10",
+   "review_time": null,
+   "review_price": 0.9319,
+   "call_type": "pass",
+   "origin": "delta",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "MIND-CHANGER MC-482 FIRED 2026-11-10: ALLO settled under its 52-week low 0.98 -> pass stands, plan dead (B-1338). The desk's own test came true; this row is the mandatory re-look. Last regular print 0.9319 (-12.1 pct). Nothing to plan.",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:32.747Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-09",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-09",
+     "spy": {
+      "ret_1d": 2.37,
+      "ret_5d": 0.08,
+      "ret_20d": -3.27,
+      "vs_sma50": -1.65,
+      "vs_sma200": 3.01
+     },
+     "qqq": {
+      "ret_1d": 3.54,
+      "ret_5d": -0.26,
+      "ret_20d": -8.94,
+      "vs_sma50": -5.68,
+      "vs_sma200": -0.27
+     },
+     "iwm": {
+      "ret_1d": 3.23,
+      "ret_5d": 1.21,
+      "ret_20d": 1.66,
+      "vs_sma50": 0.24,
+      "vs_sma200": 1.23
+     },
+     "smh": {
+      "ret_1d": 5.05,
+      "ret_5d": -4.11,
+      "ret_20d": -17.53,
+      "vs_sma50": -13.63,
+      "vs_sma200": -6.66
+     },
+     "vix": 19.92,
+     "vix_5d": -5.82,
+     "vix_term": 0.96
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 31.51,
+      "rating": "fear",
+      "asof": "2026-11-09"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-09",
+     "close": 1.06,
+     "ret_1d": 1.92,
+     "ret_5d": -2.75,
+     "ret_20d": -24.29,
+     "ret_60d": -48.29,
+     "vs_sma50": -29.38,
+     "vs_sma200": -46.02,
+     "from_52w_high": -76.23,
+     "atr_pct": 9.97,
+     "vol_ratio": 1.15,
+     "rs_5": -2.83,
+     "rs_20": -21.02,
+     "rs_60": -45.24
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": -12.26,
+     "ticker_open_gap": -1.89,
+     "spy_ret": -0.37
+    },
+    "calendar": {
+     "weekday": "Tue",
+     "last_earnings": "2026-11-06",
+     "sessions_since_earnings": 2,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": [
+      {
+       "date": "2026-11-05",
+       "hour": 16.15,
+       "items": "2.02,9.01",
+       "same_day": false
+      }
+     ]
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "ALLO stock",
+     "window": "2026-11-07..2026-11-10",
+     "count": 17,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "Allogene Therapeutics, Inc. (ALLO) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+       "source": "Yahoo! Finance Canada",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Anthropic sets IPO price range of $70 to $78, looks to start trading Nov. 19, sources say - CNBC",
+       "source": "CNBC",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Are Medical Stocks Lagging Halozyme Therapeutics (HALO) This Year? - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Eight of 10 people with scleroderma maintained meaningful skin improvement in an early study. - Stock Titan",
+       "source": "Stock Titan",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Allogene presents ALLO-329 Phase 1 data at ACR Convergence - scanx.trade",
+       "source": "scanx.trade",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Allogene reports early safety data for autoimmune CAR T therapy By Investing.com - Investing.com UK",
+       "source": "Investing.com UK",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Robo.ai Inc. (AIIO) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+       "source": "Yahoo! Finance Canada",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Does Earnings Upgrade Change The Bull Case For CareDx Stock (CDNA)? - Simply Wall St",
+       "source": "Simply Wall St",
+       "published": "2026-11-08"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 3756,
+      "messages": 30,
+      "bullish": 5,
+      "bearish": 5,
+      "msgs_per_hour": 1.16
+     },
+     "apewisdom": {
+      "rank": null,
+      "note": "not in the top Reddit list"
+     }
+    },
+    "social_lag_days": 1,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1408": {
+   "id": "B-1408",
+   "ticker": "GPRO",
+   "date": "2026-11-10",
+   "review_time": null,
+   "review_price": 0.8463,
+   "call_type": "pass",
+   "origin": "delta",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "MIND-CHANGER MC-524 FIRED 2026-11-10: GPRO settled under 0.85, the hunter short trigger the desk passed (B-1385) -> re-judge. The desk's own test came true; this row is the mandatory re-look. Last regular print 0.8463 (-3.9 pct). The B-1385 NO was on the spread (sub-1 dollar name",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:35.873Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-09",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-09",
+     "spy": {
+      "ret_1d": 2.37,
+      "ret_5d": 0.08,
+      "ret_20d": -3.27,
+      "vs_sma50": -1.65,
+      "vs_sma200": 3.01
+     },
+     "qqq": {
+      "ret_1d": 3.54,
+      "ret_5d": -0.26,
+      "ret_20d": -8.94,
+      "vs_sma50": -5.68,
+      "vs_sma200": -0.27
+     },
+     "iwm": {
+      "ret_1d": 3.23,
+      "ret_5d": 1.21,
+      "ret_20d": 1.66,
+      "vs_sma50": 0.24,
+      "vs_sma200": 1.23
+     },
+     "smh": {
+      "ret_1d": 5.05,
+      "ret_5d": -4.11,
+      "ret_20d": -17.53,
+      "vs_sma50": -13.63,
+      "vs_sma200": -6.66
+     },
+     "vix": 19.92,
+     "vix_5d": -5.82,
+     "vix_term": 0.96
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 31.51,
+      "rating": "fear",
+      "asof": "2026-11-09"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-09",
+     "close": 0.88,
+     "ret_1d": -2.33,
+     "ret_5d": -7.85,
+     "ret_20d": -26.05,
+     "ret_60d": 47.9,
+     "vs_sma50": -26.58,
+     "vs_sma200": -9.4,
+     "from_52w_high": -57.07,
+     "atr_pct": 6.4,
+     "vol_ratio": 0.65,
+     "rs_5": -7.93,
+     "rs_20": -22.78,
+     "rs_60": 50.95
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": -4.2,
+     "ticker_open_gap": -1.14,
+     "spy_ret": -0.37
+    },
+    "calendar": {
+     "weekday": "Tue",
+     "last_earnings": "2026-10-19",
+     "sessions_since_earnings": 16,
+     "next_earnings": "2026-11-11",
+     "sessions_to_earnings": 1,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": [
+      {
+       "date": "2026-11-10",
+       "hour": 16.32,
+       "items": "2.02,9.01",
+       "same_day": true
+      }
+     ]
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "GPRO stock",
+     "window": "2026-11-07..2026-11-10",
+     "count": 21,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "GoPro, Inc. (GPRO) stock price, news, quote and history - Yahoo Finance UK",
+       "source": "Yahoo Finance UK",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "GoPro Inc. stock underperforms Tuesday when compared to competitors - MarketWatch",
+       "source": "MarketWatch",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "GoPro, Inc. (GPRO) stock price, news, quote and history - Yahoo Finance Australia",
+       "source": "Yahoo Finance Australia",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "GoPro (Nasdaq:GPRO) - Stock Analysis - Simply Wall St",
+       "source": "Simply Wall St",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Latest Unusual-Volume Movers: Aterian, GoPro, ChargePoint, and More - ChartMill",
+       "source": "ChartMill",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "GoPro’s Freeride World Tour footage drew over 250 million views in 2026. - Stock Titan",
+       "source": "Stock Titan",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Stock Traders Purchase Large Volume of Put Options on GoPro (NASDAQ:GPRO) - MarketBeat",
+       "source": "MarketBeat",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "GoPro Inc. stock underperforms Monday when compared to competitors - MarketWatch",
+       "source": "MarketWatch",
+       "published": "2026-11-09"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 97435,
+      "messages": 30,
+      "bullish": 7,
+      "bearish": 3,
+      "msgs_per_hour": 18.73
+     },
+     "apewisdom": {
+      "rank": 374,
+      "mentions": 1,
+      "mentions_24h_ago": 1,
+      "upvotes": 1,
+      "rank_24h_ago": 357
+     }
+    },
+    "social_lag_days": 1,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1409": {
+   "id": "B-1409",
+   "ticker": "IREN",
+   "date": "2026-11-10",
+   "review_time": null,
+   "review_price": 19.72,
+   "call_type": "pass",
+   "origin": "routine",
+   "grade": null,
+   "readiness": 60,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "HUNT-CLOSE 2026-11-10 NO (spread). IREN short, list STALK (G1 not met: close 19.72 above the 20-session low 17.16, volume 1.25x vs 1.5x needed; G2 laggard yes, rs20 -39.7). Only spread inside the 231.88 band today: 11/20 20P/14P put debit, cost 1.70 x100 = 170 max loss, max gain ",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:38.882Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-09",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-09",
+     "spy": {
+      "ret_1d": 2.37,
+      "ret_5d": 0.08,
+      "ret_20d": -3.27,
+      "vs_sma50": -1.65,
+      "vs_sma200": 3.01
+     },
+     "qqq": {
+      "ret_1d": 3.54,
+      "ret_5d": -0.26,
+      "ret_20d": -8.94,
+      "vs_sma50": -5.68,
+      "vs_sma200": -0.27
+     },
+     "iwm": {
+      "ret_1d": 3.23,
+      "ret_5d": 1.21,
+      "ret_20d": 1.66,
+      "vs_sma50": 0.24,
+      "vs_sma200": 1.23
+     },
+     "smh": {
+      "ret_1d": 5.05,
+      "ret_5d": -4.11,
+      "ret_20d": -17.53,
+      "vs_sma50": -13.63,
+      "vs_sma200": -6.66
+     },
+     "vix": 19.92,
+     "vix_5d": -5.82,
+     "vix_term": 0.96
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 31.51,
+      "rating": "fear",
+      "asof": "2026-11-09"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-09",
+     "close": 21.41,
+     "ret_1d": -1.06,
+     "ret_5d": -2.77,
+     "ret_20d": -38.48,
+     "ret_60d": -51.41,
+     "vs_sma50": -39.84,
+     "vs_sma200": -50.64,
+     "from_52w_high": -69.72,
+     "atr_pct": 13.26,
+     "vol_ratio": 1.31,
+     "rs_5": -2.85,
+     "rs_20": -35.21,
+     "rs_60": -48.36
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": -7.85,
+     "ticker_open_gap": -2.62,
+     "spy_ret": -0.37
+    },
+    "calendar": {
+     "weekday": "Tue",
+     "last_earnings": "2026-11-06",
+     "sessions_since_earnings": 2,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": [
+      {
+       "date": "2026-11-05",
+       "hour": 16.05,
+       "items": "2.02,9.01",
+       "same_day": false
+      }
+     ]
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "IREN stock",
+     "window": "2026-11-07..2026-11-10",
+     "count": 62,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "IREN Stock Falls Even as JPMorgan Goes Bullish - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "IREN: This Is A Great Time To Go All-In (NASDAQ:IREN) - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Massive News for CoreWeave, Nebius, IREN, and Applied Digital Stock Investors - The Motley Fool",
+       "source": "The Motley Fool",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Why is IREN stock sliding today? - Investing.com",
+       "source": "Investing.com",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "IREN's $4B Revenue Goal Delayed: Is the Stock Losing Its Appeal? - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "IREN: Goldman Sachs reports 7.2% stake in IREN Limited - Quantisnow",
+       "source": "Quantisnow",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Why Is IREN Stock Falling on Monday? - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "IREN Sinks 10% as Analyst Target Cuts Pile Up After Microsoft Delay; Cipher Digital Falls 6%, TeraWulf Slides 2% - 24/7 Wall St.",
+       "source": "24/7 Wall St.",
+       "published": "2026-11-10"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 54805,
+      "messages": 30,
+      "bullish": 11,
+      "bearish": 1,
+      "msgs_per_hour": 36.12
+     },
+     "apewisdom": {
+      "rank": 23,
+      "mentions": 29,
+      "mentions_24h_ago": 11,
+      "upvotes": 188,
+      "rank_24h_ago": 68
+     }
+    },
+    "social_lag_days": 1,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1410": {
+   "id": "B-1410",
+   "ticker": "SMH",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 507.29,
+   "call_type": "pass",
+   "origin": "routine",
+   "grade": null,
+   "readiness": 40,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "PRE-MARKET 11/11 pass: SMH 507.29 pre-market (+4.9 pct) on the CoreWeave beat, gapping over the 497.33 line MC-519 watches. A pre-market print is not a settle; chips are still far under their 50-day lines. No plan before the close answers MC-519. Five catalyst movers on pump watc",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:40.923Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "no-cik",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 483.63,
+     "ret_1d": -0.78,
+     "ret_5d": -6.73,
+     "ret_20d": -17.77,
+     "ret_60d": -18.59,
+     "vs_sma50": -14.08,
+     "vs_sma200": -7.46,
+     "from_52w_high": -28.01,
+     "atr_pct": 5.33,
+     "vol_ratio": 0.85,
+     "rs_5": -6.14,
+     "rs_20": -14.16,
+     "rs_60": -15.65
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 4.82,
+     "ticker_open_gap": 4.42,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": null,
+     "sessions_since_earnings": null,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": null
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "SMH stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 28,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "VanEck Semiconductor ETF (SMH) stock price, news, quote and history - Yahoo Finance UK",
+       "source": "Yahoo Finance UK",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "VanEck Semiconductor ETF (SMH) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+       "source": "Yahoo! Finance Canada",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "CoreWeave's strong results lift chip stocks; Micron leads Quant rankings (SMH:NASDAQ) - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "$100 Invested In VanEck Semiconductor ETF 5 Years Ago Would Be Worth This Much Today - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "3 Stocks I’m Buying As The Huang Scandal Unfolds (NASDAQ:SMH) - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "$57.2 billion Treasury cash drain hits Wall Street this week: Why semiconductor stocks and SMH ETF investo - The Economic Times",
+       "source": "The Economic Times",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "VanEck Semiconductor ETF (SMH) stock price, news, quote and history - Yahoo Finance Singapore",
+       "source": "Yahoo Finance Singapore",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Cathie Wood Buys More Nvidia and AMD, Sells Broadcom in Latest ARK Trades - TradingView",
+       "source": "TradingView",
+       "published": "2026-11-09"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 19791,
+      "messages": 30,
+      "bullish": 6,
+      "bearish": 7,
+      "msgs_per_hour": 6.74
+     },
+     "apewisdom": {
+      "rank": 54,
+      "mentions": 9,
+      "mentions_24h_ago": 2,
+      "upvotes": 76,
+      "rank_24h_ago": 448
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1411": {
+   "id": "B-1411",
+   "ticker": "SMH",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 497.61,
+   "call_type": "pass",
+   "origin": "unspecified",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "No Trade at the open - SMH gapped to 507.29 pre-market and gave back 10 points by 08:45 CT to sit 0.28 over the 497.33 line; NVDA kept 2.16 of its 8.61 pre-market gain. A line being tested from above 15 minutes in is not a settle. Trigger unchanged and already watched: SMH settle",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:42.573Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "no-cik",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 483.63,
+     "ret_1d": -0.78,
+     "ret_5d": -6.73,
+     "ret_20d": -17.77,
+     "ret_60d": -18.59,
+     "vs_sma50": -14.08,
+     "vs_sma200": -7.46,
+     "from_52w_high": -28.01,
+     "atr_pct": 5.33,
+     "vol_ratio": 0.85,
+     "rs_5": -6.14,
+     "rs_20": -14.16,
+     "rs_60": -15.65
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 4.82,
+     "ticker_open_gap": 4.42,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": null,
+     "sessions_since_earnings": null,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": null
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "SMH stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 28,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "VanEck Semiconductor ETF (SMH) stock price, news, quote and history - Yahoo Finance UK",
+       "source": "Yahoo Finance UK",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "VanEck Semiconductor ETF (SMH) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+       "source": "Yahoo! Finance Canada",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "CoreWeave's strong results lift chip stocks; Micron leads Quant rankings (SMH:NASDAQ) - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "$100 Invested In VanEck Semiconductor ETF 5 Years Ago Would Be Worth This Much Today - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "3 Stocks I’m Buying As The Huang Scandal Unfolds (NASDAQ:SMH) - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "$57.2 billion Treasury cash drain hits Wall Street this week: Why semiconductor stocks and SMH ETF investo - The Economic Times",
+       "source": "The Economic Times",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "VanEck Semiconductor ETF (SMH) stock price, news, quote and history - Yahoo Finance Singapore",
+       "source": "Yahoo Finance Singapore",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Cathie Wood Buys More Nvidia and AMD, Sells Broadcom in Latest ARK Trades - TradingView",
+       "source": "TradingView",
+       "published": "2026-11-09"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 19791,
+      "messages": 30,
+      "bullish": 6,
+      "bearish": 7,
+      "msgs_per_hour": 6.74
+     },
+     "apewisdom": {
+      "rank": 54,
+      "mentions": 9,
+      "mentions_24h_ago": 2,
+      "upvotes": 76,
+      "rank_24h_ago": 448
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1412": {
+   "id": "B-1412",
+   "ticker": "CRWV",
+   "date": "2026-11-11",
+   "review_time": "09:01 CT",
+   "review_price": 57.61,
+   "call_type": "conditional",
+   "origin": "routine",
+   "grade": null,
+   "readiness": 35,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "PUMP WATCH 2026-11-11 09:01 CT - NO today, conditional re-look 11/12. Catalyst: Q3 revenue 3.66B vs 3.55B expected, FY26 guide raised (reported 11/10 pm, EPS -0.946 vs -1.53 est). Robinhood live: last 57.605 at 09:00:57 CT, prior close 48.73 (+18.2%), opening range 53.81-57.98 (f",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:45.570Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 48.73,
+     "ret_1d": -0.51,
+     "ret_5d": -9.32,
+     "ret_20d": -37.37,
+     "ret_60d": -54.03,
+     "vs_sma50": -34.27,
+     "vs_sma200": -45.68,
+     "from_52w_high": -64.75,
+     "atr_pct": 11.12,
+     "vol_ratio": 1.29,
+     "rs_5": -8.73,
+     "rs_20": -33.76,
+     "rs_60": -51.09
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 24.71,
+     "ticker_open_gap": 14.86,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": "2026-08-12",
+     "sessions_since_earnings": 64,
+     "next_earnings": "2026-11-11",
+     "sessions_to_earnings": 0,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": [
+      {
+       "date": "2026-11-10",
+       "hour": 16.08,
+       "items": "2.02,9.01",
+       "same_day": false
+      }
+     ]
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "CRWV stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 100,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "CoreWeave, Inc. (CRWV) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+       "source": "Yahoo! Finance Canada",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "CoreWeave stock surges as Q3 revenue beats estimates, company raises full-year outlook - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "CoreWeave beats on revenue and lifts guidance, easing AI slowdown concerns - CNBC",
+       "source": "CNBC",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Little-Known CoreWeave CEO Line Helps Fuel 15% CRWV Stock Rally - BeInCrypto",
+       "source": "BeInCrypto",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "CoreWeave Surges 20% After Q3 Earnings. What Comes Next for CRWV Stock. - Barchart.com",
+       "source": "Barchart.com",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "CoreWeave (NASDAQ: CRWV) stock price forecast: Shares rebound after record $3.66 bn revenue and $132.5 bn backlog - Beinsure",
+       "source": "Beinsure",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Biggest stock movers Wednesday: CRWV, RGTI, LWLG, and more - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "CRWV Stock Surges 15% Pre-Market as CoreWeave Touts $133 Billion Backlog — But Short Seller Jim Chanos Wa - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-11"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 54858,
+      "messages": 30,
+      "bullish": 12,
+      "bearish": 3,
+      "msgs_per_hour": 106.4
+     },
+     "apewisdom": {
+      "rank": 2,
+      "mentions": 331,
+      "mentions_24h_ago": 164,
+      "upvotes": 997,
+      "rank_24h_ago": 20
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1413": {
+   "id": "B-1413",
+   "ticker": "NBIS",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 155.41,
+   "call_type": "conditional",
+   "origin": "routine",
+   "grade": null,
+   "readiness": 20,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "PUMP WATCH 2026-11-11 09:05 CT - NO today, conditional re-look 11/12 after the print. Catalyst: neocloud read-through from the CoreWeave beat; NBIS own Q3 earnings Thu 11/12 before the open (Robinhood calendar, verified, EPS est -1.11). DECIDER: earnings inside the hold = NO (the",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:48.461Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 134,
+     "ret_1d": -5.27,
+     "ret_5d": -11.63,
+     "ret_20d": -35.22,
+     "ret_60d": -50.16,
+     "vs_sma50": -32.63,
+     "vs_sma200": -25.07,
+     "from_52w_high": -55.31,
+     "atr_pct": 11.77,
+     "vol_ratio": 0.81,
+     "rs_5": -11.04,
+     "rs_20": -31.61,
+     "rs_60": -47.22
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 15.44,
+     "ticker_open_gap": 11.73,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": null,
+     "sessions_since_earnings": null,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "NBIS stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 33,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "NBIS Stock Jumps Over 11% On CoreWeave Boost: Analysts Expect Over Six-Fold Growth In Sales In Upcoming Q3 Report - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Nebius Group (NASDAQ: NBIS) stock price forecast: AI infrastructure growth drives Wall Street's bullish outlook - Beinsure",
+       "source": "Beinsure",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Why Is Nebius Group Stock Soaring Wednesday? - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "NBIS Stock Quote Price and Forecast - CNN",
+       "source": "CNN",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "AI Stock Cloud Stock Nebius (Nasdaq: NBIS) Gains on Third Quarter Expectations following CoreWeave's (Nasdaq:CRWV) Success - Investorideas.com",
+       "source": "Investorideas.com",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Why is Nebius stock up today? CoreWeave's results lifted AI cloud stocks a day before Nebius reports - Nacionale",
+       "source": "Nacionale",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Nebius: The First Domino In The AI Collapse (NASDAQ:NBIS) - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Nebius Group (NASDAQ:NBIS) Shares Gap Up - Should You Buy? - MarketBeat",
+       "source": "MarketBeat",
+       "published": "2026-11-11"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 56400,
+      "messages": 30,
+      "bullish": 13,
+      "bearish": 2,
+      "msgs_per_hour": 71.76
+     },
+     "apewisdom": {
+      "rank": 6,
+      "mentions": 205,
+      "mentions_24h_ago": 41,
+      "upvotes": 458,
+      "rank_24h_ago": 21
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1414": {
+   "id": "B-1414",
+   "ticker": "COHR",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 232.78,
+   "call_type": "conditional",
+   "origin": "routine",
+   "grade": null,
+   "readiness": 25,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "PUMP WATCH NO - no ticket today. Pump read UP at 09:05 CT (9.78 pct gap holding over VWAP 231.16, pace 1.6x) but live 232.78 at 09:07 CT never broke the opening-range high 238.65 (first 30-min bar 223.67-238.65, closed 229.35, RH). Decided by 2:1: entry 238.65, tightest legal sto",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:51.273Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 214.66,
+     "ret_1d": -4.68,
+     "ret_5d": 3.46,
+     "ret_20d": -25.97,
+     "ret_60d": -38.88,
+     "vs_sma50": -19.8,
+     "vs_sma200": -27.64,
+     "from_52w_high": -51.21,
+     "atr_pct": 10.35,
+     "vol_ratio": 1.18,
+     "rs_5": 4.05,
+     "rs_20": -22.36,
+     "rs_60": -35.94
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 9.25,
+     "ticker_open_gap": 9.78,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": "2026-11-05",
+     "sessions_since_earnings": 4,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "COHR stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 24,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "COHR Stock Gains 10% After Strong Q1 Earnings: Is it Still a Buy? - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "symbol__ Stock Quote Price and Forecast - CNN",
+       "source": "CNN",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Coherent (COHR) Could Be 45% Undervalued On Strong Q1 Results And Guidance - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Why Are Coherent (COHR) Shares Jumping On Renewed AI Infrastructure Optimism? - Simply Wall St",
+       "source": "Simply Wall St",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "What Just Happened To Coherent Stock? - Trefis",
+       "source": "Trefis",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Coherent Stock Price Forecast. Should You Buy COHR? - StockInvest.us",
+       "source": "StockInvest.us",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Here's How Much $100 Invested In Coherent 10 Years Ago Would Be Worth Today - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Coherent continues rebound, rises 19% (COHR:NYSE) - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-09"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 11780,
+      "messages": 30,
+      "bullish": 12,
+      "bearish": 3,
+      "msgs_per_hour": 1.1
+     },
+     "apewisdom": {
+      "rank": 329,
+      "mentions": 1,
+      "mentions_24h_ago": null,
+      "upvotes": 1,
+      "rank_24h_ago": 320
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1415": {
+   "id": "B-1415",
+   "ticker": "AMZN",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 268.675,
+   "call_type": "long",
+   "origin": "delta",
+   "grade": null,
+   "readiness": 59,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "ENTRY CHECK 2026-11-11 on B-1351: first 30-min bar O 273.31 H 274.87 L 268.19 C 268.675 on 2.98M, closed 4.925 ABOVE the 263.75 ceiling (zone 262.78-263.75, the highest entry that still pays 2:1 to 287.20 with stop 252.10). NO TRADE, do not chase, ceiling never raised in the morn",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:54.254Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 270.87,
+     "ret_1d": 1.48,
+     "ret_5d": 8.05,
+     "ret_20d": 4.75,
+     "ret_60d": 3.66,
+     "vs_sma50": 6.57,
+     "vs_sma200": 10.9,
+     "from_52w_high": -5.69,
+     "atr_pct": 3.94,
+     "vol_ratio": 0.78,
+     "rs_5": 8.64,
+     "rs_20": 8.36,
+     "rs_60": 6.6
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": -1.74,
+     "ticker_open_gap": 0.88,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": "2026-10-30",
+     "sessions_since_earnings": 8,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "AMZN stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 100,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "A Major Catalyst Could Send Amazon Stock to New Highs - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Cathie Wood's ARK Pares Amazon, Adds These Aerospace Stocks - Investor's Business Daily",
+       "source": "Investor's Business Daily",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Andy Jassy Just Announced Fantastic News for Amazon Stock Investors - The Motley Fool",
+       "source": "The Motley Fool",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "AWS CEO Matt Garman Says AI Inference Isn’t ‘Even 1%’ of What It Will Become. AMZN Stock Is 1 of 3 Stocks to Buy. - Barchart.com",
+       "source": "Barchart.com",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Will Rising AI Capex Weigh on Amazon's Free Cash Flow Prospects? - TradingView",
+       "source": "TradingView",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Stock Grader Upgrades & Downgrades: MetLife, Allstate, Amazon - InvestorPlace",
+       "source": "InvestorPlace",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Amazon Stock Climbs: What's Going On? - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Why Amazon (AMZN) stock is up today - FinancialContent",
+       "source": "FinancialContent",
+       "published": "2026-11-09"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 711083,
+      "messages": 30,
+      "bullish": 11,
+      "bearish": 0,
+      "msgs_per_hour": 17.52
+     },
+     "apewisdom": {
+      "rank": 21,
+      "mentions": 30,
+      "mentions_24h_ago": 38,
+      "upvotes": 39,
+      "rank_24h_ago": 15
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1416": {
+   "id": "B-1416",
+   "ticker": "ARM",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 191.505,
+   "call_type": "pass",
+   "origin": "delta",
+   "grade": null,
+   "readiness": 30,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "ENTRY CHECK 2026-11-11 on B-1344 short test: first 30-min bar O 191.93 H 192.85 L 188.425 C 191.505 on 282K, closed INSIDE the 180.72-191.80 short band, 0.295 under its top. Bar HELD the band, but readiness is 30 (B-1394), under the 50 line = WATCHLIST ONLY, so NO TICKET: not an ",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:57.332Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 181.49,
+     "ret_1d": -2.58,
+     "ret_5d": -10.37,
+     "ret_20d": -28.94,
+     "ret_60d": -33.14,
+     "vs_sma50": -27.55,
+     "vs_sma200": -21.61,
+     "from_52w_high": -59.91,
+     "atr_pct": 8.08,
+     "vol_ratio": 0.71,
+     "rs_5": -9.78,
+     "rs_20": -25.33,
+     "rs_60": -30.2
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 12.05,
+     "ticker_open_gap": 5.63,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": null,
+     "sessions_since_earnings": null,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "ARM stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 30,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "What Is Going on With Arm Holdings Stock on Wednesday? - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Server CPU strength persists as AMD and Arm gain share: UBS - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "CoreWeave just gave a shot in the arm to Micron, Lumentum and the rest of the AI trade - MarketWatch",
+       "source": "MarketWatch",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Mortgage Locks Plunge 19% Despite Rate Relief, ARM Share Hits New High - National Mortgage Professional",
+       "source": "National Mortgage Professional",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Is Arm Stock a Buy on the Dip as Agentic AI Opportunity Emerges? - The Motley Fool",
+       "source": "The Motley Fool",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Arm Holdings PLC Stock (ARM) Moved Up by 13.03% on Nov 11: A Full Analysis - TradingKey",
+       "source": "TradingKey",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Don’t Chase the Arm Stock Dip Yet. What Patient Investors Should Wait for Before They Buy. - Barchart.com",
+       "source": "Barchart.com",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Arm stock rises 4.8% as Nvidia earnings spark sector rally - scanx.trade",
+       "source": "scanx.trade",
+       "published": "2026-11-11"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 34289,
+      "messages": 30,
+      "bullish": 10,
+      "bearish": 0,
+      "msgs_per_hour": 1.25
+     },
+     "apewisdom": {
+      "rank": 774,
+      "mentions": 1,
+      "mentions_24h_ago": 2,
+      "upvotes": 2,
+      "rank_24h_ago": 702
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1417": {
+   "id": "B-1417",
+   "ticker": "NVDA",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 175.82,
+   "call_type": "conditional",
+   "origin": "adam",
+   "grade": null,
+   "readiness": 35,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "PUMP WATCH NVDA 2026-11-11 09:56 CT: NO today. Tape direction UP: broke the 175.13 opening-range high (OR 170.77-175.13) over VWAP on 2.4x pace, live 175.82 (+4.1 pct on 168.89), but SMH is +5.5 pct and SOXX leads it again. Decided by 2:1: Company Catalyst Lane long over 175.13 n",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:33:59.548Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 168.89,
+     "ret_1d": -5.47,
+     "ret_5d": -18.29,
+     "ret_20d": -26.09,
+     "ret_60d": -24.94,
+     "vs_sma50": -22.53,
+     "vs_sma200": -17.43,
+     "from_52w_high": -30.6,
+     "atr_pct": 5.5,
+     "vol_ratio": 3.13,
+     "rs_5": -17.7,
+     "rs_20": -22.48,
+     "rs_60": -22
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 2.87,
+     "ticker_open_gap": 2.27,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": "2026-08-27",
+     "sessions_since_earnings": 53,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "NVDA stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 100,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "Nvidia Stock Rises Despite Wall Street’s First Call for CEO Huang to Step Down - Barron's",
+       "source": "Barron's",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Wall Street is cooling on Jensen Huang's Nvidia — but history says don't give up on the stock just yet - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Nvidia shares rebound as Jensen Huang faces scrutiny ahead of earnings - CNBC",
+       "source": "CNBC",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Nvidia stock faces rare downgrades as board investigates CEO Jensen Huang's admitted affair - Fox Business",
+       "source": "Fox Business",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Nvidia Downgraded Ahead Of Report, But Stock Joins AI Rebound - Investor's Business Daily",
+       "source": "Investor's Business Daily",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Prediction: Nvidia Stock Will Be Worth This Much by Year-End 2027 - The Motley Fool",
+       "source": "The Motley Fool",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Explainer: Could Huang, Nvidia and company's board be held liable over affair scandal? - Reuters",
+       "source": "Reuters",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Prediction: Nvidia Stock Will Be Worth This Much by Year-End 2027 - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-11"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 679665,
+      "messages": 30,
+      "bullish": 7,
+      "bearish": 5,
+      "msgs_per_hour": 169.81
+     },
+     "apewisdom": {
+      "rank": 1,
+      "mentions": 804,
+      "mentions_24h_ago": 1212,
+      "upvotes": 5543,
+      "rank_24h_ago": 1
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1418": {
+   "id": "B-1418",
+   "ticker": "DELL",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 374.59,
+   "call_type": "pass",
+   "origin": "unspecified",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "No Trade - DELL +12.0% at 10:11 CT on the CoreWeave read-through, no company news, about half a normal day's volume in the first 100 minutes. A bounce inside a downtrend (52-week high 595.51 on 9/18), not chased 12% up. Stack up 6-12% (MU +12.5%, MRVL +11.0%, SMCI +10.4%) while t",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:34:02.522Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 334.38,
+     "ret_1d": -3.44,
+     "ret_5d": -18.12,
+     "ret_20d": -41.59,
+     "ret_60d": -30.31,
+     "vs_sma50": -33.18,
+     "vs_sma200": -1.57,
+     "from_52w_high": -43.85,
+     "atr_pct": 9.94,
+     "vol_ratio": 0.88,
+     "rs_5": -17.53,
+     "rs_20": -37.98,
+     "rs_60": -27.37
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 11.75,
+     "ticker_open_gap": 7.78,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": "2026-09-02",
+     "sessions_since_earnings": 49,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "DELL stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 49,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "Is Dell Stock Priced Right Against Its Peers? - Yahoo Finance",
+       "source": "Yahoo Finance",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Dell Has a $95 Billion AI Server Backlog. Is the Stock a Buy? - The Motley Fool",
+       "source": "The Motley Fool",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Dell Technologies Inc. Cl C stock rises Wednesday, outperforms market - MarketWatch",
+       "source": "MarketWatch",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Tech rally takes Dell Technologies higher by 14% (DELL:NYSE) - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Dell Jumps 11% as AI Server Stocks Rebound From a Rough Month; Super Micro Surges 8%, Hewlett Packard Enterprise Advances 6% - 24/7 Wall St.",
+       "source": "24/7 Wall St.",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Dell Stocks Jump 11.42% as CoreWeave's Bigger Spending Plan Revives AI Server Bets - TradingView",
+       "source": "TradingView",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Why is Dell Technologies stock surging today? - Investing.com",
+       "source": "Investing.com",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Jensen Huang, Michael Dell And Larry Ellison Gain $30B - Forbes Middle East",
+       "source": "Forbes Middle East",
+       "published": "2026-11-11"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 31846,
+      "messages": 30,
+      "bullish": 9,
+      "bearish": 0,
+      "msgs_per_hour": 7.32
+     },
+     "apewisdom": {
+      "rank": 80,
+      "mentions": 5,
+      "mentions_24h_ago": 1,
+      "upvotes": 6,
+      "rank_24h_ago": 338
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1419": {
+   "id": "B-1419",
+   "ticker": "SMH",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 515.81,
+   "call_type": "pass",
+   "origin": "routine",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "No Trade at midday 11/11 - SMH 515.81 (+6.7%) is 18 points over the 497.33 settle line (MC-519) but the judgement is the close, not 11:32 CT; buyers layer still red (MSFT -2.3%, AMZN -1.5%) and RSP +0.65% vs SPY +1.5% says narrow. Existing triggers carry it: MC-519 SMH settle ove",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:34:04.291Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "no-cik",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 483.63,
+     "ret_1d": -0.78,
+     "ret_5d": -6.73,
+     "ret_20d": -17.77,
+     "ret_60d": -18.59,
+     "vs_sma50": -14.08,
+     "vs_sma200": -7.46,
+     "from_52w_high": -28.01,
+     "atr_pct": 5.33,
+     "vol_ratio": 0.85,
+     "rs_5": -6.14,
+     "rs_20": -14.16,
+     "rs_60": -15.65
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 4.82,
+     "ticker_open_gap": 4.42,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": null,
+     "sessions_since_earnings": null,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": null
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "SMH stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 28,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "VanEck Semiconductor ETF (SMH) stock price, news, quote and history - Yahoo Finance UK",
+       "source": "Yahoo Finance UK",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "VanEck Semiconductor ETF (SMH) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+       "source": "Yahoo! Finance Canada",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "CoreWeave's strong results lift chip stocks; Micron leads Quant rankings (SMH:NASDAQ) - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "$100 Invested In VanEck Semiconductor ETF 5 Years Ago Would Be Worth This Much Today - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "3 Stocks I’m Buying As The Huang Scandal Unfolds (NASDAQ:SMH) - Seeking Alpha",
+       "source": "Seeking Alpha",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "$57.2 billion Treasury cash drain hits Wall Street this week: Why semiconductor stocks and SMH ETF investo - The Economic Times",
+       "source": "The Economic Times",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "VanEck Semiconductor ETF (SMH) stock price, news, quote and history - Yahoo Finance Singapore",
+       "source": "Yahoo Finance Singapore",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Cathie Wood Buys More Nvidia and AMD, Sells Broadcom in Latest ARK Trades - TradingView",
+       "source": "TradingView",
+       "published": "2026-11-09"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 19791,
+      "messages": 30,
+      "bullish": 6,
+      "bearish": 7,
+      "msgs_per_hour": 6.76
+     },
+     "apewisdom": {
+      "rank": 54,
+      "mentions": 9,
+      "mentions_24h_ago": 2,
+      "upvotes": 76,
+      "rank_24h_ago": 448
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1420": {
+   "id": "B-1420",
+   "ticker": "MSFT",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 520.3,
+   "call_type": "pass",
+   "origin": "unspecified",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "No Trade - at 13:11 CT the buyers are still red three hours after the 10:11 read: MSFT 520.30 (-2.4%, no news found, volume ordinary), AMZN -1.9%, META -0.9%, only GOOGL +2.2%, while SMH is +5.8% and MU +12.8%, DELL +13.7%, MRVL +10.9%, AMD +9.1%. Volume splits the stack: AMD alr",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:34:07.211Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 533.16,
+     "ret_1d": -2.2,
+     "ret_5d": 2.34,
+     "ret_20d": -1.89,
+     "ret_60d": 10.99,
+     "vs_sma50": 2.97,
+     "vs_sma200": 21.02,
+     "from_52w_high": -4.65,
+     "atr_pct": 3.24,
+     "vol_ratio": 1.04,
+     "rs_5": 2.93,
+     "rs_20": 1.72,
+     "rs_60": 13.93
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": -2.26,
+     "ticker_open_gap": 0.2,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": "2026-10-29",
+     "sessions_since_earnings": 9,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "MSFT stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 45,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "Microsoft Corporation (MSFT) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+       "source": "Yahoo! Finance Canada",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Microsoft Corporation (MSFT) stock price, news, quote and history - Yahoo Finance UK",
+       "source": "Yahoo Finance UK",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Why is Microsoft stock sliding today? - Investing.com",
+       "source": "Investing.com",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "What's Going On With Microsoft Stock Wednesday? - Benzinga",
+       "source": "Benzinga",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "What Has Changed About Owning Microsoft Stock? - Trefis",
+       "source": "Trefis",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "AI Data Center Demand Revives Microsoft After Selling Pressure - FXEmpire",
+       "source": "FXEmpire",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Microsoft Stock Suddenly Has an Anthropic Problem - TradingView",
+       "source": "TradingView",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "MSFT Stock Heads to $500 as Microsoft Data-Centre Spending and Anthropic Competition Intensify - FXLeaders",
+       "source": "FXLeaders",
+       "published": "2026-11-11"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 556352,
+      "messages": 30,
+      "bullish": 4,
+      "bearish": 2,
+      "msgs_per_hour": 26.61
+     },
+     "apewisdom": {
+      "rank": 9,
+      "mentions": 80,
+      "mentions_24h_ago": 89,
+      "upvotes": 97,
+      "rank_24h_ago": 8
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1421": {
+   "id": "B-1421",
+   "ticker": "SPY",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 760.67,
+   "call_type": "pass",
+   "origin": "unspecified",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "No Trade - power hour 14:02 CT. SPY 760.67 (+1.4%) sits 2.26 over the 758.41 settle line (MC-525) with a 7.60 day range, so the close decides it; 765.35 (MC-515) not reached. Chip settle tests have cushion: MU 818.31 vs 761.81, AMD 559.11 vs 520.40, SMH 510.90 vs 497.33. MSFT 520",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:34:09.943Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 749.92,
+     "ret_1d": -0.37,
+     "ret_5d": -0.59,
+     "ret_20d": -3.61,
+     "ret_60d": -2.94,
+     "vs_sma50": -1.97,
+     "vs_sma200": 2.59,
+     "from_52w_high": -4.06,
+     "atr_pct": 1.61,
+     "vol_ratio": 0.84,
+     "rs_5": 0,
+     "rs_20": 0,
+     "rs_60": 0
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 1.32,
+     "ticker_open_gap": 0.92,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": null,
+     "sessions_since_earnings": null,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "SPY stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 91,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "Nvidia’s Bull Case Hinges on CEO Huang Surviving China Spy Probe - Bloomberg.com",
+       "source": "Bloomberg.com",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Nvidia sells off for second day in fallout from Jensen Huang’s affair with alleged spy - CNBC",
+       "source": "CNBC",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Nvidia stock rebounds as scrutiny into Huang mounts - The Hill",
+       "source": "The Hill",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Is Nvidia Stock a Buy on the Spy Allegation Sell-Off? - The Motley Fool",
+       "source": "The Motley Fool",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "What do Nvidia's stock struggles mean for your 401(k)? - ABC News - Breaking News, Latest News and Videos",
+       "source": "ABC News - Breaking News, Latest News and Videos",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Nvidia shares sink while stock market surges - NBC News",
+       "source": "NBC News",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Nvidia Stock and AI World Rocked by CEO Jensen Huang’s Affair With Alleged Chinese Spy - Variety",
+       "source": "Variety",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Investors Brush Off Election, Selloff and Even Nvidia’s Spy Scandal to Buy Stocks - WSJ",
+       "source": "WSJ",
+       "published": "2026-11-09"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 640002,
+      "messages": 30,
+      "bullish": 11,
+      "bearish": 4,
+      "msgs_per_hour": 129.81
+     },
+     "apewisdom": {
+      "rank": 3,
+      "mentions": 259,
+      "mentions_24h_ago": 306,
+      "upvotes": 522,
+      "rank_24h_ago": 2
+     }
+    },
+    "social_lag_days": 0,
+    "social_note": "Stocktwits and ApeWisdom as of captured_at; social_lag_days is how long after the call that was"
+   },
+   "retries": 0
+  },
+  "B-1422": {
+   "id": "B-1422",
+   "ticker": "SPY",
+   "date": "2026-11-11",
+   "review_time": null,
+   "review_price": 759.79,
+   "call_type": "pass",
+   "origin": "unspecified",
+   "grade": null,
+   "readiness": null,
+   "fomo": null,
+   "market_risk": null,
+   "confidence_pct": null,
+   "call": "Closing read 11/11: SPY settled 759.79, 1.38 over 758.41 (MC-525 fired) but under the 765.35 50-day (MC-515). Chip stack closed over its lines (SMH 507.23 over 497.33 MC-519, MU 812.00 over 761.81 MC-463, AMD 552.96 over 520.40 MC-493) while three of four hyperscaler buyers close",
+   "outcome": {
+    "result": null,
+    "horizon": null,
+    "alpha": null,
+    "asset_pct": null,
+    "note": null,
+    "checkpoints": {}
+   },
+   "context": {
+    "captured_at": "2026-11-11T21:34:11.714Z",
+    "mode": "live",
+    "data_ok": {
+     "bars": true,
+     "asof": "2026-11-10",
+     "stale": false,
+     "market": true,
+     "fng": true,
+     "edgar": "ok",
+     "news": true
+    },
+    "market": {
+     "asof": "2026-11-10",
+     "spy": {
+      "ret_1d": -0.37,
+      "ret_5d": -0.59,
+      "ret_20d": -3.61,
+      "vs_sma50": -1.97,
+      "vs_sma200": 2.59
+     },
+     "qqq": {
+      "ret_1d": -0.68,
+      "ret_5d": -1.54,
+      "ret_20d": -9.25,
+      "vs_sma50": -6.2,
+      "vs_sma200": -0.98
+     },
+     "iwm": {
+      "ret_1d": -0.68,
+      "ret_5d": 0.28,
+      "ret_20d": 1.4,
+      "vs_sma50": -0.35,
+      "vs_sma200": 0.5
+     },
+     "smh": {
+      "ret_1d": -0.78,
+      "ret_5d": -6.73,
+      "ret_20d": -17.77,
+      "vs_sma50": -14.08,
+      "vs_sma200": -7.46
+     },
+     "vix": 19.46,
+     "vix_5d": -6.58,
+     "vix_term": 0.94
+    },
+    "sentiment": {
+     "fear_greed": {
+      "score": 37.37,
+      "rating": "fear",
+      "asof": "2026-11-10"
+     },
+     "vix_band": "normal (15-20)"
+    },
+    "ticker": {
+     "asof": "2026-11-10",
+     "close": 749.92,
+     "ret_1d": -0.37,
+     "ret_5d": -0.59,
+     "ret_20d": -3.61,
+     "ret_60d": -2.94,
+     "vs_sma50": -1.97,
+     "vs_sma200": 2.59,
+     "from_52w_high": -4.06,
+     "atr_pct": 1.61,
+     "vol_ratio": 0.84,
+     "rs_5": 0,
+     "rs_20": 0,
+     "rs_60": 0
+    },
+    "same_day": {
+     "note": "the call day's own bar; for an intraday call part of it came AFTER the call",
+     "ticker_ret": 1.32,
+     "ticker_open_gap": 0.92,
+     "spy_ret": 1.32
+    },
+    "calendar": {
+     "weekday": "Wed",
+     "last_earnings": null,
+     "sessions_since_earnings": null,
+     "next_earnings": null,
+     "sessions_to_earnings": null,
+     "next_earnings_known_in_hindsight": false,
+     "eight_k": []
+    },
+    "news": {
+     "source": "google-news-rss",
+     "query": "SPY stock",
+     "window": "2026-11-08..2026-11-11",
+     "count": 91,
+     "same_day_included": true,
+     "headlines": [
+      {
+       "title": "Nvidia’s Bull Case Hinges on CEO Huang Surviving China Spy Probe - Bloomberg.com",
+       "source": "Bloomberg.com",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Nvidia sells off for second day in fallout from Jensen Huang’s affair with alleged spy - CNBC",
+       "source": "CNBC",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Nvidia stock rebounds as scrutiny into Huang mounts - The Hill",
+       "source": "The Hill",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Is Nvidia Stock a Buy on the Spy Allegation Sell-Off? - The Motley Fool",
+       "source": "The Motley Fool",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "What do Nvidia's stock struggles mean for your 401(k)? - ABC News - Breaking News, Latest News and Videos",
+       "source": "ABC News - Breaking News, Latest News and Videos",
+       "published": "2026-11-11"
+      },
+      {
+       "title": "Nvidia shares sink while stock market surges - NBC News",
+       "source": "NBC News",
+       "published": "2026-11-09"
+      },
+      {
+       "title": "Nvidia Stock and AI World Rocked by CEO Jensen Huang’s Affair With Alleged Chinese Spy - Variety",
+       "source": "Variety",
+       "published": "2026-11-10"
+      },
+      {
+       "title": "Investors Brush Off Election, Selloff and Even Nvidia’s Spy Scandal to Buy Stocks - WSJ",
+       "source": "WSJ",
+       "published": "2026-11-09"
+      }
+     ]
+    },
+    "social": {
+     "stocktwits": {
+      "watchers": 640002,
+      "messages": 30,
+      "bullish": 11,
+      "bearish": 4,
+      "msgs_per_hour": 129.81
+     },
+     "apewisdom": {
+      "rank": 3,
+      "mentions": 259,
+      "mentions_24h_ago": 306,
+      "upvotes": 522,
+      "rank_24h_ago": 2
      }
     },
     "social_lag_days": 0,
