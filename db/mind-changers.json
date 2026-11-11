@@ -9164,6 +9164,54 @@
       "row": "B-1409",
       "expires": "2026-11-17",
       "status": "open"
+    },
+    {
+      "id": "MC-529",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "CRWV",
+          "op": ">",
+          "level": 57.98
+        }
+      ],
+      "meaning": "closed over the 11/11 opening-range high: re-look the catalyst-lane long (ceiling 58.66, target 69.76)",
+      "source": "docs/reads/2026-11-11-trip-CRWV.md",
+      "row": "B-1412",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-530",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "CRWV",
+          "op": "<",
+          "level": 53.81
+        }
+      ],
+      "meaning": "gap failed: closed under the 11/11 opening-range low, the pump-watch long plan is dead",
+      "source": "docs/reads/2026-11-11-trip-CRWV.md",
+      "row": "B-1412",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-531",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "CRWV",
+          "op": ">=",
+          "level": 69.76
+        }
+      ],
+      "meaning": "reached the 10/15 pivot target the desk passed on (scores B-1412 as a miss)",
+      "source": "docs/reads/2026-11-11-trip-CRWV.md",
+      "row": "B-1412",
+      "expires": "2026-11-25",
+      "status": "open"
     }
   ]
 }
