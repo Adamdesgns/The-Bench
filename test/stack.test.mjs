@@ -8,7 +8,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
   atr14, pivotLows, addLevels, isSpikeDay, settledBars, parseGate, addName, setTranche,
-  recordBuy, position, scoreName, tranchePlan, checkTouches, spikeRead, levelsAsOf,
+  recordBuy, position, scoreName, tranchePlan, checkTouches, spikeRead, levelsAsOf, chartRows,
 } from "../scripts/stack.mjs";
 
 const day = (i) => new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10);
@@ -297,4 +297,35 @@ test("the report prints the watch score", () => {
   assert.match(r.stdout, /watch/i);
   assert.match(r.stdout, /SPY/);
   assert.match(r.stdout, /price return/i);
+});
+
+// Yahoo left today's close empty for ASTS and SPCX after the 2026-11-10 bell while its quote had the price.
+// Dropping that bar made the report print Monday's close as Tuesday's price (ASTS -1.78% shown, -10.3% real).
+// The payload as Yahoo sent it that night: both bars open at 09:30 ET, the newest close empty, the quote settled.
+const sec = (iso) => Date.parse(iso) / 1000;
+const astsChart = ({ close = null, rmt = "2026-11-10T21:00:01Z" } = {}) => ({
+  meta: {
+    exchangeTimezoneName: "America/New_York", regularMarketPrice: 33.69, regularMarketTime: sec(rmt),
+    currentTradingPeriod: { regular: { start: sec("2026-11-10T14:30:00Z"), end: sec("2026-11-10T21:00:00Z") } },
+  },
+  timestamp: [sec("2026-11-09T14:30:00Z"), sec("2026-11-10T14:30:00Z")],
+  indicators: { quote: [{ open: [37, 34.13], high: [38, 36.84], low: [36, 31.96], close: [36.89, close], volume: [1, 25613003] }] },
+});
+
+test("after the bell an empty newest close takes the settled quote, so the report prices today", () => {
+  const rows = chartRows(astsChart(), { now: new Date("2026-11-11T01:39:00Z") });
+  assert.equal(rows.length, 2);
+  assert.deepEqual(rows[1], { d: "2026-11-10", o: 34.13, h: 36.84, l: 31.96, c: 33.69, v: 25613003 });
+  assert.equal(rows[0].c, 36.89);
+});
+
+test("mid-session an empty newest close is not a close yet, so that bar is left out", () => {
+  const rows = chartRows(astsChart({ rmt: "2026-11-10T17:00:00Z" }), { now: new Date("2026-11-10T17:00:30Z") });
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].d, "2026-11-09");
+});
+
+test("a newest bar that has its own close keeps it", () => {
+  const rows = chartRows(astsChart({ close: 33.7 }), { now: new Date("2026-11-11T01:39:00Z") });
+  assert.equal(rows[1].c, 33.7);
 });

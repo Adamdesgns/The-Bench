@@ -22,6 +22,7 @@
 import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { settledCloses } from "../server/yahooClose.js";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const round = (n, d = 2) => Math.round((n + Number.EPSILON) * 10 ** d) / 10 ** d;
@@ -86,6 +87,17 @@ export function spikeRead({ settled, live, price }) {
 
 // A level written during a session starts counting the next session: that day's low happened before it existed.
 export const levelsAsOf = ({ settled, live }) => live?.d ?? settled.at(-1).d;
+
+// Yahoo can post the newest daily bar with an empty close for hours after the bell while its quote already has
+// the price. Dropping that bar printed Monday's close as Tuesday's price (ASTS, SPCX 2026-11-10), so the shared
+// settledCloses fills it from the quote, only once that session is over, the same rule hunt-short and rs use.
+export function chartRows(result, { now } = {}) {
+  const iso = (s) => new Date(s * 1000).toISOString().slice(0, 10);
+  const q = result.indicators.quote[0], { closes } = settledCloses(result, now ? { now } : {});
+  return result.timestamp
+    .map((s, n) => ({ d: iso(s), o: q.open[n], h: q.high[n], l: q.low[n], c: closes[n], v: q.volume[n] }))
+    .filter((b) => b.c != null && b.l != null && b.h != null);
+}
 
 // While the session is open today's daily bar is a moving target: it gives a price, never a level.
 export function settledBars(bars, { nyDate, nyMinutes }) {
@@ -197,8 +209,8 @@ async function bars(sym) {
     try {
       const r = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=2y&events=split`, { headers: { "User-Agent": "Mozilla/5.0" } });
       if (r.ok) {
-        const c = (await r.json()).chart.result[0], q = c.indicators.quote[0];
-        const rows = c.timestamp.map((s, n) => ({ d: iso(s), o: q.open[n], h: q.high[n], l: q.low[n], c: q.close[n], v: q.volume[n] })).filter((b) => b.c != null && b.l != null && b.h != null);
+        const c = (await r.json()).chart.result[0];
+        const rows = chartRows(c);
         return { rows, splits: Object.values(c.events?.splits ?? {}).map((s) => ({ d: iso(s.date), factor: s.numerator / s.denominator })) };
       }
     } catch { /* retried below */ }
