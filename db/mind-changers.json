@@ -9292,6 +9292,54 @@
       "row": "B-1414",
       "expires": "2026-11-12",
       "status": "open"
+    },
+    {
+      "id": "MC-537",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 179.92
+        }
+      ],
+      "meaning": "B-1417 next-session trigger: over the 11/09 high; re-judge the long (needs first 30-min close above, rs off both-window trail, 2:1)",
+      "source": "docs/reads/2026-11-11-trip-NVDA.md",
+      "row": "B-1417",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-538",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 170.77
+        }
+      ],
+      "meaning": "B-1417 invalidated: back under the 11/11 opening-range low, the UP read is dead",
+      "source": "docs/reads/2026-11-11-trip-NVDA.md",
+      "row": "B-1417",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-539",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">=",
+          "level": 196.25
+        }
+      ],
+      "meaning": "B-1417 plan target (11/05 high) reached",
+      "source": "docs/reads/2026-11-11-trip-NVDA.md",
+      "row": "B-1417",
+      "expires": "2026-11-17",
+      "status": "open"
     }
   ]
 }
