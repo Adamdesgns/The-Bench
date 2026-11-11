@@ -1,0 +1,123 @@
+{
+  "schema": "bench-prepump-manifest-v1",
+  "quality_version": 2,
+  "quality": {
+    "complete": true,
+    "research_ready": false,
+    "issues": [],
+    "resolution_blocked": [
+      "BOOK",
+      "CBZ",
+      "SUPN",
+      "VIX"
+    ],
+    "field_coverage": {
+      "f_float": {
+        "present": 691,
+        "missing": 15
+      },
+      "f_shares_outstanding": {
+        "present": 702,
+        "missing": 4
+      },
+      "f_market_cap": {
+        "present": 702,
+        "missing": 4
+      },
+      "f_avg_volume_2_weeks": {
+        "present": 702,
+        "missing": 4
+      },
+      "f_avg_volume_30_days": {
+        "present": 702,
+        "missing": 4
+      },
+      "f_sector": {
+        "present": 702,
+        "missing": 4
+      },
+      "e_next_date": {
+        "present": 476,
+        "missing": 230
+      },
+      "e_timing": {
+        "present": 471,
+        "missing": 235
+      },
+      "q_bid_price": {
+        "present": 702,
+        "missing": 4
+      },
+      "q_ask_price": {
+        "present": 702,
+        "missing": 4
+      }
+    }
+  },
+  "date": "2026-11-04",
+  "built_at": "2026-11-04T22:47:01.687Z",
+  "universe_version": "core-v1",
+  "early_close": false,
+  "expected": {
+    "core": 460,
+    "scan": 222,
+    "desk": 65,
+    "total": 706,
+    "history_due": 33,
+    "first_appearance": 4
+  },
+  "written": {
+    "total": 706,
+    "ok": 702,
+    "partial": 0,
+    "no_data": 0,
+    "not_found": 0,
+    "core": 460,
+    "scan": 222,
+    "desk": 65,
+    "with_history": 33
+  },
+  "complete": true,
+  "market_dates_seen": {
+    "2026-11-04": 702
+  },
+  "raw_files": {
+    "fundamentals": 71,
+    "quotes": 36,
+    "historicals": 8,
+    "earnings": 3,
+    "scans": 2
+  },
+  "failures": [
+    {
+      "symbol": "BOOK",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    },
+    {
+      "symbol": "CBZ",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    },
+    {
+      "symbol": "SUPN",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    },
+    {
+      "symbol": "VIX",
+      "status": "resolution_blocked",
+      "errors": [
+        "prior symbol resolution failure; identity review required before resuming requests"
+      ]
+    }
+  ],
+  "failure_count": 4,
+  "appended": "new file"
+}

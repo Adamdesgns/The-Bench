@@ -1,0 +1,282 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-11-10",
+  "candidates_receipt": "a265c4f1",
+  "band": 231.88,
+  "generated": "2026-11-10T21:37:13.544Z",
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "top": [
+    {
+      "sym": "IREN",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 78,
+      "p_dir": 55.13,
+      "p_reach": 5.13,
+      "market_p": 39.15,
+      "disagreement": 15.98,
+      "expiry": "2026-11-20",
+      "days": 8,
+      "long_strike": 20,
+      "short_strike": 14,
+      "cost": 170,
+      "max_gain": 430,
+      "payoff_ratio": 2.53,
+      "break_even": 18.3,
+      "ev": -54.22,
+      "ev_per_day": -6.78,
+      "stop": 22.61,
+      "target": 13.56,
+      "rr_shares": 2.14
+    }
+  ],
+  "rest": [],
+  "rejected": [
+    {
+      "sym": "NVDA",
+      "side": "short",
+      "why": "max loss 834.5 > band 231.88"
+    },
+    {
+      "sym": "MU",
+      "side": "short",
+      "why": "max loss 3735.5 > band 231.88"
+    },
+    {
+      "sym": "MRVL",
+      "side": "short",
+      "why": "max loss 922.5 > band 231.88"
+    },
+    {
+      "sym": "DELL",
+      "side": "short",
+      "why": "max loss 1980 > band 231.88"
+    },
+    {
+      "sym": "VRT",
+      "side": "short",
+      "why": "max loss 985.5 > band 231.88"
+    },
+    {
+      "sym": "PWR",
+      "side": "short",
+      "why": "max loss 2032.5 > band 231.88"
+    },
+    {
+      "sym": "VST",
+      "side": "short",
+      "why": "max loss 388 > band 231.88"
+    },
+    {
+      "sym": "APP",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "NI",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMAT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "DIS",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "NKE",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "VICI",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "PENG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRNA",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "GPRO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "HPE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SST",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ORCL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "UBER",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AAOI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GRAB",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "LITE",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ASPN",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "KRKNF",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "XOM",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "UNH",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "BTC-USD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CORZ",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "APLD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "IBIT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GEV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CRWV",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "HIMS",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SNDG",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "RAM",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SMCI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "OXY",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ZYME",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "MSFT",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMZN",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "ETN",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CBRS",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KEEL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMBA",
+      "side": "short",
+      "why": "no marks"
+    }
+  ],
+  "id": "26d53ed5",
+  "routine": true
+}

@@ -1,0 +1,139 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-11-10",
+  "source": "yahoo",
+  "universe": "named",
+  "generated": "2026-11-10T17:25:04.256Z",
+  "macro_inside_2_sessions": true,
+  "band": 231.87800000000004,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "marks": [],
+  "scanned": 1,
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "candidates": [
+    {
+      "side": "short",
+      "sym": "BTC-USD",
+      "ok": true,
+      "date": "2026-11-10",
+      "close": 72900,
+      "sma50": 81346.38,
+      "sma20": 78025.44,
+      "atr": 2390.78,
+      "low20": 73664.54,
+      "volume": 25258604544,
+      "vol30": 25921778777,
+      "volRatio": 0.97,
+      "rs20": -9.78,
+      "rs5": -5.84,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 66803.65,
+        "date": "2024-11-04",
+        "atr_away": 2.55
+      },
+      "first_shelf": {
+        "level": 66803.65,
+        "date": "2024-11-04",
+        "rr": 2.34
+      },
+      "floor2": null,
+      "too_far": null,
+      "geometry": {
+        "entry": 72900,
+        "stop": 75505.34,
+        "stop_atr": 1.09,
+        "target": 66803.65,
+        "rr": 2.34
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 103,
+        "independent": 60,
+        "pending": 4,
+        "span_years": 5,
+        "grade": "A",
+        "why": "60 independent event(s) over 5y (107 raw) — large sample across multiple regimes",
+        "p_dir": 45.63,
+        "p_reach": 11.65,
+        "avg_pct": 0.39,
+        "median_pct": 0.39,
+        "target_pct": -8.36
+      },
+      "spread_request": null
+    }
+  ],
+  "skipped": [],
+  "not_listed": [
+    {
+      "sym": "BTC-USD",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-10",
+      "close": 72900,
+      "sma50": 81346.38,
+      "atr": 2390.78,
+      "high20": 84840.05,
+      "volRatio": 0.97,
+      "rs20": -9.78,
+      "rs5": -5.84,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 79488.17,
+        "date": "2026-04-27"
+      },
+      "first_shelf": {
+        "level": 73577.21,
+        "date": "2024-10-29",
+        "rr": 0.28
+      },
+      "too_far": null,
+      "target2": {
+        "level": 73577.21,
+        "date": "2024-10-29",
+        "rr": 0.28
+      },
+      "geometry": {
+        "entry": 72900,
+        "stop": 70509.22,
+        "stop_atr": 1,
+        "target": 79488.17,
+        "rr": 2.76
+      },
+      "readiness": 60,
+      "list": null
+    }
+  ],
+  "id": "580ac2a7"
+}

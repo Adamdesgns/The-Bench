@@ -1,0 +1,152 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-11-06",
+  "source": "yahoo",
+  "universe": "named",
+  "generated": "2026-11-09T11:38:37.028Z",
+  "macro_inside_2_sessions": true,
+  "band": 300.807,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "marks": [],
+  "scanned": 1,
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "candidates": [
+    {
+      "side": "short",
+      "sym": "NVDA",
+      "ok": true,
+      "date": "2026-11-06",
+      "close": 186.64,
+      "sma50": 219.81,
+      "sma20": 211.55,
+      "atr": 8.02,
+      "low20": 181.46,
+      "volume": 179722400,
+      "vol30": 112567737,
+      "volRatio": 1.6,
+      "rs20": -13.04,
+      "rs5": -6.09,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 164.58,
+        "date": "2025-07-22",
+        "atr_away": 2.75
+      },
+      "first_shelf": {
+        "level": 179.18,
+        "date": "2026-02-17",
+        "rr": 0.78
+      },
+      "floor2": {
+        "level": 179.17999267578125,
+        "date": "2026-02-17"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 186.64,
+        "stop": 196.25,
+        "stop_atr": 1.2,
+        "target": 164.58,
+        "rr": 2.3
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 66,
+        "independent": 37,
+        "pending": 2,
+        "span_years": 5,
+        "grade": "A",
+        "why": "37 independent event(s) over 5y (68 raw) — large sample across multiple regimes",
+        "p_dir": 39.39,
+        "p_reach": 10.61,
+        "avg_pct": 3.9,
+        "median_pct": 2.41,
+        "target_pct": -11.82
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 186.64,
+        "short_strike_near": 164.58,
+        "stop": 196.25,
+        "decide_by_sessions": 5
+      }
+    }
+  ],
+  "skipped": [],
+  "not_listed": [
+    {
+      "sym": "NVDA",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-06",
+      "close": 186.64,
+      "sma50": 219.81,
+      "atr": 8.02,
+      "high20": 233.92,
+      "volRatio": 1.6,
+      "rs20": -13.04,
+      "rs5": -6.09,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 212.19,
+        "date": "2025-10-29"
+      },
+      "first_shelf": {
+        "level": 188,
+        "date": "2025-12-08",
+        "rr": 0.17
+      },
+      "too_far": null,
+      "target2": {
+        "level": 188,
+        "date": "2025-12-08",
+        "rr": 0.17
+      },
+      "geometry": {
+        "entry": 186.64,
+        "stop": 178.62,
+        "stop_atr": 1,
+        "target": 212.19,
+        "rr": 3.19
+      },
+      "readiness": 60,
+      "list": null
+    }
+  ],
+  "id": "1ade5fe2"
+}

@@ -1,0 +1,66 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-11-06",
+  "source": "yahoo",
+  "generated": "2026-11-09T11:38:34.432Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": null,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [],
+  "READY": [],
+  "STALK": [
+    {
+      "sym": "IREN",
+      "ok": true,
+      "date": "2026-11-06",
+      "close": 21.64,
+      "sma50": 35.87,
+      "sma20": 26.5,
+      "atr": 2.84,
+      "low20": 17.16,
+      "volume": 112515300,
+      "vol30": 54553160,
+      "volRatio": 2.06,
+      "rs20": -32.95,
+      "rs5": -6.94,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 14.72,
+        "date": "2025-08-01",
+        "atr_away": 2.44
+      },
+      "first_shelf": {
+        "level": 17.22,
+        "date": "2025-08-20",
+        "rr": 1.56
+      },
+      "floor2": {
+        "level": 17.219999313354492,
+        "date": "2025-08-20"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 21.64,
+        "stop": 24.48,
+        "stop_atr": 1,
+        "target": 14.72,
+        "rr": 2.44
+      },
+      "readiness": 60,
+      "list": "STALK"
+    }
+  ],
+  "DISCOVERY": [],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [],
+  "skipped": [],
+  "id": "f110518b"
+}

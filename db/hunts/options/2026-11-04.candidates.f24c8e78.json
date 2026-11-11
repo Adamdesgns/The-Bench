@@ -1,0 +1,529 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-11-04",
+  "source": "yahoo",
+  "universe": "named",
+  "generated": "2026-11-05T11:36:52.271Z",
+  "macro_inside_2_sessions": true,
+  "band": 350.807,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "marks": [],
+  "scanned": 5,
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "candidates": [
+    {
+      "side": "short",
+      "sym": "MRVL",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 159.8,
+      "sma50": 238.54,
+      "sma20": 231,
+      "atr": 18.24,
+      "low20": 167.4,
+      "volume": 46352800,
+      "vol30": 22712453,
+      "volRatio": 2.04,
+      "rs20": -42.53,
+      "rs5": -35.79,
+      "gates": {
+        "breakdown": true,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 111.55,
+        "date": "2025-01-13",
+        "atr_away": 2.65
+      },
+      "first_shelf": {
+        "level": 157.96,
+        "date": "2026-05-12",
+        "rr": 0.1
+      },
+      "floor2": {
+        "level": 157.9600067138672,
+        "date": "2026-05-12"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 159.8,
+        "stop": 178.04,
+        "stop_atr": 1,
+        "target": 111.55,
+        "rr": 2.65
+      },
+      "readiness": 60,
+      "list": "READY",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 66,
+        "independent": 39,
+        "pending": 3,
+        "span_years": 5,
+        "grade": "A",
+        "why": "39 independent event(s) over 5y (69 raw) — large sample across multiple regimes",
+        "p_dir": 45.45,
+        "p_reach": 1.52,
+        "avg_pct": 1.58,
+        "median_pct": 1.35,
+        "target_pct": -30.19
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 159.8,
+        "short_strike_near": 111.55,
+        "stop": 178.04,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "ARM",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 191.8,
+      "sma50": 256.08,
+      "sma20": 228.53,
+      "atr": 13.38,
+      "low20": 196.12,
+      "volume": 8807000,
+      "vol30": 5293873,
+      "volRatio": 1.66,
+      "rs20": -33.5,
+      "rs5": -17.98,
+      "gates": {
+        "breakdown": true,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 149.5,
+        "date": "2024-06-25",
+        "atr_away": 3.16
+      },
+      "first_shelf": {
+        "level": 160.85,
+        "date": "2025-10-22",
+        "rr": 1.75
+      },
+      "floor2": {
+        "level": 160.8520050048828,
+        "date": "2025-10-22"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 191.8,
+        "stop": 209.5,
+        "stop_atr": 1.32,
+        "target": 149.5,
+        "rr": 2.39
+      },
+      "readiness": 60,
+      "list": "READY",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 43,
+        "independent": 22,
+        "pending": 3,
+        "span_years": 3.1,
+        "grade": "B",
+        "why": "22 independent event(s) over 3.1y (46 raw) — useful, not yet regime-proof",
+        "p_dir": 51.16,
+        "p_reach": 2.33,
+        "avg_pct": 0.06,
+        "median_pct": -0.58,
+        "target_pct": -22.05
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 191.8,
+        "short_strike_near": 149.5,
+        "stop": 209.5,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "AMAT",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 369.4,
+      "sma50": 451.05,
+      "sma20": 419.06,
+      "atr": 20.2,
+      "low20": 372.8,
+      "volume": 7901700,
+      "vol30": 6772980,
+      "volRatio": 1.17,
+      "rs20": -27.71,
+      "rs5": -10.49,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 320.69,
+        "date": "2026-03-30",
+        "atr_away": 2.41
+      },
+      "first_shelf": {
+        "level": 320.69,
+        "date": "2026-03-30",
+        "rr": 2.36
+      },
+      "floor2": null,
+      "too_far": null,
+      "geometry": {
+        "entry": 369.4,
+        "stop": 390,
+        "stop_atr": 1.02,
+        "target": 320.69,
+        "rr": 2.36
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 63,
+        "independent": 38,
+        "pending": 3,
+        "span_years": 5,
+        "grade": "A",
+        "why": "38 independent event(s) over 5y (66 raw) — large sample across multiple regimes",
+        "p_dir": 42.86,
+        "p_reach": 1.59,
+        "avg_pct": 1.89,
+        "median_pct": 1.01,
+        "target_pct": -13.19
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 369.4,
+        "short_strike_near": 320.69,
+        "stop": 390,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "QCOM",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 173.19,
+      "sma50": 178.23,
+      "sma20": 174.93,
+      "atr": 7.43,
+      "low20": 160.38,
+      "volume": 22121200,
+      "vol30": 10836860,
+      "volRatio": 2.04,
+      "rs20": -0.88,
+      "rs5": -4.63,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": null,
+      "first_shelf": {
+        "level": 172.12,
+        "date": "2026-07-02",
+        "rr": 0.14
+      },
+      "floor2": null,
+      "too_far": null,
+      "geometry": {
+        "entry": 173.19,
+        "stop": 180.62,
+        "stop_atr": 1,
+        "target": null,
+        "rr": 0.14
+      },
+      "readiness": 40,
+      "list": "DISCOVERY",
+      "evidence": null,
+      "spread_request": null
+    }
+  ],
+  "skipped": [],
+  "not_listed": [
+    {
+      "sym": "APP",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 271.75,
+      "sma50": 290.82,
+      "atr": 12.82,
+      "high20": 283.66,
+      "volRatio": 3.2,
+      "rs20": -2.05,
+      "rs5": 5.24,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": null,
+      "first_shelf": {
+        "level": 335.45,
+        "date": "2026-08-28",
+        "rr": 1.57
+      },
+      "too_far": {
+        "level": 352,
+        "date": "2025-03-25"
+      },
+      "target2": null,
+      "geometry": {
+        "entry": 271.75,
+        "stop": 231.1,
+        "stop_atr": 3.17,
+        "target": null,
+        "rr": 1.57
+      },
+      "readiness": 48,
+      "list": null
+    },
+    {
+      "side": "short",
+      "sym": "APP",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 271.75,
+      "sma50": 290.82,
+      "sma20": 262.75,
+      "atr": 12.82,
+      "low20": 225.19,
+      "volume": 14115400,
+      "vol30": 4415923,
+      "volRatio": 3.2,
+      "rs20": -2.05,
+      "rs5": 5.24,
+      "gates": {
+        "breakdown": false,
+        "laggard": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 246,
+        "date": "2025-04-30",
+        "atr_away": 2.01
+      },
+      "first_shelf": {
+        "level": 266.84,
+        "date": "2026-10-02",
+        "rr": 0.38
+      },
+      "floor2": {
+        "level": 266.8399963378906,
+        "date": "2026-10-02"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 271.75,
+        "stop": 284.57,
+        "stop_atr": 1,
+        "target": 246,
+        "rr": 2.01
+      },
+      "readiness": 60,
+      "list": null
+    },
+    {
+      "sym": "QCOM",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 173.19,
+      "sma50": 178.23,
+      "atr": 7.43,
+      "high20": 185.59,
+      "volRatio": 2.04,
+      "rs20": -0.88,
+      "rs5": -4.63,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": null,
+      "first_shelf": {
+        "level": 174.44,
+        "date": "2025-09-24",
+        "rr": 0.1
+      },
+      "too_far": null,
+      "target2": null,
+      "geometry": {
+        "entry": 173.19,
+        "stop": 160.38,
+        "stop_atr": 1.72,
+        "target": null,
+        "rr": 0.1
+      },
+      "readiness": 37,
+      "list": null
+    },
+    {
+      "sym": "ARM",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 191.8,
+      "sma50": 256.08,
+      "atr": 13.38,
+      "high20": 300.6,
+      "volRatio": 1.66,
+      "rs20": -33.5,
+      "rs5": -17.98,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 237.68,
+        "date": "2026-04-24"
+      },
+      "first_shelf": {
+        "level": 237.68,
+        "date": "2026-04-24",
+        "rr": 3.43
+      },
+      "too_far": null,
+      "target2": null,
+      "geometry": {
+        "entry": 191.8,
+        "stop": 178.42,
+        "stop_atr": 1,
+        "target": 237.68,
+        "rr": 3.43
+      },
+      "readiness": 60,
+      "list": null
+    },
+    {
+      "sym": "MRVL",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 159.8,
+      "sma50": 238.54,
+      "atr": 18.24,
+      "high20": 287.03,
+      "volRatio": 2.04,
+      "rs20": -42.53,
+      "rs5": -35.79,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 241.88,
+        "date": "2026-09-09"
+      },
+      "first_shelf": {
+        "level": 170.84,
+        "date": "2026-04-24",
+        "rr": 0.61
+      },
+      "too_far": null,
+      "target2": {
+        "level": 170.84,
+        "date": "2026-04-24",
+        "rr": 0.61
+      },
+      "geometry": {
+        "entry": 159.8,
+        "stop": 141.56,
+        "stop_atr": 1,
+        "target": 241.88,
+        "rr": 4.5
+      },
+      "readiness": 60,
+      "list": null
+    },
+    {
+      "sym": "AMAT",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-04",
+      "close": 369.4,
+      "sma50": 451.05,
+      "atr": 20.2,
+      "high20": 524.93,
+      "volRatio": 1.17,
+      "rs20": -27.71,
+      "rs5": -10.49,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 420.5,
+        "date": "2026-04-24"
+      },
+      "first_shelf": {
+        "level": 379.99,
+        "date": "2026-03-24",
+        "rr": 0.52
+      },
+      "too_far": null,
+      "target2": {
+        "level": 379.99,
+        "date": "2026-03-24",
+        "rr": 0.52
+      },
+      "geometry": {
+        "entry": 369.4,
+        "stop": 349.2,
+        "stop_atr": 1,
+        "target": 420.5,
+        "rr": 2.53
+      },
+      "readiness": 60,
+      "list": null
+    }
+  ],
+  "id": "f24c8e78"
+}

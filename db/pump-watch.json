@@ -390,8 +390,20 @@
       "why": "Adam order 11/09 evening: do not miss the pump. Board probe of CEO Huang (personal conduct, not the business), NVDA -4.3 pct while chips +5 to +13; reply to House due 11/11, earnings 11/17 pm, briefing 11/18. Gap-fill line 186.64, B-1386",
       "added_by": "adam",
       "added_at": "2026-11-09T23:50:37.768Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "DOWN",
+          "at_ct": "09:45",
+          "last": 169.68
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "DOWN",
+        "last": 167.55,
+        "why": "under the 170.12 opening-range low and the 170.57 VWAP on 3.77x volume pace"
+      }
     },
     {
       "ticker": "NVDA",
@@ -440,6 +452,56 @@
       "why": "Adam order 11/09 evening: do not miss the pump. Board probe of CEO Huang (personal conduct, not the business), NVDA -4.3 pct while chips +5 to +13; reply to House due 11/11, earnings 11/17 pm, briefing 11/18. Gap-fill line 186.64, B-1386",
       "added_by": "adam",
       "added_at": "2026-11-09T23:50:38.274Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "CRWV",
+      "date": "2026-11-11",
+      "until": "12:00",
+      "why": "Q3 revenue 3.66B vs 3.55B expected, FY26 guide raised, demand 10x capacity; +13.3 pct pre-market 05:35 CT (FXStreet, Stocktwits 11/11)",
+      "added_by": "routine",
+      "added_at": "2026-11-11T11:36:55.376Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "NBIS",
+      "date": "2026-11-11",
+      "until": "12:00",
+      "why": "neocloud read-through from the CoreWeave beat, own earnings Thu 11/12 before the open; +11.7 pct pre-market (Stocktwits 11/11)",
+      "added_by": "routine",
+      "added_at": "2026-11-11T11:36:55.461Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "LITE",
+      "date": "2026-11-11",
+      "until": "12:00",
+      "why": "AI stack rebound on the CoreWeave beat (GPU demand 10x capacity), no company news found; +9.0 pct pre-market (FXStreet 11/11)",
+      "added_by": "routine",
+      "added_at": "2026-11-11T11:36:55.571Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "COHR",
+      "date": "2026-11-11",
+      "until": "12:00",
+      "why": "AI stack rebound on the CoreWeave beat (GPU demand 10x capacity), no company news found; +8.8 pct pre-market (FXStreet 11/11)",
+      "added_by": "routine",
+      "added_at": "2026-11-11T11:36:55.647Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "MRVL",
+      "date": "2026-11-11",
+      "until": "12:00",
+      "why": "chip rebound on the CoreWeave beat, reported +7.6 pct pre-market by KuCoin flash; +7.9 pct at 05:35 CT; B-1320 trigger 149.81 decision due 11/12",
+      "added_by": "routine",
+      "added_at": "2026-11-11T11:36:55.741Z",
       "calls": [],
       "ended": false
     }

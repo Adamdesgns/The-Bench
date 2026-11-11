@@ -1,0 +1,191 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-10-29",
+  "candidates_receipt": "ebcb2d94",
+  "band": 300.9,
+  "generated": "2026-10-29T20:39:51.369Z",
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "top": [
+    {
+      "sym": "NVDA",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 65,
+      "p_dir": 38.46,
+      "p_reach": 13.85,
+      "market_p": 32.72,
+      "disagreement": 5.74,
+      "expiry": "2026-11-06",
+      "days": 6,
+      "long_strike": 212.5,
+      "short_strike": 200,
+      "cost": 294,
+      "max_gain": 956,
+      "payoff_ratio": 3.25,
+      "break_even": 209.56,
+      "ev": -48.52,
+      "ev_per_day": -8.09,
+      "stop": 219.99,
+      "target": 199.34,
+      "rr_shares": 2.26
+    },
+    {
+      "sym": "UBER",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 82,
+      "p_dir": 46.34,
+      "p_reach": 8.54,
+      "market_p": 36.6,
+      "disagreement": 9.74,
+      "expiry": "2026-11-06",
+      "days": 6,
+      "long_strike": 66,
+      "short_strike": 61,
+      "cost": 186,
+      "max_gain": 314,
+      "payoff_ratio": 1.69,
+      "break_even": 64.14,
+      "ev": -72.99,
+      "ev_per_day": -12.16,
+      "stop": 67.49,
+      "target": 60.63,
+      "rr_shares": 2.92
+    }
+  ],
+  "rest": [],
+  "rejected": [
+    {
+      "sym": "AMZN",
+      "side": "short",
+      "why": "max loss 881 > band 300.9"
+    },
+    {
+      "sym": "MRVL",
+      "side": "short",
+      "why": "max loss 848 > band 300.9"
+    },
+    {
+      "sym": "MSFT",
+      "side": "long",
+      "why": "max loss 724 > band 300.9"
+    },
+    {
+      "sym": "META",
+      "side": "short",
+      "why": "max loss 1346 > band 300.9"
+    },
+    {
+      "sym": "APP",
+      "side": "short",
+      "why": "max loss 1265 > band 300.9"
+    },
+    {
+      "sym": "NI",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "QCOM",
+      "side": "long",
+      "why": "max loss 645.5 > band 300.9"
+    },
+    {
+      "sym": "HIMS",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "VICI",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "PENG",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "MRNA",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "GPRO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SST",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GRAB",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "KRKNF",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "BTC-USD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "TLN",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "IBIT",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SPCX",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "GOOGL",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "XOM",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "OXY",
+      "side": "long",
+      "why": "no marks"
+    }
+  ],
+  "id": "789196dc"
+}

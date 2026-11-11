@@ -1,0 +1,152 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-11-06",
+  "source": "yahoo",
+  "universe": "named",
+  "generated": "2026-11-09T11:38:40.370Z",
+  "macro_inside_2_sessions": true,
+  "band": 300.807,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "marks": [],
+  "scanned": 1,
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "candidates": [
+    {
+      "side": "short",
+      "sym": "AMD",
+      "ok": true,
+      "date": "2026-11-06",
+      "close": 449.04,
+      "sma50": 546.81,
+      "sma20": 527.3,
+      "atr": 38.02,
+      "low20": 402.1,
+      "volume": 45682000,
+      "vol30": 23660407,
+      "volRatio": 1.93,
+      "rs20": -20.6,
+      "rs5": -8.34,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 224.64,
+        "date": "2025-11-07",
+        "atr_away": 5.9
+      },
+      "first_shelf": {
+        "level": 440.5,
+        "date": "2026-09-03",
+        "rr": 0.22
+      },
+      "floor2": {
+        "level": 440.5,
+        "date": "2026-09-03"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 449.04,
+        "stop": 487.06,
+        "stop_atr": 1,
+        "target": 224.64,
+        "rr": 5.9
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 71,
+        "independent": 42,
+        "pending": 2,
+        "span_years": 5,
+        "grade": "A",
+        "why": "42 independent event(s) over 5y (73 raw) — large sample across multiple regimes",
+        "p_dir": 53.52,
+        "p_reach": 0,
+        "avg_pct": 0.7,
+        "median_pct": -0.9,
+        "target_pct": -49.97
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 449.04,
+        "short_strike_near": 224.64,
+        "stop": 487.06,
+        "decide_by_sessions": 5
+      }
+    }
+  ],
+  "skipped": [],
+  "not_listed": [
+    {
+      "sym": "AMD",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-06",
+      "close": 449.04,
+      "sma50": 546.81,
+      "atr": 38.02,
+      "high20": 627.37,
+      "volRatio": 1.93,
+      "rs20": -20.6,
+      "rs5": -8.34,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 546.44,
+        "date": "2026-06-03"
+      },
+      "first_shelf": {
+        "level": 469.22,
+        "date": "2026-05-11",
+        "rr": 0.43
+      },
+      "too_far": null,
+      "target2": {
+        "level": 469.22,
+        "date": "2026-05-11",
+        "rr": 0.43
+      },
+      "geometry": {
+        "entry": 449.04,
+        "stop": 402.1,
+        "stop_atr": 1.23,
+        "target": 546.44,
+        "rr": 2.07
+      },
+      "readiness": 60,
+      "list": null
+    }
+  ],
+  "id": "984f6150"
+}

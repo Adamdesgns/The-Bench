@@ -1,0 +1,145 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-11-06",
+  "source": "yahoo",
+  "universe": "named",
+  "generated": "2026-11-09T11:38:39.180Z",
+  "macro_inside_2_sessions": true,
+  "band": 300.807,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "marks": [],
+  "scanned": 1,
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "candidates": [
+    {
+      "side": "short",
+      "sym": "CRWV",
+      "ok": true,
+      "date": "2026-11-06",
+      "close": 46.4,
+      "sma50": 75.56,
+      "sma20": 59.33,
+      "atr": 5.67,
+      "low20": 40.58,
+      "volume": 59294700,
+      "vol30": 52548243,
+      "volRatio": 1.13,
+      "rs20": -37.91,
+      "rs5": -12.73,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 33.51,
+        "date": "2025-04-21",
+        "atr_away": 2.27
+      },
+      "first_shelf": {
+        "level": 33.51,
+        "date": "2025-04-21",
+        "rr": 2.27
+      },
+      "floor2": null,
+      "too_far": null,
+      "geometry": {
+        "entry": 46.4,
+        "stop": 52.07,
+        "stop_atr": 1,
+        "target": 33.51,
+        "rr": 2.27
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 26,
+        "independent": 18,
+        "pending": 2,
+        "span_years": 1.6,
+        "grade": "C",
+        "why": "18 independent event(s) over 1.6y (28 raw) — directional at best: thin sample or single regime",
+        "p_dir": 42.31,
+        "p_reach": 3.85,
+        "avg_pct": 2.85,
+        "median_pct": 2.15,
+        "target_pct": -27.78
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 46.4,
+        "short_strike_near": 33.51,
+        "stop": 52.07,
+        "decide_by_sessions": 5
+      }
+    }
+  ],
+  "skipped": [],
+  "not_listed": [
+    {
+      "sym": "CRWV",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-06",
+      "close": 46.4,
+      "sma50": 75.56,
+      "atr": 5.67,
+      "high20": 83.45,
+      "volRatio": 1.13,
+      "rs20": -37.91,
+      "rs5": -12.73,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 64.39,
+        "date": "2026-10-29"
+      },
+      "first_shelf": {
+        "level": 64.39,
+        "date": "2026-10-29",
+        "rr": 3.09
+      },
+      "too_far": null,
+      "target2": null,
+      "geometry": {
+        "entry": 46.4,
+        "stop": 40.58,
+        "stop_atr": 1.03,
+        "target": 64.39,
+        "rr": 3.09
+      },
+      "readiness": 60,
+      "list": null
+    }
+  ],
+  "id": "3cd2f6e2"
+}

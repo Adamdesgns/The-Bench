@@ -1,29 +1,25 @@
 {
-  "asof": "2026-11-09",
-  "generated": "2026-11-09T21:35:26.574Z",
+  "asof": "2026-11-10",
+  "generated": "2026-11-10T21:35:36.178Z",
   "source": "yahoo",
-  "label": "EVENT",
-  "market_risk": 2,
+  "label": "NEUTRAL",
+  "market_risk": 3,
   "reasons": [
-    "macro release on the next session overrides NEUTRAL",
-    "SPY 752.69 vs 50 SMA 765.35",
-    "VIX 19.92"
+    "SPY 749.92 vs 50 SMA 765.00",
+    "VIX 19.46"
   ],
-  "next_session_macro": [
-    "Real Earnings — Real Earnings, 08:30 ET",
-    "CPI — Consumer Price Index, 08:30 ET"
-  ],
+  "next_session_macro": [],
   "inputs": {
-    "spy": 752.6900024414062,
-    "sma20": 762.0929901123047,
-    "sma50": 765.3465954589843,
-    "sma200": 730.6998489379882,
-    "vix": 19.920000076293945,
-    "vix_5d_pct": -5.82,
-    "tnx": 4.863999843597412,
-    "tnx_5d_change": -0.03,
-    "iwm_rel_20": 4.92,
-    "qqq_rel_20": -5.67
+    "spy": 749.9199829101562,
+    "sma20": 760.6884887695312,
+    "sma50": 765.0039953613282,
+    "sma200": 730.9857989501953,
+    "vix": 19.459999084472656,
+    "vix_5d_pct": -6.58,
+    "tnx": 4.9830002784729,
+    "tnx_5d_change": 0.031,
+    "iwm_rel_20": 5.01,
+    "qqq_rel_20": -5.64
   },
   "rule": "One stamp per day. A run may state a different Market Risk but must say why; the stamp it disagreed with stays on the record."
 }

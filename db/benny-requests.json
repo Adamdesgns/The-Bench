@@ -1,0 +1,44 @@
+{
+  "requests": [
+    {
+      "id": "RQ-001",
+      "at": "2026-10-30T01:17:49.734Z",
+      "date": "2026-10-29",
+      "asker": "Adam",
+      "adam": true,
+      "member": false,
+      "question": "What should we be buying",
+      "channel_id": "1560825402962878494",
+      "message_id": "1565535166238171167",
+      "request": {
+        "kind": "backtest",
+        "symbol": "GOOGL",
+        "setup": "move",
+        "threshold": -10,
+        "window": 1,
+        "horizon": 10
+      },
+      "status": "OPEN"
+    },
+    {
+      "id": "RQ-002",
+      "at": "2026-10-30T17:56:23.330Z",
+      "date": "2026-10-30",
+      "asker": "Adam",
+      "adam": true,
+      "member": false,
+      "question": "Benny the whole market has crashed. One of these is going to rebound by Monday. WHICH one is it?",
+      "channel_id": "1560825402962878494",
+      "message_id": "1565786460064583770",
+      "request": {
+        "kind": "backtest",
+        "symbol": "QQQ",
+        "setup": "move",
+        "threshold": -3.5,
+        "window": 1,
+        "horizon": 2
+      },
+      "status": "OPEN"
+    }
+  ]
+}

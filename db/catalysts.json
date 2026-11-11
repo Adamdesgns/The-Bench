@@ -1718,5 +1718,68 @@
     "confidence": "verified",
     "what": "ZYME Q3 earnings, after close. Post-print Guide Rule run that night; entry only on the 11/10 first 30-minute bar.",
     "logged": "2026-11-04"
+  },
+  {
+    "date": "2027-01-06",
+    "type": "earnings",
+    "confidence": "expected",
+    "label": "APLD Q2 FY27 earnings after the close (tentative date, HPC hosting vs mining mix) — date EXPECTED, not confirmed",
+    "ticker": "APLD",
+    "what": "Q2 FY27 earnings after the close (tentative date, HPC hosting vs mining mix)",
+    "source": "Robinhood get_earnings_calendar pull 2026-11-08, report.verified=false",
+    "logged": "2026-11-08"
+  },
+  {
+    "date": "2026-11-09",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "ALLO ALLO-329 Phase 1 RESOLUTION updated data at ACR Convergence, webinar 9:00 ET (autoimmune, early-stage; informs Phase 2 regimen)",
+    "ticker": "ALLO",
+    "what": "ALLO-329 Phase 1 RESOLUTION updated data at ACR Convergence, webinar 9:00 ET (autoimmune, early-stage; informs Phase 2 regimen)",
+    "source": "https://www.sec.gov/Archives/edgar/data/1737287/000162828026071040/allo-20260930xexx991q326.htm",
+    "logged": "2026-11-08"
+  },
+  {
+    "date": "2026-12-12",
+    "type": "readout",
+    "confidence": "confirmed",
+    "label": "RIGL R289 Phase 1b lower-risk MDS updated data, oral at ASH (12/12-15; informs Phase 2 dose)",
+    "ticker": "RIGL",
+    "what": "R289 Phase 1b lower-risk MDS updated data, oral at ASH (12/12-15; informs Phase 2 dose)",
+    "source": "https://www.sec.gov/Archives/edgar/data/1034842/000103484226000062/rigl-20261105xex991q32026r.htm",
+    "logged": "2026-11-08"
+  },
+  {
+    "date": "2026-11-09",
+    "type": "readout",
+    "confidence": "window",
+    "label": "VYGR VY7523 anti-tau antibody tau PET efficacy data from the MAD trial, guided Q4 2026 (row starts first session left in the quarter) — WINDOW 2026-11-09 to 2026-12-31",
+    "ticker": "VYGR",
+    "what": "VY7523 anti-tau antibody tau PET efficacy data from the MAD trial, guided Q4 2026 (row starts first session left in the quarter)",
+    "window_end": "2026-12-31",
+    "source": "https://www.sec.gov/Archives/edgar/data/1640266/000119312526449728/vygr-ex99_1.htm",
+    "logged": "2026-11-08"
+  },
+  {
+    "date": "2027-01-01",
+    "type": "readout",
+    "confidence": "window",
+    "label": "LXRX SONATA-HCM Phase 3 topline (sotagliflozin, hypertrophic cardiomyopathy; decides the HCM filing) — WINDOW 2027-01-01 to 2027-03-31",
+    "ticker": "LXRX",
+    "what": "SONATA-HCM Phase 3 topline (sotagliflozin, hypertrophic cardiomyopathy; decides the HCM filing)",
+    "window_end": "2027-03-31",
+    "source": "https://www.sec.gov/Archives/edgar/data/1062822/000106282226000124/pressreleaseearningsq311-0.htm",
+    "logged": "2026-11-08"
+  },
+  {
+    "date": "2027-04-01",
+    "type": "readout",
+    "confidence": "window",
+    "label": "OCGN OCU410ST Phase 2/3 GARDian3 topline (Stargardt disease; decides the mid-2027 BLA) — WINDOW 2027-04-01 to 2027-06-30",
+    "ticker": "OCGN",
+    "what": "OCU410ST Phase 2/3 GARDian3 topline (Stargardt disease; decides the mid-2027 BLA)",
+    "window_end": "2027-06-30",
+    "source": "https://www.sec.gov/Archives/edgar/data/1372299/000110465926122401/tm2628896d1_ex99-2.htm",
+    "logged": "2026-11-08"
   }
 ]

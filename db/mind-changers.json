@@ -9148,6 +9148,22 @@
       "row": "B-1395",
       "expires": "2026-11-17",
       "status": "open"
+    },
+    {
+      "id": "MC-528",
+      "created": "2026-11-10",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 17.16
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (close under 20-session low; needs 1.5x volume)",
+      "source": "docs/reads/2026-11-10-hunt-close.md",
+      "row": "B-1409",
+      "expires": "2026-11-17",
+      "status": "open"
     }
   ]
 }

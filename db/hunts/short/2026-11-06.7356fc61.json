@@ -1,0 +1,66 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-11-06",
+  "source": "yahoo",
+  "generated": "2026-11-09T11:38:35.901Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": null,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [],
+  "READY": [],
+  "STALK": [
+    {
+      "sym": "AMD",
+      "ok": true,
+      "date": "2026-11-06",
+      "close": 449.04,
+      "sma50": 546.81,
+      "sma20": 527.3,
+      "atr": 38.02,
+      "low20": 402.1,
+      "volume": 45682000,
+      "vol30": 23660407,
+      "volRatio": 1.93,
+      "rs20": -20.6,
+      "rs5": -8.34,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 224.64,
+        "date": "2025-11-07",
+        "atr_away": 5.9
+      },
+      "first_shelf": {
+        "level": 440.5,
+        "date": "2026-09-03",
+        "rr": 0.22
+      },
+      "floor2": {
+        "level": 440.5,
+        "date": "2026-09-03"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 449.04,
+        "stop": 487.06,
+        "stop_atr": 1,
+        "target": 224.64,
+        "rr": 5.9
+      },
+      "readiness": 60,
+      "list": "STALK"
+    }
+  ],
+  "DISCOVERY": [],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [],
+  "skipped": [],
+  "id": "7356fc61"
+}

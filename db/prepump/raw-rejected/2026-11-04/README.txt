@@ -1,0 +1,1 @@
+Hand-retyped envelopes that did not match the tool output verbatim (subagent transcription errors). Replaced in raw/2026-11-04 by envelopes rebuilt from the subagent transcripts. Kept as evidence; never used by build.

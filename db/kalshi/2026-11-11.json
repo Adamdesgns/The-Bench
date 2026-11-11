@@ -1,0 +1,233 @@
+{
+  "asof": "2026-11-11T11:37:19.999Z",
+  "events": [
+    {
+      "series": "KXFEDDECISION",
+      "event": "KXFEDDECISION-26DEC",
+      "title": "Fed decision in Dec 2026?",
+      "closes": "2026-12-09T18:59:00Z",
+      "shape": "pick",
+      "outcomes": [
+        {
+          "label": "Hike 25bps",
+          "pct": 85,
+          "chg": -3,
+          "thin": false
+        },
+        {
+          "label": "Hike >25bps",
+          "pct": 11,
+          "chg": 6,
+          "thin": false
+        },
+        {
+          "label": "Fed maintains rate",
+          "pct": 5,
+          "chg": -4,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "KXCPI",
+      "event": "KXCPI-26NOV",
+      "title": "CPI in November",
+      "closes": "2026-12-10T13:29:00Z",
+      "shape": "ladder",
+      "middle": {
+        "kind": "at",
+        "value": 0,
+        "exact": 43
+      },
+      "unit": "%",
+      "rungs": [
+        {
+          "strike": -0.1,
+          "label": "Above -0.1%",
+          "pct": 76,
+          "chg": 15,
+          "thin": false
+        },
+        {
+          "strike": 0,
+          "label": "Above 0.0%",
+          "pct": 33,
+          "chg": 2,
+          "thin": false
+        },
+        {
+          "strike": 0.1,
+          "label": "Above 0.1%",
+          "pct": 10,
+          "chg": -6,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "KXCPICORE",
+      "event": "KXCPICORE-26NOV",
+      "title": "Core CPI in November",
+      "closes": "2026-12-10T13:25:00Z",
+      "shape": "ladder",
+      "middle": {
+        "kind": "at",
+        "value": 0.2,
+        "exact": 41
+      },
+      "unit": "%",
+      "rungs": [
+        {
+          "strike": 0.1,
+          "label": "Above 0.1%",
+          "pct": 89,
+          "chg": 7,
+          "thin": false
+        },
+        {
+          "strike": 0.2,
+          "label": "Above 0.2%",
+          "pct": 48,
+          "chg": 9,
+          "thin": false
+        },
+        {
+          "strike": 0.3,
+          "label": "Above 0.3%",
+          "pct": 13,
+          "chg": 5,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "KXPAYROLLS",
+      "event": "KXPAYROLLS-26NOV",
+      "title": "Jobs numbers in Nov 2026?",
+      "closes": "2026-12-04T13:29:00Z",
+      "shape": "ladder",
+      "middle": {
+        "kind": "at",
+        "value": 87142.85714285714
+      },
+      "unit": "",
+      "rungs": [
+        {
+          "strike": 70000,
+          "label": "Above 70,000",
+          "pct": 60,
+          "chg": 3,
+          "thin": false
+        },
+        {
+          "strike": 80000,
+          "label": "Above 80,000",
+          "pct": 55,
+          "chg": 6,
+          "thin": false
+        },
+        {
+          "strike": 90000,
+          "label": "Above 90,000",
+          "pct": 48,
+          "chg": 3,
+          "thin": false
+        },
+        {
+          "strike": 100000,
+          "label": "Above 100,000",
+          "pct": 42,
+          "chg": 3,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "KXU3",
+      "event": "KXU3-26NOV",
+      "title": "Unemployment in November",
+      "closes": "2026-12-04T13:29:00Z",
+      "shape": "ladder",
+      "middle": {
+        "kind": "at",
+        "value": 4.1,
+        "exact": 37
+      },
+      "unit": "%",
+      "rungs": [
+        {
+          "strike": 4,
+          "label": "Above 4.0%",
+          "pct": 84,
+          "chg": 4,
+          "thin": false
+        },
+        {
+          "strike": 4.1,
+          "label": "Above 4.1%",
+          "pct": 47,
+          "chg": -4,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "KXRECSSNBER",
+      "event": "KXRECSSNBER-26",
+      "title": "Recession this year?",
+      "closes": "2027-01-31T13:25:00Z",
+      "shape": "yesno",
+      "outcomes": [
+        {
+          "label": "yes",
+          "pct": 2,
+          "chg": -1,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "CONTROLH",
+      "event": "CONTROLH-2028",
+      "title": "2028 U.S. House winner?",
+      "closes": "2029-02-01T15:00:00Z",
+      "shape": "pick",
+      "outcomes": [
+        {
+          "label": "Democratic party",
+          "pct": 80,
+          "chg": 0,
+          "thin": false
+        },
+        {
+          "label": "Republican party",
+          "pct": 19,
+          "chg": -2,
+          "thin": false
+        }
+      ]
+    },
+    {
+      "series": "CONTROLS",
+      "event": "CONTROLS-2028",
+      "title": "2028 U.S. Senate winner?",
+      "closes": "2029-02-01T15:00:00Z",
+      "shape": "pick",
+      "outcomes": [
+        {
+          "label": "Democratic party",
+          "pct": 90,
+          "chg": 1,
+          "thin": false
+        },
+        {
+          "label": "Republican party",
+          "pct": 10,
+          "chg": -2,
+          "thin": false
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

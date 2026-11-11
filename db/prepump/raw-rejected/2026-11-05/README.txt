@@ -1,0 +1,1 @@
+Hand-retyped envelopes that did not match the tool output verbatim (altered content) or carried a guessed observed_at more than 10 minutes from the real fetch time. Replaced in raw/2026-11-05 by envelopes rebuilt from the subagent transcripts (observed_at = transcript timestamp of the tool result). Kept as evidence; never used by build.

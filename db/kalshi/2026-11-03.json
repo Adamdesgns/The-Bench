@@ -1,5 +1,5 @@
 {
-  "asof": "2026-11-03T08:29:49.781Z",
+  "asof": "2026-11-03T11:35:19.964Z",
   "events": [
     {
       "series": "KXFEDDECISION",
@@ -10,7 +10,7 @@
       "outcomes": [
         {
           "label": "Hike 25bps",
-          "pct": 73,
+          "pct": 72,
           "chg": 2,
           "thin": false
         },
@@ -31,14 +31,14 @@
       "middle": {
         "kind": "at",
         "value": 0.3,
-        "exact": 49
+        "exact": 48
       },
       "unit": "%",
       "rungs": [
         {
           "strike": 0.2,
           "label": "Above 0.2%",
-          "pct": 65,
+          "pct": 64,
           "chg": 7,
           "thin": false
         },
@@ -95,36 +95,36 @@
       "shape": "ladder",
       "middle": {
         "kind": "at",
-        "value": 63636.36363636364
+        "value": 62000
       },
       "unit": "",
       "rungs": [
         {
+          "strike": 40000,
+          "label": "Above 40,000",
+          "pct": 64,
+          "chg": -2,
+          "thin": false
+        },
+        {
           "strike": 50000,
           "label": "Above 50,000",
           "pct": 56,
-          "chg": -3,
+          "chg": -2,
           "thin": false
         },
         {
           "strike": 60000,
           "label": "Above 60,000",
-          "pct": 54,
-          "chg": 4,
+          "pct": 52,
+          "chg": 2,
           "thin": false
         },
         {
           "strike": 70000,
           "label": "Above 70,000",
-          "pct": 43,
+          "pct": 42,
           "chg": -4,
-          "thin": false
-        },
-        {
-          "strike": 80000,
-          "label": "Above 80,000",
-          "pct": 38,
-          "chg": 3,
           "thin": false
         }
       ]
@@ -204,13 +204,13 @@
         {
           "label": "Democratic Party",
           "pct": 76,
-          "chg": 3,
+          "chg": 2,
           "thin": false
         },
         {
           "label": "Republican Party",
-          "pct": 25,
-          "chg": -3,
+          "pct": 26,
+          "chg": -2,
           "thin": false
         }
       ]

@@ -1,0 +1,66 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-11-06",
+  "source": "yahoo",
+  "generated": "2026-11-09T11:39:01.235Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": null,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [],
+  "READY": [],
+  "STALK": [
+    {
+      "sym": "NVDA",
+      "ok": true,
+      "date": "2026-11-06",
+      "close": 186.64,
+      "sma50": 219.81,
+      "sma20": 211.55,
+      "atr": 8.02,
+      "low20": 181.46,
+      "volume": 179722400,
+      "vol30": 112567737,
+      "volRatio": 1.6,
+      "rs20": -13.04,
+      "rs5": -6.09,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 164.58,
+        "date": "2025-07-22",
+        "atr_away": 2.75
+      },
+      "first_shelf": {
+        "level": 179.18,
+        "date": "2026-02-17",
+        "rr": 0.78
+      },
+      "floor2": {
+        "level": 179.17999267578125,
+        "date": "2026-02-17"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 186.64,
+        "stop": 196.25,
+        "stop_atr": 1.2,
+        "target": 164.58,
+        "rr": 2.3
+      },
+      "readiness": 60,
+      "list": "STALK"
+    }
+  ],
+  "DISCOVERY": [],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [],
+  "skipped": [],
+  "id": "d891e78c"
+}
