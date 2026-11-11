@@ -9212,6 +9212,54 @@
       "row": "B-1412",
       "expires": "2026-11-25",
       "status": "open"
+    },
+    {
+      "id": "MC-532",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NBIS",
+          "op": ">",
+          "level": 154.87
+        }
+      ],
+      "meaning": "closed over the 11/11 opening-range high after the 11/12 print: re-look the catalyst-lane long (stop 1 ATR, target re-verified at 2:1)",
+      "source": "docs/reads/2026-11-11-trip-NBIS.md",
+      "row": "B-1413",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-533",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NBIS",
+          "op": "<",
+          "level": 138.66
+        }
+      ],
+      "meaning": "closed under the 1-ATR stop of the pump-watch long the desk passed on: the plan is dead",
+      "source": "docs/reads/2026-11-11-trip-NBIS.md",
+      "row": "B-1413",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-534",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NBIS",
+          "op": ">=",
+          "level": 182.74
+        }
+      ],
+      "meaning": "reached the 10/28 pivot the desk passed on (scores B-1413 as a miss)",
+      "source": "docs/reads/2026-11-11-trip-NBIS.md",
+      "row": "B-1413",
+      "expires": "2026-11-25",
+      "status": "open"
     }
   ]
 }
