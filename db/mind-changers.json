@@ -9422,6 +9422,22 @@
       "row": "B-1424",
       "expires": "2026-11-16",
       "status": "open"
+    },
+    {
+      "id": "MC-543",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "HIMS",
+          "op": "<",
+          "level": 18.4
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "docs/reads/2026-11-11-hunt-close.md",
+      "row": "B-1432",
+      "expires": "2026-11-18",
+      "status": "open"
     }
   ]
 }
