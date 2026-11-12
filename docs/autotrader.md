@@ -64,9 +64,9 @@ Adam, 2026-11-12: *"I need to build a god damn auto trader. You don't have to te
 - `autotrader/lib/session.mjs`: market hours, half days and the sell-by rule, shared by the plan checks and the engine.
 - It reuses the executor's Robinhood login (`~/.bench-executor/oauth.json`) and connection code. It does not change the executor.
 
-## How it sits next to PR #53 (executor v2)
+## The one order program (Adam, 2026-11-12: "Auto trader only")
 
-Draft PR #53 (2026-11-10) is a different program for the same agent account: Adam approves a single buy from his phone (`ARM B-### <ticket code> <code>`), it places that buy and **never sets a stop or sells**. PR #54 puts the stack lane's one-share buys on top of it. The autotrader is the one that sets the stop, sells on the sell-by time and reports the result. The two share the executor's login and helpers but not their codes, topics or state. Which one is the order program (or both, #53 for stack buys and the autotrader for swing plans) is Adam's call.
+The autotrader is the order program for the agent account. Draft PR #53 (2026-11-10, executor v2: Adam approves a single buy from his phone, it places that buy and **never sets a stop or sells**) and PR #54 (the stack lane's one-share buys on top of #53) are **parked**: still drafts, titled PARKED, not to be merged without a new decision from Adam. Why: one program on one small account is one setup and one set of codes, and the autotrader refuses a ticker the account already holds, so a stack share bought by #53 would have blocked a swing plan on the same stock. Stack-lane buys are Adam's own resting limit orders at the add level.
 
 ## Home setup (Adam, once, at the PC)
 
