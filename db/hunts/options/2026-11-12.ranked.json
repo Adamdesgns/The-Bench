@@ -1,0 +1,208 @@
+{
+  "kind": "options-hunter-rank",
+  "asof": "2026-11-12",
+  "candidates_receipt": "7c39c122",
+  "band": 231.88,
+  "generated": "2026-11-12T21:36:34.627Z",
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "top": [
+    {
+      "sym": "IBIT",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "B",
+      "n": 28,
+      "p_dir": 53.57,
+      "p_reach": 14.29,
+      "market_p": 32.02,
+      "disagreement": 21.55,
+      "expiry": "2026-11-20",
+      "days": 6,
+      "long_strike": 40,
+      "short_strike": 36,
+      "cost": 67,
+      "max_gain": 333,
+      "payoff_ratio": 4.97,
+      "break_even": 39.33,
+      "ev": 16.48,
+      "ev_per_day": 2.75,
+      "stop": 42.28,
+      "target": 35.6,
+      "rr_shares": 2.48
+    },
+    {
+      "sym": "PATH",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 82,
+      "p_dir": 57.32,
+      "p_reach": 28.05,
+      "market_p": 32.97,
+      "disagreement": 24.35,
+      "expiry": "2026-11-20",
+      "days": 6,
+      "long_strike": 13,
+      "short_strike": 12,
+      "cost": 23,
+      "max_gain": 77,
+      "payoff_ratio": 3.35,
+      "break_even": 12.77,
+      "ev": 11.78,
+      "ev_per_day": 1.96,
+      "stop": 13.6,
+      "target": 12.09,
+      "rr_shares": 2.03
+    },
+    {
+      "sym": "HIMS",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 74,
+      "p_dir": 58.11,
+      "p_reach": 4.05,
+      "market_p": 38.32,
+      "disagreement": 19.79,
+      "expiry": "2026-11-20",
+      "days": 6,
+      "long_strike": 20,
+      "short_strike": 15,
+      "cost": 97,
+      "max_gain": 403,
+      "payoff_ratio": 4.15,
+      "break_even": 19.03,
+      "ev": -24.31,
+      "ev_per_day": -4.05,
+      "stop": 22.06,
+      "target": 14.75,
+      "rr_shares": 2.14
+    }
+  ],
+  "rest": [
+    {
+      "sym": "UBER",
+      "side": "short",
+      "list": "STALK",
+      "readiness": 60,
+      "grade": "A",
+      "n": 81,
+      "p_dir": 45.68,
+      "p_reach": 9.88,
+      "market_p": 34.27,
+      "disagreement": 11.41,
+      "expiry": "2026-11-20",
+      "days": 6,
+      "long_strike": 69,
+      "short_strike": 64,
+      "cost": 115,
+      "max_gain": 385,
+      "payoff_ratio": 3.35,
+      "break_even": 67.85,
+      "ev": -24.43,
+      "ev_per_day": -4.07,
+      "stop": 71.24,
+      "target": 64.04,
+      "rr_shares": 2.4
+    }
+  ],
+  "rejected": [
+    {
+      "sym": "AVGO",
+      "side": "long",
+      "why": "max loss 1099.5 > band 231.88"
+    },
+    {
+      "sym": "META",
+      "side": "short",
+      "why": "max loss 1458 > band 231.88"
+    },
+    {
+      "sym": "NVDA",
+      "side": "short",
+      "why": "max loss 675 > band 231.88"
+    },
+    {
+      "sym": "APP",
+      "side": "long",
+      "why": "max loss 1357.5 > band 231.88"
+    },
+    {
+      "sym": "GPRO",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "SST",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "ASPN",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "KRKNF",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "BTC-USD",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "CEG",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "AMD",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "SMCI",
+      "side": "short",
+      "why": "no marks"
+    },
+    {
+      "sym": "RARE",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "ANET",
+      "side": "long",
+      "why": "no marks"
+    },
+    {
+      "sym": "TLN",
+      "side": "long",
+      "why": "no marks"
+    }
+  ],
+  "id": "0b725547",
+  "routine": true
+}
