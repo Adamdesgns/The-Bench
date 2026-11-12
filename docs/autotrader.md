@@ -1,0 +1,88 @@
+# THE AUTOTRADER (v1, built 2026-11-12)
+
+Adam, 2026-11-12: *"I need to build a god damn auto trader. You don't have to tell it shit. I take our plan. Load it into it and it fkn run that plan, makes the order. Sets the stop loss. Then pings me that the trade went through."*
+
+**Status: BUILT AND TESTED OFFLINE ONLY. It has never placed a live order.** The first live run is Adam's (see "Home setup" below). Claude writes and tests it; Claude never runs it live, never runs `setup` / `codes` / `unlock`, never loads a plan and never moves money.
+
+## What it does
+
+1. The desk writes a plan file for every buyable ticket: `db/autotrader/plans/B-####.json` (`node autotrader/autotrader.mjs plan ...`). A plan is a ticket, nothing more: symbol, shares, the trigger, the most it pays, the stop, the target, the window it is good for, and an optional sell-by time (earnings). Writing it prints the plan in plain English and the line that loads it, for example `LOAD B-1460 K7QM2D`.
+2. **Adam loads it from his phone**: in the ntfy app, on his private load topic, he sends that line plus his next one-time code: `LOAD B-1460 K7QM2D abcde-fghjk`. The six letters are a fingerprint of the exact plan, so a plan file changed after he read it will not load. That message is the approval. Nothing else loads a plan.
+3. The trader (a plain program, no AI in it) watches the price every 5 seconds. When the trigger trades, it sends a limit buy at the plan's ceiling price. It never pays more than the ceiling.
+4. The moment the buy fills, it sets **one Robinhood take-profit/stop-loss order** (stop and target together, good till cancelled). If Robinhood refuses that, it sets a plain stop instead. It only says "SET" after reading the order back as live at Robinhood. If both fail, it alarms Adam every minute with the exact stop to set, and keeps retrying. If the price is already at the stop (or the target) while no stop is set, it sells at market instead; a sell that fails puts the stop back and tries the sell again a minute later, never every 5 seconds.
+5. It pings Adam (ntfy, plus Morgan's chat for buys, sells and alarms) when it loads, when it buys and the stop is set, when it sells, and on any alarm.
+6. On the sell-by time it cancels the stop/target order and sells at market (the earnings rule). If that sale fails, the stop goes back on and it tries the sale again every minute while the market is open, texting each time. It starts no new try in the last 5 minutes before the close, so the stop is on for the night, and it tries again at the next open.
+
+## Phone commands (private load topic)
+
+| Send | Does |
+|---|---|
+| `LOAD B-1460 K7QM2D abcde-fghjk` | Loads plan B-1460. The six letters come from the plan's ticket; the last part is your next unused one-time code. |
+| `SELL B-1460 abcde-fghjk` | Cancels its stop/target and sells now. Needs a code. Works again after a sell that failed. On a plan still watching after an earlier buy attempt, any shares from that attempt that show up are sold. |
+| `KILL B-1460` / `KILL ALL` | Stops watching. An unfilled buy is cancelled. Shares already bought keep (or get) their stop: KILL never sells. After a buy attempt it reads the account twice, 15 seconds apart, before it says "nothing bought"; shares it finds get their stop. |
+| `STATUS` | Sends back every plan and where it stands. |
+
+## The guard (why no AI can fire a trade)
+
+- **Loading and selling need a one-time code.** 40 codes are made at setup, shown once on Adam's screen, and never written to disk. The PC keeps only scrypt hashes of them.
+- **Every code that appears on the topic dies**, whether or not the trader acts on it: a message too old to act on (over 2 minutes), one sent while LOAD and SELL are locked, one that is not a valid command, one with the code typed with a space in it, one that arrives the same moment `codes` or `unlock` runs at the PC. So the topic's history never holds a usable code. Three wrong codes in a row lock LOAD and SELL (not KILL or STATUS) until `unlock` is run at the keyboard.
+- **LOAD carries the plan's fingerprint.** The plan is copied into the trader when it loads and the file is never read again, so an edit after loading changes nothing.
+- `setup`, `codes` and `unlock` only run in a real terminal (stdin and stdout both a TTY), the same guard the executor uses. Claude's shell is not a TTY, so the codes never pass through an AI. They take effect while the trader runs: it reads its settings fresh for every phone message, and it refuses to save an old copy over a newer one.
+- The desk (Claude, the routines, the trip judge) can write plan files. It cannot load them.
+- **At start, the trader texts every plan it is picking back up (RESUMED ...)**, so a plan nobody loaded cannot run quietly.
+- **Honest limit (the same risk Adam accepted for the executor on 2026-11-09, "No, accept risk"):** anything that runs as Adam on this PC can read and rewrite the trader's settings and state in `~/.bench-autotrader` (outside the repo, so git does not show it) or use the Robinhood login directly. The guard stops every normal path, not a deliberate attack on this PC. The real ceiling is the cash kept in the agent account, plus the RESUMED text and the alarms. A live run refuses to start if the trader's code is not committed, so a changed program shows in git.
+
+## Hard limits in code
+
+- Long only, whole shares, regular hours only, stocks priced $1 or more with prices in whole cents, one agent account (the one Robinhood marks agent-tradable, ••7724, a cash account: no shorts, no margin).
+- **It only starts a ticker the agent account is not already in**: no shares held and no open order there, checked at load and again right before the buy. If either read fails, it does not buy.
+- Max loss per plan (shares x (ceiling - stop)) at most `max_loss_pct` of the account (default 10, Adam's band), checked at load and again before the buy.
+- Ceiling at most 2% over the trigger (no chasing). Stop under the trigger. Target over the ceiling. The plan's stated max loss must match the math within 10% (catches typos).
+- At most 3 live plans, one per symbol.
+- No buy before `not_before`, at or after the sell-by time, after 14:55 CT (11:55 CT on a half day), on a market holiday (calendar `db/prepump/nyse-calendar-2026-2028.json`), or on a quote older than 2 minutes or with no time on it.
+- **A sell-by time must leave the sale room to fill:** a trading day, between 09:30 ET and 10 minutes before that day's close (15:50 ET, or 12:50 ET on a half day). A plan with a sell-by after the bell is refused when it is written and when it loads, so it can never hold shares through an after-close earnings print by accident. If the trader was off when the sell-by time came, it alarms and sells at the next open; the stop stays set until then.
+- The trader places the buy itself when the trigger trades, as a day order it watches. Unfilled after 30 seconds it is cancelled, even when its status cannot be read. The one way a buy can rest unwatched: its answer was lost and Robinhood does not list it. Then the trader alarms every 10 minutes until the close, and a day order dies at the close.
+- If the buy only partly fills, the rest is cancelled and the filled shares get the stop.
+- **A buy is sent once per attempt and never again.** If its answer is lost, the trader looks for it (by its key, by its details, in the open orders, in the account's shares) and protects whatever it finds. A match by details is never an earlier attempt's order, and never one Robinhood shows cancelled with nothing filled. Sells keep their own list of dead sells for the whole plan, across every SELL, and before any sell goes out the trader checks the open orders: a live market sell already there is taken as this sale, never doubled (if it was for fewer shares, the trader sells the rest once it fills, and its one-minute "not filled" clock starts when it was found). It never resends, so it does not depend on Robinhood refusing a repeated key. Until it finds the order or shares, it texts Adam every 10 minutes. After the close it calls the attempt empty only when two reads, 15 seconds apart, show no shares and no open buy.
+- **A stop is only "there" if Robinhood shows it open.** A cancelled stop is never mistaken for a live one; one cancelled in the app gets replaced once, and the trader says so. A stop order sent but never confirmed is found and cancelled before any sell, so it cannot block the sell. A plain stop counts only by the order id Robinhood gave back for it or one of the trader's own order keys, never by its details, so a stop+target order's own stop leg is never taken for a plain stop. The id is kept the moment it comes back, so a stop whose read-back fails once is found again by its id, not placed twice. A lookup that fails never blocks setting the stop.
+- **Shares are only "gone" after two reads of 0 in a row**, the first at least 15 seconds before the last and less than a minute old (an older first read starts over, and any read with shares, or a new stage such as a sell, clears it), and every page of the positions list is read; a row it cannot read is an error, never zero. Ending a plan that way is an ALARM that says the trader did not sell them, never a SOLD message. A sell that reads 0 shares reads again; if they are still not there it puts the stop back and alarms.
+- **More shares in the account than the stop covers** (a buy that filled late) is an alarm with the exact stop to set, every 10 minutes, and named again in the plan's last message when it closes.
+- A buy that Robinhood shows cancelled or rejected with nothing filled is checked against the account's shares before "nothing bought". After any buy attempt, a plan that is back to watching checks the account's shares every 30 seconds. **A plan whose buy order existed never ends on one read** (missed 3 times, window closed, or KILL): it reads the account twice, 15 seconds apart, with no new buy in between, and shares that show up are taken as this plan's and get the stop.
+- Sells are sized from the shares the account really holds. A sell that partly fills and then cancels sells the rest; the result counts both. If the account's shares cannot be read once the stop is cancelled for a sale, it alarms that the shares have NO STOP and, after 3 failed reads, sells what it bought (Robinhood refuses a sell of shares the account does not hold).
+- **The bell in the middle of a sale:** the stop stays (or goes back) on for the night, and a sale that was asked for (SELL, or the sell-by time) goes out at the next open with no new SELL, the same as a SELL sent after hours. A sell still resting at the bell is read first: filled ends the plan, part filled leaves the rest with the stop, rejected puts the stop back and needs a new SELL. It never sends a sell after the bell.
+- An unfilled buy is cancelled after 30 seconds (the price ran past the ceiling); it goes back to watching, 3 tries a plan.
+- The phone check and the trading run separately: if ntfy is down, open plans are still managed. Adam gets an alarm that his commands are not arriving; every alarm also goes to Morgan's chat, which is the path that works when ntfy itself is down.
+- At the daily stop (15:05 CT) it alarms about any plan left mid-way: a buy not confirmed, shares with no stop, a sell under way, a sell it still owes.
+- **It never stops in silence, as far as a program can.** Stopped at the PC (Ctrl+C, Ctrl+Break, the console window closed), crashed, or failed to start (no login, approvals on, uncommitted code, a damaged state file): it sends no new buy, lets a step already running finish (4 seconds at most), then texts Adam and Morgan once which plans it is no longer watching. What no program can catch: Task Scheduler's End button, a forced kill, a power cut. For those, the next start texts RESUMED with every plan it picks back up. A state file it cannot read stops it from starting rather than being replaced by an empty one. A lock file it cannot read at all (antivirus holding it) stops a second trader from starting; a half-written one counts as left by a dead trader only once it is 30 seconds old. **A state file that cannot be saved** (full disk, antivirus holding it) pauses new buys, since a buy's record must be on disk before it goes out (a buy that could not be saved spends none of the plan's 3 tries), and texts Adam every 10 minutes; stops and sells still go out, and phone commands (LOAD, SELL, KILL) still take effect.
+
+## Files
+
+- `autotrader/autotrader.mjs`: the CLI (`setup`, `codes`, `unlock`, `plan`, `check`, `status`, `journal`, `run`, `run --dry`).
+- `autotrader/lib/engine.mjs`: the trading logic, no network. `plan.mjs` (plan rules and the fingerprint), `codes.mjs` (one-time codes), `msgs.mjs` (phone commands), `live.mjs` (Robinhood connection, allowlisted tools only), `fake.mjs` (simulated broker for tests and dry runs).
+- Runtime (outside the repo, never committed): `~/.bench-autotrader/config.json` (account, load topic, code hashes), `state.json` (live plans), `journal.jsonl`, `run.lock`. Dry runs keep their own `state-dry.json` and `journal-dry.jsonl`.
+- Tests: `test/autotrader.test.mjs` (90 tests, with one per finding from all five 2026-11-12 reviews). Every fix from the fifth review was break-checked: the fix undone, its test seen failing, the fix put back. Those fifth-round fixes have not had a fresh review of their own; the dry run and the 1-share test are the real check.
+- `autotrader/lib/session.mjs`: market hours, half days and the sell-by rule, shared by the plan checks and the engine.
+- It reuses the executor's Robinhood login (`~/.bench-executor/oauth.json`) and connection code. It does not change the executor.
+
+## How it sits next to PR #53 (executor v2)
+
+Draft PR #53 (2026-11-10) is a different program for the same agent account: Adam approves a single buy from his phone (`ARM B-### <ticket code> <code>`), it places that buy and **never sets a stop or sells**. PR #54 puts the stack lane's one-share buys on top of it. The autotrader is the one that sets the stop, sells on the sell-by time and reports the result. The two share the executor's login and helpers but not their codes, topics or state. Which one is the order program (or both, #53 for stack buys and the autotrader for swing plans) is Adam's call.
+
+## Home setup (Adam, once, at the PC)
+
+1. Log in to Robinhood for the agent account: `node executor/executor.mjs login` (your browser, your consent).
+2. `node autotrader/autotrader.mjs setup`: shows your private load topic and 40 one-time codes. Photograph them. They are not saved anywhere.
+3. On your phone, in the ntfy app, subscribe to the load topic (that is where you send LOAD).
+4. Move the money you want it to trade into the agent account ••7724 (it holds $200 now). Keep "approve trades" OFF in the Robinhood app for that account (it is off now).
+5. First day: `node autotrader/autotrader.mjs run --dry` uses live prices and pretends to trade, so you can watch it load and "fill" without real orders. A LOAD sent during a dry run uses up a real code (any code seen on the topic dies).
+6. Then a real 1-share test on a cheap stock, with you watching. After that it runs every weekday from 08:20 to 15:05 CT.
+
+## Not checked against live Robinhood yet
+
+The answers to placing an order, reviewing one, placing a take-profit/stop-loss order and listing positions were never captured live (the positions tool says it returns each row's symbol and quantity; the name of its next-page field is a guess). The trader reads them defensively and fails closed (alarms, no buy) when it cannot read one, but the dry run and the 1-share test are the first time they are seen. Also unverified: that `place_equity_order` takes `type: stop_market` for a plain stop (if not, the stop+target order is the only protection and a refusal alarms). Whether Robinhood refuses a repeated order key no longer matters for buys: the trader never repeats one. It still matters a little for stops and sells. Whether Robinhood's order list shows each order's key is unverified; a plain stop whose id came back is found by that id either way, but one whose answer was lost entirely is not found if the list hides keys, and the trader may send a second stop that Robinhood should refuse. Also unverified: what Robinhood does at the close with a market sell that has not filled (the trader reads it and assumes a day order dies at the close; if it is still open, the daily stop alarm says the shares have NO STOP). A sell is re-sent only after its lookups and the open orders show nothing, and a cash account should refuse a second sell of shares already held for the first.
+
+Accepted small gaps: two traders started in the same instant over a dead trader's lock could both run (the scheduled task starts one); the open-orders check reads the newest page Robinhood returns.
+
+## Not in v1
+
+Shorts and options (the agent account is cash, level 2). Moving the stop after entry (a trailing stop). Adding to a position, or trading a ticker the agent account already holds. Anything that changes a plan after it is loaded: a new plan is a new load.
