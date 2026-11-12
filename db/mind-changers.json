@@ -9438,6 +9438,54 @@
       "row": "B-1432",
       "expires": "2026-11-18",
       "status": "open"
+    },
+    {
+      "id": "MC-544",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "MARA",
+          "op": ">=",
+          "level": 8.25
+        }
+      ],
+      "meaning": "Grant's MARA bounce target reached on a close; the desk passed on capital competition - re-look and score the miss",
+      "source": "Grant Mercer handoff 2026-11-11 (pasted by Adam)",
+      "row": "B-1434",
+      "expires": "2026-11-18",
+      "status": "open"
+    },
+    {
+      "id": "MC-545",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "MARA",
+          "op": "<",
+          "level": 7.3
+        }
+      ],
+      "meaning": "Grant's MARA stop line broken on a close; the bounce ticket is dead",
+      "source": "Grant Mercer handoff 2026-11-11 (pasted by Adam)",
+      "row": "B-1434",
+      "expires": "2026-11-18",
+      "status": "open"
+    },
+    {
+      "id": "MC-546",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "MARA",
+          "op": ">",
+          "level": 8.36
+        }
+      ],
+      "meaning": "MARA closed over the top of the October seller zone 8.02-8.36; the downtrend read changes - full re-run",
+      "source": "B-1434 desk read 2026-11-11",
+      "row": "B-1434",
+      "expires": "2026-12-11",
+      "status": "open"
     }
   ]
 }
