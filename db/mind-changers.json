@@ -9534,6 +9534,118 @@
       "row": "B-1435",
       "expires": "2027-02-03",
       "status": "open"
+    },
+    {
+      "id": "MC-550",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "SOL-USD",
+          "op": ">",
+          "level": 88.96
+        }
+      ],
+      "meaning": "SOL settled back over its 200-day: the first sign of the run Adam is watching for (B-1436); re-look",
+      "source": "chat 2026-11-11 21:30 CT always-watch order",
+      "row": "B-1436",
+      "expires": "2027-11-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-551",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "SOL-USD",
+          "op": ">",
+          "level": 97.7
+        }
+      ],
+      "meaning": "SOL settled over its 11/04 lower high: first higher high since September, the run to 100 is on (B-1436); re-look",
+      "source": "chat 2026-11-11 21:30 CT always-watch order",
+      "row": "B-1436",
+      "expires": "2027-11-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-552",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "SOL-USD",
+          "op": ">=",
+          "level": 100
+        }
+      ],
+      "meaning": "SOL settled at or over Adam's 100 (B-1436); re-look",
+      "source": "chat 2026-11-11 21:30 CT always-watch order",
+      "row": "B-1436",
+      "expires": "2027-11-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-553",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": ">",
+          "level": 81079.79
+        }
+      ],
+      "meaning": "BTC settled over its 11/04 lower high: first higher high since September (B-1437); re-look",
+      "source": "chat 2026-11-11 21:30 CT always-watch order",
+      "row": "B-1437",
+      "expires": "2027-11-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-554",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "BTC-USD",
+          "op": "<",
+          "level": 73116.99
+        }
+      ],
+      "meaning": "BTC settled under its 200-day: the warning the other way (B-1437); re-look",
+      "source": "chat 2026-11-11 21:30 CT always-watch order",
+      "row": "B-1437",
+      "expires": "2027-11-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-555",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">=",
+          "level": 172.36
+        }
+      ],
+      "meaning": "Adam's Huang-stays call: +7 pct from 161.08 reached on a settle (B-1438); check whether the board news is what did it",
+      "source": "chat 2026-11-11 21:35 CT",
+      "row": "B-1438",
+      "expires": "2026-11-25",
+      "status": "open"
+    },
+    {
+      "id": "MC-556",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">=",
+          "level": 177.19
+        }
+      ],
+      "meaning": "Adam's Huang-stays call: +10 pct from 161.08 reached on a settle (B-1438)",
+      "source": "chat 2026-11-11 21:35 CT",
+      "row": "B-1438",
+      "expires": "2026-11-25",
+      "status": "open"
     }
   ]
 }
