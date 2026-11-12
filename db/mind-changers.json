@@ -9694,6 +9694,38 @@
       "row": "B-1441",
       "expires": "2026-11-12",
       "status": "open"
+    },
+    {
+      "id": "MC-560",
+      "created": "2026-11-12",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 165.89
+        }
+      ],
+      "meaning": "B-1449: settle back over the 20-day low; re-look at the 11/13 first 30-min bar, needs an official board statement to become a ticket",
+      "source": "docs/reads/2026-11-12-trip-NVDA.md",
+      "row": "B-1449",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-561",
+      "created": "2026-11-12",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 148.8
+        }
+      ],
+      "meaning": "B-1449: settle under today's opening-range low; the bounce failed, re-judge the short",
+      "source": "docs/reads/2026-11-12-trip-NVDA.md",
+      "row": "B-1449",
+      "expires": "2026-11-17",
+      "status": "open"
     }
   ]
 }
