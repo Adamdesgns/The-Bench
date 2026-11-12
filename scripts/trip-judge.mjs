@@ -186,7 +186,10 @@ async function pumpTick(today, dry = false, { canJudge = true, cardsOnly = false
       if (judged) promised += 1;
       const text = PUMP.earlyCard(fresh, read, hhmm, { judged });
       if (dry) console.log(`EARLY CARD would send: ${text}`);
-      else if (sendCard("pump", `${read.read} ${w.ticker} - pump watch`, text)) PW.updateWatch(w.ticker, today, (x) => ({ ...x, early_card: hhmm }));
+      else if (sendCard("pump", `${read.read} ${w.ticker} - pump watch`, text)) {
+        PW.updateWatch(w.ticker, today, (x) => ({ ...x, early_card: hhmm }));
+        pingMorgan(text); // Adam, 2026-11-12: "Not preapproved bing morgan to text me asap"
+      }
     }
   }
   if (dry) {
@@ -240,6 +243,20 @@ async function pumpTick(today, dry = false, { canJudge = true, cardsOnly = false
     }
     PW.updateWatch(ticker, today, (x) => ({ ...x, last_read }));
   }
+}
+
+// Morgan relay (Adam, 2026-11-12: "Not preapproved bing morgan to text me asap"). An early read's card also goes to
+// Morgan's chat through the Bot Status webhook, so he texts Adam. Worded as a relay: Morgan never places, changes or
+// suggests an order from it (the judge's BUY / SHORT cards are relayed by the judge itself, trip-judge-v1 step 6).
+// Never throws; a failed ping is logged and the ntfy card has already gone.
+const BOT_STATUS = resolve(process.env.USERPROFILE || "C:/Users/steam", "OneDrive/Documents/Bot Status");
+function pingMorgan(text) {
+  const script = resolve(BOT_STATUS, "bot-webhook.mjs");
+  if (!existsSync(script)) { log("morgan ping: bot-webhook.mjs not found"); return false; }
+  const msg = `ALERT FOR ADAM - text him now. Relay only: do not place, change or suggest any order, Adam places every order himself. ${text}`.slice(0, 3000);
+  const r = spawnSync(process.execPath, [script, "Morgan", msg], { cwd: BOT_STATUS, encoding: "utf8", timeout: 60000 });
+  log(`morgan ping: ${r.status === 0 ? "accepted" : `FAILED (exit ${r.status}) ${`${r.stdout || ""}${r.stderr || ""}`.trim().slice(0, 200)}`}`);
+  return r.status === 0;
 }
 
 // Every card from this tick goes through ntfy-read.mjs, the one phone door (plans and plays only).
