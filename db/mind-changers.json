@@ -9486,6 +9486,54 @@
       "row": "B-1434",
       "expires": "2026-12-11",
       "status": "open"
+    },
+    {
+      "id": "MC-547",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 173.73
+        }
+      ],
+      "meaning": "NVDA settled back over the 11/11 pre-news close: the after-hours ouster gap is fully reclaimed; re-judge the long (Capital Competition and earnings 11/17 pm still apply)",
+      "source": "site/reviews/2026-11-11-nvda-cook.md",
+      "row": "B-1435",
+      "expires": "2026-11-17",
+      "status": "open"
+    },
+    {
+      "id": "MC-548",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">=",
+          "level": 186.64
+        }
+      ],
+      "meaning": "the whole Huang move is undone (last close before any Huang news, 11/06); Adam's 240 call is on its way, re-judge",
+      "source": "site/reviews/2026-11-11-nvda-cook.md",
+      "row": "B-1435",
+      "expires": "2027-02-03",
+      "status": "open"
+    },
+    {
+      "id": "MC-549",
+      "created": "2026-11-11",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">=",
+          "level": 240
+        }
+      ],
+      "meaning": "Adam's 240 call (B-1435, Tim Cook floated) reached on a settle: score it a hit",
+      "source": "site/reviews/2026-11-11-nvda-cook.md",
+      "row": "B-1435",
+      "expires": "2027-02-03",
+      "status": "open"
     }
   ]
 }

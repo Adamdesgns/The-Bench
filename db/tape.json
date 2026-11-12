@@ -3,7 +3,7 @@
   "session": "regular",
   "basis": "Robinhood MCP last regular trades 11/11 vs official 11/10 settles (MARA run B-1434); other names keep their own asof",
   "source": "Robinhood MCP (interactive run, B-1434)",
-  "note": "Run the market Sun 10/25 20:50 CT: overnight session flat (B-1056). Close quotes unchanged from 10/23. | 10/28 19:07 CT interactive overreaction run (B-1138 GOOGL, B-1139 NOW): GOOGL/NOW/SPY/QQQ after-hours marks vs the 10/28 official closes; other names untouched. | 10/29 15:35 CT run the market AMZN (B-1172): AMZN/SPY/QQQ/GOOGL/NOW after-hours marks vs the 10/28 official closes. | 10/31 16:10 CT weekend run: every strip ticker refreshed to the Friday 10/30 settle from Yahoo daily bars. | 11/5 11:30 CT run the market (B-1296): 24 names refreshed mid-session. | 11/9 09:35 CT run the market (B-1355): 21 names refreshed mid-session. | 11/09 12:56 CT NVDA delta run (B-1365): NVDA/SPY/QQQ/SMH last trades vs the 11/6 closes; other names untouched. | 11/11 18:45 CT MARA run (B-1434, Grant ticket refused): MARA/COIN/MSTR/HOOD/SPY/QQQ last regular trades vs 11/10 settles.",
+  "note": "Run the market Sun 10/25 20:50 CT: overnight session flat (B-1056). Close quotes unchanged from 10/23. | 10/28 19:07 CT interactive overreaction run (B-1138 GOOGL, B-1139 NOW): GOOGL/NOW/SPY/QQQ after-hours marks vs the 10/28 official closes; other names untouched. | 10/29 15:35 CT run the market AMZN (B-1172): AMZN/SPY/QQQ/GOOGL/NOW after-hours marks vs the 10/28 official closes. | 10/31 16:10 CT weekend run: every strip ticker refreshed to the Friday 10/30 settle from Yahoo daily bars. | 11/5 11:30 CT run the market (B-1296): 24 names refreshed mid-session. | 11/9 09:35 CT run the market (B-1355): 21 names refreshed mid-session. | 11/09 12:56 CT NVDA delta run (B-1365): NVDA/SPY/QQQ/SMH last trades vs the 11/6 closes; other names untouched. | 11/11 18:45 CT MARA run (B-1434, Grant ticket refused): MARA/COIN/MSTR/HOOD/SPY/QQQ last regular trades vs 11/10 settles. | 11/11 20:15 CT NVDA Tim Cook deep dive (B-1435): NVDA after-hours mark 161.08 vs the 11/11 official close 173.73; other names untouched.",
   "quotes": [
     {
       "ticker": "SPY",
@@ -95,11 +95,11 @@
     },
     {
       "ticker": "NVDA",
-      "last": 176.96,
-      "prev_close": 186.64,
-      "change_pct": -5.19,
-      "asof": "2026-11-09T12:56:00-06:00",
-      "session": "regular"
+      "last": 161.08,
+      "prev_close": 173.73,
+      "change_pct": -7.28,
+      "asof": "2026-11-11T20:12:00-06:00",
+      "session": "after-hours"
     },
     {
       "ticker": "AMD",
