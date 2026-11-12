@@ -412,8 +412,20 @@
       "why": "Adam order 11/09 evening: do not miss the pump. Board probe of CEO Huang (personal conduct, not the business), NVDA -4.3 pct while chips +5 to +13; reply to House due 11/11, earnings 11/17 pm, briefing 11/18. Gap-fill line 186.64, B-1386",
       "added_by": "adam",
       "added_at": "2026-11-09T23:50:37.857Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:55",
+          "last": 175.59
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UP",
+        "last": 176.24,
+        "why": "over the 175.13 opening-range high and the 174.37 VWAP on 2.18x volume pace"
+      }
     },
     {
       "ticker": "NVDA",
@@ -462,8 +474,20 @@
       "why": "Q3 revenue 3.66B vs 3.55B expected, FY26 guide raised, demand 10x capacity; +13.3 pct pre-market 05:35 CT (FXStreet, Stocktwits 11/11)",
       "added_by": "routine",
       "added_at": "2026-11-11T11:36:55.376Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:00",
+          "last": 57
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UP",
+        "last": 61.31,
+        "why": "over the 57.98 opening-range high and the 58.15 VWAP on 2.93x volume pace"
+      }
     },
     {
       "ticker": "NBIS",
@@ -472,8 +496,20 @@
       "why": "neocloud read-through from the CoreWeave beat, own earnings Thu 11/12 before the open; +11.7 pct pre-market (Stocktwits 11/11)",
       "added_by": "routine",
       "added_at": "2026-11-11T11:36:55.461Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:05",
+          "last": 155.67
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UP",
+        "last": 158.62,
+        "why": "over the 154.87 opening-range high and the 153.64 VWAP on 1.73x volume pace"
+      }
     },
     {
       "ticker": "LITE",
@@ -483,7 +519,13 @@
       "added_by": "routine",
       "added_at": "2026-11-11T11:36:55.571Z",
       "calls": [],
-      "ended": false
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UNCLEAR",
+        "last": 669.31,
+        "why": "volume pace 1.27x is under 1.5x"
+      }
     },
     {
       "ticker": "COHR",
@@ -492,8 +534,20 @@
       "why": "AI stack rebound on the CoreWeave beat (GPU demand 10x capacity), no company news found; +8.8 pct pre-market (FXStreet 11/11)",
       "added_by": "routine",
       "added_at": "2026-11-11T11:36:55.647Z",
-      "calls": [],
-      "ended": false
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "09:05",
+          "last": 232.69
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UP",
+        "last": 240.69,
+        "why": "over the 238.65 opening-range high and the 236.77 VWAP on 1.6x volume pace"
+      }
     },
     {
       "ticker": "MRVL",
@@ -502,6 +556,49 @@
       "why": "chip rebound on the CoreWeave beat, reported +7.6 pct pre-market by KuCoin flash; +7.9 pct at 05:35 CT; B-1320 trigger 149.81 decision due 11/12",
       "added_by": "routine",
       "added_at": "2026-11-11T11:36:55.741Z",
+      "calls": [
+        {
+          "read": "UP",
+          "at_ct": "10:05",
+          "last": 172.04,
+          "capped": true
+        }
+      ],
+      "ended": true,
+      "last_read": {
+        "at_ct": "12:05",
+        "read": "UNCLEAR",
+        "last": 172.6,
+        "why": "volume pace 1.37x is under 1.5x"
+      }
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-11-18",
+      "until": "12:00",
+      "why": "Adam 11/11 evening: lets not miss this next run up, we love nvda, long term bag later on. Post-earnings reaction (11/17 pm print); board CEO decision pending after the WSJ oust report; AH 161.08 under the 164.27 52-week low; Huang-free line 186.64; stack lane name since 11/10 (B-1388). B-1435",
+      "added_by": "adam",
+      "added_at": "2026-11-12T02:28:11.082Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-11-19",
+      "until": "12:00",
+      "why": "Adam 11/11 evening: lets not miss this next run up, we love nvda, long term bag later on. Post-earnings reaction (11/17 pm print); board CEO decision pending after the WSJ oust report; AH 161.08 under the 164.27 52-week low; Huang-free line 186.64; stack lane name since 11/10 (B-1388). B-1435",
+      "added_by": "adam",
+      "added_at": "2026-11-12T02:28:11.148Z",
+      "calls": [],
+      "ended": false
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-11-20",
+      "until": "12:00",
+      "why": "Adam 11/11 evening: lets not miss this next run up, we love nvda, long term bag later on. Post-earnings reaction (11/17 pm print); board CEO decision pending after the WSJ oust report; AH 161.08 under the 164.27 52-week low; Huang-free line 186.64; stack lane name since 11/10 (B-1388). B-1435",
+      "added_by": "adam",
+      "added_at": "2026-11-12T02:28:11.208Z",
       "calls": [],
       "ended": false
     }
