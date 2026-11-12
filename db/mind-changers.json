@@ -9774,6 +9774,22 @@
       "row": "B-1450",
       "expires": "2026-11-13",
       "status": "open"
+    },
+    {
+      "id": "MC-565",
+      "created": "2026-11-12",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<=",
+          "level": 151.49
+        }
+      ],
+      "meaning": "stack lane add level 151.49 reached on a settle: re-ask Adam's 1000 dollar stack add (B-1454); earnings 11/17 pm, kill line = a probe finding or a data-center guide cut",
+      "source": "chat 2026-11-12 12:10 CT",
+      "row": "B-1454",
+      "expires": "2026-11-25",
+      "status": "open"
     }
   ]
 }
