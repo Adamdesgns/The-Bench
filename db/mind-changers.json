@@ -9726,6 +9726,54 @@
       "row": "B-1449",
       "expires": "2026-11-17",
       "status": "open"
+    },
+    {
+      "id": "MC-562",
+      "created": "2026-11-12",
+      "when": [
+        {
+          "ticker": "AMD",
+          "op": "<",
+          "level": 555
+        }
+      ],
+      "meaning": "pullback into the 552.90-555 hold zone; re-look the B-1450 next-session long",
+      "source": "docs/reads/2026-11-12-trip-AMD.md",
+      "row": "B-1450",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-563",
+      "created": "2026-11-12",
+      "when": [
+        {
+          "ticker": "AMD",
+          "op": ">",
+          "level": 658.52
+        }
+      ],
+      "meaning": "settle over the 10/06 high: last verified pivot cleared, 2:1 math changes",
+      "source": "docs/reads/2026-11-12-trip-AMD.md",
+      "row": "B-1450",
+      "expires": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "id": "MC-564",
+      "created": "2026-11-12",
+      "when": [
+        {
+          "ticker": "AMD",
+          "op": "<",
+          "level": 512.18
+        }
+      ],
+      "meaning": "next-session plan stop broken; plan dead",
+      "source": "docs/reads/2026-11-12-trip-AMD.md",
+      "row": "B-1450",
+      "expires": "2026-11-13",
+      "status": "open"
     }
   ]
 }
