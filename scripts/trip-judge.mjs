@@ -2,7 +2,8 @@
 //
 //   node scripts/trip-judge.mjs              one tick: check the levels, judge any fresh buy-side cross
 //   node scripts/trip-judge.mjs --dry        show what would be judged; no Claude run, no state, no push
-//   node scripts/trip-judge.mjs --force      run outside the 08:25-15:05 CT weekday window (testing)
+//   node scripts/trip-judge.mjs --force      run outside the weekday window (testing). The window is 08:00-15:05 CT:
+//                                            pump watch only before 08:31, book levels from 08:31 (2026-11-12)
 //   node scripts/trip-judge.mjs --status     today's judged levels and the lock, no network
 //
 // EXIT CODE: 0 = ran (judged or nothing to judge) · 2 = quote fetch failure · 3 = another tick holds the lock.
@@ -32,7 +33,7 @@ import { ROOT } from "../server/config.js";
 import { nyDate } from "../server/nyDate.js";
 import { loadTargets } from "./position-target.mjs";
 import { deriveLevels, fetchQuotes, checkLevels } from "../server/tripwire.js";
-import { inWindow, ct } from "../server/marketWatch.js";
+import { ct, WINDOW } from "../server/marketWatch.js";
 import * as TJ from "../server/tripJudge.js";
 import * as PUMP from "../server/pumpWatch.js";
 import * as PW from "./pump-watch.mjs";
@@ -75,10 +76,26 @@ async function main(argv = process.argv.slice(2)) {
     for (const j of todays) console.log(`  ${j.at} ${j.ticker} ${j.kind} ${j.price} [${j.src}] -> ${j.result}`);
     return 0;
   }
-  if (!has("--force") && (!inWindow() || ct().hhmm < TJ.FIRST_TICK)) return 0;
+  if (!has("--force")) {
+    // From 08:00 CT the pump watch is awake (Adam, 2026-11-12: "Watch starts at 8am catches the pre market through
+    // the open from now on"). Book levels still wait for FIRST_TICK: before the open the free feed's day range and
+    // prior close can still describe yesterday (review finding 5).
+    const { hhmm, weekday } = ct();
+    if (weekday === "Sat" || weekday === "Sun" || hhmm < PUMP.PUMP_FIRST_TICK || hhmm >= WINDOW.close) return 0;
+    if (hhmm < TJ.FIRST_TICK) {
+      const held = TJ.lockIsLive(readJson(LOCK, null));
+      await pumpTick(today, has("--dry"), { canJudge: !held });
+      const mine = readJson(LOCK, null);
+      if (mine && mine.pid === process.pid) rmSync(LOCK); // only a lock this run wrote
+      return held ? 3 : 0;
+    }
+  }
 
   const lock = readJson(LOCK, null);
   if (TJ.lockIsLive(lock)) { console.log(`another tick is judging (${lock.ticker}, since ${lock.at})`); await pumpTick(today, has("--dry"), { canJudge: false }); return 3; }
+  // Until the opening range closes, the pump watch's cards go out before any book-level judge can hold this tick
+  // for minutes (review 2026-11-12, finding 2). The full pump pass at the end does the judging.
+  if (ct().hhmm < "09:00") await pumpTick(today, has("--dry"), { cardsOnly: true });
 
   const wl = readJson(resolve(ROOT, "db/watchlist.json"), []);
   const arch = readJson(resolve(ROOT, "db/archive.json"), []);
@@ -132,54 +149,106 @@ async function main(argv = process.argv.slice(2)) {
 // routine adds a watch), reads still run when another tick holds the lock (canJudge false: no call is
 // recorded, the next tick makes it), pump judges have their own daily cap, and a failed read after lunch
 // still sends the wrap-up.
-async function pumpTick(today, dry = false, { canJudge = true } = {}) {
+// 2026-11-12 (Adam: "Watch starts at 8am catches the pre market through the open from now on"): ticks from 08:00 CT.
+// TWO PASSES (review 2026-11-12, finding 2: a judge runs up to 20 minutes and the task never overlaps ticks):
+//   1. CARDS: read every live watch and send what cannot wait: the pre-market card (one for all watches, before
+//      08:30), one PRE-MARKET MOVE card per watch on a 2%+ move after it, and an early read's levels (earlyCard).
+//      Each is marked on the watch only when ntfy really sent it, so a failed send is retried next tick.
+//   2. JUDGE (skipped with cardsOnly): calls, caps, judges and the lunch wrap-up, as before. Early reads have
+//      their own slot and cap (MAX_EARLY_JUDGES_PER_DAY); a capped early read says so on its one card.
+// main() runs a cards-only pass before any book-level judge until 09:00 CT, so a book judge never delays a FLUSH card.
+async function pumpTick(today, dry = false, { canJudge = true, cardsOnly = false } = {}) {
   const hhmm = ct().hhmm;
-  const live = PW.loadWatches().watches.filter((w) => w.date === today && !w.ended);
+  const todays = () => PW.loadWatches().watches.filter((x) => x.date === today);
+  const freshOf = (t) => todays().find((x) => x.ticker === t);
+  const usedCalls = (early) => todays().reduce((n, x) => n + (x.calls || []).filter((c) => PUMP.EARLY_READS.has(c.read) === early).length, 0);
+  const live = todays().filter((w) => !w.ended);
+
+  // PASS 1: read everything, send the cards that cannot wait.
+  const reads = [];
+  const preItems = [], moveItems = [];
+  let promised = usedCalls(true); // early judges already spent today, plus the ones this pass promises
   for (const w of live) {
     let read = null;
     try { read = await PW.readNow(w.ticker); } catch (e) { log(`pump-watch ${w.ticker}: read failed (${e.message})`); }
-    const fresh = PW.loadWatches().watches.find((x) => x.ticker === w.ticker && x.date === today);
+    reads.push({ ticker: w.ticker, read });
+    const fresh = freshOf(w.ticker);
+    if (!read || !fresh || fresh.ended) continue;
+    if (read.pre && hhmm < PUMP.OPEN_CT) {
+      if (!fresh.pre_card) preItems.push({ ticker: w.ticker, pre: read.pre });
+      else if (!fresh.pre_move) {
+        const pct = PUMP.preMove(fresh.pre_card, read.pre);
+        if (pct != null) moveItems.push({ ticker: w.ticker, pre: read.pre, card: fresh.pre_card, pct });
+      }
+    }
+    if (PUMP.isEarly(read) && !fresh.early_card && PUMP.nextAction(fresh, read, today, hhmm).act === "call") {
+      const judged = promised < PUMP.MAX_EARLY_JUDGES_PER_DAY;
+      if (judged) promised += 1;
+      const text = PUMP.earlyCard(fresh, read, hhmm, { judged });
+      if (dry) console.log(`EARLY CARD would send: ${text}`);
+      else if (sendCard("pump", `${read.read} ${w.ticker} - pump watch`, text)) PW.updateWatch(w.ticker, today, (x) => ({ ...x, early_card: hhmm }));
+    }
+  }
+  if (dry) {
+    if (preItems.length) console.log(`PRE-MARKET CARD would send: ${PUMP.preMarketCard(preItems, hhmm)}`);
+    if (moveItems.length) console.log(`PRE-MARKET MOVE CARD would send: ${PUMP.preMoveCard(moveItems, hhmm)}`);
+  } else {
+    if (preItems.length && sendCard("pump", "PUMP WATCH - pre-market", PUMP.preMarketCard(preItems, hhmm))) {
+      for (const { ticker, pre } of preItems) PW.updateWatch(ticker, today, (x) => ({ ...x, pre_card: { at: hhmm, last: pre.last } }));
+    }
+    if (moveItems.length && sendCard("pump", "PRE-MARKET MOVE - pump watch", PUMP.preMoveCard(moveItems, hhmm))) {
+      for (const { ticker } of moveItems) PW.updateWatch(ticker, today, (x) => ({ ...x, pre_move: hhmm }));
+    }
+  }
+  if (cardsOnly) return;
+
+  // PASS 2: calls, judges, caps, lunch wrap-ups.
+  for (const { ticker, read } of reads) {
+    const fresh = freshOf(ticker);
     if (!fresh || fresh.ended) continue; // removed or ended by someone else meanwhile
     if (!read) {
       if (!dry && hhmm > (fresh.until || PUMP.DEFAULT_UNTIL)) {
-        PW.updateWatch(w.ticker, today, (x) => ({ ...x, ended: true }));
-        sendCard("pump", `${w.ticker} pump watch - lunch wrap`, PUMP.endCard(fresh, null));
+        PW.updateWatch(ticker, today, (x) => ({ ...x, ended: true }));
+        sendCard("pump", `${ticker} pump watch - lunch wrap`, PUMP.endCard(fresh, null));
       }
       continue;
     }
     const { act } = PUMP.nextAction(fresh, read, today, hhmm);
     const last_read = { at_ct: hhmm, read: read.read, last: read.last, why: read.why };
-    if (dry) { console.log(`PUMP ${w.ticker} ${hhmm} ${read.read} ${read.last} (${read.why}) -> ${act}`); continue; }
+    if (dry) { console.log(`PUMP ${ticker} ${hhmm} ${read.read} ${read.last} (${read.why}) -> ${act}`); continue; }
     if (act === "end") {
-      const done = PW.updateWatch(w.ticker, today, (x) => ({ ...x, last_read, ended: true }));
-      sendCard("pump", `${w.ticker} pump watch - lunch wrap`, PUMP.endCard(done, read));
-      continue;
-    }
-    const callsToday = PW.loadWatches().watches.filter((x) => x.date === today).reduce((n, x) => n + (x.calls || []).length, 0);
-    if (act === "call" && canJudge && callsToday < PUMP.MAX_PUMP_JUDGES_PER_DAY) {
-      // Record before judging, so a crash never re-calls the same direction.
-      const rec = PW.updateWatch(w.ticker, today, (x) => ({ ...x, last_read, calls: [...(x.calls || []), { read: read.read, at_ct: hhmm, last: read.last }] }));
-      writeFileSync(LOCK, JSON.stringify({ ticker: w.ticker, at: new Date().toISOString(), pid: process.pid }));
-      const r = judge(PUMP.judgeTrip(rec, read), today);
-      log(`PUMP ${w.ticker} ${read.read} at ${read.last} -> ${r.ok ? "done" : "FAILED"}: ${r.detail}`);
-      if (!r.ok) sendCard("pump", `${w.ticker} pump call - judge FAILED`, `${w.ticker} turned ${read.read} at ${read.last} (${read.why}), but the judge run did not finish (${r.detail}). Nothing decided. Ask Claude to run ${w.ticker}.`);
+      const done = PW.updateWatch(ticker, today, (x) => ({ ...x, last_read, ended: true }));
+      sendCard("pump", `${ticker} pump watch - lunch wrap`, PUMP.endCard(done, read));
       continue;
     }
     if (act === "call" && canJudge) {
-      PW.updateWatch(w.ticker, today, (x) => ({ ...x, last_read, calls: [...(x.calls || []), { read: read.read, at_ct: hhmm, last: read.last, capped: true }] }));
-      sendCard("pump", `${w.ticker} turned ${read.read} - not judged (cap)`, `${w.ticker} turned ${read.read} at ${read.last}: ${read.why}. Pump-judge cap of ${PUMP.MAX_PUMP_JUDGES_PER_DAY} a day reached, so no BUY/NO was run. Ask Claude to run ${w.ticker}.`);
+      const early = PUMP.isEarly(read);
+      const cap = early ? PUMP.MAX_EARLY_JUDGES_PER_DAY : PUMP.MAX_PUMP_JUDGES_PER_DAY;
+      if (usedCalls(early) < cap) {
+        // Record before judging, so a crash never re-calls the same direction.
+        const rec = PW.updateWatch(ticker, today, (x) => ({ ...x, last_read, calls: [...(x.calls || []), { read: read.read, at_ct: hhmm, last: read.last }] }));
+        writeFileSync(LOCK, JSON.stringify({ ticker, at: new Date().toISOString(), pid: process.pid }));
+        const r = judge(PUMP.judgeTrip(rec, read), today);
+        log(`PUMP ${ticker} ${read.read} at ${read.last} -> ${r.ok ? "done" : "FAILED"}: ${r.detail}`);
+        if (!r.ok) sendCard("pump", `${ticker} pump call - judge FAILED`, `${ticker} turned ${read.read} at ${read.last} (${read.why}), but the judge run did not finish (${r.detail}). Nothing decided. Ask Claude to run ${ticker}.`);
+        continue;
+      }
+      PW.updateWatch(ticker, today, (x) => ({ ...x, last_read, calls: [...(x.calls || []), { read: read.read, at_ct: hhmm, last: read.last, capped: true }] }));
+      // A capped early read already said so on its one card (pass 1); only a capped UP/DOWN gets a card here.
+      if (!early) sendCard("pump", `${ticker} turned ${read.read} - not judged (cap)`, `${ticker} turned ${read.read} at ${read.last}: ${read.why}. Pump-judge cap of ${cap} a day reached, so no BUY/NO was run. Ask Claude to run ${ticker}.`);
       continue;
     }
-    PW.updateWatch(w.ticker, today, (x) => ({ ...x, last_read }));
+    PW.updateWatch(ticker, today, (x) => ({ ...x, last_read }));
   }
 }
 
 // Every card from this tick goes through ntfy-read.mjs, the one phone door (plans and plays only).
-// "Sent" is logged only when ntfy-read printed a send, never on a refusal or an all-paper strip.
+// "Sent" is logged only when ntfy-read printed a send, never on a refusal or an all-paper strip. Returns whether it sent.
 function sendCard(slot, title, text) {
   const r = spawnSync(process.execPath, [resolve(ROOT, "scripts/ntfy-read.mjs"), "--slot", slot, "--title", title, "--text", text], { cwd: ROOT, encoding: "utf8", timeout: 60000 });
   const sent = r.status === 0 && /\[ntfy\] sent/.test(r.stdout || "");
   log(`card "${title}": ${sent ? "sent" : `NOT SENT (exit ${r.status}) ${`${r.stdout || ""}${r.stderr || ""}`.trim().slice(0, 200)}`}`);
+  return sent;
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

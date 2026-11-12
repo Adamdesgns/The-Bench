@@ -17,7 +17,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ROOT } from "../server/config.js";
 import { nyDate } from "../server/nyDate.js";
-import { readDirection, DEFAULT_UNTIL, WATCH_BY } from "../server/pumpWatch.js";
+import { readDirection, preMarketRead, atr14, DEFAULT_UNTIL, WATCH_BY } from "../server/pumpWatch.js";
 
 export const REGISTRY = resolve(ROOT, "db/pump-watch.json");
 export const loadWatches = (p = REGISTRY) => (existsSync(p) ? JSON.parse(readFileSync(p, "utf8")) : { watches: [] });
@@ -34,21 +34,24 @@ export function updateWatch(ticker, date, fn, p = REGISTRY) {
 
 const UA = { headers: { "User-Agent": "Mozilla/5.0" } };
 
-// Today's 5-minute bars (regular session) and the 20-day average volume, from the free Yahoo feed.
+// Today's 5-minute bars (pre-market and regular session) and the 20-day average volume and ATR(14), from the free
+// Yahoo feed. The pre-market bars (includePrePost, 2026-11-12: "Watch starts at 8am catches the pre market") feed
+// only preMarketRead; readDirection keeps to the regular session by timestamp.
 export async function fetchTape(sym, fetchFn = globalThis.fetch) {
   const enc = encodeURIComponent(sym);
-  const intraday = await fetchFn(`https://query1.finance.yahoo.com/v8/finance/chart/${enc}?interval=5m&range=1d`, UA);
+  const intraday = await fetchFn(`https://query1.finance.yahoo.com/v8/finance/chart/${enc}?interval=5m&range=1d&includePrePost=true`, UA);
   if (!intraday.ok) throw new Error(`intraday ${intraday.status}`);
   const r = (await intraday.json()).chart.result[0];
   const q = r.indicators.quote[0];
   const bars = (r.timestamp || []).map((t, i) => ({ t, o: q.open[i], h: q.high[i], l: q.low[i], c: q.close[i], v: q.volume[i] }));
   const reg = r.meta.currentTradingPeriod.regular;
+  const preStart = r.meta.currentTradingPeriod.pre?.start ?? reg.start;
   // The day's volume is Yahoo's own day total, which matched Robinhood's to the share. Never the sum of the
   // 5-minute bars, which carry junk rows (B-1362). It counts only if its last regular trade is inside today's session:
   // anything else may be yesterday's total, and a whole day's volume on a morning clock would read as a huge pace.
   const today = Number.isFinite(r.meta.regularMarketTime) && r.meta.regularMarketTime >= reg.start;
   const dayVolume = today ? r.meta.regularMarketVolume ?? null : null;
-  let avgVol = null;
+  let avgVol = null, atr = null;
   try {
     const daily = await fetchFn(`https://query1.finance.yahoo.com/v8/finance/chart/${enc}?interval=1d&range=2mo`, UA);
     if (daily.ok) {
@@ -56,14 +59,21 @@ export async function fetchTape(sym, fetchFn = globalThis.fetch) {
       const vols = (d.indicators.quote[0].volume || []).filter((v) => v > 0);
       const past = vols.slice(-21, -1); // the 20 sessions before today
       if (past.length) avgVol = past.reduce((a, b) => a + b, 0) / past.length;
+      // ATR from completed sessions only: today's daily bar (stamped at or after today's pre-market start) is still moving.
+      const dq = d.indicators.quote[0];
+      atr = atr14((d.timestamp || []).map((t, i) => ({ t, h: dq.high[i], l: dq.low[i], c: dq.close[i] })).filter((b) => b.t < preStart));
     }
   } catch {}
-  return { bars, prevClose: r.meta.chartPreviousClose ?? r.meta.previousClose, avgVol, dayVolume, regStart: reg.start, regEnd: reg.end };
+  return { bars, prevClose: r.meta.chartPreviousClose ?? r.meta.previousClose, avgVol, atr, dayVolume, preStart, regStart: reg.start, regEnd: reg.end };
 }
 
 export async function readNow(sym, fetchFn, now = Date.now()) {
   const tape = await fetchTape(sym, fetchFn);
-  return readDirection({ ...tape, now });
+  // On a holiday, or a stale feed, Yahoo's "current" session is an old one: its pre-market would print as today's
+  // and its full session would read as past 09:00. No read at all then (review 2026-11-12, finding 6).
+  const session = nyDate(new Date(tape.regStart * 1000));
+  if (session !== nyDate(new Date(now))) return { read: "FORMING", why: `the feed's session is ${session}, not today`, last: null, prev: null, pre: null };
+  return { ...readDirection({ ...tape, now }), pre: preMarketRead(tape) };
 }
 
 async function main(argv = process.argv.slice(2)) {
@@ -84,7 +94,7 @@ async function main(argv = process.argv.slice(2)) {
     reg.watches = reg.watches.filter((w) => !(w.ticker === sym && w.date === date));
     reg.watches.push({ ticker: sym, date, until, why, added_by: by, added_at: new Date().toISOString(), calls: [], ended: false });
     saveWatches(reg);
-    console.log(`PUMP WATCH ${sym} ${date} until ${until} CT, added by ${by}${why ? ` - ${why}` : ""}. The 5-minute tick reads it from 10:00 ET (after the first 30 minutes).`);
+    console.log(`PUMP WATCH ${sym} ${date} until ${until} CT, added by ${by}${why ? ` - ${why}` : ""}. The 5-minute tick reads it from 08:00 CT: a pre-market card before the open, FLUSH / FADE from 08:35, the opening-range read from 09:00.`);
     console.log(`Now run the hunters on it: node scripts/hunt-short.mjs --symbols ${sym} --write  and  node scripts/options-hunter.mjs --hunt --symbols ${sym} --account <N> --write`);
     return 0;
   }

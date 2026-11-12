@@ -108,7 +108,9 @@ export function judgePrompt(trip, today) {
       trip.pump.override_ok
         ? `v36 PUMP-WATCH EXCEPTION: ELIGIBLE (${trip.pump.override_why}). A 9:02 NO TRADE on a different, older plan does not decide this call; apply the same-plan test in PUMP WATCH.`
         : `v36 PUMP-WATCH EXCEPTION: NOT ELIGIBLE (${trip.pump.override_why ?? "no record of who added it"}). Any decision dated today on ${trip.ticker} stands (v33).`,
-      `The 5-minute read says ${trip.pump.read}: ${trip.pump.why}. Opening range ${trip.pump.or_low}-${trip.pump.or_high}, VWAP ${trip.pump.vwap}, session ${trip.pump.session_low}-${trip.pump.session_high}, gap ${trip.pump.gap_pct}%, volume pace ${trip.pump.pace}x.`,
+      trip.pump.early
+        ? `The 5-minute read says ${trip.pump.read} (an EARLY read, inside the first 30 minutes; see the FLUSH / FADE bullet in PUMP WATCH): ${trip.pump.why}. Open ${trip.pump.open}, VWAP ${trip.pump.vwap}, session ${trip.pump.session_low}-${trip.pump.session_high}, gap ${trip.pump.gap_pct}%, volume pace ${trip.pump.pace}x, ATR(14) about ${trip.pump.atr ?? "unknown"}. Adam already got the read and its levels; your card is the verdict.`
+        : `The 5-minute read says ${trip.pump.read}: ${trip.pump.why}. Opening range ${trip.pump.or_low}-${trip.pump.or_high}, VWAP ${trip.pump.vwap}, session ${trip.pump.session_low}-${trip.pump.session_high}, gap ${trip.pump.gap_pct}%, volume pace ${trip.pump.pace}x.`,
     ] : []),
   ].join("\n");
 }

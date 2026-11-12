@@ -6,7 +6,13 @@
 // set a 5 min check until lunch time and find out which direction it's likely heading."
 //
 // THE READ, from today's regular-session 5-minute bars (no prediction, just where the tape is pointing):
-//   FORMING  the first 30 minutes (09:30-10:00 ET) have not finished; nothing is called yet.
+//   FORMING  the first 30 minutes (09:30-10:00 ET) have not finished and no early read below has fired.
+//   FLUSH    EARLY, inside the first 30 minutes (from 5 minutes in): opened down GAP_PCT+, and the last trade is
+//            back over the open AND over VWAP, FLUSH_BOUNCE_PCT+ off the session low, volume pace >= MIN_PACE.
+//            Counts as UP. Added 2026-11-12 after NVDA opened 150.99 (-13%), flushed to 148.80 in five minutes and
+//            was 159.55 by 08:40 CT, all before the old read could say anything (B-1452, P-074; Adam: "I TOLD you
+//            not to miss this").
+//   FADE     the mirror, counts as DOWN: opened up GAP_PCT+, now under the open and VWAP, FLUSH_BOUNCE_PCT+ off the high.
 //   UP       last trade above the opening-range high AND above session VWAP, volume pace >= MIN_PACE.
 //   DOWN     last trade below the opening-range low AND below session VWAP, volume pace >= MIN_PACE.
 //   UNCLEAR  anything else: inside the range, or on the wrong side of VWAP, or on thin volume.
@@ -24,8 +30,30 @@ export const DEFAULT_UNTIL = "12:00"; // CT, "until lunch time"
 export const MAX_CALLS_PER_TICKER = 2; // one per direction a day
 export const MAX_PUMP_JUDGES_PER_DAY = 4; // cost cap across all watches (review finding 6c)
 export const GAP_PCT = 3; // a gap this size that HOLDS is the move itself (review finding 6d: AMZN 11/04 made its run on the gap)
+// Adam, 2026-11-12: "Watch starts at 8am catches the pre market through the open from now on." The tick reads every
+// live watch from 08:00 CT; before the 08:30 open it sends one pre-market card, then FLUSH / FADE can fire from 08:35.
+export const PUMP_FIRST_TICK = "08:00"; // CT
+export const OPEN_CT = "08:30"; // the regular-session open, CT
+export const FLUSH_BOUNCE_PCT = 3; // how far off the extreme the reclaim has to be, so a one-tick poke is not a call
+export const FLUSH_MIN_MINUTES = 5; // at least one whole 5-minute bar before an early read can fire
+// Which way each call points. An early read has its OWN slot (one per watch a day) and its own judge cap, so a
+// FLUSH judged at 08:35 never uses up the 09:00+ UP call or the MAX_PUMP_JUDGES_PER_DAY budget (review 2026-11-12,
+// finding 3). A second judge on the same move is caught by the judge's own same-plan test (trip-judge-v1 step 1).
+export const DIR_OF = { UP: "UP", FLUSH: "UP", DOWN: "DOWN", FADE: "DOWN" };
+export const EARLY_READS = new Set(["FLUSH", "FADE"]);
+export const MAX_EARLY_JUDGES_PER_DAY = 3; // across all watches
 
 const r2 = (x) => (x == null || !Number.isFinite(x) ? null : Math.round(x * 100) / 100);
+
+// ATR(14), Wilder's smoothing, from completed daily bars [{ h, l, c }] oldest first. Null under 15 bars.
+export function atr14(daily) {
+  const d = (daily || []).filter((b) => b && [b.h, b.l, b.c].every(Number.isFinite));
+  if (d.length < 15) return null;
+  const tr = d.slice(1).map((b, i) => Math.max(b.h - b.l, Math.abs(b.h - d[i].c), Math.abs(b.l - d[i].c)));
+  let atr = tr.slice(0, 14).reduce((a, b) => a + b, 0) / 14;
+  for (const x of tr.slice(14)) atr = (atr * 13 + x) / 14;
+  return atr;
+}
 
 // The share of a normal day's official volume done by each 5-minute mark after the 09:30 ET open (point k = minute 5k).
 // Median of 1,593 full name-days: 27 names, 59 sessions, 2026-08-17 to 2026-11-06. Rebuild and compare with
@@ -71,18 +99,16 @@ export function trimToDayVolume(vols, dayVolume) {
 
 // bars: [{ t (unix seconds), o, h, l, c, v }] for the regular session only, oldest first.
 // dayVolume: the session's real volume so far, from the feed's day total.
-export function readDirection({ bars, prevClose, avgVol, dayVolume, regStart, regEnd, now }) {
+export function readDirection({ bars, prevClose, avgVol, dayVolume, regStart, regEnd, now, atr = null }) {
   const clean = (bars || []).filter((b) => b && b.c != null && b.h != null && b.l != null && b.t >= regStart && b.t < regEnd);
   const nowS = Math.floor((now ?? Date.now()) / 1000);
-  const base = { prev: r2(prevClose), last: clean.length ? r2(clean.at(-1).c) : null };
+  const base = { prev: r2(prevClose), last: clean.length ? r2(clean.at(-1).c) : null, atr: r2(atr) };
   if (!clean.length) return { ...base, read: "FORMING", why: "no regular-session bars yet" };
   const orEnd = regStart + OPENING_RANGE_MIN * 60;
   const orBars = clean.filter((b) => b.t < orEnd);
-  const gap_pct = prevClose ? r2(((clean[0].o ?? clean[0].c) / prevClose - 1) * 100) : null;
-  if (nowS < orEnd || !orBars.length) return { ...base, gap_pct, read: "FORMING", why: "the first 30 minutes have not closed" };
+  const open = clean[0].o ?? clean[0].c;
+  const gap_pct = prevClose ? r2((open / prevClose - 1) * 100) : null;
 
-  const or_high = Math.max(...orBars.map((b) => b.h));
-  const or_low = Math.min(...orBars.map((b) => b.l));
   const day = Number.isFinite(dayVolume) && dayVolume > 0 ? dayVolume : null;
   const vols = clean.map((b) => (Number.isFinite(b.v) && b.v > 0 ? b.v : 0));
   const weights = day == null ? vols.map(() => 0) : trimToDayVolume(vols, day); // no day total: no bar can be trusted, so no VWAP
@@ -92,9 +118,29 @@ export function readDirection({ bars, prevClose, avgVol, dayVolume, regStart, re
   const share = normalShare((Math.min(nowS, regEnd) - regStart) / 60);
   const pace = day != null && avgVol && share > 0 ? day / (avgVol * share) : null;
   const last = clean.at(-1).c;
-  const out = { ...base, gap_pct, or_high: r2(or_high), or_low: r2(or_low), vwap: r2(vwap), pace: r2(pace), session_high: r2(Math.max(...clean.map((b) => b.h))), session_low: r2(Math.min(...clean.map((b) => b.l))) };
-
   const heavy = pace != null && pace >= MIN_PACE;
+  const session_high = Math.max(...clean.map((b) => b.h));
+  const session_low = Math.min(...clean.map((b) => b.l));
+
+  if (nowS < orEnd || !orBars.length) {
+    // EARLY READ (2026-11-12, B-1452): a gap that flushes and reclaims, or spikes and fades, is often done before the
+    // opening range closes. Same evidence as UP/DOWN (VWAP, heavy pace), measured against the open instead of the range.
+    const early = { ...base, gap_pct, open: r2(open), vwap: r2(vwap), pace: r2(pace), session_high: r2(session_high), session_low: r2(session_low) };
+    // Only inside the first 30 minutes (a name with no bars there, halted or late to open, gets no early read after
+    // 09:00), and only after one whole 5-minute bar from its first print.
+    if (nowS < orEnd && nowS >= Math.max(regStart, clean[0].t) + FLUSH_MIN_MINUTES * 60 && heavy && vwap != null && gap_pct != null) {
+      if (gap_pct <= -GAP_PCT && last > open && last > vwap && last >= session_low * (1 + FLUSH_BOUNCE_PCT / 100))
+        return { ...early, read: "FLUSH", why: `a ${gap_pct}% gap down flushed to ${r2(session_low)} and is back over the ${r2(open)} open and the ${r2(vwap)} VWAP on ${r2(pace)}x volume pace` };
+      if (gap_pct >= GAP_PCT && last < open && last < vwap && last <= session_high * (1 - FLUSH_BOUNCE_PCT / 100))
+        return { ...early, read: "FADE", why: `a ${gap_pct}% gap up spiked to ${r2(session_high)} and is back under the ${r2(open)} open and the ${r2(vwap)} VWAP on ${r2(pace)}x volume pace` };
+    }
+    return { ...early, read: "FORMING", why: "the first 30 minutes have not closed" };
+  }
+
+  const or_high = Math.max(...orBars.map((b) => b.h));
+  const or_low = Math.min(...orBars.map((b) => b.l));
+  const out = { ...base, gap_pct, or_high: r2(or_high), or_low: r2(or_low), vwap: r2(vwap), pace: r2(pace), session_high: r2(session_high), session_low: r2(session_low) };
+
   if (last > or_high && vwap != null && last > vwap && heavy) return { ...out, read: "UP", why: `over the ${r2(or_high)} opening-range high and the ${r2(vwap)} VWAP on ${r2(pace)}x volume pace` };
   if (last < or_low && vwap != null && last < vwap && heavy) return { ...out, read: "DOWN", why: `under the ${r2(or_low)} opening-range low and the ${r2(vwap)} VWAP on ${r2(pace)}x volume pace` };
   // GAP-AND-HOLD: the move already happened on the open (AMZN +5.6% on 11/04). A 3%+ gap still above VWAP and in
@@ -119,10 +165,72 @@ export function isActive(w, today, hhmm) {
 export function nextAction(w, read, today, hhmm) {
   if (!w || w.date !== today || w.ended) return { act: "none" };
   if (hhmm > (w.until || DEFAULT_UNTIL)) return { act: "end" };
-  if (read.read !== "UP" && read.read !== "DOWN") return { act: "none" };
+  // Before the open nothing is called: a feed that still shows yesterday's session must never start a judge (review finding 6).
+  if (hhmm < OPEN_CT || !DIR_OF[read.read]) return { act: "none" };
   const calls = w.calls || [];
-  if (calls.length >= MAX_CALLS_PER_TICKER || calls.some((c) => c.read === read.read)) return { act: "none" };
+  if (EARLY_READS.has(read.read)) return calls.some((c) => EARLY_READS.has(c.read)) ? { act: "none" } : { act: "call" };
+  const regular = calls.filter((c) => !EARLY_READS.has(c.read));
+  if (regular.length >= MAX_CALLS_PER_TICKER || regular.some((c) => c.read === read.read)) return { act: "none" };
   return { act: "call" };
+}
+
+export const isEarly = (read) => Boolean(read && EARLY_READS.has(read.read));
+
+// The card a FLUSH or FADE sends the moment it fires, before the judge rules (the judge takes a minute or two and
+// the move is fast). Mechanical levels only: the live price, a stop at least 1.0 ATR away AND past the session
+// extreme, and the gap fill (the prior close) as the first target. It is the read, not a ticket.
+export function earlyCard(w, read, hhmm, { judged = true, cap = MAX_EARLY_JUDGES_PER_DAY } = {}) {
+  const up = read.read === "FLUSH";
+  const head = up
+    ? `${w.ticker} FLUSH at ${hhmm} CT: opened ${read.open} (${read.gap_pct}% gap), flushed to ${read.session_low}, now ${read.last}, back over the open and the ${read.vwap} VWAP on ${read.pace}x volume pace.`
+    : `${w.ticker} FADE at ${hhmm} CT: opened ${read.open} (+${read.gap_pct}% gap), spiked to ${read.session_high}, now ${read.last}, back under the open and the ${read.vwap} VWAP on ${read.pace}x volume pace.`;
+  let levels;
+  const reward = read.last != null && read.prev != null ? (up ? read.prev - read.last : read.last - read.prev) : null;
+  if (reward != null && reward <= 0) {
+    levels = ` The gap is already filled (prior close ${read.prev}), so the gap fill is not a target from here.`;
+  } else if (read.atr && reward != null) {
+    const stop = up ? Math.min(read.last - read.atr, read.session_low - 0.01) : Math.max(read.last + read.atr, read.session_high + 0.01);
+    const risk = Math.abs(read.last - stop);
+    levels = ` Gap fill ${read.prev} pays ${r2(reward / risk)}:1 from here with the stop at ${r2(stop)} (1 ATR is ${read.atr}, and ${up ? "under the low" : "over the high"}).`;
+  } else {
+    levels = ` Gap fill ${read.prev}. ATR not available, so the stop goes at least 1 ATR away and ${up ? "under the low" : "over the high"}.`;
+  }
+  const tail = judged ? "The judge rules on it next." : `Not judged: the early-read cap of ${cap} a day is reached. Ask Claude to run ${w.ticker}.`;
+  return `${head}${levels} This is the read, not a ticket. ${tail}`;
+}
+
+// What the name did before the open: the pre-market bars between preStart and the regular open. The range is
+// taken from bar CLOSES: Yahoo's thin pre-market bars carry junk wicks (NVDA 11/12 07:20 CT printed a 173.30 high
+// inside a 159 bar), and a close-to-close range cannot be poisoned by one of them.
+export const PRE_MOVE_PCT = 2; // a pre-market move this big after the first card earns one more card before the open
+export function preMarketRead({ bars, prevClose, preStart, regStart }) {
+  const pre = (bars || []).filter((b) => b && Number.isFinite(b.c) && b.t >= preStart && b.t < regStart);
+  if (!pre.length) return null;
+  const last = pre.at(-1).c;
+  const closes = pre.map((b) => b.c);
+  return { last: r2(last), chg_pct: prevClose ? r2((last / prevClose - 1) * 100) : null, pm_high: r2(Math.max(...closes)), pm_low: r2(Math.min(...closes)), prev: r2(prevClose) };
+}
+
+const signed = (x) => `${x >= 0 ? "+" : ""}${x}`;
+const vsClose = (pre) => (pre.chg_pct == null || pre.prev == null ? "" : ` ${signed(pre.chg_pct)}% on the ${pre.prev} close,`);
+
+// One card for every watch that has a pre-market read and has not had its card today: [{ ticker, pre }].
+export function preMarketCard(items, hhmm) {
+  const lines = items.map(({ ticker, pre }) => `${ticker} ${pre.last} pre-market,${vsClose(pre)} pre-market range ${pre.pm_low}-${pre.pm_high} (closes).`);
+  return `PUMP WATCH on from ${hhmm} CT. ${lines.join(" ")} From the 08:30 open: a gap that flushes and takes back the open (or spikes and loses it) texts you from 08:35; the opening-range read starts at 09:00.`;
+}
+
+// Did the pre-market move PRE_MOVE_PCT+ since the first card? card = the watch's pre_card ({ at, last }).
+export function preMove(card, pre) {
+  if (!card || !Number.isFinite(card.last) || !pre || !Number.isFinite(pre.last)) return null;
+  const pct = r2((pre.last / card.last - 1) * 100);
+  return Math.abs(pct) >= PRE_MOVE_PCT ? pct : null;
+}
+
+// [{ ticker, pre, card, pct }]
+export function preMoveCard(items, hhmm) {
+  const lines = items.map(({ ticker, pre, card, pct }) => `${ticker} ${pre.last} at ${hhmm} CT, ${signed(pct)}% since ${card.last} at ${card.at},${vsClose(pre)} pre-market range ${pre.pm_low}-${pre.pm_high} (closes).`);
+  return `PRE-MARKET MOVE. ${lines.join(" ")} The flush / fade read takes over at 08:35.`;
 }
 
 // v36 THE PUMP-WATCH EXCEPTION (Adam, 2026-11-04: "Yes, override it"): a pump call may be judged live past a
@@ -149,12 +257,13 @@ export function overrideEligible(w) {
 }
 
 export function judgeTrip(w, read) {
-  const up = read.read === "UP";
+  const up = DIR_OF[read.read] === "UP";
+  const early = isEarly(read);
   const ov = overrideEligible(w);
   return {
-    ticker: w.ticker, kind: "PUMP", dir: up ? "above" : "below", price: up ? read.or_high : read.or_low,
+    ticker: w.ticker, kind: "PUMP", dir: up ? "above" : "below", price: early ? read.open : up ? read.or_high : read.or_low,
     touched: read.last, last: read.last, prev: read.prev, src: `pump-watch ${w.date}`, key: `${w.ticker}|PUMP|${read.read}`,
-    pump: { read: read.read, why: read.why, catalyst: w.why || "none given", added_by: w.added_by || "unknown", override_ok: ov.ok, override_why: ov.why, vwap: read.vwap, or_high: read.or_high, or_low: read.or_low, pace: read.pace, gap_pct: read.gap_pct, session_high: read.session_high, session_low: read.session_low },
+    pump: { read: read.read, early, why: read.why, catalyst: w.why || "none given", added_by: w.added_by || "unknown", override_ok: ov.ok, override_why: ov.why, vwap: read.vwap, or_high: read.or_high, or_low: read.or_low, open: read.open, atr: read.atr, pace: read.pace, gap_pct: read.gap_pct, session_high: read.session_high, session_low: read.session_low },
   };
 }
 

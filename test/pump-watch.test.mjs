@@ -1,7 +1,8 @@
 // pump-watch.test.mjs - the 5-minute direction read behind "watch AMZN for the pump" (2026-11-04). Offline only.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readDirection, nextAction, judgeTrip, endCard, isActive, trimToDayVolume, normalShare, NORMAL_DAY_SHARE } from "../server/pumpWatch.js";
+import { readDirection, nextAction, judgeTrip, endCard, isActive, trimToDayVolume, normalShare, NORMAL_DAY_SHARE, earlyCard, preMarketRead, preMarketCard, preMove, preMoveCard, atr14, isEarly } from "../server/pumpWatch.js";
+import { judgePrompt } from "../server/tripJudge.js";
 
 const START = 1_793_802_600; // 09:30 ET
 const END = START + 390 * 60;
@@ -252,4 +253,132 @@ test("v36 exception: only Adam's watch, or the 5:40a routine's before 09:00 CT, 
   const t = judgeTrip({ ...w, added_by: "desk", calls: [] }, { read: "UP", or_high: 1, or_low: 0 });
   assert.equal(t.pump.override_ok, false);
   assert.equal(t.pump.added_by, "desk");
+});
+
+// ---- EARLY READ (2026-11-12, B-1452): NVDA opened 150.99 (-13.1%), flushed to 148.80 and was back over the open
+// and VWAP inside five minutes. Robinhood 5-minute bars, regular session, 11/12. Prior close 173.73.
+const NV_START = Date.parse("2026-11-12T14:30:00Z") / 1000;
+const NV_END = NV_START + 390 * 60;
+const nvBar = (min, o, h, l, c, v) => ({ t: NV_START + min * 60, o, h, l, c, v });
+const NV = [nvBar(0, 150.99, 156.33, 148.8, 156.258, 48778944), nvBar(5, 156.21, 159.9, 155.8268, 159.55, 21618359)];
+const nvBase = { prevClose: 173.73, regStart: NV_START, regEnd: NV_END, avgVol: 155.9e6, atr: 8.64 };
+const nvAt = (min) => (NV_START + min * 60) * 1000;
+
+test("FLUSH fires at 08:35 CT on this morning's NVDA bars", () => {
+  const r = readDirection({ ...nvBase, bars: NV.slice(0, 1), dayVolume: 48778944, now: nvAt(5) });
+  assert.equal(r.read, "FLUSH", r.why);
+  assert.equal(r.gap_pct, -13.09);
+  assert.equal(r.open, 150.99);
+  assert.equal(r.session_low, 148.8);
+  assert.ok(r.vwap > 153 && r.vwap < 154, `vwap ${r.vwap}`);
+  assert.ok(r.pace > 4, `pace ${r.pace}`);
+  assert.equal(isEarly(r), true);
+  const r2 = readDirection({ ...nvBase, bars: NV, dayVolume: 70397303, now: nvAt(10) });
+  assert.equal(r2.read, "FLUSH", r2.why);
+});
+
+test("no early read before one whole 5-minute bar, on thin volume, or while the gap keeps falling", () => {
+  assert.equal(readDirection({ ...nvBase, bars: NV.slice(0, 1), dayVolume: 30e6, now: nvAt(3) }).read, "FORMING");
+  assert.equal(readDirection({ ...nvBase, bars: NV.slice(0, 1), dayVolume: 1e6, now: nvAt(5) }).read, "FORMING", "thin pace");
+  assert.equal(readDirection({ ...nvBase, bars: NV.slice(0, 1), now: nvAt(5) }).read, "FORMING", "no day total, no VWAP");
+  const falling = [nvBar(0, 150.99, 151.5, 146, 146.4, 40e6)];
+  assert.equal(readDirection({ ...nvBase, bars: falling, dayVolume: 40e6, now: nvAt(5) }).read, "FORMING");
+  // back over the open but under 3% off the low: a poke, not a reclaim
+  const poke = [nvBar(0, 150.99, 152, 149.9, 151.5, 40e6)];
+  assert.equal(readDirection({ ...nvBase, bars: poke, dayVolume: 40e6, now: nvAt(5) }).read, "FORMING");
+  // no gap: nothing early, whatever the bounce
+  assert.equal(readDirection({ ...nvBase, prevClose: 151, bars: NV.slice(0, 1), dayVolume: 48778944, now: nvAt(5) }).read, "FORMING");
+});
+
+test("FADE mirrors FLUSH on a gap up that loses its open", () => {
+  const up = [nvBar(0, 180, 186, 179.5, 180.5, 30e6), nvBar(5, 180.5, 181, 175, 175.2, 20e6)];
+  const r = readDirection({ ...nvBase, prevClose: 170, bars: up, dayVolume: 50e6, now: nvAt(10) });
+  assert.equal(r.read, "FADE", r.why);
+  assert.equal(r.session_high, 186);
+});
+
+test("after 09:00 CT the old reads run unchanged on the same tape", () => {
+  const or = [...NV, nvBar(10, 159.57, 162.33, 158.835, 159.93, 20122922), nvBar(15, 159.93, 161.32, 159.11, 159.5586, 12641883), nvBar(20, 159.55, 163.09, 159.425, 161.48, 12185137), nvBar(25, 161.46, 163.1, 160.6, 162.66, 8026512)];
+  const after = [...or, nvBar(30, 162.68, 162.99, 160.6, 161.0827, 8668148), nvBar(35, 161.12, 161.56, 159.7, 160.24, 8080197), nvBar(40, 160.2424, 161.98, 159.92, 161.965, 6554017), nvBar(45, 161.965, 164.08, 161.8201, 163.68, 8380361), nvBar(50, 163.67, 164.93, 163.15, 164.9099, 7381119)];
+  const r = readDirection({ ...nvBase, bars: after, dayVolume: after.reduce((a, b) => a + b.v, 0), now: nvAt(51) });
+  assert.equal(r.read, "UP", r.why);
+  assert.equal(r.or_high, 163.1);
+});
+
+test("an early read has its own slot: one a day, and it never uses up the 09:00+ UP or DOWN call", () => {
+  const w = { ticker: "NVDA", date: "2026-11-12", until: "15:00", calls: [] };
+  assert.equal(nextAction(w, { read: "FLUSH" }, "2026-11-12", "08:35").act, "call");
+  assert.equal(nextAction({ ...w, calls: [{ read: "FLUSH" }] }, { read: "UP" }, "2026-11-12", "09:20").act, "call", "the 9:20 UP is still judged");
+  assert.equal(nextAction({ ...w, calls: [{ read: "FLUSH" }] }, { read: "FLUSH" }, "2026-11-12", "08:40").act, "none");
+  assert.equal(nextAction({ ...w, calls: [{ read: "FLUSH" }] }, { read: "FADE" }, "2026-11-12", "08:50").act, "none", "one early read a day per watch");
+  assert.equal(nextAction({ ...w, calls: [{ read: "FLUSH" }, { read: "UP" }, { read: "DOWN" }] }, { read: "UP" }, "2026-11-12", "10:00").act, "none");
+  assert.equal(nextAction({ ...w, calls: [{ read: "FLUSH" }, { read: "UP" }] }, { read: "DOWN" }, "2026-11-12", "10:00").act, "call", "the early call is not one of the two regular calls");
+  assert.equal(nextAction(w, { read: "FORMING" }, "2026-11-12", "08:20").act, "none");
+  // before the open nothing is called, whatever a stale feed says (review 2026-11-12, finding 6)
+  assert.equal(nextAction(w, { read: "UP" }, "2026-11-12", "08:20").act, "none");
+  assert.equal(nextAction(w, { read: "FLUSH" }, "2026-11-12", "08:25").act, "none");
+});
+
+test("a name with no bars in its first 30 minutes gets no early read after 09:00", () => {
+  const late = [nvBar(35, 150.99, 156.33, 148.8, 156.258, 48778944)];
+  const r = readDirection({ ...nvBase, bars: late, dayVolume: 48778944, now: nvAt(41) });
+  assert.notEqual(r.read, "FLUSH");
+});
+
+test("earlyCard: a capped read says so on its one card, and a filled gap is not a target", () => {
+  const w = { ticker: "NVDA", date: "2026-11-12" };
+  const r = readDirection({ ...nvBase, bars: NV.slice(0, 1), dayVolume: 48778944, now: nvAt(5) });
+  const capped = earlyCard(w, r, "08:35", { judged: false, cap: 3 });
+  assert.match(capped, /Not judged: the early-read cap of 3 a day is reached\. Ask Claude to run NVDA\./);
+  assert.doesNotMatch(capped, /judge rules on it next/);
+  const filled = earlyCard(w, { ...r, last: 175, prev: 173.73 }, "08:40");
+  assert.match(filled, /gap is already filled \(prior close 173\.73\)/);
+  assert.doesNotMatch(filled, /pays -/);
+  const noPrev = preMarketCard([{ ticker: "NVDA", pre: { last: 160.2, chg_pct: null, pm_low: 156, pm_high: 162, prev: null } }], "08:00");
+  assert.match(noPrev, /NVDA 160\.2 pre-market, pre-market range 156-162 \(closes\)\./);
+  assert.doesNotMatch(noPrev, /null/);
+});
+
+test("earlyCard: stop at least 1 ATR and under the low, gap fill as the target", () => {
+  const w = { ticker: "NVDA", date: "2026-11-12" };
+  const r = readDirection({ ...nvBase, bars: NV.slice(0, 1), dayVolume: 48778944, now: nvAt(5) });
+  const card = earlyCard(w, r, "08:35");
+  assert.match(card, /NVDA FLUSH at 08:35 CT: opened 150\.99 \(-13\.09% gap\), flushed to 148\.8, now 156\.26/);
+  assert.match(card, /Gap fill 173\.73 pays 2\.02:1 from here with the stop at 147\.62/);
+  assert.match(card, /not a ticket/);
+  // a flush low further than 1 ATR: the stop goes under the low instead
+  const deep = earlyCard(w, { ...r, session_low: 145, atr: 8.64 }, "08:35");
+  assert.match(deep, /stop at 144\.99/);
+  assert.match(earlyCard(w, { ...r, atr: null }, "08:35"), /ATR not available/);
+  const t = judgeTrip({ ...w, why: "board decision pending", added_by: "adam" }, r);
+  assert.equal(t.price, 150.99);
+  assert.equal(t.dir, "above");
+  assert.equal(t.pump.early, true);
+  assert.match(judgePrompt(t, "2026-11-12"), /EARLY read, inside the first 30 minutes/);
+});
+
+test("pre-market read and card", () => {
+  const pre = [{ t: NV_START - 3 * 3600, o: 158, h: 164.8, l: 157, c: 162, v: 1e6 }, { t: NV_START - 1800, o: 161, h: 161.5, l: 156.2, c: 160.2, v: 2e6 }];
+  const p = preMarketRead({ bars: [...pre, ...NV], prevClose: 173.73, preStart: NV_START - 5.5 * 3600, regStart: NV_START });
+  // the range is close to close: Yahoo's thin pre-market bars carry junk wicks (NVDA 11/12 07:20 CT: a 173.30 high)
+  assert.deepEqual(p, { last: 160.2, chg_pct: -7.79, pm_high: 162, pm_low: 160.2, prev: 173.73 });
+  const junk = preMarketRead({ bars: [...pre, { t: NV_START - 600, o: 159.34, h: 173.296, l: 158.9, c: 159.27, v: 0 }], prevClose: 173.73, preStart: NV_START - 5.5 * 3600, regStart: NV_START });
+  assert.equal(junk.pm_high, 162);
+  assert.equal(preMarketRead({ bars: NV, prevClose: 173.73, preStart: NV_START - 5.5 * 3600, regStart: NV_START }), null);
+  assert.match(preMarketCard([{ ticker: "NVDA", pre: p }], "08:00"), /PUMP WATCH on from 08:00 CT\. NVDA 160\.2 pre-market, -7\.79% on the 173\.73 close, pre-market range 160\.2-162 \(closes\)\./);
+});
+
+test("a 2%+ pre-market move after the first card earns one move card", () => {
+  const card = { at: "08:00", last: 155.38 };
+  const at0825 = { last: 151, chg_pct: -13.08, pm_high: 164.07, pm_low: 150.91, prev: 173.73 };
+  assert.equal(preMove(card, at0825), -2.82);
+  assert.equal(preMove(card, { ...at0825, last: 154.5 }), null, "under 2% is not a move");
+  assert.equal(preMove(null, at0825), null);
+  assert.match(preMoveCard([{ ticker: "NVDA", pre: at0825, card, pct: -2.82 }], "08:25"), /PRE-MARKET MOVE\. NVDA 151 at 08:25 CT, -2\.82% since 155\.38 at 08:00, -13\.08% on the 173\.73 close/);
+});
+
+test("atr14 is Wilder's ATR over completed bars", () => {
+  const flat = Array.from({ length: 20 }, () => ({ h: 102, l: 100, c: 101 }));
+  assert.equal(atr14(flat), 2);
+  assert.equal(atr14(flat.slice(0, 10)), null);
 });
