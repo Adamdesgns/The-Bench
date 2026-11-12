@@ -1163,6 +1163,36 @@
       "outcome": "FAILED",
       "sent": 0,
       "error": "fetch failed"
+    },
+    {
+      "at": "2026-11-12T15:13:12.697Z",
+      "channel": "paper-trades",
+      "file": "docs/benny/2026-11-12-entry.md",
+      "hash": "970bc7fa512d1514",
+      "parts": 1,
+      "mode": "live",
+      "outcome": "SENT"
+    },
+    {
+      "at": "2026-11-12T21:36:16.534Z",
+      "channel": "paper-trades",
+      "file": "docs/benny/2026-11-12-paper-close.md",
+      "hash": "6f7149d1013d32c9",
+      "parts": 0,
+      "mode": "live",
+      "outcome": "REFUSED",
+      "reasons": [
+        "wall: matches a real account amount"
+      ]
+    },
+    {
+      "at": "2026-11-12T21:36:25.608Z",
+      "channel": "paper-trades",
+      "file": "docs/benny/2026-11-12-paper-close.md",
+      "hash": "ee4840d904287397",
+      "parts": 2,
+      "mode": "live",
+      "outcome": "SENT"
     }
   ]
 }
