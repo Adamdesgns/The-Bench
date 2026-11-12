@@ -314,6 +314,9 @@ export class LiveBroker {
   /**
    * The id that comes back is only trusted after reading it back as our order
    * (same ticker and side). Otherwise null: the engine looks the order up.
+   * An id that could not be read back yet (the list lags right after placing, or
+   * the read failed) comes back as unverifiedId, so the engine can keep it and
+   * check it later; one that read back as a different order is dropped.
    */
   async placeOrder(o) {
     const p = await this.call('place', { ...this.orderArgs(o), ref_id: o.refId });
@@ -321,7 +324,8 @@ export class LiveBroker {
     const id = orderIdOf(order);
     if (!id) return { orderId: null };
     const back = await this.getOrder(id).catch(() => ({ state: 'UNKNOWN' }));
-    return { orderId: back.state !== 'UNKNOWN' && back.symbol === o.symbol && back.side === o.side ? id : null };
+    if (back.state === 'UNKNOWN') return { orderId: null, unverifiedId: id };
+    return { orderId: back.symbol === o.symbol && back.side === o.side ? id : null };
   }
 
   async cancelOrder(id) {

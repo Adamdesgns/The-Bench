@@ -7,7 +7,7 @@ import { makeCodeSet, useCode, burnCode, codesLeft, normalizeCode } from '../aut
 import { parseCommand, codeCandidates, redact } from '../autotrader/lib/msgs.mjs';
 import { DEFAULTS, newState, loadPlan, killPlan, sellPlan, tick, sessionState, dayOver, endOfDay } from '../autotrader/lib/engine.mjs';
 import { FakeBroker } from '../autotrader/lib/fake.mjs';
-import { normOrder, ocoStatus, alertsOf, orderKind, orderMatches, positionRow, LiveBroker } from '../autotrader/lib/live.mjs';
+import { normOrder, ocoStatus, alertsOf, orderKind, orderMatches, positionRow, LiveBroker, CAPS } from '../autotrader/lib/live.mjs';
 import { handleCommand, readJson, takeLock } from '../autotrader/autotrader.mjs';
 import { exitByProblem } from '../autotrader/lib/session.mjs';
 import { mkdtempSync, writeFileSync, readFileSync, utimesSync } from 'node:fs';
@@ -1328,7 +1328,12 @@ test('review4 #5b: a WATCHING plan with an earlier attempt never ends EXPIRED on
   assert.equal(p.status, 'WATCHING', 'not ended on a read that failed');
   r.advance(5);
   await tick(r.st, r.ctx);
+  // A plan that had a buy order ends on two reads of 0, reconcileSec apart (review6 #1), never one.
+  assert.equal(p.status, 'WATCHING');
+  assert.ok(p.pendingEnd);
+  await ticks(r, 5, 166.5);
   assert.equal(p.status, 'EXPIRED');
+  assert.equal(buys(r.fb).length, 1, 'no new buy while it ends');
 });
 
 test('review4 #6: shares from a late fill the stop never covered are named when the plan closes', async () => {
@@ -1720,4 +1725,191 @@ test('review5 #8: a lock file that cannot be read (held by antivirus) stops a se
   utimesSync(lock, old, old);
   takeLock(opts);
   assert.equal(JSON.parse(readFileSync(lock, 'utf8')).pid, 9999);
+});
+
+// ---- review 6 (2026-11-12): three findings, each with its test ----------------------
+
+test('review6 #1: the window closes just after a stale-cancelled buy; a lagging read never ends it EXPIRED on bare shares', async () => {
+  const r = rig();
+  r.fb.autoFillBuys = false;
+  await loadPlan(r.st, plan({ valid_until: '2026-11-12T16:00:40Z' }), r.ctx);
+  const p = r.st.plans['B-9001'];
+  r.px(166.5);
+  await tick(r.st, r.ctx); // the buy goes out and rests
+  r.advance(31);
+  await tick(r.st, r.ctx); // stale: cancelled
+  assert.equal(p.entry.cancelReason, 'stale');
+  r.advance(5);
+  await tick(r.st, r.ctx); // reads CANCELED, nothing filled: back to WATCHING
+  assert.equal(p.status, 'WATCHING');
+  // The cancelled order had in fact filled; the account books 6 and the next read lags once.
+  r.fb.pos.NVDA = 6;
+  r.fb.fail.emptyPositions = 1;
+  r.advance(5);
+  await tick(r.st, r.ctx); // past valid_until
+  assert.notEqual(p.status, 'EXPIRED', 'never "nothing bought" on one read of 0');
+  await ticks(r, 12, 166.5);
+  assert.equal(p.status, 'PROTECTED');
+  assert.equal(coveredQty(r.fb), 6);
+  assert.ok(!r.said(/nothing bought/));
+});
+
+test('review6 #1b: with no buy ever sent, the window closing still ends the plan at once', async () => {
+  const r = rig();
+  await loadPlan(r.st, plan({ valid_until: '2026-11-12T16:00:10Z' }), r.ctx);
+  const p = r.st.plans['B-9001'];
+  r.px(160); // never at the trigger
+  await ticks(r, 3, 160);
+  assert.equal(p.status, 'EXPIRED');
+  assert.equal(buys(r.fb).length, 0);
+});
+
+/** Every broker call takes perCallMs of real time; ctx.clock shows the real time. */
+function withLatency(r, perCallMs) {
+  let lag = 0;
+  r.ctx.clock = () => r.ctx.now.getTime() + lag;
+  const sellTimes = [];
+  for (const name of ['quotes', 'account', 'positions', 'openOrders', 'review', 'placeOrder', 'findOrder', 'getOrder',
+    'cancelOrder', 'reviewOco', 'placeOco', 'findOco', 'getOco', 'cancelOco']) {
+    const orig = r.fb[name].bind(r.fb);
+    r.fb[name] = async (...a) => {
+      lag += perCallMs;
+      if (name === 'placeOrder' && a[0].side === 'sell' && a[0].type === 'market') sellTimes.push(r.ctx.now.getTime() + lag);
+      return orig(...a);
+    };
+  }
+  return { sellTimes, resetLag: () => { lag = 0; } };
+}
+
+test('review6 #2: a SELL handled seconds before the bell never sends a market sell after it; the stop goes back on and it sells at the next open', async () => {
+  const r = rig();
+  const p = await bought(r);
+  assert.equal(p.status, 'PROTECTED');
+  const L = withLatency(r, 700);
+  const BELL = Date.parse('2026-11-12T21:00:00Z');
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:57Z')); // 15:59:57 ET, the tick starts "open"
+  L.resetLag();
+  sellPlan(r.st, 'B-9001', r.ctx);
+  r.px(170);
+  await tick(r.st, r.ctx);
+  assert.ok(L.sellTimes.every((t) => t < BELL), `a market sell left after the bell: ${L.sellTimes.map((t) => new Date(t).toISOString())}`);
+  assert.equal(marketSells(r.fb).length, 0);
+  assert.equal(coveredQty(r.fb), 6, 'the stop is back on for the night');
+  assert.ok(r.said(/the market closed before the sale was done/));
+  // The next open: the sale goes out with no new SELL.
+  r.ctx.now = new Date(Date.parse('2026-11-13T14:30:30Z'));
+  L.resetLag();
+  r.px(170);
+  await tick(r.st, r.ctx);
+  await ticks(r, 3, 170);
+  assert.equal(marketSells(r.fb).length, 1);
+  assert.ok(L.sellTimes[0] > Date.parse('2026-11-13T14:30:00Z'));
+});
+
+test('review6 #2b: a price exit that runs into the bell mid-tick puts the stop back and starts no new sale after it', async () => {
+  const r = rig();
+  r.fb.fail.oco = 999; // a plain stop protects (a stop with no target leg)
+  const p = await bought(r);
+  await ticks(r, 3, 166.5);
+  assert.equal(p.status, 'PROTECTED');
+  const L = withLatency(r, 700);
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:57Z'));
+  L.resetLag();
+  sellPlan(r.st, 'B-9001', r.ctx);
+  r.px(190); // over the target, read at the start of the tick, before the bell
+  await tick(r.st, r.ctx);
+  assert.equal(marketSells(r.fb).length, 0, 'no market sell after the bell');
+  // The SELL ran into the bell and the stop is going back on. The old quote over the target
+  // must not start a second sale in the same tick.
+  assert.notEqual(p.status, 'EXITING');
+  assert.equal(r.journal.filter(([e]) => e === 'exit_start').length, 1, 'one sale started (the SELL), none after the bell');
+  await ticks(r, 3, 190);
+  assert.equal(p.status, 'PROTECTED');
+  assert.equal(sells(r.fb).filter((o) => o.type === 'stop_market' && liveState(o)).length, 1);
+  assert.equal(marketSells(r.fb).length, 0);
+});
+
+test('review6 #4: a sell whose answer was lost just before the bell is looked for again before the stop goes back on', async () => {
+  const r = rig();
+  const p = await bought(r);
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:58Z'));
+  sellPlan(r.st, 'B-9001', r.ctx);
+  r.px(170);
+  r.fb.fail.lostReply = 1; // the sell is made (and fills), its answer is lost
+  await tick(r.st, r.ctx);
+  assert.equal(p.status, 'EXITING');
+  r.fb.fail.hideOrders = 1; // the first look after the bell misses it
+  r.advance(5);
+  await tick(r.st, r.ctx);
+  r.advance(5);
+  await tick(r.st, r.ctx);
+  assert.equal(p.status, 'CLOSED');
+  assert.ok(r.said(/SOLD 6 NVDA/));
+  assert.ok(!r.said(/did NOT sell/));
+  assert.equal(r.fb.ocos.size, 1, 'no stop set again for shares already sold');
+});
+
+test('review6 #3a: LiveBroker keeps an order id it could not read back yet (unverifiedId), and drops one that reads as another order', async () => {
+  const mk = (rows) => {
+    let reads = 0;
+    const mcp = {
+      callTool: async (name, args) => {
+        if (name === CAPS.place) return { structuredContent: { data: { order: { id: 'stop-1' } } } };
+        if (name === CAPS.orders && args.order_id === 'stop-1') {
+          reads += 1;
+          return { structuredContent: { data: { orders: rows(reads) } } };
+        }
+        throw new Error(`unexpected ${name}`);
+      },
+    };
+    const lb = new LiveBroker({ accountNumber: 'X', mcp });
+    lb.binding = { ...CAPS };
+    return lb;
+  };
+  const stop = { symbol: 'NVDA', side: 'sell', type: 'stop_market', qty: 6, stop: 156.1, tif: 'gtc', refId: 'k1' };
+  const lagging = mk(() => []); // the list does not show it yet
+  assert.deepEqual(await lagging.placeOrder(stop), { orderId: null, unverifiedId: 'stop-1' });
+  const other = mk(() => [{ id: 'stop-1', symbol: 'AMD', side: 'sell', type: 'market', trigger: 'stop', state: 'confirmed', quantity: '6' }]);
+  assert.deepEqual(await other.placeOrder(stop), { orderId: null });
+});
+
+test('review6 #3b: a plain stop the broker could not read back is kept by its id: one stop, never a second', async () => {
+  const r = rig();
+  r.fb.fail.oco = 999; // the stop+target is refused: plain stops protect
+  r.fb.dupRefThrows = true;
+  const origFind = r.fb.findOrder.bind(r.fb); // the order list does not show keys
+  r.fb.findOrder = async (q) => origFind({ ...q, refId: undefined, refIds: q.refIds ? ['(not listed)'] : undefined });
+  const origPlace = r.fb.placeOrder.bind(r.fb);
+  let first = true;
+  r.fb.placeOrder = async (o) => { // the first stop answers the way LiveBroker does on a read-back miss
+    const res = await origPlace(o);
+    if (o.type === 'stop_market' && first) { first = false; return { orderId: null, unverifiedId: res.orderId }; }
+    return res;
+  };
+  const p = await bought(r);
+  await ticks(r, 30, 166.5);
+  const stops = sells(r.fb).filter((o) => o.type === 'stop_market');
+  assert.equal(stops.length, 1, 'one plain stop, never a second');
+  assert.equal(p.status, 'PROTECTED');
+  assert.equal(p.prot.id, stops[0].id);
+});
+
+test('review6 #3c: a kept id that reads as another ticker is never taken as this plan stop', async () => {
+  const r = rig();
+  r.fb.fail.oco = 999;
+  const origPlace = r.fb.placeOrder.bind(r.fb);
+  const amd = await origPlace({ symbol: 'AMD', side: 'sell', type: 'stop_market', qty: 1, stop: 1, tif: 'gtc', refId: 'amd-1' });
+  let first = true;
+  r.fb.placeOrder = async (o) => {
+    const res = await origPlace(o);
+    if (o.type === 'stop_market' && o.symbol === 'NVDA' && first) { first = false; return { orderId: null, unverifiedId: amd.orderId }; }
+    return res;
+  };
+  const p = await bought(r);
+  await ticks(r, 6, 166.5);
+  const nvdaStops = sells(r.fb).filter((o) => o.symbol === 'NVDA' && o.type === 'stop_market' && liveState(o));
+  assert.equal(nvdaStops.length, 1);
+  assert.equal(p.status, 'PROTECTED');
+  assert.equal(p.prot.id, nvdaStops[0].id);
+  assert.notEqual(p.prot.id, amd.orderId);
 });

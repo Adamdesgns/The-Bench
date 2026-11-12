@@ -362,8 +362,10 @@ async function watch(p, ctx, q, session) {
     p.sharesCheckedAt = iso(ctx.now);
     if (pos > 0) return adopt(p, ctx, pos, 'they showed up after an earlier buy attempt of this plan', true);
   }
-  if (t >= Date.parse(P.valid_until)) return finish(p, ctx, 'EXPIRED', `EXPIRED ${p.id} ${P.symbol}: the window closed, nothing bought.`);
-  if (P.exit_by && t >= Date.parse(P.exit_by)) return finish(p, ctx, 'EXPIRED', `EXPIRED ${p.id} ${P.symbol}: the sell-by time came before it bought, nothing bought.`);
+  // A plan that had a buy order (any attempt, however it ended) ends on two reads of 0, never one.
+  const end = (text) => (p.history?.length ? endAfterCheck(p, ctx, 'EXPIRED', text) : finish(p, ctx, 'EXPIRED', text));
+  if (t >= Date.parse(P.valid_until)) return end(`EXPIRED ${p.id} ${P.symbol}: the window closed, nothing bought.`);
+  if (P.exit_by && t >= Date.parse(P.exit_by)) return end(`EXPIRED ${p.id} ${P.symbol}: the sell-by time came before it bought, nothing bought.`);
   if (!session.entries) return;
   if (P.not_before && t < Date.parse(P.not_before)) return;
   const last = freshLast(q, ctx.now, ctx.cfg);
@@ -608,6 +610,8 @@ async function findLiveProt(p, ctx) {
   for (const id of p.stopIds ?? []) {
     if (dead.includes(id)) continue;
     const o = await ctx.broker.getOrder(id);
+    // An id kept before it was read back counts only once it reads as a sell of this ticker.
+    if (o.symbol !== P.symbol || o.side !== 'sell') continue;
     if (o.state === 'PENDING' || o.state === 'PARTIALLY_FILLED') return { kind: 'stop', id };
   }
   if (!p.stopRefs?.length) return null;
@@ -635,8 +639,9 @@ async function protect(p, ctx, q, session) {
   }
   const last = freshLast(q, ctx.now, ctx.cfg);
   // After a sell that failed, the price exits wait a minute before trying again (no 5-second loop).
-  // (With the market closed tick() reads no quotes, so a price exit cannot start then.)
-  const exitOk = !p.exitGaveUp || secsSince(ctx.now, p.exitGaveUpAt) >= ctx.cfg.alarmEverySec;
+  // Never after the bell: tick() reads no quotes then, and a bell that rings during the tick
+  // marks the session closed for the rest of it (the quotes read before it still sit here).
+  const exitOk = Boolean(session?.open) && (!p.exitGaveUp || secsSince(ctx.now, p.exitGaveUpAt) >= ctx.cfg.alarmEverySec);
   if (exitOk && last != null && last <= P.stop) return startExit(p, ctx, 'the price was already at or under the stop before the stop order could be set');
   if (exitOk && last != null && last >= P.target) return startExit(p, ctx, 'the price was already at the target before the order could be set');
   if (P.exit_by && ctx.now.getTime() >= Date.parse(P.exit_by)) p.exitWanted ??= 'the sell-by time came';
@@ -676,11 +681,14 @@ async function protect(p, ctx, q, session) {
     softSave(p, ctx);
     try {
       const r = await ctx.broker.placeOrder({ symbol: P.symbol, side: 'sell', type: 'stop_market', qty, stop: P.stop, tif: 'gtc', refId: p.prot.refId });
-      if (r.orderId) {
-        // Keep the id the moment Robinhood gives it: if the read-back below fails, the next
-        // lookup still finds this stop by its id (the order list may not show the key).
-        p.stopIds = [...(p.stopIds ?? []), r.orderId].slice(-20);
+      // Keep the id the moment Robinhood gives it, even one the broker could not read back yet:
+      // the next lookup still finds this stop by its id (the order list may not show the key).
+      const keep = r.orderId ?? r.unverifiedId;
+      if (keep) {
+        p.stopIds = [...(p.stopIds ?? []), keep].slice(-20);
         softSave(p, ctx);
+      }
+      if (r.orderId) {
         const o = await ctx.broker.getOrder(r.orderId);
         if (o.state === 'PENDING' || o.state === 'PARTIALLY_FILLED') { p.prot.id = r.orderId; return protectedNow(p, ctx); }
         if (o.state === 'FILLED') { p.prot.id = r.orderId; return closed(p, ctx, o.avgPrice, 'stop hit', o.filledQty); }
@@ -913,6 +921,7 @@ async function exitAfterBell(p, ctx) {
     const P = p.plan;
     const found = await ctx.broker.findOrder({ symbol: P.symbol, side: 'sell', type: 'market', qty: X.qty, sinceIso: X.sendingAt, refId: X.refId, excludeIds: p.deadSells ?? [] });
     if (found) X.orderId = found.orderId;
+    else if (secsSince(ctx.now, X.sentAt ?? X.sendingAt) < ctx.cfg.reconcileSec) return undefined; // the list may lag: look again
   }
   if (X.orderId) {
     // A sell sent before the bell may still fill, or come back rejected: read it.
@@ -1007,6 +1016,15 @@ async function exiting(p, ctx, q, session) {
         return reprotect(p, ctx, `the account showed no ${P.symbol} for ${ctx.cfg.reconcileSec}s, but the trader has not sold the ${held(p)} it bought`);
       }
       X.zeroAt = null;
+      // The tick read "market open" at its start; the broker calls since then take real time.
+      // Never send a market sell after the bell: Robinhood could hold it for the next open
+      // with the stop already cancelled. Put the stop back for the night instead.
+      if (ctx.clock && !sessionState(new Date(ctx.clock()), ctx.calendar, ctx.cfg).open) {
+        // The rest of this tick is after hours too: no new sale starts for this plan or any other.
+        session.open = false;
+        session.entries = false;
+        return exitAfterBell(p, ctx);
+      }
       const qty = Math.min(pos, held(p));
       X.qty = qty;
       X.retries += 1;

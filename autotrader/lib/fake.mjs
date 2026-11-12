@@ -105,7 +105,8 @@ export class FakeBroker {
     const o = this.orders.get(id);
     if (!o) return { state: 'UNKNOWN' };
     this.match(o);
-    return { state: o.state, filledQty: o.filledQty, avgPrice: o.avgPrice };
+    // Same fields as the live read (normOrder): the engine checks ticker and side on kept ids.
+    return { id, state: o.state, filledQty: o.filledQty, avgPrice: o.avgPrice, symbol: o.symbol, side: o.side, qty: o.qty };
   }
 
   async cancelOrder(id) {
