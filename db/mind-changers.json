@@ -9646,6 +9646,54 @@
       "row": "B-1438",
       "expires": "2026-11-25",
       "status": "open"
+    },
+    {
+      "id": "MC-557",
+      "created": "2026-11-12",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 165.89
+        }
+      ],
+      "meaning": "B-1440 re-look: NVDA settled back over the 20-day low (11/10 low) after the ouster gap; re-judge the long (Capital Competition, 2:1 to a pivot, earnings 11/17 pm still apply)",
+      "source": "site/reviews/2026-11-12-nvda-hot-watch.md",
+      "row": "B-1440",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-558",
+      "created": "2026-11-12",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": "<",
+          "level": 156.2
+        }
+      ],
+      "meaning": "B-1440: NVDA settled under the 11/11 after-hours panic low; the breakdown is confirmed on a close, re-judge the short (earnings 11/17 inside any put, level 2 = long puts only)",
+      "source": "site/reviews/2026-11-12-nvda-hot-watch.md",
+      "row": "B-1440",
+      "expires": "2026-11-16",
+      "status": "open"
+    },
+    {
+      "id": "MC-559",
+      "created": "2026-11-12",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 164.27
+        }
+      ],
+      "meaning": "B-1441: Adam open-gate call held to the close, NVDA settled back over the 52-week low it gapped under; score the hold beside the first-30-minute test",
+      "source": "site/reviews/2026-11-12-nvda-hot-watch.md",
+      "row": "B-1441",
+      "expires": "2026-11-12",
+      "status": "open"
     }
   ]
 }

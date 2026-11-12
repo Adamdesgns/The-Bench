@@ -1,25 +1,25 @@
 {
-  "asof": "2026-11-11T15:00:00-06:00",
-  "session": "regular",
-  "basis": "Robinhood MCP last regular trades 11/11 vs official 11/10 settles (MARA run B-1434); other names keep their own asof",
-  "source": "Robinhood MCP (interactive run, B-1434)",
-  "note": "Run the market Sun 10/25 20:50 CT: overnight session flat (B-1056). Close quotes unchanged from 10/23. | 10/28 19:07 CT interactive overreaction run (B-1138 GOOGL, B-1139 NOW): GOOGL/NOW/SPY/QQQ after-hours marks vs the 10/28 official closes; other names untouched. | 10/29 15:35 CT run the market AMZN (B-1172): AMZN/SPY/QQQ/GOOGL/NOW after-hours marks vs the 10/28 official closes. | 10/31 16:10 CT weekend run: every strip ticker refreshed to the Friday 10/30 settle from Yahoo daily bars. | 11/5 11:30 CT run the market (B-1296): 24 names refreshed mid-session. | 11/9 09:35 CT run the market (B-1355): 21 names refreshed mid-session. | 11/09 12:56 CT NVDA delta run (B-1365): NVDA/SPY/QQQ/SMH last trades vs the 11/6 closes; other names untouched. | 11/11 18:45 CT MARA run (B-1434, Grant ticket refused): MARA/COIN/MSTR/HOOD/SPY/QQQ last regular trades vs 11/10 settles. | 11/11 20:15 CT NVDA Tim Cook deep dive (B-1435): NVDA after-hours mark 161.08 vs the 11/11 official close 173.73; other names untouched.",
+  "asof": "2026-11-12T06:45:00-06:00",
+  "session": "pre-market",
+  "basis": "Robinhood MCP pre-market marks 11/12 06:45 CT vs official 11/11 settles (NVDA hot watch B-1440); other names keep their own asof",
+  "source": "Robinhood MCP (interactive run, B-1440)",
+  "note": "Run the market Sun 10/25 20:50 CT: overnight session flat (B-1056). Close quotes unchanged from 10/23. | 10/28 19:07 CT interactive overreaction run (B-1138 GOOGL, B-1139 NOW): GOOGL/NOW/SPY/QQQ after-hours marks vs the 10/28 official closes; other names untouched. | 10/29 15:35 CT run the market AMZN (B-1172): AMZN/SPY/QQQ/GOOGL/NOW after-hours marks vs the 10/28 official closes. | 10/31 16:10 CT weekend run: every strip ticker refreshed to the Friday 10/30 settle from Yahoo daily bars. | 11/5 11:30 CT run the market (B-1296): 24 names refreshed mid-session. | 11/9 09:35 CT run the market (B-1355): 21 names refreshed mid-session. | 11/09 12:56 CT NVDA delta run (B-1365): NVDA/SPY/QQQ/SMH last trades vs the 11/6 closes; other names untouched. | 11/11 18:45 CT MARA run (B-1434, Grant ticket refused): MARA/COIN/MSTR/HOOD/SPY/QQQ last regular trades vs 11/10 settles. | 11/11 20:15 CT NVDA Tim Cook deep dive (B-1435): NVDA after-hours mark 161.08 vs the 11/11 official close 173.73; other names untouched. | 11/12 06:45 CT NVDA hot watch (B-1440): NVDA/SPY/QQQ/SMH/SOXX/AMD/AVGO/MU/CRWV/SMCI pre-market marks vs the 11/11 official closes.",
   "quotes": [
     {
       "ticker": "SPY",
-      "last": 759.79,
-      "prev_close": 749.92,
-      "change_pct": 1.32,
-      "asof": "2026-11-11T15:00:00-06:00",
-      "session": "regular"
+      "last": 756.62,
+      "prev_close": 759.81,
+      "change_pct": -0.42,
+      "asof": "2026-11-12T06:45:00-06:00",
+      "session": "pre-market"
     },
     {
       "ticker": "QQQ",
-      "last": 690.38,
-      "prev_close": 674.82,
-      "change_pct": 2.31,
-      "asof": "2026-11-11T15:00:00-06:00",
-      "session": "regular"
+      "last": 683.74,
+      "prev_close": 690.38,
+      "change_pct": -0.96,
+      "asof": "2026-11-12T06:45:00-06:00",
+      "session": "pre-market"
     },
     {
       "ticker": "DIA",
@@ -39,11 +39,11 @@
     },
     {
       "ticker": "SMH",
-      "last": 489.64,
-      "prev_close": 463.96,
-      "change_pct": 5.53,
-      "asof": "2026-11-09T14:35:00-06:00",
-      "session": "regular"
+      "last": 492.6,
+      "prev_close": 506.96,
+      "change_pct": -2.83,
+      "asof": "2026-11-12T06:45:00-06:00",
+      "session": "pre-market"
     },
     {
       "ticker": "TLT",
@@ -87,27 +87,27 @@
     },
     {
       "ticker": "MU",
-      "last": 731.92,
-      "prev_close": 690,
-      "change_pct": 6.08,
-      "asof": "2026-11-09T09:35:00-06:00",
-      "session": "regular"
+      "last": 774.51,
+      "prev_close": 811.3,
+      "change_pct": -4.53,
+      "asof": "2026-11-12T06:45:00-06:00",
+      "session": "pre-market"
     },
     {
       "ticker": "NVDA",
-      "last": 161.08,
+      "last": 160.2,
       "prev_close": 173.73,
-      "change_pct": -7.28,
-      "asof": "2026-11-11T20:12:00-06:00",
-      "session": "after-hours"
+      "change_pct": -7.79,
+      "asof": "2026-11-12T06:45:00-06:00",
+      "session": "pre-market"
     },
     {
       "ticker": "AMD",
-      "last": 513.52,
-      "prev_close": 449.04,
-      "change_pct": 14.36,
-      "asof": "2026-11-09T14:35:00-06:00",
-      "session": "regular"
+      "last": 565.4,
+      "prev_close": 552.9,
+      "change_pct": 2.26,
+      "asof": "2026-11-12T06:45:00-06:00",
+      "session": "pre-market"
     },
     {
       "ticker": "UBER",
@@ -151,11 +151,11 @@
     },
     {
       "ticker": "SMCI",
-      "last": 33.8,
-      "prev_close": 31.485,
-      "change_pct": 7.35,
-      "asof": "2026-11-03T17:13:00-05:00",
-      "session": "after-hours"
+      "last": 28.7,
+      "prev_close": 30.43,
+      "change_pct": -5.69,
+      "asof": "2026-11-12T06:45:00-06:00",
+      "session": "pre-market"
     },
     {
       "ticker": "SPCX",
@@ -199,11 +199,11 @@
     },
     {
       "ticker": "AVGO",
-      "last": 317.19,
-      "prev_close": 293.69,
-      "change_pct": 8,
-      "asof": "2026-11-09T09:35:00-06:00",
-      "session": "regular"
+      "last": 348.36,
+      "prev_close": 345.22,
+      "change_pct": 0.91,
+      "asof": "2026-11-12T06:45:00-06:00",
+      "session": "pre-market"
     },
     {
       "ticker": "MRVL",
@@ -292,6 +292,22 @@
       "change_pct": 4.02,
       "asof": "2026-11-11T15:00:00-06:00",
       "session": "regular"
+    },
+    {
+      "ticker": "SOXX",
+      "last": 151.89,
+      "prev_close": 155.4,
+      "change_pct": -2.26,
+      "asof": "2026-11-12T06:45:00-06:00",
+      "session": "pre-market"
+    },
+    {
+      "ticker": "CRWV",
+      "last": 54.92,
+      "prev_close": 60.77,
+      "change_pct": -9.63,
+      "asof": "2026-11-12T06:45:00-06:00",
+      "session": "pre-market"
     }
   ],
   "overnight": {
