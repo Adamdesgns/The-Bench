@@ -1721,5 +1721,23 @@
     "why": null,
     "logged_by": "claude",
     "instances": []
+  },
+  {
+    "id": "P-074",
+    "claim": "When a mega-cap opens down 5 pct or more on a company-specific event whose decision is still pending, the first 5-minute bar prints the morning low and the first 30-minute bar closes in the top quarter of its range",
+    "test": "On the gap day: the first 5-minute low is not broken before 11:00 CT AND the first 30-minute bar closes in the top 25 pct of its high-low range; false if either fails",
+    "first_seen": "2026-11-12",
+    "status": "proposed",
+    "why": null,
+    "logged_by": "claude",
+    "instances": [
+      {
+        "date": "2026-11-12",
+        "ticker": "NVDA",
+        "detail": "Opened 150.99 (-13.1 pct on the 173.73 settle; WSJ oust report, board decision pending). First 5-min bar low 148.80; lowest print 08:35-11:00 CT was 155.83, so the low held. First 30-min bar H 163.10 L 148.80 C 162.66 = top 97 pct of its range. Morning high 167.14 at 11:10 CT.",
+        "holds": true,
+        "row_ref": "B-1452"
+      }
+    ]
   }
 ]
