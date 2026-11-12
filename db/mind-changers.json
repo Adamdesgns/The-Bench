@@ -9790,6 +9790,22 @@
       "row": "B-1454",
       "expires": "2026-11-25",
       "status": "open"
+    },
+    {
+      "id": "MC-566",
+      "created": "2026-11-12",
+      "when": [
+        {
+          "ticker": "SPY",
+          "op": ">",
+          "level": 761.62
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge",
+      "source": "powerhour-2026-11-12",
+      "row": "B-1456",
+      "expires": "2026-11-12",
+      "status": "open"
     }
   ]
 }
