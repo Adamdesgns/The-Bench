@@ -1541,14 +1541,17 @@ test('review5 #5: LOAD whose save fails is still LOADED (not "not handled"), and
   assert.equal(buys(r.fb).length, 1);
 });
 
-/** A SELL at 15:59:52 ET whose stop cancel is accepted but has not landed by the bell. */
+/**
+ * A SELL at 15:59:22 ET whose stop cancel is accepted but has not landed when the last 30 s
+ * of the session begin (review7: no sale goes on in them, the same as after the bell).
+ */
 async function cancelInFlightAtBell(r) {
   const p = await bought(r);
   const realCancel = r.fb.cancelOco.bind(r.fb);
   r.fb.cancelOco = async (id) => { r.fb.calls.push(['cancelOco', id]); }; // accepted, not done yet
-  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:52Z'));
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:22Z'));
   sellPlan(r.st, 'B-9001', r.ctx);
-  await ticks(r, 1, 170); // 15:59:57: the exit starts and the cancel goes out
+  await ticks(r, 1, 170); // 15:59:27: the exit starts and the cancel goes out
   assert.equal(p.status, 'EXITING');
   assert.equal(p.exit.step, 'cancel');
   return { p, g: [...r.fb.ocos.values()][0], realCancel };
@@ -1558,7 +1561,7 @@ test('review5 #6a: the stop cancel lands just as the bell rings: the stop goes b
   const r = rig();
   const { p, g, realCancel } = await cancelInFlightAtBell(r);
   g.state = 'CANCELED'; // the cancel lands
-  await ticks(r, 3, 170); // 16:00:02 on
+  await ticks(r, 3, 170); // 15:59:32 on: inside the last 30 s
   assert.equal(p.status, 'PROTECTED');
   assert.equal(coveredQty(r.fb), 6);
   assert.equal(marketSells(r.fb).length, 0, 'no market sell after the bell');
@@ -1575,7 +1578,7 @@ test('review5 #6a: the stop cancel lands just as the bell rings: the stop goes b
 test('review5 #6a-2: the stop cancel has not landed at the bell: the stop is still on; if it lands later a new stop goes on', async () => {
   const r = rig();
   const { p, g } = await cancelInFlightAtBell(r);
-  await ticks(r, 1, 170); // 16:00:02, the stop still reads live
+  await ticks(r, 1, 170); // 15:59:32, the stop still reads live
   assert.equal(p.status, 'PROTECTED');
   assert.equal(p.prot.id, g.id);
   assert.ok(r.kinds('alarm').some((t) => /the market closed before the sale was done.*the stop is still on/.test(t)));
@@ -1591,12 +1594,12 @@ test('review5 #6b: a sell resting at the bell is read: rejected, the stop goes b
   const r = rig();
   const p = await bought(r);
   r.fb.holdSells = true;
-  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:45Z'));
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:10Z'));
   sellPlan(r.st, 'B-9001', r.ctx);
   await ticks(r, 3, 170); // cancel the stop, send the sell (it rests)
   assert.equal(marketSells(r.fb).length, 1);
   const [s] = marketSells(r.fb);
-  await ticks(r, 2, 170); // 16:00:00 on: still resting, the trader waits
+  await ticks(r, 2, 170); // 15:59:30 on: still resting, the trader waits
   assert.equal(p.status, 'EXITING');
   s.state = 'REJECTED';
   await ticks(r, 4, 170);
@@ -1610,7 +1613,7 @@ test('review5 #6c: a sell that fills part then is cancelled at the bell: the res
   const r = rig();
   const p = await bought(r);
   r.fb.holdSells = true;
-  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:45Z'));
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:10Z'));
   sellPlan(r.st, 'B-9001', r.ctx);
   await ticks(r, 3, 170);
   const [s] = marketSells(r.fb);
@@ -1768,17 +1771,21 @@ test('review6 #1b: with no buy ever sent, the window closing still ends the plan
 function withLatency(r, perCallMs) {
   let lag = 0;
   r.ctx.clock = () => r.ctx.now.getTime() + lag;
-  const sellTimes = [];
+  const sellTimes = []; // when each market sell reaches Robinhood
+  const cancelTimes = []; // when each stop cancel reaches Robinhood
+  const protTimes = []; // when each stop (or stop+target) placement reaches Robinhood
   for (const name of ['quotes', 'account', 'positions', 'openOrders', 'review', 'placeOrder', 'findOrder', 'getOrder',
     'cancelOrder', 'reviewOco', 'placeOco', 'findOco', 'getOco', 'cancelOco']) {
     const orig = r.fb[name].bind(r.fb);
     r.fb[name] = async (...a) => {
       lag += perCallMs;
       if (name === 'placeOrder' && a[0].side === 'sell' && a[0].type === 'market') sellTimes.push(r.ctx.now.getTime() + lag);
+      if (name === 'cancelOco' || name === 'cancelOrder') cancelTimes.push(r.ctx.now.getTime() + lag);
+      if (name === 'placeOco' || (name === 'placeOrder' && a[0].type === 'stop_market')) protTimes.push(r.ctx.now.getTime() + lag);
       return orig(...a);
     };
   }
-  return { sellTimes, resetLag: () => { lag = 0; } };
+  return { sellTimes, cancelTimes, protTimes, resetLag: () => { lag = 0; } };
 }
 
 test('review6 #2: a SELL handled seconds before the bell never sends a market sell after it; the stop goes back on and it sells at the next open', async () => {
@@ -1787,7 +1794,8 @@ test('review6 #2: a SELL handled seconds before the bell never sends a market se
   assert.equal(p.status, 'PROTECTED');
   const L = withLatency(r, 700);
   const BELL = Date.parse('2026-11-12T21:00:00Z');
-  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:57Z')); // 15:59:57 ET, the tick starts "open"
+  // 15:59:28 ET: the sale may start (more than 30 s left); the cancel and the reads run it into the last 30 s.
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:28Z'));
   L.resetLag();
   sellPlan(r.st, 'B-9001', r.ctx);
   r.px(170);
@@ -1813,10 +1821,10 @@ test('review6 #2b: a price exit that runs into the bell mid-tick puts the stop b
   await ticks(r, 3, 166.5);
   assert.equal(p.status, 'PROTECTED');
   const L = withLatency(r, 700);
-  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:57Z'));
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:28Z'));
   L.resetLag();
   sellPlan(r.st, 'B-9001', r.ctx);
-  r.px(190); // over the target, read at the start of the tick, before the bell
+  r.px(190); // over the target, read at the start of the tick, before the last 30 s
   await tick(r.st, r.ctx);
   assert.equal(marketSells(r.fb).length, 0, 'no market sell after the bell');
   // The SELL ran into the bell and the stop is going back on. The old quote over the target
@@ -1832,7 +1840,7 @@ test('review6 #2b: a price exit that runs into the bell mid-tick puts the stop b
 test('review6 #4: a sell whose answer was lost just before the bell is looked for again before the stop goes back on', async () => {
   const r = rig();
   const p = await bought(r);
-  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:58Z'));
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:25Z')); // the last 30 s begin at the next tick
   sellPlan(r.st, 'B-9001', r.ctx);
   r.px(170);
   r.fb.fail.lostReply = 1; // the sell is made (and fills), its answer is lost
@@ -1912,4 +1920,149 @@ test('review6 #3c: a kept id that reads as another ticker is never taken as this
   assert.equal(p.status, 'PROTECTED');
   assert.equal(p.prot.id, nvdaStops[0].id);
   assert.notEqual(p.prot.id, amd.orderId);
+});
+
+// ---- review 7 (2026-11-12): the last 30 s of the session count as closed for selling ----
+
+const BELL_1112 = Date.parse('2026-11-12T21:00:00Z'); // Thu 16:00 ET
+
+test('review7 #1: a SELL handled in the last 30 s never cancels the stop and never sends a market sell; it sells at the next open', async () => {
+  const r = rig();
+  const p = await bought(r);
+  const L = withLatency(r, 700);
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:55.500Z')); // 15:59:55.5 ET
+  L.resetLag();
+  sellPlan(r.st, 'B-9001', r.ctx);
+  r.px(170);
+  await tick(r.st, r.ctx);
+  assert.equal(L.cancelTimes.length, 0, 'the stop is never cancelled this close to the bell');
+  assert.equal(marketSells(r.fb).length, 0);
+  assert.equal(p.status, 'PROTECTED');
+  assert.equal(coveredQty(r.fb), 6);
+  assert.ok(r.said(/it should sell \(you sent SELL\) but the market is closed or about to close/));
+  r.ctx.now = new Date(Date.parse('2026-11-13T14:30:30Z')); // Fri 09:30:30 ET
+  L.resetLag();
+  r.px(171);
+  await tick(r.st, r.ctx);
+  await ticks(r, 3, 171);
+  assert.equal(p.status, 'CLOSED');
+  assert.equal(marketSells(r.fb).length, 1);
+  assert.ok(L.sellTimes[0] > Date.parse('2026-11-13T14:30:00Z'));
+});
+
+test('review7 #1b: a SELL at any moment of the last minute, with slow calls: nothing reaches Robinhood after the bell, and the shares are sold or covered', async () => {
+  for (const perCall of [700, 2000]) {
+    for (let ms = 0; ms < 60000; ms += 500) {
+      const r = rig();
+      const p = await bought(r);
+      const L = withLatency(r, perCall);
+      r.ctx.now = new Date(Date.parse('2026-11-12T20:59:00Z') + ms);
+      L.resetLag();
+      sellPlan(r.st, 'B-9001', r.ctx);
+      r.px(170);
+      await tick(r.st, r.ctx);
+      while (r.ctx.now.getTime() < BELL_1112 + 30000) {
+        r.advance(5);
+        L.resetLag();
+        r.px(170);
+        await tick(r.st, r.ctx);
+      }
+      const at = `SELL at +${ms} ms, ${perCall} ms a call`;
+      for (const [what, times] of [['market sell', L.sellTimes], ['stop cancel', L.cancelTimes], ['stop placement', L.protTimes]]) {
+        assert.ok(times.every((t) => t < BELL_1112), `${at}: a ${what} reached Robinhood after the bell (${times.map((t) => new Date(t).toISOString())})`);
+      }
+      assert.ok(p.status === 'CLOSED' || coveredQty(r.fb) === 6, `${at}: ended ${p.status} with ${coveredQty(r.fb)} of 6 covered`);
+      assert.ok(marketSells(r.fb).length <= 1, `${at}: more than one market sell`);
+    }
+  }
+});
+
+test('review7 #2: a never-sent buy attempt after an earlier real one ends only on two reads of 0; late shares get their stop', async () => {
+  const r = rig();
+  r.fb.autoFillBuys = false;
+  await loadPlan(r.st, plan(), r.ctx);
+  const p = r.st.plans['B-9001'];
+  r.px(166.5);
+  await tick(r.st, r.ctx); // attempt 1 rests
+  r.advance(31);
+  await tick(r.st, r.ctx); // stale: cancelled
+  r.advance(5);
+  await tick(r.st, r.ctx); // CANCELED, 0 shares: WATCHING
+  assert.equal(p.status, 'WATCHING');
+  // The state file as last saved: attempt 2 recorded ENTERING, the save before its send failed.
+  p.status = 'ENTERING';
+  p.entry = { refId: 'ref-x', at: r.ctx.now.toISOString(), orderId: null, trigger_price: 166.5 };
+  // The trader restarts after valid_until. Attempt 1 had filled late.
+  r.fb.pos.NVDA = 6;
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:31:00Z'));
+  r.px(166.5);
+  await tick(r.st, r.ctx);
+  assert.notEqual(p.status, 'EXPIRED', 'never "nothing bought" without reading the account');
+  await ticks(r, 6, 166.5);
+  assert.equal(p.status, 'PROTECTED');
+  assert.equal(coveredQty(r.fb), 6);
+  assert.ok(!r.said(/nothing bought/));
+});
+
+test('review7 #2b: a never-sent first attempt (no buy order ever) still ends at once', async () => {
+  const r = rig();
+  await loadPlan(r.st, plan(), r.ctx);
+  const p = r.st.plans['B-9001'];
+  p.status = 'ENTERING';
+  p.entry = { refId: 'ref-x', at: r.ctx.now.toISOString(), orderId: null, trigger_price: 166.5 };
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:31:00Z'));
+  r.px(166.5);
+  await tick(r.st, r.ctx);
+  assert.equal(p.status, 'EXPIRED');
+  assert.ok(r.said(/EXPIRED B-9001 NVDA: the window closed, nothing bought/));
+  assert.equal(buys(r.fb).length, 0);
+});
+
+test('review7 #1c: calls so slow that the sale runs past the margin: the market sell is held back, never sent after the bell', async () => {
+  const r = rig();
+  const p = await bought(r);
+  const L = withLatency(r, 6000); // far slower than Robinhood answers: the sale's own calls eat the 30 s
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:20Z'));
+  L.resetLag();
+  sellPlan(r.st, 'B-9001', r.ctx);
+  r.px(170);
+  await tick(r.st, r.ctx);
+  assert.equal(L.cancelTimes.length, 1, 'the sale started with more than 30 s left');
+  assert.ok(L.sellTimes.every((t) => t < BELL_1112), `a market sell reached Robinhood after the bell (${L.sellTimes.map((t) => new Date(t).toISOString())})`);
+  assert.equal(marketSells(r.fb).length, 0);
+  assert.notEqual(p.status, 'EXITING');
+});
+
+test('review7 #1d: a stop cancel that has not landed is never sent again in the last 30 s; the stop stays on for the night', async () => {
+  const r = rig();
+  const p = await bought(r);
+  const cancelsAt = [];
+  r.fb.cancelOco = async (id) => { cancelsAt.push(r.ctx.now.getTime()); r.fb.calls.push(['cancelOco', id]); }; // accepted, never lands
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:00Z'));
+  sellPlan(r.st, 'B-9001', r.ctx);
+  await ticks(r, 10, 170); // 15:59:05 .. 15:59:50
+  assert.ok(cancelsAt.length >= 1);
+  assert.ok(cancelsAt.every((t) => t < BELL_1112 - 30000), `a cancel went out in the last 30 s (${cancelsAt.map((t) => new Date(t).toISOString())})`);
+  assert.equal(p.status, 'PROTECTED');
+  assert.equal(coveredQty(r.fb), 6);
+  assert.equal(marketSells(r.fb).length, 0);
+});
+
+test('review7 #1e: bare shares in the last 30 s with the price already past the stop: the stop is set, no sale starts', async () => {
+  const r = rig();
+  r.fb.fail.oco = 999;
+  r.fb.fail.stop = 999; // no protection can be set yet: the shares are bare
+  const p = await bought(r);
+  assert.equal(p.status, 'UNPROTECTED');
+  r.fb.fail.oco = 0;
+  r.fb.fail.stop = 0;
+  r.ctx.now = new Date(Date.parse('2026-11-12T20:59:35Z')); // 15:59:35 ET
+  r.px(150); // under the 156.1 stop
+  await tick(r.st, r.ctx);
+  assert.equal(r.journal.filter(([e]) => e === 'exit_start').length, 0, 'no sale starts this close to the bell');
+  assert.equal(marketSells(r.fb).length, 0);
+  // The stop order goes on, and with the price already under it, it sells the shares itself.
+  assert.equal(p.status, 'CLOSED');
+  assert.equal(r.fb.pos.NVDA, 0);
+  assert.ok(sells(r.fb).some((o) => o.type === 'stop_market' && o.state === 'FILLED') || [...r.fb.ocos.values()].some((g) => g.state !== 'LIVE'));
 });

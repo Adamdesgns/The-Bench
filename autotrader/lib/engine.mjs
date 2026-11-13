@@ -33,6 +33,7 @@ export const DEFAULTS = {
   alarmEverySec: 60,
   unconfirmedAlarmSec: 600, // slower reminders: a buy that cannot be confirmed, extra shares
   entryCutoffMin: 5, // no new buys in the last 5 minutes of the session
+  bellMarginSec: 30, // no sale starts (no stop cancel, no market sell) in the last 30 s: calls take seconds
 };
 
 export const TERMINAL = new Set(['EXPIRED', 'KILLED', 'MISSED', 'REJECTED', 'CLOSED']);
@@ -45,6 +46,17 @@ const money = (n) => `${n < 0 ? '-' : '+'}$${Math.abs(n).toFixed(2)}`;
 const held = (p) => p.held ?? p.fill?.qty ?? 0; // shares the trader believes it still holds
 /** The time right now, after a slow call (ctx.now is when the tick started). */
 const stamp = (ctx) => iso(new Date(ctx.clock ? ctx.clock() : ctx.now.getTime()));
+
+/**
+ * May a sale start or go on right now? The tick read "open" at its start, and the broker calls
+ * since then (and the ones a sale still needs: cancel the stop, read, sell) take real time. So it
+ * reads the clock now and counts the last bellMarginSec of the session as closed for selling.
+ */
+function canSell(ctx, session) {
+  if (!session?.open) return false;
+  const t = (ctx.clock ? ctx.clock() : ctx.now.getTime()) + (ctx.cfg.bellMarginSec ?? 0) * 1000;
+  return sessionState(new Date(t), ctx.calendar, ctx.cfg).open;
+}
 
 /** A quote counts only with a price AND a time no older than the limit. */
 function freshLast(q, now, cfg) {
@@ -545,13 +557,16 @@ function adopt(p, ctx, pos, why, always = false) {
 function dropAttempt(p, ctx, why) {
   const P = p.plan;
   const reason = p.entry.cancelReason;
+  // This attempt bought nothing, but an earlier one of this plan had a buy order that may have
+  // filled late: then the plan ends only on two reads of 0 shares (rule 3), never on none.
+  const end = p.history?.length ? endAfterCheck : finish;
   p.history = [...(p.history ?? []), { ...p.entry, endedAt: iso(ctx.now), why }];
   p.entry = null;
   ctx.journal('entry_dropped', { id: p.id, why });
-  if (reason === 'killed') return finish(p, ctx, 'KILLED', `KILLED ${p.id} ${P.symbol}: nothing bought.`);
-  if (reason === 'expired' || ctx.now.getTime() >= entryDeadline(P)) return finish(p, ctx, 'EXPIRED', `EXPIRED ${p.id} ${P.symbol}: the window closed, nothing bought.`);
+  if (reason === 'killed') return end(p, ctx, 'KILLED', `KILLED ${p.id} ${P.symbol}: nothing bought.`);
+  if (reason === 'expired' || ctx.now.getTime() >= entryDeadline(P)) return end(p, ctx, 'EXPIRED', `EXPIRED ${p.id} ${P.symbol}: the window closed, nothing bought.`);
   p.attempts += 1;
-  if (p.attempts >= ctx.cfg.maxEntryAttempts) return finish(p, ctx, 'MISSED', `MISSED ${p.id} ${P.symbol}: ${p.attempts} buy attempts, nothing bought. Done for this plan.`);
+  if (p.attempts >= ctx.cfg.maxEntryAttempts) return end(p, ctx, 'MISSED', `MISSED ${p.id} ${P.symbol}: ${p.attempts} buy attempts, nothing bought. Done for this plan.`);
   p.status = 'WATCHING';
   return false;
 }
@@ -639,13 +654,13 @@ async function protect(p, ctx, q, session) {
   }
   const last = freshLast(q, ctx.now, ctx.cfg);
   // After a sell that failed, the price exits wait a minute before trying again (no 5-second loop).
-  // Never after the bell: tick() reads no quotes then, and a bell that rings during the tick
-  // marks the session closed for the rest of it (the quotes read before it still sit here).
-  const exitOk = Boolean(session?.open) && (!p.exitGaveUp || secsSince(ctx.now, p.exitGaveUpAt) >= ctx.cfg.alarmEverySec);
+  // Never after the bell or in the 30 s before it (canSell reads the real clock): the stop goes on
+  // instead, and the quotes read at the start of the tick may be older than the clock.
+  const exitOk = canSell(ctx, session) && (!p.exitGaveUp || secsSince(ctx.now, p.exitGaveUpAt) >= ctx.cfg.alarmEverySec);
   if (exitOk && last != null && last <= P.stop) return startExit(p, ctx, 'the price was already at or under the stop before the stop order could be set');
   if (exitOk && last != null && last >= P.target) return startExit(p, ctx, 'the price was already at the target before the order could be set');
   if (P.exit_by && ctx.now.getTime() >= Date.parse(P.exit_by)) p.exitWanted ??= 'the sell-by time came';
-  if (session?.open && exitDue(p, ctx, session)) return startExit(p, ctx, p.exitWanted);
+  if (canSell(ctx, session) && exitDue(p, ctx, session)) return startExit(p, ctx, p.exitWanted);
   if (!p.prot || (p.prot.kind === 'stop' && p.prot.tries >= 2 && secsSince(ctx.now, p.prot.at) >= ctx.cfg.alarmEverySec)) {
     p.prot = { kind: 'oco', refId: ctx.newRef(), at: iso(ctx.now), tries: 0 }; // a fresh round
   }
@@ -743,8 +758,8 @@ async function guard(p, ctx, q, session) {
   const P = p.plan;
   if (P.exit_by && ctx.now.getTime() >= Date.parse(P.exit_by)) p.exitWanted ??= 'the sell-by time came';
   if (exitDue(p, ctx, session)) {
-    if (session.open) return startExit(p, ctx, p.exitWanted);
-    alarm(p, ctx, `${p.id} ${P.symbol}: it should sell (${p.exitWanted}) but the market is closed. It sells at the next open; the stop stays set until then.`, 1800, 'exit-wait');
+    if (canSell(ctx, session)) return startExit(p, ctx, p.exitWanted);
+    alarm(p, ctx, `${p.id} ${P.symbol}: it should sell (${p.exitWanted}) but the market is closed or about to close. It sells at the next open; the stop stays set until then.`, 1800, 'exit-wait');
   }
   if (secsSince(ctx.now, p.prot.checkedAt) < ctx.cfg.protectCheckSec) return undefined;
   p.prot.checkedAt = iso(ctx.now);
@@ -935,6 +950,13 @@ async function exiting(p, ctx, q, session) {
   const P = p.plan;
   const X = p.exit;
   if (!session.open) return exitAfterBell(p, ctx); // market orders wait for the session
+  if (!canSell(ctx, session)) {
+    // The bell is under bellMarginSec away (or rang during the tick): the stop stays on, or goes
+    // back on, for the night. No cancel goes out that the sell could not follow before the bell.
+    session.open = false;
+    session.entries = false;
+    return exitAfterBell(p, ctx);
+  }
   if (X.step === 'cancel') {
     if (!X.cancelAt || secsSince(ctx.now, X.cancelAt) >= 20) {
       if (X.cancelAt) alarm(p, ctx, `${p.id} ${P.symbol}: the stop order will not cancel, so the sell is waiting. Check the app.`, undefined, 'stop-cancel');
@@ -1016,10 +1038,10 @@ async function exiting(p, ctx, q, session) {
         return reprotect(p, ctx, `the account showed no ${P.symbol} for ${ctx.cfg.reconcileSec}s, but the trader has not sold the ${held(p)} it bought`);
       }
       X.zeroAt = null;
-      // The tick read "market open" at its start; the broker calls since then take real time.
-      // Never send a market sell after the bell: Robinhood could hold it for the next open
-      // with the stop already cancelled. Put the stop back for the night instead.
-      if (ctx.clock && !sessionState(new Date(ctx.clock()), ctx.calendar, ctx.cfg).open) {
+      // The calls above (the cancel, the reads) took real time: look at the clock again. Never send
+      // a market sell that could reach Robinhood after the bell (it could hold it for the next open
+      // with the stop already cancelled). Put the stop back for the night instead.
+      if (!canSell(ctx, session)) {
         // The rest of this tick is after hours too: no new sale starts for this plan or any other.
         session.open = false;
         session.entries = false;
