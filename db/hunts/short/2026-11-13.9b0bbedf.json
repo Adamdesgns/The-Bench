@@ -1,0 +1,104 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-11-13",
+  "source": "yahoo",
+  "generated": "2026-11-13T18:49:54.471Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": 279,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [],
+  "READY": [],
+  "STALK": [
+    {
+      "sym": "SOL-USD",
+      "ok": true,
+      "date": "2026-11-13",
+      "close": 80.05,
+      "sma50": 103.89,
+      "sma20": 91.86,
+      "atr": 3.89,
+      "low20": 80.51,
+      "volume": 3505593344,
+      "vol30": 2579410314,
+      "volRatio": 1.36,
+      "rs20": -20.79,
+      "rs5": -9.57,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 70.69,
+        "date": "2026-08-01",
+        "atr_away": 2.41
+      },
+      "first_shelf": {
+        "level": 79.07,
+        "date": "2024-01-23",
+        "rr": 0.25
+      },
+      "floor2": {
+        "level": 79.06669616699219,
+        "date": "2024-01-23"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 80.05,
+        "stop": 83.94,
+        "stop_atr": 1,
+        "target": 70.69,
+        "rr": 2.41
+      },
+      "readiness": 60,
+      "list": "STALK"
+    }
+  ],
+  "DISCOVERY": [],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [
+    {
+      "sym": "TEL",
+      "ok": true,
+      "date": "2026-11-13",
+      "close": 214.85,
+      "sma50": 213.38,
+      "sma20": 215.61,
+      "atr": 9.22,
+      "low20": 204.63,
+      "volume": 484753,
+      "vol30": 2010827,
+      "volRatio": 0.24,
+      "rs20": 2.4,
+      "rs5": 1.4,
+      "gates": {
+        "breakdown": false,
+        "laggard": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": null,
+      "first_shelf": {
+        "level": 213.56,
+        "date": "2025-11-21",
+        "rr": 0.14
+      },
+      "floor2": null,
+      "too_far": null,
+      "geometry": {
+        "entry": 214.85,
+        "stop": 224.07,
+        "stop_atr": 1,
+        "target": null,
+        "rr": 0.14
+      },
+      "readiness": 14,
+      "list": null
+    }
+  ],
+  "skipped": [],
+  "id": "9b0bbedf"
+}

@@ -9940,6 +9940,70 @@
       "row": "B-1484",
       "expires": "2026-12-11",
       "status": "open"
+    },
+    {
+      "id": "MC-574",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "SOL-USD",
+          "op": ">",
+          "level": 86.66
+        }
+      ],
+      "meaning": "SOL closed back over the 11/10 breakdown-day high: the bounce Adam expects has started; re-run the strength test vs SPY and BTC before any plan",
+      "source": "site/reviews/2026-11-13-sol-tel.md",
+      "row": "B-1487",
+      "expires": "2026-12-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-575",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "SOL-USD",
+          "op": "<",
+          "level": 78.43
+        }
+      ],
+      "meaning": "SOL broke the spring 2026 floor; next verified floor 70.69 (2026-08-01)",
+      "source": "site/reviews/2026-11-13-sol-tel.md",
+      "row": "B-1487",
+      "expires": "2026-12-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-576",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "TEL",
+          "op": ">",
+          "level": 224
+        }
+      ],
+      "meaning": "TEL closed over the range top; check volume was 1.5x and whether a pivot past 229.35 now pays 2:1",
+      "source": "site/reviews/2026-11-13-sol-tel.md",
+      "row": "B-1488",
+      "expires": "2026-12-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-577",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "TEL",
+          "op": "<",
+          "level": 205.44
+        }
+      ],
+      "meaning": "TEL broke the bottom of its range (11/06 low); the 207.31 stack level is gone, re-look the floor",
+      "source": "site/reviews/2026-11-13-sol-tel.md",
+      "row": "B-1488",
+      "expires": "2026-12-11",
+      "status": "open"
     }
   ]
 }

@@ -312,20 +312,25 @@
   },
   {
     "sym": "SOL",
-    "status": "ARMED-CONDITIONAL",
-    "note": "**B-302 2026-09-09 06:14 CT delta - NEITHER PLAN LIVE, WATCHLIST ONLY today (Readiness 48). Mark 103.55, inside the 97.35-110.04 flag at 40 pct of the range; Plan B (> 110.04 close, 1.5x vol) 6.3 pct away, Plan A (95.75-96.50 hold) 7 pct away. Flag is 11 sessions old on an 8-session pole - on the clock. SECTOR GATE UNVERIFIED: BTC 78,859 is 2.5 pct under the 80.9K B-270 passed it on; pull the BTC 20/50-day means before either plan can fire. Decide-by 9/18, not extended.** Prior: **B-270 (2026-09-03 22:24 CT, review 103.96) - SETUP FORMING, CONDITIONAL, NOTHING LIVE. First SOL level in the book (B-015 7/2 had none).** Bull flag 97.35-110.04 after +43pct in 8 sessions off the 70-77 base; EMA20 95.59 / SMA20 94.23 / SMA50 82.68 / SMA200 82.15 stacked; RSI 67.7; MACD hist flattening 0.07. RS 20D LEADER vs BTC (+9.5 pts) and ETH (+4.5), 5D FADING (-5.0 / -3.8). BTC 80.9K above every mean = sector gate passes. Flows: SOL ETF 33.5M on 8/24 (biggest day of 2026), record 1.22B cumulative, then 925K on 9/1 - cooled. **PLAN B (logged): daily UTC close > 110.04 on 1.5x+ volume, entry cap 111.00, stop 105.70 (1.12 ATR on 4.74), T1 122.30 (2.13:1), T2 133.60. PLAN A: 95.75-96.50 on a hold of the 20-day mean, stop 90.90, T1 110.04 (2.4-2.9:1), void on a daily close < 94.20. Decide-by 2026-09-18.** No entry at 103.96: nearest floor 102.58 is 0.29 ATR, a compliant stop pays 1.28:1. Size: 303 band asks 57 SOL, CAPITAL CAP = 18-20 SOL ~2,000 (crypto BP 2,001.43 on ..6137), risk 95-107, CONCENTRATED ~66pct. Readiness 60 (capped by NFP 9/4). Dated: TxV1 9/9, Alpenglow rollout 9/8-9/21, activation 9/28 (Anza; solana.com says Oct), FOMC 9/15-16. ARMED here means the trigger is live for Adam - crypto is outside executor v1. LIMIT ORDERS ONLY (1.9pct MM spread at night). Competes with CEG/MU/GOOGL for the same 2,001 - the account funds ONE.",
-    "hunt": "STALK",
+    "status": "WATCH",
+    "note": "**B-1487 2026-11-13 12:52 CT - NO TRADE at 80.00. Laggard on both windows vs SPY, QQQ and BTC; the bounce claim tested a coin flip (QR-051..053). Re-look on a daily close over 86.66 (MC-574); under 78.43 the next floor is 70.69 (MC-575). The September 110.04 plans are dead.** **B-302 2026-09-09 06:14 CT delta - NEITHER PLAN LIVE, WATCHLIST ONLY today (Readiness 48). Mark 103.55, inside the 97.35-110.04 flag at 40 pct of the range; Plan B (> 110.04 close, 1.5x vol) 6.3 pct away, Plan A (95.75-96.50 hold) 7 pct away. Flag is 11 sessions old on an 8-session pole - on the clock. SECTOR GATE UNVERIFIED: BTC 78,859 is 2.5 pct under the 80.9K B-270 passed it on; pull the BTC 20/50-day means before either plan can fire. Decide-by 9/18, not extended.** Prior: **B-270 (2026-09-03 22:24 CT, review 103.96) - SETUP FORMING, CONDITIONAL, NOTHING LIVE. First SOL level in the book (B-015 7/2 had none).** Bull flag 97.35-110.04 after +43pct in 8 sessions off the 70-77 base; EMA20 95.59 / SMA20 94.23 / SMA50 82.68 / SMA200 82.15 stacked; RSI 67.7; MACD hist flattening 0.07. RS 20D LEADER vs BTC (+9.5 pts) and ETH (+4.5), 5D FADING (-5.0 / -3.8). BTC 80.9K above every mean = sector gate passes. Flows: SOL ETF 33.5M on 8/24 (biggest day of 2026), record 1.22B cumulative, then 925K on 9/1 - cooled. **PLAN B (logged): daily UTC close > 110.04 on 1.5x+ volume, entry cap 111.00, stop 105.70 (1.12 ATR on 4.74), T1 122.30 (2.13:1), T2 133.60. PLAN A: 95.75-96.50 on a hold of the 20-day mean, stop 90.90, T1 110.04 (2.4-2.9:1), void on a daily close < 94.20. Decide-by 2026-09-18.** No entry at 103.96: nearest floor 102.58 is 0.29 ATR, a compliant stop pays 1.28:1. Size: 303 band asks 57 SOL, CAPITAL CAP = 18-20 SOL ~2,000 (crypto BP 2,001.43 on ..6137), risk 95-107, CONCENTRATED ~66pct. Readiness 60 (capped by NFP 9/4). Dated: TxV1 9/9, Alpenglow rollout 9/8-9/21, activation 9/28 (Anza; solana.com says Oct), FOMC 9/15-16. ARMED here means the trigger is live for Adam - crypto is outside executor v1. LIMIT ORDERS ONLY (1.9pct MM spread at night). Competes with CEG/MU/GOOGL for the same 2,001 - the account funds ONE.",
+    "hunt": "DISCOVERY",
     "hunt_history": [
       {
         "at": "2026-09-04",
         "from": null,
         "to": "STALK"
+      },
+      {
+        "at": "2026-11-13",
+        "from": "STALK",
+        "to": "DISCOVERY"
       }
     ],
     "discovered_price": 103.96,
     "discovered_on": "2026-09-03",
     "origin": "adam",
-    "hunt_why": "B-270: leader on record ETF flows, flag 97.35-110.04 unresolved; two conditional plans (break > 110.04 / hold of 95.75-96.50), nothing live; NFP 9/4 caps readiness at 60"
+    "hunt_why": "B-1487: laggard on both windows vs SPY and BTC, no 2:1, cannot be shorted at RH"
   },
   {
     "sym": "AVAV",
@@ -707,5 +712,22 @@
     "decide_by": "2026-10-22",
     "exit_by": "2026-10-28",
     "retired_zone": 76600
+  },
+  {
+    "sym": "TEL",
+    "status": "STALK",
+    "note": "**B-1488 2026-11-13 12:51 CT - NO TRADE (swing) at 214.88.** TE Connectivity. Leader on both windows vs SPY, QQQ and APH, but stuck in a 205.44-223.93 range with bunched moving averages: no 2:1 at either edge. Re-look on a close over 224.00 on 1.5x volume (MC-576); under 205.44 the range breaks (MC-577). Stack candidate: first mechanical add about 207.31 if Adam stacks it.",
+    "hunt": "STALK",
+    "hunt_history": [
+      {
+        "at": "2026-11-13",
+        "from": null,
+        "to": "STALK"
+      }
+    ],
+    "discovered_price": 214.88,
+    "discovered_on": "2026-11-13",
+    "origin": "adam",
+    "hunt_why": "B-1488: Adam likes it; options-hunter long STALK (receipt 626fc33b), leader vs SPY and APH, range-bound"
   }
 ]
