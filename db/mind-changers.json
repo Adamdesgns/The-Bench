@@ -9828,6 +9828,38 @@
       "row": "B-1456",
       "expires": "2026-11-12",
       "status": "open"
+    },
+    {
+      "id": "MC-567",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "AMD",
+          "op": ">",
+          "level": 585.3
+        }
+      ],
+      "meaning": "AMD reclaimed Thursday close - NVDA-exit rotation has legs, re-judge",
+      "source": "docs/reads/2026-11-13-premarket.md",
+      "row": "B-1474",
+      "expires": "2026-11-13",
+      "status": "open"
+    },
+    {
+      "id": "MC-568",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "GOOGL",
+          "op": "<=",
+          "level": 277.07
+        }
+      ],
+      "meaning": "stack lane add level 277.07 reached on a settle: re-ask Adam's GOOGL stack add (B-1476); no print until 2027-02-03, kill line = Search revenue share loss at a print or a Search/Chrome breakup remedy",
+      "source": "chat 2026-11-13 06:40 CT, B-1476",
+      "row": "B-1476",
+      "expires": "2026-11-20",
+      "status": "open"
     }
   ]
 }
