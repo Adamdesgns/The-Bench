@@ -1,14 +1,14 @@
 {
-  "date": "2026-11-12",
+  "date": "2026-11-13",
   "signals": [],
   "none": true,
-  "close_source": "last regular-session print at 20:59:59Z (2:59:59 CT), pulled ~15:30 CT; the official close field had not rolled (still dated 11/11). The 9:00 check re-pulls before acting.",
+  "close_source": "last regular-session print at 20:59:59Z (2:59:59 CT), pulled ~15:30 CT; the official close field had not rolled (still dated 11/12). The Monday check re-pulls before acting. Friday: nothing is bought on this close.",
   "armed_not_signaled": [
     {
       "sym": "AMZN",
       "side": "long",
       "row": "B-1351",
-      "zone_low": 262.66,
+      "zone_low": 262.84,
       "zone_high": 263.75,
       "stop": 252.10,
       "t1": 287.20,
@@ -16,61 +16,13 @@
       "readiness": 59,
       "decide_by": "2026-11-20",
       "exit_by": null,
-      "atr": 10.56,
-      "close": 267.46,
-      "note": "first 30-min bar must CLOSE inside the zone. zone_low = stop 252.10 + 1.0 ATR (simple ATR14 10.56 from the settled bars through 11/11 plus today's H 273.60 / L 267.20 / last 267.46). Low today 267.20 never reached the zone; closed 3.71 over the ceiling. 11/12 first bar closed 273.05, NO TRADE (B-1444). Void on a settle under 252.27 (MC-505). Row names no exit date; the morning check sets one before any paper add. PPI Fri 11/13 08:30 ET and NVDA print 11/17 inside the hold."
-    },
-    {
-      "sym": "AMD",
-      "side": "long",
-      "row": "B-1450",
-      "zone_low": 552.90,
-      "zone_high": 555.00,
-      "stop": 512.18,
-      "t1": 645.46,
-      "t2": null,
-      "readiness": 35,
-      "decide_by": "2026-11-13",
-      "exit_by": null,
-      "atr": 44.61,
-      "close": 585.58,
-      "note": "B-1450 next-session long: first 30-min bar must CLOSE holding 552.90-555, no chase over 555. ATR FLOOR CHECK: on tonight's simple ATR14 44.61 the logged 512.18 stop is only 42.82 under a 555 fill, inside 1.0 ATR; the legal stop is fill - 44.61 (510.39 at 555), and 645.46 then pays 2.03:1, still clears. Low today 554.90 touched the zone top, closed 30.58 above it. Readiness 35 = watchlist only. Dead on a settle under 512.18 (MC-564). PPI 08:30 ET tomorrow."
-    },
-    {
-      "sym": "NVDA",
-      "side": "long",
-      "row": "B-1449",
-      "zone_low": 165.89,
-      "zone_high": null,
-      "stop": "fill - 10.66",
-      "t1": null,
-      "t2": null,
-      "readiness": 25,
-      "decide_by": "2026-11-13",
-      "exit_by": "2026-11-17",
-      "atr": 10.66,
-      "close": 166.04,
-      "note": "B-1449 re-look (MC-560 fired, B-1468): first 30-min bar must CLOSE over 165.89 AND an official Nvidia board statement backing Huang must exist to become a ticket. Settled 0.15 over the line on 736M shares (4.7x the 30-day). No verified 2:1 target is logged; Capital Competition and earnings 11/17 pm apply. Readiness 25 = watchlist only. Dead on a settle under 148.80 (MC-561)."
+      "atr": 10.74,
+      "close": 266.61,
+      "note": "first 30-min bar must CLOSE inside the zone. zone_low = stop 252.10 + 1.0 ATR (simple ATR14 10.74 from settled bars through 11/12 plus today's H 269.94 / L 263.91 / last 266.61). Low today 263.91 missed the zone top by 0.16; closed 2.86 over the ceiling on light volume (29.8M, 0.62x the 30-day). 11/13 first bar closed 268.93, NO TRADE (B-1480). Void on a settle under 252.27 (MC-505). Row names no exit date; the morning check sets one before any paper add. NVDA reports Tue 11/17 after the close, inside the hold."
     }
   ],
   "dropped": [
-    "CRWV B-1412 - decide-by 11/12 passed; 11/12 first bar closed 55.58 under 57.98 (B-1447). Dead.",
-    "COHR B-1414 - decide-by 11/12 passed; closed 232.12, never over 246.90. Dead.",
-    "NBIS B-1413 - decide-by 11/12 passed; closed 128.73 under the 138.66 stop line (MC-533, B-1462). Dead.",
-    "NVDA B-1417 - closed 166.04 under 170.77 (MC-538, B-1463). Dead.",
-    "MU B-1423 - its 11/12 bar test ran (B-1445: held, no pivot pays 2:1, no ticket); no new close signal tonight.",
-    "AMD B-1424 - its 11/12 bar test ran (B-1446); superseded by the B-1450 pullback plan."
-  ],
-  "no_signal": [
-    {"sym": "GOOGL", "row": "B-1370", "close": 298.75, "why": "closed over the 296.49 trigger (MC-507/MC-517 fired, B-1458/B-1459) but volume 35.10M = 0.93x the 30-day, plan needs 54.8M (1.5x); also 0.59 over the 298.16 ceiling. Decide-by 12/11."},
-    {"sym": "AIP", "row": "B-288", "close": 20.20, "why": "INSIDE the watchlist zone (17.40-21.39) but the grade is 66 days old (PENG guard) and the zone has no target; volume 0.58x; needs a fresh run"},
-    {"sym": "MU", "row": "watchlist B-930", "close": 798.90, "why": "no zone (retired 11/02); over the 769 floor"},
-    {"sym": "ASPN", "row": "B-561", "close": 5.995, "why": "over the dead 5.40-5.54 band; no live plan"},
-    {"sym": "HIMS", "row": "B-287", "close": 19.73, "why": "still under the 21.30 floor; zone void since 11/10 (B-1392)"},
-    {"sym": "IBIT", "row": "watchlist", "close": 40.35, "why": "still under the 43.10 floor; BTC under its 200-day (MC-554, B-1465)"}
-  ],
-  "mind_changers": "12 fired at the last regular print: MC-485 RIGL >45.71 (B-1460), MC-507 and MC-517 GOOGL >296.49 (B-1458, B-1459), MC-521 VST >134.21 (B-1461), MC-533 NBIS <138.66 (B-1462), MC-538 NVDA <170.77 (B-1463), MC-545 MARA <7.30 (B-1464), MC-554 BTC <73116.99 (B-1465), MC-557 and MC-560 NVDA >165.89 (B-1466, B-1468), MC-559 NVDA >164.27 (B-1467). All re-looks, no ticket. MC-566 SPY >761.62 did not fire (757.20).",
-  "bull_watch": "BULL MODE OFF: SMH 502.03 is 4.1 pct under its 200-day. Leaders SMH, XLE, XLK. Transitions: XLK in (B-1469), XBI out (B-1470).",
-  "stack": "NVDA touched the 164.58 and 151.49 stack levels intraday (low 148.80) and closed 166.04; MC-565 is a settle test and did not fire.",
-  "tomorrow": "9:00 CT entry check after PPI (08:30 ET): AMZN first bar against 262.66-263.75 (the only name at readiness 50+). AMD 552.90-555 hold (stop fill - 44.61), NVDA over 165.89 plus a board statement: both watchlist only unless re-scored."
+    "AMD B-1450 - decide-by 11/13 passed; 11/13 first bar closed 540.14 under 552.90 (B-1480 entry check), settled 534.09 through the zone (MC-562 fired, B-1492). Dead.",
+    "NVDA B-1449 - decide-by 11/13 passed; 11/13 first bar closed 162.51 under 165.89, settled 162.82. Dead. MC-569 still watches a settle over 165.89 to 11/17."
+  ]
 }
