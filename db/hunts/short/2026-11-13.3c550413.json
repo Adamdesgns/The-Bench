@@ -1,0 +1,110 @@
+{
+  "kind": "hunt-short",
+  "asof": "2026-11-13",
+  "source": "yahoo",
+  "generated": "2026-11-13T15:28:33.892Z",
+  "universe": "named",
+  "macro_inside_2_sessions": true,
+  "band": null,
+  "opts": {
+    "volMin": 1.5,
+    "cap": 3
+  },
+  "marks": [],
+  "READY": [],
+  "STALK": [
+    {
+      "sym": "IREN",
+      "ok": true,
+      "date": "2026-11-13",
+      "close": 17.66,
+      "sma50": 34.04,
+      "sma20": 23.57,
+      "atr": 2.81,
+      "low20": 17.16,
+      "volume": 23334349,
+      "vol30": 63410970,
+      "volRatio": 0.37,
+      "rs20": -32.76,
+      "rs5": -20.32,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 11.21,
+        "date": "2024-06-28",
+        "atr_away": 2.3
+      },
+      "first_shelf": {
+        "level": 17.22,
+        "date": "2025-08-20",
+        "rr": 0.15
+      },
+      "floor2": {
+        "level": 17.219999313354492,
+        "date": "2025-08-20"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 17.66,
+        "stop": 20.46,
+        "stop_atr": 1,
+        "target": 11.21,
+        "rr": 2.3
+      },
+      "readiness": 60,
+      "list": "STALK"
+    },
+    {
+      "sym": "HIMS",
+      "ok": true,
+      "date": "2026-11-13",
+      "close": 19.51,
+      "sma50": 27.61,
+      "sma20": 25.77,
+      "atr": 2.32,
+      "low20": 18.4,
+      "volume": 2682461,
+      "vol30": 13788873,
+      "volRatio": 0.19,
+      "rs20": -28.65,
+      "rs5": -26.85,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 14.75,
+        "date": "2024-08-08",
+        "atr_away": 2.05
+      },
+      "first_shelf": {
+        "level": 19.15,
+        "date": "2024-11-15",
+        "rr": 0.16
+      },
+      "floor2": {
+        "level": 19.149999618530273,
+        "date": "2024-11-15"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 19.51,
+        "stop": 21.84,
+        "stop_atr": 1,
+        "target": 14.75,
+        "rr": 2.05
+      },
+      "readiness": 60,
+      "list": "STALK"
+    }
+  ],
+  "DISCOVERY": [],
+  "NO_FLOOR": [],
+  "NOT_LISTED": [],
+  "skipped": [],
+  "id": "3c550413"
+}

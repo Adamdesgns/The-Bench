@@ -1,0 +1,265 @@
+{
+  "kind": "options-hunter-candidates",
+  "asof": "2026-11-13",
+  "source": "yahoo",
+  "universe": "named",
+  "generated": "2026-11-13T15:28:21.821Z",
+  "macro_inside_2_sessions": true,
+  "band": 279.1,
+  "opts": {
+    "volMin": 1.5,
+    "horizon": 10
+  },
+  "marks": [],
+  "scanned": 2,
+  "long_screen_tested": {
+    "rule": "R-007",
+    "project": "Vans Thesis",
+    "screen_version": "12d413e",
+    "verdict": "RETIRED",
+    "t": -2.37,
+    "bar": 3,
+    "months": 332,
+    "universe": "1,000 largest US stocks",
+    "hold": "next open, 10 trading days",
+    "against": "20 random buys from the same liquidity tenth",
+    "active_per_year_pct": -3.16,
+    "says": "No edge: the long breakout trailed random buys by 3.2% a year (t -2.37, bar 3.0). A name's own base rate does not overturn that.",
+    "not_tested": [
+      "short screen",
+      "crypto pairs"
+    ]
+  },
+  "candidates": [
+    {
+      "side": "short",
+      "sym": "IREN",
+      "ok": true,
+      "date": "2026-11-13",
+      "close": 17.58,
+      "sma50": 34.04,
+      "sma20": 23.57,
+      "atr": 2.81,
+      "low20": 17.16,
+      "volume": 23286131,
+      "vol30": 63410970,
+      "volRatio": 0.37,
+      "rs20": -32.99,
+      "rs5": -20.62,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 11.21,
+        "date": "2024-06-28",
+        "atr_away": 2.27
+      },
+      "first_shelf": {
+        "level": 17.22,
+        "date": "2025-08-20",
+        "rr": 0.13
+      },
+      "floor2": {
+        "level": 17.219999313354492,
+        "date": "2025-08-20"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 17.58,
+        "stop": 20.39,
+        "stop_atr": 1,
+        "target": 11.21,
+        "rr": 2.27
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 79,
+        "independent": 47,
+        "pending": 2,
+        "span_years": 5,
+        "grade": "A",
+        "why": "47 independent event(s) over 5y (81 raw) — large sample across multiple regimes",
+        "p_dir": 55.7,
+        "p_reach": 1.27,
+        "avg_pct": 2.74,
+        "median_pct": -1.73,
+        "target_pct": -36.23
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 17.58,
+        "short_strike_near": 11.21,
+        "stop": 20.39,
+        "decide_by_sessions": 5
+      }
+    },
+    {
+      "side": "short",
+      "sym": "HIMS",
+      "ok": true,
+      "date": "2026-11-13",
+      "close": 19.48,
+      "sma50": 27.6,
+      "sma20": 25.77,
+      "atr": 2.32,
+      "low20": 18.4,
+      "volume": 2674908,
+      "vol30": 13788873,
+      "volRatio": 0.19,
+      "rs20": -28.73,
+      "rs5": -26.94,
+      "gates": {
+        "breakdown": false,
+        "laggard": true,
+        "catalyst": "OWED - desk verifies"
+      },
+      "floor": {
+        "level": 14.75,
+        "date": "2024-08-08",
+        "atr_away": 2.04
+      },
+      "first_shelf": {
+        "level": 19.15,
+        "date": "2024-11-15",
+        "rr": 0.14
+      },
+      "floor2": {
+        "level": 19.149999618530273,
+        "date": "2024-11-15"
+      },
+      "too_far": null,
+      "geometry": {
+        "entry": 19.48,
+        "stop": 21.8,
+        "stop_atr": 1,
+        "target": 14.75,
+        "rr": 2.04
+      },
+      "readiness": 60,
+      "list": "STALK",
+      "evidence": {
+        "setup": "breakdown",
+        "horizon": 10,
+        "n": 74,
+        "independent": 39,
+        "pending": 3,
+        "span_years": 5,
+        "grade": "A",
+        "why": "39 independent event(s) over 5y (77 raw) — large sample across multiple regimes",
+        "p_dir": 58.11,
+        "p_reach": 4.05,
+        "avg_pct": 0.62,
+        "median_pct": -1.74,
+        "target_pct": -24.28
+      },
+      "spread_request": {
+        "structure": "put debit spread",
+        "expiry_days": [
+          7,
+          14
+        ],
+        "long_strike_near": 19.48,
+        "short_strike_near": 14.75,
+        "stop": 21.8,
+        "decide_by_sessions": 5
+      }
+    }
+  ],
+  "skipped": [],
+  "not_listed": [
+    {
+      "sym": "IREN",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-13",
+      "close": 17.58,
+      "sma50": 34.04,
+      "atr": 2.81,
+      "high20": 29.27,
+      "volRatio": 0.37,
+      "rs20": -32.99,
+      "rs5": -20.62,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 28.88,
+        "date": "2026-10-28"
+      },
+      "first_shelf": {
+        "level": 17.97,
+        "date": "2022-03-11",
+        "rr": 0.14
+      },
+      "too_far": null,
+      "target2": {
+        "level": 17.97,
+        "date": "2022-03-11",
+        "rr": 0.14
+      },
+      "geometry": {
+        "entry": 17.58,
+        "stop": 14.77,
+        "stop_atr": 1,
+        "target": 28.88,
+        "rr": 4.03
+      },
+      "readiness": 55,
+      "list": null
+    },
+    {
+      "sym": "HIMS",
+      "side": "long",
+      "ok": true,
+      "date": "2026-11-13",
+      "close": 19.48,
+      "sma50": 27.6,
+      "atr": 2.32,
+      "high20": 30.13,
+      "volRatio": 0.19,
+      "rs20": -28.73,
+      "rs5": -26.94,
+      "gates": {
+        "breakout": false,
+        "leader": false,
+        "catalyst": "OWED - desk verifies"
+      },
+      "target": {
+        "level": 24.24,
+        "date": "2024-07-26"
+      },
+      "first_shelf": {
+        "level": 20.11,
+        "date": "2024-05-20",
+        "rr": 0.27
+      },
+      "too_far": null,
+      "target2": {
+        "level": 20.11,
+        "date": "2024-05-20",
+        "rr": 0.27
+      },
+      "geometry": {
+        "entry": 19.48,
+        "stop": 17.16,
+        "stop_atr": 1,
+        "target": 24.24,
+        "rr": 2.05
+      },
+      "readiness": 45,
+      "list": null
+    }
+  ],
+  "id": "61e64b15"
+}

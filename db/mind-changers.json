@@ -9860,6 +9860,86 @@
       "row": "B-1476",
       "expires": "2026-11-20",
       "status": "open"
+    },
+    {
+      "id": "MC-569",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "NVDA",
+          "op": ">",
+          "level": 165.89
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (settle, not intraday)",
+      "source": "sotm-2026-11-13",
+      "row": "B-1479",
+      "expires": "2026-11-17",
+      "status": "open"
+    },
+    {
+      "id": "MC-570",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": ">",
+          "level": 21.76
+        }
+      ],
+      "meaning": "IREN closed back over the 11/11 pivot 21.755: re-run it for a long (check the 1.5x volume half by hand)",
+      "source": "chat 2026-11-13",
+      "row": "B-1483",
+      "expires": "2026-12-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-571",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "IREN",
+          "op": "<",
+          "level": 17.155
+        }
+      ],
+      "meaning": "IREN closed under its 52-week low 17.155: a new leg lower, next verified pivot 11.21; not a buy",
+      "source": "chat 2026-11-13",
+      "row": "B-1483",
+      "expires": "2026-12-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-572",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "HIMS",
+          "op": ">",
+          "level": 21.3
+        }
+      ],
+      "meaning": "HIMS closed back over the old 21.30 floor: re-run it for a long (check the 1.5x volume half by hand)",
+      "source": "chat 2026-11-13",
+      "row": "B-1484",
+      "expires": "2026-12-11",
+      "status": "open"
+    },
+    {
+      "id": "MC-573",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "HIMS",
+          "op": "<",
+          "level": 18.4
+        }
+      ],
+      "meaning": "HIMS closed under its 20-session low 18.40: the price half of the short's G1; check volume, then the hunters",
+      "source": "chat 2026-11-13",
+      "row": "B-1484",
+      "expires": "2026-12-11",
+      "status": "open"
     }
   ]
 }
