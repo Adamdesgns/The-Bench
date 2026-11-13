@@ -10004,6 +10004,22 @@
       "row": "B-1488",
       "expires": "2026-12-11",
       "status": "open"
+    },
+    {
+      "id": "MC-578",
+      "created": "2026-11-13",
+      "when": [
+        {
+          "ticker": "SMH",
+          "op": ">",
+          "level": 497.33
+        }
+      ],
+      "meaning": "passed plan trigger fired - re-judge (chip fund back over the 11/12 line)",
+      "source": "docs/reads/2026-11-13-close.md",
+      "row": "B-1490",
+      "expires": "2026-11-17",
+      "status": "open"
     }
   ]
 }
